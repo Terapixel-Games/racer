@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://jlsdu7mxyen1"]
+
+[ext_resource type="Script" uid="uid://bff2yummqj11r" path="res://scripts/MainMenu.gd" id="1"]
+
+[sub_resource type="Theme" id="2"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("2")
+script = ExtResource("1")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme = SubResource("2")
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="CenterContainer/VBox"]
+layout_mode = 2
+theme = SubResource("2")
+text = "Circuit Collapse Racer"
+horizontal_alignment = 1
+
+[node name="StatusLabel" type="Label" parent="CenterContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="PlayButton" type="Button" parent="CenterContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Play"
+
+[node name="QuitButton" type="Button" parent="CenterContainer/VBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Quit"

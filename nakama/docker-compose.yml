@@ -1,0 +1,29 @@
+version: "3.7"
+services:
+  postgres:
+    image: postgres:13
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: nakama
+      POSTGRES_PASSWORD: localdev
+      POSTGRES_USER: localdev
+    ports:
+      - "5432:5432"
+  nakama:
+    image: heroiclabs/nakama:3.19.0
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    entrypoint:
+      - "/bin/sh"
+      - "-ecx"
+      - >
+        /nakama/nakama migrate up --database.address postgres:localdev@postgres:5432/nakama &&
+        exec /nakama/nakama --name dev1 --database.address postgres:localdev@postgres:5432/nakama --logger.level DEBUG --runtime.path /nakama/data/modules
+    environment:
+      - socket.ssl_certificate=/etc/ssl/certs/ssl-cert-snakeoil.pem
+    volumes:
+      - ./modules:/nakama/data/modules
+    ports:
+      - "7350:7350"
+      - "7351:7351"
