@@ -1,0 +1,60 @@
+name: Deploy Godot Web (LFS) to GitHub Pages
+
+on:
+  push:
+    branches: ["ghpages"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (with LFS)
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          fetch-depth: 0
+
+      - name: Pull LFS files
+        run: |
+          git lfs install
+          git lfs pull
+
+      - name: Verify artifacts are not LFS pointers
+        run: |
+          test -f index.html
+          test -f index.pck
+          test -f index.wasm
+
+          # LFS pointer files start with this line:
+          # version https://git-lfs.github.com/spec/v1
+          if head -n 1 index.pck | grep -q "git-lfs.github.com/spec"; then
+            echo "index.pck is still an LFS pointer. Fix LFS or remove from LFS."
+            exit 1
+          fi
+
+          if head -n 1 index.wasm | grep -q "git-lfs.github.com/spec"; then
+            echo "index.wasm is still an LFS pointer. Fix LFS or remove from LFS."
+            exit 1
+          fi
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact (repo root)
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
+
