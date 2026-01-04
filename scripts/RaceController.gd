@@ -22,6 +22,7 @@ var snapshot_timer: float = 0.0
 var roster: Array = []
 var race_started: bool = false
 var lap_map: Dictionary = {}
+var spawn_points: Array = []
 
 const INPUT_INTERVAL := 1.0 / Config.INPUT_TICK_HZ
 
@@ -45,10 +46,16 @@ func _connect_socket() -> void:
 		NakamaService.socket.received_match_state.connect(_on_match_state)
 
 func _spawn_track() -> void:
-	var track_scene = load("res://assets/models/track/track.glb")
+	var track_scene = load(Config.TRACK_SCENE)
 	if track_scene:
 		var track_instance = track_scene.instantiate()
 		add_child(track_instance)
+		var spawn_root = track_instance.get_node_or_null("SpawnPoints")
+		spawn_points = []
+		if spawn_root:
+			for child in spawn_root.get_children():
+				if child is Marker3D:
+					spawn_points.append(child.global_transform)
 
 func _setup_checkpoints() -> void:
 	if checkpoint_system and checkpoint_system.has_signal("checkpoint_valid"):
@@ -125,8 +132,12 @@ func _spawn_car(racer_id:String) -> CarController:
 	var car := car_scene.instantiate() as CarController
 	add_child(car)
 	cars[racer_id] = car
-	var spawn_index := cars.size()
-	car.global_transform.origin = Vector3(spawn_index * 2.0, 0.5, spawn_index * 1.5)
+	var spawn_index := cars.size() - 1
+	if spawn_index < spawn_points.size():
+		var t: Transform3D = spawn_points[spawn_index]
+		car.global_transform = t
+	else:
+		car.global_transform.origin = Vector3(spawn_index * 2.0, 0.5, spawn_index * 1.5)
 	return car
 
 func _update_positions() -> void:

@@ -10,11 +10,12 @@ const LOBBY_RESET_TO_TEN_THRESHOLD := 10
 const BEHIND_SECONDS_TO_WASTED := 6
 const INPUT_TICK_HZ := 20
 const SNAPSHOT_HZ := 15
+const TRACK_SCENE := "res://scenes/tracks/TrackOval.tscn"
 
 const NAKAMA_HOST := "nakama-qxqz.onrender.com"
 const NAKAMA_PORT := 443
 const NAKAMA_SCHEME := "https"
-const NAKAMA_SERVER_KEY := ""
+const NAKAMA_SERVER_KEY := "the_man_who_sold_the_world"
 const NAKAMA_SOCKET_URL := "wss://nakama-qxqz.onrender.com/ws"
 
 var override_host : String = ""
