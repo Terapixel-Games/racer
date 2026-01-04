@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://h82lvnx8air7"
 path.s3tc="res://.godot/imported/checkpoint_marker_2.jpg-df2d00213d1c77e7fd80e6ed3f2419d3.s3tc.ctex"
+path.etc2="res://.godot/imported/checkpoint_marker_2.jpg-df2d00213d1c77e7fd80e6ed3f2419d3.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/models/track/checkpoint_marker_2.jpg"
-dest_files=["res://.godot/imported/checkpoint_marker_2.jpg-df2d00213d1c77e7fd80e6ed3f2419d3.s3tc.ctex"]
+dest_files=["res://.godot/imported/checkpoint_marker_2.jpg-df2d00213d1c77e7fd80e6ed3f2419d3.s3tc.ctex", "res://.godot/imported/checkpoint_marker_2.jpg-df2d00213d1c77e7fd80e6ed3f2419d3.etc2.ctex"]
 
 [params]
 

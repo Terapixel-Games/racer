@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bk07qo5ouu5uf"
 path.s3tc="res://.godot/imported/boost_pad_2.jpg-dbbdcf884ca3936757f4c41ba806cad4.s3tc.ctex"
+path.etc2="res://.godot/imported/boost_pad_2.jpg-dbbdcf884ca3936757f4c41ba806cad4.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/models/props/boost_pad_2.jpg"
-dest_files=["res://.godot/imported/boost_pad_2.jpg-dbbdcf884ca3936757f4c41ba806cad4.s3tc.ctex"]
+dest_files=["res://.godot/imported/boost_pad_2.jpg-dbbdcf884ca3936757f4c41ba806cad4.s3tc.ctex", "res://.godot/imported/boost_pad_2.jpg-dbbdcf884ca3936757f4c41ba806cad4.etc2.ctex"]
 
 [params]
 

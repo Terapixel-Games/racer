@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dkvjd2l87paec"
 path.s3tc="res://.godot/imported/track_wall_2.jpg-7bad239cdd778f4831bb492cc908a3f7.s3tc.ctex"
+path.etc2="res://.godot/imported/track_wall_2.jpg-7bad239cdd778f4831bb492cc908a3f7.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/models/track/track_wall_2.jpg"
-dest_files=["res://.godot/imported/track_wall_2.jpg-7bad239cdd778f4831bb492cc908a3f7.s3tc.ctex"]
+dest_files=["res://.godot/imported/track_wall_2.jpg-7bad239cdd778f4831bb492cc908a3f7.s3tc.ctex", "res://.godot/imported/track_wall_2.jpg-7bad239cdd778f4831bb492cc908a3f7.etc2.ctex"]
 
 [params]
 
