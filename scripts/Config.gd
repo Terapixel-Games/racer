@@ -10,7 +10,7 @@ const LOBBY_RESET_TO_TEN_THRESHOLD := 10
 const BEHIND_SECONDS_TO_WASTED := 6
 const INPUT_TICK_HZ := 20
 const SNAPSHOT_HZ := 15
-const TRACK_SCENE := "res://scenes/tracks/TrackOval.tscn"
+const TRACK_SCENE := "res://scenes/tracks/TrackSerpentine.tscn"
 
 const NAKAMA_HOST := "nakama-qxqz.onrender.com"
 const NAKAMA_PORT := 443

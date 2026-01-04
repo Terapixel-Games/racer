@@ -1,5 +1,6 @@
 local nk = require("nakama")
 local room_code = require("room_code")
+local tracks = require("tracks")
 
 local OP = {
 	LOBBY_STATE = 1,
@@ -10,17 +11,20 @@ local GAME_ID = "circuit-collapse-racer"
 local LOBBY_COUNTDOWN = 20
 local RESET_THRESHOLD = 10
 local MAX_RACERS = 8
+local DEFAULT_TRACK_ID = "oval"
 
 local M = {}
 
 local function new_state(params)
 	local code = params.room_code or room_code.generate()
+	local track = params.track or tracks.get(DEFAULT_TRACK_ID)
 	return {
 		room_code = code,
 		humans = {},
 		countdown = LOBBY_COUNTDOWN,
 		countdown_running = false,
 		phase = "lobby",
+		track = track,
 	}
 end
 
@@ -33,6 +37,7 @@ local function broadcast_state(dispatcher, state)
 		room_code = state.room_code,
 		countdown = state.countdown,
 		players = players,
+		track = state.track,
 	}
 	dispatcher.broadcast_message(OP.LOBBY_STATE, nk.json_encode(data))
 end
@@ -86,8 +91,12 @@ function M.match_loop(context, dispatcher, tick, state, messages)
 			for id, _ in pairs(state.humans) do
 				table.insert(roster, id)
 			end
-			local race_match_id = nk.match_create("race_match", {room_code = state.room_code, roster = roster})
-			dispatcher.broadcast_message(OP.LOBBY_RACE_START, nk.json_encode({race_match_id = race_match_id}))
+			local race_match_id = nk.match_create("race_match", {
+				room_code = state.room_code,
+				roster = roster,
+				track = state.track,
+			})
+			dispatcher.broadcast_message(OP.LOBBY_RACE_START, nk.json_encode({race_match_id = race_match_id, track = state.track}))
 		else
 			broadcast_state(dispatcher, state)
 		end

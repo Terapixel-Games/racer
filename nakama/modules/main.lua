@@ -1,5 +1,6 @@
 local nk = require("nakama")
 local room_code = require("room_code")
+local tracks = require("tracks")
 
 local GAME_ID = "circuit-collapse-racer"
 
@@ -32,15 +33,17 @@ end
 local function rpc_lobby_join_or_create(context, payload)
 	local data = read_payload(payload)
 	validate(data)
+	-- pick default track for now; later this could be selected by player or rotation
+	local track = tracks.get("oval")
 	local match_id = find_open_lobby()
 	local code = nil
 	if not match_id then
 		code = room_code.generate()
-		match_id = nk.match_create("lobby", {room_code = code})
+		match_id = nk.match_create("lobby", {room_code = code, track = track})
 	else
 		code = "AUTO"
 	end
-	return nk.json_encode({match_id = match_id, room_code = code})
+	return nk.json_encode({match_id = match_id, room_code = code, track = track})
 end
 
 nk.register_rpc(rpc_lobby_join_or_create, "lobby_join_or_create")

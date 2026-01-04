@@ -23,6 +23,9 @@ func _join_or_create_lobby() -> void:
 	var res := await NakamaService.call_rpc("lobby_join_or_create", {})
 	lobby_match_id = res.get("match_id", "")
 	NakamaService.set_meta_value("lobby_room_code", res.get("room_code", ""))
+	if res.has("track"):
+		NakamaService.set_meta_value("track_recipe", res.get("track"))
+		NakamaService.set_meta_value("track_id", res.get("track").get("id", ""))
 	if lobby_match_id == "":
 		status_label.text = "Failed to join lobby"
 		return
@@ -47,6 +50,9 @@ func _update_lobby_state(data:Dictionary) -> void:
 	var countdown : int = data.get("countdown", Config.LOBBY_COUNTDOWN_SECONDS)
 	countdown_label.text = "Race in: %d" % int(ceil(countdown))
 	NakamaService.set_meta_value("lobby_room_code", data.get("room_code", "----"))
+	if data.has("track"):
+		NakamaService.set_meta_value("track_recipe", data.get("track"))
+		NakamaService.set_meta_value("track_id", data.get("track").get("id", ""))
 	for child in player_list.get_children():
 		child.queue_free()
 	for name in data.get("players", []):
@@ -60,6 +66,9 @@ func _start_race(data:Dictionary) -> void:
 		return
 	NakamaService.set_meta_value("race_match_id", race_match_id)
 	NakamaService.set_meta_value("lobby_match_id", lobby_match_id)
+	if data.has("track"):
+		NakamaService.set_meta_value("track_recipe", data.get("track"))
+		NakamaService.set_meta_value("track_id", data.get("track").get("id", ""))
 	get_tree().change_scene_to_file("res://scenes/Race.tscn")
 
 func _leave_to_menu() -> void:

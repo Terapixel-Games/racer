@@ -1,0 +1,127 @@
+[gd_scene load_steps=12 format=4 uid="uid://cbowja14rtxib"]
+
+[ext_resource type="Texture2D" uid="uid://bhr1i4vy0y257" path="res://assets/materials/road.jpg" id="1"]
+[ext_resource type="Script" uid="uid://dorkrugl48l5t" path="res://scripts/RoadMesh.gd" id="2"]
+
+[sub_resource type="ProceduralSkyMaterial" id="3"]
+sky_horizon_color = Color(0.6, 0.75, 0.9, 1)
+ground_horizon_color = Color(0.55, 0.6, 0.65, 1)
+
+[sub_resource type="Sky" id="4"]
+sky_material = SubResource("3")
+
+[sub_resource type="Environment" id="5"]
+background_mode = 2
+sky = SubResource("4")
+ambient_light_source = 1
+ambient_light_sky_contribution = 0.8
+ambient_light_energy = 1.1
+glow_enabled = true
+glow_intensity = 0.05
+
+[sub_resource type="BoxShape3D" id="6"]
+size = Vector3(500, 0.2, 500)
+
+[sub_resource type="StandardMaterial3D" id="7"]
+albedo_color = Color(0.2, 0.21, 0.24, 1)
+roughness = 0.8
+
+[sub_resource type="PlaneMesh" id="8"]
+size = Vector2(500, 500)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xg5nx"]
+albedo_texture = ExtResource("1")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_xg5nx"]
+_surfaces = [{
+"aabb": AABB(-126, 0.5, -206.20958, 312, 1e-05, 333.51013),
+"attribute_data": PackedByteArray("AAAAAAAAAAAAAIA/AAAAAAAAAAAYMzM+AACAPxgzMz4AAAAAGDMzPgAAgD8YMzM+AAAAACRrnz4AAIA/JGufPgAAAAAka58+AACAPyRrnz4AAAAA4+cGPwAAgD/j5wY/AAAAAOPnBj8AAIA/4+cGPwAAAACTVjM/AACAP5NWMz8AAAAAk1YzPwAAgD+TVjM/AAAAAOSPUj8AAIA/5I9SPwAAAADkj1I/AACAP+SPUj8AAAAAAACAPwAAgD8AAIA/"),
+"format": 34359742481,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgABAAMABAAFAAYABgAFAAcACAAJAAoACgAJAAsADAANAA4ADgANAA8AEAARABIAEgARABMAFAAVABYAFgAVABcA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AAD8wgAAAD9KVybDAADkwgAAAD8GoxzDAAD8wgAAAD/b4bNBAADkwgAAAD8lHoxBAAD8wgAAAD/b4bNBAADkwgAAAD8lHoxBTnqpwQAAAD/jmf5CsoWWwQAAAD8dZuFCTnqpwQAAAD/jmf5CsoWWwQAAAD8dZuFCAAA6QwAAAD9nqr1BAAAuQwAAAD+ZVYJBAAA6QwAAAD9nqr1BAAAuQwAAAD+ZVYJBAAA6QwAAAD8WUyTDAAAuQwAAAD/qrBvDAAA6QwAAAD8WUyTDAAAuQwAAAD/qrBvDMmFxQgAAAD+nNU7Dzp5uQgAAAD9ZykHDMmFxQgAAAD+nNU7Dzp5uQgAAAD9ZykHDAAD8wgAAAD9KVybDAADkwgAAAD8GoxzD")
+}]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_abfsc"]
+data = PackedVector3Array(-126, 0.5, -166.341, -114, 0.5, -156.6368, -126, 0.5, 22.4853, -126, 0.5, 22.4853, -114, 0.5, -156.6368, -114, 0.5, 17.5147, -126, 0.5, 22.4853, -114, 0.5, 17.5147, -21.1847, 0.5, 127.3006, -21.1847, 0.5, 127.3006, -114, 0.5, 17.5147, -18.8153, 0.5, 112.699394, -21.1847, 0.5, 127.3006, -18.8153, 0.5, 112.699394, 186, 0.5, 23.708199, 186, 0.5, 23.708199, -18.8153, 0.5, 112.699394, 174, 0.5, 16.2918, 186, 0.5, 23.708199, 174, 0.5, 16.2918, 186, 0.5, -164.3246, 186, 0.5, -164.3246, 174, 0.5, 16.2918, 174, 0.5, -155.6754, 186, 0.5, -164.3246, 174, 0.5, -155.6754, 60.3449, 0.5, -206.2096, 60.3449, 0.5, -206.2096, 174, 0.5, -155.6754, 59.655098, 0.5, -193.79039, 60.3449, 0.5, -206.2096, 59.655098, 0.5, -193.79039, -126, 0.5, -166.341, -126, 0.5, -166.341, 59.655098, 0.5, -193.79039, -114, 0.5, -156.6368)
+
+[node name="TrackSerpentine" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("5")
+
+[node name="SunLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.939693, -0.34202, 0, 0.321394, 0.882948, 0.34202, -0.116978, -0.321394, 0.939693, 0, 18, 0)
+light_energy = 2.5
+shadow_enabled = true
+shadow_bias = 0.05
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="GroundShape" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("6")
+
+[node name="GroundVisual" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+material_override = SubResource("7")
+mesh = SubResource("8")
+
+[node name="Road" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_xg5nx")
+mesh = SubResource("ArrayMesh_xg5nx")
+script = ExtResource("2")
+points = Array[Vector3]([Vector3(-120, 0.5, -161.48889), Vector3(-120, 0.5, 20), Vector3(-20, 0.5, 120), Vector3(180, 0.5, 20), Vector3(180, 0.5, -160), Vector3(60, 0.5, -200)])
+width = 12.0
+road_material = SubResource("StandardMaterial3D_xg5nx")
+road_texture = ExtResource("1")
+show_left_wall = true
+show_wall_preview_runtime = true
+generate_walls_runtime = true
+
+[node name="CollisionBody" type="StaticBody3D" parent="Road"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Road/CollisionBody"]
+shape = SubResource("ConcavePolygonShape3D_abfsc")
+
+[node name="SpawnPoints" type="Node3D" parent="."]
+
+[node name="Start01" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 0.6, -150)
+
+[node name="Start02" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -115, 0.6, -155)
+
+[node name="Start03" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -110, 0.6, -160)
+
+[node name="Start04" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -105, 0.6, -165)
+
+[node name="Start05" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0.6, -170)
+
+[node name="Start06" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -95, 0.6, -175)
+
+[node name="Waypoints" type="Node3D" parent="."]
+
+[node name="Waypoint01" type="Marker3D" parent="Waypoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 0.5, -161.48889)
+
+[node name="Waypoint02" type="Marker3D" parent="Waypoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 0.5, 20)
+
+[node name="Waypoint03" type="Marker3D" parent="Waypoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0.5, 120)
+
+[node name="Waypoint04" type="Marker3D" parent="Waypoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 180, 0.5, 20)
+
+[node name="Waypoint05" type="Marker3D" parent="Waypoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 180, 0.5, -160)
+
+[node name="Waypoint06" type="Marker3D" parent="Waypoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0.5, -200)

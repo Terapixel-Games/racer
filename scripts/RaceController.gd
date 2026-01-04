@@ -1,5 +1,7 @@
 extends Node3D
 
+const TrackBuilder = preload("res://scripts/TrackBuilder.gd")
+
 @onready var ui_speed: Label = %SpeedLabel
 @onready var ui_lap: Label = %LapLabel
 @onready var ui_position: Label = %PositionLabel
@@ -23,6 +25,9 @@ var roster: Array = []
 var race_started: bool = false
 var lap_map: Dictionary = {}
 var spawn_points: Array = []
+var track_laps: int = Config.LAPS
+const CAMERA_DISTANCE := 8.0
+const CAMERA_HEIGHT := 2.5
 
 const INPUT_INTERVAL := 1.0 / Config.INPUT_TICK_HZ
 
@@ -46,16 +51,25 @@ func _connect_socket() -> void:
 		NakamaService.socket.received_match_state.connect(_on_match_state)
 
 func _spawn_track() -> void:
-	var track_scene = load(Config.TRACK_SCENE)
-	if track_scene:
-		var track_instance = track_scene.instantiate()
-		add_child(track_instance)
-		var spawn_root = track_instance.get_node_or_null("SpawnPoints")
-		spawn_points = []
-		if spawn_root:
-			for child in spawn_root.get_children():
-				if child is Marker3D:
-					spawn_points.append(child.global_transform)
+	var recipe = NakamaService.get_meta_value("track_recipe", null)
+	if recipe is Dictionary:
+		var built = TrackBuilder.build(recipe)
+		var track_instance: Node = built.get("node", null)
+		if track_instance:
+			add_child(track_instance)
+		spawn_points = built.get("spawns", [])
+		track_laps = built.get("laps", Config.LAPS)
+	else:
+		var track_scene = load(Config.TRACK_SCENE)
+		if track_scene:
+			var track_instance = track_scene.instantiate()
+			add_child(track_instance)
+			var spawn_root = track_instance.get_node_or_null("SpawnPoints")
+			spawn_points = []
+			if spawn_root:
+				for child in spawn_root.get_children():
+					if child is Marker3D:
+						spawn_points.append(child.global_transform)
 
 func _setup_checkpoints() -> void:
 	if checkpoint_system and checkpoint_system.has_signal("checkpoint_valid"):
@@ -102,12 +116,11 @@ func _send_input() -> void:
 	NakamaService.socket.send_match_state_async(match_id, NetMessages.OP_RACE_INPUT, json)
 
 func _gather_input() -> Dictionary:
-	var steer := (Input.get_action_strength("steer_right") - Input.get_action_strength("steer_left"))
+	var steer := (Input.get_action_strength("steer_left") - Input.get_action_strength("steer_right"))
 	var throttle := Input.get_action_strength("accelerate")
 	var brake := Input.get_action_strength("brake")
-	var drift := Input.is_action_pressed("drift")
 	var boost := Input.is_action_pressed("boost")
-	return {"steer": steer, "throttle": throttle, "brake": brake, "drift": drift, "boost": boost}
+	return {"steer": steer, "throttle": throttle, "brake": brake, "drift": false, "boost": boost}
 
 func _apply_snapshot(data:Dictionary) -> void:
 	race_started = true
@@ -133,12 +146,23 @@ func _spawn_car(racer_id:String) -> CarController:
 	add_child(car)
 	cars[racer_id] = car
 	var spawn_index := cars.size() - 1
+	var spawn_xform := Transform3D.IDENTITY
 	if spawn_index < spawn_points.size():
-		var t: Transform3D = spawn_points[spawn_index]
-		car.global_transform = t
+		spawn_xform = spawn_points[spawn_index]
 	else:
-		car.global_transform.origin = Vector3(spawn_index * 2.0, 0.5, spawn_index * 1.5)
+		spawn_xform.origin = Vector3(spawn_index * 2.0, 1.0, spawn_index * 1.5)
+	car.global_transform = _snap_to_ground(spawn_xform)
 	return car
+
+func _snap_to_ground(xform: Transform3D) -> Transform3D:
+	var origin := xform.origin + Vector3(0, 3, 0)
+	var target := origin + Vector3(0, -10, 0)
+	var space_state = get_world_3d().direct_space_state
+	var params = PhysicsRayQueryParameters3D.create(origin, target)
+	var result = space_state.intersect_ray(params)
+	if result.has("position"):
+		xform.origin.y = result.position.y + 0.5
+	return xform
 
 func _update_positions() -> void:
 	var sorted := cars.keys()
@@ -181,15 +205,16 @@ func _update_ui() -> void:
 		var speed: float = car.velocity.length()
 		ui_speed.text = "Speed: %02d" % int(speed)
 		var lap: int = lap_map.get(local_user_id, 1 if race_started else 0)
-		ui_lap.text = "Lap: %d/%d" % [lap, Config.LAPS]
+		ui_lap.text = "Lap: %d/%d" % [lap, track_laps]
 	ui_net.text = "Net: %s" % ("OK" if NakamaService.socket and NakamaService.socket.is_connected_to_host() else "...")
 
 func _update_camera(delta:float) -> void:
 	var car : CarController = cars.get(local_user_id, null)
 	if not car:
 		return
-	var target_pos: Vector3 = car.global_transform.origin + Vector3(0, 2.5, 6)
-	camera.global_transform.origin = camera.global_transform.origin.lerp(target_pos, delta * 5.0)
+	var behind := -car.global_transform.basis.z * CAMERA_DISTANCE
+	var desired := car.global_transform.origin + behind + Vector3.UP * CAMERA_HEIGHT
+	camera.global_transform.origin = camera.global_transform.origin.lerp(desired, delta * 6.0)
 	camera.look_at(car.global_transform.origin + Vector3(0,1,0), Vector3.UP)
 
 func _ensure_input_actions() -> void:
@@ -197,17 +222,17 @@ func _ensure_input_actions() -> void:
 	_add_action_if_missing("brake")
 	_add_action_if_missing("steer_left")
 	_add_action_if_missing("steer_right")
-	_add_action_if_missing("drift")
 	_add_action_if_missing("boost")
 	_add_key_event("accelerate", KEY_W)
 	_add_key_event("accelerate", KEY_UP)
+	_add_key_event("brake", KEY_SPACE)
+	_add_key_event("brake", KEY_CTRL)
 	_add_key_event("brake", KEY_S)
 	_add_key_event("brake", KEY_DOWN)
 	_add_key_event("steer_left", KEY_A)
 	_add_key_event("steer_left", KEY_LEFT)
 	_add_key_event("steer_right", KEY_D)
 	_add_key_event("steer_right", KEY_RIGHT)
-	_add_key_event("drift", KEY_SPACE)
 	_add_key_event("boost", KEY_SHIFT)
 
 func _add_action_if_missing(action:String) -> void:

@@ -1,16 +1,8 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=12 format=3 uid="uid://bs4goiebmb7wn"]
 
-[ext_resource type="PackedScene" path="res://assets/models/track/track.glb" id="1"]
-[ext_resource type="PackedScene" path="res://assets/models/track/track_wall.glb" id="2"]
-
-[sub_resource type="BoxShape3D" id="1"]
-size = Vector3(200, 2, 200)
-
-[sub_resource type="BoxShape3D" id="2"]
-size = Vector3(200, 6, 2)
-
-[sub_resource type="BoxShape3D" id="3"]
-size = Vector3(2, 6, 200)
+[ext_resource type="PackedScene" uid="uid://chp42ys5sx2ac" path="res://assets/models/track/track.glb" id="1"]
+[ext_resource type="PackedScene" uid="uid://dfap3di8ws8tk" path="res://assets/models/track/track_wall.glb" id="2"]
+[ext_resource type="Script" uid="uid://dqu5wvfaplohg" path="res://scripts/TrackCollisionBuilder.gd" id="3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="4"]
 sky_horizon_color = Color(0.6, 0.75, 0.9, 1)
@@ -24,20 +16,30 @@ sky_material = SubResource("4")
 background_mode = 2
 sky = SubResource("5")
 ambient_light_source = 1
-ambient_light_energy = 1.1
 ambient_light_sky_contribution = 0.8
+ambient_light_energy = 1.1
 tonemap_mode = 2
 glow_enabled = true
 glow_intensity = 0.05
 
-[sub_resource type="PlaneMesh" id="7"]
-size = Vector2(220, 220)
+[sub_resource type="BoxShape3D" id="1"]
+size = Vector3(200, 0.2, 200)
 
 [sub_resource type="StandardMaterial3D" id="8"]
 albedo_color = Color(0.2, 0.21, 0.24, 1)
 roughness = 0.8
 
+[sub_resource type="PlaneMesh" id="7"]
+size = Vector2(220, 220)
+
+[sub_resource type="BoxShape3D" id="2"]
+size = Vector3(200, 6, 2)
+
+[sub_resource type="BoxShape3D" id="3"]
+size = Vector3(2, 6, 200)
+
 [node name="TrackOval" type="Node3D"]
+script = ExtResource("3")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("6")
@@ -65,7 +67,28 @@ transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -60, 0, 0)
 [node name="Walls" type="Node3D" parent="."]
 
 [node name="WallA" parent="Walls" instance=ExtResource("2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 60)
+transform = Transform3D(67.25718, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 60)
+
+[node name="WallA2" parent="Walls" instance=ExtResource("2")]
+transform = Transform3D(67.25718, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -64.970856)
+
+[node name="WallA3" parent="Walls" instance=ExtResource("2")]
+transform = Transform3D(-2.9399048e-06, 0, 1, 0, 1, 0, -67.25718, 0, -4.371139e-08, -63.24321, 0.5, -3.6124344)
+
+[node name="WallA4" parent="Walls" instance=ExtResource("2")]
+transform = Transform3D(-2.9399048e-06, 0, 1, 0, 1, 0, -67.25718, 0, -4.371139e-08, 63.22274, 0.5, -3.6124344)
+
+[node name="WallA5" parent="Walls" instance=ExtResource("2")]
+transform = Transform3D(-4.832653e-06, 0, 1, 0, 1, 0, -110.558205, 0, -4.371139e-08, 100.774635, 0.5, -3.6124344)
+
+[node name="WallA6" parent="Walls" instance=ExtResource("2")]
+transform = Transform3D(-4.832653e-06, 0, 1, 0, 1, 0, -110.558205, 0, -4.371139e-08, -101.0031, 0.5, -3.6124344)
+
+[node name="WallA7" parent="Walls" instance=ExtResource("2")]
+transform = Transform3D(110.558205, 0, 0, 0, 1, 0, 0, 0, 1, -2.0591965, 0.5, -101.476425)
+
+[node name="WallA8" parent="Walls" instance=ExtResource("2")]
+transform = Transform3D(110.558205, 0, 0, 0, 1, 0, 0, 0, 1, -2.0591965, 0.5, 99.09407)
 
 [node name="WallB" parent="Walls" instance=ExtResource("2")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.5, -60)
@@ -81,10 +104,22 @@ transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -60, 0.5, 0)
 [node name="GroundShape" type="CollisionShape3D" parent="Ground"]
 shape = SubResource("1")
 
+[node name="track" parent="Ground" instance=ExtResource("1")]
+transform = Transform3D(102.08717, 0, 0, 0, 1, 0, 0, 0, 33.490265, 0.868, 0, 79.616)
+
+[node name="track2" parent="Ground" instance=ExtResource("1")]
+transform = Transform3D(102.08717, 0, 0, 0, 1, 0, 0, 0, 33.490265, 0.868, 0, -82.91)
+
+[node name="track3" parent="Ground" instance=ExtResource("1")]
+transform = Transform3D(-4.462372e-06, 0, 33.490265, 0, 1, 0, -102.08717, 0, -1.463906e-06, -85.18, 0, 0.605)
+
+[node name="track4" parent="Ground" instance=ExtResource("1")]
+transform = Transform3D(-4.462372e-06, 0, 33.490265, 0, 1, 0, -102.08717, 0, -1.463906e-06, 82.611, 0, 0.605)
+
 [node name="GroundVisual" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
-mesh = SubResource("7")
 material_override = SubResource("8")
+mesh = SubResource("7")
 
 [node name="Bounds" type="Node3D" parent="."]
 
@@ -113,27 +148,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0, 0)
 shape = SubResource("3")
 
 [node name="SpawnPoints" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -84.58984, 1.4315374, 0)
 
 [node name="Start01" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.5, 50)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.5, 60)
 
 [node name="Start02" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, 50)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, 60)
 
 [node name="Start03" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, 50)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, 60)
 
 [node name="Start04" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.5, 50)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.5, 60)
 
 [node name="Start05" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.5, 54)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.5, 64)
 
 [node name="Start06" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, 54)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, 64)
 
 [node name="Start07" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, 54)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, 64)
 
 [node name="Start08" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.5, 54)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.5, 64)

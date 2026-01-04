@@ -7,6 +7,7 @@ var client : NakamaClient
 var session : NakamaSession
 var socket : NakamaSocket
 var metadata := {}
+const DEVICE_ID_FILE := "user://device_id.txt"
 
 signal socket_connected
 signal socket_closed
@@ -22,7 +23,7 @@ func ensure_connected() -> void:
 	await _connect_socket()
 
 func _authenticate() -> void:
-	var device_id := OS.get_unique_id()
+	var device_id := _get_device_id()
 	var retries := 0
 	while retries < RETRY_ATTEMPTS:
 		var result = await client.authenticate_device_async(device_id, "", true, {"game_id": Config.GAME_ID, "game_version": Config.GAME_VERSION})
@@ -45,6 +46,26 @@ func _connect_socket() -> void:
 		retries += 1
 		await get_tree().create_timer(RETRY_DELAY * retries).timeout
 	push_error("Failed to connect Nakama socket after retries.")
+
+func _get_device_id() -> String:
+	if not Engine.has_singleton("OS"):
+		return ""
+	var device_id := ""
+	if FileAccess.file_exists(DEVICE_ID_FILE):
+		var f = FileAccess.open(DEVICE_ID_FILE, FileAccess.READ)
+		if f:
+			device_id = f.get_as_text().strip_edges()
+			f.close()
+	if device_id == "":
+		var rng := RandomNumberGenerator.new()
+		rng.randomize()
+		device_id = "%s-%s" % [Time.get_unix_time_from_system(), rng.randi()]
+		var f_out = FileAccess.open(DEVICE_ID_FILE, FileAccess.WRITE)
+		if f_out:
+			f_out.store_string(device_id)
+			f_out.flush()
+			f_out.close()
+	return device_id
 
 func call_rpc(name:String, payload:Dictionary) -> Dictionary:
 	payload["game_id"] = Config.GAME_ID
