@@ -5,7 +5,7 @@ class_name TrackWalls
 # Cross order note: In Godot's left-handed system, right = up.cross(tangent). Using tan.cross(up) gives LEFT.
 # The previous code used tan.cross(up), which inverted side offsets; this is corrected here.
 
-const WALL_BASE_CLEARANCE := 0.1
+const WALL_BASE_CLEARANCE := 0.15 # lift collisions slightly off the road to avoid snagging the car floor
 
 @export var enable_debug_preview: bool = false
 @export var debug_tick_size: float = 0.8
@@ -209,6 +209,10 @@ static func build_walls(parent: Node3D, points: PackedVector3Array, track_half_w
 	wall_mat.albedo_color = Color(0.8, 0.8, 0.1)
 	wall_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	wall_mat.cull_mode = BaseMaterial3D.CULL_DISABLED
+	var wall_phys_mat := PhysicsMaterial.new()
+	wall_phys_mat.friction = 0.05 # keep walls slick so cars slide instead of sticking
+	wall_phys_mat.bounce = 0.05
+	wall_phys_mat.rough = false
 
 	# Compute average up/right for collision offset.
 	var avg_up := Vector3.ZERO
@@ -236,7 +240,9 @@ static func build_walls(parent: Node3D, points: PackedVector3Array, track_half_w
 		var l_body := StaticBody3D.new()
 		l_body.collision_layer = 1
 		l_body.collision_mask = 1
-		l_body.transform.origin = avg_up * WALL_BASE_CLEARANCE + avg_right * (-wall_thickness * 0.1)
+		l_body.physics_material_override = wall_phys_mat
+		# Push collision slightly outward and upward to avoid snagging the car on interior faces.
+		l_body.transform.origin = avg_up * WALL_BASE_CLEARANCE + avg_right * (-wall_thickness * 1.05)
 		var l_shape := CollisionShape3D.new()
 		l_shape.shape = mesh_to_concave_shape(left_mesh)
 		l_body.add_child(l_shape)
@@ -245,7 +251,8 @@ static func build_walls(parent: Node3D, points: PackedVector3Array, track_half_w
 		var r_body := StaticBody3D.new()
 		r_body.collision_layer = 1
 		r_body.collision_mask = 1
-		r_body.transform.origin = avg_up * WALL_BASE_CLEARANCE + avg_right * (wall_thickness * 0.1)
+		r_body.physics_material_override = wall_phys_mat
+		r_body.transform.origin = avg_up * WALL_BASE_CLEARANCE + avg_right * (wall_thickness * 1.05)
 		var r_shape := CollisionShape3D.new()
 		r_shape.shape = mesh_to_concave_shape(right_mesh)
 		r_body.add_child(r_shape)
@@ -293,5 +300,6 @@ static func generate_test_points() -> PackedVector3Array:
 	pts.append(Vector3(-20, 0, 0))
 	return pts
 
+# Build a collision strip out of box segments to avoid concave mesh seams that can pin the car.
 # Example usage snippet (call from your builder after road mesh):
 # var walls = TrackWalls.build_walls(self, waypoint_array, track_half_width, 1.5, 0.3, false, closed_loop, true)

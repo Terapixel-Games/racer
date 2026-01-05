@@ -17,6 +17,8 @@ func _add_wall_collisions(root: Node) -> void:
 			_add_wall_collisions(child)
 
 func _add_collision_for_mesh(mesh_instance: MeshInstance3D) -> void:
+	if mesh_instance.has_meta("skip_auto_collision"):
+		return
 	var mesh: Mesh = mesh_instance.mesh
 	if mesh == null:
 		return

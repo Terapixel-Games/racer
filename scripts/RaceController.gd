@@ -155,13 +155,14 @@ func _spawn_car(racer_id:String) -> CarController:
 	return car
 
 func _snap_to_ground(xform: Transform3D) -> Transform3D:
-	var origin := xform.origin + Vector3(0, 3, 0)
-	var target := origin + Vector3(0, -10, 0)
+	# Raycast from above and place the car slightly above the hit so the collider clears the road.
+	var origin := xform.origin + Vector3(0, 6, 0)
+	var target := origin + Vector3(0, -20, 0)
 	var space_state = get_world_3d().direct_space_state
 	var params = PhysicsRayQueryParameters3D.create(origin, target)
 	var result = space_state.intersect_ray(params)
 	if result.has("position"):
-		xform.origin.y = result.position.y + 0.5
+		xform.origin.y = result.position.y + 1.0
 	return xform
 
 func _update_positions() -> void:
