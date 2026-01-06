@@ -28,16 +28,24 @@ func _physics_process(delta: float) -> void:
 
 func _spawn_track() -> void:
 	spawn_points.clear()
-	# Always use the same track scene as the race for consistent visuals.
-	var track_scene = load(Config.TRACK_SCENE)
-	if track_scene:
-		var track_instance = track_scene.instantiate()
-		add_child(track_instance)
-		var spawn_root = track_instance.get_node_or_null("SpawnPoints")
-		if spawn_root:
-			for child in spawn_root.get_children():
-				if child is Marker3D:
-					spawn_points.append(child.global_transform)
+	# Match the race scene: prefer the server-provided recipe, fallback to static track scene.
+	var recipe = NakamaService.get_meta_value("track_recipe", null)
+	if recipe is Dictionary:
+		var built = TrackBuilder.build(recipe)
+		var track_instance: Node = built.get("node", null)
+		if track_instance:
+			add_child(track_instance)
+		spawn_points = built.get("spawns", [])
+	else:
+		var track_scene = load(Config.TRACK_SCENE)
+		if track_scene:
+			var track_instance = track_scene.instantiate()
+			add_child(track_instance)
+			var spawn_root = track_instance.get_node_or_null("SpawnPoints")
+			if spawn_root:
+				for child in spawn_root.get_children():
+					if child is Marker3D:
+						spawn_points.append(child.global_transform)
 
 func _spawn_car() -> void:
 	var car_scene = load("res://scenes/Car.tscn")

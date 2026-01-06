@@ -326,9 +326,8 @@ static func _build_runtime_walls(root: Node3D, recipe: Dictionary) -> void:
 			pts.append(p)
 	if pts.size() < 2:
 		return
-	var closed_loop := bool(recipe.get("closed_loop", false))
-	if not closed_loop and pts.size() > 2 and pts[0].distance_to(pts[pts.size() - 1]) < 0.5:
-		closed_loop = true
+	# Force closed loop for race tracks so walls and road seal at start/finish.
+	var closed_loop := true
 	var track_half_width := float(recipe.get("road_width", 12.0)) * 0.5
 	var wall_height := float(recipe.get("wall_height", 1.5))
 	var wall_thickness := float(recipe.get("wall_thickness", 0.4))

@@ -181,8 +181,51 @@ static func build_wall_mesh(polyline: PackedVector3Array, frames: Array, height:
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arr)
 	return mesh
 
-static func mesh_to_concave_shape(mesh: Mesh) -> Shape3D:
-	return mesh.create_trimesh_shape()
+static func _build_collision_strip(parent: Node3D, polyline: PackedVector3Array, frames: Array, height: float, thickness: float, closed_loop: bool, phys_mat: PhysicsMaterial, side_sign: float) -> void:
+	# Build overlapping box colliders per segment so we don't expose seams from a concave mesh that can pin the car.
+	var n := polyline.size()
+	if n < 2:
+		return
+	var segs: int = n if closed_loop else n - 1
+	var overlap_len: float = max(thickness * 0.8, 0.25)
+	var widen: float = max(thickness * 0.4, 0.1)
+	for i in range(segs):
+		var i_next: int = (i + 1) % n
+		var a: Vector3 = polyline[i]
+		var b: Vector3 = polyline[i_next]
+		var seg_vec: Vector3 = b - a
+		var seg_len: float = seg_vec.length()
+		if seg_len < 0.01:
+			continue
+		var seg_dir: Vector3 = seg_vec / seg_len
+		var up: Vector3 = (((frames[i]["u"] as Vector3) + (frames[i_next]["u"] as Vector3)) * 0.5).normalized()
+		if up.length() < 0.2:
+			up = Vector3.UP
+		# Build outward from the segment direction so collider orientation matches the visible wall offset.
+		var outward: Vector3 = up.cross(seg_dir) * side_sign
+		if outward.length() < 1e-4:
+			outward = (((frames[i]["r"] as Vector3) + (frames[i_next]["r"] as Vector3)) * 0.5) * side_sign
+		outward = outward.normalized()
+		seg_dir = (seg_dir - up * seg_dir.dot(up)).normalized()
+
+		var body := StaticBody3D.new()
+		body.name = "CollisionStrip%02d" % i
+		body.collision_layer = 1
+		body.collision_mask = 1
+		body.physics_material_override = phys_mat
+
+		var shape := BoxShape3D.new()
+		shape.size = Vector3(thickness + widen, height + WALL_BASE_CLEARANCE * 2.0, seg_len + overlap_len * 2.0)
+		var shape_node := CollisionShape3D.new()
+		shape_node.shape = shape
+		var mid: Vector3 = (a + b) * 0.5
+		var basis := Basis(outward, up, -seg_dir).orthonormalized()
+		# Keep the collider centered on the visual wall thickness; widen only inflates the box symmetrically.
+		var origin: Vector3 = mid + outward * (thickness * 0.5) + up * (height * 0.5 + WALL_BASE_CLEARANCE)
+		body.transform = Transform3D(basis, origin)
+
+		body.add_child(shape_node)
+		parent.add_child(body)
 
 # Main entry: builds wall nodes under parent. Returns {left, right}
 static func build_walls(parent: Node3D, points: PackedVector3Array, track_half_width: float, wall_height: float, wall_thickness: float, smooth_normals: bool, closed_loop: bool, enable_collision: bool = true) -> Dictionary:
@@ -214,16 +257,6 @@ static func build_walls(parent: Node3D, points: PackedVector3Array, track_half_w
 	wall_phys_mat.bounce = 0.05
 	wall_phys_mat.rough = false
 
-	# Compute average up/right for collision offset.
-	var avg_up := Vector3.ZERO
-	var avg_right := Vector3.ZERO
-	for f in frames:
-		avg_up += f["u"]
-		avg_right += f["r"]
-	if frames.size() > 0:
-		avg_up = avg_up.normalized()
-		avg_right = avg_right.normalized()
-
 	var left_node := MeshInstance3D.new()
 	left_node.name = "WallLeft"
 	left_node.mesh = left_mesh
@@ -237,26 +270,8 @@ static func build_walls(parent: Node3D, points: PackedVector3Array, track_half_w
 	parent.add_child(right_node)
 
 	if enable_collision:
-		var l_body := StaticBody3D.new()
-		l_body.collision_layer = 1
-		l_body.collision_mask = 1
-		l_body.physics_material_override = wall_phys_mat
-		# Push collision slightly outward and upward to avoid snagging the car on interior faces.
-		l_body.transform.origin = avg_up * WALL_BASE_CLEARANCE + avg_right * (-wall_thickness * 1.05)
-		var l_shape := CollisionShape3D.new()
-		l_shape.shape = mesh_to_concave_shape(left_mesh)
-		l_body.add_child(l_shape)
-		left_node.add_child(l_body)
-
-		var r_body := StaticBody3D.new()
-		r_body.collision_layer = 1
-		r_body.collision_mask = 1
-		r_body.physics_material_override = wall_phys_mat
-		r_body.transform.origin = avg_up * WALL_BASE_CLEARANCE + avg_right * (wall_thickness * 1.05)
-		var r_shape := CollisionShape3D.new()
-		r_shape.shape = mesh_to_concave_shape(right_mesh)
-		r_body.add_child(r_shape)
-		right_node.add_child(r_body)
+		_build_collision_strip(left_node, left_poly, frames, wall_height, wall_thickness, closed_loop, wall_phys_mat, -1.0)
+		_build_collision_strip(right_node, right_poly, frames, wall_height, wall_thickness, closed_loop, wall_phys_mat, 1.0)
 
 	if dbg_preview:
 		var dbg := ImmediateMesh.new()
@@ -300,6 +315,4 @@ static func generate_test_points() -> PackedVector3Array:
 	pts.append(Vector3(-20, 0, 0))
 	return pts
 
-# Build a collision strip out of box segments to avoid concave mesh seams that can pin the car.
-# Example usage snippet (call from your builder after road mesh):
-# var walls = TrackWalls.build_walls(self, waypoint_array, track_half_width, 1.5, 0.3, false, closed_loop, true)
+# Walls now include their own overlapping box collision strips so cars glide along at high speeds without snagging.

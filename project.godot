@@ -25,6 +25,10 @@ NakamaService="*res://scripts/NakamaService.gd"
 
 project/assembly_name="Racer"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/spacemouse_editor/plugin.cfg")
+
 [rendering]
 
 renderer/rendering_method="mobile"

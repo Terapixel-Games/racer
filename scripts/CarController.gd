@@ -14,6 +14,7 @@ class_name CarController
 @export var auto_accelerate := false
 @export var coast_drag := 12.0
 @export var brake_drag := 18.0
+@export var debug_wall_logging := false
 
 var boost_meter := 0.0
 var input_state := {"throttle": 0.0, "brake": 0.0, "steer": 0.0, "drift": false, "boost": false}
@@ -21,6 +22,7 @@ var controlled_locally := false
 var target_basis : Basis
 var target_position : Vector3
 var gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity") as float
+var _wall_log_cooldown := 0.0
 
 func _ready() -> void:
 	target_basis = global_transform.basis
@@ -33,6 +35,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		_apply_remote_correction(delta)
 	move_and_slide()
+	_log_wall_contacts(delta)
 
 func set_input(state:Dictionary) -> void:
 	input_state = state
@@ -99,3 +102,29 @@ func capture_state() -> Dictionary:
 		"basis": global_transform.basis,
 		"boost": boost_meter
 	}
+
+func _log_wall_contacts(delta: float) -> void:
+	if not debug_wall_logging:
+		return
+	_wall_log_cooldown = max(_wall_log_cooldown - delta, 0.0)
+	if _wall_log_cooldown > 0.0:
+		return
+	for i in range(get_slide_collision_count()):
+		var col := get_slide_collision(i)
+		if col == null:
+			continue
+		var collider := col.get_collider()
+		var collider_name := ""
+		if collider is Node:
+			collider_name = (collider as Node).name
+		var normal := col.get_normal()
+		# Heuristic: only log likely wall hits.
+		var is_wall := collider_name.findn("Wall") != -1 or collider is StaticBody3D
+		if not is_wall:
+			continue
+		var collider_vel := col.get_collider_velocity()
+		var rel_vel : Vector3 = velocity - collider_vel
+		var normal_speed := rel_vel.dot(normal)
+		print("[WallHit] name=", collider_name, " normal=", normal, " normal_speed=", "%.2f" % normal_speed, " vel=", velocity, " position=", global_transform.origin)
+		_wall_log_cooldown = 0.25
+		break
