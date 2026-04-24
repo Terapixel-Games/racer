@@ -59,14 +59,15 @@ local function new_racer(id, is_ai, spawn)
 		rot = {0, (spawn and spawn.yaw) or 0, 0},
 		lap = 1,
 		checkpoint = 0,
-		lap_gate = false,
-		wasted = false,
-		finished = false,
-		behind_timer = 0,
-		input = {throttle = 0, brake = 0, steer = 0, drift = false, boost = false},
-		progress = 0,
-		waypoint = 1,
-	}
+	lap_gate = false,
+	wasted = false,
+	finished = false,
+	finish_time = nil,
+	behind_timer = 0,
+	input = {throttle = 0, brake = 0, steer = 0, drift = false, boost = false},
+	progress = 0,
+	waypoint = 1,
+}
 end
 
 local function add_ai_racers(state)
@@ -95,14 +96,24 @@ local function find_racer(state, user_id)
 	return nil
 end
 
-local function update_progress(racer, state)
-	racer.progress = (racer.lap - 1) * state.checkpoints + racer.checkpoint
+local function update_progress(racer, state, segment_progress)
+	local extra = math.min(math.max(segment_progress or 0, 0), 0.999)
+	racer.progress = (racer.lap - 1) * state.checkpoints + racer.checkpoint + extra
+	if racer.finished then
+		-- Ensure finished racers always rank ahead of on-track racers.
+		racer.progress = state.laps * state.checkpoints + 1 + extra
+	end
 end
 
 local function apply_input(racer, delta, state)
+	if racer.finished or racer.wasted then
+		return
+	end
 	ensure_waypoints(state)
 	local speed = racer.input.throttle * 10 - racer.input.brake * 8
 	racer.pos.z = racer.pos.z - speed * delta
+	local seg_len = 50
+	local segment_progress = math.fmod(math.abs(racer.pos.z), seg_len) / seg_len
 	if racer.pos.z < -state.checkpoints * 50 then
 		if racer.lap_gate then
 			racer.lap = racer.lap + 1
@@ -116,14 +127,21 @@ local function apply_input(racer, delta, state)
 			racer.lap_gate = true
 		end
 		racer.checkpoint = (racer.checkpoint + 1) % state.checkpoints
+		segment_progress = 0
 	end
 	if racer.lap > state.laps then
 		racer.finished = true
+		if not racer.finish_time then
+			racer.finish_time = state.elapsed
+		end
 	end
-	update_progress(racer, state)
+	update_progress(racer, state, segment_progress)
 end
 
 local function ai_tick(racer, delta, state)
+	if racer.finished or racer.wasted then
+		return
+	end
 	ensure_waypoints(state)
 	if #state.waypoints == 0 then
 		return
@@ -169,8 +187,19 @@ local function ai_tick(racer, delta, state)
 	racer.checkpoint = (racer.waypoint - 1) % state.checkpoints
 	if racer.lap > state.laps then
 		racer.finished = true
+		if not racer.finish_time then
+			racer.finish_time = state.elapsed
+		end
 	end
-	update_progress(racer, state)
+	local prev_wp = racer.waypoint - 1
+	if prev_wp < 1 then prev_wp = #state.waypoints end
+	local prev_pt = state.waypoints[prev_wp]
+	local seg_len = math.sqrt((prev_pt.x - target.x) ^ 2 + (prev_pt.z - target.z) ^ 2)
+	local seg_progress = 0
+	if seg_len > 0.001 then
+		seg_progress = 1 - math.min(1, dist / seg_len)
+	end
+	update_progress(racer, state, seg_progress)
 end
 
 local function broadcast_snapshot(dispatcher, state)
@@ -184,9 +213,14 @@ local function broadcast_snapshot(dispatcher, state)
 			checkpoint = r.checkpoint,
 			wasted = r.wasted,
 			finished = r.finished,
+			finish_time = r.finish_time,
+			progress = r.progress,
 		})
 	end
-	dispatcher.broadcast_message(OP.RACE_SNAPSHOT, nk.json_encode({racers = racers}))
+	dispatcher.broadcast_message(OP.RACE_SNAPSHOT, nk.json_encode({
+		racers = racers,
+		checkpoints = state.checkpoints,
+	}))
 end
 
 local function evaluate_wasted(dispatcher, state, delta)

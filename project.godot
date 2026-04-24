@@ -21,6 +21,11 @@ Nakama="*res://addons/com.heroiclabs.nakama/Nakama.gd"
 Config="*res://scripts/Config.gd"
 NakamaService="*res://scripts/NakamaService.gd"
 
+SaveManager="*res://addons/arcade_core/SaveManager.gd"
+StreakManager="*res://addons/arcade_core/StreakManager.gd"
+AudioManager="*res://addons/arcade_core/AudioManager.gd"
+Fx="*res://addons/arcade_core/Fx.gd"
+AdManager="*res://addons/arcade_core/AdManager.gd"
 [dotnet]
 
 project/assembly_name="Racer"
@@ -33,3 +38,11 @@ enabled=PackedStringArray("res://addons/spacemouse_editor/plugin.cfg")
 
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
+
+[display]
+
+window/size/viewport_width=1080
+window/size/viewport_height=1920
+window/size/resizable=true
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"

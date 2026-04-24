@@ -15,6 +15,7 @@ const TrackBuilder = preload("res://scripts/TrackBuilder.gd")
 @onready var right_btn: Button = %RightButton
 @onready var drift_btn: Button = %DriftButton
 @onready var boost_btn: Button = %BoostButton
+@onready var ui_message: Label = %MessageLabel
 
 var match_id: String = ""
 var local_user_id: String = ""
@@ -26,10 +27,17 @@ var race_started: bool = false
 var lap_map: Dictionary = {}
 var spawn_points: Array = []
 var track_laps: int = Config.LAPS
+var track_checkpoint_total: int = 0
+var racer_states: Dictionary = {}
+var checkpoint_points: Array = []
+var track_waypoints: Array = []
+var finish_announced: bool = false
 const CAMERA_DISTANCE := 8.0
 const CAMERA_HEIGHT := 2.5
 
 const INPUT_INTERVAL := 1.0 / Config.INPUT_TICK_HZ
+const MESSAGE_DURATION := 3.0
+var message_timer: float = 0.0
 
 func _ready() -> void:
 	mobile_controls.visible = OS.has_feature("mobile")
@@ -59,6 +67,9 @@ func _spawn_track() -> void:
 			add_child(track_instance)
 		spawn_points = built.get("spawns", [])
 		track_laps = built.get("laps", Config.LAPS)
+		track_waypoints = built.get("waypoints", [])
+		if track_waypoints is Array and track_waypoints.size() > 0:
+			track_checkpoint_total = track_waypoints.size()
 	else:
 		var track_scene = load(Config.TRACK_SCENE)
 		if track_scene:
@@ -70,10 +81,14 @@ func _spawn_track() -> void:
 				for child in spawn_root.get_children():
 					if child is Marker3D:
 						spawn_points.append(child.global_transform)
+		track_checkpoint_total = checkpoint_system.checkpoint_count
 
 func _setup_checkpoints() -> void:
 	if checkpoint_system and checkpoint_system.has_signal("checkpoint_valid"):
 		checkpoint_system.connect("checkpoint_valid", Callable(self, "_on_checkpoint_valid"))
+	_cache_checkpoint_points()
+	if track_checkpoint_total <= 0 and checkpoint_system:
+		track_checkpoint_total = checkpoint_system.checkpoint_count
 
 func _physics_process(delta: float) -> void:
 	if not race_started:
@@ -84,6 +99,7 @@ func _physics_process(delta: float) -> void:
 		input_accum -= INPUT_INTERVAL
 	_update_ui()
 	_update_camera(delta)
+	_tick_message(delta)
 
 func _on_match_state(match_state: NakamaRTAPI.MatchData) -> void:
 	if match_state.match_id != match_id:
@@ -124,7 +140,12 @@ func _gather_input() -> Dictionary:
 
 func _apply_snapshot(data:Dictionary) -> void:
 	race_started = true
+	var snapshot_checkpoints: int = int(data.get("checkpoints", 0))
+	if snapshot_checkpoints > 0:
+		track_checkpoint_total = snapshot_checkpoints
 	var racers: Array = data.get("racers", [])
+	var previous_local_lap: int = lap_map.get(local_user_id, 0)
+	var new_local_lap := previous_local_lap
 	for racer in racers:
 		var rid: String = str(racer.get("id", ""))
 		var pos_arr: Array = racer.get("pos", [0,0,0])
@@ -138,7 +159,28 @@ func _apply_snapshot(data:Dictionary) -> void:
 			car = _spawn_car(rid)
 		car.apply_network_state(position, basis)
 		lap_map[rid] = racer.get("lap", 0)
+		var checkpoint: int = racer.get("checkpoint", 0)
+		var finished: bool = racer.get("finished", false)
+		var wasted: bool = racer.get("wasted", false)
+		var server_progress: float = float(racer.get("progress", -1.0))
+		var finish_time: float = float(racer.get("finish_time", -1.0))
+		racer_states[rid] = {
+			"lap": lap_map[rid],
+			"checkpoint": checkpoint,
+			"finished": finished,
+			"wasted": wasted,
+			"pos": position,
+			"progress": server_progress,
+			"finish_time": finish_time,
+		}
+		if rid == local_user_id:
+			new_local_lap = lap_map[rid]
+			if finished and not finish_announced:
+				_show_message("Course complete!")
+				finish_announced = true
 	_update_positions()
+	if new_local_lap > previous_local_lap and previous_local_lap > 0 and not finish_announced:
+		_show_message("Lap %d complete" % (new_local_lap - 1))
 
 func _spawn_car(racer_id:String) -> CarController:
 	var car_scene := load("res://scenes/Car.tscn")
@@ -166,8 +208,51 @@ func _snap_to_ground(xform: Transform3D) -> Transform3D:
 	return xform
 
 func _update_positions() -> void:
-	var sorted := cars.keys()
-	ui_position.text = "Racers: %d" % sorted.size()
+	if racer_states.is_empty():
+		ui_position.text = "Pos: --"
+		return
+	var checkpoint_total := _get_checkpoint_total()
+	var entries: Array = []
+	for rid in racer_states.keys():
+		var info: Dictionary = racer_states[rid]
+		var lap: int = int(info.get("lap", 0))
+		var checkpoint: int = int(info.get("checkpoint", 0))
+		var pos: Vector3 = info.get("pos", Vector3.ZERO)
+		var finished: bool = info.get("finished", false)
+		var wasted: bool = info.get("wasted", false)
+		var server_progress: float = float(info.get("progress", -1.0))
+		var progress := _compute_progress(lap, checkpoint, pos, checkpoint_total, finished, server_progress)
+		entries.append({
+			"id": rid,
+			"finished": finished,
+			"wasted": wasted,
+			"progress": progress,
+			"finish_time": float(info.get("finish_time", -1.0)),
+		})
+	entries.sort_custom(func(a, b):
+		if a["finished"] != b["finished"]:
+			return a["finished"] and not b["finished"]
+		if a["wasted"] != b["wasted"]:
+			return (not a["wasted"]) and b["wasted"]
+		var a_ft := float(a.get("finish_time", -1.0))
+		var b_ft := float(b.get("finish_time", -1.0))
+		if a["finished"] and b["finished"] and a_ft >= 0.0 and b_ft >= 0.0 and a_ft != b_ft:
+			return a_ft < b_ft
+		if a["progress"] == b["progress"]:
+			return String(a["id"]) < String(b["id"])
+		return a["progress"] > b["progress"]
+	)
+	var placement_entry = null
+	for e in entries:
+		if e["id"] == local_user_id:
+			placement_entry = e
+			break
+	var pos_index := entries.find(placement_entry)
+	var total := entries.size()
+	if placement_entry == null or pos_index == -1:
+		ui_position.text = "Pos: --"
+	else:
+		ui_position.text = "Pos: %d/%d" % [pos_index + 1, total]
 
 func _handle_reset(data:Dictionary) -> void:
 	var target: String = data.get("player_id", "")
@@ -188,8 +273,9 @@ func _handle_wasted(data:Dictionary) -> void:
 		get_tree().change_scene_to_file("res://scenes/Wasted.tscn")
 
 func _handle_finish(data:Dictionary) -> void:
-	# Placeholder UI hook
 	ui_net.text = "Finished!"
+	_show_message("Course complete!")
+	finish_announced = true
 
 func _handle_match_end(data:Dictionary) -> void:
 	NakamaService.set_meta_value("race_results", data.get("results", []))
@@ -208,6 +294,7 @@ func _update_ui() -> void:
 		var lap: int = lap_map.get(local_user_id, 1 if race_started else 0)
 		ui_lap.text = "Lap: %d/%d" % [lap, track_laps]
 	ui_net.text = "Net: %s" % ("OK" if NakamaService.socket and NakamaService.socket.is_connected_to_host() else "...")
+	_update_positions()
 
 func _update_camera(delta:float) -> void:
 	var car : CarController = cars.get(local_user_id, null)
@@ -260,3 +347,59 @@ func _connect_button(btn:Button, action:String) -> void:
 		return
 	btn.pressed.connect(func(): Input.action_press(action))
 	btn.button_up.connect(func(): Input.action_release(action))
+
+func _get_checkpoint_total() -> int:
+	if track_checkpoint_total > 0:
+		return track_checkpoint_total
+	if checkpoint_system:
+		var total := int(checkpoint_system.checkpoint_count)
+		if total > 0:
+			return total
+	return max(checkpoint_points.size(), 1)
+
+func _compute_progress(lap: int, checkpoint: int, pos: Vector3, checkpoint_total: int, finished: bool, server_progress: float = -1.0) -> float:
+	if server_progress >= 0.0:
+		return server_progress
+	var clamped_total : int = max(checkpoint_total, 1)
+	var laps_done : int = max(lap, 0) - 1
+	var base := float(laps_done * clamped_total + clamp(checkpoint, 0, clamped_total))
+	var next_idx : int = clamp(checkpoint % clamped_total, 0, clamped_total - 1)
+	if checkpoint_points.size() > next_idx:
+		var next_pos: Vector3 = checkpoint_points[next_idx]
+		var dist := pos.distance_to(next_pos)
+		# Closer to the next checkpoint increases progress slightly for tie-breaking.
+		base += max(0.0, 1000.0 - dist) * 0.0001
+	elif track_waypoints.size() > next_idx:
+		var next_pos: Vector3 = track_waypoints[next_idx]
+		var dist := pos.distance_to(next_pos)
+		base += max(0.0, 1000.0 - dist) * 0.0001
+	if finished:
+		base += clamped_total * 2
+	return base
+
+func _cache_checkpoint_points() -> void:
+	checkpoint_points.clear()
+	if checkpoint_system == null:
+		return
+	var list: Array = []
+	for child in checkpoint_system.get_children():
+		if child is CheckpointArea:
+			list.append({"idx": child.checkpoint_index, "pos": child.global_transform.origin})
+	list.sort_custom(func(a, b): return a["idx"] < b["idx"])
+	for item in list:
+		checkpoint_points.append(item["pos"])
+
+func _show_message(text: String) -> void:
+	if ui_message == null:
+		return
+	ui_message.text = text
+	message_timer = MESSAGE_DURATION
+
+func _tick_message(delta: float) -> void:
+	if ui_message == null:
+		return
+	if message_timer <= 0.0:
+		return
+	message_timer -= delta
+	if message_timer <= 0.0:
+		ui_message.text = ""

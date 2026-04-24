@@ -1,8 +1,38 @@
-[gd_scene load_steps=3 format=3 uid="uid://jlsdu7mxyen1"]
+[gd_scene load_steps=6 format=3 uid="uid://jlsdu7mxyen1"]
 
 [ext_resource type="Script" uid="uid://bff2yummqj11r" path="res://scripts/MainMenu.gd" id="1"]
 
 [sub_resource type="Theme" id="2"]
+
+[sub_resource type="StyleBoxFlat" id="3_panel"]
+bg_color = Color(0.08, 0.11, 0.16, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.44, 0.96, 1, 0.34)
+corner_radius_top_left = 34
+corner_radius_top_right = 34
+corner_radius_bottom_right = 34
+corner_radius_bottom_left = 34
+shadow_color = Color(0, 0, 0, 0.26)
+shadow_size = 18
+content_margin_left = 26.0
+content_margin_top = 26.0
+content_margin_right = 26.0
+content_margin_bottom = 26.0
+
+[sub_resource type="StyleBoxFlat" id="4_button"]
+bg_color = Color(0.1, 0.8, 0.88, 0.96)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.92, 1, 1, 0.78)
+corner_radius_top_left = 22
+corner_radius_top_right = 22
+corner_radius_bottom_right = 22
+corner_radius_bottom_left = 22
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -14,6 +44,24 @@ grow_vertical = 2
 theme = SubResource("2")
 script = ExtResource("1")
 
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.04, 0.05, 0.08, 1)
+
+[node name="AccentGlow" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08, 0.32, 0.4, 0.18)
+
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 0
 anchor_right = 1.0
@@ -21,29 +69,59 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBox" type="VBoxContainer" parent="CenterContainer"]
+[node name="Panel" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(620, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("3_panel")
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer/Panel"]
 layout_mode = 2
 theme = SubResource("2")
-theme_override_constants/separation = 12
+theme_override_constants/separation = 14
 
-[node name="Title" type="Label" parent="CenterContainer/VBox"]
+[node name="Kicker" type="Label" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+text = "NETWORK CIRCUIT"
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.64, 0.94, 1, 0.92)
+theme_override_font_sizes/font_size = 20
+
+[node name="Title" type="Label" parent="CenterContainer/Panel/VBox"]
 layout_mode = 2
 theme = SubResource("2")
 text = "Circuit Collapse Racer"
 horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.96, 0.99, 1, 1)
+theme_override_font_sizes/font_size = 62
 
-[node name="StatusLabel" type="Label" parent="CenterContainer/VBox"]
+[node name="Signal" type="Label" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+text = "SYNC FAST   •   STAY CLEAN   •   RACE LIVE"
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.72, 0.86, 0.96, 0.84)
+theme_override_font_sizes/font_size = 18
+
+[node name="StatusLabel" type="Label" parent="CenterContainer/Panel/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
 horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.84, 0.94, 1, 0.86)
+theme_override_font_sizes/font_size = 24
 
-[node name="PlayButton" type="Button" parent="CenterContainer/VBox"]
+[node name="PlayButton" type="Button" parent="CenterContainer/Panel/VBox"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
-text = "Play"
+theme_override_colors/font_color = Color(0.04, 0.14, 0.16, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("4_button")
+theme_override_styles/hover = SubResource("4_button")
+theme_override_styles/pressed = SubResource("4_button")
+text = "Enter Lobby"
 
-[node name="QuitButton" type="Button" parent="CenterContainer/VBox"]
+[node name="QuitButton" type="Button" parent="CenterContainer/Panel/VBox"]
 unique_name_in_owner = true
 visible = false
+custom_minimum_size = Vector2(0, 58)
 layout_mode = 2
 text = "Quit"
