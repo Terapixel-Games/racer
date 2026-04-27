@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c37rs4h7177h7"
+path="res://.godot/imported/woosh1.ogg-94f5036ef20de26d13202571f1af3355.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/source/kenney_audio/Foley Sounds/Audio/Woosh/woosh1.ogg"
+dest_files=["res://.godot/imported/woosh1.ogg-94f5036ef20de26d13202571f1af3355.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
