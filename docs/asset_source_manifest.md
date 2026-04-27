@@ -30,9 +30,9 @@ Counts below exclude Godot `.import` sidecars.
 | Kenney `marble_kit` | 11 | marbles, ramps, funnel, curves, bumps |
 | Kenney audio | 27 | UI, digital powerups, foley, impacts |
 | Meshy GLBs | 24 | 8 racers, 8 racers-in-karts, 8 landmark sets |
-| Canva audio | 21 | Jacks deploy, jacks hit, bubble pop, invincibility start/end, signature charge/activate, boost burst, drift release, marble fire/hit, item pickup/roulette, kart bump, wall scrape, heavy landing, countdown tick/go, and UI confirm/back/select sound effects |
+| Canva audio | 22 | Jacks deploy, jacks hit, bubble pop, invincibility start/end, signature charge/activate, boost burst, drift release, marble fire/hit, item pickup/roulette, kart bump, wall scrape, heavy landing, countdown tick/go, UI confirm/back/select, and lobby ready sound effects |
 
-Total sourced non-import files: 191.
+Total sourced non-import files: 192.
 
 ## Canva Audio Layout
 
@@ -59,6 +59,7 @@ Total sourced non-import files: 191.
 | `assets/source/audio/canva/ui/menu/ui_confirm_canva_01.wav` | `C:\Users\john_\Downloads\ui_confirm_canva_01.mp4` | Mono 44.1 kHz PCM WAV | UI confirm sound |
 | `assets/source/audio/canva/ui/menu/ui_back_canva_01.wav` | `C:\Users\john_\Downloads\ui_back_canva_01.mp4` | Mono 44.1 kHz PCM WAV | UI back sound |
 | `assets/source/audio/canva/ui/menu/ui_select_canva_01.wav` | `C:\Users\john_\Downloads\ui_select_canva_01.mp4` | Mono 44.1 kHz PCM WAV | UI select sound |
+| `assets/source/audio/canva/ui/lobby/lobby_ready_canva_01.wav` | `C:\Users\john_\Downloads\lobby_ready_canva_01.mp4` | Mono 44.1 kHz PCM WAV | Lobby ready sound |
 
 ## Meshy Layout
 
@@ -87,6 +88,6 @@ Task IDs remain recorded in `docs/meshy_batches/2026-04-27-character-track-batch
 - Representative Kenney source paths were checked before copying.
 - Kenney source pack license files were copied with each sourced pack.
 - Meshy downloads used the GLB format specified by the inventory.
-- The Canva jacks deploy, jacks hit, bubble pop, invincibility start/end, signature charge/activate, boost burst, drift release, marble fire/hit, item pickup/roulette, kart bump, wall scrape, heavy landing, countdown tick/go, and UI confirm/back/select MP4s were converted to mono 44.1 kHz PCM WAV source files for Godot import.
+- The Canva jacks deploy, jacks hit, bubble pop, invincibility start/end, signature charge/activate, boost burst, drift release, marble fire/hit, item pickup/roulette, kart bump, wall scrape, heavy landing, countdown tick/go, UI confirm/back/select, and lobby ready MP4s were converted to mono 44.1 kHz PCM WAV source files for Godot import.
 - Git LFS is configured for `*.glb`, `*.png`, and `*.jpg` in `.gitattributes`; the sourced large binary files are intended to be stored through LFS.
 - Godot generated `.import` sidecars for many sourced assets while the project/editor was active. These sidecars are included with the sourced files for import reproducibility.
