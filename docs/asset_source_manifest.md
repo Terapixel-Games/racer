@@ -30,9 +30,9 @@ Counts below exclude Godot `.import` sidecars.
 | Kenney `marble_kit` | 11 | marbles, ramps, funnel, curves, bumps |
 | Kenney audio | 27 | UI, digital powerups, foley, impacts |
 | Meshy GLBs | 24 | 8 racers, 8 racers-in-karts, 8 landmark sets |
-| Canva audio | 25 | Jacks deploy, jacks hit, bubble pop, invincibility start/end, signature charge/activate, boost burst, drift release, marble fire/hit, item pickup/roulette, kart bump, wall scrape, heavy landing, countdown tick/go, UI confirm/back/select, lobby ready, results reveal, and victory/lose stinger sound effects |
+| Canva audio | 26 | Jacks deploy, jacks hit, bubble pop, invincibility start/end, signature charge/activate, boost burst, drift release, marble fire/hit, item pickup/roulette, kart bump, wall scrape, heavy landing, countdown tick/go, UI confirm/back/select, lobby ready, results reveal, victory/lose stingers, and attic creak sound effects |
 
-Total sourced non-import files: 195.
+Total sourced non-import files: 196.
 
 ## Canva Audio Layout
 
@@ -63,6 +63,7 @@ Total sourced non-import files: 195.
 | `assets/source/audio/canva/ui/results/results_reveal_canva_01.wav` | `C:\Users\john_\Downloads\results_reveal_canva_01.mp4` | Mono 44.1 kHz PCM WAV | Results reveal sound |
 | `assets/source/audio/canva/ui/results/victory_stinger_canva_01.wav` | `C:\Users\john_\Downloads\victory_stinger_canva_01.mp4` | Mono 44.1 kHz PCM WAV | Victory stinger sound |
 | `assets/source/audio/canva/ui/results/lose_stinger_canva_01.wav` | `C:\Users\john_\Downloads\lose_stinger_canva_01.mp4` | Mono 44.1 kHz PCM WAV | Lose stinger sound |
+| `assets/source/audio/canva/tracks/attic/attic_creak_canva_01.mp3` | `C:\Users\john_\Downloads\attic_creak_canva_01.mp3` | Stereo 48 kHz MP3 | Attic creak track accent |
 
 ## Meshy Layout
 
@@ -92,5 +93,6 @@ Task IDs remain recorded in `docs/meshy_batches/2026-04-27-character-track-batch
 - Kenney source pack license files were copied with each sourced pack.
 - Meshy downloads used the GLB format specified by the inventory.
 - The Canva jacks deploy, jacks hit, bubble pop, invincibility start/end, signature charge/activate, boost burst, drift release, marble fire/hit, item pickup/roulette, kart bump, wall scrape, heavy landing, countdown tick/go, UI confirm/back/select, lobby ready, results reveal, and victory/lose stinger MP4s were converted to mono 44.1 kHz PCM WAV source files for Godot import.
+- The Canva attic creak export was kept as MP3 by request and copied without transcoding.
 - Git LFS is configured for `*.glb`, `*.png`, and `*.jpg` in `.gitattributes`; the sourced large binary files are intended to be stored through LFS.
 - Godot generated `.import` sidecars for many sourced assets while the project/editor was active. These sidecars are included with the sourced files for import reproducibility.
