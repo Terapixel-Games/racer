@@ -4,7 +4,7 @@ Date: 2026-04-27
 
 Purpose: record the first sourced asset pass derived from `docs/asset_acquisition_inventory.md`.
 
-This pass sourced local CC0 Kenney assets, downloaded the approved Meshy-6 exploratory batch as GLB files, and added the first Canva-generated sound effect export. No ambientCG, Poly Haven, Quaternius, OpenGameArt, Suno, SFXR, or Figma exports were imported in this pass.
+This pass sourced local CC0 Kenney assets, downloaded the approved Meshy-6 exploratory batch as GLB files, and added the first Canva-generated sound effect exports. No ambientCG, Poly Haven, Quaternius, OpenGameArt, Suno, SFXR, or Figma exports were imported in this pass.
 
 ## Source Roots
 
@@ -30,15 +30,16 @@ Counts below exclude Godot `.import` sidecars.
 | Kenney `marble_kit` | 11 | marbles, ramps, funnel, curves, bumps |
 | Kenney audio | 27 | UI, digital powerups, foley, impacts |
 | Meshy GLBs | 24 | 8 racers, 8 racers-in-karts, 8 landmark sets |
-| Canva audio | 1 | Jacks deploy sound effect |
+| Canva audio | 2 | Jacks deploy and hit sound effects |
 
-Total sourced non-import files: 171.
+Total sourced non-import files: 172.
 
 ## Canva Audio Layout
 
 | File | Original source | Format | Intended use |
 | --- | --- | --- | --- |
 | `assets/source/audio/canva/items/jacks/jacks_deploy_canva_01.wav` | `C:\Users\john_\Downloads\jacks_deploy_canva_01.mp4` | Mono 44.1 kHz PCM WAV | Jacks trap deploy sound |
+| `assets/source/audio/canva/items/jacks/jacks_hit_canva_01.wav` | `C:\Users\john_\Downloads\jacks_hit_canva_01.mp4` | Mono 44.1 kHz PCM WAV | Jacks trap hit sound |
 
 ## Meshy Layout
 
@@ -67,6 +68,6 @@ Task IDs remain recorded in `docs/meshy_batches/2026-04-27-character-track-batch
 - Representative Kenney source paths were checked before copying.
 - Kenney source pack license files were copied with each sourced pack.
 - Meshy downloads used the GLB format specified by the inventory.
-- The Canva jacks deploy MP4 was converted to a mono 44.1 kHz PCM WAV source file for Godot import.
+- The Canva jacks deploy and hit MP4s were converted to mono 44.1 kHz PCM WAV source files for Godot import.
 - Git LFS is configured for `*.glb`, `*.png`, and `*.jpg` in `.gitattributes`; the sourced large binary files are intended to be stored through LFS.
 - Godot generated `.import` sidecars for many sourced assets while the project/editor was active. These sidecars are included with the sourced files for import reproducibility.
