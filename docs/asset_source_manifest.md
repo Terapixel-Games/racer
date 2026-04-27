@@ -30,9 +30,9 @@ Counts below exclude Godot `.import` sidecars.
 | Kenney `marble_kit` | 11 | marbles, ramps, funnel, curves, bumps |
 | Kenney audio | 27 | UI, digital powerups, foley, impacts |
 | Meshy GLBs | 24 | 8 racers, 8 racers-in-karts, 8 landmark sets |
-| Canva audio | 9 | Jacks deploy, jacks hit, bubble pop, invincibility start/end, signature charge/activate, boost burst, and drift release sound effects |
+| Canva audio | 10 | Jacks deploy, jacks hit, bubble pop, invincibility start/end, signature charge/activate, boost burst, drift release, and marble fire sound effects |
 
-Total sourced non-import files: 179.
+Total sourced non-import files: 180.
 
 ## Canva Audio Layout
 
@@ -47,6 +47,7 @@ Total sourced non-import files: 179.
 | `assets/source/audio/canva/items/signature/signature_activate_canva_01.wav` | `C:\Users\john_\Downloads\signature_activate_canva_01.mp4` | Mono 44.1 kHz PCM WAV | Signature move activation sound |
 | `assets/source/audio/canva/driving/boost/boost_burst_canva_01.wav` | `C:\Users\john_\Downloads\boost_burst_canva_01.mp4` | Mono 44.1 kHz PCM WAV | Boost burst driving sound |
 | `assets/source/audio/canva/driving/drift/drift_release_canva_01.wav` | `C:\Users\john_\Downloads\drift_release_canva_01.mp4` | Mono 44.1 kHz PCM WAV | Drift release driving sound |
+| `assets/source/audio/canva/items/marble/marble_fire_canva_01.wav` | `C:\Users\john_\Downloads\marble_fire_canva_01.mp4` | Mono 44.1 kHz PCM WAV | Marble projectile fire sound |
 
 ## Meshy Layout
 
@@ -75,6 +76,6 @@ Task IDs remain recorded in `docs/meshy_batches/2026-04-27-character-track-batch
 - Representative Kenney source paths were checked before copying.
 - Kenney source pack license files were copied with each sourced pack.
 - Meshy downloads used the GLB format specified by the inventory.
-- The Canva jacks deploy, jacks hit, bubble pop, invincibility start/end, signature charge/activate, boost burst, and drift release MP4s were converted to mono 44.1 kHz PCM WAV source files for Godot import.
+- The Canva jacks deploy, jacks hit, bubble pop, invincibility start/end, signature charge/activate, boost burst, drift release, and marble fire MP4s were converted to mono 44.1 kHz PCM WAV source files for Godot import.
 - Git LFS is configured for `*.glb`, `*.png`, and `*.jpg` in `.gitattributes`; the sourced large binary files are intended to be stored through LFS.
 - Godot generated `.import` sidecars for many sourced assets while the project/editor was active. These sidecars are included with the sourced files for import reproducibility.
