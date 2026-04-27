@@ -30,9 +30,9 @@ Counts below exclude Godot `.import` sidecars.
 | Kenney `marble_kit` | 11 | marbles, ramps, funnel, curves, bumps |
 | Kenney audio | 27 | UI, digital powerups, foley, impacts |
 | Meshy GLBs | 24 | 8 racers, 8 racers-in-karts, 8 landmark sets |
-| Canva audio | 5 | Jacks deploy, jacks hit, bubble pop, invincibility start, and invincibility end sound effects |
+| Canva audio | 6 | Jacks deploy, jacks hit, bubble pop, invincibility start/end, and signature charge sound effects |
 
-Total sourced non-import files: 175.
+Total sourced non-import files: 176.
 
 ## Canva Audio Layout
 
@@ -43,6 +43,7 @@ Total sourced non-import files: 175.
 | `assets/source/audio/canva/items/bubble/bubble_pop_canva_01.wav` | `C:\Users\john_\Downloads\bubble_pop_canva_01.mp4` | Mono 44.1 kHz PCM WAV | Bubble shield pop sound |
 | `assets/source/audio/canva/items/invincibility/invincibility_start_canva_01.wav` | `C:\Users\john_\Downloads\invincibility_start_canva_01.mp4` | Mono 44.1 kHz PCM WAV | Invincibility activation sound |
 | `assets/source/audio/canva/items/invincibility/invincibility_end_canva_01.wav` | `C:\Users\john_\Downloads\invincibility_end_canva_01.mp4` | Mono 44.1 kHz PCM WAV | Invincibility end sound |
+| `assets/source/audio/canva/items/signature/signature_charge_canva_01.wav` | `C:\Users\john_\Downloads\signature_charge_canva_01.mp4` | Mono 44.1 kHz PCM WAV | Signature move charge sound |
 
 ## Meshy Layout
 
@@ -71,6 +72,6 @@ Task IDs remain recorded in `docs/meshy_batches/2026-04-27-character-track-batch
 - Representative Kenney source paths were checked before copying.
 - Kenney source pack license files were copied with each sourced pack.
 - Meshy downloads used the GLB format specified by the inventory.
-- The Canva jacks deploy, jacks hit, bubble pop, invincibility start, and invincibility end MP4s were converted to mono 44.1 kHz PCM WAV source files for Godot import.
+- The Canva jacks deploy, jacks hit, bubble pop, invincibility start/end, and signature charge MP4s were converted to mono 44.1 kHz PCM WAV source files for Godot import.
 - Git LFS is configured for `*.glb`, `*.png`, and `*.jpg` in `.gitattributes`; the sourced large binary files are intended to be stored through LFS.
 - Godot generated `.import` sidecars for many sourced assets while the project/editor was active. These sidecars are included with the sourced files for import reproducibility.
