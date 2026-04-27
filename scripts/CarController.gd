@@ -1,6 +1,8 @@
 extends CharacterBody3D
 class_name CarController
 
+const DriftRules = preload("res://scripts/logic/DriftRules.gd")
+
 @export var acceleration := 28.0
 @export var brake_force := 32.0
 @export var max_speed := 42.0
@@ -15,14 +17,22 @@ class_name CarController
 @export var coast_drag := 12.0
 @export var brake_drag := 18.0
 @export var debug_wall_logging := false
+@export var drift_charge_rate := 34.0
+@export var drift_hop_velocity := 3.4
 
 var boost_meter := 0.0
-var input_state := {"throttle": 0.0, "brake": 0.0, "steer": 0.0, "drift": false, "boost": false}
+var input_state := {"throttle": 0.0, "brake": 0.0, "steer": 0.0, "drift": false, "boost": false, "item_use": false}
 var controlled_locally := false
 var target_basis : Basis
 var target_position : Vector3
 var gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity") as float
 var _wall_log_cooldown := 0.0
+var drift_charge := 0.0
+var drift_tier := 0
+var is_drifting := false
+var _drift_direction := 0.0
+var _item_boost_timer := 0.0
+var _item_boost_force := 0.0
 
 func _ready() -> void:
 	target_basis = global_transform.basis
@@ -53,21 +63,34 @@ func _apply_input(delta: float) -> void:
 		accel += acceleration * throttle_input
 	if brake_input > 0.1:
 		accel -= brake_force * brake_input
-	var drifting : bool = input_state.get("drift", false)
-	if drifting:
+	var steering_input : float = input_state.get("steer", 0.0)
+	var requested_drift : bool = input_state.get("drift", false)
+	var speed := horiz_vel.length()
+	if requested_drift and absf(steering_input) > 0.08 and DriftRules.can_start(speed):
+		if not is_drifting:
+			_start_drift(signf(steering_input), speed)
+		elif absf(steering_input) > 0.0:
+			_drift_direction = signf(steering_input)
+	if (not requested_drift or absf(steering_input) <= 0.08) and is_drifting:
+		accel += _release_drift_boost()
+	if is_drifting:
 		boost_meter = min(boost_meter_max, boost_meter + boost_gain_drift * delta)
+		drift_charge = DriftRules.update_charge(drift_charge, delta, absf(steering_input), speed / max(max_speed, 0.01), drift_charge_rate)
+		drift_tier = DriftRules.tier_for_charge(drift_charge)
+	if _item_boost_timer > 0.0:
+		_item_boost_timer = max(_item_boost_timer - delta, 0.0)
+		accel += _item_boost_force
 	if input_state.get("boost", false) and boost_meter > 1.0:
 		boost_meter = max(0.0, boost_meter - boost_drain * delta)
 		accel += boost_force
-	var steering_input : float = input_state.get("steer", 0.0)
 	var steer_amount : float = steering_input * steer_speed * delta
-	if drifting:
+	if is_drifting:
 		steer_amount *= 1.5
 	horiz_vel += forward * accel * delta
-	var grip := drift_grip if drifting else 1.0
+	var grip := drift_grip if is_drifting else 1.0
 	var lateral_speed := horiz_vel.dot(lateral)
 	horiz_vel -= lateral * lateral_speed * (1.0 - grip)
-	horiz_vel = horiz_vel.limit_length(max_speed + (boost_force * 0.5 if input_state.get("boost", false) else 0.0))
+	horiz_vel = horiz_vel.limit_length(max_speed + (boost_force * 0.5 if input_state.get("boost", false) else 0.0) + (_item_boost_force * 0.25 if _item_boost_timer > 0.0 else 0.0))
 	# natural drag and braking drag
 	var drag_force := coast_drag
 	if brake_input > 0.1:
@@ -80,6 +103,32 @@ func _apply_input(delta: float) -> void:
 	else:
 		velocity.y -= gravity * delta
 	rotate_y(steer_amount)
+
+func _start_drift(direction: float, speed: float) -> void:
+	is_drifting = true
+	drift_charge = 0.0
+	drift_tier = 0
+	_drift_direction = direction if absf(direction) > 0.0 else 1.0
+	if is_on_floor() and speed >= DriftRules.MIN_START_SPEED:
+		velocity.y = drift_hop_velocity
+
+func _release_drift_boost() -> float:
+	var release_boost := DriftRules.release_boost_amount(drift_charge)
+	is_drifting = false
+	drift_charge = 0.0
+	drift_tier = 0
+	_drift_direction = 0.0
+	return release_boost
+
+func trigger_item_boost(duration: float, force: float) -> void:
+	_item_boost_timer = max(duration, 0.0)
+	_item_boost_force = max(force, 0.0)
+
+func get_drift_charge_ratio() -> float:
+	return drift_charge / max(DriftRules.MAX_CHARGE, 0.01)
+
+func get_drift_tier() -> int:
+	return drift_tier
 
 func _apply_remote_correction(delta:float) -> void:
 	global_transform.origin = global_transform.origin.lerp(target_position, delta * correction_speed)

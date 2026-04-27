@@ -93,6 +93,16 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Net: --"
 
+[node name="ItemLabel" type="Label" parent="UI/HUD/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Item: --"
+
+[node name="DriftLabel" type="Label" parent="UI/HUD/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Drift: --"
+
 [node name="MessageLabel" type="Label" parent="UI/HUD/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -170,3 +180,16 @@ offset_left = -80.0
 offset_top = -40.0
 offset_right = -16.0
 text = "BOOST"
+
+[node name="ItemButton" type="Button" parent="UI/MobileControls"]
+unique_name_in_owner = true
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -170.0
+offset_top = -40.0
+offset_right = -100.0
+offset_bottom = 0.0
+text = "ITEM"

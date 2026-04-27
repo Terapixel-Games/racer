@@ -1,11 +1,14 @@
 extends Node3D
 
 const TrackBuilder = preload("res://scripts/TrackBuilder.gd")
+const ItemRules = preload("res://scripts/logic/ItemRules.gd")
 
 @onready var ui_speed: Label = %SpeedLabel
 @onready var ui_lap: Label = %LapLabel
 @onready var ui_position: Label = %PositionLabel
 @onready var ui_net: Label = %NetLabel
+@onready var ui_item: Label = %ItemLabel
+@onready var ui_drift: Label = %DriftLabel
 @onready var checkpoint_system: Node = %CheckpointSystem
 @onready var camera: Camera3D = %FollowCamera
 @onready var mobile_controls: Control = %MobileControls
@@ -15,6 +18,7 @@ const TrackBuilder = preload("res://scripts/TrackBuilder.gd")
 @onready var right_btn: Button = %RightButton
 @onready var drift_btn: Button = %DriftButton
 @onready var boost_btn: Button = %BoostButton
+@onready var item_btn: Button = %ItemButton
 @onready var ui_message: Label = %MessageLabel
 
 var match_id: String = ""
@@ -38,8 +42,12 @@ const CAMERA_HEIGHT := 2.5
 const INPUT_INTERVAL := 1.0 / Config.INPUT_TICK_HZ
 const MESSAGE_DURATION := 3.0
 var message_timer: float = 0.0
+var local_item_slot := ""
+var item_roll_timer := 0.0
+var item_rng := RandomNumberGenerator.new()
 
 func _ready() -> void:
+	item_rng.randomize()
 	mobile_controls.visible = OS.has_feature("mobile")
 	_setup_mobile_controls()
 	_ensure_input_actions()
@@ -119,6 +127,7 @@ func _physics_process(delta: float) -> void:
 	while input_accum >= INPUT_INTERVAL:
 		_send_input()
 		input_accum -= INPUT_INTERVAL
+	_tick_local_item_slot(delta)
 	_update_ui()
 	_update_camera(delta)
 	_tick_message(delta)
@@ -149,6 +158,8 @@ func _send_input() -> void:
 	if car:
 		car.controlled_locally = true
 		car.set_input(state)
+		if bool(state.get("item_use", false)):
+			_consume_local_item(car)
 		if NakamaService.offline_mode:
 			racer_states[local_user_id] = {
 				"lap": lap_map.get(local_user_id, 1),
@@ -169,7 +180,9 @@ func _gather_input() -> Dictionary:
 	var throttle := Input.get_action_strength("accelerate")
 	var brake := Input.get_action_strength("brake")
 	var boost := Input.is_action_pressed("boost")
-	return {"steer": steer, "throttle": throttle, "brake": brake, "drift": false, "boost": boost}
+	var drift := Input.is_action_pressed("drift")
+	var item_use := Input.is_action_just_pressed("use_item")
+	return {"steer": steer, "throttle": throttle, "brake": brake, "drift": drift, "boost": boost, "item_use": item_use}
 
 func _apply_snapshot(data:Dictionary) -> void:
 	race_started = true
@@ -326,6 +339,8 @@ func _update_ui() -> void:
 		ui_speed.text = "Speed: %02d" % int(speed)
 		var lap: int = lap_map.get(local_user_id, 1 if race_started else 0)
 		ui_lap.text = "Lap: %d/%d" % [lap, track_laps]
+		ui_drift.text = "Drift: T%d  %d%%" % [car.get_drift_tier(), int(round(car.get_drift_charge_ratio() * 100.0))]
+	ui_item.text = "Item: %s" % (local_item_slot if local_item_slot != "" else "--")
 	ui_net.text = "Net: %s" % ("LOCAL" if NakamaService.offline_mode else ("OK" if NakamaService.is_online_socket_ready() else "..."))
 	_update_positions()
 
@@ -343,10 +358,11 @@ func _ensure_input_actions() -> void:
 	_add_action_if_missing("brake")
 	_add_action_if_missing("steer_left")
 	_add_action_if_missing("steer_right")
+	_add_action_if_missing("drift")
 	_add_action_if_missing("boost")
+	_add_action_if_missing("use_item")
 	_add_key_event("accelerate", KEY_W)
 	_add_key_event("accelerate", KEY_UP)
-	_add_key_event("brake", KEY_SPACE)
 	_add_key_event("brake", KEY_CTRL)
 	_add_key_event("brake", KEY_S)
 	_add_key_event("brake", KEY_DOWN)
@@ -354,7 +370,9 @@ func _ensure_input_actions() -> void:
 	_add_key_event("steer_left", KEY_LEFT)
 	_add_key_event("steer_right", KEY_D)
 	_add_key_event("steer_right", KEY_RIGHT)
+	_add_key_event("drift", KEY_SPACE)
 	_add_key_event("boost", KEY_SHIFT)
+	_add_key_event("use_item", KEY_E)
 
 func _add_action_if_missing(action:String) -> void:
 	if not InputMap.has_action(action):
@@ -374,6 +392,7 @@ func _setup_mobile_controls() -> void:
 	_connect_button(right_btn, "steer_right")
 	_connect_button(drift_btn, "drift")
 	_connect_button(boost_btn, "boost")
+	_connect_button(item_btn, "use_item")
 
 func _connect_button(btn:Button, action:String) -> void:
 	if btn == null:
@@ -436,3 +455,69 @@ func _tick_message(delta: float) -> void:
 	message_timer -= delta
 	if message_timer <= 0.0:
 		ui_message.text = ""
+
+func _tick_local_item_slot(delta: float) -> void:
+	item_roll_timer = max(item_roll_timer - delta, 0.0)
+	if local_item_slot != "" or item_roll_timer > 0.0:
+		return
+	var total_racers := max(racer_states.size(), 1)
+	var position := _local_position()
+	local_item_slot = ItemRules.roll_for_position(position, total_racers, item_rng)
+	item_roll_timer = 2.0
+
+func _local_position() -> int:
+	if ui_position == null:
+		return 1
+	var car_count := max(racer_states.size(), 1)
+	var entries: Array = []
+	for rid in racer_states.keys():
+		var info: Dictionary = racer_states[rid]
+		entries.append({
+			"id": rid,
+			"finished": bool(info.get("finished", false)),
+			"wasted": bool(info.get("wasted", false)),
+			"progress": _compute_progress(
+				int(info.get("lap", 0)),
+				int(info.get("checkpoint", 0)),
+				info.get("pos", Vector3.ZERO),
+				_get_checkpoint_total(),
+				bool(info.get("finished", false)),
+				float(info.get("progress", -1.0))
+			),
+			"finish_time": float(info.get("finish_time", -1.0)),
+		})
+	entries.sort_custom(func(a, b):
+		if a["finished"] != b["finished"]:
+			return a["finished"] and not b["finished"]
+		if a["wasted"] != b["wasted"]:
+			return (not a["wasted"]) and b["wasted"]
+		if a["progress"] == b["progress"]:
+			return String(a["id"]) < String(b["id"])
+		return a["progress"] > b["progress"]
+	)
+	for i in range(entries.size()):
+		if String(entries[i]["id"]) == local_user_id:
+			return i + 1
+	return min(1, car_count)
+
+func _consume_local_item(car: CarController) -> void:
+	if local_item_slot == "":
+		return
+	match local_item_slot:
+		ItemRules.ITEM_BOOST:
+			car.trigger_item_boost(0.9, 85.0)
+			_show_message("Boost item: ram through traffic")
+		ItemRules.ITEM_INVINCIBILITY:
+			car.trigger_item_boost(1.4, 118.0)
+			_show_message("Invincibility prototype: revenge mode")
+		ItemRules.ITEM_SIGNATURE:
+			car.trigger_item_boost(1.1, 98.0)
+			_show_message("Signature prototype: %s" % local_user_id)
+		ItemRules.ITEM_JACKS:
+			_show_message("Jacks prototype armed")
+		ItemRules.ITEM_MARBLE:
+			_show_message("Marble prototype fired")
+		ItemRules.ITEM_BUBBLE:
+			_show_message("Bubble prototype raised")
+	local_item_slot = ""
+	item_roll_timer = 1.5
