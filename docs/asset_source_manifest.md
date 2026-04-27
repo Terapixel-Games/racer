@@ -4,7 +4,7 @@ Date: 2026-04-27
 
 Purpose: record the first sourced asset pass derived from `docs/asset_acquisition_inventory.md`.
 
-This pass sourced local CC0 Kenney assets and downloaded the approved Meshy-6 exploratory batch as GLB files. No ambientCG, Poly Haven, Quaternius, OpenGameArt, Suno, SFXR, or Figma exports were imported in this pass.
+This pass sourced local CC0 Kenney assets, downloaded the approved Meshy-6 exploratory batch as GLB files, and added the first Canva-generated sound effect export. No ambientCG, Poly Haven, Quaternius, OpenGameArt, Suno, SFXR, or Figma exports were imported in this pass.
 
 ## Source Roots
 
@@ -13,6 +13,7 @@ This pass sourced local CC0 Kenney assets and downloaded the approved Meshy-6 ex
 | Kenney meshes | `assets/source/kenney` | Curated GLB candidates plus each pack `License.txt` |
 | Kenney audio | `assets/source/kenney_audio` | Curated OGG candidates plus each pack `License.txt` |
 | Meshy batch | `assets/source/meshy/2026-04-27-character-track-batch` | 24 approved GLB downloads from the Meshy-6 batch |
+| Canva audio | `assets/source/audio/canva` | User-generated Canva AI sound effect exports; verify final Canva terms before release |
 
 ## Sourced Counts
 
@@ -29,8 +30,15 @@ Counts below exclude Godot `.import` sidecars.
 | Kenney `marble_kit` | 11 | marbles, ramps, funnel, curves, bumps |
 | Kenney audio | 27 | UI, digital powerups, foley, impacts |
 | Meshy GLBs | 24 | 8 racers, 8 racers-in-karts, 8 landmark sets |
+| Canva audio | 1 | Jacks deploy sound effect |
 
-Total sourced non-import files: 170.
+Total sourced non-import files: 171.
+
+## Canva Audio Layout
+
+| File | Original source | Format | Intended use |
+| --- | --- | --- | --- |
+| `assets/source/audio/canva/items/jacks/jacks_deploy_canva_01.wav` | `C:\Users\john_\Downloads\jacks_deploy_canva_01.mp4` | Mono 44.1 kHz PCM WAV | Jacks trap deploy sound |
 
 ## Meshy Layout
 
@@ -59,6 +67,6 @@ Task IDs remain recorded in `docs/meshy_batches/2026-04-27-character-track-batch
 - Representative Kenney source paths were checked before copying.
 - Kenney source pack license files were copied with each sourced pack.
 - Meshy downloads used the GLB format specified by the inventory.
+- The Canva jacks deploy MP4 was converted to a mono 44.1 kHz PCM WAV source file for Godot import.
 - Git LFS is configured for `*.glb`, `*.png`, and `*.jpg` in `.gitattributes`; the sourced large binary files are intended to be stored through LFS.
 - Godot generated `.import` sidecars for many sourced assets while the project/editor was active. These sidecars are included with the sourced files for import reproducibility.
-
