@@ -44,15 +44,37 @@ func _ready() -> void:
 	_setup_mobile_controls()
 	_ensure_input_actions()
 	await NakamaService.ensure_connected()
-	local_user_id = NakamaService.session.user_id
+	local_user_id = NakamaService.get_user_id()
 	match_id = NakamaService.get_meta_value("race_match_id", "")
 	if match_id == "":
 		get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
+		return
+	if NakamaService.offline_mode:
+		_start_offline_race()
 		return
 	_connect_socket()
 	await NakamaService.join_match(match_id)
 	_spawn_track()
 	_setup_checkpoints()
+
+func _start_offline_race() -> void:
+	_spawn_track()
+	_setup_checkpoints()
+	var car := _spawn_car(local_user_id)
+	car.controlled_locally = true
+	lap_map[local_user_id] = 1
+	racer_states[local_user_id] = {
+		"lap": 1,
+		"checkpoint": 0,
+		"finished": false,
+		"wasted": false,
+		"pos": car.global_transform.origin,
+		"progress": 0.0,
+		"finish_time": -1.0,
+	}
+	race_started = true
+	ui_net.text = "Net: LOCAL"
+	_show_message("Local shakedown")
 
 func _connect_socket() -> void:
 	if not NakamaService.socket.received_match_state.is_connected(_on_match_state):
@@ -127,6 +149,17 @@ func _send_input() -> void:
 	if car:
 		car.controlled_locally = true
 		car.set_input(state)
+		if NakamaService.offline_mode:
+			racer_states[local_user_id] = {
+				"lap": lap_map.get(local_user_id, 1),
+				"checkpoint": 0,
+				"finished": false,
+				"wasted": false,
+				"pos": car.global_transform.origin,
+				"progress": car.global_transform.origin.length(),
+				"finish_time": -1.0,
+			}
+			return
 	var msg := {"input": state}
 	var json := JSON.stringify(msg)
 	NakamaService.socket.send_match_state_async(match_id, NetMessages.OP_RACE_INPUT, json)
@@ -293,7 +326,7 @@ func _update_ui() -> void:
 		ui_speed.text = "Speed: %02d" % int(speed)
 		var lap: int = lap_map.get(local_user_id, 1 if race_started else 0)
 		ui_lap.text = "Lap: %d/%d" % [lap, track_laps]
-	ui_net.text = "Net: %s" % ("OK" if NakamaService.socket and NakamaService.socket.is_connected_to_host() else "...")
+	ui_net.text = "Net: %s" % ("LOCAL" if NakamaService.offline_mode else ("OK" if NakamaService.is_online_socket_ready() else "..."))
 	_update_positions()
 
 func _update_camera(delta:float) -> void:

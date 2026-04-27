@@ -17,6 +17,7 @@ const NAKAMA_PORT := 443
 const NAKAMA_SCHEME := "https"
 const NAKAMA_SERVER_KEY := "the_man_who_sold_the_world"
 const NAKAMA_SOCKET_URL := "wss://nakama-qxqz.onrender.com/ws"
+const LOCAL_FALLBACK_ENABLED := true
 
 var override_host : String = ""
 

@@ -182,10 +182,6 @@ func _update_wall_preview() -> void:
 	var holder := Node3D.new()
 	holder.name = "WallPreview"
 	var target_parent := get_parent()
-	if target_parent:
-		target_parent.add_child(holder)
-	else:
-		add_child(holder)
 	# Use world space for preview so world-space points align without double transforms.
 	holder.top_level = true
 	holder.transform = Transform3D.IDENTITY
@@ -207,6 +203,13 @@ func _update_wall_preview() -> void:
 		walls["left"].material_override = preview_mat
 	if walls.has("right") and walls["right"]:
 		walls["right"].material_override = preview_mat
+	if target_parent:
+		if target_parent.is_node_ready():
+			target_parent.add_child(holder)
+		else:
+			target_parent.add_child.call_deferred(holder)
+	else:
+		add_child(holder)
 
 func _add_preview_segment(parent: Node3D, a: Vector3, b: Vector3) -> void:
 	var length := a.distance_to(b)

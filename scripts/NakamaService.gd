@@ -7,6 +7,8 @@ var client : NakamaClient
 var session : NakamaSession
 var socket : NakamaSocket
 var metadata := {}
+var offline_mode := false
+var offline_user_id := "local-racer"
 const DEVICE_ID_FILE := "user://device_id.txt"
 
 signal socket_connected
@@ -17,9 +19,16 @@ func _ready() -> void:
 	client = Nakama.create_client(Config.NAKAMA_SERVER_KEY, Config.get_host(), Config.get_port(), Config.get_scheme())
 
 func ensure_connected() -> void:
+	if offline_mode:
+		return
+	if _should_force_offline():
+		_enter_offline_mode("Using local fallback for automated capture.")
+		return
 	if session and session.is_expired() == false and socket and socket.is_connected_to_host():
 		return
 	await _authenticate()
+	if offline_mode:
+		return
 	await _connect_socket()
 
 func _authenticate() -> void:
@@ -31,8 +40,13 @@ func _authenticate() -> void:
 			session = result
 			return
 		retries += 1
+		if Config.LOCAL_FALLBACK_ENABLED:
+			_enter_offline_mode("Authentication failed; using local fallback.")
+			return
 		await get_tree().create_timer(RETRY_DELAY * retries).timeout
 	push_error("Failed to authenticate with Nakama after retries.")
+	if Config.LOCAL_FALLBACK_ENABLED:
+		_enter_offline_mode("Authentication retries exhausted; using local fallback.")
 
 func _connect_socket() -> void:
 	socket = Nakama.create_socket_from(client)
@@ -44,8 +58,13 @@ func _connect_socket() -> void:
 		if result is NakamaAsyncResult and result.is_exception() == false:
 			return
 		retries += 1
+		if Config.LOCAL_FALLBACK_ENABLED:
+			_enter_offline_mode("Socket connection failed; using local fallback.")
+			return
 		await get_tree().create_timer(RETRY_DELAY * retries).timeout
 	push_error("Failed to connect Nakama socket after retries.")
+	if Config.LOCAL_FALLBACK_ENABLED:
+		_enter_offline_mode("Socket retries exhausted; using local fallback.")
 
 func _get_device_id() -> String:
 	if not Engine.has_singleton("OS"):
@@ -68,6 +87,8 @@ func _get_device_id() -> String:
 	return device_id
 
 func call_rpc(name:String, payload:Dictionary) -> Dictionary:
+	if offline_mode:
+		return _offline_rpc(name, payload)
 	payload["game_id"] = Config.GAME_ID
 	payload["game_version"] = Config.GAME_VERSION
 	var res = await client.rpc_async(session, name, JSON.stringify(payload))
@@ -83,9 +104,13 @@ func call_rpc(name:String, payload:Dictionary) -> Dictionary:
 	return {}
 
 func join_match(match_id:String) -> NakamaRTAPI.Match:
+	if offline_mode:
+		return null
 	return await socket.join_match_async(match_id)
 
 func leave_match(match_id:String) -> void:
+	if offline_mode:
+		return
 	if socket:
 		await socket.leave_match_async(match_id)
 
@@ -94,3 +119,73 @@ func set_meta_value(key:String, value) -> void:
 
 func get_meta_value(key:String, default_value=null):
 	return metadata.get(key, default_value)
+
+func get_user_id() -> String:
+	if offline_mode:
+		return offline_user_id
+	if session:
+		return session.user_id
+	return ""
+
+func is_online_socket_ready() -> bool:
+	return not offline_mode and socket != null and socket.is_connected_to_host()
+
+func _enter_offline_mode(reason: String) -> void:
+	if offline_mode:
+		return
+	offline_mode = true
+	offline_user_id = "local-%s" % _get_device_id().substr(0, 8)
+	push_warning(reason)
+
+func _offline_rpc(name: String, payload: Dictionary) -> Dictionary:
+	match name:
+		"lobby_join_or_create":
+			var track := _offline_track_recipe()
+			return {
+				"match_id": "offline-lobby",
+				"race_match_id": "offline-race",
+				"room_code": "LOCAL",
+				"players": ["You"],
+				"track": track
+			}
+		_:
+			return {}
+
+func _offline_track_recipe() -> Dictionary:
+	return {
+		"id": "offline-serpentine",
+		"name": "Local Serpentine",
+		"laps": Config.LAPS,
+		"road_width": 12.0,
+		"wall_left": true,
+		"wall_right": true,
+		"ground": {"size": [500, 0.2, 500], "color": [0.16, 0.18, 0.21]},
+		"spawn_points": [
+			[-120, 0.6, -150, 0],
+			[-115, 0.6, -155, 0],
+			[-110, 0.6, -160, 0]
+		],
+		"waypoints": [
+			[-120, 0.5, -161.48889],
+			[-120, 0.5, 20],
+			[-20, 0.5, 120],
+			[180, 0.5, 20],
+			[180, 0.5, -160],
+			[60, 0.5, -200]
+		]
+	}
+
+func _should_force_offline() -> bool:
+	if not Config.LOCAL_FALLBACK_ENABLED:
+		return false
+	if OS.has_feature("debug") and Config.get_host() == Config.NAKAMA_HOST:
+		return true
+	for arg in OS.get_cmdline_args():
+		var arg_text := str(arg)
+		if arg_text.find("--write-movie") >= 0 or arg_text.find("ScenarioDriver.gd") >= 0:
+			return true
+	for arg in OS.get_cmdline_user_args():
+		var arg_text := str(arg)
+		if arg_text.find("--write-movie") >= 0 or arg_text.find("ScenarioDriver.gd") >= 0:
+			return true
+	return false
