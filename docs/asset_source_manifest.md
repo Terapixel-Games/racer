@@ -30,9 +30,9 @@ Counts below exclude Godot `.import` sidecars.
 | Kenney `marble_kit` | 11 | marbles, ramps, funnel, curves, bumps |
 | Kenney audio | 27 | UI, digital powerups, foley, impacts |
 | Meshy GLBs | 24 | 8 racers, 8 racers-in-karts, 8 landmark sets |
-| Canva audio | 27 | Jacks deploy, jacks hit, bubble pop, invincibility start/end, signature charge/activate, boost burst, drift release, marble fire/hit, item pickup/roulette, kart bump, wall scrape, heavy landing, countdown tick/go, UI confirm/back/select, lobby ready, results reveal, victory/lose stingers, attic creak, and attic prank squeak sound effects |
+| Canva audio | 28 | Jacks deploy, jacks hit, bubble pop, invincibility start/end, signature charge/activate, boost burst, drift release, marble fire/hit, item pickup/roulette, kart bump, wall scrape, heavy landing, countdown tick/go, UI confirm/back/select, lobby ready, results reveal, victory/lose stingers, attic creak, attic prank squeak, and bedroom plush thump sound effects |
 
-Total sourced non-import files: 197.
+Total sourced non-import files: 198.
 
 ## Canva Audio Layout
 
@@ -65,6 +65,7 @@ Total sourced non-import files: 197.
 | `assets/source/audio/canva/ui/results/lose_stinger_canva_01.wav` | `C:\Users\john_\Downloads\lose_stinger_canva_01.mp4` | Mono 44.1 kHz PCM WAV | Lose stinger sound |
 | `assets/source/audio/canva/tracks/attic/attic_creak_canva_01.mp3` | `C:\Users\john_\Downloads\attic_creak_canva_01.mp3` | Stereo 48 kHz MP3 | Attic creak track accent |
 | `assets/source/audio/canva/tracks/attic/attic_prank_squeak_canva_01.wav` | `C:\Users\john_\Downloads\attic_prank_squeak_canva_01.mp4` | Mono 44.1 kHz PCM WAV | Attic prank squeak track accent |
+| `assets/source/audio/canva/tracks/bedroom/bedroom_plush_thump_canva_01.wav` | `C:\Users\john_\Downloads\bedroom_plush_thump_canva_01.mp4` | Mono 44.1 kHz PCM WAV | Bedroom plush thump track accent |
 
 ## Meshy Layout
 
@@ -93,7 +94,7 @@ Task IDs remain recorded in `docs/meshy_batches/2026-04-27-character-track-batch
 - Representative Kenney source paths were checked before copying.
 - Kenney source pack license files were copied with each sourced pack.
 - Meshy downloads used the GLB format specified by the inventory.
-- The Canva jacks deploy, jacks hit, bubble pop, invincibility start/end, signature charge/activate, boost burst, drift release, marble fire/hit, item pickup/roulette, kart bump, wall scrape, heavy landing, countdown tick/go, UI confirm/back/select, lobby ready, results reveal, victory/lose stinger, and attic prank squeak MP4s were converted to mono 44.1 kHz PCM WAV source files for Godot import.
+- The Canva jacks deploy, jacks hit, bubble pop, invincibility start/end, signature charge/activate, boost burst, drift release, marble fire/hit, item pickup/roulette, kart bump, wall scrape, heavy landing, countdown tick/go, UI confirm/back/select, lobby ready, results reveal, victory/lose stinger, attic prank squeak, and bedroom plush thump MP4s were converted to mono 44.1 kHz PCM WAV source files for Godot import.
 - The Canva attic creak export was kept as MP3 by request and copied without transcoding.
 - Git LFS is configured for `*.glb`, `*.png`, and `*.jpg` in `.gitattributes`; the sourced large binary files are intended to be stored through LFS.
 - Godot generated `.import` sidecars for many sourced assets while the project/editor was active. These sidecars are included with the sourced files for import reproducibility.
