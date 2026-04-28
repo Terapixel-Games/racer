@@ -7,13 +7,15 @@ func test_kitchen_definition_validates() -> void:
 	var definition := TrackCatalog.get_definition("kitchen")
 	assert_true(definition != null, "Kitchen definition should load")
 	assert_equal(definition.validate(), [], "Kitchen definition should be valid")
-	assert_equal(definition.route_points.size(), 35, "Kitchen should use the image-matched countertop raceway route")
-	assert_equal(definition.checkpoint_indices, [0, 8, 16, 22, 27, 31], "Kitchen checkpoints should follow the image-matched route")
+	assert_equal(definition.route_points.size(), 26, "Kitchen should use a clean non-overlapping countertop raceway route")
+	assert_equal(definition.checkpoint_indices, [0, 6, 13, 17, 21, 24], "Kitchen checkpoints should follow the non-overlapping route")
 	assert_equal(definition.item_sockets.size(), 10, "Kitchen should expose 10 item sockets for the longer track")
 	assert_equal(definition.hazard_sockets.size(), 8, "Kitchen should expose 8 hazard sockets")
 	assert_equal(definition.reset_mode, "instant_pop", "Kitchen should use instant pop-back resets")
 	assert_equal(definition.out_of_bounds_y, 1.5, "Kitchen floor drop should be out of bounds")
 	assert_equal(definition.shortcut_gates.size(), 1, "Kitchen should expose one table-jump shortcut")
+	assert_true(_route_height_range(definition.route_points) > 0.7, "Kitchen route should include visible height changes")
+	assert_true(_route_has_no_self_intersections(definition.route_points, definition.closed_loop), "Kitchen route centerline should not overlap itself")
 
 func test_validation_rejects_missing_route() -> void:
 	var definition := _base_definition()
@@ -73,3 +75,44 @@ func _has_error(errors: Array[String], needle: String) -> bool:
 		if error.to_lower().contains(needle.to_lower()):
 			return true
 	return false
+
+func _route_height_range(route_points: Array[Vector3]) -> float:
+	var min_y := INF
+	var max_y := -INF
+	for point in route_points:
+		min_y = minf(min_y, point.y)
+		max_y = maxf(max_y, point.y)
+	return max_y - min_y
+
+func _route_has_no_self_intersections(route_points: Array[Vector3], closed_loop: bool) -> bool:
+	var segment_count := route_points.size() if closed_loop else route_points.size() - 1
+	for i in range(segment_count):
+		var a := Vector2(route_points[i].x, route_points[i].z)
+		var b := Vector2(route_points[(i + 1) % route_points.size()].x, route_points[(i + 1) % route_points.size()].z)
+		for j in range(i + 1, segment_count):
+			if abs(i - j) <= 1:
+				continue
+			if closed_loop and i == 0 and j == segment_count - 1:
+				continue
+			var c := Vector2(route_points[j].x, route_points[j].z)
+			var d := Vector2(route_points[(j + 1) % route_points.size()].x, route_points[(j + 1) % route_points.size()].z)
+			if _segments_intersect(a, b, c, d):
+				return false
+	return true
+
+func _segments_intersect(a: Vector2, b: Vector2, c: Vector2, d: Vector2) -> bool:
+	var o1 := _orientation(a, b, c)
+	var o2 := _orientation(a, b, d)
+	var o3 := _orientation(c, d, a)
+	var o4 := _orientation(c, d, b)
+	if o1 * o2 < 0.0 and o3 * o4 < 0.0:
+		return true
+	return _point_on_segment(a, b, c) or _point_on_segment(a, b, d) or _point_on_segment(c, d, a) or _point_on_segment(c, d, b)
+
+func _orientation(a: Vector2, b: Vector2, c: Vector2) -> float:
+	return (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x)
+
+func _point_on_segment(a: Vector2, b: Vector2, point: Vector2) -> bool:
+	if absf(_orientation(a, b, point)) > 0.001:
+		return false
+	return point.x >= minf(a.x, b.x) - 0.001 and point.x <= maxf(a.x, b.x) + 0.001 and point.y >= minf(a.y, b.y) - 0.001 and point.y <= maxf(a.y, b.y) + 0.001

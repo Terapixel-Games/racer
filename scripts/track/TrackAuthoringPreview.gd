@@ -3,6 +3,7 @@ extends Node3D
 class_name TrackAuthoringPreview
 
 const RoadMeshScript = preload("res://scripts/RoadMesh.gd")
+const TrackRibbonMesh = preload("res://scripts/track/TrackRibbonMesh.gd")
 const TrackWalls = preload("res://scripts/TrackWalls.gd")
 
 const PREVIEW_ROOT_NAME := "EditorTrackPreview"
@@ -43,6 +44,14 @@ const PREVIEW_ROOT_NAME := "EditorTrackPreview"
 	set(value):
 		road_y_offset = value
 		_queue_preview_refresh()
+@export var track_body_bottom_y := 2.82:
+	set(value):
+		track_body_bottom_y = value
+		_queue_preview_refresh()
+@export var track_body_color := Color(0.08, 0.08, 0.1, 0.95):
+	set(value):
+		track_body_color = value
+		_queue_preview_refresh()
 
 var _last_preview_signature := ""
 
@@ -74,6 +83,7 @@ func refresh_preview() -> void:
 	add_child(preview_root)
 
 	_add_ground_preview(preview_root)
+	_add_track_body_preview(preview_root, route_points)
 	_add_road_preview(preview_root, route_points)
 	_add_wall_preview(preview_root, route_points)
 	_add_marker_previews(preview_root)
@@ -91,6 +101,13 @@ func _add_ground_preview(parent: Node3D) -> void:
 	ground.transform.origin = Vector3(0.0, ground_y, 0.0)
 	ground.material_override = _material(Color(0.76, 0.68, 0.55, 0.3), true)
 	parent.add_child(ground)
+
+func _add_track_body_preview(parent: Node3D, route_points: Array[Vector3]) -> void:
+	var body := MeshInstance3D.new()
+	body.name = "PreviewTrackBody"
+	body.mesh = TrackRibbonMesh.build_slab_mesh(route_points, road_width, track_body_bottom_y, closed_loop)
+	body.material_override = _material(track_body_color, true)
+	parent.add_child(body)
 
 func _add_road_preview(parent: Node3D, route_points: Array[Vector3]) -> void:
 	var road := RoadMeshScript.new() as MeshInstance3D
@@ -179,6 +196,8 @@ func _preview_signature() -> String:
 		str(ground_size),
 		str(ground_y),
 		str(road_y_offset),
+		str(track_body_bottom_y),
+		str(track_body_color),
 	]
 	for holder_name in ["RoutePoints", "SpawnPoints", "Checkpoints", "ItemSockets", "HazardSockets", "ShortcutGates"]:
 		parts.append(holder_name)
