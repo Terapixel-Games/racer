@@ -39,7 +39,7 @@ func test_rexx_profile_matches_planned_balance() -> void:
 	assert_equal(profile["home_course"], "Sandbox", "Rexx should own Sandbox")
 	assert_true(ResourceLoader.exists(profile["portrait"]), "Rexx portrait should exist")
 	assert_true(ResourceLoader.exists(profile["racer_in_kart_model"]), "Rexx racer-in-kart model should exist")
-	assert_equal(profile["racer_in_kart_yaw_degrees"], RacerRoster.VELVA_RACER_IN_KART_YAW_DEGREES, "Rexx should use Velva's racer-in-kart yaw")
+	assert_equal(profile["racer_in_kart_yaw_degrees"], RacerRoster.FORWARD_AUTHORED_RACER_IN_KART_YAW_DEGREES, "Rexx should use the forward-authored racer-in-kart yaw")
 	assert_equal(profile["stats"]["weight"], 10, "Rexx weight should match the balance plan")
 	assert_equal(profile["stats"]["speed"], 9, "Rexx speed should match the balance plan")
 
@@ -48,7 +48,8 @@ func test_roster_normalizes_invalid_visual_selection() -> void:
 	assert_equal(RacerRoster.normalize_id("missing"), RacerRoster.DEFAULT_RACER_ID, "Unknown racer ids should fall back to the default")
 	assert_true(ResourceLoader.exists(RacerRoster.get_racer_in_kart_model_path("missing")), "Fallback racer-in-kart model should exist")
 
-func test_all_racers_share_velva_racer_in_kart_direction() -> void:
-	var velva_yaw := RacerRoster.get_racer_in_kart_yaw_degrees("Velva")
-	for racer_id in RacerRoster.select_order():
-		assert_equal(RacerRoster.get_racer_in_kart_yaw_degrees(racer_id), velva_yaw, "%s should use Velva's racer-in-kart yaw" % racer_id)
+func test_racer_in_kart_direction_groups_match_import_orientation() -> void:
+	for racer_id in ["Rexx", "Moko", "Popper", "Slammo"]:
+		assert_equal(RacerRoster.get_racer_in_kart_yaw_degrees(racer_id), RacerRoster.FORWARD_AUTHORED_RACER_IN_KART_YAW_DEGREES, "%s should use the forward-authored racer-in-kart yaw" % racer_id)
+	for racer_id in ["Tuggs", "Sir Clink", "Velva", "Dash"]:
+		assert_equal(RacerRoster.get_racer_in_kart_yaw_degrees(racer_id), RacerRoster.VELVA_RACER_IN_KART_YAW_DEGREES, "%s should use Velva's racer-in-kart yaw" % racer_id)

@@ -38,10 +38,9 @@ func test_valid_meshy_racer_model_faces_car_forward() -> void:
 		assert_true(yaw_error <= 0.1, "Meshy racer-in-kart model should be yaw-corrected to Velva's direction")
 	car.queue_free()
 
-func test_all_loaded_meshy_racer_models_share_velva_direction() -> void:
+func test_all_loaded_meshy_racer_models_use_roster_direction() -> void:
 	var car_scene := load("res://scenes/Car.tscn")
 	assert_true(car_scene is PackedScene, "Car scene should load")
-	var velva_yaw := RacerRoster.get_racer_in_kart_yaw_degrees("Velva")
 	for racer_id in RacerRoster.select_order():
 		var car := (car_scene as PackedScene).instantiate()
 		scene_tree.root.add_child(car)
@@ -51,6 +50,7 @@ func test_all_loaded_meshy_racer_models_share_velva_direction() -> void:
 			var model := car.find_child("RacerInKartModel", true, false) as Node3D
 			assert_true(model != null, "%s loaded Meshy model should exist" % racer_id)
 			if model != null:
-				var yaw_error := absf(wrapf(model.rotation_degrees.y - velva_yaw, -180.0, 180.0))
-				assert_true(yaw_error <= 0.1, "%s Meshy racer-in-kart model should match Velva's direction" % racer_id)
+				var expected_yaw := RacerRoster.get_racer_in_kart_yaw_degrees(racer_id)
+				var yaw_error := absf(wrapf(model.rotation_degrees.y - expected_yaw, -180.0, 180.0))
+				assert_true(yaw_error <= 0.1, "%s Meshy racer-in-kart model should use the roster direction" % racer_id)
 		car.queue_free()
