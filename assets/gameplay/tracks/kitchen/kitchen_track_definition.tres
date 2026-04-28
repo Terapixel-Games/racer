@@ -11,18 +11,26 @@ road_width = 12.0
 wall_height = 1.6
 wall_thickness = 0.45
 closed_loop = true
+out_of_bounds_y = 1.5
+reset_mode = "instant_pop"
 runtime_scene_path = "res://assets/gameplay/tracks/kitchen/kitchen_track.tscn"
-ground_size = Vector2(160, 140)
+ground_size = Vector2(180, 160)
 ground_color = Color(0.82, 0.86, 0.88, 1)
 ground_texture_path = "res://assets/gameplay/materials/tile/kitchen_tile_albedo.png"
 road_texture_path = "res://assets/gameplay/materials/plastic/glossy_plastic_albedo.png"
-route_points = Array[Vector3]([Vector3(0, 0.55, -54), Vector3(-42, 0.55, -42), Vector3(-64, 0.55, -8), Vector3(-46, 0.55, 36), Vector3(0, 0.55, 58), Vector3(50, 0.55, 38), Vector3(66, 0.55, -12), Vector3(42, 0.55, -48)])
-checkpoint_indices = Array[int]([0, 2, 4, 6])
+route_points = Array[Vector3]([Vector3(-28, 3, -58), Vector3(24, 3, -58), Vector3(66, 3, -42), Vector3(74, 3, -8), Vector3(58, 3, 30), Vector3(18, 3, 58), Vector3(-34, 3, 56), Vector3(-70, 3, 30), Vector3(-74, 3, -10), Vector3(-58, 3, -44)])
+checkpoint_indices = Array[int]([0, 3, 6, 8])
 lap_gate_checkpoint_index = 0
-spawn_points = Array[Vector4]([Vector4(-8.38, 0.8, -54.21, -74), Vector4(-7.01, 0.8, -49.4, -74), Vector4(-12.23, 0.8, -53.11, -74), Vector4(-10.85, 0.8, -48.3, -74), Vector4(-16.07, 0.8, -52.01, -74), Vector4(-14.7, 0.8, -47.2, -74), Vector4(-19.92, 0.8, -50.91, -74), Vector4(-18.54, 0.8, -46.1, -74)])
-item_sockets = Array[Vector4]([Vector4(-28, 0.8, -46, -60), Vector4(-62, 0.8, -20, -8), Vector4(-34, 0.8, 44, 48), Vector4(18, 0.8, 56, 110), Vector4(60, 0.8, 18, 170), Vector4(34, 0.8, -50, -110)])
-hazard_sockets = Array[Vector4]([Vector4(-52, 0.8, 8, 20), Vector4(44, 0.8, 36, -20), Vector4(54, 0.8, -30, 30), Vector4(-10, 0.8, 54, 90)])
-shortcut_gates = Array[Dictionary]([])
+spawn_points = Array[Vector4]([Vector4(-22, 3.8, -60.2, 90), Vector4(-22, 3.8, -55.8, 90), Vector4(-18, 3.8, -60.2, 90), Vector4(-18, 3.8, -55.8, 90), Vector4(-14, 3.8, -60.2, 90), Vector4(-14, 3.8, -55.8, 90), Vector4(-10, 3.8, -60.2, 90), Vector4(-10, 3.8, -55.8, 90)])
+item_sockets = Array[Vector4]([Vector4(-4, 3.8, -58, 90), Vector4(16, 3.8, -56, 90), Vector4(64, 3.8, -28, 20), Vector4(68, 3.8, 8, 170), Vector4(36, 3.8, 50, 125), Vector4(-18, 3.8, 56, -92), Vector4(-70, 3.8, 12, 180), Vector4(-52, 3.8, -42, -42)])
+hazard_sockets = Array[Vector4]([Vector4(6, 3.8, -57, 90), Vector4(70, 3.8, -10, 170), Vector4(54, 3.8, 26, 160), Vector4(-58, 3.8, 38, -130), Vector4(-72, 3.8, -6, 180), Vector4(-48, 3.8, -48, -40)])
+shortcut_gates = Array[Dictionary]([{
+"entry": [46.0, 3.0, 36.0],
+"exit": [-24.0, 3.0, 54.0],
+"id": "table_jump",
+"kind": "jump",
+"width": 8.0
+}])
 audio_ids = {
 "music": "res://assets/source/audio/suno/tracks/kitchen/kitchen_loop_suno_01.mp3",
 "clatter": "res://assets/source/audio/canva/tracks/kitchen/kitchen_clatter_canva_01.mp3",

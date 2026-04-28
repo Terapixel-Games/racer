@@ -131,6 +131,8 @@ local function ensure_track_state(state)
 	state.route_points = normalize_route_points(state.track.route_points or state.track.waypoints)
 	state.closed_loop = state.track.closed_loop ~= false
 	state.checkpoint_radius = state.track.checkpoint_radius or math.max((state.track.road_width or 12) * 0.65, 4)
+	state.out_of_bounds_y = state.track.out_of_bounds_y or -100
+	state.reset_mode = state.track.reset_mode or ""
 	if not state.track.checkpoints or #state.track.checkpoints == 0 then
 		state.track.checkpoints = {}
 		for i, _ in ipairs(state.route_points) do
@@ -142,7 +144,61 @@ local function ensure_track_state(state)
 	state.route_length = state.track.route_length or route_length(state.route_points, state.closed_loop)
 end
 
-local function update_progress(racer, state)
+local function route_yaw_for_index(state, route_index)
+	ensure_track_state(state)
+	if #state.route_points < 2 then return 0 end
+	local index = math.max(0, math.min(route_index or 0, #state.route_points - 1))
+	local current = state.route_points[index + 1]
+	local next_point = state.route_points[((index + 1) % #state.route_points) + 1]
+	return math.atan2(next_point.x - current.x, next_point.z - current.z)
+end
+
+local function reset_pose_for_racer(racer, state)
+	ensure_track_state(state)
+	if racer.last_safe_checkpoint ~= nil then
+		local checkpoint = state.track.checkpoints[(racer.last_safe_checkpoint or 0) + 1]
+		if checkpoint then
+			local pos = checkpoint_position(state, checkpoint)
+			return {
+				x = pos.x,
+				y = pos.y + 1.0,
+				z = pos.z,
+				yaw = route_yaw_for_index(state, checkpoint.route_index or 0),
+			}
+		end
+	end
+	local spawn = racer.spawn or state.spawns[1] or {x = 0, y = 0.8, z = 0, yaw = 0}
+	return {x = spawn.x or 0, y = spawn.y or 0.8, z = spawn.z or 0, yaw = spawn.yaw or 0}
+end
+
+local update_progress
+
+local function reset_if_out_of_bounds(racer, state, dispatcher)
+	if racer.finished or racer.wasted then
+		return false
+	end
+	ensure_track_state(state)
+	if state.reset_mode ~= "instant_pop" then
+		return false
+	end
+	if (racer.pos.y or 0) >= state.out_of_bounds_y then
+		return false
+	end
+	local pose = reset_pose_for_racer(racer, state)
+	racer.pos = {x = pose.x, y = pose.y, z = pose.z}
+	racer.rot = {0, pose.yaw or 0, 0}
+	racer.input = {throttle = 0, brake = 0, steer = 0, drift = false, boost = false}
+	racer.behind_timer = 0
+	update_progress(racer, state)
+	dispatcher.broadcast_message(OP.RACE_RESET, nk.json_encode({
+		player_id = racer.id,
+		position = {racer.pos.x, racer.pos.y, racer.pos.z},
+		rotation = racer.rot,
+	}))
+	return true
+end
+
+update_progress = function(racer, state)
 	ensure_track_state(state)
 	local projection = project_position(state.route_points, racer.pos, state.closed_loop)
 	local route_ratio = math.max(0, math.min(0.999, projection.route_ratio or 0))
@@ -169,6 +225,7 @@ local function advance_checkpoints(racer, state)
 	if expected == state.lap_gate_checkpoint_index then
 		racer.lap_gate = true
 	end
+	racer.last_safe_checkpoint = expected
 	racer.checkpoint = (expected + 1) % state.checkpoints
 	if racer.checkpoint == 0 and racer.lap_gate then
 		racer.lap = racer.lap + 1
@@ -202,6 +259,8 @@ local function new_racer(id, is_ai, spawn)
 		input = {throttle = 0, brake = 0, steer = 0, drift = false, boost = false},
 		progress = 0,
 		waypoint = 1,
+		spawn = spawn,
+		last_safe_checkpoint = nil,
 	}
 end
 
@@ -230,7 +289,7 @@ local function find_racer(state, user_id)
 	return nil
 end
 
-local function apply_input(racer, delta, state)
+local function apply_input(racer, delta, state, dispatcher)
 	if racer.finished or racer.wasted then
 		return
 	end
@@ -250,11 +309,14 @@ local function apply_input(racer, delta, state)
 			input.rotation[3] or 0,
 		}
 	end
+	if reset_if_out_of_bounds(racer, state, dispatcher) then
+		return
+	end
 	advance_checkpoints(racer, state)
 	update_progress(racer, state)
 end
 
-local function ai_tick(racer, delta, state)
+local function ai_tick(racer, delta, state, dispatcher)
 	if racer.finished or racer.wasted then
 		return
 	end
@@ -290,7 +352,10 @@ local function ai_tick(racer, delta, state)
 	local move_speed = 24
 	racer.pos.x = racer.pos.x + dx * move_speed * delta
 	racer.pos.z = racer.pos.z + dz * move_speed * delta
-	racer.pos.y = 0.8
+	racer.pos.y = target.y or racer.pos.y
+	if reset_if_out_of_bounds(racer, state, dispatcher) then
+		return
+	end
 	advance_checkpoints(racer, state)
 	update_progress(racer, state)
 end
@@ -420,9 +485,9 @@ function M.match_loop(context, dispatcher, tick, state, messages)
 
 	for _, r in ipairs(state.racers) do
 		if r.is_ai then
-			ai_tick(r, delta, state)
+			ai_tick(r, delta, state, dispatcher)
 		else
-			apply_input(r, delta, state)
+			apply_input(r, delta, state, dispatcher)
 		end
 	end
 

@@ -10,6 +10,8 @@ const TrackProgressRules = preload("res://scripts/track/TrackProgressRules.gd")
 @export var wall_height := 1.6
 @export var wall_thickness := 0.45
 @export var closed_loop := true
+@export var out_of_bounds_y := -50.0
+@export var reset_mode := ""
 @export var runtime_scene_path := ""
 @export var ground_size := Vector2(160.0, 140.0)
 @export var ground_color := Color(0.82, 0.86, 0.88)
@@ -69,6 +71,8 @@ func to_metadata() -> Dictionary:
 		"wall_height": wall_height,
 		"wall_thickness": wall_thickness,
 		"closed_loop": closed_loop,
+		"out_of_bounds_y": out_of_bounds_y,
+		"reset_mode": reset_mode,
 		"route_points": _vec3_array_to_json(route_points),
 		"route_length": TrackProgressRules.route_length(route_points, closed_loop),
 		"checkpoint_radius": road_width * 0.65,
@@ -77,7 +81,7 @@ func to_metadata() -> Dictionary:
 		"spawn_points": _socket_array_to_json(spawn_points),
 		"item_sockets": _socket_array_to_json(item_sockets),
 		"hazard_sockets": _socket_array_to_json(hazard_sockets),
-		"shortcut_gates": shortcut_gates,
+		"shortcut_gates": _shortcut_gates_to_json(shortcut_gates),
 		"audio_ids": audio_ids,
 		"runtime_scene_path": runtime_scene_path,
 	}
@@ -139,6 +143,27 @@ func _socket_array_to_json(sockets: Array[Vector4]) -> Array:
 			"yaw_degrees": socket.w,
 		})
 	return out
+
+func _shortcut_gates_to_json(gates: Array[Dictionary]) -> Array:
+	var out: Array = []
+	for gate in gates:
+		var entry = gate.get("entry", [])
+		var exit = gate.get("exit", [])
+		out.append({
+			"id": str(gate.get("id", "")),
+			"kind": str(gate.get("kind", "shortcut")),
+			"entry": _point_value_to_array(entry),
+			"exit": _point_value_to_array(exit),
+			"width": float(gate.get("width", 0.0)),
+		})
+	return out
+
+func _point_value_to_array(value: Variant) -> Array:
+	if value is Vector3:
+		return _vec3_to_array(value)
+	if value is Array and value.size() >= 3:
+		return [float(value[0]), float(value[1]), float(value[2])]
+	return [0.0, 0.0, 0.0]
 
 func _vec3_to_array(point: Vector3) -> Array:
 	return [point.x, point.y, point.z]

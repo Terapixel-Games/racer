@@ -27,6 +27,7 @@ static func build(definition: TrackDefinition) -> Dictionary:
 	_build_checkpoints(root, definition)
 	_build_sockets(root, "ItemSockets", definition.item_sockets)
 	_build_sockets(root, "HazardSockets", definition.hazard_sockets)
+	_build_shortcuts(root, definition)
 	_build_audio_zones(root)
 	_build_dressing(root, definition)
 
@@ -66,21 +67,23 @@ static func _build_environment(root: Node3D) -> void:
 	root.add_child(light)
 
 static func _build_ground(root: Node3D, definition: TrackDefinition) -> void:
-	var ground := StaticBody3D.new()
-	ground.name = "Ground"
-	var shape_node := CollisionShape3D.new()
-	var shape := BoxShape3D.new()
-	shape.size = Vector3(definition.ground_size.x, 0.2, definition.ground_size.y)
-	shape_node.shape = shape
-	ground.add_child(shape_node)
-	root.add_child(ground)
+	var floor_is_out_of_bounds := definition.reset_mode == "instant_pop"
+	if not floor_is_out_of_bounds:
+		var ground := StaticBody3D.new()
+		ground.name = "Ground"
+		var shape_node := CollisionShape3D.new()
+		var shape := BoxShape3D.new()
+		shape.size = Vector3(definition.ground_size.x, 0.2, definition.ground_size.y)
+		shape_node.shape = shape
+		ground.add_child(shape_node)
+		root.add_child(ground)
 
 	var visual := MeshInstance3D.new()
-	visual.name = "GroundVisual"
+	visual.name = "FloorVisual" if floor_is_out_of_bounds else "GroundVisual"
 	var plane := PlaneMesh.new()
 	plane.size = definition.ground_size
 	visual.mesh = plane
-	visual.transform.origin = Vector3(0, -0.1, 0)
+	visual.transform.origin = Vector3(0, 0.0 if floor_is_out_of_bounds else -0.1, 0)
 	var material := StandardMaterial3D.new()
 	material.albedo_color = definition.ground_color
 	material.roughness = 0.72
@@ -195,6 +198,60 @@ static func _build_sockets(root: Node3D, holder_name: String, sockets: Array[Vec
 		marker.transform = _transform_from_socket(sockets[i])
 		holder.add_child(marker)
 
+static func _build_shortcuts(root: Node3D, definition: TrackDefinition) -> void:
+	var holder := Node3D.new()
+	holder.name = "ShortcutGates"
+	root.add_child(holder)
+	for gate in definition.shortcut_gates:
+		var id := str(gate.get("id", "shortcut"))
+		var entry := _point_from_gate_value(gate.get("entry", []))
+		var exit := _point_from_gate_value(gate.get("exit", []))
+		var width := float(gate.get("width", definition.road_width * 0.55))
+		var entry_marker := Marker3D.new()
+		entry_marker.name = "%s_Entry" % id
+		entry_marker.transform.origin = entry
+		holder.add_child(entry_marker)
+		var exit_marker := Marker3D.new()
+		exit_marker.name = "%s_Exit" % id
+		exit_marker.transform.origin = exit
+		holder.add_child(exit_marker)
+		if definition.id == "kitchen" and id == "table_jump":
+			_build_table_jump_shortcut(root, entry, exit, width)
+
+static func _build_table_jump_shortcut(root: Node3D, entry: Vector3, exit: Vector3, width: float) -> void:
+	var holder := Node3D.new()
+	holder.name = "ShortcutSurface"
+	root.add_child(holder)
+	var midpoint := entry.lerp(exit, 0.5)
+	var apex := midpoint + Vector3.UP * 1.15
+	_add_shortcut_box(holder, "TableJumpRampUp", entry.lerp(apex, 0.5), entry, apex, width, 0.32, Color(0.86, 0.32, 0.18))
+	_add_shortcut_box(holder, "TableJumpRampDown", apex.lerp(exit, 0.5), apex, exit, width, 0.32, Color(0.86, 0.32, 0.18))
+	_add_shortcut_box(holder, "TableJumpDeck", apex, entry.lerp(exit, 0.42) + Vector3.UP * 1.15, entry.lerp(exit, 0.58) + Vector3.UP * 1.15, width, 0.28, Color(0.95, 0.72, 0.28))
+
+static func _add_shortcut_box(parent: Node3D, node_name: String, origin: Vector3, a: Vector3, b: Vector3, width: float, thickness: float, color: Color) -> void:
+	var body := StaticBody3D.new()
+	body.name = node_name
+	var direction := b - a
+	var length: float = maxf(direction.length(), 0.1)
+	direction = direction.normalized()
+	var basis := Basis().looking_at(direction, Vector3.UP).orthonormalized()
+	body.transform = Transform3D(basis, origin)
+	var shape_node := CollisionShape3D.new()
+	var shape := BoxShape3D.new()
+	shape.size = Vector3(width, thickness, length)
+	shape_node.shape = shape
+	body.add_child(shape_node)
+	var mesh := MeshInstance3D.new()
+	var box := BoxMesh.new()
+	box.size = shape.size
+	mesh.mesh = box
+	var material := StandardMaterial3D.new()
+	material.albedo_color = color
+	material.roughness = 0.55
+	mesh.material_override = material
+	body.add_child(mesh)
+	parent.add_child(body)
+
 static func _build_audio_zones(root: Node3D) -> void:
 	var holder := Node3D.new()
 	holder.name = "AudioZones"
@@ -206,11 +263,13 @@ static func _build_dressing(root: Node3D, definition: TrackDefinition) -> void:
 	root.add_child(holder)
 	if definition.id != "kitchen":
 		return
-	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/table.glb", Vector3(0, 0, 34), 0.0, Vector3(5, 5, 5), "KitchenTable")
-	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenSink.glb", Vector3(-64, 0, -8), 90.0, Vector3(5, 5, 5), "KitchenSink")
-	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cooking-spoon.glb", Vector3(42, 0.15, 22), -20.0, Vector3(7, 7, 7), "SpoonHazard")
-	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cutting-board.glb", Vector3(30, 0.1, -42), 18.0, Vector3(6, 6, 6), "CuttingBoard")
-	_add_scene_instance(holder, "res://assets/source/meshy/2026-04-27-character-track-batch/sir_clink/landmark_set.glb", Vector3(-34, 0, 40), 35.0, Vector3(1.8, 1.8, 1.8), "SirClinkLandmark")
+	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/table.glb", Vector3(4, 2.25, 45), 8.0, Vector3(4.4, 4.4, 4.4), "KitchenTable")
+	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenSink.glb", Vector3(-78, 2.8, -10), 90.0, Vector3(4.5, 4.5, 4.5), "KitchenSink")
+	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenCabinet.glb", Vector3(70, 2.6, -8), -90.0, Vector3(4.2, 4.2, 4.2), "OvenCabinet")
+	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cooking-spoon.glb", Vector3(58, 3.15, 24), 160.0, Vector3(6, 6, 6), "SpoonHazard")
+	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cutting-board.glb", Vector3(-50, 3.05, -46), -40.0, Vector3(5, 5, 5), "CuttingBoard")
+	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cup.glb", Vector3(8, 3.05, -57), 90.0, Vector3(5, 5, 5), "FrontCupHazard")
+	_add_scene_instance(holder, "res://assets/source/meshy/2026-04-27-character-track-batch/sir_clink/landmark_set.glb", Vector3(-32, 2.6, 48), 35.0, Vector3(1.7, 1.7, 1.7), "SirClinkLandmark")
 
 static func _add_scene_instance(parent: Node3D, path: String, position: Vector3, yaw_degrees: float, scale: Vector3, node_name: String) -> void:
 	var packed := load(path)
@@ -247,3 +306,10 @@ static func _transform_from_socket(socket: Vector4) -> Transform3D:
 	var position := Vector3(socket.x, socket.y, socket.z)
 	var basis := Basis(Vector3.UP, deg_to_rad(socket.w))
 	return Transform3D(basis, position)
+
+static func _point_from_gate_value(value: Variant) -> Vector3:
+	if value is Vector3:
+		return value
+	if value is Array and value.size() >= 3:
+		return Vector3(float(value[0]), float(value[1]), float(value[2]))
+	return Vector3.ZERO

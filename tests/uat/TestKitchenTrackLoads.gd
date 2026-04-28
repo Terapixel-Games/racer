@@ -2,6 +2,8 @@ extends "res://tests/framework/TestCase.gd"
 
 const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
 const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd")
+const RaceController = preload("res://scripts/RaceController.gd")
+const OutOfBoundsRules = preload("res://scripts/logic/OutOfBoundsRules.gd")
 
 func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	var packed := load("res://assets/gameplay/tracks/kitchen/kitchen_track.tscn")
@@ -15,6 +17,11 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/CheckpointSystem") != null, "Kitchen track should include checkpoint system")
 	assert_true(instance.get_node_or_null("BuiltTrack/SpawnPoints") != null, "Kitchen track should include spawn points")
 	assert_true(instance.get_node_or_null("BuiltTrack/ItemSockets") != null, "Kitchen track should include item sockets")
+	assert_true(instance.get_node_or_null("BuiltTrack/HazardSockets") != null, "Kitchen track should include hazard sockets")
+	assert_true(instance.get_node_or_null("BuiltTrack/ShortcutGates") != null, "Kitchen track should include shortcut gates")
+	assert_true(instance.get_node_or_null("BuiltTrack/ShortcutSurface") != null, "Kitchen track should include the table jump surface")
+	assert_true(instance.get_node_or_null("BuiltTrack/FloorVisual") != null, "Kitchen track should include a non-colliding floor visual below the counter")
+	assert_true(instance.get_node_or_null("BuiltTrack/Ground") == null, "Kitchen floor should not be a colliding ground plane")
 	instance.queue_free()
 
 func test_car_can_be_placed_on_kitchen_start_grid() -> void:
@@ -36,6 +43,21 @@ func test_car_can_be_placed_on_kitchen_start_grid() -> void:
 	assert_true(car.global_transform.origin.distance_to((spawns[0] as Transform3D).origin) < 0.01, "Car should be placeable on the Kitchen start grid")
 	car.queue_free()
 	track_node.queue_free()
+
+func test_kitchen_out_of_bounds_instant_pop_reset() -> void:
+	var definition := TrackCatalog.get_definition("kitchen")
+	assert_true(OutOfBoundsRules.should_reset(0.2, definition.out_of_bounds_y, definition.reset_mode), "Dropping to the floor should trigger Kitchen reset")
+	var car_scene := load("res://scenes/Car.tscn")
+	assert_true(car_scene is PackedScene, "Car scene should load")
+	var car := (car_scene as PackedScene).instantiate() as CharacterBody3D
+	scene_tree.root.add_child(car)
+	car.global_transform.origin = Vector3(0, 0.2, 0)
+	car.velocity = Vector3(4, -8, 2)
+	var reset_transform := Transform3D(Basis(Vector3.UP, deg_to_rad(90.0)), Vector3(-22, 3.8, -60.2))
+	RaceController.apply_instant_reset(car, reset_transform)
+	assert_equal(car.global_transform.origin, reset_transform.origin, "Instant pop reset should move the car back to the safe transform")
+	assert_equal(car.velocity, Vector3.ZERO, "Instant pop reset should stop the car")
+	car.queue_free()
 
 func _distance_to_route_xz(point: Vector3, route_points: Array[Vector3], closed_loop: bool) -> float:
 	var best := INF

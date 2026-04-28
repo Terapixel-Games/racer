@@ -4,6 +4,7 @@ const TrackBuilder = preload("res://scripts/TrackBuilder.gd")
 const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
 const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd")
 const ItemRules = preload("res://scripts/logic/ItemRules.gd")
+const OutOfBoundsRules = preload("res://scripts/logic/OutOfBoundsRules.gd")
 
 @onready var ui_speed: Label = %SpeedLabel
 @onready var ui_lap: Label = %LapLabel
@@ -38,6 +39,10 @@ var racer_states: Dictionary = {}
 var checkpoint_points: Array = []
 var track_waypoints: Array = []
 var finish_announced: bool = false
+var track_out_of_bounds_y := -50.0
+var track_reset_mode := ""
+var local_respawn_transform := Transform3D.IDENTITY
+var has_local_respawn_transform := false
 const CAMERA_DISTANCE := 8.0
 const CAMERA_HEIGHT := 2.5
 
@@ -105,6 +110,7 @@ func _spawn_track() -> void:
 		track_laps = built.get("laps", Config.LAPS)
 		track_waypoints = built.get("waypoints", [])
 		track_checkpoint_total = int(built.get("checkpoints", 0))
+		_apply_track_reset_metadata(built.get("metadata", {}))
 		if track_checkpoint_total <= 0 and track_waypoints is Array and track_waypoints.size() > 0:
 			track_checkpoint_total = track_waypoints.size()
 		return
@@ -118,6 +124,7 @@ func _spawn_track() -> void:
 		spawn_points = built.get("spawns", [])
 		track_laps = built.get("laps", Config.LAPS)
 		track_waypoints = built.get("waypoints", [])
+		_apply_track_reset_metadata(recipe)
 		if track_waypoints is Array and track_waypoints.size() > 0:
 			track_checkpoint_total = track_waypoints.size()
 	else:
@@ -147,6 +154,7 @@ func _physics_process(delta: float) -> void:
 	while input_accum >= INPUT_INTERVAL:
 		_send_input()
 		input_accum -= INPUT_INTERVAL
+	_handle_local_out_of_bounds()
 	_tick_local_item_slot(delta)
 	_update_ui()
 	_update_camera(delta)
@@ -267,6 +275,9 @@ func _spawn_car(racer_id:String) -> CarController:
 	else:
 		spawn_xform.origin = Vector3(spawn_index * 2.0, 1.0, spawn_index * 1.5)
 	car.global_transform = _snap_to_ground(spawn_xform)
+	if racer_id == local_user_id:
+		local_respawn_transform = car.global_transform
+		has_local_respawn_transform = true
 	return car
 
 func _snap_to_ground(xform: Transform3D) -> Transform3D:
@@ -335,10 +346,10 @@ func _handle_reset(data:Dictionary) -> void:
 	var rot: Array = data.get("rotation", [0,0,0])
 	var car: CarController = cars.get(local_user_id, null)
 	if car:
-		car.global_transform.origin = Vector3(pos[0], pos[1], pos[2])
 		var basis := Basis().rotated(Vector3.RIGHT, rot[0]).rotated(Vector3.UP, rot[1]).rotated(Vector3.BACK, rot[2])
-		car.global_transform.basis = basis
-		car.velocity = Vector3.ZERO
+		apply_instant_reset(car, Transform3D(basis, Vector3(pos[0], pos[1], pos[2])))
+		local_respawn_transform = car.global_transform
+		has_local_respawn_transform = true
 
 func _handle_wasted(data:Dictionary) -> void:
 	var target: String = data.get("player_id", "")
@@ -357,7 +368,8 @@ func _handle_match_end(data:Dictionary) -> void:
 func _on_checkpoint_valid(body:Node, checkpoint_index:int, transform:Transform3D) -> void:
 	if body is CarController and cars.get(local_user_id, null) == body:
 		# Client-side hint; authoritative validation handled server-side
-		pass
+		local_respawn_transform = transform
+		has_local_respawn_transform = true
 
 func _update_ui() -> void:
 	var car : CarController = cars.get(local_user_id, null)
@@ -474,6 +486,31 @@ func _show_message(text: String) -> void:
 	ui_message.text = text
 	message_timer = MESSAGE_DURATION
 
+func _apply_track_reset_metadata(metadata: Variant) -> void:
+	if not (metadata is Dictionary):
+		return
+	var data := metadata as Dictionary
+	track_out_of_bounds_y = float(data.get("out_of_bounds_y", track_out_of_bounds_y))
+	track_reset_mode = str(data.get("reset_mode", track_reset_mode))
+
+func _handle_local_out_of_bounds() -> void:
+	var car: CarController = cars.get(local_user_id, null)
+	if car == null:
+		return
+	if not OutOfBoundsRules.should_reset(car.global_transform.origin.y, track_out_of_bounds_y, track_reset_mode):
+		return
+	var reset_transform := local_respawn_transform if has_local_respawn_transform else Transform3D.IDENTITY
+	apply_instant_reset(car, _snap_to_ground(reset_transform))
+	_show_message("Dropped! Back on the counter")
+
+static func apply_instant_reset(car: CharacterBody3D, reset_transform: Transform3D) -> void:
+	if car == null:
+		return
+	car.global_transform = reset_transform
+	car.velocity = Vector3.ZERO
+	if car.has_method("apply_network_state"):
+		car.call("apply_network_state", reset_transform.origin, reset_transform.basis)
+
 func _tick_message(delta: float) -> void:
 	if ui_message == null:
 		return
@@ -487,15 +524,15 @@ func _tick_local_item_slot(delta: float) -> void:
 	item_roll_timer = max(item_roll_timer - delta, 0.0)
 	if local_item_slot != "" or item_roll_timer > 0.0:
 		return
-	var total_racers := max(racer_states.size(), 1)
-	var position := _local_position()
+	var total_racers : int = max(racer_states.size(), 1)
+	var position : Variant = _local_position()
 	local_item_slot = ItemRules.roll_for_position(position, total_racers, item_rng)
 	item_roll_timer = 2.0
 
 func _local_position() -> int:
 	if ui_position == null:
 		return 1
-	var car_count := max(racer_states.size(), 1)
+	var car_count : int = max(racer_states.size(), 1)
 	var entries: Array = []
 	for rid in racer_states.keys():
 		var info: Dictionary = racer_states[rid]
