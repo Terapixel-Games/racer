@@ -43,6 +43,7 @@ func validate() -> Array[String]:
 	_validate_checkpoints(errors)
 	if spawn_points.size() < 8:
 		errors.append("Track must include at least 8 spawn points.")
+	_validate_spawn_points(errors)
 	if item_sockets.is_empty():
 		errors.append("Track must include at least one item socket.")
 	if lap_gate_checkpoint_index < 0 or lap_gate_checkpoint_index >= checkpoint_indices.size():
@@ -93,6 +94,36 @@ func _validate_checkpoints(errors: Array[String]) -> void:
 		if route_index <= previous:
 			errors.append("Checkpoint route indices must be strictly increasing.")
 		previous = route_index
+
+func _validate_spawn_points(errors: Array[String]) -> void:
+	if route_points.size() < 2 or road_width <= 0.0:
+		return
+	var max_distance := road_width * 0.5 + 0.1
+	for i in range(spawn_points.size()):
+		var socket := spawn_points[i]
+		var distance := _distance_to_route_xz(Vector3(socket.x, 0.0, socket.z))
+		if distance > max_distance:
+			errors.append("Spawn point %d is outside the road bounds." % i)
+
+func _distance_to_route_xz(point: Vector3) -> float:
+	var best := INF
+	var segment_count := route_points.size() if closed_loop else route_points.size() - 1
+	for i in range(segment_count):
+		var a := route_points[i]
+		var b := route_points[(i + 1) % route_points.size()]
+		best = minf(best, _distance_to_segment_xz(point, a, b))
+	return best
+
+func _distance_to_segment_xz(point: Vector3, a3: Vector3, b3: Vector3) -> float:
+	var point_2d := Vector2(point.x, point.z)
+	var a := Vector2(a3.x, a3.z)
+	var b := Vector2(b3.x, b3.z)
+	var ab := b - a
+	var length_squared := ab.length_squared()
+	if length_squared <= 0.0001:
+		return point_2d.distance_to(a)
+	var t := clampf((point_2d - a).dot(ab) / length_squared, 0.0, 1.0)
+	return point_2d.distance_to(a + ab * t)
 
 func _vec3_array_to_json(points: Array[Vector3]) -> Array:
 	var out: Array = []

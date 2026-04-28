@@ -31,28 +31,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 0.55, -48)
 [node name="SpawnPoints" type="Node3D" parent="."]
 
 [node name="Start01" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(0.275637, 0, -0.961262, 0, 1, 0, 0.961262, 0, 0.275637, -4, 0.8, -61)
+transform = Transform3D(0.275637, 0, -0.961262, 0, 1, 0, 0.961262, 0, 0.275637, -8.38, 0.8, -54.21)
 
 [node name="Start02" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(0.275637, 0, -0.961262, 0, 1, 0, 0.961262, 0, 0.275637, 1, 0.8, -63)
+transform = Transform3D(0.275637, 0, -0.961262, 0, 1, 0, 0.961262, 0, 0.275637, -7.01, 0.8, -49.4)
 
 [node name="Start03" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(0.275637, 0, -0.961262, 0, 1, 0, 0.961262, 0, 0.275637, -8, 0.8, -66)
+transform = Transform3D(0.275637, 0, -0.961262, 0, 1, 0, 0.961262, 0, 0.275637, -12.23, 0.8, -53.11)
 
 [node name="Start04" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(0.275637, 0, -0.961262, 0, 1, 0, 0.961262, 0, 0.275637, -3, 0.8, -68)
+transform = Transform3D(0.275637, 0, -0.961262, 0, 1, 0, 0.961262, 0, 0.275637, -10.85, 0.8, -48.3)
 
 [node name="Start05" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(0.275637, 0, -0.961262, 0, 1, 0, 0.961262, 0, 0.275637, -12, 0.8, -71)
+transform = Transform3D(0.275637, 0, -0.961262, 0, 1, 0, 0.961262, 0, 0.275637, -16.07, 0.8, -52.01)
 
 [node name="Start06" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(0.275637, 0, -0.961262, 0, 1, 0, 0.961262, 0, 0.275637, -7, 0.8, -73)
+transform = Transform3D(0.275637, 0, -0.961262, 0, 1, 0, 0.961262, 0, 0.275637, -14.7, 0.8, -47.2)
 
 [node name="Start07" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(0.275637, 0, -0.961262, 0, 1, 0, 0.961262, 0, 0.275637, -16, 0.8, -76)
+transform = Transform3D(0.275637, 0, -0.961262, 0, 1, 0, 0.961262, 0, 0.275637, -19.92, 0.8, -50.91)
 
 [node name="Start08" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(0.275637, 0, -0.961262, 0, 1, 0, 0.961262, 0, 0.275637, -11, 0.8, -78)
+transform = Transform3D(0.275637, 0, -0.961262, 0, 1, 0, 0.961262, 0, 0.275637, -18.54, 0.8, -46.1)
 
 [node name="Checkpoints" type="Node3D" parent="."]
 

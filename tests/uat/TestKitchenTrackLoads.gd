@@ -24,6 +24,10 @@ func test_car_can_be_placed_on_kitchen_start_grid() -> void:
 	scene_tree.root.add_child(track_node)
 	var spawns: Array = built.get("spawns", [])
 	assert_true(spawns.size() >= 8, "Kitchen builder should return 8 spawn transforms")
+	for spawn in spawns:
+		if spawn is Transform3D:
+			var distance := _distance_to_route_xz((spawn as Transform3D).origin, definition.route_points, definition.closed_loop)
+			assert_true(distance <= definition.road_width * 0.5 + 0.1, "Kitchen start grid should place every spawn on the road")
 	var car_scene := load("res://scenes/Car.tscn")
 	assert_true(car_scene is PackedScene, "Car scene should load")
 	var car := (car_scene as PackedScene).instantiate() as Node3D
@@ -32,3 +36,21 @@ func test_car_can_be_placed_on_kitchen_start_grid() -> void:
 	assert_true(car.global_transform.origin.distance_to((spawns[0] as Transform3D).origin) < 0.01, "Car should be placeable on the Kitchen start grid")
 	car.queue_free()
 	track_node.queue_free()
+
+func _distance_to_route_xz(point: Vector3, route_points: Array[Vector3], closed_loop: bool) -> float:
+	var best := INF
+	var segment_count := route_points.size() if closed_loop else route_points.size() - 1
+	for i in range(segment_count):
+		best = minf(best, _distance_to_segment_xz(point, route_points[i], route_points[(i + 1) % route_points.size()]))
+	return best
+
+func _distance_to_segment_xz(point: Vector3, a3: Vector3, b3: Vector3) -> float:
+	var point_2d := Vector2(point.x, point.z)
+	var a := Vector2(a3.x, a3.z)
+	var b := Vector2(b3.x, b3.z)
+	var ab := b - a
+	var length_squared := ab.length_squared()
+	if length_squared <= 0.0001:
+		return point_2d.distance_to(a)
+	var t := clampf((point_2d - a).dot(ab) / length_squared, 0.0, 1.0)
+	return point_2d.distance_to(a + ab * t)

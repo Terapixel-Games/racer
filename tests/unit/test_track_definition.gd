@@ -23,6 +23,11 @@ func test_validation_rejects_too_few_spawns() -> void:
 	definition.spawn_points = [Vector4(0, 0.8, 0, 0)]
 	assert_true(_has_error(definition.validate(), "8 spawn"), "Track must require 8 spawn points")
 
+func test_validation_rejects_off_road_spawns() -> void:
+	var definition := _base_definition()
+	definition.spawn_points[0] = Vector4(0, 0.8, -20, 0)
+	assert_true(_has_error(definition.validate(), "outside the road"), "Track must reject spawn points outside road bounds")
+
 func test_validation_rejects_non_monotonic_checkpoints() -> void:
 	var definition := _base_definition()
 	definition.checkpoint_indices = [0, 2, 1]
