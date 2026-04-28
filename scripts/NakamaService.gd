@@ -105,10 +105,10 @@ func call_rpc(name:String, payload:Dictionary) -> Dictionary:
 		return parsed_str if typeof(parsed_str) == TYPE_DICTIONARY else {}
 	return {}
 
-func join_match(match_id:String) -> NakamaRTAPI.Match:
+func join_match(match_id:String, match_metadata: Dictionary = {}) -> NakamaRTAPI.Match:
 	if offline_mode:
 		return null
-	return await socket.join_match_async(match_id)
+	return await socket.join_match_async(match_id, match_metadata)
 
 func leave_match(match_id:String) -> void:
 	if offline_mode:
@@ -143,11 +143,12 @@ func _offline_rpc(name: String, payload: Dictionary) -> Dictionary:
 	match name:
 		"lobby_join_or_create":
 			var track := _offline_track_recipe()
+			var selected_racer := str(payload.get("selected_racer_id", "Racer"))
 			return {
 				"match_id": "offline-lobby",
 				"race_match_id": "offline-race",
 				"room_code": "LOCAL",
-				"players": ["You"],
+				"players": [{"name": selected_racer, "racer_id": selected_racer}],
 				"track": track
 			}
 		_:
