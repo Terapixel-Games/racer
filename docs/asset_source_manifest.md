@@ -4,7 +4,7 @@ Date: 2026-04-27
 
 Purpose: record the first sourced asset pass derived from `docs/asset_acquisition_inventory.md`.
 
-This pass sourced local CC0 Kenney assets, downloaded the approved Meshy-6 exploratory batch as GLB files, and added the first Canva-generated sound effect exports. No ambientCG, Poly Haven, Quaternius, OpenGameArt, Suno, SFXR, or Figma exports were imported in this pass.
+This pass sourced local CC0 Kenney assets, downloaded the approved Meshy-6 exploratory batch as GLB files, and added Canva-generated sound effect exports plus the first Suno music exports. No ambientCG, Poly Haven, Quaternius, OpenGameArt, SFXR, or Figma exports were imported in this pass.
 
 ## Source Roots
 
@@ -14,6 +14,7 @@ This pass sourced local CC0 Kenney assets, downloaded the approved Meshy-6 explo
 | Kenney audio | `assets/source/kenney_audio` | Curated OGG candidates plus each pack `License.txt` |
 | Meshy batch | `assets/source/meshy/2026-04-27-character-track-batch` | 24 approved GLB downloads from the Meshy-6 batch |
 | Canva audio | `assets/source/audio/canva` | User-generated Canva AI sound effect exports; verify final Canva terms before release |
+| Suno music | `assets/source/audio/suno` | User-generated Suno music exports; verify final Suno terms before release |
 
 ## Sourced Counts
 
@@ -31,8 +32,9 @@ Counts below exclude Godot `.import` sidecars.
 | Kenney audio | 27 | UI, digital powerups, foley, impacts |
 | Meshy GLBs | 24 | 8 racers, 8 racers-in-karts, 8 landmark sets |
 | Canva audio | 42 | Jacks deploy, jacks hit, bubble pop, invincibility start/end, signature charge/activate, boost burst, drift release, marble fire/hit, item pickup/roulette, kart bump, wall scrape, heavy landing, countdown tick/go, UI confirm/back/select, lobby ready, results reveal, victory/lose stingers, attic creak, attic prank squeak, bedroom plush thump, kitchen clatter, and track identity sound effects |
+| Suno music | 9 | Main menu theme, race base loop, and 7 room-track loops; sandbox loop still outstanding |
 
-Total sourced non-import files: 212.
+Total sourced non-import files: 221.
 
 ## Canva Audio Layout
 
@@ -81,6 +83,20 @@ Total sourced non-import files: 212.
 | `assets/source/audio/canva/tracks/playground/playground_chain_swing_canva_01.mp3` | `C:\Users\john_\Downloads\playground_chain_swing_canva_01.mp3` | Mono 44.1 kHz MP3 | Playground chain swing track accent |
 | `assets/source/audio/canva/tracks/playground/playground_slide_drop_canva_01.mp3` | `C:\Users\john_\Downloads\playground_slide_drop_canva_01.mp3` | Stereo 48 kHz MP3 | Playground slide drop track accent |
 
+## Suno Music Layout
+
+| File | Original source | Format | Duration | Intended use |
+| --- | --- | --- | ---: | --- |
+| `assets/source/audio/suno/menu/main_menu_theme_suno_01.mp3` | `C:\Users\john_\Downloads\main_menu_theme_suno_01.mp3` | Stereo 48 kHz MP3 | 64.92s | Main menu music |
+| `assets/source/audio/suno/race/race_base_loop_suno_01.mp3` | `C:\Users\john_\Downloads\race_base_loop_suno_01.mp3` | Stereo 48 kHz MP3 | 22.08s | Race base loop |
+| `assets/source/audio/suno/tracks/bedroom/bedroom_loop_suno_01.mp3` | `C:\Users\john_\Downloads\bedroom_loop_suno_01.mp3` | Stereo 48 kHz MP3 | 52.92s | Bedroom track loop |
+| `assets/source/audio/suno/tracks/playroom/playroom_loop_suno_01.mp3` | `C:\Users\john_\Downloads\playroom_loop_suno_01.mp3` | Stereo 48 kHz MP3 | 44.52s | Playroom track loop |
+| `assets/source/audio/suno/tracks/glam_closet/glam_closet_loop_suno_01.mp3` | `C:\Users\john_\Downloads\glam_closet_loop_suno_01.mp3` | Stereo 48 kHz MP3 | 66.55s | Glam closet track loop |
+| `assets/source/audio/suno/tracks/garden/garden_loop_suno_01.mp3` | `C:\Users\john_\Downloads\garden_loop_suno_01.mp3` | Stereo 48 kHz MP3 | 121.15s | Garden track loop |
+| `assets/source/audio/suno/tracks/playground/playground_loop_suno_01.mp3` | `C:\Users\john_\Downloads\playground_loop_suno_01.mp3` | Stereo 48 kHz MP3 | 44.28s | Playground track loop |
+| `assets/source/audio/suno/tracks/attic/attic_loop_suno_01.mp3` | `C:\Users\john_\Downloads\attic_loop_suno_01.mp3` | Stereo 48 kHz MP3 | 73.34s | Attic track loop |
+| `assets/source/audio/suno/tracks/kitchen/kitchen_loop_suno_01.mp3` | `C:\Users\john_\Downloads\kitchen_loop_suno_01.mp3` | Stereo 48 kHz MP3 | 59.28s | Kitchen track loop |
+
 ## Meshy Layout
 
 Each racer folder contains:
@@ -110,5 +126,6 @@ Task IDs remain recorded in `docs/meshy_batches/2026-04-27-character-track-batch
 - Meshy downloads used the GLB format specified by the inventory.
 - The Canva jacks deploy, jacks hit, bubble pop, invincibility start/end, signature charge/activate, boost burst, drift release, marble fire/hit, item pickup/roulette, kart bump, wall scrape, heavy landing, countdown tick/go, UI confirm/back/select, lobby ready, results reveal, victory/lose stinger, attic prank squeak, bedroom plush thump, garden mud splat, sandbox grit slide, and kitchen utensil clink MP4s were converted to mono 44.1 kHz PCM WAV source files for Godot import.
 - The Canva attic creak, kitchen clatter, garden stone hit, playroom block crash, playroom spring ramp, glam sparkle whoosh, glam perfume puff, sandbox bucket bonk, playground chain swing, playground slide drop, kitchen sink splash, and bedroom blanket slide exports were kept as MP3 by request and copied without transcoding.
+- The Suno music exports were kept as MP3 source files and verified with ffmpeg. `sandbox_loop_suno_01.mp3` was not present in Downloads during this import pass.
 - Git LFS is configured for `*.glb`, `*.png`, and `*.jpg` in `.gitattributes`; the sourced large binary files are intended to be stored through LFS.
 - Godot generated `.import` sidecars for many sourced assets while the project/editor was active. These sidecars are included with the sourced files for import reproducibility.
