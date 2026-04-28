@@ -181,51 +181,24 @@ static func build_wall_mesh(polyline: PackedVector3Array, frames: Array, height:
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arr)
 	return mesh
 
-static func _build_collision_strip(parent: Node3D, polyline: PackedVector3Array, frames: Array, height: float, thickness: float, closed_loop: bool, phys_mat: PhysicsMaterial, side_sign: float) -> void:
-	# Build overlapping box colliders per segment so we don't expose seams from a concave mesh that can pin the car.
-	var n := polyline.size()
-	if n < 2:
+static func _add_visible_mesh_collision(parent: MeshInstance3D, phys_mat: PhysicsMaterial) -> void:
+	if parent.mesh == null:
 		return
-	var segs: int = n if closed_loop else n - 1
-	var overlap_len: float = max(thickness * 0.8, 0.25)
-	var widen: float = max(thickness * 0.4, 0.1)
-	for i in range(segs):
-		var i_next: int = (i + 1) % n
-		var a: Vector3 = polyline[i]
-		var b: Vector3 = polyline[i_next]
-		var seg_vec: Vector3 = b - a
-		var seg_len: float = seg_vec.length()
-		if seg_len < 0.01:
-			continue
-		var seg_dir: Vector3 = seg_vec / seg_len
-		var up: Vector3 = (((frames[i]["u"] as Vector3) + (frames[i_next]["u"] as Vector3)) * 0.5).normalized()
-		if up.length() < 0.2:
-			up = Vector3.UP
-		# Build outward from the segment direction so collider orientation matches the visible wall offset.
-		var outward: Vector3 = up.cross(seg_dir) * side_sign
-		if outward.length() < 1e-4:
-			outward = (((frames[i]["r"] as Vector3) + (frames[i_next]["r"] as Vector3)) * 0.5) * side_sign
-		outward = outward.normalized()
-		seg_dir = (seg_dir - up * seg_dir.dot(up)).normalized()
-
-		var body := StaticBody3D.new()
-		body.name = "CollisionStrip%02d" % i
-		body.collision_layer = 1
-		body.collision_mask = 1
-		body.physics_material_override = phys_mat
-
-		var shape := BoxShape3D.new()
-		shape.size = Vector3(thickness + widen, height + WALL_BASE_CLEARANCE * 2.0, seg_len + overlap_len * 2.0)
-		var shape_node := CollisionShape3D.new()
-		shape_node.shape = shape
-		var mid: Vector3 = (a + b) * 0.5
-		var basis := Basis(outward, up, -seg_dir).orthonormalized()
-		# Keep the collider centered on the visual wall thickness; widen only inflates the box symmetrically.
-		var origin: Vector3 = mid + outward * (thickness * 0.5) + up * (height * 0.5 + WALL_BASE_CLEARANCE)
-		body.transform = Transform3D(basis, origin)
-
-		body.add_child(shape_node)
-		parent.add_child(body)
+	var shape := parent.mesh.create_trimesh_shape()
+	if shape == null:
+		return
+	if shape is ConcavePolygonShape3D:
+		(shape as ConcavePolygonShape3D).backface_collision = true
+	var body := StaticBody3D.new()
+	body.name = "CollisionBody"
+	body.collision_layer = 1
+	body.collision_mask = 1
+	body.physics_material_override = phys_mat
+	var shape_node := CollisionShape3D.new()
+	shape_node.name = "CollisionShape3D"
+	shape_node.shape = shape
+	body.add_child(shape_node)
+	parent.add_child(body)
 
 # Main entry: builds wall nodes under parent. Returns {left, right}
 static func build_walls(parent: Node3D, points: PackedVector3Array, track_half_width: float, wall_height: float, wall_thickness: float, smooth_normals: bool, closed_loop: bool, enable_collision: bool = true) -> Dictionary:
@@ -270,8 +243,8 @@ static func build_walls(parent: Node3D, points: PackedVector3Array, track_half_w
 	parent.add_child(right_node)
 
 	if enable_collision:
-		_build_collision_strip(left_node, left_poly, frames, wall_height, wall_thickness, closed_loop, wall_phys_mat, -1.0)
-		_build_collision_strip(right_node, right_poly, frames, wall_height, wall_thickness, closed_loop, wall_phys_mat, 1.0)
+		_add_visible_mesh_collision(left_node, wall_phys_mat)
+		_add_visible_mesh_collision(right_node, wall_phys_mat)
 
 	if dbg_preview:
 		var dbg := ImmediateMesh.new()
@@ -315,4 +288,4 @@ static func generate_test_points() -> PackedVector3Array:
 	pts.append(Vector3(-20, 0, 0))
 	return pts
 
-# Walls now include their own overlapping box collision strips so cars glide along at high speeds without snagging.
+# Wall collision is built directly from the visible wall mesh so hidden collision does not protrude into the road.
