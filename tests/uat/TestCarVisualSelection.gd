@@ -54,3 +54,26 @@ func test_all_loaded_meshy_racer_models_use_roster_direction() -> void:
 				var yaw_error := absf(wrapf(model.rotation_degrees.y - expected_yaw, -180.0, 180.0))
 				assert_true(yaw_error <= 0.1, "%s Meshy racer-in-kart model should use the roster direction" % racer_id)
 		car.queue_free()
+
+func test_racer_visual_has_procedural_motion() -> void:
+	var car_scene := load("res://scenes/Car.tscn")
+	assert_true(car_scene is PackedScene, "Car scene should load")
+	var car := (car_scene as PackedScene).instantiate()
+	scene_tree.root.add_child(car)
+	var controller := car as CarController
+	assert_true(controller != null, "Car should be a CarController")
+	if controller != null:
+		var applied := controller.set_racer_visual("Sir Clink")
+		assert_true(applied, "Car should apply a racer visual before animation")
+		var root := controller.get_visual_animation_root()
+		assert_true(root != null, "Racer visual should have an animation root")
+		if root != null:
+			var start_position := root.position
+			var start_rotation := root.rotation
+			controller.controlled_locally = true
+			controller.velocity = Vector3(0, 0, 24)
+			controller.set_input({"throttle": 1.0, "brake": 0.0, "steer": 1.0, "drift": false, "boost": false, "item_use": false})
+			controller.update_visual_animation(0.1)
+			var moved := root.position.distance_to(start_position) > 0.001 or root.rotation.distance_to(start_rotation) > 0.001
+			assert_true(moved, "Racer visual should bob or lean while driving")
+	car.queue_free()

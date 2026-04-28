@@ -24,6 +24,14 @@ const PORTRAIT_BADGE_PIXEL_SIZE := 0.0024
 @export var debug_wall_logging := false
 @export var drift_charge_rate := 34.0
 @export var drift_hop_velocity := 3.4
+@export var visual_animation_enabled := true
+@export var visual_bob_height := 0.08
+@export var visual_bob_rate := 9.0
+@export var visual_turn_lean_degrees := 9.0
+@export var visual_accel_pitch_degrees := 5.0
+@export var visual_drift_wobble_degrees := 3.0
+@export var visual_landing_squash := 0.1
+@export var visual_animation_lerp := 14.0
 
 var boost_meter := 0.0
 var input_state := {"throttle": 0.0, "brake": 0.0, "steer": 0.0, "drift": false, "boost": false, "item_use": false}
@@ -41,6 +49,13 @@ var _item_boost_force := 0.0
 var _racer_visual_id := ""
 var _racer_visual_mode := ""
 var _active_visual_model: Node3D = null
+var _visual_anim_time := 0.0
+var _visual_last_position := Vector3.ZERO
+var _visual_last_yaw := 0.0
+var _visual_last_speed := 0.0
+var _visual_last_position_initialized := false
+var _visual_was_on_floor := false
+var _visual_landing_amount := 0.0
 
 func _ready() -> void:
 	target_basis = global_transform.basis
@@ -84,12 +99,69 @@ func get_racer_visual_mode() -> String:
 func has_racer_visual() -> bool:
 	return _active_visual_model != null and is_instance_valid(_active_visual_model)
 
+func get_visual_animation_root() -> Node3D:
+	var root := get_node_or_null("RacerVisual")
+	return root as Node3D
+
+func update_visual_animation(delta: float) -> void:
+	if not visual_animation_enabled or delta <= 0.0:
+		return
+	var root := get_visual_animation_root()
+	if root == null:
+		return
+
+	var horizontal_velocity := velocity
+	horizontal_velocity.y = 0.0
+	var speed: float = horizontal_velocity.length()
+	if _visual_last_position_initialized:
+		var measured_velocity := (global_transform.origin - _visual_last_position) / delta
+		measured_velocity.y = 0.0
+		speed = maxf(speed, measured_velocity.length())
+	_visual_last_position = global_transform.origin
+	_visual_last_position_initialized = true
+
+	var speed_ratio: float = clampf(speed / maxf(max_speed, 0.01), 0.0, 1.4)
+	_visual_anim_time += delta * lerpf(0.8, 1.7, clampf(speed_ratio, 0.0, 1.0))
+
+	var current_yaw := global_transform.basis.get_euler().y
+	var yaw_delta: float = wrapf(current_yaw - _visual_last_yaw, -PI, PI)
+	var yaw_turn: float = clampf((yaw_delta / delta) / maxf(steer_speed, 0.01), -1.0, 1.0)
+	_visual_last_yaw = current_yaw
+	var steering_visual: float = float(input_state.get("steer", 0.0)) if controlled_locally else yaw_turn
+	if absf(steering_visual) < 0.05:
+		steering_visual = yaw_turn
+
+	var speed_delta: float = (speed - _visual_last_speed) / delta
+	_visual_last_speed = speed
+	var accel_pitch: float = clampf(speed_delta / 70.0, -1.0, 1.0)
+	var bob: float = sin(_visual_anim_time * visual_bob_rate) * visual_bob_height * speed_ratio
+	var drift_wobble: float = sin(_visual_anim_time * visual_bob_rate * 1.8) * deg_to_rad(visual_drift_wobble_degrees) if is_drifting else 0.0
+
+	if is_on_floor() and not _visual_was_on_floor:
+		_visual_landing_amount = 1.0
+	_visual_was_on_floor = is_on_floor()
+	_visual_landing_amount = move_toward(_visual_landing_amount, 0.0, delta * 5.0)
+
+	var target_position := Vector3(0.0, bob - _visual_landing_amount * 0.03, 0.0)
+	var target_rotation := Vector3(
+		deg_to_rad(-accel_pitch * visual_accel_pitch_degrees),
+		drift_wobble,
+		deg_to_rad(-steering_visual * visual_turn_lean_degrees) + drift_wobble * 0.35
+	)
+	var squash: float = _visual_landing_amount * visual_landing_squash
+	var target_scale := Vector3(1.0 + squash * 0.45, 1.0 - squash, 1.0 + squash * 0.45)
+	var blend: float = clampf(delta * visual_animation_lerp, 0.0, 1.0)
+	root.position = root.position.lerp(target_position, blend)
+	root.rotation = root.rotation.lerp(target_rotation, blend)
+	root.scale = root.scale.lerp(target_scale, blend)
+
 func _physics_process(delta: float) -> void:
 	if controlled_locally:
 		_apply_input(delta)
 	else:
 		_apply_remote_correction(delta)
 	move_and_slide()
+	update_visual_animation(delta)
 	_log_wall_contacts(delta)
 
 func set_input(state:Dictionary) -> void:
@@ -249,8 +321,12 @@ func _clear_racer_visual() -> void:
 	_racer_visual_mode = ""
 	var mount := get_node_or_null("RacerVisual")
 	if mount != null:
+		if mount is Node3D:
+			(mount as Node3D).transform = Transform3D.IDENTITY
 		for child in mount.get_children():
 			child.queue_free()
+	_visual_last_position_initialized = false
+	_visual_landing_amount = 0.0
 
 func _show_placeholder_visual() -> void:
 	_clear_racer_visual()
