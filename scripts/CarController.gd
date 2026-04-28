@@ -7,7 +7,7 @@ const RacerRoster = preload("res://scripts/logic/RacerRoster.gd")
 const VISUAL_TARGET_FOOTPRINT := 1.75
 const VISUAL_BOTTOM_Y := -0.78
 const PORTRAIT_BADGE_PIXEL_SIZE := 0.0024
-const MESHY_RACER_IN_KART_YAW_DEGREES := -90.0
+const MESHY_RACER_IN_KART_YAW_DEGREES := 90.0
 
 @export var acceleration := 28.0
 @export var brake_force := 32.0

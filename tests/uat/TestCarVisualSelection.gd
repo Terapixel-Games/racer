@@ -34,6 +34,6 @@ func test_valid_meshy_racer_model_faces_car_forward() -> void:
 	var model := car.find_child("RacerInKartModel", true, false) as Node3D
 	assert_true(model != null, "Loaded Meshy model should exist")
 	if model != null:
-		var yaw_error := absf(wrapf(model.rotation_degrees.y + 90.0, -180.0, 180.0))
+		var yaw_error := absf(wrapf(model.rotation_degrees.y - 90.0, -180.0, 180.0))
 		assert_true(yaw_error <= 0.1, "Meshy racer-in-kart model should be yaw-corrected to car forward")
 	car.queue_free()
