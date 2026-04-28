@@ -28,6 +28,7 @@ static func build(definition: TrackDefinition) -> Dictionary:
 	_build_sockets(root, "ItemSockets", definition.item_sockets)
 	_build_sockets(root, "HazardSockets", definition.hazard_sockets)
 	_build_shortcuts(root, definition)
+	_build_section_markers(root, definition)
 	_build_audio_zones(root)
 	_build_dressing(root, definition)
 
@@ -257,6 +258,25 @@ static func _build_audio_zones(root: Node3D) -> void:
 	holder.name = "AudioZones"
 	root.add_child(holder)
 
+static func _build_section_markers(root: Node3D, definition: TrackDefinition) -> void:
+	if definition.id != "kitchen":
+		return
+	var holder := Node3D.new()
+	holder.name = "SectionMarkers"
+	root.add_child(holder)
+	_add_section_marker(holder, "StartFinishStraight", Vector3(-18, 3.2, -76))
+	_add_section_marker(holder, "StoveHairpin", Vector3(92, 3.2, -24))
+	_add_section_marker(holder, "IslandSweeper", Vector3(50, 3.2, 58))
+	_add_section_marker(holder, "BackStraight", Vector3(-8, 3.2, 74))
+	_add_section_marker(holder, "SinkChicane", Vector3(-84, 3.2, 24))
+	_add_section_marker(holder, "FridgeCorner", Vector3(-84, 3.2, -24))
+
+static func _add_section_marker(parent: Node3D, marker_name: String, position: Vector3) -> void:
+	var marker := Marker3D.new()
+	marker.name = marker_name
+	marker.transform.origin = position
+	parent.add_child(marker)
+
 static func _build_dressing(root: Node3D, definition: TrackDefinition) -> void:
 	var holder := Node3D.new()
 	holder.name = "Dressing"
@@ -267,6 +287,13 @@ static func _build_dressing(root: Node3D, definition: TrackDefinition) -> void:
 	_add_visual_box(holder, "BackCounterBase", Vector3(0, 1.35, 78), Vector3(128, 2.7, 10), 0.0, Color(0.78, 0.72, 0.62))
 	_add_visual_box(holder, "LeftCounterBase", Vector3(-92, 1.35, -4), Vector3(10, 2.7, 124), 0.0, Color(0.72, 0.68, 0.58))
 	_add_visual_box(holder, "RightCounterBase", Vector3(94, 1.35, -4), Vector3(10, 2.7, 124), 0.0, Color(0.72, 0.68, 0.58))
+	_add_visual_box(holder, "StartFinishTape", Vector3(-52, 3.08, -74.6), Vector3(1.8, 0.06, 13.0), -4.0, Color(0.04, 0.04, 0.04))
+	_add_visual_box(holder, "UnderCabinetLedStrip", Vector3(-6, 2.92, -73.2), Vector3(74.0, 0.08, 0.7), 0.0, Color(0.3, 0.92, 1.0))
+	_add_visual_box(holder, "StoveHeatZone", Vector3(92, 3.08, -24), Vector3(13.0, 0.06, 18.0), 12.0, Color(1.0, 0.34, 0.12))
+	_add_visual_box(holder, "IslandSweeperBankStripe", Vector3(52, 3.1, 54), Vector3(34.0, 0.06, 1.6), -36.0, Color(0.18, 0.62, 1.0))
+	_add_visual_box(holder, "BackStraightSpeedStrip", Vector3(-12, 3.1, 73), Vector3(58.0, 0.06, 1.7), 0.0, Color(1.0, 0.9, 0.2))
+	_add_visual_box(holder, "SinkChicaneWetStrip", Vector3(-84, 3.1, 22), Vector3(8.0, 0.06, 28.0), 22.0, Color(0.2, 0.62, 0.95))
+	_add_visual_box(holder, "FridgeCornerRecoveryStripe", Vector3(-84, 3.1, -24), Vector3(14.0, 0.06, 16.0), -16.0, Color(0.7, 0.86, 1.0))
 	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/table.glb", Vector3(6, 1.7, 52), 8.0, Vector3(7.8, 7.8, 7.8), "KitchenTable")
 	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenSink.glb", Vector3(-94, 2.15, 6), 90.0, Vector3(7.2, 7.2, 7.2), "KitchenSink")
 	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenCabinet.glb", Vector3(94, 2.15, -18), -90.0, Vector3(7.0, 7.0, 7.0), "OvenCabinet")
