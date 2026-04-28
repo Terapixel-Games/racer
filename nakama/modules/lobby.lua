@@ -11,7 +11,7 @@ local GAME_ID = "circuit-collapse-racer"
 local LOBBY_COUNTDOWN = 20
 local RESET_THRESHOLD = 10
 local MAX_RACERS = 8
-local DEFAULT_TRACK_ID = "oval"
+local DEFAULT_TRACK_ID = "kitchen"
 
 local M = {}
 

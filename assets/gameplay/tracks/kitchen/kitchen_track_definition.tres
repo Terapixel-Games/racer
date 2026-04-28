@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="TrackDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/track/TrackDefinition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "kitchen"
+display_name = "Kitchen / Sir Clink"
+laps = 2
+road_width = 12.0
+wall_height = 1.6
+wall_thickness = 0.45
+closed_loop = true
+runtime_scene_path = "res://assets/gameplay/tracks/kitchen/kitchen_track.tscn"
+ground_size = Vector2(160, 140)
+ground_color = Color(0.82, 0.86, 0.88, 1)
+ground_texture_path = "res://assets/gameplay/materials/tile/kitchen_tile_albedo.png"
+road_texture_path = "res://assets/gameplay/materials/plastic/glossy_plastic_albedo.png"
+route_points = Array[Vector3]([Vector3(0, 0.55, -54), Vector3(-42, 0.55, -42), Vector3(-64, 0.55, -8), Vector3(-46, 0.55, 36), Vector3(0, 0.55, 58), Vector3(50, 0.55, 38), Vector3(66, 0.55, -12), Vector3(42, 0.55, -48)])
+checkpoint_indices = Array[int]([0, 2, 4, 6])
+lap_gate_checkpoint_index = 0
+spawn_points = Array[Vector4]([Vector4(-4, 0.8, -61, -74), Vector4(1, 0.8, -63, -74), Vector4(-8, 0.8, -66, -74), Vector4(-3, 0.8, -68, -74), Vector4(-12, 0.8, -71, -74), Vector4(-7, 0.8, -73, -74), Vector4(-16, 0.8, -76, -74), Vector4(-11, 0.8, -78, -74)])
+item_sockets = Array[Vector4]([Vector4(-28, 0.8, -46, -60), Vector4(-62, 0.8, -20, -8), Vector4(-34, 0.8, 44, 48), Vector4(18, 0.8, 56, 110), Vector4(60, 0.8, 18, 170), Vector4(34, 0.8, -50, -110)])
+hazard_sockets = Array[Vector4]([Vector4(-52, 0.8, 8, 20), Vector4(44, 0.8, 36, -20), Vector4(54, 0.8, -30, 30), Vector4(-10, 0.8, 54, 90)])
+shortcut_gates = Array[Dictionary]([])
+audio_ids = {
+"music": "res://assets/source/audio/suno/tracks/kitchen/kitchen_loop_suno_01.mp3",
+"clatter": "res://assets/source/audio/canva/tracks/kitchen/kitchen_clatter_canva_01.mp3",
+"sink_splash": "res://assets/source/audio/canva/tracks/kitchen/kitchen_sink_splash_canva_01.mp3",
+"utensil_clink": "res://assets/source/audio/canva/tracks/kitchen/kitchen_utensil_clink_canva_01.wav"
+}

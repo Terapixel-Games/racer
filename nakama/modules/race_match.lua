@@ -15,35 +15,170 @@ local SNAPSHOT_HZ = 15
 local BEHIND_THRESHOLD = 3
 local BEHIND_SECONDS_TO_WASTED = 6
 local MAX_RACERS = 8
-local DEFAULT_WAYPOINTS = {
-	{x = 0, y = 0.5, z = 60},
-	{x = 75, y = 0.5, z = 0},
-	{x = 0, y = 0.5, z = -60},
-	{x = -75, y = 0.5, z = 0},
+
+local DEFAULT_ROUTE = {
+	{0, 0.5, 60},
+	{75, 0.5, 0},
+	{0, 0.5, -60},
+	{-75, 0.5, 0},
 }
 
 local M = {}
-local function normalize_waypoints(list)
-	local out = {}
-	for _, w in ipairs(list or {}) do
-		if type(w) == "table" then
-			if w.x ~= nil and w.y ~= nil and w.z ~= nil then
-				table.insert(out, {x = w.x, y = w.y, z = w.z})
-			elseif #w >= 3 then
-				table.insert(out, {x = w[1], y = w[2], z = w[3]})
-			end
-		end
+
+local function point_from_array(value)
+	if type(value) ~= "table" then
+		return {x = 0, y = 0.5, z = 0}
 	end
-	if #out == 0 then
-		out = DEFAULT_WAYPOINTS
+	return {
+		x = value.x or value[1] or 0,
+		y = value.y or value[2] or 0.5,
+		z = value.z or value[3] or 0,
+	}
+end
+
+local function normalize_route_points(list)
+	local out = {}
+	for _, point in ipairs(list or {}) do
+		table.insert(out, point_from_array(point))
+	end
+	if #out < 2 then
+		out = {}
+		for _, point in ipairs(DEFAULT_ROUTE) do
+			table.insert(out, point_from_array(point))
+		end
 	end
 	return out
 end
 
-local function ensure_waypoints(state)
-	state.waypoints = normalize_waypoints(state.waypoints)
-	if not state.checkpoints or state.checkpoints <= 0 then
-		state.checkpoints = #state.waypoints
+local function distance(a, b)
+	local dx = (a.x or 0) - (b.x or 0)
+	local dy = (a.y or 0) - (b.y or 0)
+	local dz = (a.z or 0) - (b.z or 0)
+	return math.sqrt(dx * dx + dy * dy + dz * dz)
+end
+
+local function route_length(points, closed_loop)
+	if #points < 2 then return 0 end
+	local total = 0
+	for i = 1, #points - 1 do
+		total = total + distance(points[i], points[i + 1])
+	end
+	if closed_loop and #points > 2 then
+		total = total + distance(points[#points], points[1])
+	end
+	return total
+end
+
+local function project_position(points, position, closed_loop)
+	if #points < 2 then
+		return {distance = 0, route_ratio = 0, segment_index = 1, segment_ratio = 0}
+	end
+	local best_dist_sq = math.huge
+	local best_along = 0
+	local best_segment = 1
+	local best_ratio = 0
+	local accumulated = 0
+	local segment_count = (closed_loop and #points > 2) and #points or (#points - 1)
+	for i = 1, segment_count do
+		local a = points[i]
+		local b = points[(i % #points) + 1]
+		local abx = b.x - a.x
+		local aby = b.y - a.y
+		local abz = b.z - a.z
+		local len_sq = abx * abx + aby * aby + abz * abz
+		if len_sq > 0.0001 then
+			local apx = position.x - a.x
+			local apy = position.y - a.y
+			local apz = position.z - a.z
+			local ratio = (apx * abx + apy * aby + apz * abz) / len_sq
+			ratio = math.max(0, math.min(1, ratio))
+			local px = a.x + abx * ratio
+			local py = a.y + aby * ratio
+			local pz = a.z + abz * ratio
+			local dx = position.x - px
+			local dy = position.y - py
+			local dz = position.z - pz
+			local dist_sq = dx * dx + dy * dy + dz * dz
+			local seg_len = math.sqrt(len_sq)
+			if dist_sq < best_dist_sq then
+				best_dist_sq = dist_sq
+				best_along = accumulated + seg_len * ratio
+				best_segment = i
+				best_ratio = ratio
+			end
+			accumulated = accumulated + seg_len
+		end
+	end
+	local total = math.max(route_length(points, closed_loop), 0.001)
+	return {
+		distance = best_along,
+		route_ratio = best_along / total,
+		segment_index = best_segment,
+		segment_ratio = best_ratio,
+	}
+end
+
+local function checkpoint_position(state, checkpoint)
+	local route_index = (checkpoint.route_index or 0) + 1
+	local route_point = state.route_points[route_index]
+	if route_point then
+		return route_point
+	end
+	return point_from_array(checkpoint.position)
+end
+
+local function ensure_track_state(state)
+	state.route_points = normalize_route_points(state.track.route_points or state.track.waypoints)
+	state.closed_loop = state.track.closed_loop ~= false
+	state.checkpoint_radius = state.track.checkpoint_radius or math.max((state.track.road_width or 12) * 0.65, 4)
+	if not state.track.checkpoints or #state.track.checkpoints == 0 then
+		state.track.checkpoints = {}
+		for i, _ in ipairs(state.route_points) do
+			table.insert(state.track.checkpoints, {index = i - 1, route_index = i - 1, is_lap_gate = i == 1})
+		end
+	end
+	state.checkpoints = #state.track.checkpoints
+	state.lap_gate_checkpoint_index = state.track.lap_gate_checkpoint_index or 0
+	state.route_length = state.track.route_length or route_length(state.route_points, state.closed_loop)
+end
+
+local function update_progress(racer, state)
+	ensure_track_state(state)
+	local projection = project_position(state.route_points, racer.pos, state.closed_loop)
+	local route_ratio = math.max(0, math.min(0.999, projection.route_ratio or 0))
+	racer.progress = (math.max(racer.lap, 1) - 1) * state.checkpoints + racer.checkpoint + route_ratio
+	if racer.finished then
+		racer.progress = state.laps * state.checkpoints + 1 + route_ratio
+	end
+end
+
+local function advance_checkpoints(racer, state)
+	if racer.finished or racer.wasted then
+		return
+	end
+	ensure_track_state(state)
+	local expected = racer.checkpoint or 0
+	local checkpoint = state.track.checkpoints[expected + 1]
+	if not checkpoint then
+		return
+	end
+	local target = checkpoint_position(state, checkpoint)
+	if distance(racer.pos, target) > state.checkpoint_radius then
+		return
+	end
+	if expected == state.lap_gate_checkpoint_index then
+		racer.lap_gate = true
+	end
+	racer.checkpoint = (expected + 1) % state.checkpoints
+	if racer.checkpoint == 0 and racer.lap_gate then
+		racer.lap = racer.lap + 1
+		racer.lap_gate = false
+	end
+	if racer.lap > state.laps then
+		racer.finished = true
+		if not racer.finish_time then
+			racer.finish_time = state.elapsed
+		end
 	end
 end
 
@@ -53,21 +188,21 @@ local function new_racer(id, is_ai, spawn)
 		is_ai = is_ai,
 		pos = {
 			x = (spawn and spawn.x) or 0,
-			y = (spawn and spawn.y) or 0.5,
+			y = (spawn and spawn.y) or 0.8,
 			z = (spawn and spawn.z) or 0,
 		},
 		rot = {0, (spawn and spawn.yaw) or 0, 0},
 		lap = 1,
 		checkpoint = 0,
-	lap_gate = false,
-	wasted = false,
-	finished = false,
-	finish_time = nil,
-	behind_timer = 0,
-	input = {throttle = 0, brake = 0, steer = 0, drift = false, boost = false},
-	progress = 0,
-	waypoint = 1,
-}
+		lap_gate = false,
+		wasted = false,
+		finished = false,
+		finish_time = nil,
+		behind_timer = 0,
+		input = {throttle = 0, brake = 0, steer = 0, drift = false, boost = false},
+		progress = 0,
+		waypoint = 1,
+	}
 end
 
 local function add_ai_racers(state)
@@ -75,8 +210,7 @@ local function add_ai_racers(state)
 	for i = 1, ai_needed do
 		local id = "ai_" .. i
 		local spawn = state.spawns[(#state.racers % #state.spawns) + 1]
-		local racer = new_racer(id, true, spawn)
-		table.insert(state.racers, racer)
+		table.insert(state.racers, new_racer(id, true, spawn))
 	end
 end
 
@@ -96,80 +230,54 @@ local function find_racer(state, user_id)
 	return nil
 end
 
-local function update_progress(racer, state, segment_progress)
-	local extra = math.min(math.max(segment_progress or 0, 0), 0.999)
-	racer.progress = (racer.lap - 1) * state.checkpoints + racer.checkpoint + extra
-	if racer.finished then
-		-- Ensure finished racers always rank ahead of on-track racers.
-		racer.progress = state.laps * state.checkpoints + 1 + extra
-	end
-end
-
 local function apply_input(racer, delta, state)
 	if racer.finished or racer.wasted then
 		return
 	end
-	ensure_waypoints(state)
-	local speed = racer.input.throttle * 10 - racer.input.brake * 8
-	racer.pos.z = racer.pos.z - speed * delta
-	local seg_len = 50
-	local segment_progress = math.fmod(math.abs(racer.pos.z), seg_len) / seg_len
-	if racer.pos.z < -state.checkpoints * 50 then
-		if racer.lap_gate then
-			racer.lap = racer.lap + 1
-			racer.lap_gate = false
-		end
-		racer.pos.z = 0
+	local input = racer.input or {}
+	if type(input.position) == "table" then
+		racer.pos = point_from_array(input.position)
+	else
+		local speed = ((input.throttle or 0) * 22 - (input.brake or 0) * 12) * delta
+		local yaw = racer.rot[2] or 0
+		racer.pos.x = racer.pos.x + math.sin(yaw) * speed
+		racer.pos.z = racer.pos.z + math.cos(yaw) * speed
 	end
-	local checkpoint_index = math.floor(math.abs(racer.pos.z) / 50) % state.checkpoints
-	if checkpoint_index == racer.checkpoint then
-		if checkpoint_index == 1 then
-			racer.lap_gate = true
-		end
-		racer.checkpoint = (racer.checkpoint + 1) % state.checkpoints
-		segment_progress = 0
+	if type(input.rotation) == "table" then
+		racer.rot = {
+			input.rotation[1] or 0,
+			input.rotation[2] or 0,
+			input.rotation[3] or 0,
+		}
 	end
-	if racer.lap > state.laps then
-		racer.finished = true
-		if not racer.finish_time then
-			racer.finish_time = state.elapsed
-		end
-	end
-	update_progress(racer, state, segment_progress)
+	advance_checkpoints(racer, state)
+	update_progress(racer, state)
 end
 
 local function ai_tick(racer, delta, state)
 	if racer.finished or racer.wasted then
 		return
 	end
-	ensure_waypoints(state)
-	if #state.waypoints == 0 then
+	ensure_track_state(state)
+	if #state.route_points == 0 then
 		return
-	 end
-	if racer.waypoint < 1 or racer.waypoint > #state.waypoints then
+	end
+	if racer.waypoint < 1 or racer.waypoint > #state.route_points then
 		racer.waypoint = 1
 	end
-	-- Follow the center-line waypoints around the oval.
-	local target = state.waypoints[racer.waypoint]
-	if not target then return end
+	local target = state.route_points[racer.waypoint]
 	local dx = target.x - racer.pos.x
 	local dz = target.z - racer.pos.z
 	local dist = math.sqrt(dx * dx + dz * dz)
-	-- Rotate to face the target (Car forward uses +Z/basis.z).
 	if dist > 0.001 then
-		local yaw = math.atan2(dx, dz)
-		racer.rot = {0, yaw, 0}
+		racer.rot = {0, math.atan2(dx, dz), 0}
 	end
-	-- Advance to next waypoint when close enough.
-	if dist < 1.5 then
+	if dist < 2.0 then
 		racer.waypoint = racer.waypoint + 1
-		if racer.waypoint > #state.waypoints then
+		if racer.waypoint > #state.route_points then
 			racer.waypoint = 1
-			if racer.lap <= state.laps then
-				racer.lap = racer.lap + 1
-			end
 		end
-		target = state.waypoints[racer.waypoint]
+		target = state.route_points[racer.waypoint]
 		dx = target.x - racer.pos.x
 		dz = target.z - racer.pos.z
 		dist = math.sqrt(dx * dx + dz * dz)
@@ -179,27 +287,12 @@ local function ai_tick(racer, delta, state)
 		dx = dx * inv
 		dz = dz * inv
 	end
-	local move_speed = 26 -- units per second around the course center-line
+	local move_speed = 24
 	racer.pos.x = racer.pos.x + dx * move_speed * delta
 	racer.pos.z = racer.pos.z + dz * move_speed * delta
-	racer.pos.y = 0.5
-	-- checkpoint index mirrors waypoint index
-	racer.checkpoint = (racer.waypoint - 1) % state.checkpoints
-	if racer.lap > state.laps then
-		racer.finished = true
-		if not racer.finish_time then
-			racer.finish_time = state.elapsed
-		end
-	end
-	local prev_wp = racer.waypoint - 1
-	if prev_wp < 1 then prev_wp = #state.waypoints end
-	local prev_pt = state.waypoints[prev_wp]
-	local seg_len = math.sqrt((prev_pt.x - target.x) ^ 2 + (prev_pt.z - target.z) ^ 2)
-	local seg_progress = 0
-	if seg_len > 0.001 then
-		seg_progress = 1 - math.min(1, dist / seg_len)
-	end
-	update_progress(racer, state, seg_progress)
+	racer.pos.y = 0.8
+	advance_checkpoints(racer, state)
+	update_progress(racer, state)
 end
 
 local function broadcast_snapshot(dispatcher, state)
@@ -218,6 +311,7 @@ local function broadcast_snapshot(dispatcher, state)
 		})
 	end
 	dispatcher.broadcast_message(OP.RACE_SNAPSHOT, nk.json_encode({
+		track_id = state.track.id,
 		racers = racers,
 		checkpoints = state.checkpoints,
 	}))
@@ -245,20 +339,27 @@ local function evaluate_wasted(dispatcher, state, delta)
 	end
 end
 
+local function spawn_from_track_entry(entry)
+	if type(entry) == "table" and entry.position then
+		local p = point_from_array(entry.position)
+		return {x = p.x, y = p.y, z = p.z, yaw = math.rad(entry.yaw_degrees or 0)}
+	end
+	return {
+		x = entry and entry[1] or 0,
+		y = entry and entry[2] or 0.8,
+		z = entry and entry[3] or 0,
+		yaw = math.rad(entry and entry[4] or 0),
+	}
+end
+
 function M.match_init(context, params)
-	local track = params.track or tracks.get("oval")
-	local waypoints = track.waypoints or DEFAULT_WAYPOINTS
+	local track = params.track or tracks.get("kitchen")
 	local spawns = {}
 	for _, s in ipairs(track.spawn_points or {}) do
-		table.insert(spawns, {
-			x = s[1] or 0,
-			y = s[2] or 0.5,
-			z = s[3] or 0,
-			yaw = s[4] and math.rad(s[4]) or 0,
-		})
+		table.insert(spawns, spawn_from_track_entry(s))
 	end
 	if #spawns == 0 then
-		table.insert(spawns, {x = 0, y = 0.5, z = 0, yaw = 0})
+		table.insert(spawns, {x = 0, y = 0.8, z = 0, yaw = 0})
 	end
 	local state = {
 		room_code = params.room_code or "AUTO",
@@ -268,18 +369,23 @@ function M.match_init(context, params)
 		snapshot_accum = 0,
 		tickrate = 10,
 		track = track,
-		waypoints = waypoints,
-		checkpoints = #waypoints,
+		route_points = normalize_route_points(track.route_points or track.waypoints),
+		checkpoints = #(track.checkpoints or {}),
 		spawns = spawns,
 		laps = track.laps or 2,
+		closed_loop = track.closed_loop ~= false,
+		lap_gate_checkpoint_index = track.lap_gate_checkpoint_index or 0,
 	}
-	ensure_waypoints(state)
+	ensure_track_state(state)
 	for _, id in ipairs(state.roster) do
 		local spawn = spawns[(#state.racers % #spawns) + 1]
 		table.insert(state.racers, new_racer(id, false, spawn))
 	end
 	add_ai_racers(state)
-	local label = nk.json_encode({game_id = GAME_ID, type = "race", room_code = state.room_code})
+	for _, r in ipairs(state.racers) do
+		update_progress(r, state)
+	end
+	local label = nk.json_encode({game_id = GAME_ID, type = "race", room_code = state.room_code, track_id = track.id})
 	return state, state.tickrate, label
 end
 

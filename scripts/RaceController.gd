@@ -1,6 +1,8 @@
 extends Node3D
 
 const TrackBuilder = preload("res://scripts/TrackBuilder.gd")
+const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
+const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd")
 const ItemRules = preload("res://scripts/logic/ItemRules.gd")
 
 @onready var ui_speed: Label = %SpeedLabel
@@ -89,6 +91,24 @@ func _connect_socket() -> void:
 		NakamaService.socket.received_match_state.connect(_on_match_state)
 
 func _spawn_track() -> void:
+	var track_id := str(NakamaService.get_meta_value("track_id", TrackCatalog.get_default_track_id()))
+	var definition = TrackCatalog.get_definition(track_id)
+	if definition != null:
+		var built := TrackRuntimeBuilder.build(definition)
+		var track_instance: Node = built.get("node", null)
+		if track_instance:
+			add_child(track_instance)
+			var built_checkpoint_system := track_instance.get_node_or_null("CheckpointSystem")
+			if built_checkpoint_system != null:
+				checkpoint_system = built_checkpoint_system
+		spawn_points = built.get("spawns", [])
+		track_laps = built.get("laps", Config.LAPS)
+		track_waypoints = built.get("waypoints", [])
+		track_checkpoint_total = int(built.get("checkpoints", 0))
+		if track_checkpoint_total <= 0 and track_waypoints is Array and track_waypoints.size() > 0:
+			track_checkpoint_total = track_waypoints.size()
+		return
+
 	var recipe = NakamaService.get_meta_value("track_recipe", null)
 	if recipe is Dictionary:
 		var built = TrackBuilder.build(recipe)
@@ -158,6 +178,13 @@ func _send_input() -> void:
 	if car:
 		car.controlled_locally = true
 		car.set_input(state)
+		var euler := car.global_transform.basis.get_euler()
+		state["position"] = [
+			car.global_transform.origin.x,
+			car.global_transform.origin.y,
+			car.global_transform.origin.z,
+		]
+		state["rotation"] = [euler.x, euler.y, euler.z]
 		if bool(state.get("item_use", false)):
 			_consume_local_item(car)
 		if NakamaService.offline_mode:

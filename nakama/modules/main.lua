@@ -34,7 +34,7 @@ local function rpc_lobby_join_or_create(context, payload)
 	local data = read_payload(payload)
 	validate(data)
 	-- pick default track for now; later this could be selected by player or rotation
-	local track = tracks.get("oval")
+	local track = tracks.get("kitchen")
 	local match_id = find_open_lobby()
 	local code = nil
 	if not match_id then

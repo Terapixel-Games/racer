@@ -1,5 +1,7 @@
 extends Node
 
+const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
+
 const RETRY_ATTEMPTS := 3
 const RETRY_DELAY := 1.5
 
@@ -152,28 +154,7 @@ func _offline_rpc(name: String, payload: Dictionary) -> Dictionary:
 			return {}
 
 func _offline_track_recipe() -> Dictionary:
-	return {
-		"id": "offline-serpentine",
-		"name": "Local Serpentine",
-		"laps": Config.LAPS,
-		"road_width": 12.0,
-		"wall_left": true,
-		"wall_right": true,
-		"ground": {"size": [500, 0.2, 500], "color": [0.16, 0.18, 0.21]},
-		"spawn_points": [
-			[-120, 0.6, -150, 0],
-			[-115, 0.6, -155, 0],
-			[-110, 0.6, -160, 0]
-		],
-		"waypoints": [
-			[-120, 0.5, -161.48889],
-			[-120, 0.5, 20],
-			[-20, 0.5, 120],
-			[180, 0.5, 20],
-			[180, 0.5, -160],
-			[60, 0.5, -200]
-		]
-	}
+	return TrackCatalog.get_metadata(TrackCatalog.get_default_track_id())
 
 func _should_force_offline() -> bool:
 	if not Config.LOCAL_FALLBACK_ENABLED:
