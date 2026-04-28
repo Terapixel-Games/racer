@@ -100,12 +100,12 @@ Search only after local source review proves a concrete gap.
 
 | Gap | First source | Runtime target | Search trigger |
 | --- | --- | --- | --- |
-| Carpet, blanket, plush fabric | ambientCG | `assets/gameplay/materials/fabric` | Bedroom feels too flat with plain colors |
-| Kitchen tile | ambientCG or Poly Haven | `assets/gameplay/materials/tile` | Kitchen floor/walls need readable room identity |
-| Wood floor / table surface | ambientCG or Poly Haven | `assets/gameplay/materials/wood` | Furniture/room scale needs grounding material |
-| Sand material | ambientCG | `assets/gameplay/materials/sand` | Sandbox needs surface detail beyond flat color |
-| Dirt, mud, leaf ground | ambientCG | `assets/gameplay/materials/garden` | Garden readability is weak after Kenney props |
-| Cardboard and dusty cloth | ambientCG or Poly Haven | `assets/gameplay/materials/attic` | Attic needs material identity after prop pass |
+| Carpet, blanket, plush fabric | Generated texture approved | `assets/gameplay/materials/fabric/plush_fabric_albedo.png` | Use generated texture first; search ambientCG only if it fails in-scene |
+| Kitchen tile | Generated texture approved | `assets/gameplay/materials/tile/kitchen_tile_albedo.png` | Use generated texture first; search CC0 only if it fails in-scene |
+| Wood floor / table surface | Generated attic cardboard/wood texture approved | `assets/gameplay/materials/attic/attic_cardboard_wood_albedo.png` | Reuse for attic first; search CC0 if a cleaner wood floor is needed |
+| Sand material | Generated texture approved | `assets/gameplay/materials/sand/sandbox_sand_albedo.png` | Use generated texture first; search ambientCG only if it fails in-scene |
+| Dirt, mud, leaf ground | Generated texture approved | `assets/gameplay/materials/garden/garden_dirt_mud_albedo.png` | Use generated texture first; search ambientCG only if it fails in-scene |
+| Cardboard and dusty cloth | Generated texture approved | `assets/gameplay/materials/attic/attic_cardboard_wood_albedo.png` | Use generated texture first; search CC0 only if it fails in-scene |
 | Low-poly shovel, bucket, bones | Quaternius | `assets/gameplay/tracks/sandbox/props` | Meshy sandbox landmark does not split cleanly |
 | Low-poly trunk, crates, storage boxes | Quaternius | `assets/gameplay/tracks/attic/props` | Kenney furniture/Meshy attic landmarks are insufficient |
 | Playground slide/swing/seesaw fallback | Quaternius or Poly Haven CC0 models | `assets/gameplay/tracks/playground/props` | Meshy landmark set is not usable as separate pieces |
@@ -141,14 +141,14 @@ Use toy-readable materials first. Do not overfit to photoreal PBR until scale an
 
 | Material family | Use | Source plan | Runtime target |
 | --- | --- | --- | --- |
-| Glossy plastic | Karts, item boxes, track toys | Procedural Godot material first | `assets/gameplay/materials/plastic` |
-| Plush/fabric | Tuggs, bedroom, teddy clutter | ambientCG only if procedural fabric is weak | `assets/gameplay/materials/fabric` |
-| Molded metal | Sir Clink, utensils, rails | Godot metal material plus Kenney defaults | `assets/gameplay/materials/metal` |
-| Sand | Sandbox floor, berms, bucket areas | ambientCG 1K fallback | `assets/gameplay/materials/sand` |
-| Tile | Kitchen floor and sink zone | ambientCG or Poly Haven 1K fallback | `assets/gameplay/materials/tile` |
-| Dirt/mud/leaf | Garden route and hazards | ambientCG 1K fallback | `assets/gameplay/materials/garden` |
-| Cardboard/dusty wood | Attic boxes and floor | ambientCG/Poly Haven fallback | `assets/gameplay/materials/attic` |
-| Mirror/glitter/gloss | Glam Closet | Godot shader/material first | `assets/gameplay/materials/glam` |
+| Glossy plastic | Karts, item boxes, track toys | Approved generated albedo plus Godot shader parameters | `assets/gameplay/materials/plastic/glossy_plastic_albedo.png` |
+| Plush/fabric | Tuggs, bedroom, teddy clutter | Approved generated albedo | `assets/gameplay/materials/fabric/plush_fabric_albedo.png` |
+| Molded metal | Sir Clink, utensils, rails | Approved generated albedo plus Godot metal/roughness settings | `assets/gameplay/materials/metal/toy_metal_albedo.png` |
+| Sand | Sandbox floor, berms, bucket areas | Approved generated albedo | `assets/gameplay/materials/sand/sandbox_sand_albedo.png` |
+| Tile | Kitchen floor and sink zone | Approved generated albedo | `assets/gameplay/materials/tile/kitchen_tile_albedo.png` |
+| Dirt/mud/leaf | Garden route and hazards | Approved generated albedo | `assets/gameplay/materials/garden/garden_dirt_mud_albedo.png` |
+| Cardboard/dusty wood | Attic boxes and floor | Approved generated albedo | `assets/gameplay/materials/attic/attic_cardboard_wood_albedo.png` |
+| Mirror/glitter/gloss | Glam Closet | Approved generated albedo plus Godot gloss shader parameters | `assets/gameplay/materials/glam/glam_mirror_glitter_albedo.png` |
 
 ## Runtime Integration Order
 
