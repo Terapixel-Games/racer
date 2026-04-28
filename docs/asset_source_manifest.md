@@ -16,6 +16,7 @@ This pass sourced local CC0 Kenney assets, downloaded the approved Meshy-6 explo
 | Canva audio | `assets/source/audio/canva` | User-generated Canva AI sound effect exports; verify final Canva terms before release |
 | Suno music | `assets/source/audio/suno` | User-generated Suno music exports; verify final Suno terms before release |
 | Generated material textures | `assets/source/generated/textures/toy_materials_2026-04-27` | Approved AI-generated toy material contact sheet plus cropped 1K albedo textures |
+| Generated character headshots | `assets/source/generated/ui/character_headshots_2026-04-27` | Approved AI-generated character-select contact sheet plus cropped UI portraits |
 
 ## Sourced Counts
 
@@ -35,8 +36,9 @@ Counts below exclude Godot `.import` sidecars.
 | Canva audio | 42 | Jacks deploy, jacks hit, bubble pop, invincibility start/end, signature charge/activate, boost burst, drift release, marble fire/hit, item pickup/roulette, kart bump, wall scrape, heavy landing, countdown tick/go, UI confirm/back/select, lobby ready, results reveal, victory/lose stingers, attic creak, attic prank squeak, bedroom plush thump, kitchen clatter, and track identity sound effects |
 | Suno music | 9 | Main menu theme, race base loop, and 7 room-track loops; sandbox loop still outstanding |
 | Generated material textures | 17 | 1 approved contact sheet, 8 source albedo crops, and 8 runtime albedo copies |
+| Generated character headshots | 17 | 1 approved contact sheet, 8 source portrait crops, and 8 runtime character-select portraits |
 
-Total sourced non-import files: 238.
+Total sourced non-import files: 255.
 
 ## Canva Audio Layout
 
@@ -114,6 +116,21 @@ Approved source sheet: `assets/source/generated/textures/toy_materials_2026-04-2
 | Attic cardboard wood | `assets/source/generated/textures/toy_materials_2026-04-27/attic_cardboard_wood_albedo.png` | `assets/gameplay/materials/attic/attic_cardboard_wood_albedo.png` | 1024x1024 |
 | Glam mirror glitter | `assets/source/generated/textures/toy_materials_2026-04-27/glam_mirror_glitter_albedo.png` | `assets/gameplay/materials/glam/glam_mirror_glitter_albedo.png` | 1024x1024 |
 
+## Generated Character Headshot Layout
+
+Approved source sheet: `assets/source/generated/ui/character_headshots_2026-04-27/character_headshot_contact_sheet_01.png` from `C:\Users\john_\.codex\generated_images\019dcd65-2de2-74f3-b09a-e0432c85ec72\ig_046583879f9b057b0169f01d40b5d88190a8e7ef8e0c4b2bd4.png`.
+
+| Racer | Source portrait | Runtime portrait | Dimensions |
+| --- | --- | --- | --- |
+| Rexx | `assets/source/generated/ui/character_headshots_2026-04-27/rexx_headshot.png` | `assets/ui/racers/headshots/rexx_headshot.png` | 512x512 |
+| Moko | `assets/source/generated/ui/character_headshots_2026-04-27/moko_headshot.png` | `assets/ui/racers/headshots/moko_headshot.png` | 512x512 |
+| Tuggs | `assets/source/generated/ui/character_headshots_2026-04-27/tuggs_headshot.png` | `assets/ui/racers/headshots/tuggs_headshot.png` | 512x512 |
+| Popper | `assets/source/generated/ui/character_headshots_2026-04-27/popper_headshot.png` | `assets/ui/racers/headshots/popper_headshot.png` | 512x512 |
+| Sir Clink | `assets/source/generated/ui/character_headshots_2026-04-27/sir_clink_headshot.png` | `assets/ui/racers/headshots/sir_clink_headshot.png` | 512x512 |
+| Slammo | `assets/source/generated/ui/character_headshots_2026-04-27/slammo_headshot.png` | `assets/ui/racers/headshots/slammo_headshot.png` | 512x512 |
+| Velva | `assets/source/generated/ui/character_headshots_2026-04-27/velva_headshot.png` | `assets/ui/racers/headshots/velva_headshot.png` | 512x512 |
+| Dash | `assets/source/generated/ui/character_headshots_2026-04-27/dash_headshot.png` | `assets/ui/racers/headshots/dash_headshot.png` | 512x512 |
+
 ## Meshy Layout
 
 Each racer folder contains:
@@ -145,5 +162,6 @@ Task IDs remain recorded in `docs/meshy_batches/2026-04-27-character-track-batch
 - The Canva attic creak, kitchen clatter, garden stone hit, playroom block crash, playroom spring ramp, glam sparkle whoosh, glam perfume puff, sandbox bucket bonk, playground chain swing, playground slide drop, kitchen sink splash, and bedroom blanket slide exports were kept as MP3 by request and copied without transcoding.
 - The Suno music exports were kept as MP3 source files and verified with ffmpeg. `sandbox_loop_suno_01.mp3` was not present in Downloads during this import pass.
 - The generated material texture contact sheet was approved by the user, copied into source assets, cropped into eight material albedos, resized to 1024x1024 PNGs, and copied to runtime material folders.
+- The generated character headshot contact sheet was approved by the user, copied into source assets, cropped into eight square portraits, resized to 512x512 PNGs, and copied to runtime UI folders.
 - Git LFS is configured for `*.glb`, `*.png`, and `*.jpg` in `.gitattributes`; the sourced large binary files are intended to be stored through LFS.
 - Godot generated `.import` sidecars for many sourced assets while the project/editor was active. These sidecars are included with the sourced files for import reproducibility.

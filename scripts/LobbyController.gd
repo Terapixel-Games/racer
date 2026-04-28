@@ -50,7 +50,8 @@ func _start_offline_lobby() -> void:
 	for child in player_list.get_children():
 		child.queue_free()
 	var label := Label.new()
-	label.text = "You"
+	var selected_racer := str(NakamaService.get_meta_value("selected_racer_id", ""))
+	label.text = "You - %s" % selected_racer if selected_racer != "" else "You"
 	player_list.add_child(label)
 	await get_tree().create_timer(0.35).timeout
 	get_tree().change_scene_to_file("res://scenes/Race.tscn")

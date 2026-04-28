@@ -11,7 +11,4 @@ func _ready() -> void:
 	quit_button.pressed.connect(func(): get_tree().quit())
 
 func _on_play() -> void:
-	status_label.text = "Connecting..."
-	await NakamaService.ensure_connected()
-	status_label.text = ""
-	get_tree().change_scene_to_file("res://scenes/Lobby.tscn")
+	get_tree().change_scene_to_file("res://scenes/CharacterSelect.tscn")

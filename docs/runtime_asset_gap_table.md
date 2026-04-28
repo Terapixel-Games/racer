@@ -128,7 +128,7 @@ Use Meshy only for these if local or simple authored options do not carry the to
 
 | Asset need | Source approach | Runtime target | Status |
 | --- | --- | --- | --- |
-| Racer portraits | Render from curated Meshy/Godot scenes first | `assets/ui/racers/portraits` | Not started |
+| Racer portraits | Approved generated character headshots | `assets/ui/racers/headshots` | Covered for first character-select pass |
 | Kart thumbnails | Render from curated kart scenes | `assets/ui/karts/thumbnails` | Not started |
 | Track thumbnails | Render from vertical-slice track scenes | `assets/ui/tracks/thumbnails` | Not started |
 | Item icons | Figma direction, then Godot/UI vector or PNG exports | `assets/ui/items/icons` | Not started |

@@ -117,7 +117,7 @@ theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("4_button")
 theme_override_styles/hover = SubResource("4_button")
 theme_override_styles/pressed = SubResource("4_button")
-text = "Enter Lobby"
+text = "Choose Racer"
 
 [node name="QuitButton" type="Button" parent="CenterContainer/Panel/VBox"]
 unique_name_in_owner = true
