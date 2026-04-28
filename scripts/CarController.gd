@@ -2,6 +2,7 @@ extends CharacterBody3D
 class_name CarController
 
 const DriftRules = preload("res://scripts/logic/DriftRules.gd")
+const KartPhysicsRules = preload("res://scripts/logic/KartPhysicsRules.gd")
 const RacerRoster = preload("res://scripts/logic/RacerRoster.gd")
 
 const VISUAL_TARGET_FOOTPRINT := 1.75
@@ -12,7 +13,13 @@ const PORTRAIT_BADGE_PIXEL_SIZE := 0.0024
 @export var brake_force := 32.0
 @export var max_speed := 42.0
 @export var steer_speed := 2.8
-@export var drift_grip := 0.35
+@export var tire_grip_rate := 12.0
+@export var drift_tire_grip_rate := 3.2
+@export var low_speed_turn_factor := 0.22
+@export var full_turn_speed := 20.0
+@export var reverse_max_speed := 12.0
+@export var ground_snap_distance := 0.85
+@export var grounded_downforce := 18.0
 @export var boost_force := 70.0
 @export var boost_meter_max := 100.0
 @export var boost_gain_drift := 18.0
@@ -23,9 +30,9 @@ const PORTRAIT_BADGE_PIXEL_SIZE := 0.0024
 @export var brake_drag := 18.0
 @export var debug_wall_logging := false
 @export var drift_charge_rate := 34.0
-@export var drift_hop_velocity := 3.4
+@export var drift_hop_velocity := 1.2
 @export var visual_animation_enabled := true
-@export var visual_bob_height := 0.08
+@export var visual_bob_height := 0.045
 @export var visual_bob_rate := 9.0
 @export var visual_turn_lean_degrees := 9.0
 @export var visual_accel_pitch_degrees := 5.0
@@ -58,6 +65,7 @@ var _visual_was_on_floor := false
 var _visual_landing_amount := 0.0
 
 func _ready() -> void:
+	floor_snap_length = maxf(floor_snap_length, ground_snap_distance)
 	target_basis = global_transform.basis
 	target_position = global_transform.origin
 	velocity = Vector3.ZERO
@@ -168,11 +176,11 @@ func set_input(state:Dictionary) -> void:
 	input_state = state
 
 func _apply_input(delta: float) -> void:
-	var forward := global_transform.basis.z
-	var lateral := global_transform.basis.x
 	var vertical_vel := velocity.y
 	var horiz_vel := velocity
 	horiz_vel.y = 0
+	var speed := horiz_vel.length()
+	var forward := global_transform.basis.z
 	var throttle_input : float = 1.0 if auto_accelerate else input_state.get("throttle", 0.0)
 	var brake_input : float = input_state.get("brake", 0.0)
 	var accel := 0.0
@@ -182,7 +190,6 @@ func _apply_input(delta: float) -> void:
 		accel -= brake_force * brake_input
 	var steering_input : float = input_state.get("steer", 0.0)
 	var requested_drift : bool = input_state.get("drift", false)
-	var speed := horiz_vel.length()
 	if requested_drift and absf(steering_input) > 0.08 and DriftRules.can_start(speed):
 		if not is_drifting:
 			_start_drift(signf(steering_input), speed)
@@ -200,13 +207,22 @@ func _apply_input(delta: float) -> void:
 	if input_state.get("boost", false) and boost_meter > 1.0:
 		boost_meter = max(0.0, boost_meter - boost_drain * delta)
 		accel += boost_force
-	var steer_amount : float = steering_input * steer_speed * delta
+	var forward_speed := horiz_vel.dot(forward)
+	var turn_factor := KartPhysicsRules.turn_factor_for_speed(speed, full_turn_speed, low_speed_turn_factor)
+	if throttle_input <= 0.1 and brake_input <= 0.1 and speed < 1.0:
+		turn_factor = 0.0
+	var reverse_turn_sign := -1.0 if forward_speed < -0.5 else 1.0
+	var steer_amount : float = steering_input * steer_speed * turn_factor * reverse_turn_sign * delta
 	if is_drifting:
-		steer_amount *= 1.5
+		steer_amount *= 1.35
+	rotate_y(steer_amount)
+	_lock_physics_upright()
+	forward = global_transform.basis.z
+	var lateral := global_transform.basis.x
 	horiz_vel += forward * accel * delta
-	var grip := drift_grip if is_drifting else 1.0
-	var lateral_speed := horiz_vel.dot(lateral)
-	horiz_vel -= lateral * lateral_speed * (1.0 - grip)
+	var grip_rate := drift_tire_grip_rate if is_drifting else tire_grip_rate
+	horiz_vel = KartPhysicsRules.damp_lateral_velocity(horiz_vel, lateral, grip_rate, delta)
+	horiz_vel = KartPhysicsRules.clamp_reverse_speed(horiz_vel, forward, reverse_max_speed)
 	horiz_vel = horiz_vel.limit_length(max_speed + (boost_force * 0.5 if input_state.get("boost", false) else 0.0) + (_item_boost_force * 0.25 if _item_boost_timer > 0.0 else 0.0))
 	# natural drag and braking drag
 	var drag_force := coast_drag
@@ -216,10 +232,15 @@ func _apply_input(delta: float) -> void:
 	velocity = horiz_vel
 	velocity.y = vertical_vel
 	if is_on_floor():
-		velocity.y = 0
+		velocity.y = -grounded_downforce
 	else:
 		velocity.y -= gravity * delta
-	rotate_y(steer_amount)
+	if velocity.y <= 0.0:
+		apply_floor_snap()
+
+func _lock_physics_upright() -> void:
+	var yaw := global_transform.basis.get_euler().y
+	global_transform.basis = Basis(Vector3.UP, yaw).orthonormalized()
 
 func _start_drift(direction: float, speed: float) -> void:
 	is_drifting = true

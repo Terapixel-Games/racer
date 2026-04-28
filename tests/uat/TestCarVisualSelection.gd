@@ -77,3 +77,17 @@ func test_racer_visual_has_procedural_motion() -> void:
 			var moved := root.position.distance_to(start_position) > 0.001 or root.rotation.distance_to(start_rotation) > 0.001
 			assert_true(moved, "Racer visual should bob or lean while driving")
 	car.queue_free()
+
+func test_car_scene_uses_grounded_kart_physics_defaults() -> void:
+	var car_scene := load("res://scenes/Car.tscn")
+	assert_true(car_scene is PackedScene, "Car scene should load")
+	var car := (car_scene as PackedScene).instantiate()
+	scene_tree.root.add_child(car)
+	var controller := car as CarController
+	assert_true(controller != null, "Car should be a CarController")
+	if controller != null:
+		assert_true(controller.floor_snap_length >= 0.8, "Car scene should use floor snap so it stays planted")
+		assert_true(controller.ground_snap_distance >= 0.8, "Controller should preserve grounded snap distance")
+		assert_true(controller.tire_grip_rate > controller.drift_tire_grip_rate, "Normal tires should grip more than drift tires")
+		assert_true(controller.low_speed_turn_factor < 1.0, "Low-speed steering should be limited like a kart")
+	car.queue_free()
