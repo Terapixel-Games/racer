@@ -12,6 +12,7 @@ ground_size = Vector2(250, 190)
 ground_y = 2.65
 road_y_offset = 0.0
 track_body_depth = 0.38
+track_definition_path = "res://assets/gameplay/tracks/kitchen/kitchen_track_definition.tres"
 
 [node name="RoutePoints" type="Node3D" parent="."]
 

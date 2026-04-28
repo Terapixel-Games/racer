@@ -3,6 +3,8 @@ extends Node3D
 class_name TrackAuthoringPreview
 
 const RoadMeshScript = preload("res://scripts/RoadMesh.gd")
+const TrackDefinition = preload("res://scripts/track/TrackDefinition.gd")
+const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd")
 const TrackRibbonMesh = preload("res://scripts/track/TrackRibbonMesh.gd")
 const TrackWalls = preload("res://scripts/TrackWalls.gd")
 
@@ -52,6 +54,22 @@ const PREVIEW_ROOT_NAME := "EditorTrackPreview"
 	set(value):
 		track_body_color = value
 		_queue_preview_refresh()
+@export_file("*.tres") var track_definition_path := "":
+	set(value):
+		track_definition_path = value
+		_queue_preview_refresh()
+@export var show_marker_labels := true:
+	set(value):
+		show_marker_labels = value
+		_queue_preview_refresh()
+@export var show_dressing_preview := true:
+	set(value):
+		show_dressing_preview = value
+		_queue_preview_refresh()
+@export var marker_label_lift := 1.15:
+	set(value):
+		marker_label_lift = value
+		_queue_preview_refresh()
 
 var _last_preview_signature := ""
 
@@ -86,6 +104,7 @@ func refresh_preview() -> void:
 	_add_track_body_preview(preview_root, route_points)
 	_add_road_preview(preview_root, route_points)
 	_add_wall_preview(preview_root, route_points)
+	_add_dressing_preview(preview_root)
 	_add_marker_previews(preview_root)
 	_last_preview_signature = _preview_signature()
 
@@ -128,11 +147,26 @@ func _add_wall_preview(parent: Node3D, route_points: Array[Vector3]) -> void:
 	var packed := PackedVector3Array()
 	for point in route_points:
 		packed.append(point)
-	var walls := TrackWalls.build_walls(holder, packed, road_width * 0.5, wall_height, wall_thickness, false, closed_loop, false)
+	var wall_gap_segments := TrackWalls.detect_grade_separated_crossing_segments(packed, closed_loop, wall_height + 0.2)
+	var walls := TrackWalls.build_walls(holder, packed, road_width * 0.5, wall_height, wall_thickness, false, closed_loop, false, wall_gap_segments)
 	var wall_material := _material(Color(1.0, 0.42, 0.08, 0.82), true)
 	for key in ["left", "right"]:
 		if walls.has(key) and walls[key] is MeshInstance3D:
 			(walls[key] as MeshInstance3D).material_override = wall_material
+	_add_wall_gap_labels(holder, route_points, wall_gap_segments)
+
+func _add_dressing_preview(parent: Node3D) -> void:
+	if not show_dressing_preview or track_definition_path.is_empty():
+		return
+	var definition := load(track_definition_path) as TrackDefinition
+	if definition == null:
+		return
+	var holder := Node3D.new()
+	holder.name = "PreviewDressingLayout"
+	parent.add_child(holder)
+	TrackRuntimeBuilder.build_dressing_preview(holder, definition)
+	if show_marker_labels:
+		_label_dressing_layout(holder)
 
 func _add_marker_previews(parent: Node3D) -> void:
 	var holder := Node3D.new()
@@ -144,6 +178,8 @@ func _add_marker_previews(parent: Node3D) -> void:
 	_add_marker_group(holder, "ItemSockets", Vector3(2.0, 0.26, 2.0), Color(1.0, 0.9, 0.18, 0.88), 0.24)
 	_add_marker_group(holder, "HazardSockets", Vector3(2.0, 0.3, 2.0), Color(1.0, 0.18, 0.14, 0.9), 0.28)
 	_add_marker_group(holder, "ShortcutGates", Vector3(3.0, 0.32, 3.0), Color(0.65, 0.25, 1.0, 0.88), 0.34)
+	_add_marker_group(holder, "SectionMarkers", Vector3(3.8, 0.12, 3.8), Color(0.2, 0.95, 1.0, 0.7), 0.38)
+	_add_marker_group(holder, "Dressing", Vector3(3.2, 0.2, 3.2), Color(0.8, 0.9, 1.0, 0.62), 0.35)
 
 func _add_marker_group(parent: Node3D, source_holder_name: String, size: Vector3, color: Color, y_lift: float) -> void:
 	var source := get_node_or_null(source_holder_name)
@@ -164,6 +200,73 @@ func _add_marker_group(parent: Node3D, source_holder_name: String, size: Vector3
 		mesh.transform = marker_3d.transform
 		mesh.position.y += y_lift
 		group.add_child(mesh)
+		if show_marker_labels:
+			_add_label(
+				group,
+				"%s_Label" % marker_3d.name,
+				_marker_label_text(marker_3d.name, marker_3d.position),
+				marker_3d.position + Vector3.UP * (y_lift + marker_label_lift),
+				color
+			)
+
+func _add_wall_gap_labels(parent: Node3D, route_points: Array[Vector3], wall_gap_segments: Array) -> void:
+	if not show_marker_labels or wall_gap_segments.is_empty():
+		return
+	var holder := Node3D.new()
+	holder.name = "WallGapLabels"
+	parent.add_child(holder)
+	for segment_index in wall_gap_segments:
+		var i := int(segment_index)
+		if i < 0 or i >= route_points.size():
+			continue
+		var next_index := (i + 1) % route_points.size()
+		var midpoint := route_points[i].lerp(route_points[next_index], 0.5)
+		_add_label(
+			holder,
+			"WallGap%02d_Label" % i,
+			"Rail gap S%02d\n%s" % [i, _position_text(midpoint)],
+			midpoint + Vector3.UP * 1.8,
+			Color(1.0, 0.48, 0.08, 1.0)
+		)
+
+func _label_dressing_layout(preview_holder: Node3D) -> void:
+	var dressing := preview_holder.get_node_or_null("Dressing")
+	if dressing == null:
+		return
+	var labels := Node3D.new()
+	labels.name = "DressingLabels"
+	preview_holder.add_child(labels)
+	for child in dressing.get_children():
+		if child is Node3D:
+			var node := child as Node3D
+			_add_label(
+				labels,
+				"%s_Label" % node.name,
+				_marker_label_text(node.name, node.position),
+				node.position + Vector3.UP * 2.0,
+				Color(0.84, 0.93, 1.0, 1.0)
+			)
+
+func _add_label(parent: Node3D, label_name: String, text: String, position: Vector3, color: Color) -> void:
+	var label := Label3D.new()
+	label.name = label_name
+	label.text = text
+	label.position = position
+	label.pixel_size = 0.08
+	label.font_size = 24
+	label.fixed_size = true
+	label.no_depth_test = true
+	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	label.modulate = color
+	label.outline_modulate = Color(0.0, 0.0, 0.0, 0.88)
+	label.outline_size = 5
+	parent.add_child(label)
+
+func _marker_label_text(marker_name: String, position: Vector3) -> String:
+	return "%s\n%s" % [marker_name, _position_text(position)]
+
+func _position_text(position: Vector3) -> String:
+	return "(%.1f, %.1f, %.1f)" % [position.x, position.y, position.z]
 
 func _collect_marker_positions(source_holder_name: String, y_offset: float = 0.0) -> Array[Vector3]:
 	var out: Array[Vector3] = []
@@ -198,8 +301,12 @@ func _preview_signature() -> String:
 		str(road_y_offset),
 		str(track_body_depth),
 		str(track_body_color),
+		str(track_definition_path),
+		str(show_marker_labels),
+		str(show_dressing_preview),
+		str(marker_label_lift),
 	]
-	for holder_name in ["RoutePoints", "SpawnPoints", "Checkpoints", "ItemSockets", "HazardSockets", "ShortcutGates"]:
+	for holder_name in ["RoutePoints", "SpawnPoints", "Checkpoints", "ItemSockets", "HazardSockets", "ShortcutGates", "SectionMarkers", "Dressing"]:
 		parts.append(holder_name)
 		var source := get_node_or_null(holder_name)
 		if source == null:

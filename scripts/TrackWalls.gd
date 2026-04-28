@@ -137,7 +137,7 @@ static func compute_offset_polyline(points: PackedVector3Array, frames: Array, o
 		out.append(intersect)
 	return out
 
-static func build_wall_mesh(polyline: PackedVector3Array, frames: Array, height: float, thickness: float, closed_loop: bool, smooth_normals: bool, side_sign: float) -> ArrayMesh:
+static func build_wall_mesh(polyline: PackedVector3Array, frames: Array, height: float, thickness: float, closed_loop: bool, smooth_normals: bool, side_sign: float, wall_gap_segments: Array = []) -> ArrayMesh:
 	var verts := PackedVector3Array()
 	var normals := PackedVector3Array()
 	var uvs := PackedVector2Array()
@@ -145,6 +145,7 @@ static func build_wall_mesh(polyline: PackedVector3Array, frames: Array, height:
 	var n := polyline.size()
 	if n < 2:
 		return ArrayMesh.new()
+	var gap_lookup := _segment_lookup(wall_gap_segments)
 	var accum := 0.0
 	var base_clearance := WALL_BASE_CLEARANCE # lift so walls sit above the road surface without floating too high
 	for i in range(n):
@@ -168,6 +169,8 @@ static func build_wall_mesh(polyline: PackedVector3Array, frames: Array, height:
 		uvs.append(Vector2(accum, 1))
 	var segs := n if closed_loop else n - 1
 	for i in range(segs):
+		if gap_lookup.has(i):
+			continue
 		var i0 := i * 2
 		var i1 := ((i + 1) % n) * 2
 		indices.append_array([i0, i0 + 1, i1, i1, i0 + 1, i1 + 1])
@@ -180,6 +183,76 @@ static func build_wall_mesh(polyline: PackedVector3Array, frames: Array, height:
 	arr[Mesh.ARRAY_INDEX] = indices
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arr)
 	return mesh
+
+static func detect_grade_separated_crossing_segments(points: PackedVector3Array, closed_loop: bool, min_vertical_clearance: float = 1.2) -> Array[int]:
+	var pts := sanitize_points(points)
+	var out_lookup := {}
+	if pts.size() < 4:
+		return []
+	var segment_count := pts.size() if closed_loop else pts.size() - 1
+	for i in range(segment_count):
+		for j in range(i + 1, segment_count):
+			if abs(i - j) <= 1:
+				continue
+			if closed_loop and i == 0 and j == segment_count - 1:
+				continue
+			var gap := _segment_crossing_height_gap(
+				pts[i],
+				pts[(i + 1) % pts.size()],
+				pts[j],
+				pts[(j + 1) % pts.size()]
+			)
+			if gap >= min_vertical_clearance:
+				out_lookup[i] = true
+				out_lookup[j] = true
+	var out: Array[int] = []
+	for key in out_lookup.keys():
+		out.append(int(key))
+	out.sort()
+	return out
+
+static func _segment_lookup(indices: Array) -> Dictionary:
+	var lookup := {}
+	for value in indices:
+		lookup[int(value)] = true
+	return lookup
+
+static func _segment_crossing_height_gap(a3: Vector3, b3: Vector3, c3: Vector3, d3: Vector3) -> float:
+	var a := Vector2(a3.x, a3.z)
+	var b := Vector2(b3.x, b3.z)
+	var c := Vector2(c3.x, c3.z)
+	var d := Vector2(d3.x, d3.z)
+	if not _segments_intersect_xz(a, b, c, d):
+		return -1.0
+	var r := b - a
+	var s := d - c
+	var denom := _cross2(r, s)
+	if absf(denom) < 0.001:
+		return -1.0
+	var t := _cross2(c - a, s) / denom
+	var u := _cross2(c - a, r) / denom
+	if t < -0.001 or t > 1.001 or u < -0.001 or u > 1.001:
+		return -1.0
+	var y_a := lerpf(a3.y, b3.y, clampf(t, 0.0, 1.0))
+	var y_b := lerpf(c3.y, d3.y, clampf(u, 0.0, 1.0))
+	return absf(y_a - y_b)
+
+static func _segments_intersect_xz(a: Vector2, b: Vector2, c: Vector2, d: Vector2) -> bool:
+	var o1 := _cross2(b - a, c - a)
+	var o2 := _cross2(b - a, d - a)
+	var o3 := _cross2(d - c, a - c)
+	var o4 := _cross2(d - c, b - c)
+	if o1 * o2 < 0.0 and o3 * o4 < 0.0:
+		return true
+	return _point_on_segment_xz(a, b, c) or _point_on_segment_xz(a, b, d) or _point_on_segment_xz(c, d, a) or _point_on_segment_xz(c, d, b)
+
+static func _point_on_segment_xz(a: Vector2, b: Vector2, point: Vector2) -> bool:
+	if absf(_cross2(b - a, point - a)) > 0.001:
+		return false
+	return point.x >= minf(a.x, b.x) - 0.001 and point.x <= maxf(a.x, b.x) + 0.001 and point.y >= minf(a.y, b.y) - 0.001 and point.y <= maxf(a.y, b.y) + 0.001
+
+static func _cross2(a: Vector2, b: Vector2) -> float:
+	return a.x * b.y - a.y * b.x
 
 static func _add_visible_mesh_collision(parent: MeshInstance3D, phys_mat: PhysicsMaterial) -> void:
 	if parent.mesh == null:
@@ -201,7 +274,7 @@ static func _add_visible_mesh_collision(parent: MeshInstance3D, phys_mat: Physic
 	parent.add_child(body)
 
 # Main entry: builds wall nodes under parent. Returns {left, right}
-static func build_walls(parent: Node3D, points: PackedVector3Array, track_half_width: float, wall_height: float, wall_thickness: float, smooth_normals: bool, closed_loop: bool, enable_collision: bool = true) -> Dictionary:
+static func build_walls(parent: Node3D, points: PackedVector3Array, track_half_width: float, wall_height: float, wall_thickness: float, smooth_normals: bool, closed_loop: bool, enable_collision: bool = true, wall_gap_segments: Array = []) -> Dictionary:
 	var cfg := TrackWalls.new()
 	var dbg_preview := cfg.enable_debug_preview
 	var dbg_tick := cfg.debug_tick_size
@@ -217,8 +290,8 @@ static func build_walls(parent: Node3D, points: PackedVector3Array, track_half_w
 	var left_poly := compute_offset_polyline(pts, frames, -offset * side_mult, closed_loop, dbg_miter)
 	var right_poly := compute_offset_polyline(pts, frames, offset * side_mult, closed_loop, dbg_miter)
 
-	var left_mesh := build_wall_mesh(left_poly, frames, wall_height, wall_thickness, closed_loop, smooth_normals, -1.0)
-	var right_mesh := build_wall_mesh(right_poly, frames, wall_height, wall_thickness, closed_loop, smooth_normals, 1.0)
+	var left_mesh := build_wall_mesh(left_poly, frames, wall_height, wall_thickness, closed_loop, smooth_normals, -1.0, wall_gap_segments)
+	var right_mesh := build_wall_mesh(right_poly, frames, wall_height, wall_thickness, closed_loop, smooth_normals, 1.0, wall_gap_segments)
 
 	var wall_mat := StandardMaterial3D.new()
 	# Bright, double-sided, unshaded so walls are easy to see in editor and runtime.

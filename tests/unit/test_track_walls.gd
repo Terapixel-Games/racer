@@ -29,3 +29,24 @@ func test_wall_collision_matches_visible_wall_meshes() -> void:
 			if shape_node.shape is ConcavePolygonShape3D:
 				assert_true((shape_node.shape as ConcavePolygonShape3D).backface_collision, "%s wall collision should work from the road side" % side)
 	holder.queue_free()
+
+func test_grade_separated_crossings_open_wall_gaps() -> void:
+	var points := PackedVector3Array([
+		Vector3(-10, 0.0, 0),
+		Vector3(10, 0.0, 0),
+		Vector3(10, 2.4, 10),
+		Vector3(-10, 2.4, -10),
+	])
+	var gaps := TrackWalls.detect_grade_separated_crossing_segments(points, true, 1.8)
+	assert_equal(gaps, [0, 2], "Grade-separated XZ crossings should open the involved rail segments")
+
+	var holder := Node3D.new()
+	scene_tree.root.add_child(holder)
+	var walls := TrackWalls.build_walls(holder, points, 3.0, 1.4, 0.4, false, true, false, gaps)
+	var wall := walls.get("left", null) as MeshInstance3D
+	assert_true(wall != null, "Wall mesh should still be created when gaps are present")
+	if wall != null and wall.mesh != null:
+		var arrays := wall.mesh.surface_get_arrays(0)
+		var indices := arrays[Mesh.ARRAY_INDEX] as PackedInt32Array
+		assert_equal(indices.size(), 12, "Closed four-segment wall with two gaps should only render two segments")
+	holder.queue_free()

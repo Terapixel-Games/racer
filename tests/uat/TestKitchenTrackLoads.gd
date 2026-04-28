@@ -45,8 +45,12 @@ func test_kitchen_authoring_scene_builds_editor_preview() -> void:
 	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewRoad") != null, "Authoring preview should include generated road")
 	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewWalls/WallLeft") != null, "Authoring preview should include left rail walls")
 	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewWalls/WallRight") != null, "Authoring preview should include right rail walls")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewWalls/WallGapLabels/WallGap04_Label") != null, "Authoring preview should mark the over-under rail gap")
 	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewMarkers/RoutePoints/RoutePoint00") != null, "Authoring preview should include route markers")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewMarkers/RoutePoints/RoutePoint00_Label") != null, "Authoring preview should label route marker positions")
 	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewMarkers/ItemSockets/ItemSocket01") != null, "Authoring preview should include item socket markers")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewDressingLayout/Dressing/KitchenSink") != null, "Authoring preview should include runtime dressing layout")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewDressingLayout/DressingLabels/KitchenSink_Label") != null, "Authoring preview should label dressing object positions")
 	instance.queue_free()
 
 func test_car_can_be_placed_on_kitchen_start_grid() -> void:

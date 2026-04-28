@@ -137,6 +137,7 @@ static func _build_walls(root: Node3D, definition: TrackDefinition) -> void:
 	var points := PackedVector3Array()
 	for point in definition.route_points:
 		points.append(point)
+	var wall_gap_segments := TrackWalls.detect_grade_separated_crossing_segments(points, definition.closed_loop, definition.wall_height + 0.2)
 	TrackWalls.build_walls(
 		holder,
 		points,
@@ -145,7 +146,8 @@ static func _build_walls(root: Node3D, definition: TrackDefinition) -> void:
 		definition.wall_thickness,
 		false,
 		definition.closed_loop,
-		true
+		true,
+		wall_gap_segments
 	)
 
 static func _build_spawns(root: Node3D, definition: TrackDefinition) -> Array:
@@ -323,6 +325,9 @@ static func _build_dressing(root: Node3D, definition: TrackDefinition) -> void:
 	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/bowl.glb", Vector3(70, 3.8, -66), 130.0, Vector3(6.8, 6.8, 6.8), "ShortcutBowlMarker")
 	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cooking-knife.glb", Vector3(-98, 3.95, -40), -34.0, Vector3(6.0, 6.0, 6.0), "OvenKnifeGate")
 	_add_scene_instance(holder, "res://assets/source/meshy/2026-04-27-character-track-batch/sir_clink/landmark_set.glb", Vector3(-40, 4.45, 74), 35.0, Vector3(2.2, 2.2, 2.2), "SirClinkLandmark")
+
+static func build_dressing_preview(root: Node3D, definition: TrackDefinition) -> void:
+	_build_dressing(root, definition)
 
 static func _add_visual_box(parent: Node3D, node_name: String, position: Vector3, size: Vector3, yaw_degrees: float, color: Color) -> void:
 	var mesh := MeshInstance3D.new()
