@@ -346,19 +346,18 @@ func _go_back() -> void:
 	get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
 
 func _get_meta_value(key: String, default_value: Variant) -> Variant:
-	if not Engine.has_singleton("NakamaService"):
-		return default_value
-	var service := Engine.get_singleton("NakamaService")
+	var service := _get_nakama_service()
 	if service != null and service.has_method("get_meta_value"):
 		return service.call("get_meta_value", key, default_value)
 	return default_value
 
 func _set_meta_value(key: String, value: Variant) -> void:
-	if not Engine.has_singleton("NakamaService"):
-		return
-	var service := Engine.get_singleton("NakamaService")
+	var service := _get_nakama_service()
 	if service != null and service.has_method("set_meta_value"):
 		service.call("set_meta_value", key, value)
+
+func _get_nakama_service() -> Node:
+	return get_node_or_null("/root/NakamaService")
 
 func _panel_style(bg: Color, border: Color, border_width: int, radius: int) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()

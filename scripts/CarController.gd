@@ -2,6 +2,11 @@ extends CharacterBody3D
 class_name CarController
 
 const DriftRules = preload("res://scripts/logic/DriftRules.gd")
+const RacerRoster = preload("res://scripts/logic/RacerRoster.gd")
+
+const VISUAL_TARGET_FOOTPRINT := 1.75
+const VISUAL_BOTTOM_Y := -0.78
+const PORTRAIT_BADGE_PIXEL_SIZE := 0.0024
 
 @export var acceleration := 28.0
 @export var brake_force := 32.0
@@ -33,11 +38,50 @@ var is_drifting := false
 var _drift_direction := 0.0
 var _item_boost_timer := 0.0
 var _item_boost_force := 0.0
+var _racer_visual_id := ""
+var _racer_visual_mode := ""
+var _active_visual_model: Node3D = null
 
 func _ready() -> void:
 	target_basis = global_transform.basis
 	target_position = global_transform.origin
 	velocity = Vector3.ZERO
+	_apply_selected_racer_visual_from_metadata()
+
+func set_racer_visual(racer_id: String) -> bool:
+	var normalized := RacerRoster.normalize_id(racer_id)
+	var model_path := RacerRoster.get_racer_in_kart_model_path(normalized)
+	if model_path.is_empty() or not ResourceLoader.exists(model_path) or not _is_scene_import_valid(model_path):
+		return _apply_portrait_visual(normalized)
+	var packed := load(model_path)
+	if not (packed is PackedScene):
+		return _apply_portrait_visual(normalized)
+	var model := (packed as PackedScene).instantiate()
+	if not (model is Node3D):
+		if model is Node:
+			(model as Node).queue_free()
+		return _apply_portrait_visual(normalized)
+
+	_clear_racer_visual()
+	var visual_mount := _get_visual_mount()
+	_active_visual_model = model as Node3D
+	_active_visual_model.name = "RacerInKartModel"
+	_disable_gameplay_collision(_active_visual_model)
+	visual_mount.add_child(_active_visual_model)
+	_fit_visual_model(_active_visual_model, visual_mount)
+	_set_placeholder_visible(false)
+	_racer_visual_id = normalized
+	_racer_visual_mode = "model"
+	return true
+
+func get_racer_visual_id() -> String:
+	return _racer_visual_id
+
+func get_racer_visual_mode() -> String:
+	return _racer_visual_mode
+
+func has_racer_visual() -> bool:
+	return _active_visual_model != null and is_instance_valid(_active_visual_model)
 
 func _physics_process(delta: float) -> void:
 	if controlled_locally:
@@ -177,3 +221,142 @@ func _log_wall_contacts(delta: float) -> void:
 		print("[WallHit] name=", collider_name, " normal=", normal, " normal_speed=", "%.2f" % normal_speed, " vel=", velocity, " position=", global_transform.origin)
 		_wall_log_cooldown = 0.25
 		break
+
+func _apply_selected_racer_visual_from_metadata() -> void:
+	var service := get_node_or_null("/root/NakamaService")
+	if service == null or not service.has_method("get_meta_value"):
+		return
+	var selected := str(service.call("get_meta_value", "selected_racer_id", "")).strip_edges()
+	if selected == "":
+		return
+	set_racer_visual(selected)
+
+func _get_visual_mount() -> Node3D:
+	var existing := get_node_or_null("RacerVisual")
+	if existing is Node3D:
+		return existing as Node3D
+	var mount := Node3D.new()
+	mount.name = "RacerVisual"
+	add_child(mount)
+	return mount
+
+func _clear_racer_visual() -> void:
+	if _active_visual_model != null and is_instance_valid(_active_visual_model):
+		_active_visual_model.queue_free()
+	_active_visual_model = null
+	_racer_visual_id = ""
+	_racer_visual_mode = ""
+	var mount := get_node_or_null("RacerVisual")
+	if mount != null:
+		for child in mount.get_children():
+			child.queue_free()
+
+func _show_placeholder_visual() -> void:
+	_clear_racer_visual()
+	_set_placeholder_visible(true)
+
+func _set_placeholder_visible(visible: bool) -> void:
+	var placeholder := get_node_or_null("Mesh")
+	if placeholder is Node3D:
+		(placeholder as Node3D).visible = visible
+
+func _apply_portrait_visual(racer_id: String) -> bool:
+	var portrait_path := RacerRoster.get_portrait_path(racer_id)
+	if portrait_path.is_empty() or not ResourceLoader.exists(portrait_path):
+		_show_placeholder_visual()
+		return false
+	var texture := load(portrait_path)
+	if not (texture is Texture2D):
+		_show_placeholder_visual()
+		return false
+	_clear_racer_visual()
+	_set_placeholder_visible(true)
+	var badge := Sprite3D.new()
+	badge.name = "RacerPortraitBillboard"
+	badge.texture = texture as Texture2D
+	badge.pixel_size = PORTRAIT_BADGE_PIXEL_SIZE
+	badge.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	badge.position = Vector3(0.0, 0.46, -0.25)
+	badge.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	_get_visual_mount().add_child(badge)
+	_active_visual_model = badge
+	_racer_visual_id = racer_id
+	_racer_visual_mode = "portrait"
+	return true
+
+func _is_scene_import_valid(resource_path: String) -> bool:
+	var import_path := "%s.import" % resource_path
+	if not FileAccess.file_exists(import_path):
+		return true
+	var file := FileAccess.open(import_path, FileAccess.READ)
+	if file == null:
+		return true
+	var text := file.get_as_text()
+	file.close()
+	return text.find("valid=false") == -1
+
+func _disable_gameplay_collision(node: Node) -> void:
+	if node is CollisionShape3D:
+		(node as CollisionShape3D).disabled = true
+	elif node is CollisionObject3D:
+		var collision_object := node as CollisionObject3D
+		collision_object.collision_layer = 0
+		collision_object.collision_mask = 0
+	if node is Area3D:
+		var area := node as Area3D
+		area.monitoring = false
+		area.monitorable = false
+	for child in node.get_children():
+		_disable_gameplay_collision(child)
+
+func _fit_visual_model(model: Node3D, mount: Node3D) -> void:
+	var aabb: AABB = _visual_aabb_in_mount_space(model, mount)
+	var footprint: float = maxf(aabb.size.x, aabb.size.z)
+	if footprint <= 0.001:
+		model.position = Vector3.ZERO
+		return
+	var scale_factor: float = VISUAL_TARGET_FOOTPRINT / footprint
+	scale_factor = clamp(scale_factor, 0.02, 4.0)
+	var center: Vector3 = aabb.get_center()
+	model.scale *= scale_factor
+	model.position = Vector3(
+		-center.x * scale_factor,
+		VISUAL_BOTTOM_Y - aabb.position.y * scale_factor,
+		-center.z * scale_factor
+	)
+
+func _visual_aabb_in_mount_space(node: Node3D, mount: Node3D) -> AABB:
+	var found := false
+	var combined := AABB()
+	var stack: Array[Node] = [node]
+	while not stack.is_empty():
+		var current: Node = stack.pop_back()
+		if current is VisualInstance3D:
+			var visual := current as VisualInstance3D
+			var local_aabb: AABB = visual.get_aabb()
+			var to_mount: Transform3D = mount.global_transform.affine_inverse() * visual.global_transform
+			for point in _aabb_points(local_aabb):
+				var mount_point: Vector3 = to_mount * point
+				if not found:
+					combined = AABB(mount_point, Vector3.ZERO)
+					found = true
+				else:
+					combined = combined.expand(mount_point)
+		for child in current.get_children():
+			if child is Node:
+				stack.append(child)
+	return combined
+
+func _aabb_points(aabb: AABB) -> Array[Vector3]:
+	var p := aabb.position
+	var s := aabb.size
+	return [
+		p,
+		p + Vector3(s.x, 0, 0),
+		p + Vector3(0, s.y, 0),
+		p + Vector3(0, 0, s.z),
+		p + Vector3(s.x, s.y, 0),
+		p + Vector3(s.x, 0, s.z),
+		p + Vector3(0, s.y, s.z),
+		p + s,
+	]
