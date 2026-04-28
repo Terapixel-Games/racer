@@ -7,6 +7,7 @@ const RacerRoster = preload("res://scripts/logic/RacerRoster.gd")
 const VISUAL_TARGET_FOOTPRINT := 1.75
 const VISUAL_BOTTOM_Y := -0.78
 const PORTRAIT_BADGE_PIXEL_SIZE := 0.0024
+const MESHY_RACER_IN_KART_YAW_DEGREES := -90.0
 
 @export var acceleration := 28.0
 @export var brake_force := 32.0
@@ -66,6 +67,7 @@ func set_racer_visual(racer_id: String) -> bool:
 	var visual_mount := _get_visual_mount()
 	_active_visual_model = model as Node3D
 	_active_visual_model.name = "RacerInKartModel"
+	_active_visual_model.rotation_degrees.y = MESHY_RACER_IN_KART_YAW_DEGREES
 	_disable_gameplay_collision(_active_visual_model)
 	visual_mount.add_child(_active_visual_model)
 	_fit_visual_model(_active_visual_model, visual_mount)
