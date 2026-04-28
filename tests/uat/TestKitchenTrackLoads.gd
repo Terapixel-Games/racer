@@ -32,6 +32,21 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/SinkChicaneWetStrip") != null, "Kitchen track should include a sink chicane visual zone")
 	instance.queue_free()
 
+func test_kitchen_authoring_scene_builds_editor_preview() -> void:
+	var packed := load("res://assets/gameplay/tracks/kitchen/kitchen_authoring.tscn")
+	assert_true(packed is PackedScene, "Kitchen authoring scene should load")
+	var instance := (packed as PackedScene).instantiate()
+	scene_tree.root.add_child(instance)
+	assert_true(instance.has_method("refresh_preview"), "Kitchen authoring root should expose preview refresh")
+	instance.call("refresh_preview")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewCounterSurface") != null, "Authoring preview should include the countertop surface")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewRoad") != null, "Authoring preview should include generated road")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewWalls/WallLeft") != null, "Authoring preview should include left rail walls")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewWalls/WallRight") != null, "Authoring preview should include right rail walls")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewMarkers/RoutePoints/RoutePoint00") != null, "Authoring preview should include route markers")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewMarkers/ItemSockets/ItemSocket01") != null, "Authoring preview should include item socket markers")
+	instance.queue_free()
+
 func test_car_can_be_placed_on_kitchen_start_grid() -> void:
 	var definition := TrackCatalog.get_definition("kitchen")
 	var built := TrackRuntimeBuilder.build(definition)

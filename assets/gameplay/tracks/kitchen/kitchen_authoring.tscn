@@ -1,6 +1,14 @@
-[gd_scene format=3]
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/track/TrackAuthoringPreview.gd" id="1"]
 
 [node name="KitchenAuthoring" type="Node3D"]
+script = ExtResource("1")
+road_width = 12.0
+wall_height = 1.6
+wall_thickness = 0.45
+closed_loop = true
+ground_size = Vector2(250, 190)
 
 [node name="RoutePoints" type="Node3D" parent="."]
 
