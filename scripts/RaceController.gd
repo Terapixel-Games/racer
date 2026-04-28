@@ -43,8 +43,11 @@ var track_out_of_bounds_y := -50.0
 var track_reset_mode := ""
 var local_respawn_transform := Transform3D.IDENTITY
 var has_local_respawn_transform := false
-const CAMERA_DISTANCE := 8.0
-const CAMERA_HEIGHT := 2.5
+const CAMERA_DISTANCE := 5.2
+const CAMERA_HEIGHT := 1.8
+const CAMERA_LOOK_HEIGHT := 0.85
+const CAMERA_FOLLOW_SPEED := 8.0
+const CAMERA_FOV := 68.0
 
 const INPUT_INTERVAL := 1.0 / Config.INPUT_TICK_HZ
 const MESSAGE_DURATION := 3.0
@@ -55,6 +58,7 @@ var item_rng := RandomNumberGenerator.new()
 
 func _ready() -> void:
 	item_rng.randomize()
+	camera.fov = CAMERA_FOV
 	mobile_controls.visible = OS.has_feature("mobile")
 	_setup_mobile_controls()
 	_ensure_input_actions()
@@ -389,8 +393,8 @@ func _update_camera(delta:float) -> void:
 		return
 	var behind := -car.global_transform.basis.z * CAMERA_DISTANCE
 	var desired := car.global_transform.origin + behind + Vector3.UP * CAMERA_HEIGHT
-	camera.global_transform.origin = camera.global_transform.origin.lerp(desired, delta * 6.0)
-	camera.look_at(car.global_transform.origin + Vector3(0,1,0), Vector3.UP)
+	camera.global_transform.origin = camera.global_transform.origin.lerp(desired, delta * CAMERA_FOLLOW_SPEED)
+	camera.look_at(car.global_transform.origin + Vector3.UP * CAMERA_LOOK_HEIGHT, Vector3.UP)
 
 func _ensure_input_actions() -> void:
 	_add_action_if_missing("accelerate")
