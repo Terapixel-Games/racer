@@ -30,9 +30,9 @@ Counts below exclude Godot `.import` sidecars.
 | Kenney `marble_kit` | 11 | marbles, ramps, funnel, curves, bumps |
 | Kenney audio | 27 | UI, digital powerups, foley, impacts |
 | Meshy GLBs | 24 | 8 racers, 8 racers-in-karts, 8 landmark sets |
-| Canva audio | 29 | Jacks deploy, jacks hit, bubble pop, invincibility start/end, signature charge/activate, boost burst, drift release, marble fire/hit, item pickup/roulette, kart bump, wall scrape, heavy landing, countdown tick/go, UI confirm/back/select, lobby ready, results reveal, victory/lose stingers, attic creak, attic prank squeak, bedroom plush thump, and kitchen clatter sound effects |
+| Canva audio | 42 | Jacks deploy, jacks hit, bubble pop, invincibility start/end, signature charge/activate, boost burst, drift release, marble fire/hit, item pickup/roulette, kart bump, wall scrape, heavy landing, countdown tick/go, UI confirm/back/select, lobby ready, results reveal, victory/lose stingers, attic creak, attic prank squeak, bedroom plush thump, kitchen clatter, and track identity sound effects |
 
-Total sourced non-import files: 199.
+Total sourced non-import files: 212.
 
 ## Canva Audio Layout
 
@@ -66,7 +66,20 @@ Total sourced non-import files: 199.
 | `assets/source/audio/canva/tracks/attic/attic_creak_canva_01.mp3` | `C:\Users\john_\Downloads\attic_creak_canva_01.mp3` | Stereo 48 kHz MP3 | Attic creak track accent |
 | `assets/source/audio/canva/tracks/attic/attic_prank_squeak_canva_01.wav` | `C:\Users\john_\Downloads\attic_prank_squeak_canva_01.mp4` | Mono 44.1 kHz PCM WAV | Attic prank squeak track accent |
 | `assets/source/audio/canva/tracks/bedroom/bedroom_plush_thump_canva_01.wav` | `C:\Users\john_\Downloads\bedroom_plush_thump_canva_01.mp4` | Mono 44.1 kHz PCM WAV | Bedroom plush thump track accent |
+| `assets/source/audio/canva/tracks/bedroom/bedroom_blanket_slide_canva_01.mp3` | `C:\Users\john_\Downloads\bedroom_blanket_slide_canva_01.mp3` | Stereo 24 kHz MP3 | Bedroom blanket slide track accent |
+| `assets/source/audio/canva/tracks/garden/garden_stone_hit_canva_01.mp3` | `C:\Users\john_\Downloads\garden_stone_hit_canva_01.mp3` | Stereo 24 kHz MP3 | Garden stone hit track accent |
+| `assets/source/audio/canva/tracks/garden/garden_mud_splat_canva_01.wav` | `C:\Users\john_\Downloads\garden_mud_splat_canva_01.mp4` | Mono 44.1 kHz PCM WAV | Garden mud splat track accent |
+| `assets/source/audio/canva/tracks/playroom/playroom_block_crash_canva_01.mp3` | `C:\Users\john_\Downloads\playroom_block_crash_canva_01.mp3` | Stereo 44.1 kHz MP3 | Playroom block crash track accent |
+| `assets/source/audio/canva/tracks/playroom/playroom_spring_ramp_canva_01.mp3` | `C:\Users\john_\Downloads\playroom_spring_ramp_canva_01.mp3` | Stereo 44.1 kHz MP3 | Playroom spring ramp track accent |
+| `assets/source/audio/canva/tracks/glam_closet/glam_sparkle_whoosh_canva_01.mp3` | `C:\Users\john_\Downloads\glam_sparkle_whoosh_canva_01.mp3` | Stereo 44.1 kHz MP3 | Glam closet sparkle whoosh track accent |
+| `assets/source/audio/canva/tracks/glam_closet/glam_perfume_puff_canva_01.mp3` | `C:\Users\john_\Downloads\glam_perfume_puff_canva_01.mp3` | Stereo 44.1 kHz MP3 | Glam closet perfume puff track accent |
 | `assets/source/audio/canva/tracks/kitchen/kitchen_clatter_canva_01.mp3` | `C:\Users\john_\Downloads\kitchen_clatter_canva_01.mp3` | Stereo 24 kHz MP3 | Kitchen clatter track accent |
+| `assets/source/audio/canva/tracks/kitchen/kitchen_sink_splash_canva_01.mp3` | `C:\Users\john_\Downloads\kitchen_sink_splash_canva_01.mp3` | Stereo 24 kHz MP3 | Kitchen sink splash track accent |
+| `assets/source/audio/canva/tracks/kitchen/kitchen_utensil_clink_canva_01.wav` | `C:\Users\john_\Downloads\kitchen_utensil_clink_canva_01.mp4` | Mono 44.1 kHz PCM WAV | Kitchen utensil clink track accent |
+| `assets/source/audio/canva/tracks/sandbox/sandbox_grit_slide_canva_01.wav` | `C:\Users\john_\Downloads\sandbox_grit_slide_canva_01.mp4` | Mono 44.1 kHz PCM WAV | Sandbox grit slide track accent |
+| `assets/source/audio/canva/tracks/sandbox/sandbox_bucket_bonk_canva_01.mp3` | `C:\Users\john_\Downloads\sandbox_bucket_bonk_canva_01.mp3` | Stereo 24 kHz MP3 | Sandbox bucket bonk track accent |
+| `assets/source/audio/canva/tracks/playground/playground_chain_swing_canva_01.mp3` | `C:\Users\john_\Downloads\playground_chain_swing_canva_01.mp3` | Mono 44.1 kHz MP3 | Playground chain swing track accent |
+| `assets/source/audio/canva/tracks/playground/playground_slide_drop_canva_01.mp3` | `C:\Users\john_\Downloads\playground_slide_drop_canva_01.mp3` | Stereo 48 kHz MP3 | Playground slide drop track accent |
 
 ## Meshy Layout
 
@@ -95,7 +108,7 @@ Task IDs remain recorded in `docs/meshy_batches/2026-04-27-character-track-batch
 - Representative Kenney source paths were checked before copying.
 - Kenney source pack license files were copied with each sourced pack.
 - Meshy downloads used the GLB format specified by the inventory.
-- The Canva jacks deploy, jacks hit, bubble pop, invincibility start/end, signature charge/activate, boost burst, drift release, marble fire/hit, item pickup/roulette, kart bump, wall scrape, heavy landing, countdown tick/go, UI confirm/back/select, lobby ready, results reveal, victory/lose stinger, attic prank squeak, and bedroom plush thump MP4s were converted to mono 44.1 kHz PCM WAV source files for Godot import.
-- The Canva attic creak and kitchen clatter exports were kept as MP3 by request and copied without transcoding.
+- The Canva jacks deploy, jacks hit, bubble pop, invincibility start/end, signature charge/activate, boost burst, drift release, marble fire/hit, item pickup/roulette, kart bump, wall scrape, heavy landing, countdown tick/go, UI confirm/back/select, lobby ready, results reveal, victory/lose stinger, attic prank squeak, bedroom plush thump, garden mud splat, sandbox grit slide, and kitchen utensil clink MP4s were converted to mono 44.1 kHz PCM WAV source files for Godot import.
+- The Canva attic creak, kitchen clatter, garden stone hit, playroom block crash, playroom spring ramp, glam sparkle whoosh, glam perfume puff, sandbox bucket bonk, playground chain swing, playground slide drop, kitchen sink splash, and bedroom blanket slide exports were kept as MP3 by request and copied without transcoding.
 - Git LFS is configured for `*.glb`, `*.png`, and `*.jpg` in `.gitattributes`; the sourced large binary files are intended to be stored through LFS.
 - Godot generated `.import` sidecars for many sourced assets while the project/editor was active. These sidecars are included with the sourced files for import reproducibility.
