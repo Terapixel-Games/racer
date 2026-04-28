@@ -44,9 +44,9 @@ const PREVIEW_ROOT_NAME := "EditorTrackPreview"
 	set(value):
 		road_y_offset = value
 		_queue_preview_refresh()
-@export var track_body_bottom_y := 2.82:
+@export var track_body_depth := 0.38:
 	set(value):
-		track_body_bottom_y = value
+		track_body_depth = value
 		_queue_preview_refresh()
 @export var track_body_color := Color(0.08, 0.08, 0.1, 0.95):
 	set(value):
@@ -105,7 +105,7 @@ func _add_ground_preview(parent: Node3D) -> void:
 func _add_track_body_preview(parent: Node3D, route_points: Array[Vector3]) -> void:
 	var body := MeshInstance3D.new()
 	body.name = "PreviewTrackBody"
-	body.mesh = TrackRibbonMesh.build_slab_mesh(route_points, road_width, track_body_bottom_y, closed_loop)
+	body.mesh = TrackRibbonMesh.build_slab_mesh(route_points, road_width, track_body_depth, closed_loop)
 	body.material_override = _material(track_body_color, true)
 	parent.add_child(body)
 
@@ -196,7 +196,7 @@ func _preview_signature() -> String:
 		str(ground_size),
 		str(ground_y),
 		str(road_y_offset),
-		str(track_body_bottom_y),
+		str(track_body_depth),
 		str(track_body_color),
 	]
 	for holder_name in ["RoutePoints", "SpawnPoints", "Checkpoints", "ItemSockets", "HazardSockets", "ShortcutGates"]:

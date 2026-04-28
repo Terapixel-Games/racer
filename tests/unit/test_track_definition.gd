@@ -7,15 +7,16 @@ func test_kitchen_definition_validates() -> void:
 	var definition := TrackCatalog.get_definition("kitchen")
 	assert_true(definition != null, "Kitchen definition should load")
 	assert_equal(definition.validate(), [], "Kitchen definition should be valid")
-	assert_equal(definition.route_points.size(), 26, "Kitchen should use a clean non-overlapping countertop raceway route")
-	assert_equal(definition.checkpoint_indices, [0, 6, 13, 17, 21, 24], "Kitchen checkpoints should follow the non-overlapping route")
+	assert_equal(definition.route_points.size(), 35, "Kitchen should keep the looped countertop raceway route")
+	assert_equal(definition.checkpoint_indices, [0, 8, 16, 22, 27, 31], "Kitchen checkpoints should follow the looped route")
 	assert_equal(definition.item_sockets.size(), 10, "Kitchen should expose 10 item sockets for the longer track")
 	assert_equal(definition.hazard_sockets.size(), 8, "Kitchen should expose 8 hazard sockets")
 	assert_equal(definition.reset_mode, "instant_pop", "Kitchen should use instant pop-back resets")
 	assert_equal(definition.out_of_bounds_y, 1.5, "Kitchen floor drop should be out of bounds")
 	assert_equal(definition.shortcut_gates.size(), 1, "Kitchen should expose one table-jump shortcut")
-	assert_true(_route_height_range(definition.route_points) > 0.7, "Kitchen route should include visible height changes")
-	assert_true(_route_has_no_self_intersections(definition.route_points, definition.closed_loop), "Kitchen route centerline should not overlap itself")
+	assert_true(_route_height_range(definition.route_points) > 2.0, "Kitchen route should include visible multi-level height changes")
+	assert_true(_overpass_crossing_count(definition.route_points, definition.closed_loop, 1.8) > 0, "Kitchen route should keep the loop as a grade-separated overpass")
+	assert_true(_route_has_no_unresolved_self_intersections(definition.route_points, definition.closed_loop, 1.8), "Kitchen route centerline should only overlap when vertically separated")
 
 func test_validation_rejects_missing_route() -> void:
 	var definition := _base_definition()
@@ -84,21 +85,62 @@ func _route_height_range(route_points: Array[Vector3]) -> float:
 		max_y = maxf(max_y, point.y)
 	return max_y - min_y
 
-func _route_has_no_self_intersections(route_points: Array[Vector3], closed_loop: bool) -> bool:
+func _route_has_no_unresolved_self_intersections(route_points: Array[Vector3], closed_loop: bool, min_vertical_clearance: float) -> bool:
 	var segment_count := route_points.size() if closed_loop else route_points.size() - 1
 	for i in range(segment_count):
-		var a := Vector2(route_points[i].x, route_points[i].z)
-		var b := Vector2(route_points[(i + 1) % route_points.size()].x, route_points[(i + 1) % route_points.size()].z)
 		for j in range(i + 1, segment_count):
 			if abs(i - j) <= 1:
 				continue
 			if closed_loop and i == 0 and j == segment_count - 1:
 				continue
-			var c := Vector2(route_points[j].x, route_points[j].z)
-			var d := Vector2(route_points[(j + 1) % route_points.size()].x, route_points[(j + 1) % route_points.size()].z)
-			if _segments_intersect(a, b, c, d):
+			var gap := _segment_crossing_height_gap(
+				route_points[i],
+				route_points[(i + 1) % route_points.size()],
+				route_points[j],
+				route_points[(j + 1) % route_points.size()]
+			)
+			if gap >= 0.0 and gap < min_vertical_clearance:
 				return false
 	return true
+
+func _overpass_crossing_count(route_points: Array[Vector3], closed_loop: bool, min_vertical_clearance: float) -> int:
+	var count := 0
+	var segment_count := route_points.size() if closed_loop else route_points.size() - 1
+	for i in range(segment_count):
+		for j in range(i + 1, segment_count):
+			if abs(i - j) <= 1:
+				continue
+			if closed_loop and i == 0 and j == segment_count - 1:
+				continue
+			var gap := _segment_crossing_height_gap(
+				route_points[i],
+				route_points[(i + 1) % route_points.size()],
+				route_points[j],
+				route_points[(j + 1) % route_points.size()]
+			)
+			if gap >= min_vertical_clearance:
+				count += 1
+	return count
+
+func _segment_crossing_height_gap(a3: Vector3, b3: Vector3, c3: Vector3, d3: Vector3) -> float:
+	var a := Vector2(a3.x, a3.z)
+	var b := Vector2(b3.x, b3.z)
+	var c := Vector2(c3.x, c3.z)
+	var d := Vector2(d3.x, d3.z)
+	if not _segments_intersect(a, b, c, d):
+		return -1.0
+	var r := b - a
+	var s := d - c
+	var denom := _cross2(r, s)
+	if absf(denom) < 0.001:
+		return 0.0
+	var t := _cross2(c - a, s) / denom
+	var u := _cross2(c - a, r) / denom
+	if t < -0.001 or t > 1.001 or u < -0.001 or u > 1.001:
+		return -1.0
+	var y_a := lerpf(a3.y, b3.y, clampf(t, 0.0, 1.0))
+	var y_b := lerpf(c3.y, d3.y, clampf(u, 0.0, 1.0))
+	return absf(y_a - y_b)
 
 func _segments_intersect(a: Vector2, b: Vector2, c: Vector2, d: Vector2) -> bool:
 	var o1 := _orientation(a, b, c)
@@ -110,7 +152,10 @@ func _segments_intersect(a: Vector2, b: Vector2, c: Vector2, d: Vector2) -> bool
 	return _point_on_segment(a, b, c) or _point_on_segment(a, b, d) or _point_on_segment(c, d, a) or _point_on_segment(c, d, b)
 
 func _orientation(a: Vector2, b: Vector2, c: Vector2) -> float:
-	return (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x)
+	return _cross2(b - a, c - a)
+
+func _cross2(a: Vector2, b: Vector2) -> float:
+	return a.x * b.y - a.y * b.x
 
 func _point_on_segment(a: Vector2, b: Vector2, point: Vector2) -> bool:
 	if absf(_orientation(a, b, point)) > 0.001:

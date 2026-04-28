@@ -100,7 +100,7 @@ static func _build_ground(root: Node3D, definition: TrackDefinition) -> void:
 static func _build_track_body(root: Node3D, definition: TrackDefinition) -> void:
 	var body := MeshInstance3D.new()
 	body.name = "TrackBody"
-	body.mesh = TrackRibbonMesh.build_slab_mesh(definition.route_points, definition.road_width, definition.track_body_bottom_y, definition.closed_loop)
+	body.mesh = TrackRibbonMesh.build_slab_mesh(definition.route_points, definition.road_width, definition.track_body_depth, definition.closed_loop)
 	var material := StandardMaterial3D.new()
 	material.albedo_color = definition.track_body_color
 	material.roughness = 0.58
@@ -277,12 +277,12 @@ static func _build_section_markers(root: Node3D, definition: TrackDefinition) ->
 	var holder := Node3D.new()
 	holder.name = "SectionMarkers"
 	root.add_child(holder)
-	_add_section_marker(holder, "StartFinishStraight", Vector3(-34, 3.65, -80))
-	_add_section_marker(holder, "StoveHairpin", Vector3(-106, 3.7, -18))
-	_add_section_marker(holder, "IslandSweeper", Vector3(78, 3.95, -60))
-	_add_section_marker(holder, "BackStraight", Vector3(114, 4.1, 10))
-	_add_section_marker(holder, "SinkChicane", Vector3(-26, 4.15, 78))
-	_add_section_marker(holder, "FridgeCorner", Vector3(86, 3.9, 66))
+	_add_section_marker(holder, "StartFinishStraight", Vector3(-46, 3.65, -78))
+	_add_section_marker(holder, "StoveHairpin", Vector3(-100, 3.75, -24))
+	_add_section_marker(holder, "IslandSweeper", Vector3(22, 5.55, -38))
+	_add_section_marker(holder, "BackStraight", Vector3(112, 4.7, 18))
+	_add_section_marker(holder, "SinkChicane", Vector3(-8, 4.15, 74))
+	_add_section_marker(holder, "FridgeCorner", Vector3(84, 4.05, 72))
 
 static func _add_section_marker(parent: Node3D, marker_name: String, position: Vector3) -> void:
 	var marker := Marker3D.new()
@@ -303,11 +303,11 @@ static func _build_dressing(root: Node3D, definition: TrackDefinition) -> void:
 	_add_visual_box(holder, "KitchenIslandBase", Vector3(22, 1.35, -36), Vector3(58, 2.7, 40), 0.0, Color(0.76, 0.69, 0.58))
 	_add_visual_box(holder, "StartFinishTape", Vector3(-48, 3.45, -79.4), Vector3(1.9, 0.06, 13.0), -4.0, Color(0.04, 0.04, 0.04))
 	_add_visual_box(holder, "UnderCabinetLedStrip", Vector3(-12, 3.25, -77.8), Vector3(92.0, 0.08, 0.7), 0.0, Color(0.3, 0.92, 1.0))
-	_add_visual_box(holder, "StoveHeatZone", Vector3(-104, 3.58, -20), Vector3(15.0, 0.06, 32.0), -18.0, Color(1.0, 0.34, 0.12))
-	_add_visual_box(holder, "IslandSweeperBankStripe", Vector3(82, 3.76, -66), Vector3(46.0, 0.06, 1.6), 20.0, Color(0.18, 0.62, 1.0))
-	_add_visual_box(holder, "BackStraightSpeedStrip", Vector3(114, 3.95, 10), Vector3(1.7, 0.06, 78.0), 0.0, Color(1.0, 0.9, 0.2))
-	_add_visual_box(holder, "SinkChicaneWetStrip", Vector3(-26, 4.12, 78), Vector3(58.0, 0.06, 1.7), 4.0, Color(0.2, 0.62, 0.95))
-	_add_visual_box(holder, "FridgeCornerRecoveryStripe", Vector3(86, 3.74, 66), Vector3(20.0, 0.06, 14.0), -20.0, Color(0.7, 0.86, 1.0))
+	_add_visual_box(holder, "StoveHeatZone", Vector3(-98, 3.58, -24), Vector3(15.0, 0.06, 32.0), -18.0, Color(1.0, 0.34, 0.12))
+	_add_visual_box(holder, "IslandSweeperBankStripe", Vector3(28, 5.72, -55), Vector3(72.0, 0.06, 1.6), -5.0, Color(0.18, 0.62, 1.0))
+	_add_visual_box(holder, "BackStraightSpeedStrip", Vector3(112, 4.55, 10), Vector3(1.7, 0.06, 78.0), 0.0, Color(1.0, 0.9, 0.2))
+	_add_visual_box(holder, "SinkChicaneWetStrip", Vector3(-8, 4.04, 74), Vector3(58.0, 0.06, 1.7), 4.0, Color(0.2, 0.62, 0.95))
+	_add_visual_box(holder, "FridgeCornerRecoveryStripe", Vector3(86, 3.9, 72), Vector3(20.0, 0.06, 14.0), -20.0, Color(0.7, 0.86, 1.0))
 	_add_visual_box(holder, "FridgeLandmark", Vector3(126, 3.5, 34), Vector3(8.0, 12.0, 34.0), 0.0, Color(0.68, 0.72, 0.76))
 	_add_visual_box(holder, "StoveCooktop", Vector3(-118, 3.02, -24), Vector3(12.0, 0.08, 34.0), 0.0, Color(0.02, 0.02, 0.02))
 	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/table.glb", Vector3(24, 1.7, -34), 8.0, Vector3(7.8, 7.8, 7.8), "KitchenTable")
@@ -316,13 +316,13 @@ static func _build_dressing(root: Node3D, definition: TrackDefinition) -> void:
 	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenCabinet.glb", Vector3(-118, 2.15, -24), 90.0, Vector3(7.0, 7.0, 7.0), "OvenCabinet")
 	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenCabinetDrawer.glb", Vector3(-38, 2.1, 90), 180.0, Vector3(6.8, 6.8, 6.8), "BackCounterCabinetLeft")
 	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenCabinetDrawer.glb", Vector3(42, 2.1, 90), 180.0, Vector3(6.8, 6.8, 6.8), "BackCounterCabinetRight")
-	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cooking-spoon.glb", Vector3(-10, 4.1, 78), 92.0, Vector3(8.0, 8.0, 8.0), "SpoonHazard")
-	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cutting-board.glb", Vector3(58, 3.85, 77), 116.0, Vector3(7.0, 7.0, 7.0), "CuttingBoard")
-	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cup.glb", Vector3(-44, 3.52, -80), 90.0, Vector3(6.4, 6.4, 6.4), "FrontCupHazard")
-	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/apple.glb", Vector3(22, 3.6, -80), 18.0, Vector3(6.2, 6.2, 6.2), "RollingAppleHazard")
-	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/bowl.glb", Vector3(82, 3.82, -68), 130.0, Vector3(6.8, 6.8, 6.8), "ShortcutBowlMarker")
-	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cooking-knife.glb", Vector3(-108, 3.8, -54), -34.0, Vector3(6.0, 6.0, 6.0), "OvenKnifeGate")
-	_add_scene_instance(holder, "res://assets/source/meshy/2026-04-27-character-track-batch/sir_clink/landmark_set.glb", Vector3(-46, 3.1, 76), 35.0, Vector3(2.2, 2.2, 2.2), "SirClinkLandmark")
+	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cooking-spoon.glb", Vector3(-8, 4.1, 72), 92.0, Vector3(8.0, 8.0, 8.0), "SpoonHazard")
+	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cutting-board.glb", Vector3(18, 5.25, 0), 116.0, Vector3(7.0, 7.0, 7.0), "CuttingBoard")
+	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cup.glb", Vector3(-36, 3.52, -78), 90.0, Vector3(6.4, 6.4, 6.4), "FrontCupHazard")
+	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/apple.glb", Vector3(24, 3.6, -78), 18.0, Vector3(6.2, 6.2, 6.2), "RollingAppleHazard")
+	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/bowl.glb", Vector3(70, 3.8, -66), 130.0, Vector3(6.8, 6.8, 6.8), "ShortcutBowlMarker")
+	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cooking-knife.glb", Vector3(-98, 3.95, -40), -34.0, Vector3(6.0, 6.0, 6.0), "OvenKnifeGate")
+	_add_scene_instance(holder, "res://assets/source/meshy/2026-04-27-character-track-batch/sir_clink/landmark_set.glb", Vector3(-40, 4.45, 74), 35.0, Vector3(2.2, 2.2, 2.2), "SirClinkLandmark")
 
 static func _add_visual_box(parent: Node3D, node_name: String, position: Vector3, size: Vector3, yaw_degrees: float, color: Color) -> void:
 	var mesh := MeshInstance3D.new()
