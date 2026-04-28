@@ -5,8 +5,8 @@ const TrackProgressRules = preload("res://scripts/track/TrackProgressRules.gd")
 
 func test_projection_progress_increases_along_route() -> void:
 	var definition := TrackCatalog.get_definition("kitchen")
-	var near_start := TrackProgressRules.project_position(definition.route_points, Vector3(-28, 3.0, -58), true)
-	var later := TrackProgressRules.project_position(definition.route_points, Vector3(74, 3.0, -8), true)
+	var near_start := TrackProgressRules.project_position(definition.route_points, Vector3(-50, 3.0, -70), true)
+	var later := TrackProgressRules.project_position(definition.route_points, Vector3(88, 3.0, -10), true)
 	assert_true(float(later.get("distance", 0.0)) > float(near_start.get("distance", 0.0)), "Projected route distance should increase along the route")
 
 func test_checkpoint_order_advances_and_finishes_after_lap_sequence() -> void:

@@ -22,6 +22,9 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/ShortcutSurface") != null, "Kitchen track should include the table jump surface")
 	assert_true(instance.get_node_or_null("BuiltTrack/FloorVisual") != null, "Kitchen track should include a non-colliding floor visual below the counter")
 	assert_true(instance.get_node_or_null("BuiltTrack/Ground") == null, "Kitchen floor should not be a colliding ground plane")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/FrontCounterBase") != null, "Kitchen track should include a life-sized front counter base")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/KitchenSink") != null, "Kitchen track should include a life-sized sink landmark")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/OvenCabinet") != null, "Kitchen track should include a life-sized oven cabinet landmark")
 	instance.queue_free()
 
 func test_car_can_be_placed_on_kitchen_start_grid() -> void:
@@ -53,7 +56,7 @@ func test_kitchen_out_of_bounds_instant_pop_reset() -> void:
 	scene_tree.root.add_child(car)
 	car.global_transform.origin = Vector3(0, 0.2, 0)
 	car.velocity = Vector3(4, -8, 2)
-	var reset_transform := Transform3D(Basis(Vector3.UP, deg_to_rad(90.0)), Vector3(-22, 3.8, -60.2))
+	var reset_transform := Transform3D(Basis(Vector3.UP, deg_to_rad(90.0)), Vector3(-48, 3.8, -72.2))
 	RaceController.apply_instant_reset(car, reset_transform)
 	assert_equal(car.global_transform.origin, reset_transform.origin, "Instant pop reset should move the car back to the safe transform")
 	assert_equal(car.velocity, Vector3.ZERO, "Instant pop reset should stop the car")

@@ -263,13 +263,35 @@ static func _build_dressing(root: Node3D, definition: TrackDefinition) -> void:
 	root.add_child(holder)
 	if definition.id != "kitchen":
 		return
-	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/table.glb", Vector3(4, 2.25, 45), 8.0, Vector3(4.4, 4.4, 4.4), "KitchenTable")
-	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenSink.glb", Vector3(-78, 2.8, -10), 90.0, Vector3(4.5, 4.5, 4.5), "KitchenSink")
-	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenCabinet.glb", Vector3(70, 2.6, -8), -90.0, Vector3(4.2, 4.2, 4.2), "OvenCabinet")
-	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cooking-spoon.glb", Vector3(58, 3.15, 24), 160.0, Vector3(6, 6, 6), "SpoonHazard")
-	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cutting-board.glb", Vector3(-50, 3.05, -46), -40.0, Vector3(5, 5, 5), "CuttingBoard")
-	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cup.glb", Vector3(8, 3.05, -57), 90.0, Vector3(5, 5, 5), "FrontCupHazard")
-	_add_scene_instance(holder, "res://assets/source/meshy/2026-04-27-character-track-batch/sir_clink/landmark_set.glb", Vector3(-32, 2.6, 48), 35.0, Vector3(1.7, 1.7, 1.7), "SirClinkLandmark")
+	_add_visual_box(holder, "FrontCounterBase", Vector3(0, 1.35, -78), Vector3(128, 2.7, 10), 0.0, Color(0.78, 0.72, 0.62))
+	_add_visual_box(holder, "BackCounterBase", Vector3(0, 1.35, 78), Vector3(128, 2.7, 10), 0.0, Color(0.78, 0.72, 0.62))
+	_add_visual_box(holder, "LeftCounterBase", Vector3(-92, 1.35, -4), Vector3(10, 2.7, 124), 0.0, Color(0.72, 0.68, 0.58))
+	_add_visual_box(holder, "RightCounterBase", Vector3(94, 1.35, -4), Vector3(10, 2.7, 124), 0.0, Color(0.72, 0.68, 0.58))
+	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/table.glb", Vector3(6, 1.7, 52), 8.0, Vector3(7.8, 7.8, 7.8), "KitchenTable")
+	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenSink.glb", Vector3(-94, 2.15, 6), 90.0, Vector3(7.2, 7.2, 7.2), "KitchenSink")
+	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenCabinet.glb", Vector3(94, 2.15, -18), -90.0, Vector3(7.0, 7.0, 7.0), "OvenCabinet")
+	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenCabinetDrawer.glb", Vector3(-38, 2.1, 84), 180.0, Vector3(6.8, 6.8, 6.8), "BackCounterCabinetLeft")
+	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenCabinetDrawer.glb", Vector3(36, 2.1, 84), 180.0, Vector3(6.8, 6.8, 6.8), "BackCounterCabinetRight")
+	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cooking-spoon.glb", Vector3(66, 3.15, 40), 150.0, Vector3(8.0, 8.0, 8.0), "SpoonHazard")
+	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cutting-board.glb", Vector3(-50, 3.05, 60), -120.0, Vector3(7.0, 7.0, 7.0), "CuttingBoard")
+	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cup.glb", Vector3(18, 3.05, -72), 90.0, Vector3(6.4, 6.4, 6.4), "FrontCupHazard")
+	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/apple.glb", Vector3(28, 3.12, -70), 18.0, Vector3(6.2, 6.2, 6.2), "RollingAppleHazard")
+	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/bowl.glb", Vector3(58, 3.05, 52), 130.0, Vector3(6.8, 6.8, 6.8), "ShortcutBowlMarker")
+	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cooking-knife.glb", Vector3(84, 3.14, -22), 176.0, Vector3(6.0, 6.0, 6.0), "OvenKnifeGate")
+	_add_scene_instance(holder, "res://assets/source/meshy/2026-04-27-character-track-batch/sir_clink/landmark_set.glb", Vector3(-36, 2.4, 66), 35.0, Vector3(2.2, 2.2, 2.2), "SirClinkLandmark")
+
+static func _add_visual_box(parent: Node3D, node_name: String, position: Vector3, size: Vector3, yaw_degrees: float, color: Color) -> void:
+	var mesh := MeshInstance3D.new()
+	mesh.name = node_name
+	var box := BoxMesh.new()
+	box.size = size
+	mesh.mesh = box
+	var material := StandardMaterial3D.new()
+	material.albedo_color = color
+	material.roughness = 0.64
+	mesh.material_override = material
+	mesh.transform = Transform3D(Basis(Vector3.UP, deg_to_rad(yaw_degrees)), position)
+	parent.add_child(mesh)
 
 static func _add_scene_instance(parent: Node3D, path: String, position: Vector3, yaw_degrees: float, scale: Vector3, node_name: String) -> void:
 	var packed := load(path)
