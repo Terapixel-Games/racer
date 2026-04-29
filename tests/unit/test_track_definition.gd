@@ -7,14 +7,15 @@ func test_kitchen_definition_validates() -> void:
 	var definition := TrackCatalog.get_definition("kitchen")
 	assert_true(definition != null, "Kitchen definition should load")
 	assert_equal(definition.validate(), [], "Kitchen definition should be valid")
-	assert_equal(definition.route_points.size(), 35, "Kitchen should keep the looped countertop raceway route")
-	assert_equal(definition.checkpoint_indices, [0, 8, 16, 22, 27, 31], "Kitchen checkpoints should follow the looped route")
+	assert_equal(definition.route_points.size(), 38, "Kitchen should keep the looped countertop raceway route with a fridge-top section")
+	assert_equal(definition.checkpoint_indices, [0, 8, 16, 25, 30, 34], "Kitchen checkpoints should follow the looped route")
 	assert_equal(definition.item_sockets.size(), 10, "Kitchen should expose 10 item sockets for the longer track")
 	assert_equal(definition.hazard_sockets.size(), 8, "Kitchen should expose 8 hazard sockets")
 	assert_equal(definition.reset_mode, "instant_pop", "Kitchen should use instant pop-back resets")
 	assert_equal(definition.out_of_bounds_y, 1.5, "Kitchen floor drop should be out of bounds")
 	assert_equal(definition.shortcut_gates.size(), 1, "Kitchen should expose one table-jump shortcut")
 	assert_true(_route_height_range(definition.route_points) > 2.0, "Kitchen route should keep the multi-level island loop")
+	assert_true(_route_has_fridge_top_section(definition.route_points), "Kitchen route should climb onto and cross the fridge landmark")
 	assert_true(_overpass_crossing_count(definition.route_points, definition.closed_loop, 1.8) > 0, "Kitchen route should keep the loop as a grade-separated overpass")
 	assert_true(_route_has_no_unresolved_self_intersections(definition.route_points, definition.closed_loop, 1.8), "Kitchen route centerline should only overlap when vertically separated")
 	assert_true(_route_follows_counter_or_island_space(definition.route_points), "Kitchen route should follow outer counters or the central island loop")
@@ -85,6 +86,13 @@ func _route_height_range(route_points: Array[Vector3]) -> float:
 		min_y = minf(min_y, point.y)
 		max_y = maxf(max_y, point.y)
 	return max_y - min_y
+
+func _route_has_fridge_top_section(route_points: Array[Vector3]) -> bool:
+	var fridge_top_points := 0
+	for point in route_points:
+		if point.x >= 120.0 and point.x <= 132.0 and point.z >= 18.0 and point.z <= 52.0 and point.y >= 14.0:
+			fridge_top_points += 1
+	return fridge_top_points >= 2
 
 func _route_has_no_unresolved_self_intersections(route_points: Array[Vector3], closed_loop: bool, min_vertical_clearance: float) -> bool:
 	var segment_count := route_points.size() if closed_loop else route_points.size() - 1

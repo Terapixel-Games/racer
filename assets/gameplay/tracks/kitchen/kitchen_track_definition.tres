@@ -1,31 +1,22 @@
-[gd_resource type="Resource" script_class="TrackDefinition" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="TrackDefinition" load_steps=2 format=3 uid="uid://qkm33jviep7u"]
 
-[ext_resource type="Script" path="res://scripts/track/TrackDefinition.gd" id="1"]
+[ext_resource type="Script" uid="uid://dndccbxb7m7sa" path="res://scripts/track/TrackDefinition.gd" id="1"]
 
 [resource]
 script = ExtResource("1")
 id = "kitchen"
 display_name = "Kitchen / Sir Clink"
-laps = 2
-road_width = 12.0
-wall_height = 1.6
-wall_thickness = 0.45
-closed_loop = true
 out_of_bounds_y = 1.5
 reset_mode = "instant_pop"
 runtime_scene_path = "res://assets/gameplay/tracks/kitchen/kitchen_track.tscn"
 ground_size = Vector2(250, 190)
-ground_color = Color(0.82, 0.86, 0.88, 1)
 ground_texture_path = "res://assets/gameplay/materials/tile/kitchen_tile_albedo.png"
 road_texture_path = "res://assets/gameplay/materials/plastic/glossy_plastic_albedo.png"
-track_body_depth = 0.38
-track_body_color = Color(0.08, 0.08, 0.1, 1)
-route_points = Array[Vector3]([Vector3(-86.0, 3.35, -76.0), Vector3(-56.0, 3.35, -78.0), Vector3(-24.0, 3.35, -78.0), Vector3(12.0, 3.42, -78.0), Vector3(46.0, 3.48, -76.0), Vector3(66.0, 3.54, -68.0), Vector3(76.0, 3.62, -50.0), Vector3(72.0, 3.82, -26.0), Vector3(56.0, 4.08, -8.0), Vector3(30.0, 4.45, 2.0), Vector3(-2.0, 4.85, 0.0), Vector3(-24.0, 5.2, -16.0), Vector3(-32.0, 5.45, -42.0), Vector3(-18.0, 5.65, -62.0), Vector3(16.0, 5.78, -70.0), Vector3(52.0, 5.85, -70.0), Vector3(86.0, 5.7, -68.0), Vector3(108.0, 5.35, -52.0), Vector3(116.0, 4.9, -18.0), Vector3(114.0, 4.45, 22.0), Vector3(104.0, 4.1, 54.0), Vector3(82.0, 3.82, 72.0), Vector3(44.0, 3.6, 78.0), Vector3(12.0, 3.7, 76.0), Vector3(-12.0, 3.9, 70.0), Vector3(-40.0, 4.1, 76.0), Vector3(-72.0, 4.2, 70.0), Vector3(-96.0, 4.1, 56.0), Vector3(-104.0, 3.95, 30.0), Vector3(-90.0, 3.78, 14.0), Vector3(-104.0, 3.62, -4.0), Vector3(-88.0, 3.5, -22.0), Vector3(-104.0, 3.42, -44.0), Vector3(-110.0, 3.36, -62.0), Vector3(-102.0, 3.35, -74.0)])
-checkpoint_indices = Array[int]([0, 8, 16, 22, 27, 31])
-lap_gate_checkpoint_index = 0
-spawn_points = Array[Vector4]([Vector4(-82.0, 4.15, -79.0, 90.0), Vector4(-82.0, 4.15, -74.0, 90.0), Vector4(-76.0, 4.15, -79.0, 90.0), Vector4(-76.0, 4.15, -74.0, 90.0), Vector4(-70.0, 4.15, -79.0, 90.0), Vector4(-70.0, 4.15, -74.0, 90.0), Vector4(-64.0, 4.15, -79.0, 90.0), Vector4(-64.0, 4.15, -74.0, 90.0)])
-item_sockets = Array[Vector4]([Vector4(-36.0, 4.05, -78.0, 90.0), Vector4(24.0, 4.18, -78.0, 90.0), Vector4(70.0, 4.25, -66.0, 40.0), Vector4(14.0, 5.42, 0.0, 116.0), Vector4(90.0, 6.22, -66.0, 24.0), Vector4(114.0, 5.38, -18.0, 176.0), Vector4(96.0, 4.66, 54.0, 145.0), Vector4(20.0, 4.25, 76.0, -88.0), Vector4(-48.0, 4.8, 74.0, -100.0), Vector4(-98.0, 4.12, -40.0, -34.0)])
-hazard_sockets = Array[Vector4]([Vector4(74.0, 4.3, -48.0, 30.0), Vector4(-29.0, 5.96, -34.0, -165.0), Vector4(112.0, 5.0, 18.0, 176.0), Vector4(-8.0, 4.45, 72.0, -92.0), Vector4(-96.0, 4.3, 18.0, 184.0), Vector4(-104.0, 4.1, -50.0, -34.0), Vector4(58.0, 4.25, -68.0, 64.0), Vector4(82.0, 4.4, 72.0, -132.0)])
+route_points = Array[Vector3]([Vector3(-86, 3.35, -76), Vector3(-56, 3.35, -78), Vector3(-24, 3.35, -78), Vector3(12, 3.42, -78), Vector3(46, 3.48, -76), Vector3(66, 3.54, -68), Vector3(76, 3.62, -50), Vector3(72, 3.82, -26), Vector3(56, 4.08, -8), Vector3(30, 4.45, 2), Vector3(-2, 4.85, 0), Vector3(-24, 5.2, -16), Vector3(-32, 5.45, -42), Vector3(-18, 5.65, -62), Vector3(16, 5.78, -70), Vector3(52, 5.85, -70), Vector3(86, 5.7, -68), Vector3(108, 6.8, -52), Vector3(122, 9.2, -28), Vector3(128, 12.3, -2), Vector3(128, 14.8, 24), Vector3(128, 14.8, 46), Vector3(122, 13.2, 66), Vector3(104, 9.2, 76), Vector3(72, 5.6, 78), Vector3(44, 3.8, 78), Vector3(12, 3.7, 76), Vector3(-12, 3.9, 70), Vector3(-40, 4.1, 76), Vector3(-72, 4.2, 70), Vector3(-96, 4.1, 56), Vector3(-104, 3.95, 30), Vector3(-90, 3.78, 14), Vector3(-104, 3.62, -4), Vector3(-88, 3.5, -22), Vector3(-104, 3.42, -44), Vector3(-110, 3.36, -62), Vector3(-102, 3.35, -74)])
+checkpoint_indices = Array[int]([0, 8, 16, 25, 30, 34])
+spawn_points = Array[Vector4]([Vector4(-82, 4.15, -79, 90), Vector4(-82, 4.15, -74, 90), Vector4(-76, 4.15, -79, 90), Vector4(-76, 4.15, -74, 90), Vector4(-70, 4.15, -79, 90), Vector4(-70, 4.15, -74, 90), Vector4(-64, 4.15, -79, 90), Vector4(-64, 4.15, -74, 90)])
+item_sockets = Array[Vector4]([Vector4(-36, 4.05, -78, 90), Vector4(24, 4.18, -78, 90), Vector4(70, 4.25, -66, 40), Vector4(14, 5.42, 0, 116), Vector4(90, 6.22, -66, 24), Vector4(124, 10.4, -18, 176), Vector4(126, 15.45, 36, 180), Vector4(20, 4.25, 76, -88), Vector4(-48, 4.8, 74, -100), Vector4(-98, 4.12, -40, -34)])
+hazard_sockets = Array[Vector4]([Vector4(74, 4.3, -48, 30), Vector4(-29, 5.96, -34, -165), Vector4(126, 15.25, 24, 176), Vector4(-8, 4.45, 72, -92), Vector4(-96, 4.3, 18, 184), Vector4(-104, 4.1, -50, -34), Vector4(58, 4.25, -68, 64), Vector4(106, 9.8, 74, -132)])
 shortcut_gates = Array[Dictionary]([{
 "entry": [70.0, 3.58, -66.0],
 "exit": [14.0, 5.38, 0.0],
@@ -34,8 +25,8 @@ shortcut_gates = Array[Dictionary]([{
 "width": 8.0
 }])
 audio_ids = {
-"music": "res://assets/source/audio/suno/tracks/kitchen/kitchen_loop_suno_01.mp3",
 "clatter": "res://assets/source/audio/canva/tracks/kitchen/kitchen_clatter_canva_01.mp3",
+"music": "res://assets/source/audio/suno/tracks/kitchen/kitchen_loop_suno_01.mp3",
 "sink_splash": "res://assets/source/audio/canva/tracks/kitchen/kitchen_sink_splash_canva_01.mp3",
 "utensil_clink": "res://assets/source/audio/canva/tracks/kitchen/kitchen_utensil_clink_canva_01.wav"
 }

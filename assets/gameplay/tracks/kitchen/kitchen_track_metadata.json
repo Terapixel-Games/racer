@@ -1,101 +1,506 @@
 {
-	"id": "kitchen",
-	"display_name": "Kitchen / Sir Clink",
-	"laps": 2,
-	"road_width": 12.0,
-	"wall_height": 1.6,
-	"wall_thickness": 0.45,
-	"closed_loop": true,
-	"out_of_bounds_y": 1.5,
-	"reset_mode": "instant_pop",
-	"route_points": [
-		[-86.0, 3.35, -76.0],
-		[-56.0, 3.35, -78.0],
-		[-24.0, 3.35, -78.0],
-		[12.0, 3.42, -78.0],
-		[46.0, 3.48, -76.0],
-		[66.0, 3.54, -68.0],
-		[76.0, 3.62, -50.0],
-		[72.0, 3.82, -26.0],
-		[56.0, 4.08, -8.0],
-		[30.0, 4.45, 2.0],
-		[-2.0, 4.85, 0.0],
-		[-24.0, 5.2, -16.0],
-		[-32.0, 5.45, -42.0],
-		[-18.0, 5.65, -62.0],
-		[16.0, 5.78, -70.0],
-		[52.0, 5.85, -70.0],
-		[86.0, 5.7, -68.0],
-		[108.0, 5.35, -52.0],
-		[116.0, 4.9, -18.0],
-		[114.0, 4.45, 22.0],
-		[104.0, 4.1, 54.0],
-		[82.0, 3.82, 72.0],
-		[44.0, 3.6, 78.0],
-		[12.0, 3.7, 76.0],
-		[-12.0, 3.9, 70.0],
-		[-40.0, 4.1, 76.0],
-		[-72.0, 4.2, 70.0],
-		[-96.0, 4.1, 56.0],
-		[-104.0, 3.95, 30.0],
-		[-90.0, 3.78, 14.0],
-		[-104.0, 3.62, -4.0],
-		[-88.0, 3.5, -22.0],
-		[-104.0, 3.42, -44.0],
-		[-110.0, 3.36, -62.0],
-		[-102.0, 3.35, -74.0]
-	],
-	"route_length": 986.8812087634815,
-	"checkpoint_radius": 7.8,
-	"checkpoints": [
-		{"index": 0, "route_index": 0, "position": [-86.0, 3.35, -76.0], "is_lap_gate": true},
-		{"index": 1, "route_index": 8, "position": [56.0, 4.08, -8.0], "is_lap_gate": false},
-		{"index": 2, "route_index": 16, "position": [86.0, 5.7, -68.0], "is_lap_gate": false},
-		{"index": 3, "route_index": 22, "position": [44.0, 3.6, 78.0], "is_lap_gate": false},
-		{"index": 4, "route_index": 27, "position": [-96.0, 4.1, 56.0], "is_lap_gate": false},
-		{"index": 5, "route_index": 31, "position": [-88.0, 3.5, -22.0], "is_lap_gate": false}
-	],
-	"lap_gate_checkpoint_index": 0,
-	"spawn_points": [
-		{"position": [-82.0, 4.15, -79.0], "yaw_degrees": 90.0},
-		{"position": [-82.0, 4.15, -74.0], "yaw_degrees": 90.0},
-		{"position": [-76.0, 4.15, -79.0], "yaw_degrees": 90.0},
-		{"position": [-76.0, 4.15, -74.0], "yaw_degrees": 90.0},
-		{"position": [-70.0, 4.15, -79.0], "yaw_degrees": 90.0},
-		{"position": [-70.0, 4.15, -74.0], "yaw_degrees": 90.0},
-		{"position": [-64.0, 4.15, -79.0], "yaw_degrees": 90.0},
-		{"position": [-64.0, 4.15, -74.0], "yaw_degrees": 90.0}
-	],
-	"item_sockets": [
-		{"position": [-36.0, 4.05, -78.0], "yaw_degrees": 90.0},
-		{"position": [24.0, 4.18, -78.0], "yaw_degrees": 90.0},
-		{"position": [70.0, 4.25, -66.0], "yaw_degrees": 40.0},
-		{"position": [14.0, 5.42, 0.0], "yaw_degrees": 116.0},
-		{"position": [90.0, 6.22, -66.0], "yaw_degrees": 24.0},
-		{"position": [114.0, 5.38, -18.0], "yaw_degrees": 176.0},
-		{"position": [96.0, 4.66, 54.0], "yaw_degrees": 145.0},
-		{"position": [20.0, 4.25, 76.0], "yaw_degrees": -88.0},
-		{"position": [-48.0, 4.8, 74.0], "yaw_degrees": -100.0},
-		{"position": [-98.0, 4.12, -40.0], "yaw_degrees": -34.0}
-	],
-	"hazard_sockets": [
-		{"position": [74.0, 4.3, -48.0], "yaw_degrees": 30.0},
-		{"position": [-29.0, 5.96, -34.0], "yaw_degrees": -165.0},
-		{"position": [112.0, 5.0, 18.0], "yaw_degrees": 176.0},
-		{"position": [-8.0, 4.45, 72.0], "yaw_degrees": -92.0},
-		{"position": [-96.0, 4.3, 18.0], "yaw_degrees": 184.0},
-		{"position": [-104.0, 4.1, -50.0], "yaw_degrees": -34.0},
-		{"position": [58.0, 4.25, -68.0], "yaw_degrees": 64.0},
-		{"position": [82.0, 4.4, 72.0], "yaw_degrees": -132.0}
-	],
-	"shortcut_gates": [
-		{"id": "table_jump", "kind": "jump", "entry": [70.0, 3.58, -66.0], "exit": [14.0, 5.38, 0.0], "width": 8.0}
-	],
 	"audio_ids": {
-		"music": "res://assets/source/audio/suno/tracks/kitchen/kitchen_loop_suno_01.mp3",
 		"clatter": "res://assets/source/audio/canva/tracks/kitchen/kitchen_clatter_canva_01.mp3",
+		"music": "res://assets/source/audio/suno/tracks/kitchen/kitchen_loop_suno_01.mp3",
 		"sink_splash": "res://assets/source/audio/canva/tracks/kitchen/kitchen_sink_splash_canva_01.mp3",
 		"utensil_clink": "res://assets/source/audio/canva/tracks/kitchen/kitchen_utensil_clink_canva_01.wav"
 	},
-	"runtime_scene_path": "res://assets/gameplay/tracks/kitchen/kitchen_track.tscn"
+	"checkpoint_radius": 7.8,
+	"checkpoints": [
+		{
+			"index": 0,
+			"is_lap_gate": true,
+			"position": [
+				-86.0,
+				3.34999990463257,
+				-76.0
+			],
+			"route_index": 0
+		},
+		{
+			"index": 1,
+			"is_lap_gate": false,
+			"position": [
+				56.0,
+				4.07999992370605,
+				-8.0
+			],
+			"route_index": 8
+		},
+		{
+			"index": 2,
+			"is_lap_gate": false,
+			"position": [
+				86.0,
+				5.69999980926514,
+				-68.0
+			],
+			"route_index": 16
+		},
+		{
+			"index": 3,
+			"is_lap_gate": false,
+			"position": [
+				44.0,
+				3.79999995231628,
+				78.0
+			],
+			"route_index": 25
+		},
+		{
+			"index": 4,
+			"is_lap_gate": false,
+			"position": [
+				-96.0,
+				4.09999990463257,
+				56.0
+			],
+			"route_index": 30
+		},
+		{
+			"index": 5,
+			"is_lap_gate": false,
+			"position": [
+				-88.0,
+				3.5,
+				-22.0
+			],
+			"route_index": 34
+		}
+	],
+	"closed_loop": true,
+	"display_name": "Kitchen / Sir Clink",
+	"hazard_sockets": [
+		{
+			"position": [
+				74.0,
+				4.30000019073486,
+				-48.0
+			],
+			"yaw_degrees": 30.0
+		},
+		{
+			"position": [
+				-29.0,
+				5.96000003814697,
+				-34.0
+			],
+			"yaw_degrees": -165.0
+		},
+		{
+			"position": [
+				126.0,
+				15.25,
+				24.0
+			],
+			"yaw_degrees": 176.0
+		},
+		{
+			"position": [
+				-8.0,
+				4.44999980926514,
+				72.0
+			],
+			"yaw_degrees": -92.0
+		},
+		{
+			"position": [
+				-96.0,
+				4.30000019073486,
+				18.0
+			],
+			"yaw_degrees": 184.0
+		},
+		{
+			"position": [
+				-104.0,
+				4.09999990463257,
+				-50.0
+			],
+			"yaw_degrees": -34.0
+		},
+		{
+			"position": [
+				58.0,
+				4.25,
+				-68.0
+			],
+			"yaw_degrees": 64.0
+		},
+		{
+			"position": [
+				106.0,
+				9.80000019073486,
+				74.0
+			],
+			"yaw_degrees": -132.0
+		}
+	],
+	"id": "kitchen",
+	"item_sockets": [
+		{
+			"position": [
+				-36.0,
+				4.05000019073486,
+				-78.0
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"position": [
+				24.0,
+				4.17999982833862,
+				-78.0
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"position": [
+				70.0,
+				4.25,
+				-66.0
+			],
+			"yaw_degrees": 40.0
+		},
+		{
+			"position": [
+				14.0,
+				5.42000007629395,
+				0.0
+			],
+			"yaw_degrees": 116.0
+		},
+		{
+			"position": [
+				90.0,
+				6.21999979019165,
+				-66.0
+			],
+			"yaw_degrees": 24.0
+		},
+		{
+			"position": [
+				124.0,
+				10.3999996185303,
+				-18.0
+			],
+			"yaw_degrees": 176.0
+		},
+		{
+			"position": [
+				126.0,
+				15.4499998092651,
+				36.0
+			],
+			"yaw_degrees": 180.0
+		},
+		{
+			"position": [
+				20.0,
+				4.25,
+				76.0
+			],
+			"yaw_degrees": -88.0
+		},
+		{
+			"position": [
+				-48.0,
+				4.80000019073486,
+				74.0
+			],
+			"yaw_degrees": -100.0
+		},
+		{
+			"position": [
+				-98.0,
+				4.11999988555908,
+				-40.0
+			],
+			"yaw_degrees": -34.0
+		}
+	],
+	"lap_gate_checkpoint_index": 0,
+	"laps": 2,
+	"out_of_bounds_y": 1.5,
+	"reset_mode": "instant_pop",
+	"road_width": 12.0,
+	"route_length": 1016.6020154953,
+	"route_points": [
+		[
+			-86.0,
+			3.34999990463257,
+			-76.0
+		],
+		[
+			-56.0,
+			3.34999990463257,
+			-78.0
+		],
+		[
+			-24.0,
+			3.34999990463257,
+			-78.0
+		],
+		[
+			12.0,
+			3.42000007629395,
+			-78.0
+		],
+		[
+			46.0,
+			3.48000001907349,
+			-76.0
+		],
+		[
+			66.0,
+			3.53999996185303,
+			-68.0
+		],
+		[
+			76.0,
+			3.61999988555908,
+			-50.0
+		],
+		[
+			72.0,
+			3.8199999332428,
+			-26.0
+		],
+		[
+			56.0,
+			4.07999992370605,
+			-8.0
+		],
+		[
+			30.0,
+			4.44999980926514,
+			2.0
+		],
+		[
+			-2.0,
+			4.84999990463257,
+			0.0
+		],
+		[
+			-24.0,
+			5.19999980926514,
+			-16.0
+		],
+		[
+			-32.0,
+			5.44999980926514,
+			-42.0
+		],
+		[
+			-18.0,
+			5.65000009536743,
+			-62.0
+		],
+		[
+			16.0,
+			5.78000020980835,
+			-70.0
+		],
+		[
+			52.0,
+			5.84999990463257,
+			-70.0
+		],
+		[
+			86.0,
+			5.69999980926514,
+			-68.0
+		],
+		[
+			108.0,
+			6.80000019073486,
+			-52.0
+		],
+		[
+			122.0,
+			9.19999980926514,
+			-28.0
+		],
+		[
+			128.0,
+			12.3000001907349,
+			-2.0
+		],
+		[
+			128.0,
+			14.8000001907349,
+			24.0
+		],
+		[
+			128.0,
+			14.8000001907349,
+			46.0
+		],
+		[
+			122.0,
+			13.1999998092651,
+			66.0
+		],
+		[
+			104.0,
+			9.19999980926514,
+			76.0
+		],
+		[
+			72.0,
+			5.59999990463257,
+			78.0
+		],
+		[
+			44.0,
+			3.79999995231628,
+			78.0
+		],
+		[
+			12.0,
+			3.70000004768372,
+			76.0
+		],
+		[
+			-12.0,
+			3.90000009536743,
+			70.0
+		],
+		[
+			-40.0,
+			4.09999990463257,
+			76.0
+		],
+		[
+			-72.0,
+			4.19999980926514,
+			70.0
+		],
+		[
+			-96.0,
+			4.09999990463257,
+			56.0
+		],
+		[
+			-104.0,
+			3.95000004768372,
+			30.0
+		],
+		[
+			-90.0,
+			3.77999997138977,
+			14.0
+		],
+		[
+			-104.0,
+			3.61999988555908,
+			-4.0
+		],
+		[
+			-88.0,
+			3.5,
+			-22.0
+		],
+		[
+			-104.0,
+			3.42000007629395,
+			-44.0
+		],
+		[
+			-110.0,
+			3.35999989509583,
+			-62.0
+		],
+		[
+			-102.0,
+			3.34999990463257,
+			-74.0
+		]
+	],
+	"runtime_scene_path": "res://assets/gameplay/tracks/kitchen/kitchen_track.tscn",
+	"shortcut_gates": [
+		{
+			"entry": [
+				70.0,
+				3.58,
+				-66.0
+			],
+			"exit": [
+				14.0,
+				5.38,
+				0.0
+			],
+			"id": "table_jump",
+			"kind": "jump",
+			"width": 8.0
+		}
+	],
+	"spawn_points": [
+		{
+			"position": [
+				-82.0,
+				4.15000009536743,
+				-79.0
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"position": [
+				-82.0,
+				4.15000009536743,
+				-74.0
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"position": [
+				-76.0,
+				4.15000009536743,
+				-79.0
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"position": [
+				-76.0,
+				4.15000009536743,
+				-74.0
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"position": [
+				-70.0,
+				4.15000009536743,
+				-79.0
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"position": [
+				-70.0,
+				4.15000009536743,
+				-74.0
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"position": [
+				-64.0,
+				4.15000009536743,
+				-79.0
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"position": [
+				-64.0,
+				4.15000009536743,
+				-74.0
+			],
+			"yaw_degrees": 90.0
+		}
+	],
+	"wall_height": 1.6,
+	"wall_thickness": 0.45
 }

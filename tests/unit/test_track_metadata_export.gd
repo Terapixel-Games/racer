@@ -7,7 +7,7 @@ func test_kitchen_metadata_matches_server_shape() -> void:
 	var definition := TrackCatalog.get_definition("kitchen")
 	var metadata := TrackMetadataExporter.metadata_for(definition)
 	assert_equal(str(metadata.get("id", "")), "kitchen", "Metadata should include track id")
-	assert_equal((metadata.get("route_points", []) as Array).size(), 35, "Metadata should export route points")
+	assert_equal((metadata.get("route_points", []) as Array).size(), 38, "Metadata should export route points")
 	assert_equal((metadata.get("checkpoints", []) as Array).size(), 6, "Metadata should export checkpoints")
 	assert_equal((metadata.get("spawn_points", []) as Array).size(), 8, "Metadata should export 8 spawns")
 	assert_equal((metadata.get("item_sockets", []) as Array).size(), 10, "Metadata should export 10 item sockets")
