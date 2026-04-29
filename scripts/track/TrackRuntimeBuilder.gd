@@ -9,12 +9,6 @@ const TrackDefinition = preload("res://scripts/track/TrackDefinition.gd")
 const TrackRibbonMesh = preload("res://scripts/track/TrackRibbonMesh.gd")
 const TrackWalls = preload("res://scripts/TrackWalls.gd")
 
-const KITCHEN_FLOOR_VISUAL_Y := -11.0
-const KITCHEN_COUNTER_BASE_CENTER_Y := -4.15
-const KITCHEN_COUNTER_BASE_HEIGHT := 13.7
-const KITCHEN_WALL_CENTER_Y := 11.5
-const KITCHEN_WALL_HEIGHT := 45.0
-
 static func build(definition: TrackDefinition) -> Dictionary:
 	if definition == null:
 		return {"node": Node3D.new(), "spawns": [], "waypoints": [], "laps": 1, "metadata": {}}
@@ -91,10 +85,7 @@ static func _build_ground(root: Node3D, definition: TrackDefinition) -> void:
 	var plane := PlaneMesh.new()
 	plane.size = definition.ground_size
 	visual.mesh = plane
-	var floor_y := 0.0 if floor_is_out_of_bounds else -0.1
-	if definition.id == "kitchen" and floor_is_out_of_bounds:
-		floor_y = KITCHEN_FLOOR_VISUAL_Y
-	visual.transform.origin = Vector3(0, floor_y, 0)
+	visual.transform.origin = Vector3(0, 0.0 if floor_is_out_of_bounds else -0.1, 0)
 	var material := StandardMaterial3D.new()
 	material.albedo_color = definition.ground_color
 	material.roughness = 0.72
@@ -317,7 +308,8 @@ static func _build_dressing(root: Node3D, definition: TrackDefinition) -> void:
 	_add_visual_box(holder, "StoveCooktop", Vector3(-118, 3.02, -24), Vector3(12.0, 0.08, 34.0), 0.0, Color(0.02, 0.02, 0.02))
 	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/table.glb", Vector3(24, 1.7, -34), 8.0, Vector3(7.8, 7.8, 7.8), "KitchenTable")
 	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/pottedPlant.glb", Vector3(20, 3.0, -34), 15.0, Vector3(7.0, 7.0, 7.0), "IslandPlanter")
-	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenSink.glb", Vector3(-8, 2.15, 88), 180.0, Vector3(7.2, 7.2, 7.2), "KitchenSink")
+	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenSink.glb", Vector3(-8, 2.15, 88), 180.0, Vector3(15.5, 15.5, 15.5), "KitchenSink")
+	_build_full_size_sink(holder)
 	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenCabinet.glb", Vector3(-118, 2.15, -24), 90.0, Vector3(7.0, 7.0, 7.0), "OvenCabinet")
 	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenCabinetDrawer.glb", Vector3(-38, 2.1, 90), 180.0, Vector3(6.8, 6.8, 6.8), "BackCounterCabinetLeft")
 	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenCabinetDrawer.glb", Vector3(42, 2.1, 90), 180.0, Vector3(6.8, 6.8, 6.8), "BackCounterCabinetRight")
@@ -330,37 +322,47 @@ static func _build_dressing(root: Node3D, definition: TrackDefinition) -> void:
 	_add_scene_instance(holder, "res://assets/source/meshy/2026-04-27-character-track-batch/sir_clink/landmark_set.glb", Vector3(-40, 4.45, 74), 35.0, Vector3(2.2, 2.2, 2.2), "SirClinkLandmark")
 
 static func _build_full_size_kitchen_room(holder: Node3D) -> void:
-	_add_visual_box(holder, "KitchenBackWall", Vector3(0, KITCHEN_WALL_CENTER_Y, 106), Vector3(280, KITCHEN_WALL_HEIGHT, 2.0), 0.0, Color(0.62, 0.57, 0.49))
-	_add_visual_box(holder, "KitchenLeftWall", Vector3(-142, KITCHEN_WALL_CENTER_Y, 0), Vector3(2.0, KITCHEN_WALL_HEIGHT, 220), 0.0, Color(0.58, 0.54, 0.48))
-	_add_visual_box(holder, "KitchenRightWall", Vector3(146, KITCHEN_WALL_CENTER_Y, 0), Vector3(2.0, KITCHEN_WALL_HEIGHT, 220), 0.0, Color(0.58, 0.54, 0.48))
+	_add_visual_box(holder, "KitchenBackWall", Vector3(0, 16.0, 98), Vector3(252, 32.0, 2.0), 0.0, Color(0.62, 0.57, 0.49))
+	_add_visual_box(holder, "KitchenLeftWall", Vector3(-128, 16.0, 0), Vector3(2.0, 32.0, 196), 0.0, Color(0.58, 0.54, 0.48))
+	_add_visual_box(holder, "KitchenRightWall", Vector3(128, 16.0, 0), Vector3(2.0, 32.0, 196), 0.0, Color(0.58, 0.54, 0.48))
 	_add_visual_box(holder, "KitchenBacksplash", Vector3(0, 5.2, 91.3), Vector3(230, 3.6, 0.35), 0.0, Color(0.54, 0.46, 0.38))
-	_add_visual_box(holder, "KitchenWindowFrame", Vector3(-8, 16.5, 104.6), Vector3(66, 24.0, 0.5), 0.0, Color(0.16, 0.18, 0.2))
-	_add_visual_box(holder, "KitchenWindowGlass", Vector3(-8, 16.5, 104.25), Vector3(56, 19.0, 0.55), 0.0, Color(0.66, 0.86, 1.0))
-	_add_visual_box(holder, "WindowCrossbarVertical", Vector3(-8, 16.5, 103.9), Vector3(1.2, 19.4, 0.8), 0.0, Color(0.94, 0.91, 0.82))
-	_add_visual_box(holder, "WindowCrossbarHorizontal", Vector3(-8, 16.5, 103.85), Vector3(57.0, 1.0, 0.8), 0.0, Color(0.94, 0.91, 0.82))
-	_add_visual_box(holder, "FrontCounterBase", Vector3(0, KITCHEN_COUNTER_BASE_CENTER_Y, -84), Vector3(244, KITCHEN_COUNTER_BASE_HEIGHT, 28), 0.0, Color(0.78, 0.72, 0.62))
-	_add_visual_box(holder, "BackCounterBase", Vector3(0, KITCHEN_COUNTER_BASE_CENTER_Y, 84), Vector3(238, KITCHEN_COUNTER_BASE_HEIGHT, 28), 0.0, Color(0.78, 0.72, 0.62))
-	_add_visual_box(holder, "LeftCounterBase", Vector3(-116, KITCHEN_COUNTER_BASE_CENTER_Y, -2), Vector3(64, KITCHEN_COUNTER_BASE_HEIGHT, 172), 0.0, Color(0.72, 0.68, 0.58))
-	_add_visual_box(holder, "RightCounterBase", Vector3(122, KITCHEN_COUNTER_BASE_CENTER_Y, -2), Vector3(42, KITCHEN_COUNTER_BASE_HEIGHT, 172), 0.0, Color(0.72, 0.68, 0.58))
-	_add_visual_box(holder, "KitchenIslandBase", Vector3(22, KITCHEN_COUNTER_BASE_CENTER_Y, -36), Vector3(132, KITCHEN_COUNTER_BASE_HEIGHT, 84), 0.0, Color(0.76, 0.69, 0.58))
-	_add_visual_box(holder, "FrontCountertop", Vector3(0, 2.95, -84), Vector3(252, 0.36, 34), 0.0, Color(0.86, 0.78, 0.65))
-	_add_visual_box(holder, "BackCountertop", Vector3(0, 2.95, 84), Vector3(246, 0.36, 34), 0.0, Color(0.86, 0.78, 0.65))
-	_add_visual_box(holder, "LeftCountertop", Vector3(-116, 2.95, -2), Vector3(68, 0.36, 176), 0.0, Color(0.82, 0.76, 0.66))
-	_add_visual_box(holder, "RightCountertop", Vector3(122, 2.95, -2), Vector3(46, 0.36, 176), 0.0, Color(0.82, 0.76, 0.66))
+	_add_visual_box(holder, "KitchenWindowFrame", Vector3(-8, 12.5, 96.6), Vector3(54, 18.0, 0.5), 0.0, Color(0.16, 0.18, 0.2))
+	_add_visual_box(holder, "KitchenWindowGlass", Vector3(-8, 12.5, 96.25), Vector3(46, 14.2, 0.55), 0.0, Color(0.66, 0.86, 1.0))
+	_add_visual_box(holder, "WindowCrossbarVertical", Vector3(-8, 12.5, 95.9), Vector3(1.0, 14.8, 0.8), 0.0, Color(0.94, 0.91, 0.82))
+	_add_visual_box(holder, "WindowCrossbarHorizontal", Vector3(-8, 12.5, 95.85), Vector3(47.0, 0.9, 0.8), 0.0, Color(0.94, 0.91, 0.82))
+	_add_visual_box(holder, "FrontCounterBase", Vector3(0, 1.35, -84), Vector3(230, 2.7, 12), 0.0, Color(0.78, 0.72, 0.62))
+	_add_visual_box(holder, "BackCounterBase", Vector3(0, 1.35, 84), Vector3(224, 2.7, 12), 0.0, Color(0.78, 0.72, 0.62))
+	_add_visual_box(holder, "LeftCounterBase", Vector3(-116, 1.35, -2), Vector3(12, 2.7, 156), 0.0, Color(0.72, 0.68, 0.58))
+	_add_visual_box(holder, "RightCounterBase", Vector3(122, 1.35, -2), Vector3(12, 2.7, 156), 0.0, Color(0.72, 0.68, 0.58))
+	_add_visual_box(holder, "KitchenIslandBase", Vector3(22, 1.35, -36), Vector3(132, 2.7, 84), 0.0, Color(0.76, 0.69, 0.58))
+	_add_visual_box(holder, "FrontCountertop", Vector3(0, 2.95, -84), Vector3(234, 0.36, 16), 0.0, Color(0.86, 0.78, 0.65))
+	_add_visual_box(holder, "BackCountertop", Vector3(0, 2.95, 84), Vector3(228, 0.36, 16), 0.0, Color(0.86, 0.78, 0.65))
+	_add_visual_box(holder, "LeftCountertop", Vector3(-116, 2.95, -2), Vector3(16, 0.36, 160), 0.0, Color(0.82, 0.76, 0.66))
+	_add_visual_box(holder, "RightCountertop", Vector3(122, 2.95, -2), Vector3(16, 0.36, 160), 0.0, Color(0.82, 0.76, 0.66))
 	_add_visual_box(holder, "KitchenIslandCountertop", Vector3(22, 2.95, -36), Vector3(140, 0.36, 92), 0.0, Color(0.88, 0.8, 0.68))
-	_add_visual_box(holder, "BackUpperCabinetRun", Vector3(36, 19.0, 101), Vector3(150, 13.0, 12.0), 0.0, Color(0.42, 0.22, 0.1))
-	_add_visual_box(holder, "LeftUpperCabinetRun", Vector3(-136, 18.8, -18), Vector3(10.0, 12.4, 120), 0.0, Color(0.38, 0.2, 0.09))
-	_add_visual_box(holder, "RightUpperCabinetRun", Vector3(139, 18.8, -8), Vector3(10.0, 12.4, 132), 0.0, Color(0.38, 0.2, 0.09))
-	_add_visual_box(holder, "RangeHood", Vector3(-132, 12.8, -24), Vector3(18.0, 7.0, 44.0), 0.0, Color(0.58, 0.6, 0.62))
-	_add_visual_box(holder, "OvenDoor", Vector3(-147.4, -3.3, -24), Vector3(0.55, 10.8, 40.0), 0.0, Color(0.08, 0.08, 0.08))
-	_add_visual_box(holder, "FridgeLandmark", Vector3(135, 4.5, 34), Vector3(24.0, 31.0, 48.0), 0.0, Color(0.68, 0.72, 0.76))
-	_add_visual_box(holder, "FridgeFreezerLine", Vector3(122.8, 9.8, 34), Vector3(0.45, 0.4, 44.0), 0.0, Color(0.2, 0.23, 0.27))
-	_add_visual_box(holder, "FridgeHandleUpper", Vector3(122.4, 13.0, 20), Vector3(0.6, 8.4, 0.9), 0.0, Color(0.9, 0.92, 0.9))
-	_add_visual_box(holder, "FridgeHandleLower", Vector3(122.4, 2.2, 20), Vector3(0.6, 8.4, 0.9), 0.0, Color(0.9, 0.92, 0.9))
+	_add_visual_box(holder, "BackUpperCabinetRun", Vector3(36, 16.0, 92), Vector3(138, 10.0, 9.0), 0.0, Color(0.42, 0.22, 0.1))
+	_add_visual_box(holder, "LeftUpperCabinetRun", Vector3(-123, 15.8, -18), Vector3(8.0, 9.4, 104), 0.0, Color(0.38, 0.2, 0.09))
+	_add_visual_box(holder, "RightUpperCabinetRun", Vector3(127, 15.8, -8), Vector3(8.0, 9.4, 116), 0.0, Color(0.38, 0.2, 0.09))
+	_add_visual_box(holder, "RangeHood", Vector3(-118, 9.2, -24), Vector3(14.0, 5.0, 36.0), 0.0, Color(0.58, 0.6, 0.62))
+	_add_visual_box(holder, "OvenDoor", Vector3(-124.4, 2.05, -24), Vector3(0.55, 3.2, 30.0), 0.0, Color(0.08, 0.08, 0.08))
+	_add_visual_box(holder, "FridgeLandmark", Vector3(126, 7.0, 34), Vector3(10.0, 14.0, 38.0), 0.0, Color(0.68, 0.72, 0.76))
+	_add_visual_box(holder, "FridgeFreezerLine", Vector3(120.8, 9.4, 34), Vector3(0.45, 0.35, 35.0), 0.0, Color(0.2, 0.23, 0.27))
+	_add_visual_box(holder, "FridgeHandleUpper", Vector3(120.4, 10.8, 22), Vector3(0.5, 5.2, 0.7), 0.0, Color(0.9, 0.92, 0.9))
+	_add_visual_box(holder, "FridgeHandleLower", Vector3(120.4, 5.0, 22), Vector3(0.5, 5.0, 0.7), 0.0, Color(0.9, 0.92, 0.9))
 	_add_visual_box(holder, "IslandPendantLightA", Vector3(8, 19.5, -36), Vector3(4.0, 2.8, 4.0), 0.0, Color(1.0, 0.9, 0.68))
 	_add_visual_box(holder, "IslandPendantLightB", Vector3(36, 19.5, -36), Vector3(4.0, 2.8, 4.0), 0.0, Color(1.0, 0.9, 0.68))
 	_add_visual_box(holder, "PendantCordA", Vector3(8, 23.0, -36), Vector3(0.35, 5.4, 0.35), 0.0, Color(0.08, 0.08, 0.08))
 	_add_visual_box(holder, "PendantCordB", Vector3(36, 23.0, -36), Vector3(0.35, 5.4, 0.35), 0.0, Color(0.08, 0.08, 0.08))
+
+static func _build_full_size_sink(holder: Node3D) -> void:
+	_add_visual_box(holder, "KitchenSinkCutout", Vector3(-8, 3.18, 88.4), Vector3(54.0, 0.08, 16.0), 0.0, Color(0.08, 0.1, 0.12))
+	_add_visual_box(holder, "KitchenSinkRimFront", Vector3(-8, 3.26, 80.2), Vector3(56.0, 0.16, 0.8), 0.0, Color(0.68, 0.72, 0.72))
+	_add_visual_box(holder, "KitchenSinkRimBack", Vector3(-8, 3.26, 96.6), Vector3(56.0, 0.16, 0.8), 0.0, Color(0.68, 0.72, 0.72))
+	_add_visual_box(holder, "KitchenSinkRimLeft", Vector3(-36.4, 3.26, 88.4), Vector3(0.8, 0.16, 16.0), 0.0, Color(0.68, 0.72, 0.72))
+	_add_visual_box(holder, "KitchenSinkRimCenter", Vector3(-8.0, 3.27, 88.4), Vector3(0.9, 0.18, 16.0), 0.0, Color(0.72, 0.76, 0.76))
+	_add_visual_box(holder, "KitchenSinkRimRight", Vector3(20.4, 3.26, 88.4), Vector3(0.8, 0.16, 16.0), 0.0, Color(0.68, 0.72, 0.72))
+	_add_visual_box(holder, "KitchenFaucetColumn", Vector3(-8, 4.9, 96.6), Vector3(1.2, 3.4, 1.2), 0.0, Color(0.78, 0.82, 0.82))
+	_add_visual_box(holder, "KitchenFaucetSpout", Vector3(-8, 6.55, 91.6), Vector3(1.0, 0.9, 10.2), 0.0, Color(0.78, 0.82, 0.82))
 
 static func build_dressing_preview(root: Node3D, definition: TrackDefinition) -> void:
 	_build_dressing(root, definition)

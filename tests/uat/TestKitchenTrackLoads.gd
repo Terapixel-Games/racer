@@ -31,15 +31,14 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/FloorVisual") != null, "Kitchen track should include a non-colliding floor visual below the counter")
 	assert_true(instance.get_node_or_null("BuiltTrack/Ground") == null, "Kitchen floor should not be a colliding ground plane")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/FrontCounterBase") != null, "Kitchen track should include a life-sized front counter base")
-	var floor_visual := instance.get_node_or_null("BuiltTrack/FloorVisual") as MeshInstance3D
-	assert_true(floor_visual != null and floor_visual.transform.origin.y < -8.0, "Kitchen floor visual should sit far below countertop height for toy scale")
-	assert_true(_box_size_y(instance, "BuiltTrack/Dressing/FrontCounterBase") > 10.0, "Kitchen counter bases should be adult-height compared to the toy racer")
-	assert_true(_box_size_z(instance, "BuiltTrack/Dressing/FrontCountertop") > 30.0, "Kitchen countertops should be deep enough to read full-sized")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/KitchenBackWall") != null, "Kitchen track should include full-size room walls")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/KitchenWindowGlass") != null, "Kitchen track should include a full-size sink window landmark")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/BackUpperCabinetRun") != null, "Kitchen track should include full-size upper cabinets")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/FrontCountertop") != null, "Kitchen track should include countertop surfaces for toy scale")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/KitchenSink") != null, "Kitchen track should include a life-sized sink landmark")
+	assert_true(_node_scale_x(instance, "BuiltTrack/Dressing/KitchenSink") > 14.0, "Kitchen sink asset should be scaled up compared to toy racers")
+	assert_true(_box_size_x(instance, "BuiltTrack/Dressing/KitchenSinkCutout") > 50.0, "Kitchen sink basin should read as full-sized on the counter")
+	assert_true(_box_size_y(instance, "BuiltTrack/Dressing/KitchenFaucetColumn") > 3.0, "Kitchen faucet should be tall enough to read as full-sized")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/OvenCabinet") != null, "Kitchen track should include a life-sized oven cabinet landmark")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/KitchenIslandBase") != null, "Kitchen track should include the central island footprint")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/FridgeLandmark") != null, "Kitchen track should include a fridge corner landmark")
@@ -124,14 +123,20 @@ func _distance_to_segment_xz(point: Vector3, a3: Vector3, b3: Vector3) -> float:
 	var t := clampf((point_2d - a).dot(ab) / length_squared, 0.0, 1.0)
 	return point_2d.distance_to(a + ab * t)
 
+func _node_scale_x(root: Node, path: NodePath) -> float:
+	var node := root.get_node_or_null(path) as Node3D
+	if node == null:
+		return 0.0
+	return node.transform.basis.get_scale().x
+
+func _box_size_x(root: Node, path: NodePath) -> float:
+	var mesh_instance := root.get_node_or_null(path) as MeshInstance3D
+	if mesh_instance == null or not (mesh_instance.mesh is BoxMesh):
+		return 0.0
+	return (mesh_instance.mesh as BoxMesh).size.x
+
 func _box_size_y(root: Node, path: NodePath) -> float:
 	var mesh_instance := root.get_node_or_null(path) as MeshInstance3D
 	if mesh_instance == null or not (mesh_instance.mesh is BoxMesh):
 		return 0.0
 	return (mesh_instance.mesh as BoxMesh).size.y
-
-func _box_size_z(root: Node, path: NodePath) -> float:
-	var mesh_instance := root.get_node_or_null(path) as MeshInstance3D
-	if mesh_instance == null or not (mesh_instance.mesh is BoxMesh):
-		return 0.0
-	return (mesh_instance.mesh as BoxMesh).size.z
