@@ -230,7 +230,8 @@ static func _build_shortcuts(root: Node3D, definition: TrackDefinition) -> void:
 		exit_marker.name = "%s_Exit" % id
 		exit_marker.transform.origin = exit
 		holder.add_child(exit_marker)
-		if definition.id == "kitchen" and id == "table_jump":
+		var surface_enabled := bool(gate.get("surface_enabled", true))
+		if definition.id == "kitchen" and id == "table_jump" and surface_enabled:
 			_build_table_jump_shortcut(root, entry, exit, width)
 
 static func _build_table_jump_shortcut(root: Node3D, entry: Vector3, exit: Vector3, width: float) -> void:

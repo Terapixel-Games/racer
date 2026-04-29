@@ -531,6 +531,7 @@ func _collect_shortcut_gates(existing_gates: Array[Dictionary]) -> Array[Diction
 		gate["id"] = str(id)
 		gate["kind"] = str(previous.get("kind", "shortcut"))
 		gate["width"] = float(previous.get("width", road_width * 0.55))
+		gate["surface_enabled"] = bool(previous.get("surface_enabled", true))
 		if gate.has("entry") and gate.has("exit"):
 			gates.append(gate)
 	return gates

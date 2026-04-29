@@ -432,6 +432,7 @@
 			],
 			"id": "table_jump",
 			"kind": "jump",
+			"surface_enabled": false,
 			"width": 8.0
 		}
 	],

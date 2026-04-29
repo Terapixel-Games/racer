@@ -158,6 +158,7 @@ func _shortcut_gates_to_json(gates: Array[Dictionary]) -> Array:
 			"entry": _point_value_to_array(entry),
 			"exit": _point_value_to_array(exit),
 			"width": float(gate.get("width", 0.0)),
+			"surface_enabled": bool(gate.get("surface_enabled", true)),
 		})
 	return out
 
