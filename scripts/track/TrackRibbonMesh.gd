@@ -45,7 +45,6 @@ static func _add_slab_segment(vertices: PackedVector3Array, indices: PackedInt32
 	var right_1_bottom := right_1 - Vector3.UP * body_depth
 	_add_quad(vertices, indices, left_0, left_1, left_0_bottom, left_1_bottom)
 	_add_quad(vertices, indices, right_1, right_0, right_1_bottom, right_0_bottom)
-	_add_quad(vertices, indices, left_0_bottom, left_1_bottom, right_0_bottom, right_1_bottom)
 
 static func _add_end_cap(vertices: PackedVector3Array, indices: PackedInt32Array, left: Vector3, right: Vector3, body_depth: float) -> void:
 	_add_quad(vertices, indices, left, right, left - Vector3.UP * body_depth, right - Vector3.UP * body_depth)
