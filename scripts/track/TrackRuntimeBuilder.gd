@@ -237,11 +237,24 @@ static func _build_table_jump_shortcut(root: Node3D, entry: Vector3, exit: Vecto
 	var holder := Node3D.new()
 	holder.name = "ShortcutSurface"
 	root.add_child(holder)
+	var flat_direction := exit - entry
+	flat_direction.y = 0.0
+	if flat_direction.length_squared() <= 0.0001:
+		flat_direction = Vector3.FORWARD
+	flat_direction = flat_direction.normalized()
+	var usable_width: float = maxf(width, 12.0)
+	var approach_start := entry - flat_direction * 10.0 + Vector3.UP * 0.03
+	var approach_end := entry + flat_direction * 2.0 + Vector3.UP * 0.03
 	var midpoint := entry.lerp(exit, 0.5)
-	var apex := midpoint + Vector3.UP * 1.15
-	_add_shortcut_box(holder, "TableJumpRampUp", entry.lerp(apex, 0.5), entry, apex, width, 0.32, Color(0.86, 0.32, 0.18))
-	_add_shortcut_box(holder, "TableJumpRampDown", apex.lerp(exit, 0.5), apex, exit, width, 0.32, Color(0.86, 0.32, 0.18))
-	_add_shortcut_box(holder, "TableJumpDeck", apex, entry.lerp(exit, 0.42) + Vector3.UP * 1.15, entry.lerp(exit, 0.58) + Vector3.UP * 1.15, width, 0.28, Color(0.95, 0.72, 0.28))
+	var apex := midpoint + Vector3.UP * 0.95
+	var ramp_entry := entry + Vector3.DOWN * 0.12
+	var landing_start := exit - flat_direction * 2.0 + Vector3.UP * 0.03
+	var landing_end := exit + flat_direction * 8.0 + Vector3.UP * 0.03
+	_add_shortcut_box(holder, "TableJumpApproach", approach_start.lerp(approach_end, 0.5), approach_start, approach_end, usable_width, 0.18, Color(0.7, 0.38, 0.28))
+	_add_shortcut_box(holder, "TableJumpRampUp", ramp_entry.lerp(apex, 0.5), ramp_entry, apex, usable_width, 0.32, Color(0.86, 0.32, 0.18))
+	_add_shortcut_box(holder, "TableJumpRampDown", apex.lerp(exit, 0.5), apex, exit, usable_width, 0.32, Color(0.86, 0.32, 0.18))
+	_add_shortcut_box(holder, "TableJumpDeck", apex, entry.lerp(exit, 0.42) + Vector3.UP * 0.95, entry.lerp(exit, 0.58) + Vector3.UP * 0.95, usable_width, 0.28, Color(0.95, 0.72, 0.28))
+	_add_shortcut_box(holder, "TableJumpLanding", landing_start.lerp(landing_end, 0.5), landing_start, landing_end, usable_width, 0.18, Color(0.7, 0.38, 0.28))
 
 static func _add_shortcut_box(parent: Node3D, node_name: String, origin: Vector3, a: Vector3, b: Vector3, width: float, thickness: float, color: Color) -> void:
 	var body := StaticBody3D.new()
@@ -308,7 +321,7 @@ static func _build_dressing(root: Node3D, definition: TrackDefinition) -> void:
 	_add_visual_box(holder, "StoveCooktop", Vector3(-118, 3.02, -24), Vector3(12.0, 0.08, 34.0), 0.0, Color(0.02, 0.02, 0.02))
 	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/table.glb", Vector3(24, 1.7, -34), 8.0, Vector3(7.8, 7.8, 7.8), "KitchenTable")
 	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/pottedPlant.glb", Vector3(20, 3.0, -34), 15.0, Vector3(7.0, 7.0, 7.0), "IslandPlanter")
-	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenSink.glb", Vector3(-8, 2.15, 88), 180.0, Vector3(15.5, 15.5, 15.5), "KitchenSink")
+	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenSink.glb", Vector3(-8, 2.15, 88), 180.0, Vector3(10.5, 10.5, 10.5), "KitchenSink")
 	_build_full_size_sink(holder)
 	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenCabinet.glb", Vector3(-118, 2.15, -24), 90.0, Vector3(7.0, 7.0, 7.0), "OvenCabinet")
 	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenCabinetDrawer.glb", Vector3(-38, 2.1, 90), 180.0, Vector3(6.8, 6.8, 6.8), "BackCounterCabinetLeft")
@@ -317,7 +330,7 @@ static func _build_dressing(root: Node3D, definition: TrackDefinition) -> void:
 	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cutting-board.glb", Vector3(18, 5.25, 0), 116.0, Vector3(7.0, 7.0, 7.0), "CuttingBoard")
 	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cup.glb", Vector3(-36, 3.52, -78), 90.0, Vector3(6.4, 6.4, 6.4), "FrontCupHazard")
 	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/apple.glb", Vector3(24, 3.6, -78), 18.0, Vector3(6.2, 6.2, 6.2), "RollingAppleHazard")
-	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/bowl.glb", Vector3(70, 3.8, -66), 130.0, Vector3(6.8, 6.8, 6.8), "ShortcutBowlMarker")
+	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/bowl.glb", Vector3(80, 3.8, -57), 130.0, Vector3(4.2, 4.2, 4.2), "ShortcutBowlMarker")
 	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cooking-knife.glb", Vector3(-98, 3.95, -40), -34.0, Vector3(6.0, 6.0, 6.0), "OvenKnifeGate")
 	_add_scene_instance(holder, "res://assets/source/meshy/2026-04-27-character-track-batch/sir_clink/landmark_set.glb", Vector3(-40, 4.45, 74), 35.0, Vector3(2.2, 2.2, 2.2), "SirClinkLandmark")
 

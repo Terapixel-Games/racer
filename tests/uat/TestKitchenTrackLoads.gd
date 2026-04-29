@@ -27,6 +27,8 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/HazardSockets") != null, "Kitchen track should include hazard sockets")
 	assert_true(instance.get_node_or_null("BuiltTrack/ShortcutGates") != null, "Kitchen track should include shortcut gates")
 	assert_true(instance.get_node_or_null("BuiltTrack/ShortcutSurface") != null, "Kitchen track should include the table jump surface")
+	assert_true(instance.get_node_or_null("BuiltTrack/ShortcutSurface/TableJumpApproach") != null, "Kitchen table jump should include a shallow approach plate")
+	assert_true(instance.get_node_or_null("BuiltTrack/ShortcutSurface/TableJumpLanding") != null, "Kitchen table jump should include a forgiving landing plate")
 	assert_true(instance.get_node_or_null("BuiltTrack/SectionMarkers/SinkChicane") != null, "Kitchen track should include named layout section markers")
 	assert_true(instance.get_node_or_null("BuiltTrack/FloorVisual") != null, "Kitchen track should include a non-colliding floor visual below the counter")
 	assert_true(instance.get_node_or_null("BuiltTrack/Ground") == null, "Kitchen floor should not be a colliding ground plane")
@@ -36,12 +38,13 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/BackUpperCabinetRun") != null, "Kitchen track should include full-size upper cabinets")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/FrontCountertop") != null, "Kitchen track should include countertop surfaces for toy scale")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/KitchenSink") != null, "Kitchen track should include a life-sized sink landmark")
-	assert_true(_node_scale_x(instance, "BuiltTrack/Dressing/KitchenSink") > 14.0, "Kitchen sink asset should be scaled up compared to toy racers")
+	assert_true(_node_scale_x(instance, "BuiltTrack/Dressing/KitchenSink") >= 10.0, "Kitchen sink asset should be scaled up compared to toy racers")
 	assert_true(_box_size_x(instance, "BuiltTrack/Dressing/KitchenSinkCutout") > 50.0, "Kitchen sink basin should read as full-sized on the counter")
 	assert_true(_box_size_y(instance, "BuiltTrack/Dressing/KitchenFaucetColumn") > 3.0, "Kitchen faucet should be tall enough to read as full-sized")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/OvenCabinet") != null, "Kitchen track should include a life-sized oven cabinet landmark")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/KitchenIslandBase") != null, "Kitchen track should include the central island footprint")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/FridgeLandmark") != null, "Kitchen track should include a fridge corner landmark")
+	assert_true(_node_position(instance, "BuiltTrack/Dressing/ShortcutBowlMarker").distance_to(Vector3(70, 3.8, -66)) > 8.0, "Shortcut bowl marker should sit beside the ramp entry instead of blocking it")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/StoveHeatZone") != null, "Kitchen track should include a stove hairpin visual zone")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/SinkChicaneWetStrip") != null, "Kitchen track should include a sink chicane visual zone")
 	instance.queue_free()
@@ -128,6 +131,12 @@ func _node_scale_x(root: Node, path: NodePath) -> float:
 	if node == null:
 		return 0.0
 	return node.transform.basis.get_scale().x
+
+func _node_position(root: Node, path: NodePath) -> Vector3:
+	var node := root.get_node_or_null(path) as Node3D
+	if node == null:
+		return Vector3.ZERO
+	return node.transform.origin
 
 func _box_size_x(root: Node, path: NodePath) -> float:
 	var mesh_instance := root.get_node_or_null(path) as MeshInstance3D
