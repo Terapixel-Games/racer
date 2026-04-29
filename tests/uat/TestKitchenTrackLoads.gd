@@ -13,6 +13,12 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	var built_track := instance.get_node_or_null("BuiltTrack")
 	assert_true(built_track != null, "Kitchen track scene should build runtime track")
 	assert_true(instance.get_node_or_null("BuiltTrack/Road") != null, "Kitchen track should include generated road")
+	var road_shape_node := instance.get_node_or_null("BuiltTrack/Road/CollisionBody/CollisionShape3D") as CollisionShape3D
+	assert_true(road_shape_node != null, "Kitchen road should include collision shape")
+	if road_shape_node != null:
+		assert_true(road_shape_node.shape is ConcavePolygonShape3D, "Kitchen road should use generated mesh collision")
+		if road_shape_node.shape is ConcavePolygonShape3D:
+			assert_true((road_shape_node.shape as ConcavePolygonShape3D).backface_collision, "Kitchen road collision should be visible to camera probes from underneath")
 	assert_true(instance.get_node_or_null("BuiltTrack/TrackBody") != null, "Kitchen track should include a raised visual track body")
 	assert_true(instance.get_node_or_null("BuiltTrack/Walls") != null, "Kitchen track should include walls")
 	assert_true(instance.get_node_or_null("BuiltTrack/CheckpointSystem") != null, "Kitchen track should include checkpoint system")

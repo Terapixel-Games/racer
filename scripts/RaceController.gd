@@ -47,7 +47,12 @@ const CAMERA_DISTANCE := 5.2
 const CAMERA_HEIGHT := 1.8
 const CAMERA_LOOK_HEIGHT := 0.85
 const CAMERA_FOLLOW_SPEED := 8.0
+const CAMERA_OCCLUDED_FOLLOW_SPEED := 18.0
 const CAMERA_FOV := 68.0
+const CAMERA_NEAR := 0.05
+const CAMERA_OCCLUSION_MASK := 1
+const CAMERA_OCCLUSION_CLEARANCE := 0.7
+const CAMERA_OCCLUSION_MIN_DISTANCE := 1.1
 
 const INPUT_INTERVAL := 1.0 / Config.INPUT_TICK_HZ
 const MESSAGE_DURATION := 3.0
@@ -59,6 +64,7 @@ var item_rng := RandomNumberGenerator.new()
 func _ready() -> void:
 	item_rng.randomize()
 	camera.fov = CAMERA_FOV
+	camera.near = CAMERA_NEAR
 	mobile_controls.visible = OS.has_feature("mobile")
 	_setup_mobile_controls()
 	_ensure_input_actions()
@@ -392,9 +398,42 @@ func _update_camera(delta:float) -> void:
 	if not car:
 		return
 	var behind := -car.global_transform.basis.z * CAMERA_DISTANCE
+	var look_target := car.global_transform.origin + Vector3.UP * CAMERA_LOOK_HEIGHT
 	var desired := car.global_transform.origin + behind + Vector3.UP * CAMERA_HEIGHT
-	camera.global_transform.origin = camera.global_transform.origin.lerp(desired, delta * CAMERA_FOLLOW_SPEED)
-	camera.look_at(car.global_transform.origin + Vector3.UP * CAMERA_LOOK_HEIGHT, Vector3.UP)
+	var resolved := _resolve_camera_occlusion(look_target, desired)
+	var follow_speed := CAMERA_OCCLUDED_FOLLOW_SPEED if resolved.distance_squared_to(desired) > 0.01 else CAMERA_FOLLOW_SPEED
+	camera.global_transform.origin = camera.global_transform.origin.lerp(resolved, clampf(delta * follow_speed, 0.0, 1.0))
+	camera.look_at(look_target, Vector3.UP)
+
+func _resolve_camera_occlusion(look_target: Vector3, desired: Vector3) -> Vector3:
+	var space_state := get_world_3d().direct_space_state
+	var params := PhysicsRayQueryParameters3D.create(look_target, desired, CAMERA_OCCLUSION_MASK)
+	params.collide_with_areas = false
+	params.collide_with_bodies = true
+	params.hit_from_inside = true
+	var result := space_state.intersect_ray(params)
+	if not result.has("position"):
+		return desired
+	return camera_position_before_occluder(
+		look_target,
+		desired,
+		result.position,
+		CAMERA_OCCLUSION_CLEARANCE,
+		CAMERA_OCCLUSION_MIN_DISTANCE
+	)
+
+static func camera_position_before_occluder(look_target: Vector3, desired: Vector3, hit_position: Vector3, clearance: float, min_distance: float) -> Vector3:
+	var desired_offset := desired - look_target
+	var desired_distance := desired_offset.length()
+	if desired_distance <= 0.001:
+		return desired
+	var direction := desired_offset / desired_distance
+	var hit_distance := look_target.distance_to(hit_position)
+	var safe_distance := maxf(hit_distance - clearance, 0.2)
+	if hit_distance > min_distance + clearance:
+		safe_distance = maxf(safe_distance, min_distance)
+	safe_distance = minf(safe_distance, desired_distance)
+	return look_target + direction * safe_distance
 
 func _ensure_input_actions() -> void:
 	_add_action_if_missing("accelerate")

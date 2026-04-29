@@ -141,6 +141,8 @@ func _update_collision(mesh: Mesh) -> void:
 		return
 	var shape := mesh.create_trimesh_shape()
 	if shape:
+		if shape is ConcavePolygonShape3D:
+			(shape as ConcavePolygonShape3D).backface_collision = true
 		shape_node.shape = shape
 
 func _try_gather_waypoints() -> void:
