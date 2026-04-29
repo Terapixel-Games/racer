@@ -4,6 +4,7 @@ class_name TrackAuthoringPreview
 
 const RoadMeshScript = preload("res://scripts/RoadMesh.gd")
 const TrackDefinition = preload("res://scripts/track/TrackDefinition.gd")
+const TrackMetadataExporter = preload("res://scripts/track/TrackMetadataExporter.gd")
 const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd")
 const TrackRibbonMesh = preload("res://scripts/track/TrackRibbonMesh.gd")
 const TrackWalls = preload("res://scripts/TrackWalls.gd")
@@ -58,6 +59,7 @@ const PREVIEW_ROOT_NAME := "EditorTrackPreview"
 	set(value):
 		track_definition_path = value
 		_queue_preview_refresh()
+@export_file("*.json") var metadata_output_path := "res://assets/gameplay/tracks/kitchen/kitchen_track_metadata.json"
 @export var show_marker_labels := false:
 	set(value):
 		show_marker_labels = value
@@ -90,6 +92,27 @@ const PREVIEW_ROOT_NAME := "EditorTrackPreview"
 	set(value):
 		dressing_preview_alpha = value
 		_queue_preview_refresh()
+@export_group("Builder Actions")
+@export var sync_markers_from_definition_now := false:
+	set(value):
+		if value:
+			sync_markers_from_definition()
+		sync_markers_from_definition_now = false
+@export var apply_markers_to_definition_now := false:
+	set(value):
+		if value:
+			apply_markers_to_definition()
+		apply_markers_to_definition_now = false
+@export var export_metadata_now := false:
+	set(value):
+		if value:
+			export_metadata()
+		export_metadata_now = false
+@export var validate_authoring_now := false:
+	set(value):
+		if value:
+			print_authoring_validation()
+		validate_authoring_now = false
 
 var _last_preview_signature := ""
 
@@ -132,6 +155,79 @@ func refresh_preview() -> void:
 
 func clear_preview() -> void:
 	_clear_preview()
+
+func sync_markers_from_definition() -> Array[String]:
+	var definition := _load_definition()
+	if definition == null:
+		return ["Track definition could not be loaded from %s." % track_definition_path]
+	_replace_marker_group("RoutePoints", _route_marker_specs(definition.route_points))
+	_replace_marker_group("SpawnPoints", _socket_marker_specs(definition.spawn_points, "Start", 1))
+	_replace_marker_group("Checkpoints", _checkpoint_marker_specs(definition))
+	_replace_marker_group("ItemSockets", _socket_marker_specs(definition.item_sockets, "ItemSocket", 1))
+	_replace_marker_group("HazardSockets", _socket_marker_specs(definition.hazard_sockets, "HazardSocket", 1))
+	_replace_marker_group("ShortcutGates", _shortcut_marker_specs(definition.shortcut_gates))
+	refresh_preview()
+	print("Track builder synced markers from %s" % track_definition_path)
+	return []
+
+func apply_markers_to_definition() -> Array[String]:
+	var definition := _definition_from_markers()
+	if definition == null:
+		return ["Track definition could not be loaded from %s." % track_definition_path]
+	var errors := definition.validate()
+	if not errors.is_empty():
+		_print_authoring_errors(errors)
+		return errors
+	var save_error := ResourceSaver.save(definition, track_definition_path)
+	if save_error != OK:
+		var message := "Track definition save failed: %s" % save_error
+		push_error(message)
+		return [message]
+	refresh_preview()
+	print("Track builder applied markers to %s" % track_definition_path)
+	return []
+
+func export_metadata() -> Array[String]:
+	var definition := _load_definition()
+	if definition == null:
+		return ["Track definition could not be loaded from %s." % track_definition_path]
+	var errors := definition.validate()
+	if not errors.is_empty():
+		_print_authoring_errors(errors)
+		return errors
+	var export_path := metadata_output_path
+	if export_path.strip_edges().is_empty():
+		export_path = track_definition_path.get_basename() + "_metadata.json"
+	var error := TrackMetadataExporter.save_json(definition, export_path)
+	if error != OK:
+		var message := "Track metadata export failed: %s" % error
+		push_error(message)
+		return [message]
+	print("Track builder exported metadata to %s" % export_path)
+	return []
+
+func validate_authoring() -> Array[String]:
+	var definition := _definition_from_markers()
+	if definition == null:
+		return ["Track definition could not be loaded from %s." % track_definition_path]
+	return definition.validate()
+
+func print_authoring_validation() -> void:
+	var errors := validate_authoring()
+	if errors.is_empty():
+		print("Track builder validation passed for %s" % track_definition_path)
+	else:
+		_print_authoring_errors(errors)
+
+func get_authoring_summary() -> Dictionary:
+	return {
+		"route_points": _sorted_marker_children(_get_or_create_holder("RoutePoints")).size(),
+		"spawn_points": _sorted_marker_children(_get_or_create_holder("SpawnPoints")).size(),
+		"checkpoints": _sorted_marker_children(_get_or_create_holder("Checkpoints")).size(),
+		"item_sockets": _sorted_marker_children(_get_or_create_holder("ItemSockets")).size(),
+		"hazard_sockets": _sorted_marker_children(_get_or_create_holder("HazardSockets")).size(),
+		"shortcut_markers": _sorted_marker_children(_get_or_create_holder("ShortcutGates")).size(),
+	}
 
 func _add_ground_preview(parent: Node3D) -> void:
 	var ground := MeshInstance3D.new()
@@ -358,6 +454,170 @@ func _collect_marker_positions(source_holder_name: String, y_offset: float = 0.0
 		point.y += y_offset
 		out.append(point)
 	return out
+
+func _definition_from_markers() -> TrackDefinition:
+	var definition := _load_definition()
+	if definition == null:
+		return null
+	definition.route_points = _collect_marker_positions("RoutePoints")
+	definition.spawn_points = _collect_socket_markers("SpawnPoints")
+	definition.checkpoint_indices = _collect_checkpoint_indices(definition.route_points)
+	definition.lap_gate_checkpoint_index = _collect_lap_gate_checkpoint_index()
+	definition.item_sockets = _collect_socket_markers("ItemSockets")
+	definition.hazard_sockets = _collect_socket_markers("HazardSockets")
+	definition.shortcut_gates = _collect_shortcut_gates(definition.shortcut_gates)
+	return definition
+
+func _load_definition() -> TrackDefinition:
+	if track_definition_path.strip_edges().is_empty():
+		return null
+	return load(track_definition_path) as TrackDefinition
+
+func _collect_socket_markers(holder_name: String) -> Array[Vector4]:
+	var sockets: Array[Vector4] = []
+	var holder := get_node_or_null(holder_name)
+	if holder == null:
+		return sockets
+	for marker in _sorted_marker_children(holder):
+		var marker_3d := marker as Marker3D
+		sockets.append(Vector4(marker_3d.position.x, marker_3d.position.y, marker_3d.position.z, marker_3d.rotation_degrees.y))
+	return sockets
+
+func _collect_checkpoint_indices(route_points: Array[Vector3]) -> Array[int]:
+	var indices: Array[int] = []
+	var holder := get_node_or_null("Checkpoints")
+	if holder == null:
+		return indices
+	for marker in _sorted_marker_children(holder):
+		indices.append(_nearest_route_index((marker as Marker3D).position, route_points))
+	return indices
+
+func _collect_lap_gate_checkpoint_index() -> int:
+	var holder := get_node_or_null("Checkpoints")
+	if holder == null:
+		return 0
+	var checkpoints := _sorted_marker_children(holder)
+	for i in range(checkpoints.size()):
+		if str(checkpoints[i].name).to_lower().contains("lap"):
+			return i
+	return 0
+
+func _collect_shortcut_gates(existing_gates: Array[Dictionary]) -> Array[Dictionary]:
+	var holder := get_node_or_null("ShortcutGates")
+	if holder == null:
+		return existing_gates
+	var by_id := {}
+	for marker in _sorted_marker_children(holder):
+		var marker_3d := marker as Marker3D
+		var name := str(marker_3d.name)
+		if name.ends_with("_Entry"):
+			var id := name.trim_suffix("_Entry")
+			if not by_id.has(id):
+				by_id[id] = {}
+			by_id[id]["entry"] = [marker_3d.position.x, marker_3d.position.y, marker_3d.position.z]
+		elif name.ends_with("_Exit"):
+			var id := name.trim_suffix("_Exit")
+			if not by_id.has(id):
+				by_id[id] = {}
+			by_id[id]["exit"] = [marker_3d.position.x, marker_3d.position.y, marker_3d.position.z]
+	var gates: Array[Dictionary] = []
+	for id in by_id.keys():
+		var previous := _find_shortcut_gate(existing_gates, str(id))
+		var gate := by_id[id] as Dictionary
+		gate["id"] = str(id)
+		gate["kind"] = str(previous.get("kind", "shortcut"))
+		gate["width"] = float(previous.get("width", road_width * 0.55))
+		if gate.has("entry") and gate.has("exit"):
+			gates.append(gate)
+	return gates
+
+func _find_shortcut_gate(gates: Array[Dictionary], id: String) -> Dictionary:
+	for gate in gates:
+		if str(gate.get("id", "")) == id:
+			return gate
+	return {}
+
+func _nearest_route_index(point: Vector3, route_points: Array[Vector3]) -> int:
+	var best_index := 0
+	var best_distance := INF
+	for i in range(route_points.size()):
+		var distance := point.distance_squared_to(route_points[i])
+		if distance < best_distance:
+			best_distance = distance
+			best_index = i
+	return best_index
+
+func _replace_marker_group(holder_name: String, specs: Array[Dictionary]) -> void:
+	var holder := _get_or_create_holder(holder_name)
+	for child in holder.get_children():
+		holder.remove_child(child)
+		child.queue_free()
+	for spec in specs:
+		var marker := Marker3D.new()
+		marker.name = str(spec.get("name", "Marker"))
+		marker.position = spec.get("position", Vector3.ZERO) as Vector3
+		marker.rotation_degrees.y = float(spec.get("yaw_degrees", 0.0))
+		holder.add_child(marker)
+		if Engine.is_editor_hint():
+			marker.owner = owner if owner != null else self
+
+func _get_or_create_holder(holder_name: String) -> Node3D:
+	var holder := get_node_or_null(holder_name) as Node3D
+	if holder != null:
+		return holder
+	holder = Node3D.new()
+	holder.name = holder_name
+	add_child(holder)
+	if Engine.is_editor_hint():
+		holder.owner = owner if owner != null else self
+	return holder
+
+func _route_marker_specs(points: Array[Vector3]) -> Array[Dictionary]:
+	var specs: Array[Dictionary] = []
+	for i in range(points.size()):
+		specs.append({"name": "RoutePoint%02d" % i, "position": points[i], "yaw_degrees": 0.0})
+	return specs
+
+func _socket_marker_specs(sockets: Array[Vector4], prefix: String, start_index: int) -> Array[Dictionary]:
+	var specs: Array[Dictionary] = []
+	for i in range(sockets.size()):
+		var socket := sockets[i]
+		specs.append({
+			"name": "%s%02d" % [prefix, i + start_index],
+			"position": Vector3(socket.x, socket.y, socket.z),
+			"yaw_degrees": socket.w,
+		})
+	return specs
+
+func _checkpoint_marker_specs(definition: TrackDefinition) -> Array[Dictionary]:
+	var specs: Array[Dictionary] = []
+	for i in range(definition.checkpoint_indices.size()):
+		var route_index := definition.checkpoint_indices[i]
+		var name := "Checkpoint%02d" % i
+		if i == definition.lap_gate_checkpoint_index:
+			name += "_LapGate"
+		var position := definition.route_points[route_index] if route_index >= 0 and route_index < definition.route_points.size() else Vector3.ZERO
+		specs.append({"name": name, "position": position, "yaw_degrees": 0.0})
+	return specs
+
+func _shortcut_marker_specs(gates: Array[Dictionary]) -> Array[Dictionary]:
+	var specs: Array[Dictionary] = []
+	for gate in gates:
+		var id := str(gate.get("id", "shortcut"))
+		specs.append({"name": "%s_Entry" % id, "position": _point_from_gate_value(gate.get("entry", [])), "yaw_degrees": 0.0})
+		specs.append({"name": "%s_Exit" % id, "position": _point_from_gate_value(gate.get("exit", [])), "yaw_degrees": 0.0})
+	return specs
+
+func _point_from_gate_value(value: Variant) -> Vector3:
+	if value is Vector3:
+		return value
+	if value is Array and value.size() >= 3:
+		return Vector3(float(value[0]), float(value[1]), float(value[2]))
+	return Vector3.ZERO
+
+func _print_authoring_errors(errors: Array[String]) -> void:
+	for error in errors:
+		push_error("Track builder validation: %s" % error)
 
 func _sorted_marker_children(source: Node) -> Array[Node]:
 	var markers: Array[Node] = []
