@@ -66,6 +66,10 @@ const PREVIEW_ROOT_NAME := "EditorTrackPreview"
 	set(value):
 		show_dressing_preview = value
 		_queue_preview_refresh()
+@export var show_auto_wall_preview := false:
+	set(value):
+		show_auto_wall_preview = value
+		_queue_preview_refresh()
 @export var show_height_guides := true:
 	set(value):
 		show_height_guides = value
@@ -119,7 +123,8 @@ func refresh_preview() -> void:
 	_add_ground_preview(preview_root)
 	_add_track_body_preview(preview_root, route_points)
 	_add_road_preview(preview_root, route_points)
-	_add_wall_preview(preview_root, route_points)
+	if show_auto_wall_preview:
+		_add_wall_preview(preview_root, route_points)
 	_add_height_guides(preview_root, route_points)
 	_add_dressing_preview(preview_root)
 	_add_marker_previews(preview_root)
@@ -379,6 +384,7 @@ func _preview_signature() -> String:
 		str(track_definition_path),
 		str(show_marker_labels),
 		str(show_dressing_preview),
+		str(show_auto_wall_preview),
 		str(show_height_guides),
 		str(marker_label_lift),
 		str(road_preview_alpha),
