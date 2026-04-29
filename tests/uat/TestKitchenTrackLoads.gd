@@ -35,6 +35,7 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/KitchenBackWall") != null, "Kitchen track should include full-size room walls")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/KitchenLeftWall") != null, "Kitchen track should include a full-size left wall")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/KitchenRightWall") != null, "Kitchen track should include a full-size right wall")
+	assert_true(_node_position(instance, "BuiltTrack/Dressing/KitchenRightWall").x > 140.0, "Kitchen right wall should contain the fridge-top road width")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/KitchenCeiling") != null, "Kitchen track should include a full-size ceiling")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/KitchenFrontWallLeft") != null, "Kitchen track should include a front wall section")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/KitchenFrontWallRight") != null, "Kitchen track should include a front wall section")

@@ -11,6 +11,7 @@ func test_kitchen_definition_validates() -> void:
 	assert_equal(definition.checkpoint_indices, [0, 8, 16, 25, 30, 34], "Kitchen checkpoints should follow the looped route")
 	assert_equal(definition.item_sockets.size(), 10, "Kitchen should expose 10 item sockets for the longer track")
 	assert_equal(definition.hazard_sockets.size(), 8, "Kitchen should expose 8 hazard sockets")
+	assert_true(_route_fits_ground_bounds(definition), "Kitchen route should stay within the authored ground bounds")
 	assert_equal(definition.reset_mode, "instant_pop", "Kitchen should use instant pop-back resets")
 	assert_equal(definition.out_of_bounds_y, 1.5, "Kitchen floor drop should be out of bounds")
 	assert_equal(definition.shortcut_gates.size(), 1, "Kitchen should expose one table-jump shortcut")
@@ -87,6 +88,17 @@ func _route_height_range(route_points: Array[Vector3]) -> float:
 		min_y = minf(min_y, point.y)
 		max_y = maxf(max_y, point.y)
 	return max_y - min_y
+
+func _route_fits_ground_bounds(definition: TrackDefinition) -> bool:
+	var half_width := definition.ground_size.x * 0.5
+	var half_depth := definition.ground_size.y * 0.5
+	var clearance := definition.road_width * 0.5
+	for point in definition.route_points:
+		if absf(point.x) + clearance > half_width:
+			return false
+		if absf(point.z) + clearance > half_depth:
+			return false
+	return true
 
 func _route_has_fridge_top_section(route_points: Array[Vector3]) -> bool:
 	var fridge_top_points := 0

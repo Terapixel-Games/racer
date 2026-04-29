@@ -4,6 +4,7 @@
 
 [node name="KitchenAuthoring" type="Node3D"]
 script = ExtResource("1")
+ground_size = Vector2(292, 190)
 ground_y = 2.65
 road_y_offset = 0.0
 track_definition_path = "res://assets/gameplay/tracks/kitchen/kitchen_track_definition.tres"
