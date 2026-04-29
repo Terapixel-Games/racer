@@ -50,7 +50,7 @@ const PREVIEW_ROOT_NAME := "EditorTrackPreview"
 	set(value):
 		track_body_depth = value
 		_queue_preview_refresh()
-@export var track_body_color := Color(0.08, 0.08, 0.1, 0.95):
+@export var track_body_color := Color(0.08, 0.08, 0.1, 0.35):
 	set(value):
 		track_body_color = value
 		_queue_preview_refresh()
@@ -58,7 +58,7 @@ const PREVIEW_ROOT_NAME := "EditorTrackPreview"
 	set(value):
 		track_definition_path = value
 		_queue_preview_refresh()
-@export var show_marker_labels := true:
+@export var show_marker_labels := false:
 	set(value):
 		show_marker_labels = value
 		_queue_preview_refresh()
@@ -66,9 +66,25 @@ const PREVIEW_ROOT_NAME := "EditorTrackPreview"
 	set(value):
 		show_dressing_preview = value
 		_queue_preview_refresh()
+@export var show_height_guides := true:
+	set(value):
+		show_height_guides = value
+		_queue_preview_refresh()
 @export var marker_label_lift := 1.15:
 	set(value):
 		marker_label_lift = value
+		_queue_preview_refresh()
+@export_range(0.05, 1.0, 0.01) var road_preview_alpha := 0.46:
+	set(value):
+		road_preview_alpha = value
+		_queue_preview_refresh()
+@export_range(0.05, 1.0, 0.01) var wall_preview_alpha := 0.34:
+	set(value):
+		wall_preview_alpha = value
+		_queue_preview_refresh()
+@export_range(0.05, 1.0, 0.01) var dressing_preview_alpha := 0.2:
+	set(value):
+		dressing_preview_alpha = value
 		_queue_preview_refresh()
 
 var _last_preview_signature := ""
@@ -104,6 +120,7 @@ func refresh_preview() -> void:
 	_add_track_body_preview(preview_root, route_points)
 	_add_road_preview(preview_root, route_points)
 	_add_wall_preview(preview_root, route_points)
+	_add_height_guides(preview_root, route_points)
 	_add_dressing_preview(preview_root)
 	_add_marker_previews(preview_root)
 	_last_preview_signature = _preview_signature()
@@ -136,7 +153,7 @@ func _add_road_preview(parent: Node3D, route_points: Array[Vector3]) -> void:
 	road.set("force_close", closed_loop)
 	road.set("show_wall_preview", false)
 	road.set("generate_walls_runtime", false)
-	road.set("road_material", _material(Color(0.025, 0.025, 0.03, 0.88), true))
+	road.set("road_material", _material(Color(0.025, 0.025, 0.03, road_preview_alpha), true))
 	parent.add_child(road)
 	road.call("_rebuild")
 
@@ -149,7 +166,7 @@ func _add_wall_preview(parent: Node3D, route_points: Array[Vector3]) -> void:
 		packed.append(point)
 	var wall_gap_segments := TrackWalls.detect_grade_separated_crossing_segments(packed, closed_loop, wall_height + 0.2)
 	var walls := TrackWalls.build_walls(holder, packed, road_width * 0.5, wall_height, wall_thickness, false, closed_loop, false, wall_gap_segments)
-	var wall_material := _material(Color(1.0, 0.42, 0.08, 0.82), true)
+	var wall_material := _material(Color(1.0, 0.42, 0.08, wall_preview_alpha), true)
 	for key in ["left", "right"]:
 		if walls.has(key) and walls[key] is MeshInstance3D:
 			(walls[key] as MeshInstance3D).material_override = wall_material
@@ -165,8 +182,50 @@ func _add_dressing_preview(parent: Node3D) -> void:
 	holder.name = "PreviewDressingLayout"
 	parent.add_child(holder)
 	TrackRuntimeBuilder.build_dressing_preview(holder, definition)
+	_apply_preview_opacity(holder, dressing_preview_alpha)
 	if show_marker_labels:
 		_label_dressing_layout(holder)
+
+func _add_height_guides(parent: Node3D, route_points: Array[Vector3]) -> void:
+	if not show_height_guides:
+		return
+	var holder := Node3D.new()
+	holder.name = "PreviewHeightGuides"
+	parent.add_child(holder)
+	for i in range(route_points.size()):
+		_add_height_post(holder, "RouteHeight%02d" % i, route_points[i], 0.22, _height_color(route_points[i].y, 0.55))
+
+	var packed := PackedVector3Array()
+	for point in route_points:
+		packed.append(point)
+	var wall_gap_segments := TrackWalls.detect_grade_separated_crossing_segments(packed, closed_loop, wall_height + 0.2)
+	for segment_index in wall_gap_segments:
+		var i := int(segment_index)
+		if i < 0 or i >= route_points.size():
+			continue
+		var next_index := (i + 1) % route_points.size()
+		var midpoint := route_points[i].lerp(route_points[next_index], 0.5)
+		_add_height_post(holder, "OverUnderGap%02d" % i, midpoint, 0.72, _height_color(midpoint.y, 0.9))
+		if show_marker_labels:
+			_add_label(
+				holder,
+				"OverUnderGap%02d_Label" % i,
+				"Gap S%02d  y=%.1f" % [i, midpoint.y],
+				midpoint + Vector3.UP * 1.35,
+				_height_color(midpoint.y, 1.0)
+			)
+
+func _add_height_post(parent: Node3D, node_name: String, route_point: Vector3, thickness: float, color: Color) -> void:
+	var post := MeshInstance3D.new()
+	post.name = node_name
+	var box := BoxMesh.new()
+	var base_y := ground_y + 0.05
+	var post_height := maxf(absf(route_point.y - base_y), 0.2)
+	box.size = Vector3(thickness, post_height, thickness)
+	post.mesh = box
+	post.position = Vector3(route_point.x, minf(route_point.y, base_y) + post_height * 0.5, route_point.z)
+	post.material_override = _material(color, true)
+	parent.add_child(post)
 
 func _add_marker_previews(parent: Node3D) -> void:
 	var holder := Node3D.new()
@@ -252,15 +311,31 @@ func _add_label(parent: Node3D, label_name: String, text: String, position: Vect
 	label.name = label_name
 	label.text = text
 	label.position = position
-	label.pixel_size = 0.08
-	label.font_size = 24
-	label.fixed_size = true
-	label.no_depth_test = true
+	label.pixel_size = 0.035
+	label.font_size = 18
+	label.fixed_size = false
+	label.no_depth_test = false
 	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	label.modulate = color
 	label.outline_modulate = Color(0.0, 0.0, 0.0, 0.88)
-	label.outline_size = 5
+	label.outline_size = 2
 	parent.add_child(label)
+
+func _apply_preview_opacity(node: Node, alpha: float) -> void:
+	for child in node.get_children():
+		if child is MeshInstance3D:
+			var mesh := child as MeshInstance3D
+			var color := Color(0.72, 0.82, 0.92, alpha)
+			if mesh.material_override is StandardMaterial3D:
+				var existing := mesh.material_override as StandardMaterial3D
+				color = existing.albedo_color
+				color.a = alpha
+			mesh.material_override = _material(color, true)
+		_apply_preview_opacity(child, alpha)
+
+func _height_color(y: float, alpha: float) -> Color:
+	var t := clampf((y - ground_y) / 3.5, 0.0, 1.0)
+	return Color(0.12 + 0.92 * t, 0.92 - 0.48 * t, 1.0 - 0.82 * t, alpha)
 
 func _marker_label_text(marker_name: String, position: Vector3) -> String:
 	return "%s\n%s" % [marker_name, _position_text(position)]
@@ -304,7 +379,11 @@ func _preview_signature() -> String:
 		str(track_definition_path),
 		str(show_marker_labels),
 		str(show_dressing_preview),
+		str(show_height_guides),
 		str(marker_label_lift),
+		str(road_preview_alpha),
+		str(wall_preview_alpha),
+		str(dressing_preview_alpha),
 	]
 	for holder_name in ["RoutePoints", "SpawnPoints", "Checkpoints", "ItemSockets", "HazardSockets", "ShortcutGates", "SectionMarkers", "Dressing"]:
 		parts.append(holder_name)

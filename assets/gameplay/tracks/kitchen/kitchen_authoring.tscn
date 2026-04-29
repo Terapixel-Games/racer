@@ -13,6 +13,11 @@ ground_y = 2.65
 road_y_offset = 0.0
 track_body_depth = 0.38
 track_definition_path = "res://assets/gameplay/tracks/kitchen/kitchen_track_definition.tres"
+show_marker_labels = false
+show_height_guides = true
+road_preview_alpha = 0.46
+wall_preview_alpha = 0.34
+dressing_preview_alpha = 0.2
 
 [node name="RoutePoints" type="Node3D" parent="."]
 
