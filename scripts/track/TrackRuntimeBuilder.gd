@@ -324,7 +324,7 @@ static func _build_dressing(root: Node3D, definition: TrackDefinition) -> void:
 	_add_visual_box(holder, "StoveCooktop", Vector3(-118, 3.02, -24), Vector3(12.0, 0.08, 34.0), 0.0, Color(0.02, 0.02, 0.02))
 	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/table.glb", Vector3(24, 1.7, -34), 8.0, Vector3(7.8, 7.8, 7.8), "KitchenTable")
 	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/pottedPlant.glb", Vector3(20, 3.0, -34), 15.0, Vector3(7.0, 7.0, 7.0), "IslandPlanter")
-	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenSink.glb", Vector3(-8, 2.15, 88), 180.0, Vector3(10.5, 10.5, 10.5), "KitchenSink")
+	_add_scene_instance_with_override(definition, holder, "res://assets/source/kenney/furniture_kit/kitchenSink.glb", Vector3(-8, 2.15, 88), 180.0, Vector3(10.5, 10.5, 10.5), "KitchenSink")
 	_build_full_size_sink(holder)
 	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenCabinet.glb", Vector3(-118, 2.15, -24), 90.0, Vector3(7.0, 7.0, 7.0), "OvenCabinet")
 	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenCabinetDrawer.glb", Vector3(-38, 2.1, 90), 180.0, Vector3(6.8, 6.8, 6.8), "BackCounterCabinetLeft")
@@ -415,6 +415,27 @@ static func _add_scene_instance(parent: Node3D, path: String, position: Vector3,
 	node.name = node_name
 	node.transform = Transform3D(Basis(Vector3.UP, deg_to_rad(yaw_degrees)).scaled(scale), position)
 	parent.add_child(node)
+
+static func _add_scene_instance_with_override(definition: TrackDefinition, parent: Node3D, path: String, position: Vector3, yaw_degrees: float, scale: Vector3, node_name: String) -> void:
+	var override := _dressing_override(definition, node_name, position, yaw_degrees, scale)
+	_add_scene_instance(parent, path, override["position"], override["yaw_degrees"], override["scale"], node_name)
+
+static func _dressing_override(definition: TrackDefinition, node_name: String, fallback_position: Vector3, fallback_yaw_degrees: float, fallback_scale: Vector3) -> Dictionary:
+	if definition == null or not definition.dressing_overrides.has(node_name):
+		return {"position": fallback_position, "yaw_degrees": fallback_yaw_degrees, "scale": fallback_scale}
+	var data := definition.dressing_overrides[node_name] as Dictionary
+	return {
+		"position": _vector3_from_value(data.get("position", fallback_position), fallback_position),
+		"yaw_degrees": float(data.get("yaw_degrees", fallback_yaw_degrees)),
+		"scale": _vector3_from_value(data.get("scale", fallback_scale), fallback_scale),
+	}
+
+static func _vector3_from_value(value: Variant, fallback: Vector3) -> Vector3:
+	if value is Vector3:
+		return value
+	if value is Array and value.size() >= 3:
+		return Vector3(float(value[0]), float(value[1]), float(value[2]))
+	return fallback
 
 static func _add_area_shape(area: Area3D, size: Vector3) -> void:
 	var shape_node := CollisionShape3D.new()

@@ -14,6 +14,7 @@ func test_kitchen_definition_validates() -> void:
 	assert_equal(definition.reset_mode, "instant_pop", "Kitchen should use instant pop-back resets")
 	assert_equal(definition.out_of_bounds_y, 1.5, "Kitchen floor drop should be out of bounds")
 	assert_equal(definition.shortcut_gates.size(), 1, "Kitchen should expose one table-jump shortcut")
+	assert_true(definition.dressing_overrides.has("KitchenSink"), "Kitchen should expose an editable sink dressing override")
 	assert_true(_route_height_range(definition.route_points) > 2.0, "Kitchen route should keep the multi-level island loop")
 	assert_true(_route_has_fridge_top_section(definition.route_points), "Kitchen route should climb onto and cross the fridge landmark")
 	assert_true(_overpass_crossing_count(definition.route_points, definition.closed_loop, 1.8) > 0, "Kitchen route should keep the loop as a grade-separated overpass")

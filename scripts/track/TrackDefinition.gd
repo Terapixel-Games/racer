@@ -26,6 +26,7 @@ const TrackProgressRules = preload("res://scripts/track/TrackProgressRules.gd")
 @export var item_sockets: Array[Vector4] = []
 @export var hazard_sockets: Array[Vector4] = []
 @export var shortcut_gates: Array[Dictionary] = []
+@export var dressing_overrides: Dictionary = {}
 @export var audio_ids: Dictionary = {}
 
 func validate() -> Array[String]:

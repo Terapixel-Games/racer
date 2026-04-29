@@ -166,6 +166,7 @@ func sync_markers_from_definition() -> Array[String]:
 	_replace_marker_group("ItemSockets", _socket_marker_specs(definition.item_sockets, "ItemSocket", 1))
 	_replace_marker_group("HazardSockets", _socket_marker_specs(definition.hazard_sockets, "HazardSocket", 1))
 	_replace_marker_group("ShortcutGates", _shortcut_marker_specs(definition.shortcut_gates))
+	_replace_marker_group("Dressing", _dressing_marker_specs(definition))
 	refresh_preview()
 	print("Track builder synced markers from %s" % track_definition_path)
 	return []
@@ -227,6 +228,7 @@ func get_authoring_summary() -> Dictionary:
 		"item_sockets": _sorted_marker_children(_get_or_create_holder("ItemSockets")).size(),
 		"hazard_sockets": _sorted_marker_children(_get_or_create_holder("HazardSockets")).size(),
 		"shortcut_markers": _sorted_marker_children(_get_or_create_holder("ShortcutGates")).size(),
+		"dressing_props": _sorted_marker_children(_get_or_create_holder("Dressing")).size(),
 	}
 
 func _add_ground_preview(parent: Node3D) -> void:
@@ -276,7 +278,7 @@ func _add_wall_preview(parent: Node3D, route_points: Array[Vector3]) -> void:
 func _add_dressing_preview(parent: Node3D) -> void:
 	if not show_dressing_preview or track_definition_path.is_empty():
 		return
-	var definition := load(track_definition_path) as TrackDefinition
+	var definition := _definition_from_markers()
 	if definition == null:
 		return
 	var holder := Node3D.new()
@@ -456,9 +458,10 @@ func _collect_marker_positions(source_holder_name: String, y_offset: float = 0.0
 	return out
 
 func _definition_from_markers() -> TrackDefinition:
-	var definition := _load_definition()
-	if definition == null:
+	var source := _load_definition()
+	if source == null:
 		return null
+	var definition := source.duplicate(true) as TrackDefinition
 	definition.route_points = _collect_marker_positions("RoutePoints")
 	definition.spawn_points = _collect_socket_markers("SpawnPoints")
 	definition.checkpoint_indices = _collect_checkpoint_indices(definition.route_points)
@@ -466,6 +469,7 @@ func _definition_from_markers() -> TrackDefinition:
 	definition.item_sockets = _collect_socket_markers("ItemSockets")
 	definition.hazard_sockets = _collect_socket_markers("HazardSockets")
 	definition.shortcut_gates = _collect_shortcut_gates(definition.shortcut_gates)
+	definition.dressing_overrides = _collect_dressing_overrides(definition.dressing_overrides)
 	return definition
 
 func _load_definition() -> TrackDefinition:
@@ -557,6 +561,7 @@ func _replace_marker_group(holder_name: String, specs: Array[Dictionary]) -> voi
 		marker.name = str(spec.get("name", "Marker"))
 		marker.position = spec.get("position", Vector3.ZERO) as Vector3
 		marker.rotation_degrees.y = float(spec.get("yaw_degrees", 0.0))
+		marker.scale = spec.get("scale", Vector3.ONE) as Vector3
 		holder.add_child(marker)
 		if Engine.is_editor_hint():
 			marker.owner = owner if owner != null else self
@@ -608,6 +613,34 @@ func _shortcut_marker_specs(gates: Array[Dictionary]) -> Array[Dictionary]:
 		specs.append({"name": "%s_Exit" % id, "position": _point_from_gate_value(gate.get("exit", [])), "yaw_degrees": 0.0})
 	return specs
 
+func _dressing_marker_specs(definition: TrackDefinition) -> Array[Dictionary]:
+	var specs: Array[Dictionary] = []
+	specs.append(_dressing_marker_spec(definition, "KitchenSink", Vector3(-8, 2.15, 88), 180.0, Vector3(10.5, 10.5, 10.5)))
+	return specs
+
+func _dressing_marker_spec(definition: TrackDefinition, node_name: String, position: Vector3, yaw_degrees: float, scale: Vector3) -> Dictionary:
+	var override := definition.dressing_overrides.get(node_name, {}) as Dictionary
+	return {
+		"name": node_name,
+		"position": _point_from_gate_value(override.get("position", position)),
+		"yaw_degrees": float(override.get("yaw_degrees", yaw_degrees)),
+		"scale": _point_from_gate_value(override.get("scale", scale)),
+	}
+
+func _collect_dressing_overrides(existing_overrides: Dictionary) -> Dictionary:
+	var overrides := existing_overrides.duplicate(true)
+	var holder := get_node_or_null("Dressing")
+	if holder == null:
+		return overrides
+	for marker in _sorted_marker_children(holder):
+		var marker_3d := marker as Marker3D
+		overrides[str(marker_3d.name)] = {
+			"position": [marker_3d.position.x, marker_3d.position.y, marker_3d.position.z],
+			"yaw_degrees": marker_3d.rotation_degrees.y,
+			"scale": [marker_3d.scale.x, marker_3d.scale.y, marker_3d.scale.z],
+		}
+	return overrides
+
 func _point_from_gate_value(value: Variant) -> Vector3:
 	if value is Vector3:
 		return value
@@ -658,7 +691,16 @@ func _preview_signature() -> String:
 			continue
 		for marker in _sorted_marker_children(source):
 			var marker_3d := marker as Marker3D
-			parts.append("%s:%0.3f,%0.3f,%0.3f" % [marker_3d.name, marker_3d.position.x, marker_3d.position.y, marker_3d.position.z])
+			parts.append("%s:%0.3f,%0.3f,%0.3f:%0.3f:%0.3f,%0.3f,%0.3f" % [
+				marker_3d.name,
+				marker_3d.position.x,
+				marker_3d.position.y,
+				marker_3d.position.z,
+				marker_3d.rotation_degrees.y,
+				marker_3d.scale.x,
+				marker_3d.scale.y,
+				marker_3d.scale.z,
+			])
 	return "|".join(parts)
 
 func _queue_preview_refresh() -> void:

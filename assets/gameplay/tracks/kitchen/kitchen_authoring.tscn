@@ -264,4 +264,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 5.38, 0)
 
 [node name="Dressing" type="Node3D" parent="."]
 
+[node name="KitchenSink" type="Marker3D" parent="Dressing"]
+transform = Transform3D(-10.5, 0, 0, 0, 10.5, 0, 0, 0, -10.5, -8, 2.15, 88)
+
 [node name="AudioZones" type="Node3D" parent="."]

@@ -24,6 +24,13 @@ shortcut_gates = Array[Dictionary]([{
 "kind": "jump",
 "width": 8.0
 }])
+dressing_overrides = {
+"KitchenSink": {
+"position": [-8.0, 2.15, 88.0],
+"scale": [10.5, 10.5, 10.5],
+"yaw_degrees": 180.0
+}
+}
 audio_ids = {
 "clatter": "res://assets/source/audio/canva/tracks/kitchen/kitchen_clatter_canva_01.mp3",
 "music": "res://assets/source/audio/suno/tracks/kitchen/kitchen_loop_suno_01.mp3",
