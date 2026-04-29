@@ -14,9 +14,10 @@ func test_kitchen_definition_validates() -> void:
 	assert_equal(definition.reset_mode, "instant_pop", "Kitchen should use instant pop-back resets")
 	assert_equal(definition.out_of_bounds_y, 1.5, "Kitchen floor drop should be out of bounds")
 	assert_equal(definition.shortcut_gates.size(), 1, "Kitchen should expose one table-jump shortcut")
-	assert_true(_route_height_range(definition.route_points) > 2.0, "Kitchen route should include visible multi-level height changes")
+	assert_true(_route_height_range(definition.route_points) > 2.0, "Kitchen route should keep the multi-level island loop")
 	assert_true(_overpass_crossing_count(definition.route_points, definition.closed_loop, 1.8) > 0, "Kitchen route should keep the loop as a grade-separated overpass")
 	assert_true(_route_has_no_unresolved_self_intersections(definition.route_points, definition.closed_loop, 1.8), "Kitchen route centerline should only overlap when vertically separated")
+	assert_true(_route_follows_counter_or_island_space(definition.route_points), "Kitchen route should follow outer counters or the central island loop")
 
 func test_validation_rejects_missing_route() -> void:
 	var definition := _base_definition()
@@ -141,6 +142,15 @@ func _segment_crossing_height_gap(a3: Vector3, b3: Vector3, c3: Vector3, d3: Vec
 	var y_a := lerpf(a3.y, b3.y, clampf(t, 0.0, 1.0))
 	var y_b := lerpf(c3.y, d3.y, clampf(u, 0.0, 1.0))
 	return absf(y_a - y_b)
+
+func _route_follows_counter_or_island_space(route_points: Array[Vector3]) -> bool:
+	for point in route_points:
+		var on_front_or_back := absf(point.z + 84.0) <= 16.0 or absf(point.z - 84.0) <= 16.0
+		var on_left_or_right := absf(point.x + 116.0) <= 28.0 or absf(point.x - 122.0) <= 28.0
+		var on_island_loop := point.x >= -42.0 and point.x <= 90.0 and point.z >= -74.0 and point.z <= 8.0
+		if not (on_front_or_back or on_left_or_right or on_island_loop):
+			return false
+	return true
 
 func _segments_intersect(a: Vector2, b: Vector2, c: Vector2, d: Vector2) -> bool:
 	var o1 := _orientation(a, b, c)
