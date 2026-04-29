@@ -30,7 +30,8 @@ static func build(definition: TrackDefinition) -> Dictionary:
 	_build_sockets(root, "HazardSockets", definition.hazard_sockets)
 	_build_shortcuts(root, definition)
 	_build_section_markers(root, definition)
-	_build_audio_zones(root)
+	_build_surface_segments(root, definition)
+	_build_audio_zones(root, definition)
 	_build_dressing(root, definition)
 
 	return {
@@ -281,10 +282,39 @@ static func _add_shortcut_box(parent: Node3D, node_name: String, origin: Vector3
 	body.add_child(mesh)
 	parent.add_child(body)
 
-static func _build_audio_zones(root: Node3D) -> void:
+static func _build_surface_segments(root: Node3D, definition: TrackDefinition) -> void:
+	var holder := Node3D.new()
+	holder.name = "SurfaceSegments"
+	root.add_child(holder)
+	for segment in definition.surface_segments:
+		var marker := Marker3D.new()
+		marker.name = str(segment.get("id", "SurfaceSegment"))
+		marker.transform.origin = _vector3_from_value(segment.get("position", Vector3.ZERO), Vector3.ZERO)
+		marker.set_meta("start_route_index", int(segment.get("start_route_index", 0)))
+		marker.set_meta("end_route_index", int(segment.get("end_route_index", 0)))
+		marker.set_meta("surface_audio_id", str(segment.get("surface_audio_id", "")))
+		marker.set_meta("surface_material_id", str(segment.get("surface_material_id", "")))
+		holder.add_child(marker)
+
+static func _build_audio_zones(root: Node3D, definition: TrackDefinition) -> void:
 	var holder := Node3D.new()
 	holder.name = "AudioZones"
 	root.add_child(holder)
+	for zone in definition.audio_zones:
+		var area := Area3D.new()
+		area.name = str(zone.get("id", "AudioZone"))
+		area.transform.origin = _vector3_from_value(zone.get("position", Vector3.ZERO), Vector3.ZERO)
+		area.set_meta("audio_id", str(zone.get("audio_id", "")))
+		area.set_meta("audio_path", str(zone.get("audio_path", "")))
+		area.set_meta("zone_kind", str(zone.get("zone_kind", "ambient")))
+		area.set_meta("volume_db", float(zone.get("volume_db", 0.0)))
+		var shape_node := CollisionShape3D.new()
+		shape_node.name = "CollisionShape3D"
+		var shape := SphereShape3D.new()
+		shape.radius = maxf(float(zone.get("radius", 12.0)), 0.1)
+		shape_node.shape = shape
+		area.add_child(shape_node)
+		holder.add_child(area)
 
 static func _build_section_markers(root: Node3D, definition: TrackDefinition) -> void:
 	if definition.id != "kitchen":
@@ -312,8 +342,10 @@ static func _build_dressing(root: Node3D, definition: TrackDefinition) -> void:
 	holder.name = "Dressing"
 	root.add_child(holder)
 	if definition.id != "kitchen":
+		_build_stage_props(holder, definition)
 		return
 	_build_full_size_kitchen_room(holder)
+	_build_stage_props(holder, definition)
 	_add_visual_box(holder, "StartFinishTape", Vector3(-48, 3.45, -79.4), Vector3(1.9, 0.06, 13.0), -4.0, Color(0.04, 0.04, 0.04))
 	_add_visual_box(holder, "UnderCabinetLedStrip", Vector3(-12, 3.25, -77.8), Vector3(92.0, 0.08, 0.7), 0.0, Color(0.3, 0.92, 1.0))
 	_add_visual_box(holder, "StoveHeatZone", Vector3(-98, 3.58, -24), Vector3(15.0, 0.06, 32.0), -18.0, Color(1.0, 0.34, 0.12))
@@ -391,6 +423,62 @@ static func _build_full_size_sink(holder: Node3D) -> void:
 static func build_dressing_preview(root: Node3D, definition: TrackDefinition) -> void:
 	_build_dressing(root, definition)
 
+static func _build_stage_props(parent: Node3D, definition: TrackDefinition) -> void:
+	if definition.stage_props.is_empty():
+		return
+	var holder := Node3D.new()
+	holder.name = "StageProps"
+	parent.add_child(holder)
+	for prop in definition.stage_props:
+		_add_stage_prop(holder, prop)
+
+static func _add_stage_prop(parent: Node3D, prop: Dictionary) -> void:
+	var node_name := str(prop.get("id", "StageProp"))
+	var kind := str(prop.get("kind", "box"))
+	var position := _vector3_from_value(prop.get("position", Vector3.ZERO), Vector3.ZERO)
+	var scale := _vector3_from_value(prop.get("scale", Vector3.ONE), Vector3.ONE)
+	var yaw_degrees := float(prop.get("yaw_degrees", 0.0))
+	var audio_material_id := str(prop.get("audio_material_id", ""))
+	var gameplay_tag := str(prop.get("gameplay_tag", ""))
+	if kind == "scene":
+		var path := str(prop.get("asset_path", ""))
+		var packed := load(path)
+		if not (packed is PackedScene):
+			return
+		var instance := (packed as PackedScene).instantiate()
+		if not (instance is Node3D):
+			instance.queue_free()
+			return
+		var scene_node := instance as Node3D
+		scene_node.name = node_name
+		scene_node.transform = Transform3D(Basis(Vector3.UP, deg_to_rad(yaw_degrees)).scaled(scale), position)
+		scene_node.set_meta("audio_material_id", audio_material_id)
+		scene_node.set_meta("gameplay_tag", gameplay_tag)
+		parent.add_child(scene_node)
+		return
+	var body := StaticBody3D.new()
+	body.name = node_name
+	body.transform = Transform3D(Basis(Vector3.UP, deg_to_rad(yaw_degrees)).scaled(scale), position)
+	body.set_meta("audio_material_id", audio_material_id)
+	body.set_meta("gameplay_tag", gameplay_tag)
+	var mesh := MeshInstance3D.new()
+	mesh.name = "Mesh"
+	var box := BoxMesh.new()
+	box.size = _vector3_from_value(prop.get("box_size", Vector3.ONE), Vector3.ONE)
+	mesh.mesh = box
+	var material := StandardMaterial3D.new()
+	material.albedo_color = _color_from_value(prop.get("box_color", Color.WHITE), Color.WHITE)
+	material.roughness = 0.64
+	mesh.material_override = material
+	body.add_child(mesh)
+	if str(prop.get("collision_mode", "visual")) == "static":
+		var shape_node := CollisionShape3D.new()
+		var shape := BoxShape3D.new()
+		shape.size = box.size
+		shape_node.shape = shape
+		body.add_child(shape_node)
+	parent.add_child(body)
+
 static func _add_visual_box(parent: Node3D, node_name: String, position: Vector3, size: Vector3, yaw_degrees: float, color: Color) -> void:
 	var mesh := MeshInstance3D.new()
 	mesh.name = node_name
@@ -436,6 +524,13 @@ static func _vector3_from_value(value: Variant, fallback: Vector3) -> Vector3:
 		return value
 	if value is Array and value.size() >= 3:
 		return Vector3(float(value[0]), float(value[1]), float(value[2]))
+	return fallback
+
+static func _color_from_value(value: Variant, fallback: Color) -> Color:
+	if value is Color:
+		return value
+	if value is Array and value.size() >= 4:
+		return Color(float(value[0]), float(value[1]), float(value[2]), float(value[3]))
 	return fallback
 
 static func _add_area_shape(area: Area3D, size: Vector3) -> void:

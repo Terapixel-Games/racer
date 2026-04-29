@@ -26,6 +26,9 @@ const TrackProgressRules = preload("res://scripts/track/TrackProgressRules.gd")
 @export var item_sockets: Array[Vector4] = []
 @export var hazard_sockets: Array[Vector4] = []
 @export var shortcut_gates: Array[Dictionary] = []
+@export var stage_props: Array[Dictionary] = []
+@export var surface_segments: Array[Dictionary] = []
+@export var audio_zones: Array[Dictionary] = []
 @export var dressing_overrides: Dictionary = {}
 @export var audio_ids: Dictionary = {}
 
@@ -53,6 +56,9 @@ func validate() -> Array[String]:
 		errors.append("Track must include at least one item socket.")
 	if lap_gate_checkpoint_index < 0 or lap_gate_checkpoint_index >= checkpoint_indices.size():
 		errors.append("Track must include exactly one valid lap gate checkpoint index.")
+	_validate_stage_props(errors)
+	_validate_surface_segments(errors)
+	_validate_audio_zones(errors)
 	return errors
 
 func to_metadata() -> Dictionary:
@@ -85,6 +91,9 @@ func to_metadata() -> Dictionary:
 		"item_sockets": _socket_array_to_json(item_sockets),
 		"hazard_sockets": _socket_array_to_json(hazard_sockets),
 		"shortcut_gates": _shortcut_gates_to_json(shortcut_gates),
+		"stage_props": _stage_props_to_json(stage_props),
+		"surface_segments": _surface_segments_to_json(surface_segments),
+		"audio_zones": _audio_zones_to_json(audio_zones),
 		"audio_ids": audio_ids,
 		"runtime_scene_path": runtime_scene_path,
 	}
@@ -111,6 +120,56 @@ func _validate_spawn_points(errors: Array[String]) -> void:
 		var distance := _distance_to_route_xz(Vector3(socket.x, 0.0, socket.z))
 		if distance > max_distance:
 			errors.append("Spawn point %d is outside the road bounds." % i)
+
+func _validate_stage_props(errors: Array[String]) -> void:
+	for i in range(stage_props.size()):
+		var prop := stage_props[i]
+		var prop_id := str(prop.get("id", "")).strip_edges()
+		var kind := str(prop.get("kind", "box"))
+		if prop_id.is_empty():
+			errors.append("Stage prop %d id is required." % i)
+		if kind == "scene":
+			var path := str(prop.get("asset_path", ""))
+			if path.strip_edges().is_empty():
+				errors.append("Stage prop %s scene asset path is required." % prop_id)
+			elif not ResourceLoader.exists(path):
+				errors.append("Stage prop %s scene asset path does not exist: %s" % [prop_id, path])
+		elif kind == "box":
+			var size := _vector3_from_value(prop.get("box_size", Vector3.ONE), Vector3.ONE)
+			if size.x <= 0.0 or size.y <= 0.0 or size.z <= 0.0:
+				errors.append("Stage prop %s box size must be positive." % prop_id)
+
+func _validate_surface_segments(errors: Array[String]) -> void:
+	for i in range(surface_segments.size()):
+		var segment := surface_segments[i]
+		var segment_id := str(segment.get("id", "")).strip_edges()
+		var start_index := int(segment.get("start_route_index", -1))
+		var end_index := int(segment.get("end_route_index", -1))
+		if segment_id.is_empty():
+			errors.append("Surface segment %d id is required." % i)
+		if start_index < 0 or start_index >= route_points.size():
+			errors.append("Surface segment %s start route index is out of range." % segment_id)
+		if end_index < 0 or end_index >= route_points.size():
+			errors.append("Surface segment %s end route index is out of range." % segment_id)
+		if end_index < start_index:
+			errors.append("Surface segment %s end route index must be >= start route index." % segment_id)
+
+func _validate_audio_zones(errors: Array[String]) -> void:
+	for i in range(audio_zones.size()):
+		var zone := audio_zones[i]
+		var zone_id := str(zone.get("id", "")).strip_edges()
+		var audio_id := str(zone.get("audio_id", "")).strip_edges()
+		var audio_path := str(zone.get("audio_path", "")).strip_edges()
+		if zone_id.is_empty():
+			errors.append("Audio zone %d id is required." % i)
+		if audio_id.is_empty() and audio_path.is_empty():
+			errors.append("Audio zone %s must reference audio_id or audio_path." % zone_id)
+		if not audio_id.is_empty() and not audio_ids.has(audio_id):
+			errors.append("Audio zone %s references unknown audio id: %s" % [zone_id, audio_id])
+		if not audio_path.is_empty() and not ResourceLoader.exists(audio_path):
+			errors.append("Audio zone %s audio path does not exist: %s" % [zone_id, audio_path])
+		if float(zone.get("radius", 0.0)) <= 0.0:
+			errors.append("Audio zone %s radius must be greater than zero." % zone_id)
 
 func _distance_to_route_xz(point: Vector3) -> float:
 	var best := INF
@@ -147,6 +206,51 @@ func _socket_array_to_json(sockets: Array[Vector4]) -> Array:
 		})
 	return out
 
+func _stage_props_to_json(props: Array[Dictionary]) -> Array:
+	var out: Array = []
+	for prop in props:
+		out.append({
+			"id": str(prop.get("id", "")),
+			"kind": str(prop.get("kind", "box")),
+			"asset_path": str(prop.get("asset_path", "")),
+			"box_size": _point_value_to_array(prop.get("box_size", Vector3.ONE)),
+			"box_color": _color_value_to_array(prop.get("box_color", Color.WHITE)),
+			"position": _point_value_to_array(prop.get("position", Vector3.ZERO)),
+			"yaw_degrees": float(prop.get("yaw_degrees", 0.0)),
+			"scale": _point_value_to_array(prop.get("scale", Vector3.ONE)),
+			"collision_mode": str(prop.get("collision_mode", "visual")),
+			"audio_material_id": str(prop.get("audio_material_id", "")),
+			"gameplay_tag": str(prop.get("gameplay_tag", "")),
+		})
+	return out
+
+func _surface_segments_to_json(segments: Array[Dictionary]) -> Array:
+	var out: Array = []
+	for segment in segments:
+		out.append({
+			"id": str(segment.get("id", "")),
+			"start_route_index": int(segment.get("start_route_index", 0)),
+			"end_route_index": int(segment.get("end_route_index", 0)),
+			"surface_audio_id": str(segment.get("surface_audio_id", "")),
+			"surface_material_id": str(segment.get("surface_material_id", "")),
+			"position": _point_value_to_array(segment.get("position", Vector3.ZERO)),
+		})
+	return out
+
+func _audio_zones_to_json(zones: Array[Dictionary]) -> Array:
+	var out: Array = []
+	for zone in zones:
+		out.append({
+			"id": str(zone.get("id", "")),
+			"audio_id": str(zone.get("audio_id", "")),
+			"audio_path": str(zone.get("audio_path", "")),
+			"zone_kind": str(zone.get("zone_kind", "ambient")),
+			"radius": float(zone.get("radius", 0.0)),
+			"volume_db": float(zone.get("volume_db", 0.0)),
+			"position": _point_value_to_array(zone.get("position", Vector3.ZERO)),
+		})
+	return out
+
 func _shortcut_gates_to_json(gates: Array[Dictionary]) -> Array:
 	var out: Array = []
 	for gate in gates:
@@ -168,6 +272,21 @@ func _point_value_to_array(value: Variant) -> Array:
 	if value is Array and value.size() >= 3:
 		return [float(value[0]), float(value[1]), float(value[2])]
 	return [0.0, 0.0, 0.0]
+
+func _color_value_to_array(value: Variant) -> Array:
+	if value is Color:
+		var color := value as Color
+		return [color.r, color.g, color.b, color.a]
+	if value is Array and value.size() >= 4:
+		return [float(value[0]), float(value[1]), float(value[2]), float(value[3])]
+	return [1.0, 1.0, 1.0, 1.0]
+
+func _vector3_from_value(value: Variant, fallback: Vector3) -> Vector3:
+	if value is Vector3:
+		return value
+	if value is Array and value.size() >= 3:
+		return Vector3(float(value[0]), float(value[1]), float(value[2]))
+	return fallback
 
 func _vec3_to_array(point: Vector3) -> Array:
 	return [point.x, point.y, point.z]

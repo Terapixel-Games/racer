@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="TrackDefinition" load_steps=2 format=3 uid="uid://qkm33jviep7u"]
+[gd_resource type="Resource" script_class="TrackDefinition" load_steps=2 format=3]
 
-[ext_resource type="Script" uid="uid://dndccbxb7m7sa" path="res://scripts/track/TrackDefinition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/track/TrackDefinition.gd" id="1"]
 
 [resource]
 script = ExtResource("1")
@@ -15,8 +15,8 @@ road_texture_path = "res://assets/gameplay/materials/plastic/glossy_plastic_albe
 route_points = Array[Vector3]([Vector3(-86, 3.35, -76), Vector3(-56, 3.35, -78), Vector3(-24, 3.35, -78), Vector3(12, 3.42, -78), Vector3(46, 3.48, -76), Vector3(66, 3.54, -68), Vector3(76, 3.62, -50), Vector3(72, 3.82, -26), Vector3(56, 4.08, -8), Vector3(30, 4.45, 2), Vector3(-2, 4.85, 0), Vector3(-24, 5.2, -16), Vector3(-32, 5.45, -42), Vector3(-18, 5.65, -62), Vector3(16, 5.78, -70), Vector3(52, 5.85, -70), Vector3(86, 5.7, -68), Vector3(108, 6.8, -52), Vector3(122, 9.2, -28), Vector3(128, 12.3, -2), Vector3(128, 14.8, 24), Vector3(128, 14.8, 46), Vector3(122, 13.2, 66), Vector3(104, 9.2, 76), Vector3(72, 5.6, 78), Vector3(44, 3.8, 78), Vector3(12, 3.7, 76), Vector3(-12, 3.9, 70), Vector3(-40, 4.1, 76), Vector3(-72, 4.2, 70), Vector3(-96, 4.1, 56), Vector3(-104, 3.95, 30), Vector3(-90, 3.78, 14), Vector3(-104, 3.62, -4), Vector3(-88, 3.5, -22), Vector3(-104, 3.42, -44), Vector3(-110, 3.36, -62), Vector3(-102, 3.35, -74)])
 checkpoint_indices = Array[int]([0, 8, 16, 25, 30, 34])
 spawn_points = Array[Vector4]([Vector4(-82, 4.15, -79, 90), Vector4(-82, 4.15, -74, 90), Vector4(-76, 4.15, -79, 90), Vector4(-76, 4.15, -74, 90), Vector4(-70, 4.15, -79, 90), Vector4(-70, 4.15, -74, 90), Vector4(-64, 4.15, -79, 90), Vector4(-64, 4.15, -74, 90)])
-item_sockets = Array[Vector4]([Vector4(-36, 4.05, -78, 90), Vector4(24, 4.18, -78, 90), Vector4(70, 4.25, -66, 40), Vector4(14, 5.42, 0, 116), Vector4(90, 6.22, -66, 24), Vector4(124, 10.4, -18, 176), Vector4(126, 15.45, 36, 180), Vector4(20, 4.25, 76, -88), Vector4(-48, 4.8, 74, -100), Vector4(-98, 4.12, -40, -34)])
-hazard_sockets = Array[Vector4]([Vector4(74, 4.3, -48, 30), Vector4(-29, 5.96, -34, -165), Vector4(126, 15.25, 24, 176), Vector4(-8, 4.45, 72, -92), Vector4(-96, 4.3, 18, 184), Vector4(-104, 4.1, -50, -34), Vector4(58, 4.25, -68, 64), Vector4(106, 9.8, 74, -132)])
+item_sockets = Array[Vector4]([Vector4(-36, 4.05, -78, 0), Vector4(24, 4.18, -78, 0), Vector4(70, 4.25, -66, 0), Vector4(14, 5.42, 0, 0), Vector4(90, 6.22, -66, 0), Vector4(124, 10.4, -18, 0), Vector4(126, 15.45, 36, 0), Vector4(20, 4.25, 76, 0), Vector4(-48, 4.8, 74, 0), Vector4(-98, 4.12, -40, 0)])
+hazard_sockets = Array[Vector4]([Vector4(74, 4.3, -48, 0), Vector4(-29, 5.96, -34, 0), Vector4(126, 15.25, 24, 0), Vector4(-8, 4.45, 72, 0), Vector4(-96, 4.3, 18, 0), Vector4(-104, 4.1, -50, 0), Vector4(58, 4.25, -68, 0), Vector4(106, 9.8, 74, 0)])
 shortcut_gates = Array[Dictionary]([{
 "entry": [70.0, 3.58, -66.0],
 "exit": [14.0, 5.38, 0.0],
@@ -24,6 +24,186 @@ shortcut_gates = Array[Dictionary]([{
 "kind": "jump",
 "surface_enabled": false,
 "width": 8.0
+}])
+stage_props = Array[Dictionary]([{
+"asset_path": "",
+"audio_material_id": "stone",
+"box_color": [0.86, 0.78, 0.65, 1.0],
+"box_size": [228.0, 0.36, 16.0],
+"collision_mode": "visual",
+"gameplay_tag": "countertop",
+"id": "BackCountertop",
+"kind": "box",
+"position": [0.0, 2.95, 84.0],
+"scale": [1.0, 1.0, 1.0],
+"yaw_degrees": 0.0
+}, {
+"asset_path": "",
+"audio_material_id": "metal",
+"box_color": [0.68, 0.72, 0.76, 1.0],
+"box_size": [10.0, 14.0, 38.0],
+"collision_mode": "visual",
+"gameplay_tag": "kitchen_landmark",
+"id": "FridgeLandmark",
+"kind": "box",
+"position": [126.0, 7.0, 34.0],
+"scale": [1.0, 1.0, 1.0],
+"yaw_degrees": 0.0
+}, {
+"asset_path": "",
+"audio_material_id": "stone",
+"box_color": [0.86, 0.78, 0.65, 1.0],
+"box_size": [234.0, 0.36, 16.0],
+"collision_mode": "visual",
+"gameplay_tag": "countertop",
+"id": "FrontCountertop",
+"kind": "box",
+"position": [0.0, 2.95, -84.0],
+"scale": [1.0, 1.0, 1.0],
+"yaw_degrees": 0.0
+}, {
+"asset_path": "",
+"audio_material_id": "drywall",
+"box_color": [0.62, 0.57, 0.49, 1.0],
+"box_size": [252.0, 32.0, 2.0],
+"collision_mode": "visual",
+"gameplay_tag": "room_envelope",
+"id": "KitchenBackWall",
+"kind": "box",
+"position": [0.0, 16.0, 98.0],
+"scale": [1.0, 1.0, 1.0],
+"yaw_degrees": 0.0
+}, {
+"asset_path": "",
+"audio_material_id": "drywall",
+"box_color": [0.8, 0.76, 0.68, 1.0],
+"box_size": [292.0, 1.0, 200.0],
+"collision_mode": "visual",
+"gameplay_tag": "room_envelope",
+"id": "KitchenCeiling",
+"kind": "box",
+"position": [9.0, 25.8, 0.0],
+"scale": [1.0, 1.0, 1.0],
+"yaw_degrees": 0.0
+}, {
+"asset_path": "",
+"audio_material_id": "stone",
+"box_color": [0.88, 0.8, 0.68, 1.0],
+"box_size": [140.0, 0.36, 92.0],
+"collision_mode": "visual",
+"gameplay_tag": "countertop",
+"id": "KitchenIslandCountertop",
+"kind": "box",
+"position": [22.0, 2.95, -36.0],
+"scale": [1.0, 1.0, 1.0],
+"yaw_degrees": 0.0
+}, {
+"asset_path": "",
+"audio_material_id": "drywall",
+"box_color": [0.58, 0.54, 0.48, 1.0],
+"box_size": [2.0, 32.0, 196.0],
+"collision_mode": "visual",
+"gameplay_tag": "room_envelope",
+"id": "KitchenLeftWall",
+"kind": "box",
+"position": [-128.0, 16.0, 0.0],
+"scale": [1.0, 1.0, 1.0],
+"yaw_degrees": 0.0
+}, {
+"asset_path": "",
+"audio_material_id": "drywall",
+"box_color": [0.58, 0.54, 0.48, 1.0],
+"box_size": [2.0, 32.0, 196.0],
+"collision_mode": "visual",
+"gameplay_tag": "room_envelope",
+"id": "KitchenRightWall",
+"kind": "box",
+"position": [146.0, 16.0, 0.0],
+"scale": [1.0, 1.0, 1.0],
+"yaw_degrees": 0.0
+}, {
+"asset_path": "res://assets/source/kenney/furniture_kit/kitchenSink.glb",
+"audio_material_id": "ceramic",
+"box_color": [0.75, 0.72, 0.64, 1.0],
+"box_size": [1.0, 1.0, 1.0],
+"collision_mode": "visual",
+"gameplay_tag": "kitchen_landmark",
+"id": "KitchenSink",
+"kind": "scene",
+"position": [-8.0, 2.15, 88.0],
+"scale": [10.5, 10.5, 10.5],
+"yaw_degrees": 180.0
+}, {
+"asset_path": "",
+"audio_material_id": "stone",
+"box_color": [0.82, 0.76, 0.66, 1.0],
+"box_size": [16.0, 0.36, 160.0],
+"collision_mode": "visual",
+"gameplay_tag": "countertop",
+"id": "LeftCountertop",
+"kind": "box",
+"position": [-116.0, 2.95, -2.0],
+"scale": [1.0, 1.0, 1.0],
+"yaw_degrees": 0.0
+}, {
+"asset_path": "",
+"audio_material_id": "stone",
+"box_color": [0.82, 0.76, 0.66, 1.0],
+"box_size": [16.0, 0.36, 160.0],
+"collision_mode": "visual",
+"gameplay_tag": "countertop",
+"id": "RightCountertop",
+"kind": "box",
+"position": [122.0, 2.95, -2.0],
+"scale": [1.0, 1.0, 1.0],
+"yaw_degrees": 0.0
+}])
+surface_segments = Array[Dictionary]([{
+"end_route_index": 16,
+"id": "CountertopMain",
+"position": [-26.0, 3.7, -78.0],
+"start_route_index": 0,
+"surface_audio_id": "countertop",
+"surface_material_id": "stone"
+}, {
+"end_route_index": 23,
+"id": "FridgeTop",
+"position": [128.0, 14.9, 34.0],
+"start_route_index": 18,
+"surface_audio_id": "fridge_top",
+"surface_material_id": "metal"
+}, {
+"end_route_index": 29,
+"id": "WetSink",
+"position": [-8.0, 4.2, 74.0],
+"start_route_index": 25,
+"surface_audio_id": "wet_sink",
+"surface_material_id": "wet_stone"
+}])
+audio_zones = Array[Dictionary]([{
+"audio_id": "clatter",
+"audio_path": "",
+"id": "FridgeHumZone",
+"position": [126.0, 8.0, 34.0],
+"radius": 26.0,
+"volume_db": -16.0,
+"zone_kind": "ambient"
+}, {
+"audio_id": "clatter",
+"audio_path": "",
+"id": "KitchenClatterZone",
+"position": [0.0, 5.0, 0.0],
+"radius": 120.0,
+"volume_db": -12.0,
+"zone_kind": "ambient"
+}, {
+"audio_id": "sink_splash",
+"audio_path": "",
+"id": "SinkSplashZone",
+"position": [-8.0, 4.45, 74.0],
+"radius": 18.0,
+"volume_db": -5.0,
+"zone_kind": "oneshot"
 }])
 dressing_overrides = {
 "KitchenSink": {

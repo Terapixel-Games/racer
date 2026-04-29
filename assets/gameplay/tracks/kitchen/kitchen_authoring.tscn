@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://oed3kn21ygml"]
+[gd_scene load_steps=5 format=3 uid="uid://oed3kn21ygml"]
 
 [ext_resource type="Script" uid="uid://dlvn2xhwjpnou" path="res://scripts/track/TrackAuthoringPreview.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/track/StagePropAuthoring.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/track/SurfaceSegmentAuthoring.gd" id="3"]
+[ext_resource type="Script" path="res://scripts/track/AudioZoneAuthoring.gd" id="4"]
 
 [node name="KitchenAuthoring" type="Node3D"]
 script = ExtResource("1")
@@ -265,7 +268,167 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 5.38, 0)
 
 [node name="Dressing" type="Node3D" parent="."]
 
-[node name="KitchenSink" type="Marker3D" parent="Dressing"]
+[node name="KitchenSink" type="Node3D" parent="Dressing"]
 transform = Transform3D(-10.5, 0, 0, 0, 10.5, 0, 0, 0, -10.5, -8, 2.15, 88)
+script = ExtResource("2")
+prop_kind = "scene"
+prop_id = "KitchenSink"
+asset_path = "res://assets/source/kenney/furniture_kit/kitchenSink.glb"
+collision_mode = "visual"
+audio_material_id = "ceramic"
+gameplay_tag = "kitchen_landmark"
+
+[node name="FridgeLandmark" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 126, 7, 34)
+script = ExtResource("2")
+prop_id = "FridgeLandmark"
+box_size = Vector3(10, 14, 38)
+box_color = Color(0.68, 0.72, 0.76, 1)
+collision_mode = "visual"
+audio_material_id = "metal"
+gameplay_tag = "kitchen_landmark"
+
+[node name="KitchenBackWall" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16, 98)
+script = ExtResource("2")
+prop_id = "KitchenBackWall"
+box_size = Vector3(252, 32, 2)
+box_color = Color(0.62, 0.57, 0.49, 1)
+collision_mode = "visual"
+audio_material_id = "drywall"
+gameplay_tag = "room_envelope"
+
+[node name="KitchenLeftWall" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -128, 16, 0)
+script = ExtResource("2")
+prop_id = "KitchenLeftWall"
+box_size = Vector3(2, 32, 196)
+box_color = Color(0.58, 0.54, 0.48, 1)
+collision_mode = "visual"
+audio_material_id = "drywall"
+gameplay_tag = "room_envelope"
+
+[node name="KitchenRightWall" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146, 16, 0)
+script = ExtResource("2")
+prop_id = "KitchenRightWall"
+box_size = Vector3(2, 32, 196)
+box_color = Color(0.58, 0.54, 0.48, 1)
+collision_mode = "visual"
+audio_material_id = "drywall"
+gameplay_tag = "room_envelope"
+
+[node name="KitchenCeiling" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 25.8, 0)
+script = ExtResource("2")
+prop_id = "KitchenCeiling"
+box_size = Vector3(292, 1, 200)
+box_color = Color(0.8, 0.76, 0.68, 1)
+collision_mode = "visual"
+audio_material_id = "drywall"
+gameplay_tag = "room_envelope"
+
+[node name="FrontCountertop" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.95, -84)
+script = ExtResource("2")
+prop_id = "FrontCountertop"
+box_size = Vector3(234, 0.36, 16)
+box_color = Color(0.86, 0.78, 0.65, 1)
+collision_mode = "visual"
+audio_material_id = "stone"
+gameplay_tag = "countertop"
+
+[node name="BackCountertop" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.95, 84)
+script = ExtResource("2")
+prop_id = "BackCountertop"
+box_size = Vector3(228, 0.36, 16)
+box_color = Color(0.86, 0.78, 0.65, 1)
+collision_mode = "visual"
+audio_material_id = "stone"
+gameplay_tag = "countertop"
+
+[node name="LeftCountertop" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116, 2.95, -2)
+script = ExtResource("2")
+prop_id = "LeftCountertop"
+box_size = Vector3(16, 0.36, 160)
+box_color = Color(0.82, 0.76, 0.66, 1)
+collision_mode = "visual"
+audio_material_id = "stone"
+gameplay_tag = "countertop"
+
+[node name="RightCountertop" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 122, 2.95, -2)
+script = ExtResource("2")
+prop_id = "RightCountertop"
+box_size = Vector3(16, 0.36, 160)
+box_color = Color(0.82, 0.76, 0.66, 1)
+collision_mode = "visual"
+audio_material_id = "stone"
+gameplay_tag = "countertop"
+
+[node name="KitchenIslandCountertop" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 2.95, -36)
+script = ExtResource("2")
+prop_id = "KitchenIslandCountertop"
+box_size = Vector3(140, 0.36, 92)
+box_color = Color(0.88, 0.8, 0.68, 1)
+collision_mode = "visual"
+audio_material_id = "stone"
+gameplay_tag = "countertop"
+
+[node name="SurfaceSegments" type="Node3D" parent="."]
+
+[node name="CountertopMain" type="Marker3D" parent="SurfaceSegments"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 3.7, -78)
+script = ExtResource("3")
+segment_id = "CountertopMain"
+end_route_index = 16
+surface_audio_id = "countertop"
+surface_material_id = "stone"
+
+[node name="FridgeTop" type="Marker3D" parent="SurfaceSegments"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, 14.9, 34)
+script = ExtResource("3")
+segment_id = "FridgeTop"
+start_route_index = 18
+end_route_index = 23
+surface_audio_id = "fridge_top"
+surface_material_id = "metal"
+
+[node name="WetSink" type="Marker3D" parent="SurfaceSegments"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 4.2, 74)
+script = ExtResource("3")
+segment_id = "WetSink"
+start_route_index = 25
+end_route_index = 29
+surface_audio_id = "wet_sink"
+surface_material_id = "wet_stone"
 
 [node name="AudioZones" type="Node3D" parent="."]
+
+[node name="SinkSplashZone" type="Marker3D" parent="AudioZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 4.45, 74)
+script = ExtResource("4")
+zone_id = "SinkSplashZone"
+audio_id = "sink_splash"
+zone_kind = "oneshot"
+radius = 18.0
+volume_db = -5.0
+
+[node name="KitchenClatterZone" type="Marker3D" parent="AudioZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+script = ExtResource("4")
+zone_id = "KitchenClatterZone"
+audio_id = "clatter"
+radius = 120.0
+volume_db = -12.0
+
+[node name="FridgeHumZone" type="Marker3D" parent="AudioZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 126, 8, 34)
+script = ExtResource("4")
+zone_id = "FridgeHumZone"
+audio_id = "clatter"
+radius = 26.0
+volume_db = -16.0

@@ -16,6 +16,11 @@ func test_kitchen_definition_validates() -> void:
 	assert_equal(definition.out_of_bounds_y, 1.5, "Kitchen floor drop should be out of bounds")
 	assert_equal(definition.shortcut_gates.size(), 1, "Kitchen should expose one table-jump shortcut")
 	assert_true(definition.dressing_overrides.has("KitchenSink"), "Kitchen should expose an editable sink dressing override")
+	assert_true(definition.stage_props.size() >= 10, "Kitchen should export selectable stage props from the authoring scene")
+	assert_true(_has_stage_prop(definition, "KitchenSink"), "Kitchen should export the sink as a selectable stage prop")
+	assert_true(_has_stage_prop(definition, "FridgeLandmark"), "Kitchen should export the fridge as a selectable stage prop")
+	assert_equal(definition.surface_segments.size(), 3, "Kitchen should export surface audio segment assignments")
+	assert_equal(definition.audio_zones.size(), 3, "Kitchen should export authored audio zones")
 	assert_true(_route_height_range(definition.route_points) > 2.0, "Kitchen route should keep the multi-level island loop")
 	assert_true(_route_has_fridge_top_section(definition.route_points), "Kitchen route should climb onto and cross the fridge landmark")
 	assert_true(_overpass_crossing_count(definition.route_points, definition.closed_loop, 1.8) > 0, "Kitchen route should keep the loop as a grade-separated overpass")
@@ -78,6 +83,12 @@ func _base_definition() -> TrackDefinition:
 func _has_error(errors: Array[String], needle: String) -> bool:
 	for error in errors:
 		if error.to_lower().contains(needle.to_lower()):
+			return true
+	return false
+
+func _has_stage_prop(definition: TrackDefinition, prop_id: String) -> bool:
+	for prop in definition.stage_props:
+		if str(prop.get("id", "")) == prop_id:
 			return true
 	return false
 

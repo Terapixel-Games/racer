@@ -8,6 +8,9 @@ const TrackMetadataExporter = preload("res://scripts/track/TrackMetadataExporter
 const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd")
 const TrackRibbonMesh = preload("res://scripts/track/TrackRibbonMesh.gd")
 const TrackWalls = preload("res://scripts/TrackWalls.gd")
+const StagePropAuthoring = preload("res://scripts/track/StagePropAuthoring.gd")
+const SurfaceSegmentAuthoring = preload("res://scripts/track/SurfaceSegmentAuthoring.gd")
+const AudioZoneAuthoring = preload("res://scripts/track/AudioZoneAuthoring.gd")
 
 const PREVIEW_ROOT_NAME := "EditorTrackPreview"
 
@@ -75,6 +78,14 @@ const PREVIEW_ROOT_NAME := "EditorTrackPreview"
 @export var show_height_guides := true:
 	set(value):
 		show_height_guides = value
+		_queue_preview_refresh()
+@export var show_surface_segments := true:
+	set(value):
+		show_surface_segments = value
+		_queue_preview_refresh()
+@export var show_audio_zones := true:
+	set(value):
+		show_audio_zones = value
 		_queue_preview_refresh()
 @export var marker_label_lift := 1.15:
 	set(value):
@@ -166,7 +177,9 @@ func sync_markers_from_definition() -> Array[String]:
 	_replace_marker_group("ItemSockets", _socket_marker_specs(definition.item_sockets, "ItemSocket", 1))
 	_replace_marker_group("HazardSockets", _socket_marker_specs(definition.hazard_sockets, "HazardSocket", 1))
 	_replace_marker_group("ShortcutGates", _shortcut_marker_specs(definition.shortcut_gates))
-	_replace_marker_group("Dressing", _dressing_marker_specs(definition))
+	_replace_stage_props(definition.stage_props)
+	_replace_surface_segments(definition.surface_segments)
+	_replace_audio_zones(definition.audio_zones)
 	refresh_preview()
 	print("Track builder synced markers from %s" % track_definition_path)
 	return []
@@ -228,7 +241,9 @@ func get_authoring_summary() -> Dictionary:
 		"item_sockets": _sorted_marker_children(_get_or_create_holder("ItemSockets")).size(),
 		"hazard_sockets": _sorted_marker_children(_get_or_create_holder("HazardSockets")).size(),
 		"shortcut_markers": _sorted_marker_children(_get_or_create_holder("ShortcutGates")).size(),
-		"dressing_props": _sorted_marker_children(_get_or_create_holder("Dressing")).size(),
+		"dressing_props": _sorted_node3d_children(_get_or_create_holder("Dressing")).size(),
+		"surface_segments": _sorted_marker_children(_get_or_create_holder("SurfaceSegments")).size(),
+		"audio_zones": _sorted_marker_children(_get_or_create_holder("AudioZones")).size(),
 	}
 
 func _add_ground_preview(parent: Node3D) -> void:
@@ -342,6 +357,10 @@ func _add_marker_previews(parent: Node3D) -> void:
 	_add_marker_group(holder, "ShortcutGates", Vector3(3.0, 0.32, 3.0), Color(0.65, 0.25, 1.0, 0.88), 0.34)
 	_add_marker_group(holder, "SectionMarkers", Vector3(3.8, 0.12, 3.8), Color(0.2, 0.95, 1.0, 0.7), 0.38)
 	_add_marker_group(holder, "Dressing", Vector3(3.2, 0.2, 3.2), Color(0.8, 0.9, 1.0, 0.62), 0.35)
+	if show_surface_segments:
+		_add_marker_group(holder, "SurfaceSegments", Vector3(3.6, 0.16, 3.6), Color(0.18, 0.88, 0.58, 0.72), 0.38)
+	if show_audio_zones:
+		_add_audio_zone_previews(holder)
 
 func _add_marker_group(parent: Node3D, source_holder_name: String, size: Vector3, color: Color, y_lift: float) -> void:
 	var source := get_node_or_null(source_holder_name)
@@ -470,6 +489,9 @@ func _definition_from_markers() -> TrackDefinition:
 	definition.hazard_sockets = _collect_socket_markers("HazardSockets")
 	definition.shortcut_gates = _collect_shortcut_gates(definition.shortcut_gates)
 	definition.dressing_overrides = _collect_dressing_overrides(definition.dressing_overrides)
+	definition.stage_props = _collect_stage_props()
+	definition.surface_segments = _collect_surface_segments()
+	definition.audio_zones = _collect_audio_zones()
 	return definition
 
 func _load_definition() -> TrackDefinition:
@@ -567,6 +589,66 @@ func _replace_marker_group(holder_name: String, specs: Array[Dictionary]) -> voi
 		if Engine.is_editor_hint():
 			marker.owner = owner if owner != null else self
 
+func _replace_stage_props(props: Array[Dictionary]) -> void:
+	var holder := _get_or_create_holder("Dressing")
+	for child in holder.get_children():
+		holder.remove_child(child)
+		child.queue_free()
+	for prop in props:
+		var node := StagePropAuthoring.new()
+		node.name = str(prop.get("id", "StageProp"))
+		node.prop_id = str(prop.get("id", node.name))
+		node.prop_kind = str(prop.get("kind", "box"))
+		node.asset_path = str(prop.get("asset_path", ""))
+		node.box_size = _vector3_from_value(prop.get("box_size", Vector3.ONE), Vector3.ONE)
+		node.box_color = _color_from_value(prop.get("box_color", Color.WHITE), Color.WHITE)
+		node.collision_mode = str(prop.get("collision_mode", "visual"))
+		node.audio_material_id = str(prop.get("audio_material_id", ""))
+		node.gameplay_tag = str(prop.get("gameplay_tag", ""))
+		node.position = _point_from_gate_value(prop.get("position", Vector3.ZERO))
+		node.rotation_degrees.y = float(prop.get("yaw_degrees", 0.0))
+		node.scale = _vector3_from_value(prop.get("scale", Vector3.ONE), Vector3.ONE)
+		holder.add_child(node)
+		if Engine.is_editor_hint():
+			node.owner = owner if owner != null else self
+
+func _replace_surface_segments(segments: Array[Dictionary]) -> void:
+	var holder := _get_or_create_holder("SurfaceSegments")
+	for child in holder.get_children():
+		holder.remove_child(child)
+		child.queue_free()
+	for segment in segments:
+		var node := SurfaceSegmentAuthoring.new()
+		node.name = str(segment.get("id", "SurfaceSegment"))
+		node.segment_id = node.name
+		node.start_route_index = int(segment.get("start_route_index", 0))
+		node.end_route_index = int(segment.get("end_route_index", 0))
+		node.surface_audio_id = str(segment.get("surface_audio_id", ""))
+		node.surface_material_id = str(segment.get("surface_material_id", ""))
+		node.position = _point_from_gate_value(segment.get("position", Vector3.ZERO))
+		holder.add_child(node)
+		if Engine.is_editor_hint():
+			node.owner = owner if owner != null else self
+
+func _replace_audio_zones(zones: Array[Dictionary]) -> void:
+	var holder := _get_or_create_holder("AudioZones")
+	for child in holder.get_children():
+		holder.remove_child(child)
+		child.queue_free()
+	for zone in zones:
+		var node := AudioZoneAuthoring.new()
+		node.name = str(zone.get("id", "AudioZone"))
+		node.zone_id = node.name
+		node.audio_id = str(zone.get("audio_id", ""))
+		node.audio_path = str(zone.get("audio_path", ""))
+		node.zone_kind = str(zone.get("zone_kind", "ambient"))
+		node.radius = float(zone.get("radius", 12.0))
+		node.volume_db = float(zone.get("volume_db", -6.0))
+		node.position = _point_from_gate_value(zone.get("position", Vector3.ZERO))
+		holder.add_child(node)
+		if Engine.is_editor_hint():
+			node.owner = owner if owner != null else self
+
 func _get_or_create_holder(holder_name: String) -> Node3D:
 	var holder := get_node_or_null(holder_name) as Node3D
 	if holder != null:
@@ -642,12 +724,56 @@ func _collect_dressing_overrides(existing_overrides: Dictionary) -> Dictionary:
 		}
 	return overrides
 
+func _collect_stage_props() -> Array[Dictionary]:
+	var props: Array[Dictionary] = []
+	var holder := get_node_or_null("Dressing")
+	if holder == null:
+		return props
+	for child in _sorted_node3d_children(holder):
+		if child.has_method("to_stage_prop"):
+			props.append(child.call("to_stage_prop") as Dictionary)
+	return props
+
+func _collect_surface_segments() -> Array[Dictionary]:
+	var segments: Array[Dictionary] = []
+	var holder := get_node_or_null("SurfaceSegments")
+	if holder == null:
+		return segments
+	for child in _sorted_marker_children(holder):
+		if child.has_method("to_surface_segment"):
+			segments.append(child.call("to_surface_segment") as Dictionary)
+	return segments
+
+func _collect_audio_zones() -> Array[Dictionary]:
+	var zones: Array[Dictionary] = []
+	var holder := get_node_or_null("AudioZones")
+	if holder == null:
+		return zones
+	for child in _sorted_marker_children(holder):
+		if child.has_method("to_audio_zone"):
+			zones.append(child.call("to_audio_zone") as Dictionary)
+	return zones
+
 func _point_from_gate_value(value: Variant) -> Vector3:
 	if value is Vector3:
 		return value
 	if value is Array and value.size() >= 3:
 		return Vector3(float(value[0]), float(value[1]), float(value[2]))
 	return Vector3.ZERO
+
+func _vector3_from_value(value: Variant, fallback: Vector3) -> Vector3:
+	if value is Vector3:
+		return value
+	if value is Array and value.size() >= 3:
+		return Vector3(float(value[0]), float(value[1]), float(value[2]))
+	return fallback
+
+func _color_from_value(value: Variant, fallback: Color) -> Color:
+	if value is Color:
+		return value
+	if value is Array and value.size() >= 4:
+		return Color(float(value[0]), float(value[1]), float(value[2]), float(value[3]))
+	return fallback
 
 func _print_authoring_errors(errors: Array[String]) -> void:
 	for error in errors:
@@ -662,6 +788,16 @@ func _sorted_marker_children(source: Node) -> Array[Node]:
 		return str(a.name).naturalnocasecmp_to(str(b.name)) < 0
 	)
 	return markers
+
+func _sorted_node3d_children(source: Node) -> Array[Node]:
+	var nodes: Array[Node] = []
+	for child in source.get_children():
+		if child is Node3D:
+			nodes.append(child)
+	nodes.sort_custom(func(a: Node, b: Node) -> bool:
+		return str(a.name).naturalnocasecmp_to(str(b.name)) < 0
+	)
+	return nodes
 
 func _preview_signature() -> String:
 	var parts: Array[String] = [
@@ -680,27 +816,29 @@ func _preview_signature() -> String:
 		str(show_dressing_preview),
 		str(show_auto_wall_preview),
 		str(show_height_guides),
+		str(show_surface_segments),
+		str(show_audio_zones),
 		str(marker_label_lift),
 		str(road_preview_alpha),
 		str(wall_preview_alpha),
 		str(dressing_preview_alpha),
 	]
-	for holder_name in ["RoutePoints", "SpawnPoints", "Checkpoints", "ItemSockets", "HazardSockets", "ShortcutGates", "SectionMarkers", "Dressing"]:
+	for holder_name in ["RoutePoints", "SpawnPoints", "Checkpoints", "ItemSockets", "HazardSockets", "ShortcutGates", "SectionMarkers", "Dressing", "SurfaceSegments", "AudioZones"]:
 		parts.append(holder_name)
 		var source := get_node_or_null(holder_name)
 		if source == null:
 			continue
-		for marker in _sorted_marker_children(source):
-			var marker_3d := marker as Marker3D
+		for node in _sorted_node3d_children(source):
+			var node_3d := node as Node3D
 			parts.append("%s:%0.3f,%0.3f,%0.3f:%0.3f:%0.3f,%0.3f,%0.3f" % [
-				marker_3d.name,
-				marker_3d.position.x,
-				marker_3d.position.y,
-				marker_3d.position.z,
-				marker_3d.rotation_degrees.y,
-				marker_3d.scale.x,
-				marker_3d.scale.y,
-				marker_3d.scale.z,
+				node_3d.name,
+				node_3d.position.x,
+				node_3d.position.y,
+				node_3d.position.z,
+				node_3d.rotation_degrees.y,
+				node_3d.scale.x,
+				node_3d.scale.y,
+				node_3d.scale.z,
 			])
 	return "|".join(parts)
 
@@ -729,3 +867,28 @@ func _material(color: Color, transparent: bool) -> StandardMaterial3D:
 	if transparent or color.a < 1.0:
 		mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	return mat
+
+func _add_audio_zone_previews(parent: Node3D) -> void:
+	var source := get_node_or_null("AudioZones")
+	if source == null:
+		return
+	var group := Node3D.new()
+	group.name = "AudioZones"
+	parent.add_child(group)
+	for marker in _sorted_marker_children(source):
+		var marker_3d := marker as Marker3D
+		var mesh := MeshInstance3D.new()
+		mesh.name = marker_3d.name
+		var sphere := SphereMesh.new()
+		var radius := 6.0
+		if marker_3d.has_method("to_audio_zone"):
+			var data := marker_3d.call("to_audio_zone") as Dictionary
+			radius = maxf(float(data.get("radius", 6.0)), 0.1)
+		sphere.radius = radius
+		sphere.height = radius * 2.0
+		mesh.mesh = sphere
+		mesh.material_override = _material(Color(0.25, 0.55, 1.0, 0.14), true)
+		mesh.position = marker_3d.position
+		group.add_child(mesh)
+		if show_marker_labels:
+			_add_label(group, "%s_Label" % marker_3d.name, _marker_label_text(marker_3d.name, marker_3d.position), marker_3d.position + Vector3.UP * (radius + 1.0), Color(0.4, 0.72, 1.0, 1.0))
