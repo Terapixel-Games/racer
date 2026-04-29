@@ -137,7 +137,7 @@ static func _build_walls(root: Node3D, definition: TrackDefinition) -> void:
 	var points := PackedVector3Array()
 	for point in definition.route_points:
 		points.append(point)
-	var wall_gap_segments := TrackWalls.detect_grade_separated_crossing_segments(points, definition.closed_loop, definition.wall_height + 0.2)
+	var wall_gap_segments := TrackWalls.detect_grade_separated_crossing_segments(points, definition.closed_loop, definition.wall_height + 0.2, 2)
 	TrackWalls.build_walls(
 		holder,
 		points,

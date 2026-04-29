@@ -164,7 +164,7 @@ func _add_wall_preview(parent: Node3D, route_points: Array[Vector3]) -> void:
 	var packed := PackedVector3Array()
 	for point in route_points:
 		packed.append(point)
-	var wall_gap_segments := TrackWalls.detect_grade_separated_crossing_segments(packed, closed_loop, wall_height + 0.2)
+	var wall_gap_segments := TrackWalls.detect_grade_separated_crossing_segments(packed, closed_loop, wall_height + 0.2, 2)
 	var walls := TrackWalls.build_walls(holder, packed, road_width * 0.5, wall_height, wall_thickness, false, closed_loop, false, wall_gap_segments)
 	var wall_material := _material(Color(1.0, 0.42, 0.08, wall_preview_alpha), true)
 	for key in ["left", "right"]:
@@ -198,7 +198,7 @@ func _add_height_guides(parent: Node3D, route_points: Array[Vector3]) -> void:
 	var packed := PackedVector3Array()
 	for point in route_points:
 		packed.append(point)
-	var wall_gap_segments := TrackWalls.detect_grade_separated_crossing_segments(packed, closed_loop, wall_height + 0.2)
+	var wall_gap_segments := TrackWalls.detect_grade_separated_crossing_segments(packed, closed_loop, wall_height + 0.2, 2)
 	for segment_index in wall_gap_segments:
 		var i := int(segment_index)
 		if i < 0 or i >= route_points.size():

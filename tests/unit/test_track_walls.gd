@@ -50,3 +50,19 @@ func test_grade_separated_crossings_open_wall_gaps() -> void:
 		var indices := arrays[Mesh.ARRAY_INDEX] as PackedInt32Array
 		assert_equal(indices.size(), 12, "Closed four-segment wall with two gaps should only render two segments")
 	holder.queue_free()
+
+func test_grade_separated_crossing_gaps_can_include_neighbor_segments() -> void:
+	var points := PackedVector3Array([
+		Vector3(-20, 0.0, 0),
+		Vector3(-10, 0.0, 0),
+		Vector3(10, 0.0, 0),
+		Vector3(20, 0.0, 18),
+		Vector3(20, 2.4, -18),
+		Vector3(0, 2.4, -10),
+		Vector3(0, 2.4, 10),
+		Vector3(-20, 2.4, 18),
+	])
+	var unpadded := TrackWalls.detect_grade_separated_crossing_segments(points, false, 1.8)
+	assert_equal(unpadded, [1, 5], "Unpadded grade-separated gaps should mark only the crossing segments")
+	var padded := TrackWalls.detect_grade_separated_crossing_segments(points, false, 1.8, 1)
+	assert_equal(padded, [0, 1, 2, 4, 5, 6], "Padded grade-separated gaps should also remove neighboring rail segments for driveable clearance")

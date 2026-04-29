@@ -184,7 +184,7 @@ static func build_wall_mesh(polyline: PackedVector3Array, frames: Array, height:
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arr)
 	return mesh
 
-static func detect_grade_separated_crossing_segments(points: PackedVector3Array, closed_loop: bool, min_vertical_clearance: float = 1.2) -> Array[int]:
+static func detect_grade_separated_crossing_segments(points: PackedVector3Array, closed_loop: bool, min_vertical_clearance: float = 1.2, gap_segment_padding: int = 0) -> Array[int]:
 	var pts := sanitize_points(points)
 	var out_lookup := {}
 	if pts.size() < 4:
@@ -203,13 +203,22 @@ static func detect_grade_separated_crossing_segments(points: PackedVector3Array,
 				pts[(j + 1) % pts.size()]
 			)
 			if gap >= min_vertical_clearance:
-				out_lookup[i] = true
-				out_lookup[j] = true
+				_add_gap_segment_range(out_lookup, i, segment_count, closed_loop, gap_segment_padding)
+				_add_gap_segment_range(out_lookup, j, segment_count, closed_loop, gap_segment_padding)
 	var out: Array[int] = []
 	for key in out_lookup.keys():
 		out.append(int(key))
 	out.sort()
 	return out
+
+static func _add_gap_segment_range(out_lookup: Dictionary, segment_index: int, segment_count: int, closed_loop: bool, padding: int) -> void:
+	for offset in range(-maxi(padding, 0), maxi(padding, 0) + 1):
+		var index := segment_index + offset
+		if closed_loop:
+			index = posmod(index, segment_count)
+		elif index < 0 or index >= segment_count:
+			continue
+		out_lookup[index] = true
 
 static func _segment_lookup(indices: Array) -> Dictionary:
 	var lookup := {}

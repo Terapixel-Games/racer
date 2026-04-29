@@ -189,7 +189,9 @@ func _update_wall_preview() -> void:
 	holder.transform = Transform3D.IDENTITY
 	var is_closed := force_close or (points.size() > 2 and points[0].distance_to(points[points.size() - 1]) <= width * 0.75)
 	# Use the same wall generator as runtime for consistency.
-	var walls := TrackWalls.build_walls(holder, PackedVector3Array(points), width * 0.5, wall_height, wall_thickness, false, is_closed, false)
+	var pts := PackedVector3Array(points)
+	var wall_gap_segments := TrackWalls.detect_grade_separated_crossing_segments(pts, is_closed, wall_height + 0.2, 2)
+	var walls := TrackWalls.build_walls(holder, pts, width * 0.5, wall_height, wall_thickness, false, is_closed, false, wall_gap_segments)
 	# Respect preview toggles.
 	if not show_left_wall and walls.has("left") and walls["left"]:
 		walls["left"].queue_free()
@@ -264,14 +266,15 @@ func _generate_runtime_walls() -> void:
 	holder.transform = Transform3D.IDENTITY
 	var pts := PackedVector3Array(points)
 	var closed := force_close or (pts.size() > 2 and pts[0].distance_to(pts[pts.size() - 1]) <= 0.1)
+	var wall_gap_segments := TrackWalls.detect_grade_separated_crossing_segments(pts, closed, wall_height + 0.2, 2)
 	# Defer add + build together to ensure correct order.
-	call_deferred("_add_and_build_walls", parent, holder, pts, closed, width * 0.5, wall_height, wall_thickness)
+	call_deferred("_add_and_build_walls", parent, holder, pts, closed, width * 0.5, wall_height, wall_thickness, wall_gap_segments)
 
-func _add_and_build_walls(parent: Node, holder: Node3D, pts: PackedVector3Array, closed: bool, half_width: float, h: float, t: float) -> void:
+func _add_and_build_walls(parent: Node, holder: Node3D, pts: PackedVector3Array, closed: bool, half_width: float, h: float, t: float, wall_gap_segments: Array) -> void:
 	if not is_instance_valid(parent):
 		return
 	parent.add_child(holder)
-	TrackWalls.build_walls(holder, pts, half_width, h, t, false, closed, true)
+	TrackWalls.build_walls(holder, pts, half_width, h, t, false, closed, true, wall_gap_segments)
 
 func _compute_offset_points(poly: Array[Vector3], offset: float, is_closed: bool, side: float) -> Dictionary:
 	var n := poly.size()
