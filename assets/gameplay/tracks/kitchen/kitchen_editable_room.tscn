@@ -1,23 +1,57 @@
-[gd_scene load_steps=12 format=3 uid="uid://wads2kpascuq"]
+[gd_scene load_steps=22 format=3 uid="uid://wads2kpascuq"]
 
-[ext_resource type="Texture2D" uid="uid://dyof4gx7wh6w7" path="res://assets/source/generated/textures/toy_materials_2026-04-27/kitchen_tile_albedo.png" id="1_uqee6"]
-[ext_resource type="PackedScene" uid="uid://d1avywib3w1sv" path="res://assets/source/kenney/furniture_kit/kitchenCabinetUpper.glb" id="2_lgng6"]
-[ext_resource type="PackedScene" uid="uid://bnh07515k0fhb" path="res://assets/source/meshy/kitchen/retro_cream_refrigerator.glb" id="3_iqby0"]
-[ext_resource type="PackedScene" uid="uid://dqkahfrrclsnt" path="res://assets/source/kenney/furniture_kit/kitchenSink.glb" id="4_3ttq8"]
-[ext_resource type="PackedScene" uid="uid://c33dd6a72l4m6" path="res://assets/source/kenney/furniture_kit/kitchenBar.glb" id="5_o1tgr"]
-[ext_resource type="PackedScene" uid="uid://no3ktttavepm" path="res://assets/source/kenney/furniture_kit/kitchenCabinetDrawer.glb" id="6_ct47p"]
-[ext_resource type="PackedScene" uid="uid://70ktrra5kgk3" path="res://assets/source/kenney/furniture_kit/kitchenCabinetCornerInner.glb" id="7_m6ot0"]
-[ext_resource type="PackedScene" uid="uid://ds3k6jrxlsrgb" path="res://assets/source/kenney/furniture_kit/kitchenStove.glb" id="8_5cehb"]
+[ext_resource type="Texture2D" uid="uid://dyof4gx7wh6w7" path="res://assets/gameplay/materials/tile/kitchen_tile_albedo.png" id="1_tile"]
+[ext_resource type="PackedScene" uid="uid://bnh07515k0fhb" path="res://assets/source/meshy/kitchen/retro_cream_refrigerator.glb" id="2_fridge"]
+[ext_resource type="PackedScene" uid="uid://dqkahfrrclsnt" path="res://assets/source/kenney/furniture_kit/kitchenSink.glb" id="3_sink"]
+[ext_resource type="PackedScene" uid="uid://no3ktttavepm" path="res://assets/source/kenney/furniture_kit/kitchenCabinetDrawer.glb" id="4_drawer"]
+[ext_resource type="PackedScene" uid="uid://d1avywib3w1sv" path="res://assets/source/kenney/furniture_kit/kitchenCabinetUpper.glb" id="5_upper"]
+[ext_resource type="PackedScene" uid="uid://c33dd6a72l4m6" path="res://assets/source/kenney/furniture_kit/kitchenBar.glb" id="6_bar"]
+[ext_resource type="PackedScene" uid="uid://70ktrra5kgk3" path="res://assets/source/kenney/furniture_kit/kitchenCabinetCornerInner.glb" id="7_corner"]
+[ext_resource type="PackedScene" uid="uid://ds3k6jrxlsrgb" path="res://assets/source/kenney/furniture_kit/kitchenStove.glb" id="8_stove"]
+[ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/table.glb" id="9_table"]
+[ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/pottedPlant.glb" id="10_plant"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_anixf"]
-size = Vector3(10, 0.2, 10)
+[sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
+size = Vector3(292, 0.2, 190)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mhmmo"]
-albedo_texture = ExtResource("1_uqee6")
-uv1_scale = Vector3(8, 8, 8)
+[sub_resource type="PlaneMesh" id="PlaneMesh_floor"]
+size = Vector2(292, 190)
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_wg4g6"]
-size = Vector2(10, 10)
+[sub_resource type="BoxMesh" id="BoxMesh_unit"]
+
+[sub_resource type="StandardMaterial3D" id="Material_floor"]
+albedo_texture = ExtResource("1_tile")
+roughness = 0.78
+uv1_scale = Vector3(24, 24, 1)
+
+[sub_resource type="StandardMaterial3D" id="Material_wall"]
+albedo_color = Color(0.62, 0.58, 0.51, 1)
+roughness = 0.86
+
+[sub_resource type="StandardMaterial3D" id="Material_wall_trim"]
+albedo_color = Color(0.94, 0.91, 0.84, 1)
+roughness = 0.7
+
+[sub_resource type="StandardMaterial3D" id="Material_countertop"]
+albedo_color = Color(0.83, 0.78, 0.68, 1)
+roughness = 0.55
+
+[sub_resource type="StandardMaterial3D" id="Material_cabinet"]
+albedo_color = Color(0.42, 0.27, 0.16, 1)
+roughness = 0.68
+
+[sub_resource type="StandardMaterial3D" id="Material_dark"]
+albedo_color = Color(0.05, 0.055, 0.06, 1)
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="Material_metal"]
+albedo_color = Color(0.76, 0.79, 0.78, 1)
+metallic = 0.2
+roughness = 0.42
+
+[sub_resource type="StandardMaterial3D" id="Material_accent"]
+albedo_color = Color(0.25, 0.63, 0.95, 1)
+roughness = 0.48
 
 [node name="KitchenEditableRoom" type="Node3D"]
 
@@ -25,45 +59,199 @@ size = Vector2(10, 10)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
-shape = SubResource("BoxShape3D_anixf")
+shape = SubResource("BoxShape3D_floor")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0022326708, -2.9802322e-08, -0.0007840991)
-material_override = SubResource("StandardMaterial3D_mhmmo")
-mesh = SubResource("PlaneMesh_wg4g6")
+material_override = SubResource("Material_floor")
+mesh = SubResource("PlaneMesh_floor")
 
-[node name="kitchenCabinetUpper" parent="floor" instance=ExtResource("2_lgng6")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -3.3739135, 1.2241516, -0.030027866)
+[node name="RoomShell" type="Node3D" parent="."]
 
-[node name="retro_cream_refrigerator" parent="." instance=ExtResource("3_iqby0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.41568124, 0.9801376, -4.019292)
+[node name="BackWall" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(252, 0, 0, 0, 42, 0, 0, 0, 2, 0, 21, 98)
+material_override = SubResource("Material_wall")
+mesh = SubResource("BoxMesh_unit")
 
-[node name="kitchenSink" parent="." instance=ExtResource("4_3ttq8")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -1.7432845, 0, -3.7127175)
+[node name="LeftWall" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(2, 0, 0, 0, 42, 0, 0, 0, 196, -128, 21, 0)
+material_override = SubResource("Material_wall")
+mesh = SubResource("BoxMesh_unit")
 
-[node name="kitchenBar" parent="." instance=ExtResource("5_o1tgr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9502449, 0.17774576, -0.4770627)
+[node name="RightWall" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(2, 0, 0, 0, 42, 0, 0, 0, 196, 146, 21, 0)
+material_override = SubResource("Material_wall")
+mesh = SubResource("BoxMesh_unit")
 
-[node name="kitchenCabinetDrawer" parent="." instance=ExtResource("6_ct47p")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.90320206, 0, -3.6944416)
+[node name="FrontWallLeft" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(110, 0, 0, 0, 42, 0, 0, 0, 2, -91, 21, -98)
+material_override = SubResource("Material_wall")
+mesh = SubResource("BoxMesh_unit")
 
-[node name="kitchenCabinetDrawer2" parent="." instance=ExtResource("6_ct47p")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -2.5969977, 0, -3.6944416)
+[node name="FrontWallRight" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(94, 0, 0, 0, 42, 0, 0, 0, 2, 99, 21, -98)
+material_override = SubResource("Material_wall")
+mesh = SubResource("BoxMesh_unit")
 
-[node name="kitchenCabinetDrawer3" parent="." instance=ExtResource("6_ct47p")]
-transform = Transform3D(-8.742278e-08, 0, 2, 0, 2, 0, -2, 0, -8.742278e-08, -2.5715652, 0.02578932, -2.8170574)
+[node name="DoorHeader" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(82, 0, 0, 0, 12, 0, 0, 0, 2, 13, 36, -98)
+material_override = SubResource("Material_wall")
+mesh = SubResource("BoxMesh_unit")
 
-[node name="kitchenCabinetDrawer4" parent="." instance=ExtResource("6_ct47p")]
-transform = Transform3D(-8.742278e-08, 0, 2, 0, 2, 0, -2, 0, -8.742278e-08, -2.5715652, 0.02578932, -1.1799661)
+[node name="DoorFrameLeft" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(2, 0, 0, 0, 18, 0, 0, 0, 1.2, -28, 9, -99)
+material_override = SubResource("Material_wall_trim")
+mesh = SubResource("BoxMesh_unit")
 
-[node name="kitchenCabinetDrawer5" parent="." instance=ExtResource("6_ct47p")]
-transform = Transform3D(-8.742278e-08, 0, 2, 0, 2, 0, -2, 0, -8.742278e-08, -2.5715652, 0.02578932, 0.46012497)
+[node name="DoorFrameRight" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(2, 0, 0, 0, 18, 0, 0, 0, 1.2, 54, 9, -99)
+material_override = SubResource("Material_wall_trim")
+mesh = SubResource("BoxMesh_unit")
 
-[node name="kitchenCabinetCornerInner" parent="." instance=ExtResource("7_m6ot0")]
-transform = Transform3D(-8.742278e-08, 0, 2, 0, 2, 0, -2, 0, -8.742278e-08, -2.5804715, 2.3841858e-07, -3.690521)
+[node name="WindowGlass" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(46, 0, 0, 0, 15, 0, 0, 0, 0.55, -8, 14, 96.5)
+material_override = SubResource("Material_accent")
+mesh = SubResource("BoxMesh_unit")
 
-[node name="kitchenStove" parent="." instance=ExtResource("8_5cehb")]
-transform = Transform3D(-8.742278e-08, 0, 2, 0, 2, 0, -2, 0, -8.742278e-08, -2.5834947, 0, -2.0540802)
+[node name="WindowFrame" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(54, 0, 0, 0, 18, 0, 0, 0, 0.6, -8, 14, 97)
+material_override = SubResource("Material_dark")
+mesh = SubResource("BoxMesh_unit")
 
-[node name="kitchenSink2" parent="." instance=ExtResource("4_3ttq8")]
-transform = Transform3D(-8.742278e-08, 0, 2, 0, 2, 0, -2, 0, -8.742278e-08, -2.5923584, 0, -0.3041489)
+[node name="CounterRuns" type="Node3D" parent="."]
+
+[node name="FrontCounterBase" type="MeshInstance3D" parent="CounterRuns"]
+transform = Transform3D(230, 0, 0, 0, 2.4, 0, 0, 0, 12, 0, 1.2, -84)
+material_override = SubResource("Material_cabinet")
+mesh = SubResource("BoxMesh_unit")
+
+[node name="FrontCountertop" type="MeshInstance3D" parent="CounterRuns"]
+transform = Transform3D(234, 0, 0, 0, 0.36, 0, 0, 0, 16, 0, 2.62, -84)
+material_override = SubResource("Material_countertop")
+mesh = SubResource("BoxMesh_unit")
+
+[node name="BackCounterBaseLeft" type="MeshInstance3D" parent="CounterRuns"]
+transform = Transform3D(82, 0, 0, 0, 2.4, 0, 0, 0, 12, -70, 1.2, 84)
+material_override = SubResource("Material_cabinet")
+mesh = SubResource("BoxMesh_unit")
+
+[node name="BackCounterBaseRight" type="MeshInstance3D" parent="CounterRuns"]
+transform = Transform3D(82, 0, 0, 0, 2.4, 0, 0, 0, 12, 72, 1.2, 84)
+material_override = SubResource("Material_cabinet")
+mesh = SubResource("BoxMesh_unit")
+
+[node name="BackCountertop" type="MeshInstance3D" parent="CounterRuns"]
+transform = Transform3D(228, 0, 0, 0, 0.36, 0, 0, 0, 16, 0, 2.62, 84)
+material_override = SubResource("Material_countertop")
+mesh = SubResource("BoxMesh_unit")
+
+[node name="LeftCounterBaseFront" type="MeshInstance3D" parent="CounterRuns"]
+transform = Transform3D(12, 0, 0, 0, 2.4, 0, 0, 0, 42, -116, 1.2, -62)
+material_override = SubResource("Material_cabinet")
+mesh = SubResource("BoxMesh_unit")
+
+[node name="LeftCounterBaseBack" type="MeshInstance3D" parent="CounterRuns"]
+transform = Transform3D(12, 0, 0, 0, 2.4, 0, 0, 0, 72, -116, 1.2, 42)
+material_override = SubResource("Material_cabinet")
+mesh = SubResource("BoxMesh_unit")
+
+[node name="LeftCountertop" type="MeshInstance3D" parent="CounterRuns"]
+transform = Transform3D(16, 0, 0, 0, 0.36, 0, 0, 0, 160, -116, 2.62, -2)
+material_override = SubResource("Material_countertop")
+mesh = SubResource("BoxMesh_unit")
+
+[node name="RightCounterBase" type="MeshInstance3D" parent="CounterRuns"]
+transform = Transform3D(12, 0, 0, 0, 2.4, 0, 0, 0, 150, 122, 1.2, -2)
+material_override = SubResource("Material_cabinet")
+mesh = SubResource("BoxMesh_unit")
+
+[node name="RightCountertop" type="MeshInstance3D" parent="CounterRuns"]
+transform = Transform3D(16, 0, 0, 0, 0.36, 0, 0, 0, 160, 122, 2.62, -2)
+material_override = SubResource("Material_countertop")
+mesh = SubResource("BoxMesh_unit")
+
+[node name="IslandBase" type="MeshInstance3D" parent="CounterRuns"]
+transform = Transform3D(126, 0, 0, 0, 2.4, 0, 0, 0, 78, 22, 1.2, -36)
+material_override = SubResource("Material_cabinet")
+mesh = SubResource("BoxMesh_unit")
+
+[node name="IslandCountertop" type="MeshInstance3D" parent="CounterRuns"]
+transform = Transform3D(140, 0, 0, 0, 0.36, 0, 0, 0, 92, 22, 2.62, -36)
+material_override = SubResource("Material_countertop")
+mesh = SubResource("BoxMesh_unit")
+
+[node name="Appliances" type="Node3D" parent="."]
+
+[node name="retro_cream_refrigerator" parent="Appliances" instance=ExtResource("2_fridge")]
+transform = Transform3D(27.6, 0, 0, 0, 27.6, 0, 0, 0, 27.6, 126, -5.8, 34)
+
+[node name="kitchenSink" parent="Appliances" instance=ExtResource("3_sink")]
+transform = Transform3D(-10.5, 0, -9.17939e-07, 0, 10.5, 0, 9.17939e-07, 0, -10.5, -8, 2.15, 88)
+
+[node name="kitchenStove" parent="Appliances" instance=ExtResource("8_stove")]
+transform = Transform3D(-3.0598e-07, 0, 7, 0, 7, 0, -7, 0, -3.0598e-07, -118, 2.1, -24)
+
+[node name="RangeHood" type="MeshInstance3D" parent="Appliances"]
+transform = Transform3D(15, 0, 0, 0, 5, 0, 0, 0, 36, -118, 8.5, -24)
+material_override = SubResource("Material_metal")
+mesh = SubResource("BoxMesh_unit")
+
+[node name="UpperCabinets" type="Node3D" parent="."]
+
+[node name="BackUpperCabinetA" parent="UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(8.5, 0, 0, 0, 8.5, 0, 0, 0, 8.5, -54, 11.5, 91)
+
+[node name="BackUpperCabinetB" parent="UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(8.5, 0, 0, 0, 8.5, 0, 0, 0, 8.5, 52, 11.5, 91)
+
+[node name="LeftUpperCabinet" parent="UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(-3.71547e-07, 0, 8.5, 0, 8.5, 0, -8.5, 0, -3.71547e-07, -123, 11.5, -18)
+
+[node name="RightUpperCabinet" parent="UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(-3.71547e-07, 0, -8.5, 0, 8.5, 0, 8.5, 0, -3.71547e-07, 145, 11.5, -8)
+
+[node name="HandPlacedProps" type="Node3D" parent="."]
+
+[node name="BackCounterDrawerLeft" parent="HandPlacedProps" instance=ExtResource("4_drawer")]
+transform = Transform3D(-6.8, 0, -5.94475e-07, 0, 6.8, 0, 5.94475e-07, 0, -6.8, -38, 2.1, 90)
+
+[node name="BackCounterDrawerRight" parent="HandPlacedProps" instance=ExtResource("4_drawer")]
+transform = Transform3D(-6.8, 0, -5.94475e-07, 0, 6.8, 0, 5.94475e-07, 0, -6.8, 42, 2.1, 90)
+
+[node name="KitchenBar" parent="HandPlacedProps" instance=ExtResource("6_bar")]
+transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 20, 2.6, -8)
+
+[node name="KitchenCabinetCornerInner" parent="HandPlacedProps" instance=ExtResource("7_corner")]
+transform = Transform3D(-3.0598e-07, 0, 7, 0, 7, 0, -7, 0, -3.0598e-07, -116, 2.1, 82)
+
+[node name="KitchenTable" parent="HandPlacedProps" instance=ExtResource("9_table")]
+transform = Transform3D(7.8, 0, 0, 0, 7.8, 0, 0, 0, 7.8, 24, 1.7, -34)
+
+[node name="IslandPlanter" parent="HandPlacedProps" instance=ExtResource("10_plant")]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 20, 3.0, -34)
+
+[node name="SinkBasinCutout" type="MeshInstance3D" parent="HandPlacedProps"]
+transform = Transform3D(54, 0, 0, 0, 0.08, 0, 0, 0, 16, -8, 3.18, 88.4)
+material_override = SubResource("Material_dark")
+mesh = SubResource("BoxMesh_unit")
+
+[node name="CooktopSurface" type="MeshInstance3D" parent="HandPlacedProps"]
+transform = Transform3D(13, 0, 0, 0, 0.1, 0, 0, 0, 34, -118, 3.05, -24)
+material_override = SubResource("Material_dark")
+mesh = SubResource("BoxMesh_unit")
+
+[node name="Lighting" type="Node3D" parent="."]
+
+[node name="IslandPendantA" type="MeshInstance3D" parent="Lighting"]
+transform = Transform3D(4, 0, 0, 0, 2.8, 0, 0, 0, 4, 8, 19.5, -36)
+material_override = SubResource("Material_wall_trim")
+mesh = SubResource("BoxMesh_unit")
+
+[node name="IslandPendantB" type="MeshInstance3D" parent="Lighting"]
+transform = Transform3D(4, 0, 0, 0, 2.8, 0, 0, 0, 4, 36, 19.5, -36)
+material_override = SubResource("Material_wall_trim")
+mesh = SubResource("BoxMesh_unit")
+
+[node name="KitchenFillLight" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 22, -28)
+light_energy = 1.2
+omni_range = 95.0
