@@ -459,7 +459,18 @@ static func _add_dressing_scene(parent: Node3D, definition: TrackDefinition) -> 
 		push_error("Track dressing scene root must be Node3D: %s" % definition.dressing_scene_path)
 		return
 	instance.name = "EditableRoom"
+	_disable_gameplay_collision(instance)
 	parent.add_child(instance)
+
+static func _disable_gameplay_collision(node: Node) -> void:
+	if node is CollisionShape3D:
+		(node as CollisionShape3D).disabled = true
+	if node is CollisionObject3D:
+		var collision_object := node as CollisionObject3D
+		collision_object.collision_layer = 0
+		collision_object.collision_mask = 0
+	for child in node.get_children():
+		_disable_gameplay_collision(child)
 
 static func _build_stage_props(parent: Node3D, definition: TrackDefinition) -> void:
 	if definition.stage_props.is_empty():

@@ -42,6 +42,7 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoomShell/BackWall") != null, "Editable room scene should include selectable room shell pieces")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/CounterRuns/IslandCountertop") != null, "Editable room scene should include selectable counter runs")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Appliances/kitchenSink") != null, "Editable room scene should preserve hand-placed kitchen props")
+	assert_equal(_enabled_collision_objects(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom")), 0, "Editable room dressing should not collide with the kart")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/StageProps/FrontCabinetBase") == null, "Kitchen track should not include the below-track front cabinet base artifact")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/StageProps/IslandCabinetBase") == null, "Kitchen track should not include the below-track island cabinet base artifact")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/StageProps/KitchenBackWall") != null, "Kitchen track should include authored full-size room walls")
@@ -153,6 +154,14 @@ func test_kitchen_out_of_bounds_instant_pop_reset() -> void:
 	assert_equal(car.velocity, Vector3.ZERO, "Instant pop reset should stop the car")
 	car.queue_free()
 
+func test_manual_return_uses_last_road_center_point() -> void:
+	var definition := TrackCatalog.get_definition("kitchen")
+	var off_course_position := definition.route_points[3] + Vector3(18.0, 0.0, 0.0)
+	var reset_transform := RaceController.centered_track_return_transform(definition.route_points, off_course_position, definition.closed_loop)
+	var distance := _distance_to_route_xz(reset_transform.origin, definition.route_points, definition.closed_loop)
+	assert_true(distance <= 0.01, "Manual return transform should land on the route centerline")
+	assert_true(absf(reset_transform.origin.y - (definition.route_points[3].y + 1.0)) < 0.2, "Manual return transform should preserve the road height plus kart clearance")
+
 func _distance_to_route_xz(point: Vector3, route_points: Array[Vector3], closed_loop: bool) -> float:
 	var best := INF
 	var segment_count := route_points.size() if closed_loop else route_points.size() - 1
@@ -194,3 +203,17 @@ func _box_size_y(root: Node, path: NodePath) -> float:
 	if mesh_instance == null or not (mesh_instance.mesh is BoxMesh):
 		return 0.0
 	return (mesh_instance.mesh as BoxMesh).size.y
+
+func _enabled_collision_objects(node: Node) -> int:
+	if node == null:
+		return 0
+	var count := 0
+	if node is CollisionObject3D:
+		var collision_object := node as CollisionObject3D
+		if collision_object.collision_layer != 0 or collision_object.collision_mask != 0:
+			count += 1
+	if node is CollisionShape3D and not (node as CollisionShape3D).disabled:
+		count += 1
+	for child in node.get_children():
+		count += _enabled_collision_objects(child)
+	return count

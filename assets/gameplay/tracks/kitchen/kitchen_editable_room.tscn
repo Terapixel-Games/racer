@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bjsw0btvu0kqt"]
+[gd_scene load_steps=22 format=3 uid="uid://bjsw0btvu0kqt"]
 
 [ext_resource type="Texture2D" uid="uid://dyof4gx7wh6w7" path="res://assets/source/generated/textures/toy_materials_2026-04-27/kitchen_tile_albedo.png" id="1_tile"]
 [ext_resource type="PackedScene" uid="uid://bnh07515k0fhb" path="res://assets/source/meshy/kitchen/retro_cream_refrigerator.glb" id="2_fridge"]
@@ -26,6 +26,10 @@ size = Vector2(292, 190)
 [sub_resource type="StandardMaterial3D" id="Material_wall"]
 albedo_color = Color(0.62, 0.58, 0.51, 1)
 roughness = 0.86
+
+[sub_resource type="StandardMaterial3D" id="Material_countertop"]
+albedo_color = Color(0.86, 0.78, 0.65, 1)
+roughness = 0.62
 
 [sub_resource type="BoxMesh" id="BoxMesh_unit"]
 
@@ -107,6 +111,11 @@ material_override = SubResource("Material_dark")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="CounterRuns" type="Node3D" parent="."]
+
+[node name="IslandCountertop" type="MeshInstance3D" parent="CounterRuns"]
+transform = Transform3D(140, 0, 0, 0, 0.36, 0, 0, 0, 92, 22, 2.95, -36)
+material_override = SubResource("Material_countertop")
+mesh = SubResource("BoxMesh_unit")
 
 [node name="table" parent="CounterRuns" instance=ExtResource("9_table")]
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -4.4148674, -9.231991, 9.951223)

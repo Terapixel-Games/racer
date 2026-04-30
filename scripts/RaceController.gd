@@ -2,6 +2,7 @@ extends Node3D
 
 const TrackBuilder = preload("res://scripts/TrackBuilder.gd")
 const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
+const TrackProgressRules = preload("res://scripts/track/TrackProgressRules.gd")
 const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd")
 const TrackRuntimeScene = preload("res://scripts/track/TrackRuntimeScene.gd")
 const ItemRules = preload("res://scripts/logic/ItemRules.gd")
@@ -23,6 +24,7 @@ const OutOfBoundsRules = preload("res://scripts/logic/OutOfBoundsRules.gd")
 @onready var drift_btn: Button = %DriftButton
 @onready var boost_btn: Button = %BoostButton
 @onready var item_btn: Button = %ItemButton
+@onready var return_btn: Button = %ReturnButton
 @onready var ui_message: Label = %MessageLabel
 
 var match_id: String = ""
@@ -42,8 +44,13 @@ var track_waypoints: Array = []
 var finish_announced: bool = false
 var track_out_of_bounds_y := -50.0
 var track_reset_mode := ""
+var track_road_width := 12.0
+var track_closed_loop := true
 var local_respawn_transform := Transform3D.IDENTITY
 var has_local_respawn_transform := false
+var last_on_track_center_transform := Transform3D.IDENTITY
+var has_last_on_track_center_transform := false
+var local_car_off_course := false
 const CAMERA_DISTANCE := 5.2
 const CAMERA_HEIGHT := 1.8
 const CAMERA_LOOK_HEIGHT := 0.85
@@ -183,6 +190,8 @@ func _physics_process(delta: float) -> void:
 	while input_accum >= INPUT_INTERVAL:
 		_send_input()
 		input_accum -= INPUT_INTERVAL
+	_update_local_track_return_point()
+	_handle_manual_return_to_track()
 	_handle_local_out_of_bounds()
 	_tick_local_item_slot(delta)
 	_update_ui()
@@ -307,6 +316,8 @@ func _spawn_car(racer_id:String) -> CarController:
 	if racer_id == local_user_id:
 		local_respawn_transform = car.global_transform
 		has_local_respawn_transform = true
+		last_on_track_center_transform = car.global_transform
+		has_last_on_track_center_transform = true
 	return car
 
 func _snap_to_ground(xform: Transform3D) -> Transform3D:
@@ -462,6 +473,7 @@ func _ensure_input_actions() -> void:
 	_add_action_if_missing("drift")
 	_add_action_if_missing("boost")
 	_add_action_if_missing("use_item")
+	_add_action_if_missing("return_to_track")
 	_add_key_event("accelerate", KEY_W)
 	_add_key_event("accelerate", KEY_UP)
 	_add_key_event("brake", KEY_CTRL)
@@ -474,6 +486,7 @@ func _ensure_input_actions() -> void:
 	_add_key_event("drift", KEY_SPACE)
 	_add_key_event("boost", KEY_SHIFT)
 	_add_key_event("use_item", KEY_E)
+	_add_key_event("return_to_track", KEY_R)
 
 func _add_action_if_missing(action:String) -> void:
 	if not InputMap.has_action(action):
@@ -494,6 +507,7 @@ func _setup_mobile_controls() -> void:
 	_connect_button(drift_btn, "drift")
 	_connect_button(boost_btn, "boost")
 	_connect_button(item_btn, "use_item")
+	_connect_button(return_btn, "return_to_track")
 
 func _connect_button(btn:Button, action:String) -> void:
 	if btn == null:
@@ -554,6 +568,39 @@ func _apply_track_reset_metadata(metadata: Variant) -> void:
 	var data := metadata as Dictionary
 	track_out_of_bounds_y = float(data.get("out_of_bounds_y", track_out_of_bounds_y))
 	track_reset_mode = str(data.get("reset_mode", track_reset_mode))
+	track_road_width = float(data.get("road_width", track_road_width))
+	track_closed_loop = bool(data.get("closed_loop", track_closed_loop))
+
+func _update_local_track_return_point() -> void:
+	var car: CarController = cars.get(local_user_id, null)
+	if car == null or track_waypoints.size() < 2:
+		return
+	var projection := TrackProgressRules.project_position(_typed_waypoints(), car.global_transform.origin, track_closed_loop)
+	var closest_point: Vector3 = projection.get("closest_point", car.global_transform.origin)
+	var off_course := car.global_transform.origin.distance_to(closest_point) > track_road_width * 0.5 + 0.75
+	if not off_course:
+		last_on_track_center_transform = centered_track_return_transform(
+			_typed_waypoints(),
+			car.global_transform.origin,
+			track_closed_loop
+		)
+		has_last_on_track_center_transform = true
+	local_car_off_course = off_course
+
+func _handle_manual_return_to_track() -> void:
+	if not Input.is_action_just_pressed("return_to_track"):
+		return
+	var car: CarController = cars.get(local_user_id, null)
+	if car == null or not has_last_on_track_center_transform:
+		return
+	if not local_car_off_course:
+		_show_message("Still on the road")
+		return
+	apply_instant_reset(car, _snap_to_ground(last_on_track_center_transform))
+	local_respawn_transform = car.global_transform
+	has_local_respawn_transform = true
+	local_car_off_course = false
+	_show_message("Returned to track")
 
 func _handle_local_out_of_bounds() -> void:
 	var car: CarController = cars.get(local_user_id, null)
@@ -572,6 +619,30 @@ static func apply_instant_reset(car: CharacterBody3D, reset_transform: Transform
 	car.velocity = Vector3.ZERO
 	if car.has_method("apply_network_state"):
 		car.call("apply_network_state", reset_transform.origin, reset_transform.basis)
+
+static func centered_track_return_transform(route_points: Array[Vector3], position: Vector3, closed_loop: bool = true) -> Transform3D:
+	var projection := TrackProgressRules.project_position(route_points, position, closed_loop)
+	var segment_index := int(projection.get("segment_index", 0))
+	var closest_point: Vector3 = projection.get("closest_point", position)
+	var forward := Vector3.FORWARD
+	if route_points.size() >= 2:
+		var next_index := (segment_index + 1) % route_points.size()
+		if not closed_loop:
+			next_index = mini(segment_index + 1, route_points.size() - 1)
+		forward = route_points[next_index] - route_points[clamp(segment_index, 0, route_points.size() - 1)]
+		forward.y = 0.0
+		if forward.length_squared() <= 0.001:
+			forward = Vector3.FORWARD
+		forward = forward.normalized()
+	var yaw := atan2(forward.x, forward.z)
+	return Transform3D(Basis(Vector3.UP, yaw), closest_point + Vector3.UP * 1.0)
+
+func _typed_waypoints() -> Array[Vector3]:
+	var points: Array[Vector3] = []
+	for point in track_waypoints:
+		if point is Vector3:
+			points.append(point)
+	return points
 
 func _tick_message(delta: float) -> void:
 	if ui_message == null:
