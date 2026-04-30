@@ -144,17 +144,62 @@ transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -17.953598, -9.231991, -93
 
 [node name="UpperCabinets" type="Node3D" parent="."]
 
-[node name="BackUpperCabinetA" parent="UpperCabinets" instance=ExtResource("5_upper")]
-transform = Transform3D(8.5, 0, 0, 0, 8.5, 0, 0, 0, 8.5, -54, 24.990082, 91)
+[node name="BackUpperCabinetLeftA" parent="UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(22, 0, 0, 0, 22, 0, 0, 0, 22, -78, 23.5, 91)
 
-[node name="BackUpperCabinetB" parent="UpperCabinets" instance=ExtResource("5_upper")]
-transform = Transform3D(8.5, 0, 0, 0, 8.5, 0, 0, 0, 8.5, 52, 31.179438, 91)
+[node name="BackUpperCabinetLeftB" parent="UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(22, 0, 0, 0, 22, 0, 0, 0, 22, -52, 23.5, 91)
 
-[node name="LeftUpperCabinet" parent="UpperCabinets" instance=ExtResource("5_upper")]
-transform = Transform3D(-3.71547e-07, 0, 8.5, 0, 8.5, 0, -8.5, 0, -3.71547e-07, -123, 23.281368, 14.558334)
+[node name="BackUpperCabinetLeftC" parent="UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(22, 0, 0, 0, 22, 0, 0, 0, 22, -26, 23.5, 91)
 
-[node name="RightUpperCabinet" parent="UpperCabinets" instance=ExtResource("5_upper")]
-transform = Transform3D(-3.71547e-07, 0, -8.5, 0, 8.5, 0, 8.5, 0, -3.71547e-07, 145, 17.079449, -8)
+[node name="BackUpperCabinetRightA" parent="UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(22, 0, 0, 0, 22, 0, 0, 0, 22, 30, 23.5, 91)
+
+[node name="BackUpperCabinetRightB" parent="UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(22, 0, 0, 0, 22, 0, 0, 0, 22, 56, 23.5, 91)
+
+[node name="BackUpperCabinetRightC" parent="UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(22, 0, 0, 0, 22, 0, 0, 0, 22, 82, 23.5, 91)
+
+[node name="LeftUpperCabinetA" parent="UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(-9.616505e-07, 0, 22, 0, 22, 0, -22, 0, -9.616505e-07, -123, 23.5, -54)
+
+[node name="LeftUpperCabinetB" parent="UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(-9.616505e-07, 0, 22, 0, 22, 0, -22, 0, -9.616505e-07, -123, 23.5, -28)
+
+[node name="LeftUpperCabinetC" parent="UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(-9.616505e-07, 0, 22, 0, 22, 0, -22, 0, -9.616505e-07, -123, 23.5, 0)
+
+[node name="LeftUpperCabinetD" parent="UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(-9.616505e-07, 0, 22, 0, 22, 0, -22, 0, -9.616505e-07, -123, 23.5, 28)
+
+[node name="LeftUpperCabinetE" parent="UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(-9.616505e-07, 0, 22, 0, 22, 0, -22, 0, -9.616505e-07, -123, 23.5, 56)
+
+[node name="RightUpperCabinetA" parent="UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(-9.616505e-07, 0, -22, 0, 22, 0, 22, 0, -9.616505e-07, 145, 23.5, -54)
+
+[node name="RightUpperCabinetB" parent="UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(-9.616505e-07, 0, -22, 0, 22, 0, 22, 0, -9.616505e-07, 145, 23.5, -28)
+
+[node name="RightUpperCabinetC" parent="UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(-9.616505e-07, 0, -22, 0, 22, 0, 22, 0, -9.616505e-07, 145, 23.5, 0)
+
+[node name="RightUpperCabinetD" parent="UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(-9.616505e-07, 0, -22, 0, 22, 0, 22, 0, -9.616505e-07, 145, 23.5, 28)
+
+[node name="FrontUpperCabinetLeftA" parent="UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(22, 0, 0, 0, 22, 0, 0, 0, 22, -92, 23.5, -91)
+
+[node name="FrontUpperCabinetLeftB" parent="UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(22, 0, 0, 0, 22, 0, 0, 0, 22, -66, 23.5, -91)
+
+[node name="FrontUpperCabinetRightA" parent="UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(22, 0, 0, 0, 22, 0, 0, 0, 22, 70, 23.5, -91)
+
+[node name="FrontUpperCabinetRightB" parent="UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(22, 0, 0, 0, 22, 0, 0, 0, 22, 96, 23.5, -91)
 
 [node name="HandPlacedProps" type="Node3D" parent="."]
 

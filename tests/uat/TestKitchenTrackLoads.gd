@@ -42,6 +42,7 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoomShell/BackWall") != null, "Editable room scene should include selectable room shell pieces")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/CounterRuns/IslandCountertop") != null, "Editable room scene should include selectable counter runs")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Appliances/kitchenSink") != null, "Editable room scene should preserve hand-placed kitchen props")
+	assert_true(_child_count(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/UpperCabinets")) >= 18, "Editable room scene should include upper cabinet runs above the counter space")
 	assert_equal(_enabled_collision_objects(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom")), 0, "Editable room dressing should not collide with the kart")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/StageProps/FrontCabinetBase") == null, "Kitchen track should not include the below-track front cabinet base artifact")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/StageProps/IslandCabinetBase") == null, "Kitchen track should not include the below-track island cabinet base artifact")
@@ -203,6 +204,11 @@ func _box_size_y(root: Node, path: NodePath) -> float:
 	if mesh_instance == null or not (mesh_instance.mesh is BoxMesh):
 		return 0.0
 	return (mesh_instance.mesh as BoxMesh).size.y
+
+func _child_count(node: Node) -> int:
+	if node == null:
+		return 0
+	return node.get_child_count()
 
 func _enabled_collision_objects(node: Node) -> int:
 	if node == null:
