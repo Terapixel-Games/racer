@@ -24,8 +24,7 @@ func test_kitchen_definition_validates() -> void:
 	var fridge_prop := _stage_prop(definition, "FridgeLandmark")
 	assert_equal(str(fridge_prop.get("kind", "")), "scene", "Kitchen fridge should use the imported Meshy refrigerator scene asset")
 	assert_equal(str(fridge_prop.get("asset_path", "")), "res://assets/source/meshy/kitchen/retro_cream_refrigerator.glb", "Kitchen fridge should point to the Meshy refrigerator GLB")
-	assert_true(_has_stage_prop(definition, "FrontCabinetBase"), "Kitchen should fill the deep floor gap with front cabinet bases")
-	assert_true(_has_stage_prop(definition, "IslandCabinetBase"), "Kitchen should fill the deep floor gap below the island")
+	assert_true(not _has_any_stage_prop(definition, ["FrontCabinetBase", "BackCabinetBaseLeft", "BackCabinetBaseRight", "IslandCabinetBase", "LeftCabinetBaseFront", "LeftCabinetBaseBack", "RightCabinetBase"]), "Kitchen should not export below-track cabinet base slabs")
 	assert_equal(definition.surface_segments.size(), 3, "Kitchen should export surface audio segment assignments")
 	assert_equal(definition.audio_zones.size(), 3, "Kitchen should export authored audio zones")
 	assert_true(_route_height_range(definition.route_points) > 2.0, "Kitchen route should keep the multi-level island loop")
@@ -95,6 +94,12 @@ func _has_error(errors: Array[String], needle: String) -> bool:
 
 func _has_stage_prop(definition: TrackDefinition, prop_id: String) -> bool:
 	return not _stage_prop(definition, prop_id).is_empty()
+
+func _has_any_stage_prop(definition: TrackDefinition, prop_ids: Array[String]) -> bool:
+	for prop_id in prop_ids:
+		if _has_stage_prop(definition, prop_id):
+			return true
+	return false
 
 func _stage_prop(definition: TrackDefinition, prop_id: String) -> Dictionary:
 	for prop in definition.stage_props:

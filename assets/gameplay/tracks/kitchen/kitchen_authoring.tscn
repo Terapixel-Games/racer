@@ -423,69 +423,6 @@ box_color = Color(0.88, 0.8, 0.68, 1)
 audio_material_id = "stone"
 gameplay_tag = "countertop"
 
-[node name="FrontCabinetBase" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -14.5, -84)
-script = ExtResource("2")
-prop_id = "FrontCabinetBase"
-box_size = Vector3(216, 34.8, 11)
-box_color = Color(0.42, 0.24, 0.14, 1)
-audio_material_id = "wood"
-gameplay_tag = "cabinetry"
-
-[node name="BackCabinetBaseLeft" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83, -14.5, 84)
-script = ExtResource("2")
-prop_id = "BackCabinetBaseLeft"
-box_size = Vector3(74, 34.8, 11)
-box_color = Color(0.42, 0.24, 0.14, 1)
-audio_material_id = "wood"
-gameplay_tag = "cabinetry"
-
-[node name="BackCabinetBaseRight" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73, -14.5, 84)
-script = ExtResource("2")
-prop_id = "BackCabinetBaseRight"
-box_size = Vector3(90, 34.8, 11)
-box_color = Color(0.42, 0.24, 0.14, 1)
-audio_material_id = "wood"
-gameplay_tag = "cabinetry"
-
-[node name="LeftCabinetBaseFront" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116, -14.5, -64)
-script = ExtResource("2")
-prop_id = "LeftCabinetBaseFront"
-box_size = Vector3(11, 34.8, 42)
-box_color = Color(0.36, 0.21, 0.13, 1)
-audio_material_id = "wood"
-gameplay_tag = "cabinetry"
-
-[node name="LeftCabinetBaseBack" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116, -14.5, 42)
-script = ExtResource("2")
-prop_id = "LeftCabinetBaseBack"
-box_size = Vector3(11, 34.8, 72)
-box_color = Color(0.36, 0.21, 0.13, 1)
-audio_material_id = "wood"
-gameplay_tag = "cabinetry"
-
-[node name="RightCabinetBase" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 122, -14.5, -2)
-script = ExtResource("2")
-prop_id = "RightCabinetBase"
-box_size = Vector3(11, 34.8, 150)
-box_color = Color(0.36, 0.21, 0.13, 1)
-audio_material_id = "wood"
-gameplay_tag = "cabinetry"
-
-[node name="IslandCabinetBase" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, -14.5, -36)
-script = ExtResource("2")
-prop_id = "IslandCabinetBase"
-box_size = Vector3(126, 34.8, 78)
-box_color = Color(0.46, 0.28, 0.17, 1)
-audio_material_id = "wood"
-gameplay_tag = "cabinetry"
-
 [node name="SurfaceSegments" type="Node3D" parent="."]
 
 [node name="CountertopMain" type="Marker3D" parent="SurfaceSegments"]

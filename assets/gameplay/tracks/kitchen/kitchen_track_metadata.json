@@ -547,66 +547,6 @@
 	"stage_props": [
 		{
 			"asset_path": "",
-			"audio_material_id": "wood",
-			"box_color": [
-				0.42,
-				0.24,
-				0.14,
-				1.0
-			],
-			"box_size": [
-				74.0,
-				34.8,
-				11.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "cabinetry",
-			"id": "BackCabinetBaseLeft",
-			"kind": "box",
-			"position": [
-				-83.0,
-				-14.5,
-				84.0
-			],
-			"scale": [
-				1.0,
-				1.0,
-				1.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"asset_path": "",
-			"audio_material_id": "wood",
-			"box_color": [
-				0.42,
-				0.24,
-				0.14,
-				1.0
-			],
-			"box_size": [
-				90.0,
-				34.8,
-				11.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "cabinetry",
-			"id": "BackCabinetBaseRight",
-			"kind": "box",
-			"position": [
-				73.0,
-				-14.5,
-				84.0
-			],
-			"scale": [
-				1.0,
-				1.0,
-				1.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"asset_path": "",
 			"audio_material_id": "stone",
 			"box_color": [
 				0.86,
@@ -667,36 +607,6 @@
 		},
 		{
 			"asset_path": "",
-			"audio_material_id": "wood",
-			"box_color": [
-				0.42,
-				0.24,
-				0.14,
-				1.0
-			],
-			"box_size": [
-				216.0,
-				34.8,
-				11.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "cabinetry",
-			"id": "FrontCabinetBase",
-			"kind": "box",
-			"position": [
-				0.0,
-				-14.5,
-				-84.0
-			],
-			"scale": [
-				1.0,
-				1.0,
-				1.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"asset_path": "",
 			"audio_material_id": "stone",
 			"box_color": [
 				0.86,
@@ -717,36 +627,6 @@
 				0.0,
 				2.95,
 				-84.0
-			],
-			"scale": [
-				1.0,
-				1.0,
-				1.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"asset_path": "",
-			"audio_material_id": "wood",
-			"box_color": [
-				0.46,
-				0.28,
-				0.17,
-				1.0
-			],
-			"box_size": [
-				126.0,
-				34.8,
-				78.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "cabinetry",
-			"id": "IslandCabinetBase",
-			"kind": "box",
-			"position": [
-				22.0,
-				-14.5,
-				-36.0
 			],
 			"scale": [
 				1.0,
@@ -1117,66 +997,6 @@
 		},
 		{
 			"asset_path": "",
-			"audio_material_id": "wood",
-			"box_color": [
-				0.36,
-				0.21,
-				0.13,
-				1.0
-			],
-			"box_size": [
-				11.0,
-				34.8,
-				72.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "cabinetry",
-			"id": "LeftCabinetBaseBack",
-			"kind": "box",
-			"position": [
-				-116.0,
-				-14.5,
-				42.0
-			],
-			"scale": [
-				1.0,
-				1.0,
-				1.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"asset_path": "",
-			"audio_material_id": "wood",
-			"box_color": [
-				0.36,
-				0.21,
-				0.13,
-				1.0
-			],
-			"box_size": [
-				11.0,
-				34.8,
-				42.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "cabinetry",
-			"id": "LeftCabinetBaseFront",
-			"kind": "box",
-			"position": [
-				-116.0,
-				-14.5,
-				-64.0
-			],
-			"scale": [
-				1.0,
-				1.0,
-				1.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"asset_path": "",
 			"audio_material_id": "stone",
 			"box_color": [
 				0.82,
@@ -1196,36 +1016,6 @@
 			"position": [
 				-116.0,
 				2.95,
-				-2.0
-			],
-			"scale": [
-				1.0,
-				1.0,
-				1.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"asset_path": "",
-			"audio_material_id": "wood",
-			"box_color": [
-				0.36,
-				0.21,
-				0.13,
-				1.0
-			],
-			"box_size": [
-				11.0,
-				34.8,
-				150.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "cabinetry",
-			"id": "RightCabinetBase",
-			"kind": "box",
-			"position": [
-				122.0,
-				-14.5,
 				-2.0
 			],
 			"scale": [
