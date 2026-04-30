@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://oed3kn21ygml"]
 
 [ext_resource type="Script" uid="uid://dlvn2xhwjpnou" path="res://scripts/track/TrackAuthoringPreview.gd" id="1"]
-[ext_resource type="Script" path="res://scripts/track/StagePropAuthoring.gd" id="2"]
-[ext_resource type="Script" path="res://scripts/track/SurfaceSegmentAuthoring.gd" id="3"]
-[ext_resource type="Script" path="res://scripts/track/AudioZoneAuthoring.gd" id="4"]
+[ext_resource type="Script" uid="uid://doxmi6s12eqc5" path="res://scripts/track/StagePropAuthoring.gd" id="2"]
+[ext_resource type="Script" uid="uid://o3okkegl41gl" path="res://scripts/track/SurfaceSegmentAuthoring.gd" id="3"]
+[ext_resource type="Script" uid="uid://caggqafc2elyk" path="res://scripts/track/AudioZoneAuthoring.gd" id="4"]
 
 [node name="KitchenAuthoring" type="Node3D"]
 script = ExtResource("1")
@@ -274,47 +274,42 @@ script = ExtResource("2")
 prop_kind = "scene"
 prop_id = "KitchenSink"
 asset_path = "res://assets/source/kenney/furniture_kit/kitchenSink.glb"
-collision_mode = "visual"
 audio_material_id = "ceramic"
 gameplay_tag = "kitchen_landmark"
 
 [node name="FridgeLandmark" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 126, 7, 34)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 126, -8.6, 34)
 script = ExtResource("2")
 prop_id = "FridgeLandmark"
-box_size = Vector3(10, 14, 38)
+box_size = Vector3(10, 46.8, 38)
 box_color = Color(0.68, 0.72, 0.76, 1)
-collision_mode = "visual"
 audio_material_id = "metal"
 gameplay_tag = "kitchen_landmark"
 
 [node name="KitchenBackWall" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16, 98)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.5, 98)
 script = ExtResource("2")
 prop_id = "KitchenBackWall"
-box_size = Vector3(252, 32, 2)
+box_size = Vector3(252, 57, 2)
 box_color = Color(0.62, 0.57, 0.49, 1)
-collision_mode = "visual"
 audio_material_id = "drywall"
 gameplay_tag = "room_envelope"
 
 [node name="KitchenLeftWall" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -128, 16, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -128, -3.5, 0)
 script = ExtResource("2")
 prop_id = "KitchenLeftWall"
-box_size = Vector3(2, 32, 196)
+box_size = Vector3(2, 57, 196)
 box_color = Color(0.58, 0.54, 0.48, 1)
-collision_mode = "visual"
 audio_material_id = "drywall"
 gameplay_tag = "room_envelope"
 
 [node name="KitchenRightWall" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146, 16, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146, -3.5, 0)
 script = ExtResource("2")
 prop_id = "KitchenRightWall"
-box_size = Vector3(2, 32, 196)
+box_size = Vector3(2, 57, 196)
 box_color = Color(0.58, 0.54, 0.48, 1)
-collision_mode = "visual"
 audio_material_id = "drywall"
 gameplay_tag = "room_envelope"
 
@@ -324,7 +319,6 @@ script = ExtResource("2")
 prop_id = "KitchenCeiling"
 box_size = Vector3(292, 1, 200)
 box_color = Color(0.8, 0.76, 0.68, 1)
-collision_mode = "visual"
 audio_material_id = "drywall"
 gameplay_tag = "room_envelope"
 
@@ -334,7 +328,6 @@ script = ExtResource("2")
 prop_id = "FrontCountertop"
 box_size = Vector3(234, 0.36, 16)
 box_color = Color(0.86, 0.78, 0.65, 1)
-collision_mode = "visual"
 audio_material_id = "stone"
 gameplay_tag = "countertop"
 
@@ -344,7 +337,6 @@ script = ExtResource("2")
 prop_id = "BackCountertop"
 box_size = Vector3(228, 0.36, 16)
 box_color = Color(0.86, 0.78, 0.65, 1)
-collision_mode = "visual"
 audio_material_id = "stone"
 gameplay_tag = "countertop"
 
@@ -354,7 +346,6 @@ script = ExtResource("2")
 prop_id = "LeftCountertop"
 box_size = Vector3(16, 0.36, 160)
 box_color = Color(0.82, 0.76, 0.66, 1)
-collision_mode = "visual"
 audio_material_id = "stone"
 gameplay_tag = "countertop"
 
@@ -364,7 +355,6 @@ script = ExtResource("2")
 prop_id = "RightCountertop"
 box_size = Vector3(16, 0.36, 160)
 box_color = Color(0.82, 0.76, 0.66, 1)
-collision_mode = "visual"
 audio_material_id = "stone"
 gameplay_tag = "countertop"
 
@@ -374,9 +364,53 @@ script = ExtResource("2")
 prop_id = "KitchenIslandCountertop"
 box_size = Vector3(140, 0.36, 92)
 box_color = Color(0.88, 0.8, 0.68, 1)
-collision_mode = "visual"
 audio_material_id = "stone"
 gameplay_tag = "countertop"
+
+[node name="FrontCabinetBase" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -14.5, -84)
+script = ExtResource("2")
+prop_id = "FrontCabinetBase"
+box_size = Vector3(234, 34.8, 14)
+box_color = Color(0.42, 0.24, 0.14, 1)
+audio_material_id = "wood"
+gameplay_tag = "cabinetry"
+
+[node name="BackCabinetBase" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -14.5, 84)
+script = ExtResource("2")
+prop_id = "BackCabinetBase"
+box_size = Vector3(228, 34.8, 14)
+box_color = Color(0.42, 0.24, 0.14, 1)
+audio_material_id = "wood"
+gameplay_tag = "cabinetry"
+
+[node name="LeftCabinetBase" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116, -14.5, -2)
+script = ExtResource("2")
+prop_id = "LeftCabinetBase"
+box_size = Vector3(14, 34.8, 160)
+box_color = Color(0.36, 0.21, 0.13, 1)
+audio_material_id = "wood"
+gameplay_tag = "cabinetry"
+
+[node name="RightCabinetBase" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 122, -14.5, -2)
+script = ExtResource("2")
+prop_id = "RightCabinetBase"
+box_size = Vector3(14, 34.8, 160)
+box_color = Color(0.36, 0.21, 0.13, 1)
+audio_material_id = "wood"
+gameplay_tag = "cabinetry"
+
+[node name="IslandCabinetBase" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, -14.5, -36)
+script = ExtResource("2")
+prop_id = "IslandCabinetBase"
+box_size = Vector3(136, 34.8, 88)
+box_color = Color(0.46, 0.28, 0.17, 1)
+audio_material_id = "wood"
+gameplay_tag = "cabinetry"
 
 [node name="SurfaceSegments" type="Node3D" parent="."]
 

@@ -114,8 +114,8 @@ local kitchen = {
 		},
 	},
 	closed_loop = true,
-	definition_path = "res://assets/gameplay/tracks/kitchen/kitchen_track_definition.tres",
 	display_name = "Kitchen / Sir Clink",
+	floor_visual_y = -32.0,
 	hazard_sockets = {
 		{
 			position = {
@@ -267,10 +267,8 @@ local kitchen = {
 	},
 	lap_gate_checkpoint_index = 0,
 	laps = 3,
-	metadata_path = "res://assets/gameplay/tracks/kitchen/kitchen_track_metadata.json",
 	out_of_bounds_y = 1.5,
 	reset_mode = "instant_pop",
-	floor_visual_y = -8.0,
 	road_width = 12.0,
 	route_length = 1016.6020154953,
 	route_points = {
@@ -553,6 +551,36 @@ local kitchen = {
 	stage_props = {
 		{
 			asset_path = "",
+			audio_material_id = "wood",
+			box_color = {
+				0.42,
+				0.24,
+				0.14,
+				1.0,
+			},
+			box_size = {
+				228.0,
+				34.8,
+				14.0,
+			},
+			collision_mode = "visual",
+			gameplay_tag = "cabinetry",
+			id = "BackCabinetBase",
+			kind = "box",
+			position = {
+				0.0,
+				-14.5,
+				84.0,
+			},
+			scale = {
+				1.0,
+				1.0,
+				1.0,
+			},
+			yaw_degrees = 0.0,
+		},
+		{
+			asset_path = "",
 			audio_material_id = "stone",
 			box_color = {
 				0.86,
@@ -592,7 +620,7 @@ local kitchen = {
 			},
 			box_size = {
 				10.0,
-				14.0,
+				46.8,
 				38.0,
 			},
 			collision_mode = "visual",
@@ -601,8 +629,38 @@ local kitchen = {
 			kind = "box",
 			position = {
 				126.0,
-				7.0,
+				-8.6,
 				34.0,
+			},
+			scale = {
+				1.0,
+				1.0,
+				1.0,
+			},
+			yaw_degrees = 0.0,
+		},
+		{
+			asset_path = "",
+			audio_material_id = "wood",
+			box_color = {
+				0.42,
+				0.24,
+				0.14,
+				1.0,
+			},
+			box_size = {
+				234.0,
+				34.8,
+				14.0,
+			},
+			collision_mode = "visual",
+			gameplay_tag = "cabinetry",
+			id = "FrontCabinetBase",
+			kind = "box",
+			position = {
+				0.0,
+				-14.5,
+				-84.0,
 			},
 			scale = {
 				1.0,
@@ -643,6 +701,36 @@ local kitchen = {
 		},
 		{
 			asset_path = "",
+			audio_material_id = "wood",
+			box_color = {
+				0.46,
+				0.28,
+				0.17,
+				1.0,
+			},
+			box_size = {
+				136.0,
+				34.8,
+				88.0,
+			},
+			collision_mode = "visual",
+			gameplay_tag = "cabinetry",
+			id = "IslandCabinetBase",
+			kind = "box",
+			position = {
+				22.0,
+				-14.5,
+				-36.0,
+			},
+			scale = {
+				1.0,
+				1.0,
+				1.0,
+			},
+			yaw_degrees = 0.0,
+		},
+		{
+			asset_path = "",
 			audio_material_id = "drywall",
 			box_color = {
 				0.62,
@@ -652,7 +740,7 @@ local kitchen = {
 			},
 			box_size = {
 				252.0,
-				32.0,
+				57.0,
 				2.0,
 			},
 			collision_mode = "visual",
@@ -661,7 +749,7 @@ local kitchen = {
 			kind = "box",
 			position = {
 				0.0,
-				16.0,
+				-3.5,
 				98.0,
 			},
 			scale = {
@@ -742,7 +830,7 @@ local kitchen = {
 			},
 			box_size = {
 				2.0,
-				32.0,
+				57.0,
 				196.0,
 			},
 			collision_mode = "visual",
@@ -751,7 +839,7 @@ local kitchen = {
 			kind = "box",
 			position = {
 				-128.0,
-				16.0,
+				-3.5,
 				0.0,
 			},
 			scale = {
@@ -772,7 +860,7 @@ local kitchen = {
 			},
 			box_size = {
 				2.0,
-				32.0,
+				57.0,
 				196.0,
 			},
 			collision_mode = "visual",
@@ -781,7 +869,7 @@ local kitchen = {
 			kind = "box",
 			position = {
 				146.0,
-				16.0,
+				-3.5,
 				0.0,
 			},
 			scale = {
@@ -823,6 +911,36 @@ local kitchen = {
 		},
 		{
 			asset_path = "",
+			audio_material_id = "wood",
+			box_color = {
+				0.36,
+				0.21,
+				0.13,
+				1.0,
+			},
+			box_size = {
+				14.0,
+				34.8,
+				160.0,
+			},
+			collision_mode = "visual",
+			gameplay_tag = "cabinetry",
+			id = "LeftCabinetBase",
+			kind = "box",
+			position = {
+				-116.0,
+				-14.5,
+				-2.0,
+			},
+			scale = {
+				1.0,
+				1.0,
+				1.0,
+			},
+			yaw_degrees = 0.0,
+		},
+		{
+			asset_path = "",
 			audio_material_id = "stone",
 			box_color = {
 				0.82,
@@ -842,6 +960,36 @@ local kitchen = {
 			position = {
 				-116.0,
 				2.95,
+				-2.0,
+			},
+			scale = {
+				1.0,
+				1.0,
+				1.0,
+			},
+			yaw_degrees = 0.0,
+		},
+		{
+			asset_path = "",
+			audio_material_id = "wood",
+			box_color = {
+				0.36,
+				0.21,
+				0.13,
+				1.0,
+			},
+			box_size = {
+				14.0,
+				34.8,
+				160.0,
+			},
+			collision_mode = "visual",
+			gameplay_tag = "cabinetry",
+			id = "RightCabinetBase",
+			kind = "box",
+			position = {
+				122.0,
+				-14.5,
 				-2.0,
 			},
 			scale = {
