@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bjsw0btvu0kqt"]
+[gd_scene load_steps=21 format=3 uid="uid://bjsw0btvu0kqt"]
 
 [ext_resource type="Texture2D" uid="uid://dyof4gx7wh6w7" path="res://assets/source/generated/textures/toy_materials_2026-04-27/kitchen_tile_albedo.png" id="1_tile"]
 [ext_resource type="PackedScene" uid="uid://bnh07515k0fhb" path="res://assets/source/meshy/kitchen/retro_cream_refrigerator.glb" id="2_fridge"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://no3ktttavepm" path="res://assets/source/kenney/furniture_kit/kitchenCabinetDrawer.glb" id="4_drawer"]
 [ext_resource type="PackedScene" uid="uid://coudmtw10ipo6" path="res://assets/source/kenney/furniture_kit/doorway.glb" id="5_51h51"]
 [ext_resource type="PackedScene" uid="uid://d1avywib3w1sv" path="res://assets/source/kenney/furniture_kit/kitchenCabinetUpper.glb" id="5_upper"]
-[ext_resource type="PackedScene" uid="uid://c33dd6a72l4m6" path="res://assets/source/kenney/furniture_kit/kitchenBar.glb" id="6_bar"]
 [ext_resource type="PackedScene" uid="uid://70ktrra5kgk3" path="res://assets/source/kenney/furniture_kit/kitchenCabinetCornerInner.glb" id="7_corner"]
 [ext_resource type="PackedScene" uid="uid://ds3k6jrxlsrgb" path="res://assets/source/kenney/furniture_kit/kitchenStove.glb" id="8_stove"]
 [ext_resource type="PackedScene" uid="uid://ldgl4ss62g5k" path="res://assets/source/kenney/furniture_kit/table.glb" id="9_table"]
@@ -41,10 +40,6 @@ roughness = 0.48
 [sub_resource type="StandardMaterial3D" id="Material_dark"]
 albedo_color = Color(0.05, 0.055, 0.06, 1)
 roughness = 0.5
-
-[sub_resource type="StandardMaterial3D" id="Material_countertop"]
-albedo_color = Color(0.83, 0.78, 0.68, 1)
-roughness = 0.55
 
 [sub_resource type="StandardMaterial3D" id="Material_metal"]
 albedo_color = Color(0.76, 0.79, 0.78, 1)
@@ -113,10 +108,8 @@ mesh = SubResource("BoxMesh_unit")
 
 [node name="CounterRuns" type="Node3D" parent="."]
 
-[node name="IslandCountertop" type="MeshInstance3D" parent="CounterRuns"]
-transform = Transform3D(140, 0, 0, 0, 0.36, 0, 0, 0, 92, 22, 2.62, -10.107975)
-material_override = SubResource("Material_countertop")
-mesh = SubResource("BoxMesh_unit")
+[node name="table" parent="CounterRuns" instance=ExtResource("9_table")]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -4.4148674, -9.231991, 9.951223)
 
 [node name="Appliances" type="Node3D" parent="."]
 
@@ -162,17 +155,11 @@ transform = Transform3D(-6.8, 0, -5.94475e-07, 0, 6.8, 0, 5.94475e-07, 0, -6.8, 
 [node name="BackCounterDrawerRight" parent="HandPlacedProps" instance=ExtResource("4_drawer")]
 transform = Transform3D(-6.8, 0, -5.94475e-07, 0, 6.8, 0, 5.94475e-07, 0, -6.8, 42, 31.111479, 90)
 
-[node name="KitchenBar" parent="HandPlacedProps" instance=ExtResource("6_bar")]
-transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 20, 2.6, -8)
-
 [node name="KitchenCabinetCornerInner" parent="HandPlacedProps" instance=ExtResource("7_corner")]
 transform = Transform3D(-3.0598e-07, 0, 7, 0, 7, 0, -7, 0, -3.0598e-07, -116, 2.1, 82)
 
-[node name="KitchenTable" parent="HandPlacedProps" instance=ExtResource("9_table")]
-transform = Transform3D(7.8, 0, 0, 0, 7.8, 0, 0, 0, 7.8, 24, 1.7, -34)
-
 [node name="IslandPlanter" parent="HandPlacedProps" instance=ExtResource("10_plant")]
-transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 20, 3, -34)
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 5.008644, 7.33173, -2.752409)
 
 [node name="CooktopSurface" type="MeshInstance3D" parent="HandPlacedProps"]
 transform = Transform3D(13, 0, 0, 0, 0.1, 0, 0, 0, 34, -118, 3.05, -24)
@@ -182,17 +169,17 @@ mesh = SubResource("BoxMesh_unit")
 [node name="Lighting" type="Node3D" parent="."]
 
 [node name="IslandPendantA" type="MeshInstance3D" parent="Lighting"]
-transform = Transform3D(4, 0, 0, 0, 2.8, 0, 0, 0, 4, 8, 19.5, -36)
+transform = Transform3D(4, 0, 0, 0, 2.8, 0, 0, 0, 4, 8, 37.1333, -36)
 material_override = SubResource("Material_wall_trim")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="IslandPendantB" type="MeshInstance3D" parent="Lighting"]
-transform = Transform3D(4, 0, 0, 0, 2.8, 0, 0, 0, 4, 36, 19.5, -36)
+transform = Transform3D(4, 0, 0, 0, 2.8, 0, 0, 0, 4, 36, 35.96503, -36)
 material_override = SubResource("Material_wall_trim")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="KitchenFillLight" type="OmniLight3D" parent="Lighting"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 22, -28)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 32.80315, -28)
 light_energy = 1.2
 omni_range = 95.0
 
