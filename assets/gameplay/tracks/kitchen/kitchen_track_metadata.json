@@ -110,6 +110,7 @@
 		}
 	],
 	"closed_loop": true,
+	"dressing_scene_path": "res://assets/gameplay/tracks/kitchen/kitchen_editable_room.tscn",
 	"display_name": "Kitchen / Sir Clink",
 	"floor_visual_y": -32.0,
 	"hazard_sockets": [

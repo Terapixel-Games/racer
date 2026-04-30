@@ -362,8 +362,10 @@ static func _build_dressing(root: Node3D, definition: TrackDefinition) -> void:
 	holder.name = "Dressing"
 	root.add_child(holder)
 	if definition.id != "kitchen":
+		_add_dressing_scene(holder, definition)
 		_build_stage_props(holder, definition)
 		return
+	_add_dressing_scene(holder, definition)
 	if definition.stage_props.is_empty():
 		_build_full_size_kitchen_room(holder)
 	_build_stage_props(holder, definition)
@@ -443,6 +445,21 @@ static func _build_full_size_sink(holder: Node3D) -> void:
 
 static func build_dressing_preview(root: Node3D, definition: TrackDefinition) -> void:
 	_build_dressing(root, definition)
+
+static func _add_dressing_scene(parent: Node3D, definition: TrackDefinition) -> void:
+	if definition.dressing_scene_path.strip_edges().is_empty():
+		return
+	var packed := load(definition.dressing_scene_path)
+	if not (packed is PackedScene):
+		push_error("Track dressing scene is not a PackedScene: %s" % definition.dressing_scene_path)
+		return
+	var instance := (packed as PackedScene).instantiate()
+	if not (instance is Node3D):
+		instance.queue_free()
+		push_error("Track dressing scene root must be Node3D: %s" % definition.dressing_scene_path)
+		return
+	instance.name = "EditableRoom"
+	parent.add_child(instance)
 
 static func _build_stage_props(parent: Node3D, definition: TrackDefinition) -> void:
 	if definition.stage_props.is_empty():

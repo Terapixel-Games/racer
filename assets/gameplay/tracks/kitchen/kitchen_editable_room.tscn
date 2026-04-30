@@ -1,0 +1,69 @@
+[gd_scene load_steps=12 format=3 uid="uid://wads2kpascuq"]
+
+[ext_resource type="Texture2D" uid="uid://dyof4gx7wh6w7" path="res://assets/source/generated/textures/toy_materials_2026-04-27/kitchen_tile_albedo.png" id="1_uqee6"]
+[ext_resource type="PackedScene" uid="uid://d1avywib3w1sv" path="res://assets/source/kenney/furniture_kit/kitchenCabinetUpper.glb" id="2_lgng6"]
+[ext_resource type="PackedScene" uid="uid://bnh07515k0fhb" path="res://assets/source/meshy/kitchen/retro_cream_refrigerator.glb" id="3_iqby0"]
+[ext_resource type="PackedScene" uid="uid://dqkahfrrclsnt" path="res://assets/source/kenney/furniture_kit/kitchenSink.glb" id="4_3ttq8"]
+[ext_resource type="PackedScene" uid="uid://c33dd6a72l4m6" path="res://assets/source/kenney/furniture_kit/kitchenBar.glb" id="5_o1tgr"]
+[ext_resource type="PackedScene" uid="uid://no3ktttavepm" path="res://assets/source/kenney/furniture_kit/kitchenCabinetDrawer.glb" id="6_ct47p"]
+[ext_resource type="PackedScene" uid="uid://70ktrra5kgk3" path="res://assets/source/kenney/furniture_kit/kitchenCabinetCornerInner.glb" id="7_m6ot0"]
+[ext_resource type="PackedScene" uid="uid://ds3k6jrxlsrgb" path="res://assets/source/kenney/furniture_kit/kitchenStove.glb" id="8_5cehb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_anixf"]
+size = Vector3(10, 0.2, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mhmmo"]
+albedo_texture = ExtResource("1_uqee6")
+uv1_scale = Vector3(8, 8, 8)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_wg4g6"]
+size = Vector2(10, 10)
+
+[node name="KitchenEditableRoom" type="Node3D"]
+
+[node name="floor" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+shape = SubResource("BoxShape3D_anixf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0022326708, -2.9802322e-08, -0.0007840991)
+material_override = SubResource("StandardMaterial3D_mhmmo")
+mesh = SubResource("PlaneMesh_wg4g6")
+
+[node name="kitchenCabinetUpper" parent="floor" instance=ExtResource("2_lgng6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -3.3739135, 1.2241516, -0.030027866)
+
+[node name="retro_cream_refrigerator" parent="." instance=ExtResource("3_iqby0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.41568124, 0.9801376, -4.019292)
+
+[node name="kitchenSink" parent="." instance=ExtResource("4_3ttq8")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -1.7432845, 0, -3.7127175)
+
+[node name="kitchenBar" parent="." instance=ExtResource("5_o1tgr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9502449, 0.17774576, -0.4770627)
+
+[node name="kitchenCabinetDrawer" parent="." instance=ExtResource("6_ct47p")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.90320206, 0, -3.6944416)
+
+[node name="kitchenCabinetDrawer2" parent="." instance=ExtResource("6_ct47p")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -2.5969977, 0, -3.6944416)
+
+[node name="kitchenCabinetDrawer3" parent="." instance=ExtResource("6_ct47p")]
+transform = Transform3D(-8.742278e-08, 0, 2, 0, 2, 0, -2, 0, -8.742278e-08, -2.5715652, 0.02578932, -2.8170574)
+
+[node name="kitchenCabinetDrawer4" parent="." instance=ExtResource("6_ct47p")]
+transform = Transform3D(-8.742278e-08, 0, 2, 0, 2, 0, -2, 0, -8.742278e-08, -2.5715652, 0.02578932, -1.1799661)
+
+[node name="kitchenCabinetDrawer5" parent="." instance=ExtResource("6_ct47p")]
+transform = Transform3D(-8.742278e-08, 0, 2, 0, 2, 0, -2, 0, -8.742278e-08, -2.5715652, 0.02578932, 0.46012497)
+
+[node name="kitchenCabinetCornerInner" parent="." instance=ExtResource("7_m6ot0")]
+transform = Transform3D(-8.742278e-08, 0, 2, 0, 2, 0, -2, 0, -8.742278e-08, -2.5804715, 2.3841858e-07, -3.690521)
+
+[node name="kitchenStove" parent="." instance=ExtResource("8_5cehb")]
+transform = Transform3D(-8.742278e-08, 0, 2, 0, 2, 0, -2, 0, -8.742278e-08, -2.5834947, 0, -2.0540802)
+
+[node name="kitchenSink2" parent="." instance=ExtResource("4_3ttq8")]
+transform = Transform3D(-8.742278e-08, 0, 2, 0, 2, 0, -2, 0, -8.742278e-08, -2.5923584, 0, -0.3041489)

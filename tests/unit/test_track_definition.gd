@@ -16,6 +16,7 @@ func test_kitchen_definition_validates() -> void:
 	assert_equal(definition.reset_mode, "instant_pop", "Kitchen should use instant pop-back resets")
 	assert_equal(definition.out_of_bounds_y, 1.5, "Kitchen floor drop should be out of bounds")
 	assert_true(definition.floor_visual_y <= -32.0, "Kitchen floor visual should sit far below the countertop route")
+	assert_equal(definition.dressing_scene_path, "res://assets/gameplay/tracks/kitchen/kitchen_editable_room.tscn", "Kitchen should load a directly editable room scene")
 	assert_equal(definition.shortcut_gates.size(), 1, "Kitchen should expose one table-jump shortcut")
 	assert_true(definition.dressing_overrides.has("KitchenSink"), "Kitchen should expose an editable sink dressing override")
 	assert_true(definition.stage_props.size() >= 10, "Kitchen should export selectable stage props from the authoring scene")
