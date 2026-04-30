@@ -100,7 +100,7 @@ func test_kitchen_authoring_scene_builds_editor_preview() -> void:
 	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewRoad") != null, "Authoring preview should include generated road")
 	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewWalls") == null, "Authoring preview should keep auto wall preview off by default")
 	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewHeightGuides/RouteHeight00") != null, "Authoring preview should include compact route height guides")
-	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewHeightGuides/OverUnderGap04") != null, "Authoring preview should mark the over-under rail gap without requiring labels")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewHeightGuides/OverUnderGap04") == null, "Authoring preview should not show old over-under gap markers on the flattened room route")
 	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewMarkers/RoutePoints/RoutePoint00") != null, "Authoring preview should include route markers")
 	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewMarkers/RoutePoints/RoutePoint00_Label") == null, "Authoring preview should keep position labels off by default so they do not block the scene")
 	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewMarkers/ItemSockets/ItemSocket01") != null, "Authoring preview should include item socket markers")

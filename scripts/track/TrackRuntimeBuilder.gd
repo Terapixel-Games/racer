@@ -347,9 +347,9 @@ static func _build_section_markers(root: Node3D, definition: TrackDefinition) ->
 	_add_section_marker(holder, "IslandSweeper", Vector3(22, 5.55, -38))
 	_add_section_marker(holder, "BackStraight", Vector3(112, 4.7, 18))
 	_add_section_marker(holder, "SinkChicane", Vector3(-8, 4.15, 74))
-	_add_section_marker(holder, "FridgeClimb", Vector3(122, 10.5, -18))
-	_add_section_marker(holder, "FridgeTopRun", Vector3(128, 20.7, 34))
-	_add_section_marker(holder, "FridgeCorner", Vector3(104, 13.0, 74))
+	_add_section_marker(holder, "FridgeClimb", Vector3(122, 3.6, -18))
+	_add_section_marker(holder, "FridgeTopRun", Vector3(122, 3.6, 30))
+	_add_section_marker(holder, "FridgeCorner", Vector3(112, 3.6, 72))
 
 static func _add_section_marker(parent: Node3D, marker_name: String, position: Vector3) -> void:
 	var marker := Marker3D.new()
@@ -375,8 +375,8 @@ static func _build_dressing(root: Node3D, definition: TrackDefinition) -> void:
 	_add_visual_box(holder, "IslandSweeperBankStripe", Vector3(28, 5.72, -55), Vector3(72.0, 0.06, 1.6), -5.0, Color(0.18, 0.62, 1.0))
 	_add_visual_box(holder, "BackStraightSpeedStrip", Vector3(112, 4.55, 10), Vector3(1.7, 0.06, 78.0), 0.0, Color(1.0, 0.9, 0.2))
 	_add_visual_box(holder, "SinkChicaneWetStrip", Vector3(-8, 4.04, 74), Vector3(58.0, 0.06, 1.7), 4.0, Color(0.2, 0.62, 0.95))
-	_add_visual_box(holder, "FridgeTopSpeedStrip", Vector3(128, 20.65, 34), Vector3(1.5, 0.06, 36.0), 0.0, Color(0.7, 0.86, 1.0))
-	_add_visual_box(holder, "FridgeCornerRecoveryStripe", Vector3(104, 12.95, 74), Vector3(24.0, 0.06, 14.0), -20.0, Color(0.7, 0.86, 1.0))
+	_add_visual_box(holder, "FridgeTopSpeedStrip", Vector3(122, 3.45, 30), Vector3(1.5, 0.06, 48.0), 0.0, Color(0.7, 0.86, 1.0))
+	_add_visual_box(holder, "FridgeCornerRecoveryStripe", Vector3(112, 3.45, 72), Vector3(24.0, 0.06, 14.0), -20.0, Color(0.7, 0.86, 1.0))
 	_add_visual_box(holder, "StoveCooktop", Vector3(-118, 3.02, -24), Vector3(12.0, 0.08, 34.0), 0.0, Color(0.02, 0.02, 0.02))
 	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/table.glb", Vector3(24, 1.7, -34), 8.0, Vector3(7.8, 7.8, 7.8), "KitchenTable")
 	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/pottedPlant.glb", Vector3(20, 3.0, -34), 15.0, Vector3(7.0, 7.0, 7.0), "IslandPlanter")
