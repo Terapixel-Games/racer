@@ -58,6 +58,28 @@ func test_validation_rejects_non_monotonic_checkpoints() -> void:
 	definition.checkpoint_indices = [0, 2, 1]
 	assert_true(_has_error(definition.validate(), "strictly increasing"), "Checkpoints should follow route order")
 
+func test_validation_accepts_rejoining_alternate_route() -> void:
+	var definition := _base_definition()
+	definition.alternate_routes = [{
+		"id": "inside_lane",
+		"entry_checkpoint_index": 0,
+		"exit_checkpoint_index": 2,
+		"points": [Vector3(0, 0.5, 4), Vector3(12, 0.5, 10), Vector3(20, 0.5, 20)],
+		"road_width": 8.0,
+		"enabled": true,
+	}]
+	assert_equal(definition.validate(), [], "Rejoining alternate route should validate against shared checkpoints")
+
+func test_validation_rejects_backtracking_alternate_route() -> void:
+	var definition := _base_definition()
+	definition.alternate_routes = [{
+		"id": "bad_lane",
+		"entry_checkpoint_index": 2,
+		"exit_checkpoint_index": 1,
+		"points": [Vector3(20, 0.5, 20), Vector3(20, 0.5, 0)],
+	}]
+	assert_true(_has_error(definition.validate(), "after entry"), "Alternate routes should rejoin at a later checkpoint")
+
 func _base_definition() -> TrackDefinition:
 	var definition := TrackDefinition.new()
 	definition.id = "test"

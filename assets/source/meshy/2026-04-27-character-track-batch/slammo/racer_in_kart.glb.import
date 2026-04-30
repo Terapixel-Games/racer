@@ -4,11 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://54wrmspfkatl"
-valid=false
+path="res://.godot/imported/racer_in_kart.glb-4c5534680902a4314ad9fdd2b422a87b.scn"
 
 [deps]
 
 source_file="res://assets/source/meshy/2026-04-27-character-track-batch/slammo/racer_in_kart.glb"
+dest_files=["res://.godot/imported/racer_in_kart.glb-4c5534680902a4314ad9fdd2b422a87b.scn"]
 
 [params]
 

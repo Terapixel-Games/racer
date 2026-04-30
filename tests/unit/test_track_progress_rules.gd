@@ -2,6 +2,7 @@ extends "res://tests/framework/TestCase.gd"
 
 const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
 const TrackProgressRules = preload("res://scripts/track/TrackProgressRules.gd")
+const RaceController = preload("res://scripts/RaceController.gd")
 
 func test_projection_progress_increases_along_route() -> void:
 	var definition := TrackCatalog.get_definition("kitchen")
@@ -45,3 +46,41 @@ func test_wrong_checkpoint_is_rejected() -> void:
 	var result := TrackProgressRules.apply_checkpoint_pass(1, 1, false, 3, 6, 0, 2)
 	assert_true(not bool(result.get("accepted", false)), "Wrong checkpoint should be rejected")
 	assert_equal(int(result.get("checkpoint", -1)), 1, "Rejected checkpoint should not advance")
+
+func test_route_network_projection_uses_nearest_alternate_route() -> void:
+	var route_points: Array[Vector3] = [
+		Vector3(0, 0, 0),
+		Vector3(20, 0, 0),
+		Vector3(40, 0, 0),
+		Vector3(60, 0, 0),
+	]
+	var checkpoints: Array[int] = [0, 1, 3]
+	var alternates: Array[Dictionary] = [{
+		"id": "high_lane",
+		"entry_checkpoint_index": 1,
+		"exit_checkpoint_index": 2,
+		"points": [Vector3(20, 0, 10), Vector3(40, 0, 10), Vector3(60, 0, 10)],
+		"enabled": true,
+	}]
+	var projection := TrackProgressRules.project_route_network(route_points, alternates, checkpoints, Vector3(40, 0, 10), false)
+	assert_true(bool(projection.get("is_alternate", false)), "Projection should prefer the closer alternate branch")
+	assert_equal(str(projection.get("route_id", "")), "high_lane", "Projection should identify the selected branch")
+	assert_true(absf(float(projection.get("distance", 0.0)) - 40.0) < 0.2, "Branch midpoint should map into the canonical checkpoint span")
+
+func test_return_to_track_uses_alternate_route_center() -> void:
+	var route_points: Array[Vector3] = [
+		Vector3(0, 0, 0),
+		Vector3(20, 0, 0),
+		Vector3(40, 0, 0),
+		Vector3(60, 0, 0),
+	]
+	var checkpoints: Array[int] = [0, 1, 3]
+	var alternates: Array[Dictionary] = [{
+		"id": "high_lane",
+		"entry_checkpoint_index": 1,
+		"exit_checkpoint_index": 2,
+		"points": [Vector3(20, 0, 10), Vector3(40, 0, 10), Vector3(60, 0, 10)],
+		"enabled": true,
+	}]
+	var reset := RaceController.centered_track_return_transform(route_points, Vector3(38, 0, 14), false, alternates, checkpoints)
+	assert_true(reset.origin.distance_to(Vector3(38, 1, 10)) < 0.3, "Manual return should snap to the closest branch center")

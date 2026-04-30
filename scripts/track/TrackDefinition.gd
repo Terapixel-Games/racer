@@ -29,6 +29,7 @@ const TrackProgressRules = preload("res://scripts/track/TrackProgressRules.gd")
 @export var item_sockets: Array[Vector4] = []
 @export var hazard_sockets: Array[Vector4] = []
 @export var shortcut_gates: Array[Dictionary] = []
+@export var alternate_routes: Array[Dictionary] = []
 @export var stage_props: Array[Dictionary] = []
 @export var surface_segments: Array[Dictionary] = []
 @export var audio_zones: Array[Dictionary] = []
@@ -52,6 +53,7 @@ func validate() -> Array[String]:
 	if TrackProgressRules.route_length(route_points, closed_loop) <= 1.0:
 		errors.append("Track route length is too short.")
 	_validate_checkpoints(errors)
+	_validate_alternate_routes(errors)
 	if spawn_points.size() < 8:
 		errors.append("Track must include at least 8 spawn points.")
 	_validate_spawn_points(errors)
@@ -99,6 +101,7 @@ func to_metadata() -> Dictionary:
 		"item_sockets": _socket_array_to_json(item_sockets),
 		"hazard_sockets": _socket_array_to_json(hazard_sockets),
 		"shortcut_gates": _shortcut_gates_to_json(shortcut_gates),
+		"alternate_routes": _alternate_routes_to_json(alternate_routes),
 		"stage_props": _stage_props_to_json(stage_props),
 		"surface_segments": _surface_segments_to_json(surface_segments),
 		"audio_zones": _audio_zones_to_json(audio_zones),
@@ -129,6 +132,28 @@ func _validate_spawn_points(errors: Array[String]) -> void:
 		var distance := _distance_to_route_xz(Vector3(socket.x, 0.0, socket.z))
 		if distance > max_distance:
 			errors.append("Spawn point %d is outside the road bounds." % i)
+
+func _validate_alternate_routes(errors: Array[String]) -> void:
+	for i in range(alternate_routes.size()):
+		var route := alternate_routes[i]
+		if not bool(route.get("enabled", true)):
+			continue
+		var route_id := str(route.get("id", "")).strip_edges()
+		if route_id.is_empty():
+			errors.append("Alternate route %d id is required." % i)
+		var points := _vector3_array_from_value(route.get("points", []))
+		if points.size() < 2:
+			errors.append("Alternate route %s must include at least 2 points." % route_id)
+		var entry_checkpoint := int(route.get("entry_checkpoint_index", -1))
+		var exit_checkpoint := int(route.get("exit_checkpoint_index", -1))
+		if entry_checkpoint < 0 or entry_checkpoint >= checkpoint_indices.size():
+			errors.append("Alternate route %s entry checkpoint index is out of range." % route_id)
+		if exit_checkpoint < 0 or exit_checkpoint >= checkpoint_indices.size():
+			errors.append("Alternate route %s exit checkpoint index is out of range." % route_id)
+		if entry_checkpoint >= 0 and exit_checkpoint >= 0 and exit_checkpoint <= entry_checkpoint:
+			errors.append("Alternate route %s exit checkpoint must be after entry checkpoint." % route_id)
+		if float(route.get("road_width", road_width)) <= 0.0:
+			errors.append("Alternate route %s road width must be greater than zero." % route_id)
 
 func _validate_stage_props(errors: Array[String]) -> void:
 	for i in range(stage_props.size()):
@@ -275,6 +300,19 @@ func _shortcut_gates_to_json(gates: Array[Dictionary]) -> Array:
 		})
 	return out
 
+func _alternate_routes_to_json(routes: Array[Dictionary]) -> Array:
+	var out: Array = []
+	for route in routes:
+		out.append({
+			"id": str(route.get("id", "")),
+			"points": _vec3_array_to_json(_vector3_array_from_value(route.get("points", []))),
+			"entry_checkpoint_index": int(route.get("entry_checkpoint_index", 0)),
+			"exit_checkpoint_index": int(route.get("exit_checkpoint_index", 0)),
+			"road_width": float(route.get("road_width", road_width)),
+			"enabled": bool(route.get("enabled", true)),
+		})
+	return out
+
 func _point_value_to_array(value: Variant) -> Array:
 	if value is Vector3:
 		return _vec3_to_array(value)
@@ -296,6 +334,19 @@ func _vector3_from_value(value: Variant, fallback: Vector3) -> Vector3:
 	if value is Array and value.size() >= 3:
 		return Vector3(float(value[0]), float(value[1]), float(value[2]))
 	return fallback
+
+func _vector3_array_from_value(value: Variant) -> Array[Vector3]:
+	var points: Array[Vector3] = []
+	if not (value is Array):
+		return points
+	for item in value:
+		if item is Vector3:
+			points.append(item)
+		elif item is Array and item.size() >= 3:
+			points.append(Vector3(float(item[0]), float(item[1]), float(item[2])))
+		elif item is Dictionary:
+			points.append(Vector3(float(item.get("x", 0.0)), float(item.get("y", 0.0)), float(item.get("z", 0.0))))
+	return points
 
 func _vec3_to_array(point: Vector3) -> Array:
 	return [point.x, point.y, point.z]

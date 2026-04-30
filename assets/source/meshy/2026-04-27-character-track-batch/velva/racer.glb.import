@@ -4,11 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://djrb7y2mwq3uo"
-valid=false
+path="res://.godot/imported/racer.glb-6ca7a4abcb099a694ff852648c432cce.scn"
 
 [deps]
 
 source_file="res://assets/source/meshy/2026-04-27-character-track-batch/velva/racer.glb"
+dest_files=["res://.godot/imported/racer.glb-6ca7a4abcb099a694ff852648c432cce.scn"]
 
 [params]
 

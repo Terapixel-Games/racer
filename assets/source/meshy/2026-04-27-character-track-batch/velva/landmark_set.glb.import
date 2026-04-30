@@ -4,11 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bn4t8kd2soshx"
-valid=false
+path="res://.godot/imported/landmark_set.glb-581b344c3a8a3f7935fe23562d43c62f.scn"
 
 [deps]
 
 source_file="res://assets/source/meshy/2026-04-27-character-track-batch/velva/landmark_set.glb"
+dest_files=["res://.godot/imported/landmark_set.glb-581b344c3a8a3f7935fe23562d43c62f.scn"]
 
 [params]
 

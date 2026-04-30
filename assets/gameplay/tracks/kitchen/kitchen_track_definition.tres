@@ -8,7 +8,6 @@ id = "kitchen"
 display_name = "Kitchen / Sir Clink"
 version = "kitchen_v2_2026_04_29"
 laps = 3
-out_of_bounds_y = 1.5
 reset_mode = "instant_pop"
 floor_visual_y = -32.0
 runtime_scene_path = "res://assets/gameplay/tracks/kitchen/kitchen_track.tscn"

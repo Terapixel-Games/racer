@@ -3,11 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://fiybhrm3goji"
-valid=false
+path="res://.godot/imported/racer_in_kart_base_color.png-f123ea45ac40cf3b7834a7ad969ec9d3.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/source/meshy/2026-04-27-character-track-batch/velva/racer_in_kart_base_color.png"
+dest_files=["res://.godot/imported/racer_in_kart_base_color.png-f123ea45ac40cf3b7834a7ad969ec9d3.ctex"]
 
 [params]
 

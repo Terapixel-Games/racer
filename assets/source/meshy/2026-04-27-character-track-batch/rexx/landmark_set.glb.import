@@ -4,11 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bqnmluhnh4kau"
-valid=false
+path="res://.godot/imported/landmark_set.glb-2ed50554bbdeacc1e73a106a60451688.scn"
 
 [deps]
 
 source_file="res://assets/source/meshy/2026-04-27-character-track-batch/rexx/landmark_set.glb"
+dest_files=["res://.godot/imported/landmark_set.glb-2ed50554bbdeacc1e73a106a60451688.scn"]
 
 [params]
 

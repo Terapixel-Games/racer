@@ -36,6 +36,8 @@ local function point_from_array(value)
 	}
 end
 
+local ensure_track_state
+
 local function normalize_route_points(list)
 	local out = {}
 	for _, point in ipairs(list or {}) do
@@ -45,6 +47,31 @@ local function normalize_route_points(list)
 		out = {}
 		for _, point in ipairs(DEFAULT_ROUTE) do
 			table.insert(out, point_from_array(point))
+		end
+	end
+	return out
+end
+
+local function normalize_branch_points(list)
+	local out = {}
+	for _, point in ipairs(list or {}) do
+		table.insert(out, point_from_array(point))
+	end
+	return out
+end
+
+local function normalize_alternate_routes(list)
+	local out = {}
+	for _, route in ipairs(list or {}) do
+		if type(route) == "table" then
+			table.insert(out, {
+				id = route.id or "alternate",
+				points = normalize_branch_points(route.points or {}),
+				entry_checkpoint_index = route.entry_checkpoint_index or 0,
+				exit_checkpoint_index = route.exit_checkpoint_index or 0,
+				road_width = route.road_width,
+				enabled = route.enabled ~= false,
+			})
 		end
 	end
 	return out
@@ -71,12 +98,13 @@ end
 
 local function project_position(points, position, closed_loop)
 	if #points < 2 then
-		return {distance = 0, route_ratio = 0, segment_index = 1, segment_ratio = 0}
+		return {distance = 0, route_ratio = 0, segment_index = 1, segment_ratio = 0, closest_point = {x = 0, y = 0.5, z = 0}}
 	end
 	local best_dist_sq = math.huge
 	local best_along = 0
 	local best_segment = 1
 	local best_ratio = 0
+	local best_point = points[1]
 	local accumulated = 0
 	local segment_count = (closed_loop and #points > 2) and #points or (#points - 1)
 	for i = 1, segment_count do
@@ -105,6 +133,7 @@ local function project_position(points, position, closed_loop)
 				best_along = accumulated + seg_len * ratio
 				best_segment = i
 				best_ratio = ratio
+				best_point = {x = px, y = py, z = pz}
 			end
 			accumulated = accumulated + seg_len
 		end
@@ -115,7 +144,62 @@ local function project_position(points, position, closed_loop)
 		route_ratio = best_along / total,
 		segment_index = best_segment,
 		segment_ratio = best_ratio,
+		closest_point = best_point,
+		distance_sq = best_dist_sq,
 	}
+end
+
+local function distance_at_route_index(points, route_index)
+	if #points < 2 then return 0 end
+	local clamped = math.max(0, math.min(route_index or 0, #points - 1))
+	local total = 0
+	for i = 1, clamped do
+		total = total + distance(points[i], points[i + 1])
+	end
+	return total
+end
+
+local function project_route_network(state, position)
+	ensure_track_state(state)
+	local canonical = project_position(state.route_points, position, state.closed_loop)
+	canonical.route_id = "main"
+	canonical.is_alternate = false
+	local best = canonical
+	local best_distance_sq = canonical.distance_sq or math.huge
+	local total = math.max(state.route_length or route_length(state.route_points, state.closed_loop), 0.001)
+	for _, route in ipairs(state.alternate_routes or {}) do
+		if route.enabled ~= false and #route.points >= 2 then
+			local entry_checkpoint = route.entry_checkpoint_index or -1
+			local exit_checkpoint = route.exit_checkpoint_index or -1
+			local entry = state.track.checkpoints[entry_checkpoint + 1]
+			local exit = state.track.checkpoints[exit_checkpoint + 1]
+			if entry and exit then
+				local entry_distance = distance_at_route_index(state.route_points, entry.route_index or 0)
+				local exit_distance = distance_at_route_index(state.route_points, exit.route_index or 0)
+				if exit_distance <= entry_distance and state.closed_loop then
+					exit_distance = exit_distance + total
+				end
+				if exit_distance > entry_distance then
+					local projection = project_position(route.points, position, false)
+					local distance_sq = projection.distance_sq or math.huge
+					if distance_sq < best_distance_sq then
+						local branch_ratio = math.max(0, math.min(1, projection.route_ratio or 0))
+						local mapped = entry_distance + (exit_distance - entry_distance) * branch_ratio
+						while mapped >= total do mapped = mapped - total end
+						projection.distance = mapped
+						projection.route_ratio = mapped / total
+						projection.route_id = route.id or "alternate"
+						projection.is_alternate = true
+						projection.entry_checkpoint_index = entry_checkpoint
+						projection.exit_checkpoint_index = exit_checkpoint
+						best = projection
+						best_distance_sq = distance_sq
+					end
+				end
+			end
+		end
+	end
+	return best
 end
 
 local function checkpoint_position(state, checkpoint)
@@ -127,8 +211,9 @@ local function checkpoint_position(state, checkpoint)
 	return point_from_array(checkpoint.position)
 end
 
-local function ensure_track_state(state)
+ensure_track_state = function(state)
 	state.route_points = normalize_route_points(state.track.route_points or state.track.waypoints)
+	state.alternate_routes = normalize_alternate_routes(state.track.alternate_routes or {})
 	state.closed_loop = state.track.closed_loop ~= false
 	state.checkpoint_radius = state.track.checkpoint_radius or math.max((state.track.road_width or 12) * 0.65, 4)
 	state.out_of_bounds_y = state.track.out_of_bounds_y or -100
@@ -200,7 +285,7 @@ end
 
 update_progress = function(racer, state)
 	ensure_track_state(state)
-	local projection = project_position(state.route_points, racer.pos, state.closed_loop)
+	local projection = project_route_network(state, racer.pos)
 	local route_ratio = math.max(0, math.min(0.999, projection.route_ratio or 0))
 	racer.progress = (math.max(racer.lap, 1) - 1) * state.checkpoints + racer.checkpoint + route_ratio
 	if racer.finished then

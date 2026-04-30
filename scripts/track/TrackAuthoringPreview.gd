@@ -87,6 +87,10 @@ const PREVIEW_ROOT_NAME := "EditorTrackPreview"
 	set(value):
 		show_audio_zones = value
 		_queue_preview_refresh()
+@export var metadata_authoring_enabled := true:
+	set(value):
+		metadata_authoring_enabled = value
+		_queue_preview_refresh()
 @export var marker_label_lift := 1.15:
 	set(value):
 		marker_label_lift = value
@@ -157,6 +161,7 @@ func refresh_preview() -> void:
 	_add_ground_preview(preview_root)
 	_add_track_body_preview(preview_root, route_points)
 	_add_road_preview(preview_root, route_points)
+	_add_alternate_route_previews(preview_root)
 	if show_auto_wall_preview:
 		_add_wall_preview(preview_root, route_points)
 	_add_height_guides(preview_root, route_points)
@@ -177,9 +182,11 @@ func sync_markers_from_definition() -> Array[String]:
 	_replace_marker_group("ItemSockets", _socket_marker_specs(definition.item_sockets, "ItemSocket", 1))
 	_replace_marker_group("HazardSockets", _socket_marker_specs(definition.hazard_sockets, "HazardSocket", 1))
 	_replace_marker_group("ShortcutGates", _shortcut_marker_specs(definition.shortcut_gates))
-	_replace_stage_props(definition.stage_props)
-	_replace_surface_segments(definition.surface_segments)
-	_replace_audio_zones(definition.audio_zones)
+	_replace_alternate_routes(definition.alternate_routes)
+	if metadata_authoring_enabled:
+		_replace_stage_props(definition.stage_props)
+		_replace_surface_segments(definition.surface_segments)
+		_replace_audio_zones(definition.audio_zones)
 	refresh_preview()
 	print("Track builder synced markers from %s" % track_definition_path)
 	return []
@@ -241,6 +248,7 @@ func get_authoring_summary() -> Dictionary:
 		"item_sockets": _sorted_marker_children(_get_or_create_holder("ItemSockets")).size(),
 		"hazard_sockets": _sorted_marker_children(_get_or_create_holder("HazardSockets")).size(),
 		"shortcut_markers": _sorted_marker_children(_get_or_create_holder("ShortcutGates")).size(),
+		"alternate_routes": _sorted_node3d_children(_get_or_create_holder("AlternateRoutes")).size(),
 		"dressing_props": _sorted_node3d_children(_get_or_create_holder("Dressing")).size(),
 		"surface_segments": _sorted_marker_children(_get_or_create_holder("SurfaceSegments")).size(),
 		"audio_zones": _sorted_marker_children(_get_or_create_holder("AudioZones")).size(),
@@ -274,6 +282,37 @@ func _add_road_preview(parent: Node3D, route_points: Array[Vector3]) -> void:
 	road.set("road_material", _material(Color(0.025, 0.025, 0.03, road_preview_alpha), true))
 	parent.add_child(road)
 	road.call("_rebuild")
+
+func _add_alternate_route_previews(parent: Node3D) -> void:
+	var routes := _collect_alternate_routes([])
+	if routes.is_empty():
+		return
+	var holder := Node3D.new()
+	holder.name = "PreviewAlternateRoutes"
+	parent.add_child(holder)
+	for route in routes:
+		if not bool(route.get("enabled", true)):
+			continue
+		var points := _vector3_array_from_value(route.get("points", []))
+		if points.size() < 2:
+			continue
+		var width := float(route.get("road_width", road_width))
+		var route_id := str(route.get("id", "Alternate"))
+		var body := MeshInstance3D.new()
+		body.name = "%sTrackBody" % route_id
+		body.mesh = TrackRibbonMesh.build_slab_mesh(points, width, track_body_depth, false)
+		body.material_override = _material(Color(0.16, 0.55, 1.0, 0.22), true)
+		holder.add_child(body)
+		var road := RoadMeshScript.new() as MeshInstance3D
+		road.name = "%sRoad" % route_id
+		road.set("points", points)
+		road.set("width", width)
+		road.set("force_close", false)
+		road.set("show_wall_preview", false)
+		road.set("generate_walls_runtime", false)
+		road.set("road_material", _material(Color(0.08, 0.35, 1.0, road_preview_alpha), true))
+		holder.add_child(road)
+		road.call("_rebuild")
 
 func _add_wall_preview(parent: Node3D, route_points: Array[Vector3]) -> void:
 	var holder := Node3D.new()
@@ -488,10 +527,12 @@ func _definition_from_markers() -> TrackDefinition:
 	definition.item_sockets = _collect_socket_markers("ItemSockets")
 	definition.hazard_sockets = _collect_socket_markers("HazardSockets")
 	definition.shortcut_gates = _collect_shortcut_gates(definition.shortcut_gates)
-	definition.dressing_overrides = _collect_dressing_overrides(definition.dressing_overrides)
-	definition.stage_props = _collect_stage_props()
-	definition.surface_segments = _collect_surface_segments()
-	definition.audio_zones = _collect_audio_zones()
+	definition.alternate_routes = _collect_alternate_routes(definition.alternate_routes)
+	if metadata_authoring_enabled:
+		definition.dressing_overrides = _collect_dressing_overrides(definition.dressing_overrides)
+		definition.stage_props = _collect_stage_props()
+		definition.surface_segments = _collect_surface_segments()
+		definition.audio_zones = _collect_audio_zones()
 	return definition
 
 func _load_definition() -> TrackDefinition:
@@ -562,6 +603,33 @@ func _find_shortcut_gate(gates: Array[Dictionary], id: String) -> Dictionary:
 	for gate in gates:
 		if str(gate.get("id", "")) == id:
 			return gate
+	return {}
+
+func _collect_alternate_routes(existing_routes: Array[Dictionary]) -> Array[Dictionary]:
+	var holder := get_node_or_null("AlternateRoutes")
+	if holder == null:
+		return existing_routes
+	var routes: Array[Dictionary] = []
+	for route_node in _sorted_node3d_children(holder):
+		var id := str(route_node.name)
+		var previous := _find_alternate_route(existing_routes, id)
+		var points: Array[Vector3] = []
+		for marker in _sorted_marker_children(route_node):
+			points.append((marker as Marker3D).position)
+		routes.append({
+			"id": id,
+			"points": points,
+			"entry_checkpoint_index": int(previous.get("entry_checkpoint_index", 0)),
+			"exit_checkpoint_index": int(previous.get("exit_checkpoint_index", min(1, max(0, _sorted_marker_children(_get_or_create_holder("Checkpoints")).size() - 1)))),
+			"road_width": float(previous.get("road_width", road_width)),
+			"enabled": bool(previous.get("enabled", true)),
+		})
+	return routes
+
+func _find_alternate_route(routes: Array[Dictionary], id: String) -> Dictionary:
+	for route in routes:
+		if str(route.get("id", "")) == id:
+			return route
 	return {}
 
 func _nearest_route_index(point: Vector3, route_points: Array[Vector3]) -> int:
@@ -648,6 +716,26 @@ func _replace_audio_zones(zones: Array[Dictionary]) -> void:
 		holder.add_child(node)
 		if Engine.is_editor_hint():
 			node.owner = owner if owner != null else self
+
+func _replace_alternate_routes(routes: Array[Dictionary]) -> void:
+	var holder := _get_or_create_holder("AlternateRoutes")
+	for child in holder.get_children():
+		holder.remove_child(child)
+		child.queue_free()
+	for route in routes:
+		var route_node := Node3D.new()
+		route_node.name = str(route.get("id", "AlternateRoute"))
+		holder.add_child(route_node)
+		if Engine.is_editor_hint():
+			route_node.owner = owner if owner != null else self
+		var points := _vector3_array_from_value(route.get("points", []))
+		for i in range(points.size()):
+			var marker := Marker3D.new()
+			marker.name = "Point%02d" % i
+			marker.position = points[i]
+			route_node.add_child(marker)
+			if Engine.is_editor_hint():
+				marker.owner = owner if owner != null else self
 
 func _get_or_create_holder(holder_name: String) -> Node3D:
 	var holder := get_node_or_null(holder_name) as Node3D
@@ -768,6 +856,19 @@ func _vector3_from_value(value: Variant, fallback: Vector3) -> Vector3:
 		return Vector3(float(value[0]), float(value[1]), float(value[2]))
 	return fallback
 
+func _vector3_array_from_value(value: Variant) -> Array[Vector3]:
+	var points: Array[Vector3] = []
+	if not (value is Array):
+		return points
+	for item in value:
+		if item is Vector3:
+			points.append(item)
+		elif item is Array and item.size() >= 3:
+			points.append(Vector3(float(item[0]), float(item[1]), float(item[2])))
+		elif item is Dictionary:
+			points.append(Vector3(float(item.get("x", 0.0)), float(item.get("y", 0.0)), float(item.get("z", 0.0))))
+	return points
+
 func _color_from_value(value: Variant, fallback: Color) -> Color:
 	if value is Color:
 		return value
@@ -818,12 +919,13 @@ func _preview_signature() -> String:
 		str(show_height_guides),
 		str(show_surface_segments),
 		str(show_audio_zones),
+		str(metadata_authoring_enabled),
 		str(marker_label_lift),
 		str(road_preview_alpha),
 		str(wall_preview_alpha),
 		str(dressing_preview_alpha),
 	]
-	for holder_name in ["RoutePoints", "SpawnPoints", "Checkpoints", "ItemSockets", "HazardSockets", "ShortcutGates", "SectionMarkers", "Dressing", "SurfaceSegments", "AudioZones"]:
+	for holder_name in ["RoutePoints", "SpawnPoints", "Checkpoints", "ItemSockets", "HazardSockets", "ShortcutGates", "AlternateRoutes", "SectionMarkers", "Dressing", "SurfaceSegments", "AudioZones"]:
 		parts.append(holder_name)
 		var source := get_node_or_null(holder_name)
 		if source == null:

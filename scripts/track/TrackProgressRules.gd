@@ -57,6 +57,69 @@ static func project_position(route_points: Array[Vector3], position: Vector3, cl
 		"closest_point": best_point,
 	}
 
+static func project_route_network(
+	route_points: Array[Vector3],
+	alternate_routes: Array[Dictionary],
+	checkpoint_indices: Array[int],
+	position: Vector3,
+	closed_loop: bool = true
+) -> Dictionary:
+	var canonical := project_position(route_points, position, closed_loop)
+	canonical["route_id"] = "main"
+	canonical["is_alternate"] = false
+	if route_points.size() < 2:
+		return canonical
+	var best := canonical
+	var best_distance_sq := (canonical.get("closest_point", Vector3.ZERO) as Vector3).distance_squared_to(position)
+	var route_total: float = maxf(route_length(route_points, closed_loop), 0.001)
+	for route in alternate_routes:
+		if not bool(route.get("enabled", true)):
+			continue
+		var points: Array[Vector3] = _points_from_value(route.get("points", []))
+		if points.size() < 2:
+			continue
+		var entry_checkpoint := int(route.get("entry_checkpoint_index", -1))
+		var exit_checkpoint := int(route.get("exit_checkpoint_index", -1))
+		if entry_checkpoint < 0 or exit_checkpoint < 0:
+			continue
+		if entry_checkpoint >= checkpoint_indices.size() or exit_checkpoint >= checkpoint_indices.size():
+			continue
+		var entry_route_index: int = checkpoint_indices[entry_checkpoint]
+		var exit_route_index: int = checkpoint_indices[exit_checkpoint]
+		var entry_distance: float = distance_at_route_index(route_points, entry_route_index, closed_loop)
+		var exit_distance: float = distance_at_route_index(route_points, exit_route_index, closed_loop)
+		if exit_distance <= entry_distance and closed_loop:
+			exit_distance += route_total
+		if exit_distance <= entry_distance:
+			continue
+		var projection: Dictionary = project_position(points, position, false)
+		var closest_point := projection.get("closest_point", Vector3.ZERO) as Vector3
+		var distance_sq := closest_point.distance_squared_to(position)
+		if distance_sq >= best_distance_sq:
+			continue
+		var branch_ratio: float = clampf(float(projection.get("route_ratio", 0.0)), 0.0, 1.0)
+		var mapped_distance: float = lerpf(entry_distance, exit_distance, branch_ratio)
+		var normalized_distance: float = fposmod(mapped_distance, route_total)
+		projection["distance"] = normalized_distance
+		projection["route_ratio"] = normalized_distance / route_total
+		projection["route_id"] = str(route.get("id", "alternate"))
+		projection["is_alternate"] = true
+		projection["entry_checkpoint_index"] = entry_checkpoint
+		projection["exit_checkpoint_index"] = exit_checkpoint
+		best = projection
+		best_distance_sq = distance_sq
+	return best
+
+static func distance_at_route_index(route_points: Array[Vector3], route_index: int, closed_loop: bool = true) -> float:
+	var points := _sanitize_route(route_points)
+	if points.size() < 2:
+		return 0.0
+	var clamped_index := clampi(route_index, 0, points.size() - 1)
+	var total := 0.0
+	for i in range(clamped_index):
+		total += points[i].distance_to(points[i + 1])
+	return total
+
 static func is_checkpoint_hit(route_points: Array[Vector3], checkpoint_route_index: int, position: Vector3, radius: float) -> bool:
 	if checkpoint_route_index < 0 or checkpoint_route_index >= route_points.size():
 		return false
@@ -114,3 +177,16 @@ static func _sanitize_route(route_points: Array[Vector3]) -> Array[Vector3]:
 			if out.is_empty() or point.distance_to(out[out.size() - 1]) > 0.01:
 				out.append(point)
 	return out
+
+static func _points_from_value(value: Variant) -> Array[Vector3]:
+	var points: Array[Vector3] = []
+	if not (value is Array):
+		return points
+	for item in value:
+		if item is Vector3:
+			points.append(item)
+		elif item is Array and item.size() >= 3:
+			points.append(Vector3(float(item[0]), float(item[1]), float(item[2])))
+		elif item is Dictionary:
+			points.append(Vector3(float(item.get("x", 0.0)), float(item.get("y", 0.0)), float(item.get("z", 0.0))))
+	return points

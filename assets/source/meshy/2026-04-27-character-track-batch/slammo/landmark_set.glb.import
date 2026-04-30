@@ -4,11 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://b2pr1d7lvhpsw"
-valid=false
+path="res://.godot/imported/landmark_set.glb-3b7e1ea0918e025625e1574faab84218.scn"
 
 [deps]
 
 source_file="res://assets/source/meshy/2026-04-27-character-track-batch/slammo/landmark_set.glb"
+dest_files=["res://.godot/imported/landmark_set.glb-3b7e1ea0918e025625e1574faab84218.scn"]
 
 [params]
 

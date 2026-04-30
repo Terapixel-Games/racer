@@ -41,6 +41,8 @@ var track_checkpoint_total: int = 0
 var racer_states: Dictionary = {}
 var checkpoint_points: Array = []
 var track_waypoints: Array = []
+var track_checkpoint_indices: Array[int] = []
+var track_alternate_routes: Array[Dictionary] = []
 var finish_announced: bool = false
 var track_out_of_bounds_y := -50.0
 var track_reset_mode := ""
@@ -530,6 +532,18 @@ func _compute_progress(lap: int, checkpoint: int, pos: Vector3, checkpoint_total
 	var clamped_total : int = max(checkpoint_total, 1)
 	var laps_done : int = max(lap, 0) - 1
 	var base := float(laps_done * clamped_total + clamp(checkpoint, 0, clamped_total))
+	if track_waypoints.size() >= 2:
+		var projection := TrackProgressRules.project_route_network(
+			_typed_waypoints(),
+			track_alternate_routes,
+			track_checkpoint_indices,
+			pos,
+			track_closed_loop
+		)
+		base += clampf(float(projection.get("route_ratio", 0.0)), 0.0, 0.999)
+		if finished:
+			base += clamped_total * 2
+		return base
 	var next_idx : int = clamp(checkpoint % clamped_total, 0, clamped_total - 1)
 	if checkpoint_points.size() > next_idx:
 		var next_pos: Vector3 = checkpoint_points[next_idx]
@@ -570,19 +584,29 @@ func _apply_track_reset_metadata(metadata: Variant) -> void:
 	track_reset_mode = str(data.get("reset_mode", track_reset_mode))
 	track_road_width = float(data.get("road_width", track_road_width))
 	track_closed_loop = bool(data.get("closed_loop", track_closed_loop))
+	track_alternate_routes = _alternate_routes_from_metadata(data.get("alternate_routes", []))
+	track_checkpoint_indices = _checkpoint_indices_from_metadata(data.get("checkpoints", []))
 
 func _update_local_track_return_point() -> void:
 	var car: CarController = cars.get(local_user_id, null)
 	if car == null or track_waypoints.size() < 2:
 		return
-	var projection := TrackProgressRules.project_position(_typed_waypoints(), car.global_transform.origin, track_closed_loop)
+	var projection := TrackProgressRules.project_route_network(
+		_typed_waypoints(),
+		track_alternate_routes,
+		track_checkpoint_indices,
+		car.global_transform.origin,
+		track_closed_loop
+	)
 	var closest_point: Vector3 = projection.get("closest_point", car.global_transform.origin)
 	var off_course := car.global_transform.origin.distance_to(closest_point) > track_road_width * 0.5 + 0.75
 	if not off_course:
 		last_on_track_center_transform = centered_track_return_transform(
 			_typed_waypoints(),
 			car.global_transform.origin,
-			track_closed_loop
+			track_closed_loop,
+			track_alternate_routes,
+			track_checkpoint_indices
 		)
 		has_last_on_track_center_transform = true
 	local_car_off_course = off_course
@@ -620,16 +644,27 @@ static func apply_instant_reset(car: CharacterBody3D, reset_transform: Transform
 	if car.has_method("apply_network_state"):
 		car.call("apply_network_state", reset_transform.origin, reset_transform.basis)
 
-static func centered_track_return_transform(route_points: Array[Vector3], position: Vector3, closed_loop: bool = true) -> Transform3D:
-	var projection := TrackProgressRules.project_position(route_points, position, closed_loop)
+static func centered_track_return_transform(
+	route_points: Array[Vector3],
+	position: Vector3,
+	closed_loop: bool = true,
+	alternate_routes: Array[Dictionary] = [],
+	checkpoint_indices: Array[int] = []
+) -> Transform3D:
+	var projection := TrackProgressRules.project_route_network(route_points, alternate_routes, checkpoint_indices, position, closed_loop)
 	var segment_index := int(projection.get("segment_index", 0))
 	var closest_point: Vector3 = projection.get("closest_point", position)
 	var forward := Vector3.FORWARD
-	if route_points.size() >= 2:
-		var next_index := (segment_index + 1) % route_points.size()
-		if not closed_loop:
-			next_index = mini(segment_index + 1, route_points.size() - 1)
-		forward = route_points[next_index] - route_points[clamp(segment_index, 0, route_points.size() - 1)]
+	var projected_points := route_points
+	var projected_closed_loop := closed_loop
+	if bool(projection.get("is_alternate", false)):
+		projected_points = _alternate_route_points(alternate_routes, str(projection.get("route_id", "")))
+		projected_closed_loop = false
+	if projected_points.size() >= 2:
+		var next_index := (segment_index + 1) % projected_points.size()
+		if not projected_closed_loop:
+			next_index = mini(segment_index + 1, projected_points.size() - 1)
+		forward = projected_points[next_index] - projected_points[clamp(segment_index, 0, projected_points.size() - 1)]
 		forward.y = 0.0
 		if forward.length_squared() <= 0.001:
 			forward = Vector3.FORWARD
@@ -637,11 +672,57 @@ static func centered_track_return_transform(route_points: Array[Vector3], positi
 	var yaw := atan2(forward.x, forward.z)
 	return Transform3D(Basis(Vector3.UP, yaw), closest_point + Vector3.UP * 1.0)
 
+static func _alternate_route_points(routes: Array[Dictionary], route_id: String) -> Array[Vector3]:
+	for route in routes:
+		if str(route.get("id", "")) == route_id:
+			return _vector3_array_from_value(route.get("points", []))
+	return []
+
 func _typed_waypoints() -> Array[Vector3]:
 	var points: Array[Vector3] = []
 	for point in track_waypoints:
 		if point is Vector3:
 			points.append(point)
+	return points
+
+func _alternate_routes_from_metadata(value: Variant) -> Array[Dictionary]:
+	var routes: Array[Dictionary] = []
+	if not (value is Array):
+		return routes
+	for route in value:
+		if not (route is Dictionary):
+			continue
+		var data := route as Dictionary
+		routes.append({
+			"id": str(data.get("id", "")),
+			"points": _vector3_array_from_value(data.get("points", [])),
+			"entry_checkpoint_index": int(data.get("entry_checkpoint_index", 0)),
+			"exit_checkpoint_index": int(data.get("exit_checkpoint_index", 0)),
+			"road_width": float(data.get("road_width", track_road_width)),
+			"enabled": bool(data.get("enabled", true)),
+		})
+	return routes
+
+func _checkpoint_indices_from_metadata(value: Variant) -> Array[int]:
+	var indices: Array[int] = []
+	if not (value is Array):
+		return indices
+	for item in value:
+		if item is Dictionary:
+			indices.append(int((item as Dictionary).get("route_index", indices.size())))
+	return indices
+
+static func _vector3_array_from_value(value: Variant) -> Array[Vector3]:
+	var points: Array[Vector3] = []
+	if not (value is Array):
+		return points
+	for item in value:
+		if item is Vector3:
+			points.append(item)
+		elif item is Array and item.size() >= 3:
+			points.append(Vector3(float(item[0]), float(item[1]), float(item[2])))
+		elif item is Dictionary:
+			points.append(Vector3(float(item.get("x", 0.0)), float(item.get("y", 0.0)), float(item.get("z", 0.0))))
 	return points
 
 func _tick_message(delta: float) -> void:

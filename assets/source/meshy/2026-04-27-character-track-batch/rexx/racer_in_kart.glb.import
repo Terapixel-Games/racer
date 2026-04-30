@@ -4,11 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://c5lsyymx0bgw3"
-valid=false
+path="res://.godot/imported/racer_in_kart.glb-4445d5dd9050c6910c3212fcb8e0bdf5.scn"
 
 [deps]
 
 source_file="res://assets/source/meshy/2026-04-27-character-track-batch/rexx/racer_in_kart.glb"
+dest_files=["res://.godot/imported/racer_in_kart.glb-4445d5dd9050c6910c3212fcb8e0bdf5.scn"]
 
 [params]
 

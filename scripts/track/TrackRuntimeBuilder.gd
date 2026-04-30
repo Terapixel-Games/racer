@@ -8,10 +8,12 @@ const RoadMeshScript = preload("res://scripts/RoadMesh.gd")
 const TrackDefinition = preload("res://scripts/track/TrackDefinition.gd")
 const TrackRibbonMesh = preload("res://scripts/track/TrackRibbonMesh.gd")
 const TrackWalls = preload("res://scripts/TrackWalls.gd")
+const TrackSceneAuthoringData = preload("res://scripts/track/TrackSceneAuthoringData.gd")
 
 static func build(definition: TrackDefinition) -> Dictionary:
 	if definition == null:
 		return {"node": Node3D.new(), "spawns": [], "waypoints": [], "laps": 1, "metadata": {}}
+	definition = TrackSceneAuthoringData.apply_to_definition(definition)
 	var errors := definition.validate()
 	if not errors.is_empty():
 		push_error("Invalid track definition %s: %s" % [definition.id, "; ".join(errors)])
@@ -23,6 +25,7 @@ static func build(definition: TrackDefinition) -> Dictionary:
 	_build_ground(root, definition)
 	_build_track_body(root, definition)
 	_build_road(root, definition)
+	_build_alternate_routes(root, definition)
 	var spawns := _build_spawns(root, definition)
 	var waypoints := _build_waypoints(root, definition)
 	_build_checkpoints(root, definition)
@@ -149,6 +152,50 @@ static func _build_road(root: Node3D, definition: TrackDefinition) -> void:
 	collision_body.add_child(collision_shape)
 	road.add_child(collision_body)
 	root.add_child(road)
+
+static func _build_alternate_routes(root: Node3D, definition: TrackDefinition) -> void:
+	if definition.alternate_routes.is_empty():
+		return
+	var holder := Node3D.new()
+	holder.name = "AlternateRoutes"
+	root.add_child(holder)
+	for route in definition.alternate_routes:
+		if not bool(route.get("enabled", true)):
+			continue
+		var points := _vector3_array_from_value(route.get("points", []))
+		if points.size() < 2:
+			continue
+		var route_id := _safe_node_name(str(route.get("id", "alternate")))
+		var width := float(route.get("road_width", definition.road_width))
+		var body := MeshInstance3D.new()
+		body.name = "%sTrackBody" % route_id
+		body.mesh = TrackRibbonMesh.build_slab_mesh(points, width, definition.track_body_depth, false)
+		var body_material := StandardMaterial3D.new()
+		body_material.albedo_color = definition.track_body_color
+		body_material.roughness = 0.58
+		body_material.cull_mode = BaseMaterial3D.CULL_DISABLED
+		body.material_override = body_material
+		holder.add_child(body)
+
+		var road := MeshInstance3D.new()
+		road.name = "%sRoad" % route_id
+		road.set_script(RoadMeshScript)
+		road.set("points", points)
+		road.set("width", width)
+		road.set("force_close", false)
+		road.set("show_wall_preview", false)
+		road.set("generate_walls_runtime", false)
+		if not definition.road_texture_path.is_empty():
+			var texture := load(definition.road_texture_path)
+			if texture is Texture2D:
+				road.set("road_texture", texture)
+		var collision_body := StaticBody3D.new()
+		collision_body.name = "CollisionBody"
+		var collision_shape := CollisionShape3D.new()
+		collision_shape.name = "CollisionShape3D"
+		collision_body.add_child(collision_shape)
+		road.add_child(collision_body)
+		holder.add_child(road)
 
 static func _build_walls(root: Node3D, definition: TrackDefinition) -> void:
 	var holder := Node3D.new()
@@ -361,37 +408,10 @@ static func _build_dressing(root: Node3D, definition: TrackDefinition) -> void:
 	var holder := Node3D.new()
 	holder.name = "Dressing"
 	root.add_child(holder)
-	if definition.id != "kitchen":
-		_add_dressing_scene(holder, definition)
-		_build_stage_props(holder, definition)
-		return
 	_add_dressing_scene(holder, definition)
-	if definition.stage_props.is_empty():
-		_build_full_size_kitchen_room(holder)
+	if definition.id == "kitchen":
+		return
 	_build_stage_props(holder, definition)
-	_add_visual_box(holder, "StartFinishTape", Vector3(-48, 3.45, -79.4), Vector3(1.9, 0.06, 13.0), -4.0, Color(0.04, 0.04, 0.04))
-	_add_visual_box(holder, "UnderCabinetLedStrip", Vector3(-12, 3.25, -77.8), Vector3(92.0, 0.08, 0.7), 0.0, Color(0.3, 0.92, 1.0))
-	_add_visual_box(holder, "StoveHeatZone", Vector3(-98, 3.58, -24), Vector3(15.0, 0.06, 32.0), -18.0, Color(1.0, 0.34, 0.12))
-	_add_visual_box(holder, "IslandSweeperBankStripe", Vector3(28, 5.72, -55), Vector3(72.0, 0.06, 1.6), -5.0, Color(0.18, 0.62, 1.0))
-	_add_visual_box(holder, "BackStraightSpeedStrip", Vector3(112, 4.55, 10), Vector3(1.7, 0.06, 78.0), 0.0, Color(1.0, 0.9, 0.2))
-	_add_visual_box(holder, "SinkChicaneWetStrip", Vector3(-8, 4.04, 74), Vector3(58.0, 0.06, 1.7), 4.0, Color(0.2, 0.62, 0.95))
-	_add_visual_box(holder, "FridgeTopSpeedStrip", Vector3(122, 3.45, 30), Vector3(1.5, 0.06, 48.0), 0.0, Color(0.7, 0.86, 1.0))
-	_add_visual_box(holder, "FridgeCornerRecoveryStripe", Vector3(112, 3.45, 72), Vector3(24.0, 0.06, 14.0), -20.0, Color(0.7, 0.86, 1.0))
-	_add_visual_box(holder, "StoveCooktop", Vector3(-118, 3.02, -24), Vector3(12.0, 0.08, 34.0), 0.0, Color(0.02, 0.02, 0.02))
-	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/table.glb", Vector3(24, 1.7, -34), 8.0, Vector3(7.8, 7.8, 7.8), "KitchenTable")
-	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/pottedPlant.glb", Vector3(20, 3.0, -34), 15.0, Vector3(7.0, 7.0, 7.0), "IslandPlanter")
-	_add_scene_instance_with_override(definition, holder, "res://assets/source/kenney/furniture_kit/kitchenSink.glb", Vector3(-8, 2.15, 88), 180.0, Vector3(10.5, 10.5, 10.5), "KitchenSink")
-	_build_full_size_sink(holder)
-	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenCabinet.glb", Vector3(-118, 2.15, -24), 90.0, Vector3(7.0, 7.0, 7.0), "OvenCabinet")
-	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenCabinetDrawer.glb", Vector3(-38, 2.1, 90), 180.0, Vector3(6.8, 6.8, 6.8), "BackCounterCabinetLeft")
-	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/kitchenCabinetDrawer.glb", Vector3(42, 2.1, 90), 180.0, Vector3(6.8, 6.8, 6.8), "BackCounterCabinetRight")
-	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cooking-spoon.glb", Vector3(-8, 4.1, 72), 92.0, Vector3(8.0, 8.0, 8.0), "SpoonHazard")
-	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cutting-board.glb", Vector3(18, 5.25, 0), 116.0, Vector3(7.0, 7.0, 7.0), "CuttingBoard")
-	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cup.glb", Vector3(-36, 3.52, -78), 90.0, Vector3(6.4, 6.4, 6.4), "FrontCupHazard")
-	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/apple.glb", Vector3(24, 3.6, -78), 18.0, Vector3(6.2, 6.2, 6.2), "RollingAppleHazard")
-	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/bowl.glb", Vector3(80, 3.8, -57), 130.0, Vector3(4.2, 4.2, 4.2), "ShortcutBowlMarker")
-	_add_scene_instance(holder, "res://assets/source/kenney/food_kit/cooking-knife.glb", Vector3(-98, 3.95, -40), -34.0, Vector3(6.0, 6.0, 6.0), "OvenKnifeGate")
-	_add_scene_instance(holder, "res://assets/source/meshy/2026-04-27-character-track-batch/sir_clink/landmark_set.glb", Vector3(-40, 4.45, 74), 35.0, Vector3(2.2, 2.2, 2.2), "SirClinkLandmark")
 
 static func _build_full_size_kitchen_room(holder: Node3D) -> void:
 	_add_visual_box(holder, "KitchenBackWall", Vector3(0, 16.0, 98), Vector3(252, 32.0, 2.0), 0.0, Color(0.62, 0.57, 0.49))
@@ -611,3 +631,26 @@ static func _point_from_gate_value(value: Variant) -> Vector3:
 	if value is Array and value.size() >= 3:
 		return Vector3(float(value[0]), float(value[1]), float(value[2]))
 	return Vector3.ZERO
+
+static func _vector3_array_from_value(value: Variant) -> Array[Vector3]:
+	var points: Array[Vector3] = []
+	if not (value is Array):
+		return points
+	for item in value:
+		if item is Vector3:
+			points.append(item)
+		elif item is Array and item.size() >= 3:
+			points.append(Vector3(float(item[0]), float(item[1]), float(item[2])))
+		elif item is Dictionary:
+			points.append(Vector3(float(item.get("x", 0.0)), float(item.get("y", 0.0)), float(item.get("z", 0.0))))
+	return points
+
+static func _safe_node_name(value: String) -> String:
+	var out := value.strip_edges()
+	if out.is_empty():
+		return "Alternate"
+	var parts := out.replace("-", "_").replace(" ", "_").split("_", false)
+	var name := ""
+	for part in parts:
+		name += str(part).capitalize().replace(" ", "")
+	return "Alternate" if name.is_empty() else name
