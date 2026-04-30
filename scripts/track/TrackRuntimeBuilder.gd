@@ -86,7 +86,7 @@ static func _build_ground(root: Node3D, definition: TrackDefinition) -> void:
 	var plane := PlaneMesh.new()
 	plane.size = definition.ground_size
 	visual.mesh = plane
-	visual.transform.origin = Vector3(0, 0.0 if floor_is_out_of_bounds else -0.1, 0)
+	visual.transform.origin = Vector3(0, definition.floor_visual_y if floor_is_out_of_bounds else -0.1, 0)
 	var material := StandardMaterial3D.new()
 	material.albedo_color = definition.ground_color
 	material.roughness = 0.72

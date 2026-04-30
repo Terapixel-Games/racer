@@ -12,6 +12,7 @@ const TrackProgressRules = preload("res://scripts/track/TrackProgressRules.gd")
 @export var closed_loop := true
 @export var out_of_bounds_y := -50.0
 @export var reset_mode := ""
+@export var floor_visual_y := 0.0
 @export var runtime_scene_path := ""
 @export var ground_size := Vector2(160.0, 140.0)
 @export var ground_color := Color(0.82, 0.86, 0.88)
@@ -82,6 +83,7 @@ func to_metadata() -> Dictionary:
 		"closed_loop": closed_loop,
 		"out_of_bounds_y": out_of_bounds_y,
 		"reset_mode": reset_mode,
+		"floor_visual_y": floor_visual_y,
 		"route_points": _vec3_array_to_json(route_points),
 		"route_length": TrackProgressRules.route_length(route_points, closed_loop),
 		"checkpoint_radius": road_width * 0.65,

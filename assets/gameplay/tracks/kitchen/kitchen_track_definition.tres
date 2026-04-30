@@ -6,8 +6,10 @@
 script = ExtResource("1")
 id = "kitchen"
 display_name = "Kitchen / Sir Clink"
+laps = 3
 out_of_bounds_y = 1.5
 reset_mode = "instant_pop"
+floor_visual_y = -8.0
 runtime_scene_path = "res://assets/gameplay/tracks/kitchen/kitchen_track.tscn"
 ground_size = Vector2(292, 190)
 ground_texture_path = "res://assets/gameplay/materials/tile/kitchen_tile_albedo.png"

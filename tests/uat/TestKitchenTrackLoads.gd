@@ -32,6 +32,7 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/SectionMarkers/SinkChicane") != null, "Kitchen track should include named layout section markers")
 	assert_true(instance.get_node_or_null("BuiltTrack/SectionMarkers/FridgeTopRun") != null, "Kitchen track should include the fridge-top route section marker")
 	assert_true(instance.get_node_or_null("BuiltTrack/FloorVisual") != null, "Kitchen track should include a non-colliding floor visual below the counter")
+	assert_true(_node_position(instance, "BuiltTrack/FloorVisual").y <= -8.0, "Kitchen floor visual should be far below the countertop route")
 	assert_true(instance.get_node_or_null("BuiltTrack/Ground") == null, "Kitchen floor should not be a colliding ground plane")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/FrontCounterBase") != null, "Kitchen track should include a life-sized front counter base")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/KitchenBackWall") != null, "Kitchen track should include full-size room walls")
