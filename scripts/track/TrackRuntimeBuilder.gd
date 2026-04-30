@@ -328,8 +328,8 @@ static func _build_section_markers(root: Node3D, definition: TrackDefinition) ->
 	_add_section_marker(holder, "BackStraight", Vector3(112, 4.7, 18))
 	_add_section_marker(holder, "SinkChicane", Vector3(-8, 4.15, 74))
 	_add_section_marker(holder, "FridgeClimb", Vector3(122, 10.5, -18))
-	_add_section_marker(holder, "FridgeTopRun", Vector3(128, 15.1, 34))
-	_add_section_marker(holder, "FridgeCorner", Vector3(104, 9.4, 74))
+	_add_section_marker(holder, "FridgeTopRun", Vector3(128, 20.7, 34))
+	_add_section_marker(holder, "FridgeCorner", Vector3(104, 13.0, 74))
 
 static func _add_section_marker(parent: Node3D, marker_name: String, position: Vector3) -> void:
 	var marker := Marker3D.new()
@@ -344,7 +344,8 @@ static func _build_dressing(root: Node3D, definition: TrackDefinition) -> void:
 	if definition.id != "kitchen":
 		_build_stage_props(holder, definition)
 		return
-	_build_full_size_kitchen_room(holder)
+	if definition.stage_props.is_empty():
+		_build_full_size_kitchen_room(holder)
 	_build_stage_props(holder, definition)
 	_add_visual_box(holder, "StartFinishTape", Vector3(-48, 3.45, -79.4), Vector3(1.9, 0.06, 13.0), -4.0, Color(0.04, 0.04, 0.04))
 	_add_visual_box(holder, "UnderCabinetLedStrip", Vector3(-12, 3.25, -77.8), Vector3(92.0, 0.08, 0.7), 0.0, Color(0.3, 0.92, 1.0))
@@ -352,8 +353,8 @@ static func _build_dressing(root: Node3D, definition: TrackDefinition) -> void:
 	_add_visual_box(holder, "IslandSweeperBankStripe", Vector3(28, 5.72, -55), Vector3(72.0, 0.06, 1.6), -5.0, Color(0.18, 0.62, 1.0))
 	_add_visual_box(holder, "BackStraightSpeedStrip", Vector3(112, 4.55, 10), Vector3(1.7, 0.06, 78.0), 0.0, Color(1.0, 0.9, 0.2))
 	_add_visual_box(holder, "SinkChicaneWetStrip", Vector3(-8, 4.04, 74), Vector3(58.0, 0.06, 1.7), 4.0, Color(0.2, 0.62, 0.95))
-	_add_visual_box(holder, "FridgeTopSpeedStrip", Vector3(128, 15.05, 34), Vector3(1.5, 0.06, 36.0), 0.0, Color(0.7, 0.86, 1.0))
-	_add_visual_box(holder, "FridgeCornerRecoveryStripe", Vector3(104, 9.35, 74), Vector3(24.0, 0.06, 14.0), -20.0, Color(0.7, 0.86, 1.0))
+	_add_visual_box(holder, "FridgeTopSpeedStrip", Vector3(128, 20.65, 34), Vector3(1.5, 0.06, 36.0), 0.0, Color(0.7, 0.86, 1.0))
+	_add_visual_box(holder, "FridgeCornerRecoveryStripe", Vector3(104, 12.95, 74), Vector3(24.0, 0.06, 14.0), -20.0, Color(0.7, 0.86, 1.0))
 	_add_visual_box(holder, "StoveCooktop", Vector3(-118, 3.02, -24), Vector3(12.0, 0.08, 34.0), 0.0, Color(0.02, 0.02, 0.02))
 	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/table.glb", Vector3(24, 1.7, -34), 8.0, Vector3(7.8, 7.8, 7.8), "KitchenTable")
 	_add_scene_instance(holder, "res://assets/source/kenney/furniture_kit/pottedPlant.glb", Vector3(20, 3.0, -34), 15.0, Vector3(7.0, 7.0, 7.0), "IslandPlanter")
