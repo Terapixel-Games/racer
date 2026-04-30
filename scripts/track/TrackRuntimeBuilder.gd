@@ -96,6 +96,26 @@ static func _build_ground(root: Node3D, definition: TrackDefinition) -> void:
 			material.albedo_texture = texture
 	visual.material_override = material
 	root.add_child(visual)
+	if floor_is_out_of_bounds and definition.id == "kitchen":
+		_build_floor_tile_grid(root, definition)
+
+static func _build_floor_tile_grid(root: Node3D, definition: TrackDefinition) -> void:
+	var holder := Node3D.new()
+	holder.name = "FloorTileGrid"
+	root.add_child(holder)
+	var y := definition.floor_visual_y + 0.03
+	var tile_size := 8.0
+	var half_x := definition.ground_size.x * 0.5
+	var half_z := definition.ground_size.y * 0.5
+	var line_color := Color(0.66, 0.82, 0.92)
+	var x := -half_x
+	while x <= half_x:
+		_add_visual_box(holder, "TileLineX", Vector3(x, y, 0.0), Vector3(0.12, 0.035, definition.ground_size.y), 0.0, line_color)
+		x += tile_size
+	var z := -half_z
+	while z <= half_z:
+		_add_visual_box(holder, "TileLineZ", Vector3(0.0, y, z), Vector3(definition.ground_size.x, 0.035, 0.12), 0.0, line_color)
+		z += tile_size
 
 static func _build_track_body(root: Node3D, definition: TrackDefinition) -> void:
 	var body := MeshInstance3D.new()
