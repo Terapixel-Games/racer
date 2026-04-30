@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="TrackDefinition" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="TrackDefinition" load_steps=2 format=3 uid="uid://cni2lxjmmkilu"]
 
-[ext_resource type="Script" path="res://scripts/track/TrackDefinition.gd" id="1"]
+[ext_resource type="Script" uid="uid://dndccbxb7m7sa" path="res://scripts/track/TrackDefinition.gd" id="1"]
 
 [resource]
 script = ExtResource("1")

@@ -1,6 +1,6 @@
-[gd_scene load_steps=22 format=3 uid="uid://wads2kpascuq"]
+[gd_scene load_steps=22 format=3 uid="uid://bjsw0btvu0kqt"]
 
-[ext_resource type="Texture2D" uid="uid://dyof4gx7wh6w7" path="res://assets/gameplay/materials/tile/kitchen_tile_albedo.png" id="1_tile"]
+[ext_resource type="Texture2D" uid="uid://dyof4gx7wh6w7" path="res://assets/source/generated/textures/toy_materials_2026-04-27/kitchen_tile_albedo.png" id="1_tile"]
 [ext_resource type="PackedScene" uid="uid://bnh07515k0fhb" path="res://assets/source/meshy/kitchen/retro_cream_refrigerator.glb" id="2_fridge"]
 [ext_resource type="PackedScene" uid="uid://dqkahfrrclsnt" path="res://assets/source/kenney/furniture_kit/kitchenSink.glb" id="3_sink"]
 [ext_resource type="PackedScene" uid="uid://no3ktttavepm" path="res://assets/source/kenney/furniture_kit/kitchenCabinetDrawer.glb" id="4_drawer"]
@@ -8,25 +8,26 @@
 [ext_resource type="PackedScene" uid="uid://c33dd6a72l4m6" path="res://assets/source/kenney/furniture_kit/kitchenBar.glb" id="6_bar"]
 [ext_resource type="PackedScene" uid="uid://70ktrra5kgk3" path="res://assets/source/kenney/furniture_kit/kitchenCabinetCornerInner.glb" id="7_corner"]
 [ext_resource type="PackedScene" uid="uid://ds3k6jrxlsrgb" path="res://assets/source/kenney/furniture_kit/kitchenStove.glb" id="8_stove"]
-[ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/table.glb" id="9_table"]
-[ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/pottedPlant.glb" id="10_plant"]
+[ext_resource type="PackedScene" uid="uid://ldgl4ss62g5k" path="res://assets/source/kenney/furniture_kit/table.glb" id="9_table"]
+[ext_resource type="PackedScene" uid="uid://dsfafjyriq40q" path="res://assets/source/kenney/furniture_kit/pottedPlant.glb" id="10_plant"]
+[ext_resource type="PackedScene" uid="uid://cx4qt2do6oh14" path="res://assets/source/kenney/furniture_kit/kitchenCabinet.glb" id="11_j4p2m"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
 size = Vector3(292, 0.2, 190)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_floor"]
-size = Vector2(292, 190)
-
-[sub_resource type="BoxMesh" id="BoxMesh_unit"]
 
 [sub_resource type="StandardMaterial3D" id="Material_floor"]
 albedo_texture = ExtResource("1_tile")
 roughness = 0.78
 uv1_scale = Vector3(24, 24, 1)
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_floor"]
+size = Vector2(292, 190)
+
 [sub_resource type="StandardMaterial3D" id="Material_wall"]
 albedo_color = Color(0.62, 0.58, 0.51, 1)
 roughness = 0.86
+
+[sub_resource type="BoxMesh" id="BoxMesh_unit"]
 
 [sub_resource type="StandardMaterial3D" id="Material_wall_trim"]
 albedo_color = Color(0.94, 0.91, 0.84, 1)
@@ -36,9 +37,9 @@ roughness = 0.7
 albedo_color = Color(0.83, 0.78, 0.68, 1)
 roughness = 0.55
 
-[sub_resource type="StandardMaterial3D" id="Material_cabinet"]
-albedo_color = Color(0.42, 0.27, 0.16, 1)
-roughness = 0.68
+[sub_resource type="StandardMaterial3D" id="Material_accent"]
+albedo_color = Color(0.25, 0.63, 0.95, 1)
+roughness = 0.48
 
 [sub_resource type="StandardMaterial3D" id="Material_dark"]
 albedo_color = Color(0.05, 0.055, 0.06, 1)
@@ -49,13 +50,10 @@ albedo_color = Color(0.76, 0.79, 0.78, 1)
 metallic = 0.2
 roughness = 0.42
 
-[sub_resource type="StandardMaterial3D" id="Material_accent"]
-albedo_color = Color(0.25, 0.63, 0.95, 1)
-roughness = 0.48
-
 [node name="KitchenEditableRoom" type="Node3D"]
 
 [node name="floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.231989, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
@@ -68,111 +66,56 @@ mesh = SubResource("PlaneMesh_floor")
 [node name="RoomShell" type="Node3D" parent="."]
 
 [node name="BackWall" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(252, 0, 0, 0, 42, 0, 0, 0, 2, 0, 21, 98)
+transform = Transform3D(316.4062, 0, 0, 0, 64.53761, 0, 0, 0, 2, 0, 21, 98)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="LeftWall" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(2, 0, 0, 0, 42, 0, 0, 0, 196, -128, 21, 0)
+transform = Transform3D(1.731, 0, 0, 0, 60.449, 0, 0, 0, 193.426, -143.94037, 22.300934, 0)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="RightWall" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(2, 0, 0, 0, 42, 0, 0, 0, 196, 146, 21, 0)
+transform = Transform3D(2, 0, 0, 0, 68.56597, 0, 0, 0, 221.22151, 146, 21, 0)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="FrontWallLeft" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(110, 0, 0, 0, 42, 0, 0, 0, 2, -91, 21, -98)
+transform = Transform3D(110, 0, 0, 0, 62.42, 0, 0, 0, 2, -91, 21, -98)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="FrontWallRight" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(94, 0, 0, 0, 42, 0, 0, 0, 2, 99, 21, -98)
+transform = Transform3D(94, 0, 0, 0, 66.385, 0, 0, 0, 2, 99, 21, -98)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="DoorHeader" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(82, 0, 0, 0, 12, 0, 0, 0, 2, 13, 36, -98)
+transform = Transform3D(82, 0, 0, 0, 12, 0, 0, 0, 2, 4.4082947, 45.854355, -98)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="DoorFrameLeft" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(2, 0, 0, 0, 18, 0, 0, 0, 1.2, -28, 9, -99)
+transform = Transform3D(2, 0, 0, 0, 18, 0, 0, 0, 1.2, -28, 25.230045, -99)
 material_override = SubResource("Material_wall_trim")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="DoorFrameRight" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(2, 0, 0, 0, 18, 0, 0, 0, 1.2, 54, 9, -99)
+transform = Transform3D(2, 0, 0, 0, 18, 0, 0, 0, 1.2, 54, 26.05394, -99)
 material_override = SubResource("Material_wall_trim")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="WindowGlass" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(46, 0, 0, 0, 15, 0, 0, 0, 0.55, -8, 14, 96.5)
+transform = Transform3D(46, 0, 0, 0, 15, 0, 0, 0, 0.55, -8, 33.38555, 96.5)
 material_override = SubResource("Material_accent")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="WindowFrame" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(54, 0, 0, 0, 18, 0, 0, 0, 0.6, -8, 14, 97)
+transform = Transform3D(54, 0, 0, 0, 18, 0, 0, 0, 0.6, -8, 33.38555, 97)
 material_override = SubResource("Material_dark")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="CounterRuns" type="Node3D" parent="."]
-
-[node name="FrontCounterBase" type="MeshInstance3D" parent="CounterRuns"]
-transform = Transform3D(230, 0, 0, 0, 2.4, 0, 0, 0, 12, 0, 1.2, -84)
-material_override = SubResource("Material_cabinet")
-mesh = SubResource("BoxMesh_unit")
-
-[node name="FrontCountertop" type="MeshInstance3D" parent="CounterRuns"]
-transform = Transform3D(234, 0, 0, 0, 0.36, 0, 0, 0, 16, 0, 2.62, -84)
-material_override = SubResource("Material_countertop")
-mesh = SubResource("BoxMesh_unit")
-
-[node name="BackCounterBaseLeft" type="MeshInstance3D" parent="CounterRuns"]
-transform = Transform3D(82, 0, 0, 0, 2.4, 0, 0, 0, 12, -70, 1.2, 84)
-material_override = SubResource("Material_cabinet")
-mesh = SubResource("BoxMesh_unit")
-
-[node name="BackCounterBaseRight" type="MeshInstance3D" parent="CounterRuns"]
-transform = Transform3D(82, 0, 0, 0, 2.4, 0, 0, 0, 12, 72, 1.2, 84)
-material_override = SubResource("Material_cabinet")
-mesh = SubResource("BoxMesh_unit")
-
-[node name="BackCountertop" type="MeshInstance3D" parent="CounterRuns"]
-transform = Transform3D(228, 0, 0, 0, 0.36, 0, 0, 0, 16, 0, 2.62, 84)
-material_override = SubResource("Material_countertop")
-mesh = SubResource("BoxMesh_unit")
-
-[node name="LeftCounterBaseFront" type="MeshInstance3D" parent="CounterRuns"]
-transform = Transform3D(12, 0, 0, 0, 2.4, 0, 0, 0, 42, -116, 1.2, -62)
-material_override = SubResource("Material_cabinet")
-mesh = SubResource("BoxMesh_unit")
-
-[node name="LeftCounterBaseBack" type="MeshInstance3D" parent="CounterRuns"]
-transform = Transform3D(12, 0, 0, 0, 2.4, 0, 0, 0, 72, -116, 1.2, 42)
-material_override = SubResource("Material_cabinet")
-mesh = SubResource("BoxMesh_unit")
-
-[node name="LeftCountertop" type="MeshInstance3D" parent="CounterRuns"]
-transform = Transform3D(16, 0, 0, 0, 0.36, 0, 0, 0, 160, -116, 2.62, -2)
-material_override = SubResource("Material_countertop")
-mesh = SubResource("BoxMesh_unit")
-
-[node name="RightCounterBase" type="MeshInstance3D" parent="CounterRuns"]
-transform = Transform3D(12, 0, 0, 0, 2.4, 0, 0, 0, 150, 122, 1.2, -2)
-material_override = SubResource("Material_cabinet")
-mesh = SubResource("BoxMesh_unit")
-
-[node name="RightCountertop" type="MeshInstance3D" parent="CounterRuns"]
-transform = Transform3D(16, 0, 0, 0, 0.36, 0, 0, 0, 160, 122, 2.62, -2)
-material_override = SubResource("Material_countertop")
-mesh = SubResource("BoxMesh_unit")
-
-[node name="IslandBase" type="MeshInstance3D" parent="CounterRuns"]
-transform = Transform3D(126, 0, 0, 0, 2.4, 0, 0, 0, 78, 22, 1.2, -36)
-material_override = SubResource("Material_cabinet")
-mesh = SubResource("BoxMesh_unit")
 
 [node name="IslandCountertop" type="MeshInstance3D" parent="CounterRuns"]
 transform = Transform3D(140, 0, 0, 0, 0.36, 0, 0, 0, 92, 22, 2.62, -36)
@@ -182,40 +125,43 @@ mesh = SubResource("BoxMesh_unit")
 [node name="Appliances" type="Node3D" parent="."]
 
 [node name="retro_cream_refrigerator" parent="Appliances" instance=ExtResource("2_fridge")]
-transform = Transform3D(27.6, 0, 0, 0, 27.6, 0, 0, 0, 27.6, 126, -5.8, 34)
+transform = Transform3D(-1.2064344e-06, 0, -27.6, 0, 27.6, 0, 27.6, 0, -1.2064344e-06, 126, 16.004932, 34)
 
 [node name="kitchenSink" parent="Appliances" instance=ExtResource("3_sink")]
-transform = Transform3D(-10.5, 0, -9.17939e-07, 0, 10.5, 0, 9.17939e-07, 0, -10.5, -8, 2.15, 88)
+transform = Transform3D(-50, 0, -7.54979e-06, 0, 50, 0, 7.54979e-06, 0, -50, -9.485383, -9.748129, 73.56032)
+
+[node name="kitchenSink2" parent="Appliances" instance=ExtResource("3_sink")]
+transform = Transform3D(-50, 0, -7.54979e-06, 0, 50, 0, 7.54979e-06, 0, -50, 14.843, -10, 73.506836)
 
 [node name="kitchenStove" parent="Appliances" instance=ExtResource("8_stove")]
-transform = Transform3D(-3.0598e-07, 0, 7, 0, 7, 0, -7, 0, -3.0598e-07, -118, 2.1, -24)
+transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, -110.846214, -8.806137, -13.261282)
 
 [node name="RangeHood" type="MeshInstance3D" parent="Appliances"]
-transform = Transform3D(15, 0, 0, 0, 5, 0, 0, 0, 36, -118, 8.5, -24)
+transform = Transform3D(15, 0, 0, 0, 5, 0, 0, 0, 36, -118, 29.013308, -24)
 material_override = SubResource("Material_metal")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="UpperCabinets" type="Node3D" parent="."]
 
 [node name="BackUpperCabinetA" parent="UpperCabinets" instance=ExtResource("5_upper")]
-transform = Transform3D(8.5, 0, 0, 0, 8.5, 0, 0, 0, 8.5, -54, 11.5, 91)
+transform = Transform3D(8.5, 0, 0, 0, 8.5, 0, 0, 0, 8.5, -54, 24.990082, 91)
 
 [node name="BackUpperCabinetB" parent="UpperCabinets" instance=ExtResource("5_upper")]
-transform = Transform3D(8.5, 0, 0, 0, 8.5, 0, 0, 0, 8.5, 52, 11.5, 91)
+transform = Transform3D(8.5, 0, 0, 0, 8.5, 0, 0, 0, 8.5, 52, 31.179438, 91)
 
 [node name="LeftUpperCabinet" parent="UpperCabinets" instance=ExtResource("5_upper")]
-transform = Transform3D(-3.71547e-07, 0, 8.5, 0, 8.5, 0, -8.5, 0, -3.71547e-07, -123, 11.5, -18)
+transform = Transform3D(-3.71547e-07, 0, 8.5, 0, 8.5, 0, -8.5, 0, -3.71547e-07, -123, 23.281368, 14.558334)
 
 [node name="RightUpperCabinet" parent="UpperCabinets" instance=ExtResource("5_upper")]
-transform = Transform3D(-3.71547e-07, 0, -8.5, 0, 8.5, 0, 8.5, 0, -3.71547e-07, 145, 11.5, -8)
+transform = Transform3D(-3.71547e-07, 0, -8.5, 0, 8.5, 0, 8.5, 0, -3.71547e-07, 145, 17.079449, -8)
 
 [node name="HandPlacedProps" type="Node3D" parent="."]
 
 [node name="BackCounterDrawerLeft" parent="HandPlacedProps" instance=ExtResource("4_drawer")]
-transform = Transform3D(-6.8, 0, -5.94475e-07, 0, 6.8, 0, 5.94475e-07, 0, -6.8, -38, 2.1, 90)
+transform = Transform3D(-6.8, 0, -5.94475e-07, 0, 6.8, 0, 5.94475e-07, 0, -6.8, -38, 24.886808, 90)
 
 [node name="BackCounterDrawerRight" parent="HandPlacedProps" instance=ExtResource("4_drawer")]
-transform = Transform3D(-6.8, 0, -5.94475e-07, 0, 6.8, 0, 5.94475e-07, 0, -6.8, 42, 2.1, 90)
+transform = Transform3D(-6.8, 0, -5.94475e-07, 0, 6.8, 0, 5.94475e-07, 0, -6.8, 42, 31.111479, 90)
 
 [node name="KitchenBar" parent="HandPlacedProps" instance=ExtResource("6_bar")]
 transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 20, 2.6, -8)
@@ -227,12 +173,7 @@ transform = Transform3D(-3.0598e-07, 0, 7, 0, 7, 0, -7, 0, -3.0598e-07, -116, 2.
 transform = Transform3D(7.8, 0, 0, 0, 7.8, 0, 0, 0, 7.8, 24, 1.7, -34)
 
 [node name="IslandPlanter" parent="HandPlacedProps" instance=ExtResource("10_plant")]
-transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 20, 3.0, -34)
-
-[node name="SinkBasinCutout" type="MeshInstance3D" parent="HandPlacedProps"]
-transform = Transform3D(54, 0, 0, 0, 0.08, 0, 0, 0, 16, -8, 3.18, 88.4)
-material_override = SubResource("Material_dark")
-mesh = SubResource("BoxMesh_unit")
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 20, 3, -34)
 
 [node name="CooktopSurface" type="MeshInstance3D" parent="HandPlacedProps"]
 transform = Transform3D(13, 0, 0, 0, 0.1, 0, 0, 0, 34, -118, 3.05, -24)
@@ -255,3 +196,102 @@ mesh = SubResource("BoxMesh_unit")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 22, -28)
 light_energy = 1.2
 omni_range = 95.0
+
+[node name="kitchenCabinet" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-2.1855694e-06, 0, -50, 0, 50, 0, 50, 0, -2.1855694e-06, 120.629, -10, -21.548)
+
+[node name="kitchenCabinet2" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-2.1855694e-06, 0, -50, 0, 50, 0, 50, 0, -2.1855694e-06, 120.629, -10, 0)
+
+[node name="kitchenCabinet3" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-2.1855694e-06, 0, -50, 0, 50, 0, 50, 0, -2.1855694e-06, 120.629, -10, -64.58115)
+
+[node name="kitchenCabinet4" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-2.1855694e-06, 0, -50, 0, 50, 0, 50, 0, -2.1855694e-06, 120.629, -10, -43.033146)
+
+[node name="kitchenCabinet5" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(50.000004, 0, 0, 0, 50, 0, 0, 0, 50.000004, 77.24077, -9.999998, -64.97608)
+
+[node name="kitchenCabinet6" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(50.000004, 0, 0, 0, 50, 0, 0, 0, 50.000004, 98.7878, -9.999998, -65.1803)
+
+[node name="kitchenCabinet7" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(50.000004, 0, 0, 0, 50, 0, 0, 0, 50.000004, 34.209557, -9.999998, -64.56826)
+
+[node name="kitchenCabinet8" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(50.000004, 0, 0, 0, 50, 0, 0, 0, 50.000004, 55.75659, -9.999998, -64.77247)
+
+[node name="kitchenCabinetCornerInner" parent="." instance=ExtResource("7_corner")]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 120.147385, -9.999999, -64.629)
+
+[node name="kitchenCabinet9" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(49.999428, 0, 0.23736376, 0, 50.00001, 0, -0.23736376, 0, 49.999428, -77.72001, -10, -74.61334)
+
+[node name="kitchenCabinet10" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(49.999428, 0, 0.23736376, 0, 50.00001, 0, -0.23736376, 0, 49.999428, -56.17225, -10, -74.71562)
+
+[node name="kitchenCabinet11" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(49.999428, 0, 0.23736376, 0, 50.00001, 0, -0.23736376, 0, 49.999428, -120.75266, -10, -74.40904)
+
+[node name="kitchenCabinet12" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(49.999428, 0, 0.23736376, 0, 50.00001, 0, -0.23736376, 0, 49.999428, -99.20492, -10, -74.51134)
+
+[node name="kitchenCabinet13" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-0.23736739, 0, 49.99943, 0, 50.000008, 0, -49.99943, 0, -0.23736739, -120.94163, -9.999998, -31.019432)
+
+[node name="kitchenCabinet14" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-0.23736739, 0, 49.99943, 0, 50.000008, 0, -49.99943, 0, -0.23736739, -121.24813, -9.999998, -52.565254)
+
+[node name="kitchenCabinet15" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-0.23736739, 0, 49.99943, 0, 50.000008, 0, -49.99943, 0, -0.23736739, -120.32952, -9.999998, 12.009354)
+
+[node name="kitchenCabinet16" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-0.23736739, 0, 49.99943, 0, 50.000008, 0, -49.99943, 0, -0.23736739, -120.636024, -9.999998, 9.032623)
+
+[node name="kitchenCabinetCornerInner2" parent="." instance=ExtResource("7_corner")]
+transform = Transform3D(-0.23736757, 0, 49.999428, 0, 50.00001, 0, -49.999428, 0, -0.23736757, -120.79824, -9.999999, -73.92721)
+
+[node name="kitchenCabinet17" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(0.013962105, 0, 49.99999, 0, 50.00001, 0, -49.99999, 0, 0.013962105, -120.16418, -10, 30.316612)
+
+[node name="kitchenCabinet19" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(0.013962105, 0, 49.99999, 0, 50.00001, 0, -49.99999, 0, 0.013962105, -120.176186, -10, 73.34975)
+
+[node name="kitchenCabinet20" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(0.013962105, 0, 49.99999, 0, 50.00001, 0, -49.99999, 0, 0.013962105, -120.17017, -10, 51.801765)
+
+[node name="kitchenCabinet21" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-50, 0, 0.013960972, 0, 50.000008, 0, -0.013960972, 0, -50, -76.78808, -9.999998, 73.75681)
+
+[node name="kitchenCabinet22" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-50, 0, 0.013960972, 0, 50.000008, 0, -0.013960972, 0, -50, -98.33517, -9.999998, 73.95501)
+
+[node name="kitchenCabinet23" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-50, 0, 0.013960972, 0, 50.000008, 0, -0.013960972, 0, -50, -33.75676, -9.999998, 73.36099)
+
+[node name="kitchenCabinet24" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-50, 0, 0.013960972, 0, 50.000008, 0, -0.013960972, 0, -50, -55.30384, -9.999998, 74.04997)
+
+[node name="kitchenCabinetCornerInner3" parent="." instance=ExtResource("7_corner")]
+transform = Transform3D(-49.99999, 0, 0.013960987, 0, 50.00001, 0, -0.013960987, 0, -49.99999, -119.69459, -9.999999, 73.311615)
+
+[node name="kitchenCabinet25" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-49.999996, 0, -4.3711384e-06, 0, 50.000008, 0, 4.3711384e-06, 0, -49.999996, 122.99071, -9.03031, 75.77942)
+
+[node name="kitchenCabinet27" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-49.999996, 0, -4.3711384e-06, 0, 50.000008, 0, 4.3711384e-06, 0, -49.999996, 101.97043, -9.03031, 75.77942)
+
+[node name="kitchenCabinet28" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-49.999996, 0, -4.3711384e-06, 0, 50.000008, 0, 4.3711384e-06, 0, -49.999996, 80.232254, -9.03031, 75.77942)
+
+[node name="kitchenCabinet29" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-49.999996, 0, -4.3711384e-06, 0, 50.000008, 0, 4.3711384e-06, 0, -49.999996, 59.211975, -9.03031, 75.77942)
+
+[node name="kitchenCabinet30" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-49.999996, 0, -4.3711384e-06, 0, 50.000008, 0, 4.3711384e-06, 0, -49.999996, 37.84677, -9.03031, 75.77942)
+
+[node name="kitchenCabinet26" parent="." instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-2.1855699e-06, 0, -50.00001, 0, 50.000004, 0, 50.00001, 0, -2.1855699e-06, 124.27752, -9.030308, 53.967945)
+
+[node name="kitchenCabinetCornerInner4" parent="." instance=ExtResource("7_corner")]
+transform = Transform3D(-2.1855692e-06, 0, -49.999996, 0, 50.000008, 0, 49.999996, 0, -2.1855692e-06, 123.05371, -9.030309, 75.29956)
