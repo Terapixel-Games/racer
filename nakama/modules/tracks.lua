@@ -640,7 +640,7 @@ local kitchen = {
 			yaw_degrees = 0.0,
 		},
 		{
-			asset_path = "",
+			asset_path = "res://assets/source/meshy/kitchen/retro_cream_refrigerator.glb",
 			audio_material_id = "metal",
 			box_color = {
 				0.68,
@@ -656,16 +656,16 @@ local kitchen = {
 			collision_mode = "visual",
 			gameplay_tag = "kitchen_landmark",
 			id = "FridgeLandmark",
-			kind = "box",
+			kind = "scene",
 			position = {
 				126.0,
 				-5.8,
 				34.0,
 			},
 			scale = {
-				1.0,
-				1.0,
-				1.0,
+				27.6,
+				27.6,
+				27.6,
 			},
 			yaw_degrees = 0.0,
 		},

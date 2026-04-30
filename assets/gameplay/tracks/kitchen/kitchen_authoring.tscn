@@ -278,9 +278,11 @@ audio_material_id = "ceramic"
 gameplay_tag = "kitchen_landmark"
 
 [node name="FridgeLandmark" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 126, -5.8, 34)
+transform = Transform3D(27.6, 0, 0, 0, 27.6, 0, 0, 0, 27.6, 126, -5.8, 34)
 script = ExtResource("2")
+prop_kind = "scene"
 prop_id = "FridgeLandmark"
+asset_path = "res://assets/source/meshy/kitchen/retro_cream_refrigerator.glb"
 box_size = Vector3(10, 52.4, 38)
 box_color = Color(0.68, 0.72, 0.76, 1)
 audio_material_id = "metal"
