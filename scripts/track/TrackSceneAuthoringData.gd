@@ -1,0 +1,222 @@
+extends RefCounted
+class_name TrackSceneAuthoringData
+
+const TrackDefinition = preload("res://scripts/track/TrackDefinition.gd")
+
+static func apply_to_definition(source: TrackDefinition) -> TrackDefinition:
+	if source == null:
+		return null
+	var definition := source.duplicate(true) as TrackDefinition
+	if definition.dressing_scene_path.strip_edges().is_empty():
+		return definition
+	var packed := load(definition.dressing_scene_path)
+	if not (packed is PackedScene):
+		return definition
+	var scene_root := (packed as PackedScene).instantiate()
+	if not (scene_root is Node3D):
+		if scene_root != null:
+			scene_root.queue_free()
+		return definition
+	_apply_scene_markers(definition, scene_root as Node3D)
+	scene_root.queue_free()
+	return definition
+
+static func _apply_scene_markers(definition: TrackDefinition, scene_root: Node3D) -> void:
+	var route_points := _collect_marker_positions(scene_root, "RoutePoints")
+	if route_points.size() >= 3:
+		definition.route_points = route_points
+		var checkpoint_indices := _collect_checkpoint_indices(scene_root, route_points)
+		if checkpoint_indices.size() >= 3 and _indices_strictly_increasing(checkpoint_indices):
+			definition.checkpoint_indices = checkpoint_indices
+			definition.lap_gate_checkpoint_index = _collect_lap_gate_checkpoint_index(scene_root)
+		if not _spawn_points_on_route(definition.spawn_points, definition.route_points, definition.road_width, definition.closed_loop):
+			definition.spawn_points = _start_grid_from_route(definition.route_points, definition.road_width)
+	var shortcut_gates := _collect_shortcut_gates(scene_root, definition.shortcut_gates)
+	if not shortcut_gates.is_empty():
+		definition.shortcut_gates = shortcut_gates
+	var alternate_routes := _collect_alternate_routes(scene_root, definition.alternate_routes)
+	if not alternate_routes.is_empty():
+		definition.alternate_routes = alternate_routes
+
+static func _collect_marker_positions(root: Node, holder_name: String) -> Array[Vector3]:
+	var out: Array[Vector3] = []
+	var holder := root.get_node_or_null(holder_name)
+	if holder == null:
+		return out
+	for marker in _sorted_marker_children(holder):
+		out.append((marker as Marker3D).position)
+	return out
+
+static func _collect_socket_markers(root: Node, holder_name: String) -> Array[Vector4]:
+	var sockets: Array[Vector4] = []
+	var holder := root.get_node_or_null(holder_name)
+	if holder == null:
+		return sockets
+	for marker in _sorted_marker_children(holder):
+		var marker_3d := marker as Marker3D
+		sockets.append(Vector4(marker_3d.position.x, marker_3d.position.y, marker_3d.position.z, marker_3d.rotation_degrees.y))
+	return sockets
+
+static func _collect_checkpoint_indices(root: Node, route_points: Array[Vector3]) -> Array[int]:
+	var indices: Array[int] = []
+	var holder := root.get_node_or_null("Checkpoints")
+	if holder == null:
+		return indices
+	for marker in _sorted_marker_children(holder):
+		indices.append(_nearest_route_index((marker as Marker3D).position, route_points))
+	return indices
+
+static func _collect_lap_gate_checkpoint_index(root: Node) -> int:
+	var holder := root.get_node_or_null("Checkpoints")
+	if holder == null:
+		return 0
+	var checkpoints := _sorted_marker_children(holder)
+	for i in range(checkpoints.size()):
+		if str(checkpoints[i].name).to_lower().contains("lap"):
+			return i
+	return 0
+
+static func _collect_shortcut_gates(root: Node, existing_gates: Array[Dictionary]) -> Array[Dictionary]:
+	var holder := root.get_node_or_null("ShortcutGates")
+	if holder == null:
+		return []
+	var by_id := {}
+	for marker in _sorted_marker_children(holder):
+		var marker_3d := marker as Marker3D
+		var name := str(marker_3d.name)
+		if name.ends_with("_Entry"):
+			var id := name.trim_suffix("_Entry")
+			if not by_id.has(id):
+				by_id[id] = {}
+			by_id[id]["entry"] = [marker_3d.position.x, marker_3d.position.y, marker_3d.position.z]
+		elif name.ends_with("_Exit"):
+			var id := name.trim_suffix("_Exit")
+			if not by_id.has(id):
+				by_id[id] = {}
+			by_id[id]["exit"] = [marker_3d.position.x, marker_3d.position.y, marker_3d.position.z]
+	var gates: Array[Dictionary] = []
+	for id in by_id.keys():
+		var previous := _find_by_id(existing_gates, str(id))
+		var gate := by_id[id] as Dictionary
+		gate["id"] = str(id)
+		gate["kind"] = str(previous.get("kind", "shortcut"))
+		gate["width"] = float(previous.get("width", 0.0))
+		gate["surface_enabled"] = bool(previous.get("surface_enabled", true))
+		if gate.has("entry") and gate.has("exit"):
+			gates.append(gate)
+	return gates
+
+static func _collect_alternate_routes(root: Node, existing_routes: Array[Dictionary]) -> Array[Dictionary]:
+	var holder := root.get_node_or_null("AlternateRoutes")
+	if holder == null:
+		return []
+	var routes: Array[Dictionary] = []
+	for route_node in _sorted_node3d_children(holder):
+		var id := str(route_node.name)
+		var previous := _find_by_id(existing_routes, id)
+		var points: Array[Vector3] = []
+		for marker in _sorted_marker_children(route_node):
+			points.append((marker as Marker3D).position)
+		routes.append({
+			"id": id,
+			"points": points,
+			"entry_checkpoint_index": int(previous.get("entry_checkpoint_index", 0)),
+			"exit_checkpoint_index": int(previous.get("exit_checkpoint_index", 0)),
+			"road_width": float(previous.get("road_width", 0.0)),
+			"enabled": bool(previous.get("enabled", true)),
+		})
+	return routes
+
+static func _find_by_id(items: Array[Dictionary], id: String) -> Dictionary:
+	for item in items:
+		if str(item.get("id", "")) == id:
+			return item
+	return {}
+
+static func _nearest_route_index(point: Vector3, route_points: Array[Vector3]) -> int:
+	var best_index := 0
+	var best_distance := INF
+	for i in range(route_points.size()):
+		var distance := point.distance_squared_to(route_points[i])
+		if distance < best_distance:
+			best_distance = distance
+			best_index = i
+	return best_index
+
+static func _indices_strictly_increasing(indices: Array[int]) -> bool:
+	var previous := -1
+	for index in indices:
+		if index <= previous:
+			return false
+		previous = index
+	return true
+
+static func _spawn_points_on_route(spawn_points: Array[Vector4], route_points: Array[Vector3], road_width: float, closed_loop: bool) -> bool:
+	if spawn_points.size() < 8 or route_points.size() < 2:
+		return false
+	var max_distance := road_width * 0.5 + 0.1
+	for spawn in spawn_points:
+		var point := Vector3(spawn.x, 0.0, spawn.z)
+		if _distance_to_route_xz(point, route_points, closed_loop) > max_distance:
+			return false
+	return true
+
+static func _start_grid_from_route(route_points: Array[Vector3], road_width: float) -> Array[Vector4]:
+	var spawns: Array[Vector4] = []
+	if route_points.size() < 2:
+		return spawns
+	var origin := route_points[0]
+	var forward := route_points[1] - route_points[0]
+	forward.y = 0.0
+	if forward.length_squared() <= 0.001:
+		forward = Vector3.FORWARD
+	forward = forward.normalized()
+	var right := Vector3(forward.z, 0.0, -forward.x).normalized()
+	var yaw := rad_to_deg(atan2(forward.x, forward.z))
+	var lane_gap := minf(road_width * 0.28, 3.0)
+	var row_gap := 5.0
+	for row in range(4):
+		for col in range(2):
+			var lateral := (-0.5 if col == 0 else 0.5) * lane_gap
+			var forward_offset := float(row) * row_gap
+			var position := origin + forward * forward_offset + right * lateral + Vector3.UP * 0.8
+			spawns.append(Vector4(position.x, position.y, position.z, yaw))
+	return spawns
+
+static func _distance_to_route_xz(point: Vector3, route_points: Array[Vector3], closed_loop: bool) -> float:
+	var best := INF
+	var segment_count := route_points.size() if closed_loop else route_points.size() - 1
+	for i in range(segment_count):
+		best = minf(best, _distance_to_segment_xz(point, route_points[i], route_points[(i + 1) % route_points.size()]))
+	return best
+
+static func _distance_to_segment_xz(point: Vector3, a3: Vector3, b3: Vector3) -> float:
+	var point_2d := Vector2(point.x, point.z)
+	var a := Vector2(a3.x, a3.z)
+	var b := Vector2(b3.x, b3.z)
+	var ab := b - a
+	var length_squared := ab.length_squared()
+	if length_squared <= 0.0001:
+		return point_2d.distance_to(a)
+	var t := clampf((point_2d - a).dot(ab) / length_squared, 0.0, 1.0)
+	return point_2d.distance_to(a + ab * t)
+
+static func _sorted_marker_children(source: Node) -> Array[Node]:
+	var markers: Array[Node] = []
+	for child in source.get_children():
+		if child is Marker3D:
+			markers.append(child)
+	markers.sort_custom(func(a: Node, b: Node) -> bool:
+		return str(a.name).naturalnocasecmp_to(str(b.name)) < 0
+	)
+	return markers
+
+static func _sorted_node3d_children(source: Node) -> Array[Node]:
+	var nodes: Array[Node] = []
+	for child in source.get_children():
+		if child is Node3D:
+			nodes.append(child)
+	nodes.sort_custom(func(a: Node, b: Node) -> bool:
+		return str(a.name).naturalnocasecmp_to(str(b.name)) < 0
+	)
+	return nodes
