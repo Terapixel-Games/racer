@@ -136,7 +136,7 @@ local kitchen = {
 		{
 			position = {
 				126.0,
-				15.25,
+				20.8500003814697,
 				24.0,
 			},
 			yaw_degrees = 0.0,
@@ -176,7 +176,7 @@ local kitchen = {
 		{
 			position = {
 				106.0,
-				9.80000019073486,
+				13.1999998092651,
 				74.0,
 			},
 			yaw_degrees = 0.0,
@@ -227,7 +227,7 @@ local kitchen = {
 		{
 			position = {
 				124.0,
-				10.3999996185303,
+				15.8000001907349,
 				-18.0,
 			},
 			yaw_degrees = 0.0,
@@ -235,7 +235,7 @@ local kitchen = {
 		{
 			position = {
 				126.0,
-				15.4499998092651,
+				21.0499992370605,
 				36.0,
 			},
 			yaw_degrees = 0.0,
@@ -270,7 +270,7 @@ local kitchen = {
 	out_of_bounds_y = 1.5,
 	reset_mode = "instant_pop",
 	road_width = 12.0,
-	route_length = 1016.6020154953,
+	route_length = 1018.28420734406,
 	route_points = {
 		{
 			-86.0,
@@ -364,37 +364,37 @@ local kitchen = {
 		},
 		{
 			122.0,
-			9.19999980926514,
+			13.6000003814697,
 			-28.0,
 		},
 		{
 			128.0,
-			12.3000001907349,
+			17.3999996185303,
 			-2.0,
 		},
 		{
 			128.0,
-			14.8000001907349,
+			20.3999996185303,
 			24.0,
 		},
 		{
 			128.0,
-			14.8000001907349,
+			20.3999996185303,
 			46.0,
 		},
 		{
 			122.0,
-			13.1999998092651,
+			18.2000007629395,
 			66.0,
 		},
 		{
 			104.0,
-			9.19999980926514,
+			12.8000001907349,
 			76.0,
 		},
 		{
 			72.0,
-			5.59999990463257,
+			6.80000019073486,
 			78.0,
 		},
 		{
@@ -620,7 +620,7 @@ local kitchen = {
 			},
 			box_size = {
 				10.0,
-				46.8,
+				52.4,
 				38.0,
 			},
 			collision_mode = "visual",
@@ -629,7 +629,7 @@ local kitchen = {
 			kind = "box",
 			position = {
 				126.0,
-				-8.6,
+				-5.8,
 				34.0,
 			},
 			scale = {
@@ -740,7 +740,7 @@ local kitchen = {
 			},
 			box_size = {
 				252.0,
-				57.0,
+				87.4,
 				2.0,
 			},
 			collision_mode = "visual",
@@ -749,7 +749,7 @@ local kitchen = {
 			kind = "box",
 			position = {
 				0.0,
-				-3.5,
+				11.7,
 				98.0,
 			},
 			scale = {
@@ -779,7 +779,7 @@ local kitchen = {
 			kind = "box",
 			position = {
 				9.0,
-				25.8,
+				55.4,
 				0.0,
 			},
 			scale = {
@@ -830,7 +830,7 @@ local kitchen = {
 			},
 			box_size = {
 				2.0,
-				57.0,
+				87.4,
 				196.0,
 			},
 			collision_mode = "visual",
@@ -839,7 +839,7 @@ local kitchen = {
 			kind = "box",
 			position = {
 				-128.0,
-				-3.5,
+				11.7,
 				0.0,
 			},
 			scale = {
@@ -860,7 +860,7 @@ local kitchen = {
 			},
 			box_size = {
 				2.0,
-				57.0,
+				87.4,
 				196.0,
 			},
 			collision_mode = "visual",
@@ -869,7 +869,7 @@ local kitchen = {
 			kind = "box",
 			position = {
 				146.0,
-				-3.5,
+				11.7,
 				0.0,
 			},
 			scale = {
@@ -1048,7 +1048,7 @@ local kitchen = {
 			id = "FridgeTop",
 			position = {
 				128.0,
-				14.9,
+				20.5,
 				34.0,
 			},
 			start_route_index = 18,
