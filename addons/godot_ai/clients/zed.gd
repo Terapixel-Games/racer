@@ -2,7 +2,8 @@
 extends McpClient
 
 ## Zed registers MCP servers under `context_servers.<name>` and only speaks
-## stdio, so we bridge through `npx mcp-remote <url>` like Claude Desktop.
+## stdio, so we bridge through `uvx mcp-proxy --transport streamablehttp <url>`
+## like Claude Desktop. `uvx` is already a plugin prereq.
 
 
 func _init() -> void:
@@ -16,17 +17,8 @@ func _init() -> void:
 		"windows": "$APPDATA/Zed/settings.json",
 	}
 	server_key_path = PackedStringArray(["context_servers"])
-	entry_builder = func(_name: String, url: String) -> Dictionary:
-		return {
-			"command": {"path": "npx", "args": ["-y", "mcp-remote", url]},
-			"settings": {},
-		}
-	verify_entry = func(entry: Dictionary, url: String) -> bool:
-		var cmd = entry.get("command", {})
-		if not (cmd is Dictionary):
-			return false
-		var args = cmd.get("args", [])
-		return args is Array and args.has(url)
+	## NESTED bridge: `{"command": {"path": <uvx>, "args": [...]}, "settings": {}}`.
+	## Verifier requires the bridge form (no url-style fallback) — Zed has
+	## never spoken HTTP natively.
+	entry_uvx_bridge = McpClient.UvxBridge.NESTED
 	detect_paths = PackedStringArray(path_template.values())
-	manual_command_builder = func(name: String, url: String, path: String) -> String:
-		return "Edit %s and add under \"context_servers\":\n  \"%s\": { \"command\": { \"path\": \"npx\", \"args\": [\"-y\", \"mcp-remote\", \"%s\"] }, \"settings\": {} }" % [path, name, url]

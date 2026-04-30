@@ -2,7 +2,8 @@
 extends McpClient
 
 ## Claude Desktop's mcpServers entries are stdio-only, so we bridge our HTTP
-## server through `npx mcp-remote <url>`.
+## server through `uvx mcp-proxy --transport streamablehttp <url>`. `uvx` is
+## already a plugin prereq, so this works without requiring Node.js.
 
 
 func _init() -> void:
@@ -16,14 +17,8 @@ func _init() -> void:
 		"linux": "$XDG_CONFIG_HOME/Claude/claude_desktop_config.json",
 	}
 	server_key_path = PackedStringArray(["mcpServers"])
-	entry_builder = func(_name: String, url: String) -> Dictionary:
-		return {"command": "npx", "args": ["-y", "mcp-remote", url]}
-	verify_entry = func(entry: Dictionary, url: String) -> bool:
-		# Accept both the bridge form we write and a future url-style entry.
-		if entry.get("url", "") == url:
-			return true
-		var args = entry.get("args", [])
-		return entry.get("command", "") == "npx" and args is Array and args.has(url)
+	## FLAT bridge: `{"command": "<uvx>", "args": [...]}`. The default
+	## verifier ALSO accepts a future url-style entry (Claude Desktop has
+	## been tolerant of both forms since the npx→uvx bridge migration).
+	entry_uvx_bridge = McpClient.UvxBridge.FLAT
 	detect_paths = PackedStringArray(path_template.values())
-	manual_command_builder = func(name: String, url: String, path: String) -> String:
-		return "Edit %s and add under \"mcpServers\":\n  \"%s\": { \"command\": \"npx\", \"args\": [\"-y\", \"mcp-remote\", \"%s\"] }" % [path, name, url]
