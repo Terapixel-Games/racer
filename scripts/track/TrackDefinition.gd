@@ -5,6 +5,7 @@ const TrackProgressRules = preload("res://scripts/track/TrackProgressRules.gd")
 
 @export var id := ""
 @export var display_name := ""
+@export var version := ""
 @export var laps := 2
 @export var road_width := 12.0
 @export var wall_height := 1.6
@@ -75,7 +76,9 @@ func to_metadata() -> Dictionary:
 		})
 	return {
 		"id": id,
+		"track_id": id,
 		"display_name": display_name,
+		"version": version,
 		"laps": laps,
 		"road_width": road_width,
 		"wall_height": wall_height,

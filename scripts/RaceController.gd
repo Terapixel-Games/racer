@@ -3,6 +3,7 @@ extends Node3D
 const TrackBuilder = preload("res://scripts/TrackBuilder.gd")
 const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
 const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd")
+const TrackRuntimeScene = preload("res://scripts/track/TrackRuntimeScene.gd")
 const ItemRules = preload("res://scripts/logic/ItemRules.gd")
 const OutOfBoundsRules = preload("res://scripts/logic/OutOfBoundsRules.gd")
 
@@ -109,11 +110,13 @@ func _spawn_track() -> void:
 	var track_id := str(NakamaService.get_meta_value("track_id", TrackCatalog.get_default_track_id()))
 	var definition = TrackCatalog.get_definition(track_id)
 	if definition != null:
-		var built := TrackRuntimeBuilder.build(definition)
+		var built := _instantiate_track_package(track_id, definition)
 		var track_instance: Node = built.get("node", null)
 		if track_instance:
 			add_child(track_instance)
 			var built_checkpoint_system := track_instance.get_node_or_null("CheckpointSystem")
+			if built_checkpoint_system == null:
+				built_checkpoint_system = track_instance.get_node_or_null("BuiltTrack/CheckpointSystem")
 			if built_checkpoint_system != null:
 				checkpoint_system = built_checkpoint_system
 		spawn_points = built.get("spawns", [])
@@ -149,6 +152,22 @@ func _spawn_track() -> void:
 					if child is Marker3D:
 						spawn_points.append(child.global_transform)
 		track_checkpoint_total = checkpoint_system.checkpoint_count
+
+func _instantiate_track_package(track_id: String, definition) -> Dictionary:
+	var scene_path := TrackCatalog.get_scene_path(track_id)
+	if not scene_path.is_empty():
+		var packed := load(scene_path)
+		if packed is PackedScene:
+			var scene_root: Node = packed.instantiate()
+			if scene_root != null:
+				if scene_root is TrackRuntimeScene:
+					scene_root.definition = definition
+					scene_root.rebuild_on_ready = false
+					var package_build = scene_root.rebuild()
+					if package_build is Dictionary:
+						package_build["node"] = scene_root
+						return package_build
+	return TrackRuntimeBuilder.build(definition)
 
 func _setup_checkpoints() -> void:
 	if checkpoint_system and checkpoint_system.has_signal("checkpoint_valid"):

@@ -110,6 +110,7 @@
 		}
 	],
 	"closed_loop": true,
+	"definition_path": "res://assets/gameplay/tracks/kitchen/kitchen_track_definition.tres",
 	"display_name": "Kitchen / Sir Clink",
 	"hazard_sockets": [
 		{
@@ -262,6 +263,7 @@
 	],
 	"lap_gate_checkpoint_index": 0,
 	"laps": 3,
+	"metadata_path": "res://assets/gameplay/tracks/kitchen/kitchen_track_metadata.json",
 	"out_of_bounds_y": 1.5,
 	"reset_mode": "instant_pop",
 	"floor_visual_y": -8.0,
@@ -914,6 +916,8 @@
 			"surface_material_id": "wet_stone"
 		}
 	],
+	"track_id": "kitchen",
+	"version": "kitchen_v2_2026_04_29",
 	"wall_height": 1.6,
 	"wall_thickness": 0.45
 }

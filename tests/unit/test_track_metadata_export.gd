@@ -7,6 +7,8 @@ func test_kitchen_metadata_matches_server_shape() -> void:
 	var definition := TrackCatalog.get_definition("kitchen")
 	var metadata := TrackMetadataExporter.metadata_for(definition)
 	assert_equal(str(metadata.get("id", "")), "kitchen", "Metadata should include track id")
+	assert_equal(str(metadata.get("track_id", "")), "kitchen", "Metadata should include stable server track id")
+	assert_equal(str(metadata.get("version", "")), "kitchen_v2_2026_04_29", "Metadata should include the cooked track package version")
 	assert_equal(int(metadata.get("laps", 0)), 3, "Metadata should export the longer 3-lap Kitchen race length")
 	assert_equal((metadata.get("route_points", []) as Array).size(), 38, "Metadata should export route points")
 	assert_equal((metadata.get("checkpoints", []) as Array).size(), 6, "Metadata should export checkpoints")
@@ -28,3 +30,14 @@ func test_kitchen_metadata_json_is_parseable() -> void:
 	var parsed = JSON.parse_string(TrackMetadataExporter.json_for(definition))
 	assert_true(parsed is Dictionary, "Exported metadata JSON should parse")
 	assert_equal(str((parsed as Dictionary).get("id", "")), "kitchen", "Parsed JSON should preserve track id")
+
+func test_track_catalog_uses_cooked_package_metadata() -> void:
+	var package := TrackCatalog.get_package("kitchen")
+	assert_equal(str(package.get("scene_path", "")), "res://assets/gameplay/tracks/kitchen/kitchen_track.tscn", "Catalog should expose the cooked client scene path")
+	assert_equal(str(package.get("definition_path", "")), "res://assets/gameplay/tracks/kitchen/kitchen_track_definition.tres", "Catalog should expose the authored runtime definition")
+	assert_equal(str(package.get("metadata_path", "")), "res://assets/gameplay/tracks/kitchen/kitchen_track_metadata.json", "Catalog should expose exported server metadata")
+	assert_equal(str(package.get("version", "")), "kitchen_v2_2026_04_29", "Catalog should expose the package version")
+	var metadata := TrackCatalog.get_metadata("kitchen")
+	assert_equal(int(metadata.get("laps", 0)), 3, "Catalog metadata should come from the exported Kitchen metadata JSON")
+	assert_equal(str(metadata.get("runtime_scene_path", "")), str(package.get("scene_path", "")), "Catalog should stamp scene path into metadata for client/server compatibility checks")
+	assert_equal(str(metadata.get("metadata_path", "")), str(package.get("metadata_path", "")), "Catalog should stamp metadata path into returned metadata")

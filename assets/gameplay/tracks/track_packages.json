@@ -1,0 +1,13 @@
+{
+	"default_track_id": "kitchen",
+	"tracks": {
+		"kitchen": {
+			"id": "kitchen",
+			"display_name": "Kitchen / Sir Clink",
+			"version": "kitchen_v2_2026_04_29",
+			"scene_path": "res://assets/gameplay/tracks/kitchen/kitchen_track.tscn",
+			"definition_path": "res://assets/gameplay/tracks/kitchen/kitchen_track_definition.tres",
+			"metadata_path": "res://assets/gameplay/tracks/kitchen/kitchen_track_metadata.json"
+		}
+	}
+}
