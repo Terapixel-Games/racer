@@ -19,8 +19,11 @@ const RAIL_EDGE_OFFSET := -0.22
 const RAIL_SEGMENT_GAP := 0.08
 const RAIL_Y_OFFSET := 0.12
 const RAIL_VISUAL_CENTER := Vector3(0.15, 0.07, -0.625)
-const RAIL_COLLISION_RADIUS := 0.055
-const RAIL_COLLISION_HEIGHT := 1.0
+const RAIL_COLLISION_RADIUS := 0.04
+const RAIL_COLLISION_HEIGHT := 0.72
+const RAIL_MIN_SEGMENT_LENGTH := 2.25
+const RAIL_JOIN_GAP_SCALE := 0.5
+const RAIL_CORRIDOR_HEIGHT_TOLERANCE := 1.8
 const PLAYGROUND_GRASS_BLADE_SHADER := "res://assets/gameplay/materials/grass/playground_grass_blades.gdshader"
 const PLAYGROUND_GRASS_BLADE_COUNT := 18000
 const PLAYGROUND_GRASS_FLOOR_CLEARANCE := 0.68
@@ -41,7 +44,7 @@ static func build(definition: TrackDefinition) -> Dictionary:
 	_build_track_body(root, definition)
 	_build_road(root, definition)
 	_build_alternate_routes(root, definition)
-	_build_route_rails(root, "Rails", definition.route_points, definition.road_width, definition.closed_loop, definition.rail_texture_path, definition.rail_texture_uv_scale)
+	_build_route_network_rails(root, definition)
 	var spawns := _build_spawns(root, definition)
 	var waypoints := _build_waypoints(root, definition)
 	_build_checkpoints(root, definition)
@@ -266,7 +269,47 @@ static func _build_alternate_routes(root: Node3D, definition: TrackDefinition) -
 		collision_body.add_child(collision_shape)
 		road.add_child(collision_body)
 		holder.add_child(road)
-		_build_route_rails(holder, "%sRails" % route_id, points, width, false, definition.rail_texture_path, definition.rail_texture_uv_scale)
+
+static func _build_route_network_rails(root: Node3D, definition: TrackDefinition) -> void:
+	var routes: Array[Dictionary] = [{
+		"key": "canonical",
+		"parent": root,
+		"holder_name": "Rails",
+		"points": definition.route_points,
+		"width": definition.road_width,
+		"closed_loop": definition.closed_loop,
+	}]
+	var alternate_holder := root.get_node_or_null("AlternateRoutes") as Node3D
+	for route in definition.alternate_routes:
+		if alternate_holder == null or not bool(route.get("enabled", true)):
+			continue
+		var points := _vector3_array_from_value(route.get("points", []))
+		if points.size() < 2:
+			continue
+		var route_id := _safe_node_name(str(route.get("id", "alternate")))
+		var width := float(route.get("road_width", definition.road_width))
+		routes.append({
+			"key": route_id,
+			"parent": alternate_holder,
+			"holder_name": "%sRails" % route_id,
+			"points": points,
+			"width": width,
+			"closed_loop": false,
+		})
+	var gaps := _rail_join_gaps(definition)
+	for route in routes:
+		_build_route_rails(
+			route["parent"] as Node3D,
+			str(route["holder_name"]),
+			route["points"] as Array[Vector3],
+			float(route["width"]),
+			bool(route["closed_loop"]),
+			definition.rail_texture_path,
+			definition.rail_texture_uv_scale,
+			routes,
+			gaps,
+			str(route["key"])
+		)
 
 static func _build_walls(root: Node3D, definition: TrackDefinition) -> void:
 	var holder := Node3D.new()
@@ -288,7 +331,18 @@ static func _build_walls(root: Node3D, definition: TrackDefinition) -> void:
 		wall_gap_segments
 	)
 
-static func _build_route_rails(parent: Node3D, holder_name: String, route_points: Array[Vector3], road_width: float, closed_loop: bool, rail_texture_path: String, rail_texture_uv_scale: float) -> void:
+static func _build_route_rails(
+	parent: Node3D,
+	holder_name: String,
+	route_points: Array[Vector3],
+	road_width: float,
+	closed_loop: bool,
+	rail_texture_path: String,
+	rail_texture_uv_scale: float,
+	route_network: Array = [],
+	join_gaps: Array = [],
+	route_key := ""
+) -> void:
 	if route_points.size() < 2 or road_width <= 0.0:
 		return
 	var holder := Node3D.new()
@@ -297,10 +351,44 @@ static func _build_route_rails(parent: Node3D, holder_name: String, route_points
 	var rail_material := _rail_material(rail_texture_path, rail_texture_uv_scale)
 	var edge_offset := road_width * 0.5 + RAIL_EDGE_OFFSET
 	var edges := _road_edge_points(route_points, edge_offset, closed_loop)
-	_add_rail_polyline_pieces(holder, edges.get("left", []), closed_loop, "L", rail_material)
-	_add_rail_polyline_pieces(holder, edges.get("right", []), closed_loop, "R", rail_material)
+	_add_rail_polyline_pieces(holder, edges.get("left", []), closed_loop, "L", rail_material, route_network, join_gaps, route_key)
+	_add_rail_polyline_pieces(holder, edges.get("right", []), closed_loop, "R", rail_material, route_network, join_gaps, route_key)
 	if holder.get_child_count() == 0:
 		holder.queue_free()
+
+static func _rail_join_gaps(definition: TrackDefinition) -> Array[Dictionary]:
+	var gaps: Array[Dictionary] = []
+	for route in definition.alternate_routes:
+		if not bool(route.get("enabled", true)):
+			continue
+		var points := _vector3_array_from_value(route.get("points", []))
+		if points.size() < 2:
+			continue
+		var width := float(route.get("road_width", definition.road_width))
+		var radius := maxf(width, definition.road_width) * RAIL_JOIN_GAP_SCALE
+		_add_rail_join_gap(gaps, points.front(), radius)
+		_add_rail_join_gap(gaps, points.back(), radius)
+		var entry_checkpoint_index := int(route.get("entry_checkpoint_index", -1))
+		var exit_checkpoint_index := int(route.get("exit_checkpoint_index", -1))
+		_add_checkpoint_join_gap(gaps, definition, entry_checkpoint_index, radius)
+		_add_checkpoint_join_gap(gaps, definition, exit_checkpoint_index, radius)
+	return gaps
+
+static func _add_checkpoint_join_gap(gaps: Array[Dictionary], definition: TrackDefinition, checkpoint_index: int, radius: float) -> void:
+	if checkpoint_index < 0 or checkpoint_index >= definition.checkpoint_indices.size():
+		return
+	var route_index := definition.checkpoint_indices[checkpoint_index]
+	if route_index < 0 or route_index >= definition.route_points.size():
+		return
+	_add_rail_join_gap(gaps, definition.route_points[route_index], radius)
+
+static func _add_rail_join_gap(gaps: Array[Dictionary], position: Vector3, radius: float) -> void:
+	for gap in gaps:
+		var existing := gap.get("position", Vector3.ZERO) as Vector3
+		if existing.distance_to(position) <= radius * 0.35:
+			gap["radius"] = maxf(float(gap.get("radius", 0.0)), radius)
+			return
+	gaps.append({"position": position, "radius": radius})
 
 static func _rail_material(rail_texture_path: String, rail_texture_uv_scale: float) -> Material:
 	var material := StandardMaterial3D.new()
@@ -354,12 +442,118 @@ static func _road_miter_point(point: Vector3, previous_normal: Vector3, next_nor
 	miter_length = clampf(miter_length, -max_miter_length, max_miter_length)
 	return point + miter * miter_length
 
-static func _add_rail_polyline_pieces(parent: Node3D, points: Array, closed_loop: bool, side_name: String, rail_material: Material) -> void:
+static func _add_rail_polyline_pieces(
+	parent: Node3D,
+	points: Array,
+	closed_loop: bool,
+	side_name: String,
+	rail_material: Material,
+	route_network: Array = [],
+	join_gaps: Array = [],
+	route_key := ""
+) -> void:
 	if points.size() < 2:
 		return
 	var segment_count := points.size() if closed_loop else points.size() - 1
 	for i in range(segment_count):
-		_add_rail_segment_pieces(parent, points[i] as Vector3, points[(i + 1) % points.size()] as Vector3, side_name, i, rail_material)
+		var segment_parts := _clipped_rail_segments(points[i] as Vector3, points[(i + 1) % points.size()] as Vector3, join_gaps)
+		for part_index in range(segment_parts.size()):
+			var part := segment_parts[part_index]
+			var a := part.get("a", Vector3.ZERO) as Vector3
+			var b := part.get("b", Vector3.ZERO) as Vector3
+			if _rail_segment_overlaps_other_route(a, b, route_network, route_key):
+				continue
+			_add_rail_segment_pieces(parent, a, b, side_name, i * 100 + part_index, rail_material)
+
+static func _clipped_rail_segments(a: Vector3, b: Vector3, join_gaps: Array) -> Array[Dictionary]:
+	var segment := b - a
+	var length := segment.length()
+	if length <= RAIL_MIN_SEGMENT_LENGTH:
+		return []
+	var intervals: Array[Vector2] = [Vector2(0.0, 1.0)]
+	var a2 := Vector2(a.x, a.z)
+	var b2 := Vector2(b.x, b.z)
+	var ab := b2 - a2
+	var ab_len_sq := ab.length_squared()
+	if ab_len_sq <= 0.0001:
+		return []
+	for gap in join_gaps:
+		var center3 := gap.get("position", Vector3.ZERO) as Vector3
+		var radius := float(gap.get("radius", 0.0))
+		if absf(center3.y - (a.y + b.y) * 0.5) > RAIL_CORRIDOR_HEIGHT_TOLERANCE:
+			continue
+		var center := Vector2(center3.x, center3.z)
+		var t_center := clampf((center - a2).dot(ab) / ab_len_sq, 0.0, 1.0)
+		var closest := a2 + ab * t_center
+		var distance := closest.distance_to(center)
+		if distance >= radius:
+			continue
+		var half_t := sqrt(maxf(radius * radius - distance * distance, 0.0)) / sqrt(ab_len_sq)
+		intervals = _subtract_interval(intervals, maxf(0.0, t_center - half_t), minf(1.0, t_center + half_t))
+	var out: Array[Dictionary] = []
+	for interval in intervals:
+		var t0 := interval.x
+		var t1 := interval.y
+		if (t1 - t0) * length < RAIL_MIN_SEGMENT_LENGTH:
+			continue
+		out.append({"a": a.lerp(b, t0), "b": a.lerp(b, t1)})
+	return out
+
+static func _subtract_interval(intervals: Array[Vector2], cut_start: float, cut_end: float) -> Array[Vector2]:
+	var out: Array[Vector2] = []
+	for interval in intervals:
+		if cut_end <= interval.x or cut_start >= interval.y:
+			out.append(interval)
+			continue
+		if cut_start > interval.x:
+			out.append(Vector2(interval.x, cut_start))
+		if cut_end < interval.y:
+			out.append(Vector2(cut_end, interval.y))
+	return out
+
+static func _rail_segment_overlaps_other_route(a: Vector3, b: Vector3, route_network: Array, route_key: String) -> bool:
+	if route_network.is_empty():
+		return false
+	var midpoint := a.lerp(b, 0.5)
+	for route in route_network:
+		if str(route.get("key", "")) == route_key:
+			continue
+		var points := _vector3_array_from_value(route.get("points", []))
+		if points.size() < 2:
+			continue
+		var projection := _project_point_to_route(midpoint, points, bool(route.get("closed_loop", false)))
+		var projected := projection.get("point", Vector3.ZERO) as Vector3
+		if absf(projected.y - midpoint.y) > RAIL_CORRIDOR_HEIGHT_TOLERANCE:
+			continue
+		var distance := float(projection.get("distance_xz", INF))
+		if distance <= float(route.get("width", 0.0)) * 0.5 + 0.35:
+			return true
+	return false
+
+static func _project_point_to_route(point: Vector3, points: Array[Vector3], closed_loop: bool) -> Dictionary:
+	var best_distance := INF
+	var best_point := Vector3.ZERO
+	var segment_count := points.size() if closed_loop else points.size() - 1
+	for i in range(segment_count):
+		var a := points[i]
+		var b := points[(i + 1) % points.size()]
+		var projected := _project_point_to_segment_xz(point, a, b)
+		var distance := Vector2(point.x, point.z).distance_to(Vector2(projected.x, projected.z))
+		if distance < best_distance:
+			best_distance = distance
+			best_point = projected
+	return {"distance_xz": best_distance, "point": best_point}
+
+static func _project_point_to_segment_xz(point: Vector3, a: Vector3, b: Vector3) -> Vector3:
+	var point_2d := Vector2(point.x, point.z)
+	var a2 := Vector2(a.x, a.z)
+	var b2 := Vector2(b.x, b.z)
+	var ab := b2 - a2
+	var length_squared := ab.length_squared()
+	if length_squared <= 0.0001:
+		return a
+	var t := clampf((point_2d - a2).dot(ab) / length_squared, 0.0, 1.0)
+	return a.lerp(b, t)
 
 static func _add_rail_segment_pieces(parent: Node3D, a: Vector3, b: Vector3, side_name: String, segment_index: int, rail_material: Material) -> void:
 	var segment := b - a
@@ -393,12 +587,12 @@ static func _add_rail_segment_pieces(parent: Node3D, a: Vector3, b: Vector3, sid
 		rail_node.transform = Transform3D(basis, position)
 		_apply_material_override(rail_node, rail_material)
 		_disable_gameplay_collision(rail_node)
-		_add_rail_collision(rail_node)
 		parent.add_child(rail_node)
+		_add_rail_collision(parent, "RailCollision_%02d_%s_%02d" % [segment_index, side_name, piece_index], a.lerp(b, t), piece_length, segment_dir)
 
-static func _add_rail_collision(rail_node: Node3D) -> void:
+static func _add_rail_collision(parent: Node3D, body_name: String, center: Vector3, length: float, segment_dir: Vector3) -> void:
 	var body := StaticBody3D.new()
-	body.name = "CollisionBody"
+	body.name = body_name
 	body.collision_layer = 1
 	body.collision_mask = 2
 	var physics_material := PhysicsMaterial.new()
@@ -406,16 +600,26 @@ static func _add_rail_collision(rail_node: Node3D) -> void:
 	physics_material.bounce = 0.0
 	physics_material.rough = false
 	body.physics_material_override = physics_material
-	body.position = RAIL_VISUAL_CENTER + Vector3(0.0, 0.02, 0.0)
+	body.position = center + Vector3.UP * (RAIL_Y_OFFSET + 0.12)
 	var shape_node := CollisionShape3D.new()
 	shape_node.name = "CollisionShape3D"
-	shape_node.rotation_degrees = Vector3(0.0, 0.0, 90.0)
+	shape_node.basis = _basis_with_y_axis(segment_dir.normalized())
 	var shape := CapsuleShape3D.new()
 	shape.radius = RAIL_COLLISION_RADIUS
-	shape.height = RAIL_COLLISION_HEIGHT
+	shape.height = maxf(length, RAIL_COLLISION_HEIGHT)
 	shape_node.shape = shape
 	body.add_child(shape_node)
-	rail_node.add_child(body)
+	parent.add_child(body)
+
+static func _basis_with_y_axis(y_axis: Vector3) -> Basis:
+	var y := y_axis.normalized()
+	if y.length_squared() <= 0.0001:
+		y = Vector3.RIGHT
+	var x := Vector3.UP.cross(y).normalized()
+	if x.length_squared() <= 0.0001:
+		x = Vector3.FORWARD.cross(y).normalized()
+	var z := x.cross(y).normalized()
+	return Basis(x, y, z)
 
 static func _apply_material_override(node: Node, material: Material) -> void:
 	if node is MeshInstance3D:

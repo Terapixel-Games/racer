@@ -20,6 +20,8 @@ func test_runtime_builds_enabled_alternate_route_geometry() -> void:
 	assert_true(rail_body != null and rail_body.physics_material_override != null, "Canonical route rails should use a slick physics material")
 	if rail_body != null and rail_body.physics_material_override != null:
 		assert_true(rail_body.physics_material_override.friction <= 0.05, "Rail collision should stay slick instead of grabbing karts")
+	var rail_shape := _first_enabled_collision_shape(rails) as CapsuleShape3D
+	assert_true(rail_shape != null and rail_shape.radius <= 0.05, "Rail collision should use low world-space radius instead of inheriting visual scale")
 	assert_true(track.get_node_or_null("AlternateRoutes/InsideLaneRoad") != null, "Runtime should build alternate route road geometry")
 	assert_true(track.get_node_or_null("AlternateRoutes/InsideLaneRoad/CollisionBody/CollisionShape3D") != null, "Alternate route road should include collision")
 	var alternate_rails := track.get_node_or_null("AlternateRoutes/InsideLaneRails")
@@ -28,6 +30,32 @@ func test_runtime_builds_enabled_alternate_route_geometry() -> void:
 	assert_true(_enabled_collision_objects(alternate_rails) > 0, "Alternate route rails should include collision")
 	assert_true(track.get_node_or_null("CheckpointSystem/Checkpoint01") != null, "Alternate routes should keep shared checkpoint system")
 	track.queue_free()
+
+func test_rail_join_gaps_clip_branch_merge_segments() -> void:
+	var parts := TrackRuntimeBuilder._clipped_rail_segments(
+		Vector3(-12, 1.0, 0),
+		Vector3(12, 1.0, 0),
+		[{"position": Vector3(0, 1.0, 0), "radius": 5.0}]
+	)
+	assert_equal(parts.size(), 2, "Rail clipping should open a gap around branch merge points")
+	assert_true(((parts[0] as Dictionary).get("b", Vector3.ZERO) as Vector3).x <= -4.99, "Left rail fragment should stop before the merge opening")
+	assert_true(((parts[1] as Dictionary).get("a", Vector3.ZERO) as Vector3).x >= 4.99, "Right rail fragment should resume after the merge opening")
+
+func test_rail_overlap_filter_keeps_grade_separated_crossings() -> void:
+	var route_network: Array = [{
+		"key": "main",
+		"points": [Vector3(0, 0.0, 0), Vector3(20, 0.0, 0)],
+		"width": 12.0,
+		"closed_loop": false,
+	}]
+	assert_true(
+		TrackRuntimeBuilder._rail_segment_overlaps_other_route(Vector3(2, 0.2, 4), Vector3(18, 0.2, 4), route_network, "branch"),
+		"Rails inside another same-height road corridor should be filtered"
+	)
+	assert_true(
+		not TrackRuntimeBuilder._rail_segment_overlaps_other_route(Vector3(2, 3.0, 4), Vector3(18, 3.0, 4), route_network, "branch"),
+		"Rails at grade-separated crossings should be preserved"
+	)
 
 func test_runtime_uses_route_points_from_editable_scene() -> void:
 	var definition := (TrackCatalog.get_definition("kitchen") as TrackDefinition).duplicate(true) as TrackDefinition
@@ -121,6 +149,17 @@ func _first_collision_shape(node: Node) -> Shape3D:
 		return (node as CollisionShape3D).shape
 	for child in node.get_children():
 		var found := _first_collision_shape(child)
+		if found != null:
+			return found
+	return null
+
+func _first_enabled_collision_shape(node: Node) -> Shape3D:
+	if node == null:
+		return null
+	if node is CollisionShape3D and not (node as CollisionShape3D).disabled:
+		return (node as CollisionShape3D).shape
+	for child in node.get_children():
+		var found := _first_enabled_collision_shape(child)
 		if found != null:
 			return found
 	return null
