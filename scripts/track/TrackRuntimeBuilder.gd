@@ -22,7 +22,8 @@ const RAIL_VISUAL_CENTER := Vector3(0.15, 0.07, -0.625)
 const RAIL_COLLISION_RADIUS := 0.055
 const RAIL_COLLISION_HEIGHT := 1.0
 const PLAYGROUND_GRASS_BLADE_SHADER := "res://assets/gameplay/materials/grass/playground_grass_blades.gdshader"
-const PLAYGROUND_GRASS_BLADE_COUNT := 6200
+const PLAYGROUND_GRASS_BLADE_COUNT := 18000
+const PLAYGROUND_GRASS_FLOOR_CLEARANCE := 0.68
 
 static func build(definition: TrackDefinition) -> Dictionary:
 	if definition == null:
@@ -122,14 +123,15 @@ static func _build_playground_grass_blades(root: Node3D, definition: TrackDefini
 	rng.seed = 783219
 	var half_x := definition.ground_size.x * 0.5
 	var half_z := definition.ground_size.y * 0.5
+	var base_y := definition.out_of_bounds_y + PLAYGROUND_GRASS_FLOOR_CLEARANCE
 	for i in range(PLAYGROUND_GRASS_BLADE_COUNT):
 		var x := rng.randf_range(-half_x, half_x)
 		var z := rng.randf_range(-half_z, half_z)
 		var yaw := rng.randf_range(0.0, TAU)
-		var width_scale := rng.randf_range(0.72, 1.28)
-		var height_scale := rng.randf_range(0.72, 1.38)
+		var width_scale := rng.randf_range(2.2, 4.6)
+		var height_scale := rng.randf_range(2.8, 6.8)
 		var basis := Basis(Vector3.UP, yaw).scaled(Vector3(width_scale, height_scale, width_scale))
-		multimesh.set_instance_transform(i, Transform3D(basis, Vector3(x, definition.floor_visual_y + 0.04, z)))
+		multimesh.set_instance_transform(i, Transform3D(basis, Vector3(x, base_y, z)))
 	var blades := MultiMeshInstance3D.new()
 	blades.name = "PlaygroundGrassBlades"
 	blades.multimesh = multimesh

@@ -141,8 +141,9 @@ func test_outdoor_playground_runtime_uses_grass_shader() -> void:
 	assert_equal(_mesh_shader_path(track_node, "FloorVisual"), OUTDOOR_GRASS_SHADER, "Outdoor Playground generated floor should use the grass shader")
 	assert_equal(_mesh_shader_path(track_node, "Dressing/EditableRoom/floor/MeshInstance3D"), OUTDOOR_GRASS_SHADER, "Outdoor Playground editable floor should use the grass shader at runtime")
 	assert_true(track_node.get_node_or_null("PlaygroundGrassBlades") is MultiMeshInstance3D, "Outdoor Playground should build an upright grass blade layer")
-	assert_true(_multimesh_instance_count(track_node, "PlaygroundGrassBlades") >= 6000, "Outdoor Playground grass should use enough blades to read as grass from kart height")
+	assert_true(_multimesh_instance_count(track_node, "PlaygroundGrassBlades") >= 18000, "Outdoor Playground grass should use enough blades to read as grass from kart height")
 	assert_equal(_multimesh_shader_path(track_node, "PlaygroundGrassBlades"), OUTDOOR_GRASS_BLADE_SHADER, "Outdoor Playground grass blades should use the blade sway shader")
+	assert_true(_first_multimesh_instance_y(track_node, "PlaygroundGrassBlades") > definition.floor_visual_y + 10.0, "Outdoor Playground grass blades should sit on the authored visible floor, not the lower reset plane")
 	track_node.queue_free()
 
 func test_car_can_be_placed_on_kitchen_start_grid() -> void:
@@ -335,3 +336,9 @@ func _multimesh_shader_path(root: Node, path: NodePath) -> String:
 		if shader_material.shader != null:
 			return shader_material.shader.resource_path
 	return ""
+
+func _first_multimesh_instance_y(root: Node, path: NodePath) -> float:
+	var instance := root.get_node_or_null(path) as MultiMeshInstance3D
+	if instance == null or instance.multimesh == null or instance.multimesh.instance_count == 0:
+		return -INF
+	return instance.multimesh.get_instance_transform(0).origin.y
