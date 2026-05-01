@@ -9,6 +9,7 @@ const ItemRules = preload("res://scripts/logic/ItemRules.gd")
 const OutOfBoundsRules = preload("res://scripts/logic/OutOfBoundsRules.gd")
 
 @onready var ui_speed: Label = %SpeedLabel
+@onready var ui_speed_bar: ProgressBar = get_node_or_null("%SpeedBar") as ProgressBar
 @onready var ui_lap: Label = %LapLabel
 @onready var ui_position: Label = %PositionLabel
 @onready var ui_net: Label = %NetLabel
@@ -82,7 +83,7 @@ func _ready() -> void:
 	local_user_id = NakamaService.get_user_id()
 	match_id = NakamaService.get_meta_value("race_match_id", "")
 	if match_id == "":
-		get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
+		get_tree().call_deferred("change_scene_to_file", "res://scenes/MainMenu.tscn")
 		return
 	if NakamaService.offline_mode:
 		_start_offline_race()
@@ -335,7 +336,7 @@ func _snap_to_ground(xform: Transform3D) -> Transform3D:
 
 func _update_positions() -> void:
 	if racer_states.is_empty():
-		ui_position.text = "Pos: --"
+		ui_position.text = "--/--"
 		return
 	var checkpoint_total := _get_checkpoint_total()
 	var entries: Array = []
@@ -376,9 +377,9 @@ func _update_positions() -> void:
 	var pos_index := entries.find(placement_entry)
 	var total := entries.size()
 	if placement_entry == null or pos_index == -1:
-		ui_position.text = "Pos: --"
+		ui_position.text = "--/--"
 	else:
-		ui_position.text = "Pos: %d/%d" % [pos_index + 1, total]
+		ui_position.text = "%d/%d" % [pos_index + 1, total]
 
 func _handle_reset(data:Dictionary) -> void:
 	var target: String = data.get("player_id", "")
@@ -417,12 +418,14 @@ func _update_ui() -> void:
 	var car : CarController = cars.get(local_user_id, null)
 	if car:
 		var speed: float = car.velocity.length()
-		ui_speed.text = "Speed: %02d" % int(speed)
+		ui_speed.text = "%03d KM/H" % int(speed)
+		if ui_speed_bar:
+			ui_speed_bar.value = clampf(speed, 0.0, float(ui_speed_bar.max_value))
 		var lap: int = lap_map.get(local_user_id, 1 if race_started else 0)
-		ui_lap.text = "Lap: %d/%d" % [lap, track_laps]
-		ui_drift.text = "Drift: T%d  %d%%" % [car.get_drift_tier(), int(round(car.get_drift_charge_ratio() * 100.0))]
-	ui_item.text = "Item: %s" % (local_item_slot if local_item_slot != "" else "--")
-	ui_net.text = "Net: %s" % ("LOCAL" if NakamaService.offline_mode else ("OK" if NakamaService.is_online_socket_ready() else "..."))
+		ui_lap.text = "LAP %d/%d" % [lap, track_laps]
+		ui_drift.text = "DRIFT T%d  %d%%" % [car.get_drift_tier(), int(round(car.get_drift_charge_ratio() * 100.0))]
+	ui_item.text = "ITEM %s" % (local_item_slot if local_item_slot != "" else "--")
+	ui_net.text = "LOCAL" if NakamaService.offline_mode else ("NET OK" if NakamaService.is_online_socket_ready() else "NET ...")
 	_update_positions()
 
 func _update_camera(delta:float) -> void:
@@ -514,8 +517,16 @@ func _setup_mobile_controls() -> void:
 func _connect_button(btn:Button, action:String) -> void:
 	if btn == null:
 		return
-	btn.pressed.connect(func(): Input.action_press(action))
-	btn.button_up.connect(func(): Input.action_release(action))
+	btn.pivot_offset = btn.size * 0.5
+	btn.resized.connect(func(): btn.pivot_offset = btn.size * 0.5)
+	btn.button_down.connect(func():
+		btn.scale = Vector2(1.06, 1.06)
+		Input.action_press(action)
+	)
+	btn.button_up.connect(func():
+		btn.scale = Vector2.ONE
+		Input.action_release(action)
+	)
 
 func _get_checkpoint_total() -> int:
 	if track_checkpoint_total > 0:

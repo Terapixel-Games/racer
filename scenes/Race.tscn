@@ -1,9 +1,17 @@
-[gd_scene load_steps=9 format=3 uid="uid://dw8o4xhburlax"]
+[gd_scene load_steps=25 format=3 uid="uid://dw8o4xhburlax"]
 
 [ext_resource type="Script" uid="uid://bndlbbuj77lfc" path="res://scripts/RaceController.gd" id="1"]
 [ext_resource type="Script" uid="uid://cm3ro8j5604dv" path="res://scripts/CheckpointSystem.gd" id="2"]
 [ext_resource type="Script" uid="uid://ijjc1q280tp8" path="res://scripts/CheckpointArea.gd" id="3"]
 [ext_resource type="Script" uid="uid://diphr0vdc8pl8" path="res://scripts/FinishLineArea.gd" id="4"]
+[ext_resource type="Texture2D" path="res://assets/source/kenney/mobile_controls/style_a/direction_left.png" id="5_left"]
+[ext_resource type="Texture2D" path="res://assets/source/kenney/mobile_controls/style_a/direction_right.png" id="6_right"]
+[ext_resource type="Texture2D" path="res://assets/source/kenney/mobile_controls/icons/icon_pedal.png" id="7_pedal"]
+[ext_resource type="Texture2D" path="res://assets/source/kenney/mobile_controls/icons/icon_pedal_brake.png" id="8_brake"]
+[ext_resource type="Texture2D" path="res://assets/source/kenney/mobile_controls/icons/icon_fire.png" id="9_fire"]
+[ext_resource type="Texture2D" path="res://assets/source/kenney/mobile_controls/icons/icon_burst.png" id="10_burst"]
+[ext_resource type="Texture2D" path="res://assets/source/kenney/mobile_controls/icons/icon_hand.png" id="11_hand"]
+[ext_resource type="Texture2D" path="res://assets/source/kenney/mobile_controls/icons/icon_arrow_rotate.png" id="12_return"]
 
 [sub_resource type="BoxShape3D" id="4"]
 size = Vector3(8, 2, 2)
@@ -16,6 +24,102 @@ size = Vector3(4, 2, 2)
 
 [sub_resource type="BoxShape3D" id="3"]
 size = Vector3(4, 2, 2)
+
+[sub_resource type="StyleBoxFlat" id="PanelDark"]
+bg_color = Color(0.0156863, 0.0235294, 0.0352941, 0.62)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0.85, 1, 0.34)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+shadow_color = Color(0, 0.7, 1, 0.18)
+shadow_size = 8
+
+[sub_resource type="StyleBoxFlat" id="PillDark"]
+bg_color = Color(0.02, 0.025, 0.035, 0.72)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.76, 0.2, 0.55)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+shadow_color = Color(1, 0.65, 0.05, 0.18)
+shadow_size = 8
+
+[sub_resource type="StyleBoxFlat" id="MiniMapPanel"]
+bg_color = Color(0, 0.02, 0.035, 0.5)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.85, 1, 0.42)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="ButtonNormal"]
+bg_color = Color(0.96, 0.98, 1, 0.42)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.5)
+corner_radius_top_left = 64
+corner_radius_top_right = 64
+corner_radius_bottom_right = 64
+corner_radius_bottom_left = 64
+shadow_color = Color(0, 0.85, 1, 0.16)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="ButtonPressed"]
+bg_color = Color(0, 0.85, 1, 0.48)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.78, 0.22, 0.8)
+corner_radius_top_left = 64
+corner_radius_top_right = 64
+corner_radius_bottom_right = 64
+corner_radius_bottom_left = 64
+shadow_color = Color(1, 0.7, 0.08, 0.28)
+shadow_size = 14
+
+[sub_resource type="StyleBoxFlat" id="SmallButtonNormal"]
+bg_color = Color(0.96, 0.98, 1, 0.36)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.45)
+corner_radius_top_left = 44
+corner_radius_top_right = 44
+corner_radius_bottom_right = 44
+corner_radius_bottom_left = 44
+shadow_color = Color(0, 0.85, 1, 0.14)
+shadow_size = 8
+
+[sub_resource type="StyleBoxFlat" id="SpeedTrack"]
+bg_color = Color(1, 1, 1, 0.18)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="SpeedFill"]
+bg_color = Color(0, 0.85, 1, 0.86)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="Race" type="Node3D"]
 script = ExtResource("1")
@@ -63,50 +167,206 @@ current = true
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="HUD" type="MarginContainer" parent="UI"]
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 400.0
-offset_bottom = 200.0
+[node name="HUD" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/HUD"]
+[node name="TopLeftPanel" type="PanelContainer" parent="UI/HUD"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 18.0
+offset_right = 278.0
+offset_bottom = 214.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("PanelDark")
+
+[node name="Margin" type="MarginContainer" parent="UI/HUD/TopLeftPanel"]
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 12
 
-[node name="SpeedLabel" type="Label" parent="UI/HUD/VBoxContainer"]
+[node name="VBox" type="VBoxContainer" parent="UI/HUD/TopLeftPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="PositionLabel" type="Label" parent="UI/HUD/TopLeftPanel/Margin/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Speed: --"
+theme_override_colors/font_color = Color(1, 1, 1, 0.96)
+theme_override_font_sizes/font_size = 36
+text = "--/--"
+horizontal_alignment = 1
 
-[node name="LapLabel" type="Label" parent="UI/HUD/VBoxContainer"]
+[node name="LeaderboardTitle" type="Label" parent="UI/HUD/TopLeftPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.85, 1, 0.9)
+theme_override_font_sizes/font_size = 14
+text = "LEADERBOARD"
+
+[node name="LeaderboardRows" type="VBoxContainer" parent="UI/HUD/TopLeftPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Leader1" type="Label" parent="UI/HUD/TopLeftPanel/Margin/VBox/LeaderboardRows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.86)
+theme_override_font_sizes/font_size = 13
+text = "1  YOU"
+
+[node name="Leader2" type="Label" parent="UI/HUD/TopLeftPanel/Margin/VBox/LeaderboardRows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.58)
+theme_override_font_sizes/font_size = 13
+text = "2  RIVAL"
+
+[node name="Leader3" type="Label" parent="UI/HUD/TopLeftPanel/Margin/VBox/LeaderboardRows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.48)
+theme_override_font_sizes/font_size = 13
+text = "3  RIVAL"
+
+[node name="LapPill" type="PanelContainer" parent="UI/HUD"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -118.0
+offset_top = 18.0
+offset_right = 118.0
+offset_bottom = 70.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("PillDark")
+
+[node name="LapLabel" type="Label" parent="UI/HUD/LapPill"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Lap: --"
+theme_override_colors/font_color = Color(1, 1, 1, 0.96)
+theme_override_font_sizes/font_size = 22
+text = "LAP --"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="PositionLabel" type="Label" parent="UI/HUD/VBoxContainer"]
+[node name="MessageLabel" type="Label" parent="UI/HUD"]
 unique_name_in_owner = true
-layout_mode = 2
-text = "Pos: --"
-
-[node name="NetLabel" type="Label" parent="UI/HUD/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Net: --"
-
-[node name="ItemLabel" type="Label" parent="UI/HUD/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Item: --"
-
-[node name="DriftLabel" type="Label" parent="UI/HUD/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Drift: --"
-
-[node name="MessageLabel" type="Label" parent="UI/HUD/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -260.0
+offset_top = 78.0
+offset_right = 260.0
+offset_bottom = 114.0
+theme_override_colors/font_color = Color(1, 0.76, 0.18, 0.95)
+theme_override_font_sizes/font_size = 18
 text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TopRightPanel" type="PanelContainer" parent="UI/HUD"]
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -294.0
+offset_top = 18.0
+offset_right = -24.0
+offset_bottom = 214.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("PanelDark")
+
+[node name="RightMargin" type="MarginContainer" parent="UI/HUD/TopRightPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 12
+
+[node name="RightVBox" type="VBoxContainer" parent="UI/HUD/TopRightPanel/RightMargin"]
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="NetLabel" type="Label" parent="UI/HUD/TopRightPanel/RightMargin/RightVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.86)
+theme_override_font_sizes/font_size = 15
+text = "LOCAL"
+horizontal_alignment = 2
+
+[node name="ItemLabel" type="Label" parent="UI/HUD/TopRightPanel/RightMargin/RightVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.76, 0.2, 0.96)
+theme_override_font_sizes/font_size = 16
+text = "ITEM --"
+horizontal_alignment = 2
+
+[node name="MiniMap" type="PanelContainer" parent="UI/HUD/TopRightPanel/RightMargin/RightVBox"]
+custom_minimum_size = Vector2(214, 92)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("MiniMapPanel")
+
+[node name="MiniMapLabel" type="Label" parent="UI/HUD/TopRightPanel/RightMargin/RightVBox/MiniMap"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.85, 1, 0.44)
+theme_override_font_sizes/font_size = 13
+text = "TRACK"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SpeedUI" type="PanelContainer" parent="UI/HUD"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -188.0
+offset_top = -112.0
+offset_right = 188.0
+offset_bottom = -28.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("PanelDark")
+
+[node name="SpeedMargin" type="MarginContainer" parent="UI/HUD/SpeedUI"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 12
+
+[node name="SpeedVBox" type="VBoxContainer" parent="UI/HUD/SpeedUI/SpeedMargin"]
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="SpeedLabel" type="Label" parent="UI/HUD/SpeedUI/SpeedMargin/SpeedVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.96)
+theme_override_font_sizes/font_size = 30
+text = "000 KM/H"
+horizontal_alignment = 1
+
+[node name="SpeedBar" type="ProgressBar" parent="UI/HUD/SpeedUI/SpeedMargin/SpeedVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 12)
+layout_mode = 2
+max_value = 120.0
+step = 0.1
+show_percentage = false
+theme_override_styles/background = SubResource("SpeedTrack")
+theme_override_styles/fill = SubResource("SpeedFill")
+
+[node name="DriftLabel" type="Label" parent="UI/HUD/SpeedUI/SpeedMargin/SpeedVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.85, 1, 0.9)
+theme_override_font_sizes/font_size = 13
+text = "DRIFT --"
 horizontal_alignment = 1
 
 [node name="MobileControls" type="Control" parent="UI"]
@@ -120,89 +380,160 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="LeftButton" type="Button" parent="UI/MobileControls"]
-unique_name_in_owner = true
+[node name="LeftControls" type="Control" parent="UI/MobileControls"]
 layout_mode = 0
+anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 32.0
-offset_bottom = -64.0
-text = "◀"
+offset_left = 26.0
+offset_top = -288.0
+offset_right = 330.0
+offset_bottom = -24.0
+mouse_filter = 2
 
-[node name="RightButton" type="Button" parent="UI/MobileControls"]
+[node name="DriftButton" type="Button" parent="UI/MobileControls/LeftControls"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(126, 126)
 layout_mode = 0
-anchor_bottom = 1.0
-offset_left = 96.0
-offset_bottom = -64.0
-text = "▶"
+offset_left = 88.0
+offset_top = 0.0
+offset_right = 214.0
+offset_bottom = 126.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("ButtonNormal")
+theme_override_styles/hover = SubResource("ButtonNormal")
+theme_override_styles/pressed = SubResource("ButtonPressed")
+theme_override_styles/focus = SubResource("ButtonNormal")
+icon = ExtResource("9_fire")
+flat = false
+expand_icon = true
 
-[node name="AccelButton" type="Button" parent="UI/MobileControls"]
+[node name="LeftButton" type="Button" parent="UI/MobileControls/LeftControls"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(106, 106)
 layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -160.0
-offset_right = -32.0
-offset_bottom = -64.0
-text = "GO"
+offset_left = 0.0
+offset_top = 140.0
+offset_right = 106.0
+offset_bottom = 246.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("ButtonNormal")
+theme_override_styles/hover = SubResource("ButtonNormal")
+theme_override_styles/pressed = SubResource("ButtonPressed")
+theme_override_styles/focus = SubResource("ButtonNormal")
+icon = ExtResource("5_left")
+flat = false
+expand_icon = true
 
-[node name="BrakeButton" type="Button" parent="UI/MobileControls"]
+[node name="RightButton" type="Button" parent="UI/MobileControls/LeftControls"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(106, 106)
 layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -256.0
-offset_right = -192.0
-offset_bottom = -64.0
-text = "STOP"
+offset_left = 128.0
+offset_top = 140.0
+offset_right = 234.0
+offset_bottom = 246.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("ButtonNormal")
+theme_override_styles/hover = SubResource("ButtonNormal")
+theme_override_styles/pressed = SubResource("ButtonPressed")
+theme_override_styles/focus = SubResource("ButtonNormal")
+icon = ExtResource("6_right")
+flat = false
+expand_icon = true
 
-[node name="DriftButton" type="Button" parent="UI/MobileControls"]
-unique_name_in_owner = true
+[node name="RightControls" type="Control" parent="UI/MobileControls"]
 layout_mode = 0
 anchor_left = 1.0
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -160.0
-offset_top = 16.0
-offset_right = -80.0
-offset_bottom = 56.0
-text = "DRIFT"
+anchor_bottom = 1.0
+offset_left = -378.0
+offset_top = -348.0
+offset_right = -24.0
+offset_bottom = -24.0
+mouse_filter = 2
 
-[node name="BoostButton" type="Button" parent="UI/MobileControls"]
+[node name="BoostButton" type="Button" parent="UI/MobileControls/RightControls"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(96, 96)
 layout_mode = 0
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -80.0
-offset_top = -40.0
-offset_right = -16.0
-text = "BOOST"
+offset_left = 220.0
+offset_top = 34.0
+offset_right = 316.0
+offset_bottom = 130.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("SmallButtonNormal")
+theme_override_styles/hover = SubResource("SmallButtonNormal")
+theme_override_styles/pressed = SubResource("ButtonPressed")
+theme_override_styles/focus = SubResource("SmallButtonNormal")
+icon = ExtResource("10_burst")
+flat = false
+expand_icon = true
 
-[node name="ItemButton" type="Button" parent="UI/MobileControls"]
+[node name="ItemButton" type="Button" parent="UI/MobileControls/RightControls"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(84, 84)
 layout_mode = 0
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -170.0
-offset_top = -40.0
-offset_right = -100.0
-offset_bottom = 0.0
-text = "ITEM"
+offset_left = 114.0
+offset_top = 72.0
+offset_right = 198.0
+offset_bottom = 156.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("SmallButtonNormal")
+theme_override_styles/hover = SubResource("SmallButtonNormal")
+theme_override_styles/pressed = SubResource("ButtonPressed")
+theme_override_styles/focus = SubResource("SmallButtonNormal")
+icon = ExtResource("11_hand")
+flat = false
+expand_icon = true
 
-[node name="ReturnButton" type="Button" parent="UI/MobileControls"]
+[node name="ReturnButton" type="Button" parent="UI/MobileControls/RightControls"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(78, 78)
 layout_mode = 0
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -170.0
-offset_top = -88.0
-offset_right = -80.0
-offset_bottom = -48.0
-text = "RETURN"
+offset_left = 18.0
+offset_top = 42.0
+offset_right = 96.0
+offset_bottom = 120.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("SmallButtonNormal")
+theme_override_styles/hover = SubResource("SmallButtonNormal")
+theme_override_styles/pressed = SubResource("ButtonPressed")
+theme_override_styles/focus = SubResource("SmallButtonNormal")
+icon = ExtResource("12_return")
+flat = false
+expand_icon = true
+
+[node name="BrakeButton" type="Button" parent="UI/MobileControls/RightControls"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(104, 104)
+layout_mode = 0
+offset_left = 86.0
+offset_top = 196.0
+offset_right = 190.0
+offset_bottom = 300.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("ButtonNormal")
+theme_override_styles/hover = SubResource("ButtonNormal")
+theme_override_styles/pressed = SubResource("ButtonPressed")
+theme_override_styles/focus = SubResource("ButtonNormal")
+icon = ExtResource("8_brake")
+flat = false
+expand_icon = true
+
+[node name="AccelButton" type="Button" parent="UI/MobileControls/RightControls"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(142, 142)
+layout_mode = 0
+offset_left = 208.0
+offset_top = 168.0
+offset_right = 350.0
+offset_bottom = 310.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("ButtonNormal")
+theme_override_styles/hover = SubResource("ButtonNormal")
+theme_override_styles/pressed = SubResource("ButtonPressed")
+theme_override_styles/focus = SubResource("ButtonNormal")
+icon = ExtResource("7_pedal")
+flat = false
+expand_icon = true
