@@ -20,6 +20,8 @@ const TrackProgressRules = preload("res://scripts/track/TrackProgressRules.gd")
 @export var ground_color := Color(0.82, 0.86, 0.88)
 @export var ground_texture_path := ""
 @export var road_texture_path := ""
+@export var rail_texture_path := ""
+@export var rail_texture_uv_scale := 1.0
 @export var track_body_depth := 0.38
 @export var track_body_color := Color(0.08, 0.08, 0.1)
 @export var route_points: Array[Vector3] = []
@@ -92,6 +94,8 @@ func to_metadata() -> Dictionary:
 		"out_of_bounds_y": out_of_bounds_y,
 		"reset_mode": reset_mode,
 		"floor_visual_y": floor_visual_y,
+		"rail_texture_path": rail_texture_path,
+		"rail_texture_uv_scale": rail_texture_uv_scale,
 		"route_points": _vec3_array_to_json(route_points),
 		"route_length": TrackProgressRules.route_length(route_points, closed_loop),
 		"checkpoint_radius": road_width * 0.65,

@@ -22,8 +22,10 @@ func test_kitchen_metadata_matches_server_shape() -> void:
 	assert_equal((metadata.get("audio_zones", []) as Array).size(), 3, "Metadata should export audio zones")
 	assert_equal(bool(((metadata.get("shortcut_gates", []) as Array)[0] as Dictionary).get("surface_enabled", true)), false, "Metadata should mark the blocking table shortcut surface disabled")
 	assert_equal(str(metadata.get("reset_mode", "")), "instant_pop", "Metadata should include reset mode")
-	assert_equal(float(metadata.get("out_of_bounds_y", 0.0)), 1.5, "Metadata should include out-of-bounds height")
+	assert_true(float(metadata.get("out_of_bounds_y", 0.0)) < -10.0, "Metadata should keep the out-of-bounds height below the authored floor")
 	assert_true(float(metadata.get("floor_visual_y", 0.0)) <= -8.0, "Metadata should keep the visible floor far below the countertop")
+	assert_equal(str(metadata.get("rail_texture_path", "")), "res://assets/gameplay/materials/metal/toy_metal_albedo.png", "Metadata should include the stage rail texture")
+	assert_equal(float(metadata.get("rail_texture_uv_scale", 0.0)), 0.5, "Metadata should include the stage rail texture UV scale")
 	assert_equal(str(metadata.get("dressing_scene_path", "")), "res://assets/gameplay/tracks/kitchen/kitchen_editable_room.tscn", "Metadata should expose the editable dressing scene")
 	assert_true(float(metadata.get("route_length", 0.0)) > 700.0, "Metadata should include the full looped countertop route length")
 

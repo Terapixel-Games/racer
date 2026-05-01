@@ -20,6 +20,11 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 		if road_shape_node.shape is ConcavePolygonShape3D:
 			assert_true((road_shape_node.shape as ConcavePolygonShape3D).backface_collision, "Kitchen road collision should be visible to camera probes from underneath")
 	assert_true(instance.get_node_or_null("BuiltTrack/TrackBody") != null, "Kitchen track should include a raised visual track body")
+	assert_true(instance.get_node_or_null("BuiltTrack/Rails") != null, "Kitchen track should include generated route rails")
+	assert_true(_child_count(instance.get_node_or_null("BuiltTrack/Rails")) > 0, "Kitchen route rails should instantiate rail asset pieces")
+	assert_true(_enabled_collision_objects(instance.get_node_or_null("BuiltTrack/Rails")) > 0, "Kitchen generated rails should be collidable")
+	assert_equal(_first_material_texture_path(instance.get_node_or_null("BuiltTrack/Rails")), "res://assets/gameplay/materials/metal/toy_metal_albedo.png", "Kitchen generated rails should use the stage metal material")
+	assert_true(absf(_first_material_uv_scale(instance.get_node_or_null("BuiltTrack/Rails")) - 0.5) <= 0.01, "Kitchen generated rails should use the stage rail texture UV scale")
 	assert_true(instance.get_node_or_null("BuiltTrack/Walls") == null, "Kitchen track should not auto-generate route walls while guard segments are being authored")
 	assert_true(instance.get_node_or_null("BuiltTrack/CheckpointSystem") != null, "Kitchen track should include checkpoint system")
 	assert_true(instance.get_node_or_null("BuiltTrack/SpawnPoints") != null, "Kitchen track should include spawn points")
@@ -39,6 +44,7 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/FridgeLandmark") == null, "Kitchen runtime should not duplicate old hardcoded fridge geometry over authored room scale")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom") != null, "Kitchen track should include the directly editable room scene")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoutePoints/RoutePoint00") != null, "Editable room scene should expose editable route points")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoutePoints/rail") == null, "Editable room route points should not contain generated rail instances")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/SpawnPoints/Start01") != null, "Editable room scene should expose editable spawn points")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Checkpoints/Checkpoint00_LapGate") != null, "Editable room scene should expose editable checkpoints")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/ItemSockets/ItemSocket01") != null, "Editable room scene should expose editable item sockets")
@@ -127,7 +133,8 @@ func test_car_can_be_placed_on_kitchen_start_grid() -> void:
 
 func test_kitchen_out_of_bounds_instant_pop_reset() -> void:
 	var definition := TrackCatalog.get_definition("kitchen")
-	assert_true(OutOfBoundsRules.should_reset(0.2, definition.out_of_bounds_y, definition.reset_mode), "Dropping to the floor should trigger Kitchen reset")
+	assert_true(not OutOfBoundsRules.should_reset(-10.0, definition.out_of_bounds_y, definition.reset_mode), "Driving on the authored floor should not auto-reset")
+	assert_true(OutOfBoundsRules.should_reset(definition.out_of_bounds_y - 0.5, definition.out_of_bounds_y, definition.reset_mode), "Falling below the floor should trigger Kitchen reset")
 	var car_scene := load("res://scenes/Car.tscn")
 	assert_true(car_scene is PackedScene, "Car scene should load")
 	var car := (car_scene as PackedScene).instantiate() as CharacterBody3D
@@ -194,6 +201,34 @@ func _child_count(node: Node) -> int:
 	if node == null:
 		return 0
 	return node.get_child_count()
+
+func _first_material_texture_path(node: Node) -> String:
+	if node == null:
+		return ""
+	if node is MeshInstance3D:
+		var mesh_instance := node as MeshInstance3D
+		if mesh_instance.material_override is StandardMaterial3D:
+			var material := mesh_instance.material_override as StandardMaterial3D
+			if material.albedo_texture != null:
+				return material.albedo_texture.resource_path
+	for child in node.get_children():
+		var found := _first_material_texture_path(child)
+		if not found.is_empty():
+			return found
+	return ""
+
+func _first_material_uv_scale(node: Node) -> float:
+	if node == null:
+		return 0.0
+	if node is MeshInstance3D:
+		var mesh_instance := node as MeshInstance3D
+		if mesh_instance.material_override is StandardMaterial3D:
+			return (mesh_instance.material_override as StandardMaterial3D).uv1_scale.x
+	for child in node.get_children():
+		var found := _first_material_uv_scale(child)
+		if found > 0.0:
+			return found
+	return 0.0
 
 func _enabled_collision_objects(node: Node) -> int:
 	if node == null:

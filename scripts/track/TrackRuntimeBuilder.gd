@@ -9,6 +9,15 @@ const TrackDefinition = preload("res://scripts/track/TrackDefinition.gd")
 const TrackRibbonMesh = preload("res://scripts/track/TrackRibbonMesh.gd")
 const TrackWalls = preload("res://scripts/TrackWalls.gd")
 const TrackSceneAuthoringData = preload("res://scripts/track/TrackSceneAuthoringData.gd")
+const RailScene = preload("res://assets/source/kenney/racing_kit/rail.glb")
+
+const RAIL_SIDE_SCALE := 8.0
+const RAIL_SEGMENT_LENGTH := 10.0
+const RAIL_EDGE_OFFSET := 0.0
+const RAIL_SEGMENT_GAP := 0.85
+const RAIL_Y_OFFSET := 0.12
+const RAIL_VISUAL_CENTER := Vector3(0.15, 0.07, -0.625)
+const RAIL_COLLISION_SIZE := Vector3(1.0, 0.08, 0.14)
 
 static func build(definition: TrackDefinition) -> Dictionary:
 	if definition == null:
@@ -26,6 +35,7 @@ static func build(definition: TrackDefinition) -> Dictionary:
 	_build_track_body(root, definition)
 	_build_road(root, definition)
 	_build_alternate_routes(root, definition)
+	_build_route_rails(root, "Rails", definition.route_points, definition.road_width, definition.closed_loop, definition.rail_texture_path, definition.rail_texture_uv_scale)
 	var spawns := _build_spawns(root, definition)
 	var waypoints := _build_waypoints(root, definition)
 	_build_checkpoints(root, definition)
@@ -196,6 +206,7 @@ static func _build_alternate_routes(root: Node3D, definition: TrackDefinition) -
 		collision_body.add_child(collision_shape)
 		road.add_child(collision_body)
 		holder.add_child(road)
+		_build_route_rails(holder, "%sRails" % route_id, points, width, false, definition.rail_texture_path, definition.rail_texture_uv_scale)
 
 static func _build_walls(root: Node3D, definition: TrackDefinition) -> void:
 	var holder := Node3D.new()
@@ -216,6 +227,131 @@ static func _build_walls(root: Node3D, definition: TrackDefinition) -> void:
 		true,
 		wall_gap_segments
 	)
+
+static func _build_route_rails(parent: Node3D, holder_name: String, route_points: Array[Vector3], road_width: float, closed_loop: bool, rail_texture_path: String, rail_texture_uv_scale: float) -> void:
+	if route_points.size() < 2 or road_width <= 0.0:
+		return
+	var holder := Node3D.new()
+	holder.name = holder_name
+	parent.add_child(holder)
+	var rail_material := _rail_material(rail_texture_path, rail_texture_uv_scale)
+	var edge_offset := road_width * 0.5 + RAIL_EDGE_OFFSET
+	var edges := _road_edge_points(route_points, edge_offset, closed_loop)
+	_add_rail_polyline_pieces(holder, edges.get("left", []), closed_loop, "L", rail_material)
+	_add_rail_polyline_pieces(holder, edges.get("right", []), closed_loop, "R", rail_material)
+	if holder.get_child_count() == 0:
+		holder.queue_free()
+
+static func _rail_material(rail_texture_path: String, rail_texture_uv_scale: float) -> Material:
+	var material := StandardMaterial3D.new()
+	material.roughness = 0.54
+	material.uv1_scale = Vector3(rail_texture_uv_scale, rail_texture_uv_scale, 1.0)
+	if not rail_texture_path.strip_edges().is_empty():
+		var texture := load(rail_texture_path)
+		if texture is Texture2D:
+			material.albedo_texture = texture
+	return material
+
+static func _road_edge_points(route_points: Array[Vector3], offset: float, closed_loop: bool) -> Dictionary:
+	var normals: Array[Vector3] = []
+	var segment_count := route_points.size() - 1
+	for i in range(segment_count):
+		var direction := (route_points[i + 1] - route_points[i]).normalized()
+		if direction == Vector3.ZERO:
+			direction = Vector3.FORWARD
+		normals.append(Vector3(direction.z, 0.0, -direction.x))
+	if closed_loop:
+		var direction := (route_points[0] - route_points[route_points.size() - 1]).normalized()
+		if direction == Vector3.ZERO:
+			direction = Vector3.FORWARD
+		normals.append(Vector3(direction.z, 0.0, -direction.x))
+
+	var left_points: Array[Vector3] = []
+	var right_points: Array[Vector3] = []
+	for i in range(route_points.size()):
+		var previous_normal: Vector3
+		var next_normal: Vector3
+		if closed_loop:
+			previous_normal = normals[(i - 1 + normals.size()) % normals.size()]
+			next_normal = normals[i % normals.size()]
+		else:
+			previous_normal = normals[i - 1] if i > 0 else normals[0]
+			next_normal = normals[i] if i < normals.size() else normals[normals.size() - 1]
+		right_points.append(_road_miter_point(route_points[i], previous_normal, next_normal, offset))
+		left_points.append(_road_miter_point(route_points[i], -previous_normal, -next_normal, offset))
+	return {"left": left_points, "right": right_points}
+
+static func _road_miter_point(point: Vector3, previous_normal: Vector3, next_normal: Vector3, offset: float) -> Vector3:
+	var miter := previous_normal + next_normal
+	if miter.length() < 0.001:
+		miter = previous_normal
+	miter = miter.normalized()
+	var denom := miter.dot(previous_normal.normalized())
+	if abs(denom) < 0.001:
+		denom = 0.001 * (1.0 if denom >= 0.0 else -1.0)
+	return point + miter * (abs(offset) / denom)
+
+static func _add_rail_polyline_pieces(parent: Node3D, points: Array, closed_loop: bool, side_name: String, rail_material: Material) -> void:
+	if points.size() < 2:
+		return
+	var segment_count := points.size() if closed_loop else points.size() - 1
+	for i in range(segment_count):
+		_add_rail_segment_pieces(parent, points[i] as Vector3, points[(i + 1) % points.size()] as Vector3, side_name, i, rail_material)
+
+static func _add_rail_segment_pieces(parent: Node3D, a: Vector3, b: Vector3, side_name: String, segment_index: int, rail_material: Material) -> void:
+	var segment := b - a
+	var flat := Vector3(segment.x, 0.0, segment.z)
+	var flat_length := flat.length()
+	var segment_length := segment.length()
+	if segment_length <= RAIL_SEGMENT_GAP * 2.0 + 0.05 or flat_length <= 0.05:
+		return
+	var segment_dir := segment / segment_length
+	var usable_length := segment_length - RAIL_SEGMENT_GAP * 2.0
+	var pieces: int = maxi(1, ceili(usable_length / RAIL_SEGMENT_LENGTH))
+	var piece_length: float = usable_length / float(pieces)
+	var rail_x := segment_dir
+	var rail_z := rail_x.cross(Vector3.UP).normalized()
+	if rail_z.length_squared() <= 0.0001:
+		rail_z = Vector3.FORWARD
+	var rail_y := rail_z.cross(rail_x).normalized()
+	var basis := Basis(rail_x, rail_y, rail_z).scaled(Vector3(piece_length, RAIL_SIDE_SCALE, RAIL_SIDE_SCALE))
+	for piece_index in range(pieces):
+		var distance_along := RAIL_SEGMENT_GAP + (float(piece_index) + 0.5) * piece_length
+		var t := distance_along / segment_length
+		var visual_center := a.lerp(b, t) + Vector3.UP * RAIL_Y_OFFSET
+		var position := visual_center - basis * RAIL_VISUAL_CENTER
+		var rail: Node = RailScene.instantiate()
+		if not (rail is Node3D):
+			if rail != null:
+				rail.queue_free()
+			continue
+		var rail_node := rail as Node3D
+		rail_node.name = "Rail_%02d_%s_%02d" % [segment_index, side_name, piece_index]
+		rail_node.transform = Transform3D(basis, position)
+		_apply_material_override(rail_node, rail_material)
+		_disable_gameplay_collision(rail_node)
+		_add_rail_collision(rail_node)
+		parent.add_child(rail_node)
+
+static func _add_rail_collision(rail_node: Node3D) -> void:
+	var body := StaticBody3D.new()
+	body.name = "CollisionBody"
+	body.collision_layer = 1
+	body.collision_mask = 2
+	body.position = RAIL_VISUAL_CENTER + Vector3(0.0, 0.02, 0.0)
+	var shape_node := CollisionShape3D.new()
+	shape_node.name = "CollisionShape3D"
+	var shape := BoxShape3D.new()
+	shape.size = RAIL_COLLISION_SIZE
+	shape_node.shape = shape
+	body.add_child(shape_node)
+	rail_node.add_child(body)
+
+static func _apply_material_override(node: Node, material: Material) -> void:
+	if node is MeshInstance3D:
+		(node as MeshInstance3D).material_override = material
+	for child in node.get_children():
+		_apply_material_override(child, material)
 
 static func _build_spawns(root: Node3D, definition: TrackDefinition) -> Array:
 	var holder := Node3D.new()

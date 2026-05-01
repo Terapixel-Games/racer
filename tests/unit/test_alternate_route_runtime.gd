@@ -11,8 +11,16 @@ func test_runtime_builds_enabled_alternate_route_geometry() -> void:
 	var built := TrackRuntimeBuilder.build(definition)
 	var track := built.get("node", null) as Node3D
 	scene_tree.root.add_child(track)
+	var rails := track.get_node_or_null("Rails")
+	assert_true(rails != null, "Runtime should build canonical route rails")
+	assert_true(rails != null and rails.get_child_count() > 0, "Canonical route rails should instantiate rail pieces")
+	assert_true(_enabled_collision_objects(rails) > 0, "Canonical route rails should include collision")
 	assert_true(track.get_node_or_null("AlternateRoutes/InsideLaneRoad") != null, "Runtime should build alternate route road geometry")
 	assert_true(track.get_node_or_null("AlternateRoutes/InsideLaneRoad/CollisionBody/CollisionShape3D") != null, "Alternate route road should include collision")
+	var alternate_rails := track.get_node_or_null("AlternateRoutes/InsideLaneRails")
+	assert_true(alternate_rails != null, "Runtime should build alternate route rails")
+	assert_true(alternate_rails != null and alternate_rails.get_child_count() > 0, "Alternate route rails should instantiate rail pieces")
+	assert_true(_enabled_collision_objects(alternate_rails) > 0, "Alternate route rails should include collision")
 	assert_true(track.get_node_or_null("CheckpointSystem/Checkpoint01") != null, "Alternate routes should keep shared checkpoint system")
 	track.queue_free()
 
@@ -86,3 +94,17 @@ func _branch_definition() -> TrackDefinition:
 		"enabled": true,
 	}]
 	return definition
+
+func _enabled_collision_objects(node: Node) -> int:
+	if node == null:
+		return 0
+	var count := 0
+	if node is CollisionObject3D:
+		var collision_object := node as CollisionObject3D
+		if collision_object.collision_layer != 0 or collision_object.collision_mask != 0:
+			count += 1
+	if node is CollisionShape3D and not (node as CollisionShape3D).disabled:
+		count += 1
+	for child in node.get_children():
+		count += _enabled_collision_objects(child)
+	return count

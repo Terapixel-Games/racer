@@ -20,13 +20,13 @@ const OutOfBoundsRules = preload("res://scripts/logic/OutOfBoundsRules.gd")
 @onready var mobile_controls: Control = %MobileControls
 @onready var accel_btn: Button = %AccelButton
 @onready var brake_btn: Button = %BrakeButton
-@onready var left_btn: Button = %LeftButton
-@onready var right_btn: Button = %RightButton
 @onready var drift_btn: Button = %DriftButton
 @onready var boost_btn: Button = %BoostButton
 @onready var item_btn: Button = %ItemButton
 @onready var return_btn: Button = %ReturnButton
 @onready var ui_message: Label = %MessageLabel
+@onready var steer_joystick_area: Control = %SteerJoystickArea
+@onready var steer_joystick_knob: Control = %SteerJoystickKnob
 
 var match_id: String = ""
 var local_user_id: String = ""
@@ -71,6 +71,9 @@ var message_timer: float = 0.0
 var local_item_slot := ""
 var item_roll_timer := 0.0
 var item_rng := RandomNumberGenerator.new()
+var mobile_steer_value := 0.0
+var mobile_steer_touch_id := -1
+var mobile_action_touches: Dictionary = {}
 
 func _ready() -> void:
 	item_rng.randomize()
@@ -253,12 +256,28 @@ func _send_input() -> void:
 
 func _gather_input() -> Dictionary:
 	var steer := (Input.get_action_strength("steer_left") - Input.get_action_strength("steer_right"))
+	if mobile_controls.visible and absf(mobile_steer_value) > 0.02:
+		steer = mobile_steer_value
 	var throttle := Input.get_action_strength("accelerate")
 	var brake := Input.get_action_strength("brake")
 	var boost := Input.is_action_pressed("boost")
 	var drift := Input.is_action_pressed("drift")
 	var item_use := Input.is_action_just_pressed("use_item")
 	return {"steer": steer, "throttle": throttle, "brake": brake, "drift": drift, "boost": boost, "item_use": item_use}
+
+func _input(event: InputEvent) -> void:
+	if not mobile_controls.visible:
+		return
+	if event is InputEventScreenTouch:
+		var touch := event as InputEventScreenTouch
+		if not touch.pressed:
+			_release_mobile_touch(touch.index)
+	elif event is InputEventMouseButton and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:
+		if not (event as InputEventMouseButton).pressed:
+			_release_mobile_touch(-1)
+			if mobile_steer_touch_id == -2:
+				mobile_steer_touch_id = -1
+				_reset_steer_joystick()
 
 func _apply_snapshot(data:Dictionary) -> void:
 	race_started = true
@@ -507,26 +526,126 @@ func _setup_mobile_controls() -> void:
 		return
 	_connect_button(accel_btn, "accelerate")
 	_connect_button(brake_btn, "brake")
-	_connect_button(left_btn, "steer_left")
-	_connect_button(right_btn, "steer_right")
 	_connect_button(drift_btn, "drift")
 	_connect_button(boost_btn, "boost")
 	_connect_button(item_btn, "use_item")
 	_connect_button(return_btn, "return_to_track")
+	steer_joystick_area.gui_input.connect(_on_steer_joystick_input)
+	_reset_steer_joystick.call_deferred()
 
 func _connect_button(btn:Button, action:String) -> void:
 	if btn == null:
 		return
 	btn.pivot_offset = btn.size * 0.5
 	btn.resized.connect(func(): btn.pivot_offset = btn.size * 0.5)
-	btn.button_down.connect(func():
-		btn.scale = Vector2(1.06, 1.06)
+	btn.gui_input.connect(func(event: InputEvent): _handle_mobile_button_input(event, btn, action))
+
+func _handle_mobile_button_input(event: InputEvent, btn: Button, action: String) -> void:
+	var touch_id := -999
+	var pressed := false
+	var released := false
+	if event is InputEventScreenTouch:
+		var touch := event as InputEventScreenTouch
+		touch_id = touch.index
+		pressed = touch.pressed
+		released = not touch.pressed
+	elif event is InputEventMouseButton and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:
+		touch_id = -1
+		pressed = (event as InputEventMouseButton).pressed
+		released = not (event as InputEventMouseButton).pressed
+	else:
+		return
+	var touches: Array = mobile_action_touches.get(action, [])
+	if pressed and not touches.has(touch_id):
+		touches.append(touch_id)
+	elif released:
+		touches.erase(touch_id)
+	mobile_action_touches[action] = touches
+	_set_mobile_button_state(btn, action, not touches.is_empty())
+	btn.accept_event()
+
+func _release_mobile_touch(touch_id: int) -> void:
+	if touch_id == mobile_steer_touch_id:
+		mobile_steer_touch_id = -1
+		_reset_steer_joystick()
+	for action in mobile_action_touches.keys():
+		var action_name := str(action)
+		var touches: Array = mobile_action_touches.get(action_name, [])
+		if not touches.has(touch_id):
+			continue
+		touches.erase(touch_id)
+		mobile_action_touches[action_name] = touches
+		_set_mobile_button_state(_button_for_mobile_action(action_name), action_name, not touches.is_empty())
+
+func _set_mobile_button_state(btn: Button, action: String, active: bool) -> void:
+	if active:
+		if btn != null:
+			btn.scale = Vector2(1.06, 1.06)
 		Input.action_press(action)
-	)
-	btn.button_up.connect(func():
-		btn.scale = Vector2.ONE
+	else:
+		if btn != null:
+			btn.scale = Vector2.ONE
 		Input.action_release(action)
-	)
+
+func _button_for_mobile_action(action: String) -> Button:
+	match action:
+		"accelerate":
+			return accel_btn
+		"brake":
+			return brake_btn
+		"drift":
+			return drift_btn
+		"boost":
+			return boost_btn
+		"use_item":
+			return item_btn
+		"return_to_track":
+			return return_btn
+	return null
+
+func _on_steer_joystick_input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch:
+		var touch := event as InputEventScreenTouch
+		if touch.pressed and mobile_steer_touch_id == -1:
+			mobile_steer_touch_id = touch.index
+			_update_steer_joystick(touch.position)
+			steer_joystick_area.accept_event()
+		elif not touch.pressed and touch.index == mobile_steer_touch_id:
+			mobile_steer_touch_id = -1
+			_reset_steer_joystick()
+			steer_joystick_area.accept_event()
+	elif event is InputEventScreenDrag:
+		var drag := event as InputEventScreenDrag
+		if drag.index == mobile_steer_touch_id:
+			_update_steer_joystick(drag.position)
+			steer_joystick_area.accept_event()
+	elif event is InputEventMouseButton and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:
+		if (event as InputEventMouseButton).pressed:
+			mobile_steer_touch_id = -2
+			_update_steer_joystick((event as InputEventMouseButton).position)
+		else:
+			mobile_steer_touch_id = -1
+			_reset_steer_joystick()
+		steer_joystick_area.accept_event()
+	elif event is InputEventMouseMotion and mobile_steer_touch_id == -2:
+		_update_steer_joystick((event as InputEventMouseMotion).position)
+		steer_joystick_area.accept_event()
+
+func _update_steer_joystick(local_position: Vector2) -> void:
+	var center := steer_joystick_area.size * 0.5
+	var radius := maxf(minf(steer_joystick_area.size.x, steer_joystick_area.size.y) * 0.38, 1.0)
+	var offset := local_position - center
+	if offset.length() > radius:
+		offset = offset.normalized() * radius
+	# Existing steering maps left to positive and right to negative.
+	mobile_steer_value = clampf(-offset.x / radius, -1.0, 1.0)
+	steer_joystick_knob.position = center + offset - steer_joystick_knob.size * 0.5
+
+func _reset_steer_joystick() -> void:
+	mobile_steer_value = 0.0
+	if steer_joystick_area == null or steer_joystick_knob == null:
+		return
+	steer_joystick_knob.position = steer_joystick_area.size * 0.5 - steer_joystick_knob.size * 0.5
 
 func _get_checkpoint_total() -> int:
 	if track_checkpoint_total > 0:
