@@ -27,6 +27,7 @@ const OutOfBoundsRules = preload("res://scripts/logic/OutOfBoundsRules.gd")
 @onready var ui_message: Label = %MessageLabel
 @onready var steer_joystick_area: Control = %SteerJoystickArea
 @onready var steer_joystick_knob: Control = %SteerJoystickKnob
+@onready var heat_distortion: ColorRect = %HeatDistortion
 
 var match_id: String = ""
 var local_user_id: String = ""
@@ -74,6 +75,12 @@ var item_rng := RandomNumberGenerator.new()
 var mobile_steer_value := 0.0
 var mobile_steer_touch_id := -1
 var mobile_action_touches: Dictionary = {}
+var heat_source_positions: Array[Vector3] = []
+var heat_distortion_intensity := 0.0
+
+const HEAT_DISTORTION_RADIUS := 38.0
+const HEAT_DISTORTION_INNER_RADIUS := 12.0
+const HEAT_DISTORTION_FADE_SPEED := 5.0
 
 func _ready() -> void:
 	item_rng.randomize()
@@ -127,6 +134,7 @@ func _spawn_track() -> void:
 		var track_instance: Node = built.get("node", null)
 		if track_instance:
 			add_child(track_instance)
+			_cache_heat_sources(track_instance)
 			var built_checkpoint_system := track_instance.get_node_or_null("CheckpointSystem")
 			if built_checkpoint_system == null:
 				built_checkpoint_system = track_instance.get_node_or_null("BuiltTrack/CheckpointSystem")
@@ -147,6 +155,7 @@ func _spawn_track() -> void:
 		var track_instance: Node = built.get("node", null)
 		if track_instance:
 			add_child(track_instance)
+			_cache_heat_sources(track_instance)
 		spawn_points = built.get("spawns", [])
 		track_laps = built.get("laps", Config.LAPS)
 		track_waypoints = built.get("waypoints", [])
@@ -158,6 +167,7 @@ func _spawn_track() -> void:
 		if track_scene:
 			var track_instance = track_scene.instantiate()
 			add_child(track_instance)
+			_cache_heat_sources(track_instance)
 			var spawn_root = track_instance.get_node_or_null("SpawnPoints")
 			spawn_points = []
 			if spawn_root:
@@ -189,6 +199,21 @@ func _setup_checkpoints() -> void:
 	if track_checkpoint_total <= 0 and checkpoint_system:
 		track_checkpoint_total = checkpoint_system.checkpoint_count
 
+func _cache_heat_sources(track_instance: Node) -> void:
+	heat_source_positions.clear()
+	_collect_heat_source_positions(track_instance)
+
+func _collect_heat_source_positions(node: Node) -> void:
+	if node == null:
+		return
+	if node is Node3D:
+		var node_3d := node as Node3D
+		var name_lower := node.name.to_lower()
+		if name_lower == "kitchenstove":
+			heat_source_positions.append(node_3d.global_transform.origin)
+	for child in node.get_children():
+		_collect_heat_source_positions(child)
+
 func _physics_process(delta: float) -> void:
 	if not race_started:
 		return
@@ -202,6 +227,7 @@ func _physics_process(delta: float) -> void:
 	_tick_local_item_slot(delta)
 	_update_ui()
 	_update_camera(delta)
+	_update_heat_distortion(delta)
 	_tick_message(delta)
 
 func _on_match_state(match_state: NakamaRTAPI.MatchData) -> void:
@@ -740,6 +766,37 @@ func _update_local_track_return_point() -> void:
 		)
 		has_last_on_track_center_transform = true
 	local_car_off_course = off_course
+
+func _update_heat_distortion(delta: float) -> void:
+	if heat_distortion == null:
+		return
+	var car: CarController = cars.get(local_user_id, null)
+	var target := 0.0
+	if car != null:
+		target = heat_distortion_target_intensity(
+			car.global_transform.origin,
+			heat_source_positions,
+			HEAT_DISTORTION_RADIUS,
+			HEAT_DISTORTION_INNER_RADIUS
+		)
+	heat_distortion_intensity = move_toward(heat_distortion_intensity, target, delta * HEAT_DISTORTION_FADE_SPEED)
+	heat_distortion.visible = heat_distortion_intensity > 0.01
+	if heat_distortion.material is ShaderMaterial:
+		(heat_distortion.material as ShaderMaterial).set_shader_parameter("intensity", heat_distortion_intensity)
+
+static func heat_distortion_target_intensity(position: Vector3, heat_sources: Array[Vector3], radius: float, inner_radius: float) -> float:
+	if heat_sources.is_empty() or radius <= 0.0:
+		return 0.0
+	var inner := clampf(inner_radius, 0.0, radius)
+	var strongest := 0.0
+	var point_2d := Vector2(position.x, position.z)
+	for source in heat_sources:
+		var distance := point_2d.distance_to(Vector2(source.x, source.z))
+		var intensity := 1.0
+		if distance > inner:
+			intensity = 1.0 - clampf((distance - inner) / maxf(radius - inner, 0.001), 0.0, 1.0)
+		strongest = maxf(strongest, intensity)
+	return strongest
 
 func _handle_manual_return_to_track() -> void:
 	if not Input.is_action_just_pressed("return_to_track"):
