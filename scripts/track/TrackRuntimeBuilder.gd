@@ -15,8 +15,8 @@ const RailScene = preload("res://assets/source/kenney/racing_kit/rail.glb")
 
 const RAIL_SIDE_SCALE := 8.0
 const RAIL_SEGMENT_LENGTH := 10.0
-const RAIL_EDGE_OFFSET := 0.0
-const RAIL_SEGMENT_GAP := 0.85
+const RAIL_EDGE_OFFSET := -0.22
+const RAIL_SEGMENT_GAP := 0.08
 const RAIL_Y_OFFSET := 0.12
 const RAIL_VISUAL_CENTER := Vector3(0.15, 0.07, -0.625)
 const RAIL_COLLISION_RADIUS := 0.055
@@ -270,7 +270,10 @@ static func _road_miter_point(point: Vector3, previous_normal: Vector3, next_nor
 	var denom := miter.dot(previous_normal.normalized())
 	if abs(denom) < 0.001:
 		denom = 0.001 * (1.0 if denom >= 0.0 else -1.0)
-	return point + miter * (abs(offset) / denom)
+	var miter_length: float = abs(offset) / denom
+	var max_miter_length: float = maxf(abs(offset) * 1.8, abs(offset) + 0.25)
+	miter_length = clampf(miter_length, -max_miter_length, max_miter_length)
+	return point + miter * miter_length
 
 static func _add_rail_polyline_pieces(parent: Node3D, points: Array, closed_loop: bool, side_name: String, rail_material: Material) -> void:
 	if points.size() < 2:
@@ -702,7 +705,7 @@ static func _make_kitchen_window_glass_transparent(root: Node) -> void:
 	for node in _descendants_named(root, ["WindowGlass", "KitchenWindowGlass"]):
 		if node is MeshInstance3D:
 			var material := StandardMaterial3D.new()
-			material.albedo_color = Color(0.72, 0.9, 1.0, 0.28)
+			material.albedo_color = Color(0.72, 0.9, 1.0, 0.12)
 			material.roughness = 0.08
 			material.metallic = 0.0
 			material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA

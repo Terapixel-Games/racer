@@ -31,6 +31,7 @@ const RacerRoster = preload("res://scripts/logic/RacerRoster.gd")
 @onready var return_btn: Button = %ReturnButton
 @onready var ui_message: Label = %MessageLabel
 @onready var ui_canvas: CanvasLayer = $UI
+@onready var hud_root: Control = $UI/HUD
 @onready var steer_joystick_area: Control = %SteerJoystickArea
 @onready var steer_joystick_knob: Control = %SteerJoystickKnob
 @onready var heat_distortion: ColorRect = %HeatDistortion
@@ -148,6 +149,10 @@ var results_list: VBoxContainer
 var results_restart_button: Button
 var results_level_select_button: Button
 var camera_follow_target_id := ""
+var countdown_label: Label
+var countdown_label_tween: Tween
+var countdown_overlay_timer := 0.0
+var countdown_last_text := ""
 
 const HEAT_DISTORTION_RADIUS := 38.0
 const HEAT_DISTORTION_INNER_RADIUS := 12.0
@@ -163,9 +168,11 @@ const ITEM_PICKUP_SFX_PATH := "res://assets/source/audio/canva/items/pickup/item
 const MOBILE_BASE_VIEWPORT := Vector2(1920.0, 1080.0)
 const MOBILE_TOUCH_SCALE := 1.5
 const MOBILE_SAFE_MARGIN := 28.0
+const COUNTDOWN_OVERLAY_DURATION := 0.82
 
 func _ready() -> void:
 	item_rng.randomize()
+	_setup_countdown_overlay()
 	_setup_audio_players()
 	camera.fov = CAMERA_FOV
 	camera.near = CAMERA_NEAR
@@ -290,7 +297,8 @@ func _set_local_phase(next_phase: String) -> void:
 			phase_camera_to = _player_follow_camera_transform()
 		PHASE_COUNTDOWN:
 			player_input_enabled = false
-			_show_message("3")
+			countdown_last_text = ""
+			_show_countdown_overlay("3")
 		PHASE_RACING:
 			player_input_enabled = true
 			_hide_race_hud_for_intro(false)
@@ -298,6 +306,7 @@ func _set_local_phase(next_phase: String) -> void:
 				var car: CarController = cars.get(rid, null)
 				if car != null:
 					car.controlled_locally = true
+			_show_countdown_overlay("GO!")
 			_show_message("GO!")
 		PHASE_PLAYER_FINISH_FOLLOW:
 			player_input_enabled = false
@@ -362,6 +371,7 @@ func _physics_process_local_single(delta: float) -> void:
 	_update_water_drops(delta)
 	_update_audio_zone_players()
 	_update_game_sounds()
+	_tick_countdown_overlay(delta)
 	_tick_message(delta)
 	_update_ui()
 
@@ -563,10 +573,17 @@ func _handle_all_local_out_of_bounds() -> void:
 			continue
 		if not OutOfBoundsRules.should_reset(car.global_transform.origin.y, track_out_of_bounds_y, track_reset_mode):
 			continue
-		var reset_transform := local_respawn_transform if rid == local_user_id and has_local_respawn_transform else _local_reset_transform_for_racer(rid)
+		var reset_transform := _reset_transform_for_local_player() if rid == local_user_id else _local_reset_transform_for_racer(rid)
 		apply_instant_reset(car, _snap_to_ground(reset_transform))
 		if rid == local_user_id:
-			_show_message("Dropped! Back on the counter")
+			_show_message("Dropped! Back on track")
+
+func _reset_transform_for_local_player() -> Transform3D:
+	if has_last_on_track_center_transform:
+		return last_on_track_center_transform
+	if has_local_respawn_transform:
+		return local_respawn_transform
+	return Transform3D.IDENTITY
 
 func _local_reset_transform_for_racer(rid: String) -> Transform3D:
 	var info: Dictionary = racer_states.get(rid, {})
@@ -595,6 +612,9 @@ func _update_grid_entry(_delta: float) -> void:
 
 func _update_countdown() -> void:
 	var remaining := 3 - int(floor(phase_timer))
+	var text := "GO!" if remaining < 1 else str(remaining)
+	if text != countdown_last_text:
+		_show_countdown_overlay(text)
 	if remaining >= 1:
 		ui_message.text = str(remaining)
 	else:
@@ -977,6 +997,47 @@ func _setup_audio_players() -> void:
 	sfx_drift = load(DRIFT_SFX_PATH) as AudioStream
 	sfx_item_pickup = load(ITEM_PICKUP_SFX_PATH) as AudioStream
 
+func _setup_countdown_overlay() -> void:
+	if hud_root == null:
+		return
+	countdown_label = Label.new()
+	countdown_label.name = "CountdownOverlay"
+	countdown_label.visible = false
+	countdown_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	countdown_label.set_anchors_preset(Control.PRESET_FULL_RECT)
+	countdown_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	countdown_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	countdown_label.add_theme_font_size_override("font_size", 156)
+	countdown_label.add_theme_color_override("font_color", Color(1.0, 0.76, 0.18, 0.98))
+	countdown_label.add_theme_color_override("font_shadow_color", Color(0.0, 0.0, 0.0, 0.8))
+	countdown_label.add_theme_constant_override("shadow_offset_x", 5)
+	countdown_label.add_theme_constant_override("shadow_offset_y", 6)
+	hud_root.add_child(countdown_label)
+
+func _show_countdown_overlay(text: String) -> void:
+	if countdown_label == null:
+		return
+	countdown_last_text = text
+	countdown_overlay_timer = COUNTDOWN_OVERLAY_DURATION
+	countdown_label.text = text
+	countdown_label.visible = true
+	countdown_label.modulate = Color(1, 1, 1, 1)
+	countdown_label.scale = Vector2(1.34, 1.34)
+	countdown_label.pivot_offset = countdown_label.size * 0.5
+	if countdown_label_tween != null and countdown_label_tween.is_valid():
+		countdown_label_tween.kill()
+	countdown_label_tween = create_tween()
+	countdown_label_tween.set_parallel(true)
+	countdown_label_tween.tween_property(countdown_label, "scale", Vector2.ONE, 0.28).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	countdown_label_tween.tween_property(countdown_label, "modulate:a", 0.0, 0.26).set_delay(0.56).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+
+func _tick_countdown_overlay(delta: float) -> void:
+	if countdown_label == null or not countdown_label.visible:
+		return
+	countdown_overlay_timer -= delta
+	if countdown_overlay_timer <= 0.0:
+		countdown_label.visible = false
+
 func _ensure_audio_bus(bus_name: String) -> void:
 	if AudioServer.get_bus_index(bus_name) != -1:
 		return
@@ -1078,6 +1139,11 @@ func _collect_heat_source_positions(node: Node) -> void:
 				"position": node_3d.global_transform.origin,
 				"radius": _area_sphere_radius(node, 18.0),
 			})
+		elif name_lower == "sinkwater":
+			sink_water_zones.append({
+				"position": node_3d.global_transform.origin,
+				"radius": 16.0,
+			})
 	for child in node.get_children():
 		_collect_heat_source_positions(child)
 
@@ -1109,6 +1175,7 @@ func _physics_process(delta: float) -> void:
 	_update_water_drops(delta)
 	_update_audio_zone_players()
 	_update_game_sounds()
+	_tick_countdown_overlay(delta)
 	_tick_message(delta)
 
 func _on_match_state(match_state: NakamaRTAPI.MatchData) -> void:
@@ -2041,9 +2108,9 @@ func _handle_local_out_of_bounds() -> void:
 		return
 	if not OutOfBoundsRules.should_reset(car.global_transform.origin.y, track_out_of_bounds_y, track_reset_mode):
 		return
-	var reset_transform := local_respawn_transform if has_local_respawn_transform else Transform3D.IDENTITY
+	var reset_transform := _reset_transform_for_local_player()
 	apply_instant_reset(car, _snap_to_ground(reset_transform))
-	_show_message("Dropped! Back on the counter")
+	_show_message("Dropped! Back on track")
 
 static func apply_instant_reset(car: CharacterBody3D, reset_transform: Transform3D) -> void:
 	if car == null:

@@ -63,9 +63,13 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(not (instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/floor") is CollisionObject3D), "Editable room floor should be visual-only so it cannot block the course")
 	assert_true(_node_position(instance, "BuiltTrack/Dressing/EditableRoom/floor").y <= -32.0, "Editable room floor should stay below the playable course")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoomShell/BackWall") != null, "Editable room scene should include selectable room shell pieces")
-	assert_true(_mesh_material_alpha(instance, "BuiltTrack/Dressing/EditableRoom/RoomShell/WindowGlass") <= 0.35, "Kitchen window glass should be transparent enough for sky visibility")
+	assert_true(not _node_visible(instance, "BuiltTrack/Dressing/EditableRoom/RoomShell/BackWall"), "Kitchen back wall should be split around the window instead of blocking the view")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoomShell/BackWallLeftOfWindow") != null, "Kitchen window should keep editable wall trim on the left")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoomShell/BackWallRightOfWindow") != null, "Kitchen window should keep editable wall trim on the right")
+	assert_true(_mesh_material_alpha(instance, "BuiltTrack/Dressing/EditableRoom/RoomShell/WindowGlass") <= 0.15, "Kitchen window glass should be transparent enough for sky visibility")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Appliances/kitchenSink") != null, "Editable room scene should preserve hand-placed kitchen props")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/WaterSurfaces/SinkWater") != null, "Editable room scene should include authored sink water")
+	assert_true(_node_position(instance, "BuiltTrack/Dressing/EditableRoom/WaterSurfaces/SinkWater").distance_to(Vector3(-87.55, 4.35, 73.55)) <= 0.05, "Kitchen sink water should sit on the authored sink pair")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/WaterSurfaces/WasherWater") != null, "Editable room scene should include authored washer water")
 	assert_true(_node_has_script(instance, "BuiltTrack/Dressing/EditableRoom/washer"), "Editable room washer should run its in-place rumble script")
 	assert_true(_node_has_script(instance, "BuiltTrack/Dressing/EditableRoom/dryer"), "Editable room dryer should run its in-place rumble script")
@@ -203,6 +207,12 @@ func _node_position(root: Node, path: NodePath) -> Vector3:
 	if node == null:
 		return Vector3.ZERO
 	return node.transform.origin
+
+func _node_visible(root: Node, path: NodePath) -> bool:
+	var node := root.get_node_or_null(path) as Node3D
+	if node == null:
+		return false
+	return node.visible
 
 func _node_has_script(root: Node, path: NodePath) -> bool:
 	var node := root.get_node_or_null(path)

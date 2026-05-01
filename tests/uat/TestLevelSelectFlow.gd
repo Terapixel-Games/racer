@@ -50,6 +50,35 @@ func test_local_single_race_spawns_full_roster_and_blocks_input_during_intro() -
 		assert_true(float(input_state.get("throttle", 0.0)) > 0.0, "CPU racers should drive through CarController input")
 	race.queue_free()
 
+func test_local_single_countdown_uses_large_overlay() -> void:
+	var race: Node = _make_local_race()
+	race.call("_set_local_phase", "countdown")
+	race.call("_update_countdown")
+	var countdown := race.find_child("CountdownOverlay", true, false) as Label
+	assert_true(countdown != null, "Race HUD should create a dedicated countdown overlay")
+	assert_true(countdown != null and countdown.visible, "Countdown overlay should be visible during countdown")
+	assert_equal(countdown.text, "3", "Countdown should start at 3")
+	assert_true(countdown != null and countdown.get_theme_font_size("font_size") >= 120, "Countdown should use a large readable font")
+	race.set("phase_timer", 1.1)
+	race.call("_update_countdown")
+	assert_equal(countdown.text, "2", "Countdown should animate through 2")
+	race.set("phase_timer", 3.1)
+	race.call("_update_countdown")
+	assert_equal(countdown.text, "GO!", "Countdown should show GO before enabling racing")
+	race.queue_free()
+
+func test_local_out_of_bounds_returns_to_last_road_center() -> void:
+	var race: Node = _make_local_race()
+	var last_center := Transform3D(Basis(Vector3.UP, deg_to_rad(30.0)), Vector3(24.0, 4.35, -18.0))
+	var checkpoint_reset := Transform3D(Basis.IDENTITY, Vector3(-102.0, 4.35, -74.0))
+	race.set("last_on_track_center_transform", last_center)
+	race.set("has_last_on_track_center_transform", true)
+	race.set("local_respawn_transform", checkpoint_reset)
+	race.set("has_local_respawn_transform", true)
+	var resolved: Transform3D = race.call("_reset_transform_for_local_player")
+	assert_equal(resolved.origin, last_center.origin, "Out-of-bounds reset should prefer the last road center over the checkpoint/start respawn")
+	race.queue_free()
+
 func test_local_single_ai_uses_lane_offsets_and_steers_toward_route_sample() -> void:
 	var race: Node = _make_local_race()
 	race.call("_set_local_phase", "racing")

@@ -398,6 +398,27 @@ mesh = SubResource("PlaneMesh_floor")
 
 [node name="BackWall" type="MeshInstance3D" parent="RoomShell"]
 transform = Transform3D(316.4062, 0, 0, 0, 64.53761, 0, 0, 0, 2, 0, 21, 98)
+visible = false
+material_override = SubResource("Material_wall")
+mesh = SubResource("BoxMesh_unit")
+
+[node name="BackWallLeftOfWindow" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(34, 0, 0, 0, 64.53761, 0, 0, 0, 2, -141, 21, 98)
+material_override = SubResource("Material_wall")
+mesh = SubResource("BoxMesh_unit")
+
+[node name="BackWallRightOfWindow" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(228, 0, 0, 0, 64.53761, 0, 0, 0, 2, 44, 21, 98)
+material_override = SubResource("Material_wall")
+mesh = SubResource("BoxMesh_unit")
+
+[node name="BackWallBelowWindow" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(316.4062, 0, 0, 0, 24, 0, 0, 0, 2, 0, 12, 98)
+material_override = SubResource("Material_wall")
+mesh = SubResource("BoxMesh_unit")
+
+[node name="BackWallAboveWindow" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(316.4062, 0, 0, 0, 22, 0, 0, 0, 2, 0, 53, 98)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
@@ -484,7 +505,7 @@ transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -17.953598, -9.231991, -93
 [node name="WaterSurfaces" type="Node3D" parent="."]
 
 [node name="SinkWater" type="MeshInstance3D" parent="WaterSurfaces"]
-transform = Transform3D(54, 0, 0, 0, 1, 0, 0, 0, 16, -8, 4.35, 74)
+transform = Transform3D(38, 0, 0, 0, 1, 0, 0, 0, 14, -87.55, 4.35, 73.55)
 material_override = SubResource("Material_toon_water")
 mesh = SubResource("PlaneMesh_water")
 
