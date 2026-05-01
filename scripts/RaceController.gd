@@ -15,6 +15,10 @@ const OutOfBoundsRules = preload("res://scripts/logic/OutOfBoundsRules.gd")
 @onready var ui_net: Label = %NetLabel
 @onready var ui_item: Label = %ItemLabel
 @onready var ui_drift: Label = %DriftLabel
+@onready var top_left_panel: Control = $UI/HUD/TopLeftPanel
+@onready var lap_pill: Control = $UI/HUD/LapPill
+@onready var top_right_panel: Control = $UI/HUD/TopRightPanel
+@onready var speed_ui: Control = $UI/HUD/SpeedUI
 @onready var checkpoint_system: Node = %CheckpointSystem
 @onready var camera: Camera3D = %FollowCamera
 @onready var mobile_controls: Control = %MobileControls
@@ -103,6 +107,9 @@ const CAMERA_SHAKE_MAX_OFFSET := 0.34
 const BOOST_SFX_PATH := "res://assets/source/audio/canva/driving/boost/boost_burst_canva_01.wav"
 const DRIFT_SFX_PATH := "res://assets/source/audio/canva/driving/drift/drift_release_canva_01.wav"
 const ITEM_PICKUP_SFX_PATH := "res://assets/source/audio/canva/items/pickup/item_pickup_canva_01.wav"
+const MOBILE_BASE_VIEWPORT := Vector2(1920.0, 1080.0)
+const MOBILE_TOUCH_SCALE := 2.0
+const MOBILE_SAFE_MARGIN := 28.0
 
 func _ready() -> void:
 	item_rng.randomize()
@@ -630,6 +637,9 @@ func _add_key_event(action:String, keycode:int) -> void:
 func _setup_mobile_controls() -> void:
 	if not OS.has_feature("mobile"):
 		return
+	_layout_mobile_hud()
+	if not get_viewport().size_changed.is_connected(_layout_mobile_hud):
+		get_viewport().size_changed.connect(_layout_mobile_hud)
 	_connect_button(accel_btn, "accelerate")
 	_connect_button(brake_btn, "brake")
 	_connect_button(drift_btn, "drift")
@@ -638,6 +648,109 @@ func _setup_mobile_controls() -> void:
 	_connect_button(return_btn, "return_to_track")
 	steer_joystick_area.gui_input.connect(_on_steer_joystick_input)
 	_reset_steer_joystick.call_deferred()
+
+func _layout_mobile_hud() -> void:
+	var viewport_size := get_viewport().get_visible_rect().size
+	if viewport_size.x <= 0.0 or viewport_size.y <= 0.0:
+		return
+	var viewport_scale := minf(viewport_size.x / MOBILE_BASE_VIEWPORT.x, viewport_size.y / MOBILE_BASE_VIEWPORT.y)
+	var touch_scale := maxf(viewport_scale * MOBILE_TOUCH_SCALE, 1.0)
+	var info_scale := clampf(viewport_scale * 1.35, 1.0, 1.35)
+	var margin := MOBILE_SAFE_MARGIN * viewport_scale
+	var bottom_margin := maxf(42.0 * viewport_scale, 24.0)
+
+	_set_control_rect(top_left_panel, Vector2(margin, margin), Vector2(254.0, 196.0) * info_scale)
+	_set_center_top_rect(lap_pill, Vector2(236.0, 52.0) * info_scale, margin)
+	_set_control_rect(top_right_panel, Vector2(viewport_size.x - margin - 270.0 * info_scale, margin), Vector2(270.0, 196.0) * info_scale)
+	_set_center_bottom_rect(speed_ui, Vector2(376.0, 84.0) * info_scale, maxf(bottom_margin, 22.0 * touch_scale))
+
+	var left_width := 272.0 * touch_scale
+	var drift_size := Vector2(168.0, 168.0) * touch_scale
+	var joystick_size := Vector2(272.0, 272.0) * touch_scale
+	var knob_size := Vector2(124.0, 124.0) * touch_scale
+	var left_gap := 30.0 * viewport_scale
+	var left_height := drift_size.y + left_gap + joystick_size.y
+	_set_bottom_left_rect(steer_joystick_area.get_parent() as Control, Vector2(margin, bottom_margin), Vector2(left_width, left_height))
+	_set_control_rect(drift_btn, Vector2((left_width - drift_size.x) * 0.5, 0.0), drift_size)
+	_set_control_rect(steer_joystick_area, Vector2(0.0, drift_size.y + left_gap), joystick_size)
+	_set_control_rect(steer_joystick_area.get_node("SteerJoystickBase") as Control, Vector2.ZERO, joystick_size)
+	_set_control_rect(steer_joystick_knob, (joystick_size - knob_size) * 0.5, knob_size)
+
+	var accel_size := Vector2(224.0, 224.0) * touch_scale
+	var brake_size := Vector2(170.0, 170.0) * touch_scale
+	var boost_size := Vector2(172.0, 172.0) * touch_scale
+	var item_size := Vector2(146.0, 146.0) * touch_scale
+	var return_size := Vector2(132.0, 132.0) * touch_scale
+	var right_gap := 24.0 * viewport_scale
+	var right_width := accel_size.x + brake_size.x + right_gap
+	var right_height := accel_size.y + boost_size.y + right_gap
+	_set_bottom_right_rect(accel_btn.get_parent() as Control, Vector2(margin, bottom_margin), Vector2(right_width, right_height))
+	_set_control_rect(boost_btn, Vector2(right_width - boost_size.x, 0.0), boost_size)
+	_set_control_rect(accel_btn, Vector2(right_width - accel_size.x, right_height - accel_size.y), accel_size)
+	_set_control_rect(brake_btn, Vector2(0.0, right_height - brake_size.y), brake_size)
+	_set_control_rect(item_btn, Vector2(0.0, maxf(0.0, boost_size.y * 0.36)), item_size)
+	_set_control_rect(return_btn, Vector2(item_size.x + right_gap, maxf(0.0, boost_size.y * 0.44)), return_size)
+	_reset_steer_joystick()
+
+func _set_control_rect(control: Control, position: Vector2, rect_size: Vector2) -> void:
+	if control == null:
+		return
+	control.custom_minimum_size = rect_size
+	control.position = position
+	control.size = rect_size
+	control.pivot_offset = rect_size * 0.5
+
+func _set_bottom_left_rect(control: Control, inset: Vector2, rect_size: Vector2) -> void:
+	if control == null:
+		return
+	control.anchor_left = 0.0
+	control.anchor_top = 1.0
+	control.anchor_right = 0.0
+	control.anchor_bottom = 1.0
+	control.offset_left = inset.x
+	control.offset_top = -inset.y - rect_size.y
+	control.offset_right = inset.x + rect_size.x
+	control.offset_bottom = -inset.y
+	control.pivot_offset = rect_size * 0.5
+
+func _set_bottom_right_rect(control: Control, inset: Vector2, rect_size: Vector2) -> void:
+	if control == null:
+		return
+	control.anchor_left = 1.0
+	control.anchor_top = 1.0
+	control.anchor_right = 1.0
+	control.anchor_bottom = 1.0
+	control.offset_left = -inset.x - rect_size.x
+	control.offset_top = -inset.y - rect_size.y
+	control.offset_right = -inset.x
+	control.offset_bottom = -inset.y
+	control.pivot_offset = rect_size * 0.5
+
+func _set_center_top_rect(control: Control, rect_size: Vector2, top: float) -> void:
+	if control == null:
+		return
+	control.anchor_left = 0.5
+	control.anchor_top = 0.0
+	control.anchor_right = 0.5
+	control.anchor_bottom = 0.0
+	control.offset_left = -rect_size.x * 0.5
+	control.offset_top = top
+	control.offset_right = rect_size.x * 0.5
+	control.offset_bottom = top + rect_size.y
+	control.pivot_offset = rect_size * 0.5
+
+func _set_center_bottom_rect(control: Control, rect_size: Vector2, bottom: float) -> void:
+	if control == null:
+		return
+	control.anchor_left = 0.5
+	control.anchor_top = 1.0
+	control.anchor_right = 0.5
+	control.anchor_bottom = 1.0
+	control.offset_left = -rect_size.x * 0.5
+	control.offset_top = -bottom - rect_size.y
+	control.offset_right = rect_size.x * 0.5
+	control.offset_bottom = -bottom
+	control.pivot_offset = rect_size * 0.5
 
 func _connect_button(btn:Button, action:String) -> void:
 	if btn == null:
