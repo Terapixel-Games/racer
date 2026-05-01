@@ -2,8 +2,16 @@
 extends Area3D
 class_name GrassZoneAuthoring
 
+var _size := Vector2(80.0, 60.0)
+
 @export var zone_id := ""
-@export var size := Vector2(80.0, 60.0)
+@export var size: Vector2 = Vector2(80.0, 60.0):
+	set(value):
+		_size = Vector2(maxf(value.x, 0.1), maxf(value.y, 0.1))
+		_sync_collision_shape_from_size()
+		_sync_bounds_preview()
+	get:
+		return _size
 @export_range(0.0, 3.0, 0.05) var density := 1.0
 @export var enabled := true
 @export var show_bounds_preview := true
@@ -12,6 +20,7 @@ class_name GrassZoneAuthoring
 func _ready() -> void:
 	monitoring = false
 	monitorable = false
+	_sync_collision_shape_from_size()
 	if Engine.is_editor_hint():
 		set_process(true)
 		_sync_bounds_preview()
@@ -23,6 +32,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
+		_sync_size_from_collision_shape()
 		_sync_bounds_preview()
 
 func to_grass_zone() -> Dictionary:
@@ -54,6 +64,39 @@ func _bounds_from_collision_shape() -> Dictionary:
 		"yaw_degrees": rotation_degrees.y + shape_node.rotation_degrees.y,
 		"size": Vector2(box_size.x, box_size.z),
 	}
+
+func _sync_collision_shape_from_size() -> void:
+	if not is_inside_tree() and get_child_count() == 0:
+		return
+	var shape_node := _get_or_create_collision_shape()
+	if shape_node == null:
+		return
+	var box := shape_node.shape as BoxShape3D
+	if box == null:
+		box = BoxShape3D.new()
+		shape_node.shape = box
+	box.size = Vector3(size.x, 1.0, size.y)
+
+func _sync_size_from_collision_shape() -> void:
+	var shape_node := get_node_or_null("CollisionShape3D") as CollisionShape3D
+	if shape_node == null or not (shape_node.shape is BoxShape3D):
+		return
+	var box := shape_node.shape as BoxShape3D
+	var next_size := Vector2(box.size.x, box.size.z)
+	if not next_size.is_equal_approx(size):
+		size = next_size
+
+func _get_or_create_collision_shape() -> CollisionShape3D:
+	var shape_node := get_node_or_null("CollisionShape3D") as CollisionShape3D
+	if shape_node != null:
+		return shape_node
+	shape_node = CollisionShape3D.new()
+	shape_node.name = "CollisionShape3D"
+	shape_node.shape = BoxShape3D.new()
+	add_child(shape_node)
+	if owner != null:
+		shape_node.owner = owner
+	return shape_node
 
 func _sync_bounds_preview() -> void:
 	var preview := _get_or_create_bounds_preview()
