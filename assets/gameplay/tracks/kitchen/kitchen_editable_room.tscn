@@ -84,7 +84,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1272974, -1.9644995, -85.70
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.716504, -6.161374, -57.53198)
 
 [node name="RoutePoint09" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.460355, -6.504853, -46.092594)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.460355, -10.108944, -46.092594)
 
 [node name="RoutePoint10" type="Marker3D" parent="RoutePoints"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.221233, -6.504853, -46.092594)
@@ -375,7 +375,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 88, 3.35, 76)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -32, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.040315628, -0.10081482, 0.17739868)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.040315628, 21.648705, 0.17739868)
 material_override = SubResource("Material_floor")
 mesh = SubResource("PlaneMesh_floor")
 
@@ -412,7 +412,7 @@ material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="FrontWallLeft" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(145.60419, 0, 0, 0, 62.42, 0, 0, 0, 2, -91, 21, -98)
+transform = Transform3D(145.60419, 0, 0, 0, 62.42, 0, 0, 0, 2, -91, 21.195286, -98)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
