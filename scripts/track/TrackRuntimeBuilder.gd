@@ -81,6 +81,21 @@ static func _build_ground(root: Node3D, definition: TrackDefinition) -> void:
 	plane.size = definition.ground_size
 	visual.mesh = plane
 	visual.transform.origin = Vector3(0, definition.floor_visual_y if floor_is_out_of_bounds else -0.1, 0)
+	visual.material_override = _ground_material(definition)
+	root.add_child(visual)
+	if floor_is_out_of_bounds and definition.id == "kitchen":
+		_build_floor_tile_grid(root, definition)
+
+static func _ground_material(definition: TrackDefinition) -> Material:
+	var shader_path := definition.ground_shader_path.strip_edges()
+	if not shader_path.is_empty():
+		var shader := load(shader_path)
+		if shader is Shader:
+			var shader_material := ShaderMaterial.new()
+			shader_material.shader = shader
+			shader_material.set_shader_parameter("base_color", definition.ground_color)
+			return shader_material
+		push_warning("Ground shader path is not a Shader: %s" % shader_path)
 	var material := StandardMaterial3D.new()
 	material.albedo_color = definition.ground_color
 	material.roughness = 0.72
@@ -88,10 +103,7 @@ static func _build_ground(root: Node3D, definition: TrackDefinition) -> void:
 		var texture := load(definition.ground_texture_path)
 		if texture is Texture2D:
 			material.albedo_texture = texture
-	visual.material_override = material
-	root.add_child(visual)
-	if floor_is_out_of_bounds and definition.id == "kitchen":
-		_build_floor_tile_grid(root, definition)
+	return material
 
 static func _build_floor_tile_grid(root: Node3D, definition: TrackDefinition) -> void:
 	var holder := Node3D.new()
@@ -617,8 +629,17 @@ static func _add_dressing_scene(parent: Node3D, definition: TrackDefinition) -> 
 		saved_preview.queue_free()
 	if definition.id == "kitchen":
 		_make_kitchen_window_glass_transparent(instance)
+	_apply_ground_shader_to_editable_floor(instance, definition)
 	_disable_gameplay_collision(instance)
 	parent.add_child(instance)
+
+static func _apply_ground_shader_to_editable_floor(instance: Node3D, definition: TrackDefinition) -> void:
+	if definition.ground_shader_path.strip_edges().is_empty():
+		return
+	var floor_mesh := instance.get_node_or_null("floor/MeshInstance3D") as MeshInstance3D
+	if floor_mesh == null:
+		return
+	floor_mesh.material_override = _ground_material(definition)
 
 static func _disable_gameplay_collision(node: Node) -> void:
 	if node is CollisionShape3D:

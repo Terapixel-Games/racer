@@ -19,6 +19,7 @@ const TrackProgressRules = preload("res://scripts/track/TrackProgressRules.gd")
 @export var ground_size := Vector2(160.0, 140.0)
 @export var ground_color := Color(0.82, 0.86, 0.88)
 @export var ground_texture_path := ""
+@export var ground_shader_path := ""
 @export var road_texture_path := ""
 @export var rail_texture_path := ""
 @export var rail_texture_uv_scale := 1.0
@@ -103,6 +104,7 @@ func to_metadata() -> Dictionary:
 		"out_of_bounds_y": out_of_bounds_y,
 		"reset_mode": reset_mode,
 		"floor_visual_y": floor_visual_y,
+		"ground_shader_path": ground_shader_path,
 		"rail_texture_path": rail_texture_path,
 		"rail_texture_uv_scale": rail_texture_uv_scale,
 		"sky_preset_id": sky_preset_id,

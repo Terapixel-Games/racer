@@ -130,6 +130,7 @@
 	"display_name": "Outdoor Playground / Dash",
 	"dressing_scene_path": "res://assets/gameplay/tracks/outdoor_playground/outdoor_playground_editable_room.tscn",
 	"floor_visual_y": -32.0,
+	"ground_shader_path": "res://assets/gameplay/materials/grass/playground_grass.gdshader",
 	"hazard_sockets": [
 		{
 			"position": [

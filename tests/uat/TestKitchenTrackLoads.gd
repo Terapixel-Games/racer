@@ -4,6 +4,7 @@ const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
 const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd")
 const RaceController = preload("res://scripts/RaceController.gd")
 const OutOfBoundsRules = preload("res://scripts/logic/OutOfBoundsRules.gd")
+const OUTDOOR_GRASS_SHADER := "res://assets/gameplay/materials/grass/playground_grass.gdshader"
 
 func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	var packed := load("res://assets/gameplay/tracks/kitchen/kitchen_track.tscn")
@@ -129,6 +130,16 @@ func test_kitchen_authoring_scene_builds_editor_preview() -> void:
 	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewMarkers/RoutePoints/RoutePoint00_Label") == null, "Authoring preview should not label marker ghosts")
 	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewDressingLayout/DressingLabels/EditableRoom_Label") == null, "Authoring preview should not label dressing ghosts")
 	instance.queue_free()
+
+func test_outdoor_playground_runtime_uses_grass_shader() -> void:
+	var definition := TrackCatalog.get_definition("outdoor_playground")
+	assert_true(definition != null, "Outdoor Playground definition should load")
+	var built := TrackRuntimeBuilder.build(definition)
+	var track_node := built.get("node", null) as Node3D
+	scene_tree.root.add_child(track_node)
+	assert_equal(_mesh_shader_path(track_node, "FloorVisual"), OUTDOOR_GRASS_SHADER, "Outdoor Playground generated floor should use the grass shader")
+	assert_equal(_mesh_shader_path(track_node, "Dressing/EditableRoom/floor/MeshInstance3D"), OUTDOOR_GRASS_SHADER, "Outdoor Playground editable floor should use the grass shader at runtime")
+	track_node.queue_free()
 
 func test_car_can_be_placed_on_kitchen_start_grid() -> void:
 	var definition := TrackCatalog.get_definition("kitchen")
@@ -293,3 +304,13 @@ func _mesh_material_alpha(root: Node, path: NodePath) -> float:
 	if material is StandardMaterial3D:
 		return (material as StandardMaterial3D).albedo_color.a
 	return 1.0
+
+func _mesh_shader_path(root: Node, path: NodePath) -> String:
+	var mesh := root.get_node_or_null(path) as MeshInstance3D
+	if mesh == null:
+		return ""
+	if mesh.material_override is ShaderMaterial:
+		var material := mesh.material_override as ShaderMaterial
+		if material.shader != null:
+			return material.shader.resource_path
+	return ""

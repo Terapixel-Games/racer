@@ -17,6 +17,7 @@ const ROAD_WIDTH := 12.0
 const TRACK_BODY_COLOR := Color(0.09, 0.075, 0.065, 1.0)
 const RAIL_TEXTURE := "res://assets/gameplay/materials/metal/toy_metal_albedo.png"
 const ROAD_TEXTURE := "res://assets/gameplay/materials/plastic/glossy_plastic_albedo.png"
+const PLAYGROUND_GRASS_SHADER := "res://assets/gameplay/materials/grass/playground_grass.gdshader"
 
 const COURSES := [
 	{
@@ -165,7 +166,8 @@ const COURSES := [
 		"runtime": "OutdoorPlaygroundTrack",
 		"version": "outdoor_playground_v1_2026_05_01",
 		"ground_texture": "",
-		"ground_color": Color(0.28, 0.32, 0.34, 1.0),
+		"ground_shader": PLAYGROUND_GRASS_SHADER,
+		"ground_color": Color(0.18, 0.42, 0.15, 1.0),
 		"sky": "clear_afternoon",
 		"route": "fast_loop",
 		"surface": "asphalt",
@@ -222,6 +224,7 @@ func _make_definition(course: Dictionary) -> TrackDefinition:
 	definition.ground_size = FLOOR_SIZE
 	definition.ground_color = course["ground_color"]
 	definition.ground_texture_path = course["ground_texture"]
+	definition.ground_shader_path = str(course.get("ground_shader", ""))
 	definition.road_texture_path = ROAD_TEXTURE
 	definition.rail_texture_path = RAIL_TEXTURE
 	definition.rail_texture_uv_scale = 0.5
@@ -329,6 +332,19 @@ func _add_floor(root: Node3D, course: Dictionary) -> void:
 	plane.size = FLOOR_SIZE
 	mesh.mesh = plane
 	mesh.position = Vector3(0.0, 21.648705, 0.0)
+	var material := _floor_material(course)
+	mesh.material_override = material
+	floor.add_child(mesh)
+
+func _floor_material(course: Dictionary) -> Material:
+	var shader_path := str(course.get("ground_shader", "")).strip_edges()
+	if not shader_path.is_empty():
+		var shader := load(shader_path)
+		if shader is Shader:
+			var shader_material := ShaderMaterial.new()
+			shader_material.shader = shader
+			shader_material.set_shader_parameter("base_color", course["ground_color"])
+			return shader_material
 	var material := StandardMaterial3D.new()
 	material.albedo_color = course["ground_color"]
 	material.roughness = 0.78
@@ -338,8 +354,7 @@ func _add_floor(root: Node3D, course: Dictionary) -> void:
 		var texture := load(texture_path)
 		if texture is Texture2D:
 			material.albedo_texture = texture
-	mesh.material_override = material
-	floor.add_child(mesh)
+	return material
 
 func _add_room_shell(root: Node3D, course: Dictionary) -> void:
 	var shell := Node3D.new()
