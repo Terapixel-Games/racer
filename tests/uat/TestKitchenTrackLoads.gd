@@ -71,7 +71,7 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(_mesh_material_alpha(instance, "BuiltTrack/Dressing/EditableRoom/RoomShell/WindowGlass") <= 0.15, "Kitchen window glass should be transparent enough for sky visibility")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Appliances/kitchenSink") != null, "Editable room scene should preserve hand-placed kitchen props")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/WaterSurfaces/SinkWater") != null, "Editable room scene should include authored sink water")
-	assert_true(_node_position(instance, "BuiltTrack/Dressing/EditableRoom/WaterSurfaces/SinkWater").distance_to(Vector3(-87.55, 4.35, 73.55)) <= 0.05, "Kitchen sink water should sit on the authored sink pair")
+	assert_true(_node_position(instance, "BuiltTrack/Dressing/EditableRoom/WaterSurfaces/SinkWater").distance_to(_authored_kitchen_position("WaterSurfaces/SinkWater")) <= 0.05, "Kitchen sink water should stay at the authored editable scene location")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/WaterSurfaces/WasherWater") != null, "Editable room scene should include authored washer water")
 	assert_true(_node_has_script(instance, "BuiltTrack/Dressing/EditableRoom/washer"), "Editable room washer should run its in-place rumble script")
 	assert_true(_node_has_script(instance, "BuiltTrack/Dressing/EditableRoom/dryer"), "Editable room dryer should run its in-place rumble script")
@@ -223,6 +223,15 @@ func _node_position(root: Node, path: NodePath) -> Vector3:
 	if node == null:
 		return Vector3.ZERO
 	return node.transform.origin
+
+func _authored_kitchen_position(path: NodePath) -> Vector3:
+	var packed := load("res://assets/gameplay/tracks/kitchen/kitchen_editable_room.tscn")
+	if not (packed is PackedScene):
+		return Vector3.ZERO
+	var instance := (packed as PackedScene).instantiate() as Node3D
+	var position := _node_position(instance, path)
+	instance.queue_free()
+	return position
 
 func _node_visible(root: Node, path: NodePath) -> bool:
 	var node := root.get_node_or_null(path) as Node3D

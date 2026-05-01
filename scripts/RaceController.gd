@@ -407,7 +407,9 @@ func _tick_local_input() -> void:
 func _tick_ai_input(rid: String, delta: float, allow_finished_cruise: bool = false) -> void:
 	var car: CarController = cars.get(rid, null)
 	var info: Dictionary = racer_states.get(rid, {})
-	if car == null or (bool(info.get("finished", false)) and not allow_finished_cruise) or bool(info.get("wasted", false)):
+	var finished := bool(info.get("finished", false))
+	var finished_cruise := allow_finished_cruise or (finished and ai_racer_ids.has(rid))
+	if car == null or (finished and not finished_cruise) or bool(info.get("wasted", false)):
 		if car != null:
 			car.set_input(_empty_input())
 		return
@@ -437,11 +439,11 @@ func _tick_ai_input(rid: String, delta: float, allow_finished_cruise: bool = fal
 	var angle := absf(atan2(local_target.x, maxf(local_target.z, 0.01)))
 	var speed := car.velocity.length()
 	var brake := 1.0 if angle > AI_BRAKE_ANGLE and speed > 18.0 else 0.0
-	var throttle := 0.45 if brake > 0.0 else (0.55 if allow_finished_cruise else 1.0)
+	var throttle := 0.45 if brake > 0.0 else (0.55 if finished_cruise else 1.0)
 	if absf(steer) > 0.72 and speed > 24.0:
 		throttle = minf(throttle, 0.68)
 	var drift := angle > AI_DRIFT_ANGLE and speed > 13.0
-	var boost := (not allow_finished_cruise) and car.boost_meter > 55.0 and angle < 0.22
+	var boost := (not finished_cruise) and car.boost_meter > 55.0 and angle < 0.22
 	_update_ai_stuck_state(rid, car, driver, float(info.get("progress", 0.0)), delta)
 	ai_driver_state[rid] = driver
 	car.controlled_locally = true

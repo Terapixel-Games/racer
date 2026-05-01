@@ -130,6 +130,28 @@ func test_local_single_ai_moves_cars_from_start() -> void:
 	assert_true(moved >= 6, "Most CPU racers should move away from their start positions under physics input")
 	race.queue_free()
 
+func test_local_single_finished_ai_keeps_cruising_after_final_lap() -> void:
+	var race: Node = _make_local_race()
+	race.call("_set_local_phase", "racing")
+	var ai_ids: Array = race.get("ai_racer_ids")
+	var first_ai := str(ai_ids[0])
+	var states: Dictionary = race.get("racer_states")
+	var ai_state: Dictionary = states.get(first_ai, {})
+	ai_state["finished"] = true
+	ai_state["finish_time"] = 8.0
+	states[first_ai] = ai_state
+	var cars: Dictionary = race.get("cars")
+	var car: CarController = cars.get(first_ai, null)
+	assert_true(car != null, "CPU racer should have a car after finishing")
+	if car != null:
+		race.set("track_waypoints", [Vector3.ZERO, Vector3(0, 0, -40), Vector3(0, 0, -80)])
+		car.global_transform = Transform3D.IDENTITY
+		race.call("_tick_ai_input", first_ai, 0.016)
+		var input_state: Dictionary = car.get("input_state")
+		assert_true(float(input_state.get("throttle", 0.0)) > 0.0, "Finished CPU racers should continue cruising after the final lap")
+		assert_true(not bool(input_state.get("boost", false)), "Finished CPU racers should cruise without boost")
+	race.queue_free()
+
 func test_local_finish_shows_live_overlay_then_finalizes_without_scene_change() -> void:
 	var race: Node = _make_local_race()
 	race.call("_set_local_phase", "racing")
