@@ -4,6 +4,9 @@ const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
 const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd")
 const TrackRuntimeScene = preload("res://scripts/track/TrackRuntimeScene.gd")
 
+const PREVIEW_CAMERA_ROUTE_SPEED := 0.075
+const PREVIEW_CAMERA_BLEND := 0.055
+
 var _tracks: Array[Dictionary] = []
 var _track_index := 0
 var _preview_root: Node3D
@@ -37,6 +40,9 @@ func get_selected_track_id() -> String:
 
 func apply_selected_track_for_test() -> void:
 	_apply_selected_track_metadata()
+
+func preview_has_visible_road_edges_for_test() -> bool:
+	return _has_visible_preview_road_edges(_preview_root)
 
 func _build_screen() -> void:
 	set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -212,6 +218,7 @@ func _rebuild_preview(track_id: String) -> void:
 	var node := built.get("node", null) as Node
 	if node != null:
 		_preview_root.add_child(node)
+		_hide_preview_road_edges(node)
 	for point in built.get("waypoints", definition.route_points):
 		if point is Vector3:
 			_route_points.append(point)
@@ -244,7 +251,7 @@ func _update_preview_camera(snap: bool = false) -> void:
 		_camera.look_at(Vector3.ZERO, Vector3.UP)
 		return
 	var segment_count := count
-	var travel: float = fposmod(_preview_time * 0.18, 1.0) * float(segment_count)
+	var travel: float = fposmod(_preview_time * PREVIEW_CAMERA_ROUTE_SPEED, 1.0) * float(segment_count)
 	var index := int(floor(travel)) % count
 	var next_index := (index + 1) % count
 	var ratio: float = travel - floor(travel)
@@ -260,8 +267,34 @@ func _update_preview_camera(snap: bool = false) -> void:
 	if snap:
 		_camera.global_transform.origin = desired
 	else:
-		_camera.global_transform.origin = _camera.global_transform.origin.lerp(desired, 0.08)
+		_camera.global_transform.origin = _camera.global_transform.origin.lerp(desired, PREVIEW_CAMERA_BLEND)
 	_camera.look_at(point + Vector3.UP * 2.0, Vector3.UP)
+
+func _hide_preview_road_edges(node: Node) -> void:
+	if _is_preview_road_edge_node(node) and node is Node3D:
+		(node as Node3D).visible = false
+	for child in node.get_children():
+		_hide_preview_road_edges(child)
+
+func _has_visible_preview_road_edges(node: Node) -> bool:
+	if node == null:
+		return false
+	if _is_preview_road_edge_node(node) and node is Node3D and (node as Node3D).visible:
+		return true
+	for child in node.get_children():
+		if _has_visible_preview_road_edges(child):
+			return true
+	return false
+
+func _is_preview_road_edge_node(node: Node) -> bool:
+	var node_name := str(node.name).to_lower()
+	return (
+		node_name == "rails"
+		or node_name.ends_with("rails")
+		or node_name.begins_with("rail_")
+		or node_name == "trackbody"
+		or node_name.ends_with("trackbody")
+	)
 
 func _start_selected_track() -> void:
 	_apply_selected_track_metadata()

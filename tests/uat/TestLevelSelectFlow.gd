@@ -20,6 +20,7 @@ func test_level_select_loads_default_track_and_writes_local_single_metadata() ->
 	assert_true(screen.has_method("get_track_count"), "Level select should expose selectable track count for smoke tests")
 	assert_true(int(screen.call("get_track_count")) >= 1, "Level select should load at least one track")
 	assert_equal(str(screen.call("get_selected_track_id")), "kitchen", "Level select should default to the catalog default track")
+	assert_true(not bool(screen.call("preview_has_visible_road_edges_for_test")), "Level select preview should hide temporary rail edge visuals")
 	screen.call("apply_selected_track_for_test")
 	assert_equal(NakamaService.get_meta_value("track_id", ""), "kitchen", "Level select should write selected track id")
 	assert_true(NakamaService.get_meta_value("track_recipe", {}) is Dictionary, "Level select should write track metadata recipe")
