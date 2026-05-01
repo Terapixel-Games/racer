@@ -86,6 +86,7 @@ func test_kitchen_authoring_scene_builds_editor_preview() -> void:
 	assert_equal(int(summary.get("surface_segments", 0)), 3, "Kitchen builder should report editable surface segments")
 	assert_equal(int(summary.get("audio_zones", 0)), 4, "Kitchen builder should report editable audio zones")
 	assert_equal((instance.call("validate_authoring") as Array).size(), 0, "Kitchen authoring markers should validate against track rules")
+	instance.set("preview_enabled", true)
 	instance.call("refresh_preview")
 	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewCounterSurface") == null, "Authoring preview should not ghost the room surface")
 	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewTrackBody") != null, "Authoring preview should include the raised track body")

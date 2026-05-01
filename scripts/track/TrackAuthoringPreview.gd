@@ -14,7 +14,7 @@ const AudioZoneAuthoring = preload("res://scripts/track/AudioZoneAuthoring.gd")
 
 const PREVIEW_ROOT_NAME := "EditorTrackPreview"
 
-@export var preview_enabled := true:
+@export var preview_enabled := false:
 	set(value):
 		preview_enabled = value
 		if preview_enabled:
