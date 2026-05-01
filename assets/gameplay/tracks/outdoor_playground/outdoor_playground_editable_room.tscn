@@ -1,9 +1,10 @@
-[gd_scene load_steps=21 format=3]
+[gd_scene load_steps=22 format=3]
 
 [ext_resource type="Script" path="res://scripts/track/TrackAuthoringPreview.gd" id="1_v46l3"]
 [ext_resource type="Script" path="res://scripts/track/StagePropAuthoring.gd" id="2_nuam5"]
 [ext_resource type="Script" path="res://scripts/track/SurfaceSegmentAuthoring.gd" id="3_72hx3"]
 [ext_resource type="Script" path="res://scripts/track/AudioZoneAuthoring.gd" id="4_3tyt2"]
+[ext_resource type="Script" path="res://scripts/track/GrassZoneAuthoring.gd" id="5_grass_zone"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hc0tp"]
 albedo_color = Color(0.28, 0.32, 0.34, 1)
@@ -426,3 +427,18 @@ zone_id = "outdoor_playground_feature_zone"
 audio_id = "outdoor_playground_secondary"
 zone_kind = "oneshot"
 radius = 28.0
+
+[node name="GrassZones" type="Node3D" parent="."]
+
+[node name="MainGrassField" type="Marker3D" parent="GrassZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, -11, 8)
+script = ExtResource("5_grass_zone")
+zone_id = "main_grass_field"
+size = Vector2(178, 132)
+
+[node name="BackCornerGrass" type="Marker3D" parent="GrassZones"]
+transform = Transform3D(0.90630776, 0, -0.42261827, 0, 1, 0, 0.42261827, 0, 0.90630776, -86, -11, 42)
+script = ExtResource("5_grass_zone")
+zone_id = "back_corner_grass"
+size = Vector2(72, 56)
+density = 0.85

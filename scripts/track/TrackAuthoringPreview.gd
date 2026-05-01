@@ -252,6 +252,7 @@ func get_authoring_summary() -> Dictionary:
 		"dressing_props": _sorted_node3d_children(_get_or_create_holder("Dressing")).size(),
 		"surface_segments": _sorted_marker_children(_get_or_create_holder("SurfaceSegments")).size(),
 		"audio_zones": _sorted_marker_children(_get_or_create_holder("AudioZones")).size(),
+		"grass_zones": _sorted_marker_children(_get_or_create_holder("GrassZones")).size(),
 	}
 
 func _add_ground_preview(parent: Node3D) -> void:
@@ -538,6 +539,7 @@ func _definition_from_markers() -> TrackDefinition:
 	definition.hazard_sockets = _collect_socket_markers("HazardSockets")
 	definition.shortcut_gates = _collect_shortcut_gates(definition.shortcut_gates)
 	definition.alternate_routes = _collect_alternate_routes(definition.alternate_routes)
+	definition.grass_zones = _collect_grass_zones()
 	if metadata_authoring_enabled:
 		definition.dressing_overrides = _collect_dressing_overrides(definition.dressing_overrides)
 		definition.stage_props = _collect_stage_props()
@@ -852,6 +854,16 @@ func _collect_audio_zones() -> Array[Dictionary]:
 			zones.append(child.call("to_audio_zone") as Dictionary)
 	return zones
 
+func _collect_grass_zones() -> Array[Dictionary]:
+	var zones: Array[Dictionary] = []
+	var holder := get_node_or_null("GrassZones")
+	if holder == null:
+		return zones
+	for child in _sorted_marker_children(holder):
+		if child.has_method("to_grass_zone"):
+			zones.append(child.call("to_grass_zone") as Dictionary)
+	return zones
+
 func _point_from_gate_value(value: Variant) -> Vector3:
 	if value is Vector3:
 		return value
@@ -935,7 +947,7 @@ func _preview_signature() -> String:
 		str(wall_preview_alpha),
 		str(dressing_preview_alpha),
 	]
-	for holder_name in ["RoutePoints", "SpawnPoints", "Checkpoints", "ItemSockets", "HazardSockets", "ShortcutGates", "AlternateRoutes", "SectionMarkers", "Dressing", "SurfaceSegments", "AudioZones"]:
+	for holder_name in ["RoutePoints", "SpawnPoints", "Checkpoints", "ItemSockets", "HazardSockets", "ShortcutGates", "AlternateRoutes", "SectionMarkers", "Dressing", "SurfaceSegments", "AudioZones", "GrassZones"]:
 		parts.append(holder_name)
 		var source := get_node_or_null(holder_name)
 		if source == null:

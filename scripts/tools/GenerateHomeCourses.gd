@@ -6,6 +6,7 @@ const TrackAuthoringPreview = preload("res://scripts/track/TrackAuthoringPreview
 const StagePropAuthoring = preload("res://scripts/track/StagePropAuthoring.gd")
 const SurfaceSegmentAuthoring = preload("res://scripts/track/SurfaceSegmentAuthoring.gd")
 const AudioZoneAuthoring = preload("res://scripts/track/AudioZoneAuthoring.gd")
+const GrassZoneAuthoring = preload("res://scripts/track/GrassZoneAuthoring.gd")
 const TrackMetadataExporter = preload("res://scripts/track/TrackMetadataExporter.gd")
 const TrackRuntimeScene = preload("res://scripts/track/TrackRuntimeScene.gd")
 
@@ -245,6 +246,7 @@ func _make_definition(course: Dictionary) -> TrackDefinition:
 		"%s_secondary" % course["id"]: course["sfx_b"],
 	}
 	definition.audio_zones = _audio_zones(course)
+	definition.grass_zones = _grass_zones(course)
 	return definition
 
 func _apply_sky_preset(definition: TrackDefinition, preset_id: String) -> void:
@@ -305,6 +307,7 @@ func _save_editable_scene(course: Dictionary) -> void:
 	_add_stage_prop_nodes(root, course)
 	_add_surface_segment_nodes(root, course)
 	_add_audio_zone_nodes(root, course)
+	_add_grass_zone_nodes(root, course)
 	_set_owner_recursive(root, root)
 	var packed := PackedScene.new()
 	packed.pack(root)
@@ -448,6 +451,19 @@ func _add_audio_zone_nodes(root: Node3D, course: Dictionary) -> void:
 		zone.radius = float(data["radius"])
 		zone.volume_db = float(data["volume_db"])
 		zone.position = _vec3(data["position"])
+		holder.add_child(zone)
+
+func _add_grass_zone_nodes(root: Node3D, course: Dictionary) -> void:
+	var holder := _add_holder(root, "GrassZones")
+	for data in _grass_zones(course):
+		var zone := GrassZoneAuthoring.new()
+		zone.name = str(data["id"]).capitalize().replace(" ", "")
+		zone.zone_id = str(data["id"])
+		zone.size = _vec2(data["size"])
+		zone.density = float(data["density"])
+		zone.enabled = bool(data["enabled"])
+		zone.position = _vec3(data["position"])
+		zone.rotation_degrees.y = float(data["yaw_degrees"])
 		holder.add_child(zone)
 
 func _add_holder(root: Node3D, holder_name: String) -> Node3D:
@@ -612,6 +628,14 @@ func _audio_zones(course: Dictionary) -> Array[Dictionary]:
 		{"id": "%s_feature_zone" % course["id"], "audio_id": "%s_secondary" % course["id"], "audio_path": "", "zone_kind": "oneshot", "radius": 28.0, "volume_db": -6.0, "position": Vector3(60, ROAD_Y + 1.0, 36)},
 	]
 
+func _grass_zones(course: Dictionary) -> Array[Dictionary]:
+	if str(course["id"]) != "outdoor_playground":
+		return []
+	return [
+		{"id": "main_grass_field", "position": Vector3(18, AUTHORING_GROUND_Y, 8), "yaw_degrees": 0.0, "size": Vector2(178, 132), "density": 1.0, "enabled": true},
+		{"id": "back_corner_grass", "position": Vector3(-86, AUTHORING_GROUND_Y, 42), "yaw_degrees": 25.0, "size": Vector2(72, 56), "density": 0.85, "enabled": true},
+	]
+
 func _stage_wall_color(stage_id: String) -> Color:
 	match stage_id:
 		"sandbox":
@@ -636,6 +660,13 @@ func _vec3(value: Variant) -> Vector3:
 	if value is Array and value.size() >= 3:
 		return Vector3(float(value[0]), float(value[1]), float(value[2]))
 	return Vector3.ZERO
+
+func _vec2(value: Variant) -> Vector2:
+	if value is Vector2:
+		return value
+	if value is Array and value.size() >= 2:
+		return Vector2(float(value[0]), float(value[1]))
+	return Vector2.ZERO
 
 func _color(value: Variant) -> Color:
 	if value is Color:

@@ -124,22 +124,67 @@ static func _build_playground_grass_blades(root: Node3D, definition: TrackDefini
 	multimesh.instance_count = PLAYGROUND_GRASS_BLADE_COUNT
 	var rng := RandomNumberGenerator.new()
 	rng.seed = 783219
-	var half_x := definition.ground_size.x * 0.5
-	var half_z := definition.ground_size.y * 0.5
-	var base_y := definition.out_of_bounds_y + PLAYGROUND_GRASS_FLOOR_CLEARANCE
+	var zones := _grass_scatter_zones(definition)
+	var zone_weights: Array[float] = []
+	var total_weight := 0.0
+	for zone in zones:
+		var size := _vector2_from_value(zone.get("size", Vector2.ZERO), Vector2.ZERO)
+		var density := maxf(float(zone.get("density", 1.0)), 0.0)
+		var weight := maxf(size.x, 0.0) * maxf(size.y, 0.0) * density
+		zone_weights.append(weight)
+		total_weight += weight
 	for i in range(PLAYGROUND_GRASS_BLADE_COUNT):
-		var x := rng.randf_range(-half_x, half_x)
-		var z := rng.randf_range(-half_z, half_z)
+		var zone := _pick_grass_zone(zones, zone_weights, total_weight, rng)
+		var zone_position := _vector3_from_value(zone.get("position", Vector3.ZERO), Vector3.ZERO)
+		var zone_size := _vector2_from_value(zone.get("size", definition.ground_size), definition.ground_size)
+		var local := Vector3(
+			rng.randf_range(zone_size.x * -0.5, zone_size.x * 0.5),
+			0.0,
+			rng.randf_range(zone_size.y * -0.5, zone_size.y * 0.5)
+		)
+		var position := zone_position + Basis(Vector3.UP, deg_to_rad(float(zone.get("yaw_degrees", 0.0)))) * local
+		position.y += PLAYGROUND_GRASS_FLOOR_CLEARANCE
 		var yaw := rng.randf_range(0.0, TAU)
 		var width_scale := rng.randf_range(2.2, 4.6)
 		var height_scale := rng.randf_range(2.8, 6.8)
 		var basis := Basis(Vector3.UP, yaw).scaled(Vector3(width_scale, height_scale, width_scale))
-		multimesh.set_instance_transform(i, Transform3D(basis, Vector3(x, base_y, z)))
+		multimesh.set_instance_transform(i, Transform3D(basis, position))
 	var blades := MultiMeshInstance3D.new()
 	blades.name = "PlaygroundGrassBlades"
 	blades.multimesh = multimesh
 	blades.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	root.add_child(blades)
+
+static func _grass_scatter_zones(definition: TrackDefinition) -> Array[Dictionary]:
+	var zones: Array[Dictionary] = []
+	for zone in definition.grass_zones:
+		if not bool(zone.get("enabled", true)):
+			continue
+		var size := _vector2_from_value(zone.get("size", Vector2.ZERO), Vector2.ZERO)
+		if size.x <= 0.0 or size.y <= 0.0 or float(zone.get("density", 1.0)) <= 0.0:
+			continue
+		zones.append(zone)
+	if zones.is_empty():
+		zones.append({
+			"id": "full_ground",
+			"position": Vector3(0.0, definition.out_of_bounds_y, 0.0),
+			"yaw_degrees": 0.0,
+			"size": definition.ground_size,
+			"density": 1.0,
+			"enabled": true,
+		})
+	return zones
+
+static func _pick_grass_zone(zones: Array[Dictionary], weights: Array[float], total_weight: float, rng: RandomNumberGenerator) -> Dictionary:
+	if zones.size() == 1 or total_weight <= 0.0:
+		return zones[0]
+	var target := rng.randf_range(0.0, total_weight)
+	var cursor := 0.0
+	for i in range(zones.size()):
+		cursor += weights[i]
+		if target <= cursor:
+			return zones[i]
+	return zones[zones.size() - 1]
 
 static func _grass_blade_mesh(shader: Shader) -> ArrayMesh:
 	var vertices := PackedVector3Array([
@@ -1045,6 +1090,13 @@ static func _vector3_from_value(value: Variant, fallback: Vector3) -> Vector3:
 		return value
 	if value is Array and value.size() >= 3:
 		return Vector3(float(value[0]), float(value[1]), float(value[2]))
+	return fallback
+
+static func _vector2_from_value(value: Variant, fallback: Vector2) -> Vector2:
+	if value is Vector2:
+		return value
+	if value is Array and value.size() >= 2:
+		return Vector2(float(value[0]), float(value[1]))
 	return fallback
 
 static func _color_from_value(value: Variant, fallback: Color) -> Color:

@@ -1,6 +1,7 @@
 extends "res://tests/framework/TestCase.gd"
 
 const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
+const TrackSceneAuthoringData = preload("res://scripts/track/TrackSceneAuthoringData.gd")
 
 const HOME_COURSE_IDS := [
 	"sandbox",
@@ -78,6 +79,10 @@ func test_home_course_tracks_are_human_editable_and_match_kitchen_scale() -> voi
 		assert_true(_route_has_no_self_intersections(definition.route_points, definition.closed_loop), "%s route should not overlap itself" % track_id)
 		assert_equal(_floor_mesh_size(str(definition.dressing_scene_path)), kitchen_floor_size, "%s editable floor should match Kitchen floor dimensions" % track_id)
 		_assert_authoring_scene(definition.dressing_scene_path, track_id)
+		if track_id == "outdoor_playground":
+			var authored_definition = TrackSceneAuthoringData.apply_to_definition(definition)
+			assert_true(authored_definition.grass_zones.size() >= 2, "Outdoor Playground should expose editable grass zones")
+			assert_true((authored_definition.to_metadata().get("grass_zones", []) as Array).size() >= 2, "Outdoor Playground metadata should export grass zones")
 
 func test_track_sky_presets_match_stage_plan() -> void:
 	for track_id in EXPECTED_STAGE_SKY_PRESETS.keys():
@@ -94,6 +99,9 @@ func _assert_authoring_scene(scene_path: String, track_id: String) -> void:
 	assert_true(root != null, "%s editable scene should instantiate" % track_id)
 	for group_name in REQUIRED_AUTHORING_GROUPS:
 		assert_true(root.get_node_or_null(group_name) != null, "%s should expose %s" % [track_id, group_name])
+	if track_id == "outdoor_playground":
+		assert_true(root.get_node_or_null("GrassZones") != null, "Outdoor Playground should expose editable GrassZones")
+		assert_true(root.get_node("GrassZones").get_child_count() >= 2, "Outdoor Playground should expose multiple editable grass zones")
 	assert_true(root.get_node("RoutePoints").get_child_count() >= 30, "%s should expose route markers" % track_id)
 	assert_equal(root.get_node("SpawnPoints").get_child_count(), 8, "%s should expose editable spawn markers" % track_id)
 	assert_true(root.get_node("Dressing").get_child_count() >= 5, "%s should expose editable dressing props" % track_id)

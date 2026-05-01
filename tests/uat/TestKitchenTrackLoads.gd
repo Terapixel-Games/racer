@@ -2,6 +2,7 @@ extends "res://tests/framework/TestCase.gd"
 
 const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
 const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd")
+const TrackSceneAuthoringData = preload("res://scripts/track/TrackSceneAuthoringData.gd")
 const RaceController = preload("res://scripts/RaceController.gd")
 const OutOfBoundsRules = preload("res://scripts/logic/OutOfBoundsRules.gd")
 const OUTDOOR_GRASS_SHADER := "res://assets/gameplay/materials/grass/playground_grass.gdshader"
@@ -133,17 +134,20 @@ func test_kitchen_authoring_scene_builds_editor_preview() -> void:
 	instance.queue_free()
 
 func test_outdoor_playground_runtime_uses_grass_shader() -> void:
-	var definition := TrackCatalog.get_definition("outdoor_playground")
+	var definition := TrackSceneAuthoringData.apply_to_definition(TrackCatalog.get_definition("outdoor_playground"))
 	assert_true(definition != null, "Outdoor Playground definition should load")
 	var built := TrackRuntimeBuilder.build(definition)
 	var track_node := built.get("node", null) as Node3D
 	scene_tree.root.add_child(track_node)
+	assert_true(definition.grass_zones.size() >= 2, "Outdoor Playground should use authored grass zones")
+	assert_true(track_node.get_node_or_null("Dressing/EditableRoom/GrassZones/MainGrassField") != null, "Runtime editable room should retain selectable grass zone nodes")
 	assert_equal(_mesh_shader_path(track_node, "FloorVisual"), OUTDOOR_GRASS_SHADER, "Outdoor Playground generated floor should use the grass shader")
 	assert_equal(_mesh_shader_path(track_node, "Dressing/EditableRoom/floor/MeshInstance3D"), OUTDOOR_GRASS_SHADER, "Outdoor Playground editable floor should use the grass shader at runtime")
 	assert_true(track_node.get_node_or_null("PlaygroundGrassBlades") is MultiMeshInstance3D, "Outdoor Playground should build an upright grass blade layer")
 	assert_true(_multimesh_instance_count(track_node, "PlaygroundGrassBlades") >= 18000, "Outdoor Playground grass should use enough blades to read as grass from kart height")
 	assert_equal(_multimesh_shader_path(track_node, "PlaygroundGrassBlades"), OUTDOOR_GRASS_BLADE_SHADER, "Outdoor Playground grass blades should use the blade sway shader")
 	assert_true(_first_multimesh_instance_y(track_node, "PlaygroundGrassBlades") > definition.floor_visual_y + 10.0, "Outdoor Playground grass blades should sit on the authored visible floor, not the lower reset plane")
+	assert_true(_multimesh_instances_inside_grass_zones(track_node, "PlaygroundGrassBlades", definition.grass_zones, 300), "Outdoor Playground grass blades should be scattered inside authored grass zones")
 	track_node.queue_free()
 
 func test_car_can_be_placed_on_kitchen_start_grid() -> void:
@@ -351,3 +355,40 @@ func _first_multimesh_instance_y(root: Node, path: NodePath) -> float:
 	if instance == null or instance.multimesh == null or instance.multimesh.instance_count == 0:
 		return -INF
 	return instance.multimesh.get_instance_transform(0).origin.y
+
+func _multimesh_instances_inside_grass_zones(root: Node, path: NodePath, zones: Array[Dictionary], sample_count: int) -> bool:
+	var instance := root.get_node_or_null(path) as MultiMeshInstance3D
+	if instance == null or instance.multimesh == null:
+		return false
+	var count := mini(sample_count, instance.multimesh.instance_count)
+	for i in range(count):
+		var position := instance.multimesh.get_instance_transform(i).origin
+		if not _point_inside_any_grass_zone(position, zones):
+			return false
+	return true
+
+func _point_inside_any_grass_zone(point: Vector3, zones: Array[Dictionary]) -> bool:
+	for zone in zones:
+		if not bool(zone.get("enabled", true)):
+			continue
+		var center := _point_from_value(zone.get("position", Vector3.ZERO))
+		var size := _vector2_from_value(zone.get("size", Vector2.ZERO))
+		var yaw := deg_to_rad(float(zone.get("yaw_degrees", 0.0)))
+		var local := Basis(Vector3.UP, -yaw) * (point - center)
+		if absf(local.x) <= size.x * 0.5 + 0.01 and absf(local.z) <= size.y * 0.5 + 0.01:
+			return true
+	return false
+
+func _point_from_value(value: Variant) -> Vector3:
+	if value is Vector3:
+		return value
+	if value is Array and value.size() >= 3:
+		return Vector3(float(value[0]), float(value[1]), float(value[2]))
+	return Vector3.ZERO
+
+func _vector2_from_value(value: Variant) -> Vector2:
+	if value is Vector2:
+		return value
+	if value is Array and value.size() >= 2:
+		return Vector2(float(value[0]), float(value[1]))
+	return Vector2.ZERO

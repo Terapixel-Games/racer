@@ -45,6 +45,7 @@ const TrackProgressRules = preload("res://scripts/track/TrackProgressRules.gd")
 @export var stage_props: Array[Dictionary] = []
 @export var surface_segments: Array[Dictionary] = []
 @export var audio_zones: Array[Dictionary] = []
+@export var grass_zones: Array[Dictionary] = []
 @export var dressing_overrides: Dictionary = {}
 @export var audio_ids: Dictionary = {}
 
@@ -78,6 +79,7 @@ func validate() -> Array[String]:
 	_validate_stage_props(errors)
 	_validate_surface_segments(errors)
 	_validate_audio_zones(errors)
+	_validate_grass_zones(errors)
 	return errors
 
 func to_metadata() -> Dictionary:
@@ -129,6 +131,7 @@ func to_metadata() -> Dictionary:
 		"stage_props": _stage_props_to_json(stage_props),
 		"surface_segments": _surface_segments_to_json(surface_segments),
 		"audio_zones": _audio_zones_to_json(audio_zones),
+		"grass_zones": _grass_zones_to_json(grass_zones),
 		"audio_ids": audio_ids,
 		"runtime_scene_path": runtime_scene_path,
 		"dressing_scene_path": dressing_scene_path,
@@ -229,6 +232,20 @@ func _validate_audio_zones(errors: Array[String]) -> void:
 		if float(zone.get("radius", 0.0)) <= 0.0:
 			errors.append("Audio zone %s radius must be greater than zero." % zone_id)
 
+func _validate_grass_zones(errors: Array[String]) -> void:
+	for i in range(grass_zones.size()):
+		var zone := grass_zones[i]
+		if not bool(zone.get("enabled", true)):
+			continue
+		var zone_id := str(zone.get("id", "")).strip_edges()
+		var size := _vector2_from_value(zone.get("size", Vector2.ZERO), Vector2.ZERO)
+		if zone_id.is_empty():
+			errors.append("Grass zone %d id is required." % i)
+		if size.x <= 0.0 or size.y <= 0.0:
+			errors.append("Grass zone %s size must be positive." % zone_id)
+		if float(zone.get("density", 1.0)) < 0.0:
+			errors.append("Grass zone %s density must be non-negative." % zone_id)
+
 func _distance_to_route_xz(point: Vector3) -> float:
 	var best := INF
 	var segment_count := route_points.size() if closed_loop else route_points.size() - 1
@@ -309,6 +326,19 @@ func _audio_zones_to_json(zones: Array[Dictionary]) -> Array:
 		})
 	return out
 
+func _grass_zones_to_json(zones: Array[Dictionary]) -> Array:
+	var out: Array = []
+	for zone in zones:
+		out.append({
+			"id": str(zone.get("id", "")),
+			"position": _point_value_to_array(zone.get("position", Vector3.ZERO)),
+			"yaw_degrees": float(zone.get("yaw_degrees", 0.0)),
+			"size": _vector2_value_to_array(zone.get("size", Vector2.ZERO)),
+			"density": float(zone.get("density", 1.0)),
+			"enabled": bool(zone.get("enabled", true)),
+		})
+	return out
+
 func _shortcut_gates_to_json(gates: Array[Dictionary]) -> Array:
 	var out: Array = []
 	for gate in gates:
@@ -351,6 +381,17 @@ func _color_value_to_array(value: Variant) -> Array:
 	if value is Array and value.size() >= 4:
 		return [float(value[0]), float(value[1]), float(value[2]), float(value[3])]
 	return [1.0, 1.0, 1.0, 1.0]
+
+func _vector2_value_to_array(value: Variant) -> Array:
+	var vector := _vector2_from_value(value, Vector2.ZERO)
+	return [vector.x, vector.y]
+
+func _vector2_from_value(value: Variant, fallback: Vector2) -> Vector2:
+	if value is Vector2:
+		return value
+	if value is Array and value.size() >= 2:
+		return Vector2(float(value[0]), float(value[1]))
+	return fallback
 
 func _vector3_from_value(value: Variant, fallback: Vector3) -> Vector3:
 	if value is Vector3:

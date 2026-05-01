@@ -52,6 +52,9 @@ static func _apply_scene_markers(definition: TrackDefinition, scene_root: Node3D
 	var audio_zones := _collect_audio_zones(scene_root)
 	if not audio_zones.is_empty():
 		definition.audio_zones = audio_zones
+	var grass_zones := _collect_grass_zones(scene_root)
+	if not grass_zones.is_empty():
+		definition.grass_zones = grass_zones
 
 static func _collect_marker_positions(root: Node, holder_name: String) -> Array[Vector3]:
 	var out: Array[Vector3] = []
@@ -176,6 +179,16 @@ static func _collect_audio_zones(root: Node) -> Array[Dictionary]:
 	for child in _sorted_marker_children(holder):
 		if child.has_method("to_audio_zone"):
 			zones.append(child.call("to_audio_zone") as Dictionary)
+	return zones
+
+static func _collect_grass_zones(root: Node) -> Array[Dictionary]:
+	var zones: Array[Dictionary] = []
+	var holder := root.get_node_or_null("GrassZones")
+	if holder == null:
+		return zones
+	for child in _sorted_marker_children(holder):
+		if child.has_method("to_grass_zone"):
+			zones.append(child.call("to_grass_zone") as Dictionary)
 	return zones
 
 static func _nearest_route_index(point: Vector3, route_points: Array[Vector3]) -> int:
