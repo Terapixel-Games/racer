@@ -15,6 +15,11 @@ func test_runtime_builds_enabled_alternate_route_geometry() -> void:
 	assert_true(rails != null, "Runtime should build canonical route rails")
 	assert_true(rails != null and rails.get_child_count() > 0, "Canonical route rails should instantiate rail pieces")
 	assert_true(_enabled_collision_objects(rails) > 0, "Canonical route rails should include collision")
+	assert_true(_first_collision_shape(rails) is CapsuleShape3D, "Canonical route rails should use rounded capsule collision so karts can roll off")
+	var rail_body := _first_collision_body(rails)
+	assert_true(rail_body != null and rail_body.physics_material_override != null, "Canonical route rails should use a slick physics material")
+	if rail_body != null and rail_body.physics_material_override != null:
+		assert_true(rail_body.physics_material_override.friction <= 0.05, "Rail collision should stay slick instead of grabbing karts")
 	assert_true(track.get_node_or_null("AlternateRoutes/InsideLaneRoad") != null, "Runtime should build alternate route road geometry")
 	assert_true(track.get_node_or_null("AlternateRoutes/InsideLaneRoad/CollisionBody/CollisionShape3D") != null, "Alternate route road should include collision")
 	var alternate_rails := track.get_node_or_null("AlternateRoutes/InsideLaneRails")
@@ -108,3 +113,25 @@ func _enabled_collision_objects(node: Node) -> int:
 	for child in node.get_children():
 		count += _enabled_collision_objects(child)
 	return count
+
+func _first_collision_shape(node: Node) -> Shape3D:
+	if node == null:
+		return null
+	if node is CollisionShape3D:
+		return (node as CollisionShape3D).shape
+	for child in node.get_children():
+		var found := _first_collision_shape(child)
+		if found != null:
+			return found
+	return null
+
+func _first_collision_body(node: Node) -> StaticBody3D:
+	if node == null:
+		return null
+	if node is StaticBody3D:
+		return node as StaticBody3D
+	for child in node.get_children():
+		var found := _first_collision_body(child)
+		if found != null:
+			return found
+	return null

@@ -17,7 +17,8 @@ const RAIL_EDGE_OFFSET := 0.0
 const RAIL_SEGMENT_GAP := 0.85
 const RAIL_Y_OFFSET := 0.12
 const RAIL_VISUAL_CENTER := Vector3(0.15, 0.07, -0.625)
-const RAIL_COLLISION_SIZE := Vector3(1.0, 0.08, 0.14)
+const RAIL_COLLISION_RADIUS := 0.055
+const RAIL_COLLISION_HEIGHT := 1.0
 
 static func build(definition: TrackDefinition) -> Dictionary:
 	if definition == null:
@@ -338,11 +339,18 @@ static func _add_rail_collision(rail_node: Node3D) -> void:
 	body.name = "CollisionBody"
 	body.collision_layer = 1
 	body.collision_mask = 2
+	var physics_material := PhysicsMaterial.new()
+	physics_material.friction = 0.02
+	physics_material.bounce = 0.0
+	physics_material.rough = false
+	body.physics_material_override = physics_material
 	body.position = RAIL_VISUAL_CENTER + Vector3(0.0, 0.02, 0.0)
 	var shape_node := CollisionShape3D.new()
 	shape_node.name = "CollisionShape3D"
-	var shape := BoxShape3D.new()
-	shape.size = RAIL_COLLISION_SIZE
+	shape_node.rotation_degrees = Vector3(0.0, 0.0, 90.0)
+	var shape := CapsuleShape3D.new()
+	shape.radius = RAIL_COLLISION_RADIUS
+	shape.height = RAIL_COLLISION_HEIGHT
 	shape_node.shape = shape
 	body.add_child(shape_node)
 	rail_node.add_child(body)
