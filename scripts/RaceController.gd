@@ -81,6 +81,16 @@ var heat_distortion_intensity := 0.0
 var sink_water_zones: Array[Dictionary] = []
 var appliance_rumble_positions: Array[Vector3] = []
 var water_drop_intensity := 0.0
+var track_audio_ids: Dictionary = {}
+var track_audio_zones: Array = []
+var audio_zone_players: Dictionary = {}
+var audio_zone_active: Dictionary = {}
+var music_player: AudioStreamPlayer
+var previous_boost_pressed := false
+var previous_drift_pressed := false
+var sfx_boost: AudioStream
+var sfx_drift: AudioStream
+var sfx_item_pickup: AudioStream
 
 const HEAT_DISTORTION_RADIUS := 38.0
 const HEAT_DISTORTION_INNER_RADIUS := 12.0
@@ -90,9 +100,13 @@ const SINK_WATER_DROPS_DRY_SPEED := 0.55
 const APPLIANCE_RUMBLE_RADIUS := 34.0
 const APPLIANCE_RUMBLE_INNER_RADIUS := 13.0
 const CAMERA_SHAKE_MAX_OFFSET := 0.34
+const BOOST_SFX_PATH := "res://assets/source/audio/canva/driving/boost/boost_burst_canva_01.wav"
+const DRIFT_SFX_PATH := "res://assets/source/audio/canva/driving/drift/drift_release_canva_01.wav"
+const ITEM_PICKUP_SFX_PATH := "res://assets/source/audio/canva/items/pickup/item_pickup_canva_01.wav"
 
 func _ready() -> void:
 	item_rng.randomize()
+	_setup_audio_players()
 	camera.fov = CAMERA_FOV
 	camera.near = CAMERA_NEAR
 	mobile_controls.visible = OS.has_feature("mobile")
@@ -134,6 +148,25 @@ func _start_offline_race() -> void:
 func _connect_socket() -> void:
 	if not NakamaService.socket.received_match_state.is_connected(_on_match_state):
 		NakamaService.socket.received_match_state.connect(_on_match_state)
+
+func _setup_audio_players() -> void:
+	_ensure_audio_bus("Music")
+	_ensure_audio_bus("SFX")
+	music_player = AudioStreamPlayer.new()
+	music_player.name = "RaceMusic"
+	music_player.bus = "Music"
+	music_player.volume_db = -9.0
+	add_child(music_player)
+	sfx_boost = load(BOOST_SFX_PATH) as AudioStream
+	sfx_drift = load(DRIFT_SFX_PATH) as AudioStream
+	sfx_item_pickup = load(ITEM_PICKUP_SFX_PATH) as AudioStream
+
+func _ensure_audio_bus(bus_name: String) -> void:
+	if AudioServer.get_bus_index(bus_name) != -1:
+		return
+	var index := AudioServer.get_bus_count()
+	AudioServer.add_bus(index)
+	AudioServer.set_bus_name(index, bus_name)
 
 func _spawn_track() -> void:
 	var track_id := str(NakamaService.get_meta_value("track_id", TrackCatalog.get_default_track_id()))
@@ -255,6 +288,8 @@ func _physics_process(delta: float) -> void:
 	_update_camera(delta)
 	_update_heat_distortion(delta)
 	_update_water_drops(delta)
+	_update_audio_zone_players()
+	_update_game_sounds()
 	_tick_message(delta)
 
 func _on_match_state(match_state: NakamaRTAPI.MatchData) -> void:
@@ -787,6 +822,10 @@ func _apply_track_reset_metadata(metadata: Variant) -> void:
 	track_closed_loop = bool(data.get("closed_loop", track_closed_loop))
 	track_alternate_routes = _alternate_routes_from_metadata(data.get("alternate_routes", []))
 	track_checkpoint_indices = _checkpoint_indices_from_metadata(data.get("checkpoints", []))
+	track_audio_ids = data.get("audio_ids", {}) if data.get("audio_ids", {}) is Dictionary else {}
+	track_audio_zones = data.get("audio_zones", []) if data.get("audio_zones", []) is Array else []
+	_start_track_music()
+	_prepare_audio_zone_players()
 
 func _update_local_track_return_point() -> void:
 	var car: CarController = cars.get(local_user_id, null)
@@ -841,6 +880,108 @@ func _update_water_drops(delta: float) -> void:
 	water_drops.visible = water_drop_intensity > 0.01
 	if water_drops.material is ShaderMaterial:
 		(water_drops.material as ShaderMaterial).set_shader_parameter("intensity", water_drop_intensity)
+
+func _start_track_music() -> void:
+	if music_player == null:
+		return
+	var music_path := str(track_audio_ids.get("music", ""))
+	if music_path.is_empty():
+		return
+	var stream := load(music_path) as AudioStream
+	if stream == null:
+		return
+	_enable_audio_loop(stream)
+	music_player.stream = stream
+	music_player.play()
+
+func _prepare_audio_zone_players() -> void:
+	for player in audio_zone_players.values():
+		if player is AudioStreamPlayer:
+			(player as AudioStreamPlayer).queue_free()
+	audio_zone_players.clear()
+	audio_zone_active.clear()
+	for zone_value in track_audio_zones:
+		if not (zone_value is Dictionary):
+			continue
+		var zone := zone_value as Dictionary
+		var zone_id := str(zone.get("id", ""))
+		var stream := _stream_for_audio_zone(zone)
+		if zone_id.is_empty() or stream == null:
+			continue
+		_enable_audio_loop(stream)
+		var player := AudioStreamPlayer.new()
+		player.name = "%sAudio" % zone_id
+		player.bus = "SFX"
+		player.stream = stream
+		player.volume_db = float(zone.get("volume_db", 0.0))
+		add_child(player)
+		audio_zone_players[zone_id] = player
+		audio_zone_active[zone_id] = false
+
+func _stream_for_audio_zone(zone: Dictionary) -> AudioStream:
+	var audio_path := str(zone.get("audio_path", "")).strip_edges()
+	if audio_path.is_empty():
+		var audio_id := str(zone.get("audio_id", "")).strip_edges()
+		audio_path = str(track_audio_ids.get(audio_id, ""))
+	if audio_path.is_empty():
+		return null
+	return load(audio_path) as AudioStream
+
+func _update_audio_zone_players() -> void:
+	var car: CarController = cars.get(local_user_id, null)
+	for zone_value in track_audio_zones:
+		if not (zone_value is Dictionary):
+			continue
+		var zone := zone_value as Dictionary
+		var zone_id := str(zone.get("id", ""))
+		var player := audio_zone_players.get(zone_id, null) as AudioStreamPlayer
+		if player == null:
+			continue
+		var active := false
+		if car != null:
+			var zone_position := _vector3_from_metadata(zone.get("position", []), Vector3.ZERO)
+			var radius := maxf(float(zone.get("radius", 0.0)), 0.1)
+			active = Vector2(car.global_transform.origin.x, car.global_transform.origin.z).distance_to(Vector2(zone_position.x, zone_position.z)) <= radius
+		var was_active := bool(audio_zone_active.get(zone_id, false))
+		audio_zone_active[zone_id] = active
+		if active:
+			if not player.playing:
+				player.play()
+		elif was_active and player.playing:
+			player.stop()
+
+func _update_game_sounds() -> void:
+	var boost_pressed := Input.is_action_pressed("boost")
+	if boost_pressed and not previous_boost_pressed:
+		_play_game_sfx(sfx_boost, -2.0, randf_range(0.96, 1.04))
+	previous_boost_pressed = boost_pressed
+	var drift_pressed := Input.is_action_pressed("drift")
+	if previous_drift_pressed and not drift_pressed:
+		_play_game_sfx(sfx_drift, -4.0, randf_range(0.98, 1.06))
+	previous_drift_pressed = drift_pressed
+
+func _play_game_sfx(stream: AudioStream, volume_db: float = 0.0, pitch: float = 1.0) -> void:
+	if stream == null:
+		return
+	if has_node("/root/AudioManager"):
+		var manager := get_node("/root/AudioManager")
+		if manager != null and manager.has_method("play_sfx"):
+			manager.call("play_sfx", stream, volume_db, pitch)
+
+func _enable_audio_loop(stream: AudioStream) -> void:
+	if stream == null:
+		return
+	if stream is AudioStreamMP3:
+		(stream as AudioStreamMP3).loop = true
+	elif stream is AudioStreamOggVorbis:
+		(stream as AudioStreamOggVorbis).loop = true
+
+static func _vector3_from_metadata(value: Variant, fallback: Vector3) -> Vector3:
+	if value is Vector3:
+		return value
+	if value is Array and (value as Array).size() >= 3:
+		return Vector3(float(value[0]), float(value[1]), float(value[2]))
+	return fallback
 
 static func heat_distortion_target_intensity(position: Vector3, heat_sources: Array[Vector3], radius: float, inner_radius: float) -> float:
 	return proximity_target_intensity(position, heat_sources, radius, inner_radius)
@@ -1006,6 +1147,7 @@ func _tick_local_item_slot(delta: float) -> void:
 	var total_racers : int = max(racer_states.size(), 1)
 	var position : Variant = _local_position()
 	local_item_slot = ItemRules.roll_for_position(position, total_racers, item_rng)
+	_play_game_sfx(sfx_item_pickup, -3.0, randf_range(0.96, 1.08))
 	item_roll_timer = 2.0
 
 func _local_position() -> int:

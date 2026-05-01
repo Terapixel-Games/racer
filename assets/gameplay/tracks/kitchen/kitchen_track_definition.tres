@@ -282,6 +282,14 @@ audio_zones = Array[Dictionary]([{
 "radius": 18.0,
 "volume_db": -5.0,
 "zone_kind": "oneshot"
+}, {
+"audio_id": "stove_sizzle",
+"audio_path": "",
+"id": "StoveSizzleZone",
+"position": [-121.48029, -8.806137, -12.746695],
+"radius": 30.0,
+"volume_db": -6.0,
+"zone_kind": "ambient"
 }])
 dressing_overrides = {
 "KitchenSink": {
@@ -293,6 +301,7 @@ dressing_overrides = {
 audio_ids = {
 "clatter": "res://assets/source/audio/canva/tracks/kitchen/kitchen_clatter_canva_01.mp3",
 "music": "res://assets/source/audio/suno/tracks/kitchen/kitchen_loop_suno_01.mp3",
-"sink_splash": "res://assets/source/audio/canva/tracks/kitchen/kitchen_sink_splash_canva_01.mp3",
+"sink_splash": "res://assets/source/audio/canva/tracks/kitchen/kitchen_sink_water.mp3",
+"stove_sizzle": "res://assets/source/audio/canva/tracks/kitchen/kitchen_oven_sizzle.mp3",
 "utensil_clink": "res://assets/source/audio/canva/tracks/kitchen/kitchen_utensil_clink_canva_01.wav"
 }

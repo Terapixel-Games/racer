@@ -462,6 +462,14 @@ zone_kind = "oneshot"
 radius = 18.0
 volume_db = -5.0
 
+[node name="StoveSizzleZone" type="Marker3D" parent="AudioZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -121.48029, -8.806137, -12.746695)
+script = ExtResource("4")
+zone_id = "StoveSizzleZone"
+audio_id = "stove_sizzle"
+radius = 30.0
+volume_db = -6.0
+
 [node name="KitchenClatterZone" type="Marker3D" parent="AudioZones"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 script = ExtResource("4")

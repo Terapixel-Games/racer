@@ -19,7 +19,10 @@ func test_kitchen_metadata_matches_server_shape() -> void:
 	assert_equal((metadata.get("alternate_routes", []) as Array).size(), 0, "Metadata should export an empty alternate route list for tracks without branches")
 	assert_true((metadata.get("stage_props", []) as Array).size() >= 10, "Metadata should export stage props")
 	assert_equal((metadata.get("surface_segments", []) as Array).size(), 3, "Metadata should export surface segments")
-	assert_equal((metadata.get("audio_zones", []) as Array).size(), 3, "Metadata should export audio zones")
+	assert_equal((metadata.get("audio_zones", []) as Array).size(), 4, "Metadata should export audio zones")
+	var audio_ids := metadata.get("audio_ids", {}) as Dictionary
+	assert_equal(str(audio_ids.get("sink_splash", "")), "res://assets/source/audio/canva/tracks/kitchen/kitchen_sink_water.mp3", "Metadata should use the supplied sink water audio")
+	assert_equal(str(audio_ids.get("stove_sizzle", "")), "res://assets/source/audio/canva/tracks/kitchen/kitchen_oven_sizzle.mp3", "Metadata should include the converted oven sizzle audio")
 	assert_equal(bool(((metadata.get("shortcut_gates", []) as Array)[0] as Dictionary).get("surface_enabled", true)), false, "Metadata should mark the blocking table shortcut surface disabled")
 	assert_equal(str(metadata.get("reset_mode", "")), "instant_pop", "Metadata should include reset mode")
 	assert_true(float(metadata.get("out_of_bounds_y", 0.0)) < -10.0, "Metadata should keep the out-of-bounds height below the authored floor")
