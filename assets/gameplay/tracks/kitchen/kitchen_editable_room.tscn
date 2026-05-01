@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bjsw0btvu0kqt"]
+[gd_scene load_steps=28 format=3 uid="uid://bjsw0btvu0kqt"]
 
 [ext_resource type="Texture2D" uid="uid://dyof4gx7wh6w7" path="res://assets/source/generated/textures/toy_materials_2026-04-27/kitchen_tile_albedo.png" id="1_tile"]
 [ext_resource type="PackedScene" uid="uid://bnh07515k0fhb" path="res://assets/source/meshy/kitchen/retro_cream_refrigerator.glb" id="2_fridge"]
@@ -16,6 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://bjxkpgd14261g" path="res://assets/source/kenney/furniture_kit/dryer.glb" id="14_452dl"]
 [ext_resource type="PackedScene" uid="uid://d3umjcvyugjak" path="res://assets/source/kenney/furniture_kit/bookcaseOpen.glb" id="15_j8sh0"]
 [ext_resource type="Script" uid="uid://dlvn2xhwjpnou" path="res://scripts/track/TrackAuthoringPreview.gd" id="16_authoring_preview"]
+[ext_resource type="Shader" path="res://assets/shaders/toon_water.gdshader" id="17_water_shader"]
+[ext_resource type="Script" path="res://scripts/effects/ApplianceRumbler.gd" id="18_rumbler"]
 
 [sub_resource type="StandardMaterial3D" id="Material_floor"]
 albedo_texture = ExtResource("1_tile")
@@ -42,6 +44,19 @@ roughness = 0.48
 [sub_resource type="StandardMaterial3D" id="Material_dark"]
 albedo_color = Color(0.05, 0.055, 0.06, 1)
 roughness = 0.5
+
+[sub_resource type="ShaderMaterial" id="Material_toon_water"]
+shader = ExtResource("17_water_shader")
+shader_parameter/shallow_color = Color(0.28, 0.82, 1, 0.62)
+shader_parameter/deep_color = Color(0.03, 0.24, 0.78, 0.72)
+shader_parameter/foam_color = Color(0.9, 1, 1, 0.9)
+shader_parameter/wave_strength = 0.12
+shader_parameter/wave_speed = 1.25
+shader_parameter/foam_cutoff = 0.64
+shader_parameter/foam_scale = 18.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_water"]
+size = Vector2(1, 1)
 
 [node name="KitchenEditableRoom" type="Node3D"]
 script = ExtResource("16_authoring_preview")
@@ -466,6 +481,18 @@ transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06,
 [node name="doorway" parent="Appliances" instance=ExtResource("5_51h51")]
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -17.953598, -9.231991, -93.70375)
 
+[node name="WaterSurfaces" type="Node3D" parent="."]
+
+[node name="SinkWater" type="MeshInstance3D" parent="WaterSurfaces"]
+transform = Transform3D(54, 0, 0, 0, 1, 0, 0, 0, 16, -8, 4.35, 74)
+material_override = SubResource("Material_toon_water")
+mesh = SubResource("PlaneMesh_water")
+
+[node name="WasherWater" type="MeshInstance3D" parent="WaterSurfaces"]
+transform = Transform3D(13.5, 0, 0, 0, 1, 0, 0, 0, 11.5, 77.47208, 16.2, -74.33963)
+material_override = SubResource("Material_toon_water")
+mesh = SubResource("PlaneMesh_water")
+
 [node name="UpperCabinets" type="Node3D" parent="."]
 
 [node name="BackUpperCabinetLeftB" parent="UpperCabinets" instance=ExtResource("5_upper")]
@@ -624,9 +651,11 @@ transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06,
 
 [node name="washer" parent="." instance=ExtResource("13_ft60m")]
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 77.47208, -9.231987, -74.33963)
+script = ExtResource("18_rumbler")
 
 [node name="dryer" parent="." instance=ExtResource("14_452dl")]
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 98.25982, -9.231991, -73.46151)
+script = ExtResource("18_rumbler")
 
 [node name="bookcaseOpen" parent="." instance=ExtResource("15_j8sh0")]
 transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, 139.41138, -9.231991, 46.59275)

@@ -53,6 +53,10 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(_node_position(instance, "BuiltTrack/Dressing/EditableRoom/floor").y <= -32.0, "Editable room floor should stay below the playable course")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoomShell/BackWall") != null, "Editable room scene should include selectable room shell pieces")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Appliances/kitchenSink") != null, "Editable room scene should preserve hand-placed kitchen props")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/WaterSurfaces/SinkWater") != null, "Editable room scene should include authored sink water")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/WaterSurfaces/WasherWater") != null, "Editable room scene should include authored washer water")
+	assert_true(_node_has_script(instance, "BuiltTrack/Dressing/EditableRoom/washer"), "Editable room washer should run its in-place rumble script")
+	assert_true(_node_has_script(instance, "BuiltTrack/Dressing/EditableRoom/dryer"), "Editable room dryer should run its in-place rumble script")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/UpperCabinets") != null, "Editable room scene should preserve authored upper cabinet grouping")
 	assert_equal(_enabled_collision_objects(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom")), 0, "Editable room dressing should not collide with the kart")
 	assert_equal(instance.get_node_or_null("BuiltTrack/Dressing").get_child_count(), 1, "Kitchen runtime dressing should only instantiate the editable room")
@@ -184,6 +188,10 @@ func _node_position(root: Node, path: NodePath) -> Vector3:
 	if node == null:
 		return Vector3.ZERO
 	return node.transform.origin
+
+func _node_has_script(root: Node, path: NodePath) -> bool:
+	var node := root.get_node_or_null(path)
+	return node != null and node.get_script() != null
 
 func _box_size_x(root: Node, path: NodePath) -> float:
 	var mesh_instance := root.get_node_or_null(path) as MeshInstance3D

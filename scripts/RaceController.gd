@@ -28,6 +28,7 @@ const OutOfBoundsRules = preload("res://scripts/logic/OutOfBoundsRules.gd")
 @onready var steer_joystick_area: Control = %SteerJoystickArea
 @onready var steer_joystick_knob: Control = %SteerJoystickKnob
 @onready var heat_distortion: ColorRect = %HeatDistortion
+@onready var water_drops: ColorRect = %WaterDrops
 
 var match_id: String = ""
 var local_user_id: String = ""
@@ -77,10 +78,18 @@ var mobile_steer_touch_id := -1
 var mobile_action_touches: Dictionary = {}
 var heat_source_positions: Array[Vector3] = []
 var heat_distortion_intensity := 0.0
+var sink_water_zones: Array[Dictionary] = []
+var appliance_rumble_positions: Array[Vector3] = []
+var water_drop_intensity := 0.0
 
 const HEAT_DISTORTION_RADIUS := 38.0
 const HEAT_DISTORTION_INNER_RADIUS := 12.0
 const HEAT_DISTORTION_FADE_SPEED := 5.0
+const SINK_WATER_DROPS_FADE_IN_SPEED := 6.5
+const SINK_WATER_DROPS_DRY_SPEED := 0.55
+const APPLIANCE_RUMBLE_RADIUS := 34.0
+const APPLIANCE_RUMBLE_INNER_RADIUS := 13.0
+const CAMERA_SHAKE_MAX_OFFSET := 0.34
 
 func _ready() -> void:
 	item_rng.randomize()
@@ -201,6 +210,8 @@ func _setup_checkpoints() -> void:
 
 func _cache_heat_sources(track_instance: Node) -> void:
 	heat_source_positions.clear()
+	sink_water_zones.clear()
+	appliance_rumble_positions.clear()
 	_collect_heat_source_positions(track_instance)
 
 func _collect_heat_source_positions(node: Node) -> void:
@@ -211,8 +222,23 @@ func _collect_heat_source_positions(node: Node) -> void:
 		var name_lower := node.name.to_lower()
 		if name_lower == "kitchenstove":
 			heat_source_positions.append(node_3d.global_transform.origin)
+		elif name_lower == "washer" or name_lower == "dryer":
+			appliance_rumble_positions.append(node_3d.global_transform.origin)
+		elif name_lower == "sinksplashzone":
+			sink_water_zones.append({
+				"position": node_3d.global_transform.origin,
+				"radius": _area_sphere_radius(node, 18.0),
+			})
 	for child in node.get_children():
 		_collect_heat_source_positions(child)
+
+func _area_sphere_radius(node: Node, fallback: float) -> float:
+	for child in node.get_children():
+		if child is CollisionShape3D:
+			var collision_shape := child as CollisionShape3D
+			if collision_shape.shape is SphereShape3D:
+				return maxf((collision_shape.shape as SphereShape3D).radius, 0.1)
+	return fallback
 
 func _physics_process(delta: float) -> void:
 	if not race_started:
@@ -228,6 +254,7 @@ func _physics_process(delta: float) -> void:
 	_update_ui()
 	_update_camera(delta)
 	_update_heat_distortion(delta)
+	_update_water_drops(delta)
 	_tick_message(delta)
 
 func _on_match_state(match_state: NakamaRTAPI.MatchData) -> void:
@@ -482,8 +509,15 @@ func _update_camera(delta:float) -> void:
 	var desired := car.global_transform.origin + behind + Vector3.UP * CAMERA_HEIGHT
 	var resolved := _resolve_camera_occlusion(look_target, desired)
 	var follow_speed := CAMERA_OCCLUDED_FOLLOW_SPEED if resolved.distance_squared_to(desired) > 0.01 else CAMERA_FOLLOW_SPEED
-	camera.global_transform.origin = camera.global_transform.origin.lerp(resolved, clampf(delta * follow_speed, 0.0, 1.0))
-	camera.look_at(look_target, Vector3.UP)
+	var shake_intensity := appliance_rumble_target_intensity(
+		car.global_transform.origin,
+		appliance_rumble_positions,
+		APPLIANCE_RUMBLE_RADIUS,
+		APPLIANCE_RUMBLE_INNER_RADIUS
+	)
+	var shake_offset := camera_shake_offset(shake_intensity, CAMERA_SHAKE_MAX_OFFSET)
+	camera.global_transform.origin = camera.global_transform.origin.lerp(resolved + shake_offset, clampf(delta * follow_speed, 0.0, 1.0))
+	camera.look_at(look_target + shake_offset * 0.25, Vector3.UP)
 
 func _resolve_camera_occlusion(look_target: Vector3, desired: Vector3) -> Vector3:
 	var space_state := get_world_3d().direct_space_state
@@ -514,6 +548,17 @@ static func camera_position_before_occluder(look_target: Vector3, desired: Vecto
 		safe_distance = maxf(safe_distance, min_distance)
 	safe_distance = minf(safe_distance, desired_distance)
 	return look_target + direction * safe_distance
+
+static func camera_shake_offset(intensity: float, max_offset: float) -> Vector3:
+	var amount := clampf(intensity, 0.0, 1.0) * max_offset
+	if amount <= 0.0:
+		return Vector3.ZERO
+	var t := Time.get_ticks_msec() * 0.001
+	return Vector3(
+		sin(t * 41.0) * amount,
+		cos(t * 53.0) * amount * 0.62,
+		sin(t * 37.0 + 1.7) * amount * 0.45
+	)
 
 func _ensure_input_actions() -> void:
 	_add_action_if_missing("accelerate")
@@ -784,13 +829,46 @@ func _update_heat_distortion(delta: float) -> void:
 	if heat_distortion.material is ShaderMaterial:
 		(heat_distortion.material as ShaderMaterial).set_shader_parameter("intensity", heat_distortion_intensity)
 
+func _update_water_drops(delta: float) -> void:
+	if water_drops == null:
+		return
+	var car: CarController = cars.get(local_user_id, null)
+	var target := 0.0
+	if car != null:
+		target = sink_water_drop_target_intensity(car.global_transform.origin, sink_water_zones)
+	var speed := SINK_WATER_DROPS_FADE_IN_SPEED if target > water_drop_intensity else SINK_WATER_DROPS_DRY_SPEED
+	water_drop_intensity = move_toward(water_drop_intensity, target, delta * speed)
+	water_drops.visible = water_drop_intensity > 0.01
+	if water_drops.material is ShaderMaterial:
+		(water_drops.material as ShaderMaterial).set_shader_parameter("intensity", water_drop_intensity)
+
 static func heat_distortion_target_intensity(position: Vector3, heat_sources: Array[Vector3], radius: float, inner_radius: float) -> float:
-	if heat_sources.is_empty() or radius <= 0.0:
+	return proximity_target_intensity(position, heat_sources, radius, inner_radius)
+
+static func appliance_rumble_target_intensity(position: Vector3, appliances: Array[Vector3], radius: float, inner_radius: float) -> float:
+	return proximity_target_intensity(position, appliances, radius, inner_radius)
+
+static func sink_water_drop_target_intensity(position: Vector3, sink_zones: Array[Dictionary]) -> float:
+	var strongest := 0.0
+	var point_2d := Vector2(position.x, position.z)
+	for zone in sink_zones:
+		var zone_position: Vector3 = zone.get("position", Vector3.ZERO)
+		var radius := maxf(float(zone.get("radius", 0.0)), 0.1)
+		var inner_radius := radius * 0.35
+		var distance := point_2d.distance_to(Vector2(zone_position.x, zone_position.z))
+		var intensity := 1.0
+		if distance > inner_radius:
+			intensity = 1.0 - clampf((distance - inner_radius) / maxf(radius - inner_radius, 0.001), 0.0, 1.0)
+		strongest = maxf(strongest, intensity)
+	return strongest
+
+static func proximity_target_intensity(position: Vector3, sources: Array[Vector3], radius: float, inner_radius: float) -> float:
+	if sources.is_empty() or radius <= 0.0:
 		return 0.0
 	var inner := clampf(inner_radius, 0.0, radius)
 	var strongest := 0.0
 	var point_2d := Vector2(position.x, position.z)
-	for source in heat_sources:
+	for source in sources:
 		var distance := point_2d.distance_to(Vector2(source.x, source.z))
 		var intensity := 1.0
 		if distance > inner:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dw8o4xhburlax"]
+[gd_scene load_steps=29 format=3 uid="uid://dw8o4xhburlax"]
 
 [ext_resource type="Script" uid="uid://bndlbbuj77lfc" path="res://scripts/RaceController.gd" id="1"]
 [ext_resource type="Script" uid="uid://cm3ro8j5604dv" path="res://scripts/CheckpointSystem.gd" id="2"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" path="res://assets/source/kenney/mobile_controls/icons/icon_hand.png" id="11_hand"]
 [ext_resource type="Texture2D" path="res://assets/source/kenney/mobile_controls/icons/icon_arrow_rotate.png" id="12_return"]
 [ext_resource type="Shader" path="res://assets/shaders/heat_distortion.gdshader" id="13_heat"]
+[ext_resource type="Shader" path="res://assets/shaders/water_drops_screen.gdshader" id="14_drops"]
 
 [sub_resource type="BoxShape3D" id="4"]
 size = Vector3(8, 2, 2)
@@ -131,6 +132,13 @@ shader_parameter/ripple_scale = 26.0
 shader_parameter/vertical_stretch = 2.8
 shader_parameter/heat_tint = Color(1, 0.72, 0.34, 0.05)
 
+[sub_resource type="ShaderMaterial" id="WaterDropsMaterial"]
+shader = ExtResource("14_drops")
+shader_parameter/intensity = 0.0
+shader_parameter/drop_density = 10.0
+shader_parameter/drop_size = 0.04
+shader_parameter/refraction_strength = 0.026
+
 [node name="Race" type="Node3D"]
 script = ExtResource("1")
 
@@ -181,6 +189,17 @@ current = true
 unique_name_in_owner = true
 visible = false
 material = SubResource("HeatDistortionMaterial")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="WaterDrops" type="ColorRect" parent="UI"]
+unique_name_in_owner = true
+visible = false
+material = SubResource("WaterDropsMaterial")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
