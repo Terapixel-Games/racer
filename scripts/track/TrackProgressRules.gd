@@ -12,6 +12,52 @@ static func route_length(route_points: Array[Vector3], closed_loop: bool = true)
 		total += points[points.size() - 1].distance_to(points[0])
 	return total
 
+static func sample_route_at_distance(route_points: Array[Vector3], distance: float, closed_loop: bool = true) -> Dictionary:
+	var points := _sanitize_route(route_points)
+	if points.size() < 2:
+		return {
+			"position": Vector3.ZERO,
+			"tangent": Vector3.FORWARD,
+			"segment_index": 0,
+			"route_ratio": 0.0,
+		}
+	var total := route_length(points, closed_loop)
+	if total <= 0.001:
+		return {
+			"position": points[0],
+			"tangent": Vector3.FORWARD,
+			"segment_index": 0,
+			"route_ratio": 0.0,
+		}
+	var target_distance := fposmod(distance, total) if closed_loop else clampf(distance, 0.0, total)
+	var accumulated := 0.0
+	var segment_count: int = points.size() if closed_loop and points.size() > 2 else points.size() - 1
+	for i in range(segment_count):
+		var a: Vector3 = points[i]
+		var b: Vector3 = points[(i + 1) % points.size()]
+		var segment := b - a
+		var segment_length := segment.length()
+		if segment_length <= 0.001:
+			continue
+		if accumulated + segment_length >= target_distance or i == segment_count - 1:
+			var ratio := clampf((target_distance - accumulated) / segment_length, 0.0, 1.0)
+			return {
+				"position": a.lerp(b, ratio),
+				"tangent": segment / segment_length,
+				"segment_index": i,
+				"route_ratio": target_distance / total,
+			}
+		accumulated += segment_length
+	var fallback_tangent := points[points.size() - 1] - points[points.size() - 2]
+	if fallback_tangent.length_squared() <= 0.001:
+		fallback_tangent = Vector3.FORWARD
+	return {
+		"position": points[points.size() - 1],
+		"tangent": fallback_tangent.normalized(),
+		"segment_index": max(points.size() - 2, 0),
+		"route_ratio": 1.0,
+	}
+
 static func project_position(route_points: Array[Vector3], position: Vector3, closed_loop: bool = true) -> Dictionary:
 	var points := _sanitize_route(route_points)
 	if points.size() < 2:

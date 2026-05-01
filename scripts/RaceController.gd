@@ -30,6 +30,7 @@ const RacerRoster = preload("res://scripts/logic/RacerRoster.gd")
 @onready var item_btn: Button = %ItemButton
 @onready var return_btn: Button = %ReturnButton
 @onready var ui_message: Label = %MessageLabel
+@onready var ui_canvas: CanvasLayer = $UI
 @onready var steer_joystick_area: Control = %SteerJoystickArea
 @onready var steer_joystick_knob: Control = %SteerJoystickKnob
 @onready var heat_distortion: ColorRect = %HeatDistortion
@@ -80,16 +81,25 @@ const PHASE_CAMERA_TRANSITION := "camera_transition"
 const PHASE_COUNTDOWN := "countdown"
 const PHASE_RACING := "racing"
 const PHASE_FINISH_FOLLOW := "finish_follow"
+const PHASE_PLAYER_FINISH_FOLLOW := "player_finish_follow"
+const PHASE_WINNER_FOLLOW_RESULTS := "winner_follow_results"
 const PHASE_RESULTS := "results"
 const INTRO_DURATION := 5.0
 const GRID_ENTRY_DURATION := 1.35
 const CAMERA_TRANSITION_DURATION := 1.0
 const COUNTDOWN_DURATION := 3.5
 const FINISH_FOLLOW_TIMEOUT := 10.0
+const PLAYER_FINISH_FOLLOW_DURATION := 2.0
 const AI_LOOKAHEAD_POINTS := 2
 const AI_STEER_DEADZONE := 0.035
 const AI_BRAKE_ANGLE := 1.15
 const AI_DRIFT_ANGLE := 0.32
+const AI_BASE_LOOKAHEAD_DISTANCE := 26.0
+const AI_LANE_WIDTH := 2.35
+const AI_STUCK_PROGRESS_EPSILON := 0.035
+const AI_STUCK_TIMEOUT := 2.5
+const AI_SEPARATION_RADIUS := 5.2
+const AI_SEPARATION_STEER := 0.38
 const AI_TARGET_REACH_DISTANCE := 8.0
 
 const INPUT_INTERVAL := 1.0 / Config.INPUT_TICK_HZ
@@ -126,9 +136,18 @@ var local_racer_ids: Array[String] = []
 var ai_racer_ids: Array[String] = []
 var racer_visual_ids: Dictionary = {}
 var ai_route_targets: Dictionary = {}
+var ai_driver_state: Dictionary = {}
 var phase_camera_from := Transform3D.IDENTITY
 var phase_camera_to := Transform3D.IDENTITY
 var local_results_submitted := false
+var local_results_final := false
+var results_overlay: Control
+var results_title_label: Label
+var results_status_label: Label
+var results_list: VBoxContainer
+var results_restart_button: Button
+var results_level_select_button: Button
+var camera_follow_target_id := ""
 
 const HEAT_DISTORTION_RADIUS := 38.0
 const HEAT_DISTORTION_INNER_RADIUS := 12.0
@@ -188,7 +207,11 @@ func _start_local_single_race() -> void:
 	racer_states.clear()
 	racer_visual_ids.clear()
 	ai_route_targets.clear()
+	ai_driver_state.clear()
 	lap_map.clear()
+	local_results_final = false
+	camera_follow_target_id = local_user_id
+	_hide_results_overlay()
 	_spawn_track()
 	_setup_checkpoints()
 	_spawn_local_racer_grid()
@@ -205,6 +228,7 @@ func _spawn_local_racer_grid() -> void:
 	player_car.controlled_locally = true
 	player_car.set_input(_empty_input())
 	_init_local_racer_state(local_user_id, selected_racer, false, player_car.global_transform)
+	ai_driver_state[local_user_id] = _make_ai_driver_state(-1, player_car)
 
 	var cpu_index := 1
 	for roster_id in RacerRoster.select_order():
@@ -229,6 +253,7 @@ func _spawn_local_racer_grid() -> void:
 		state["entry_transform"] = car.global_transform
 		racer_states[rid] = state
 		ai_route_targets[rid] = _initial_ai_route_target_for_car(car)
+		ai_driver_state[rid] = _make_ai_driver_state(cpu_index - 2, car)
 
 func _init_local_racer_state(rid: String, racer_id: String, is_ai: bool, grid_transform: Transform3D) -> void:
 	racer_states[rid] = {
@@ -274,19 +299,27 @@ func _set_local_phase(next_phase: String) -> void:
 				if car != null:
 					car.controlled_locally = true
 			_show_message("GO!")
-		PHASE_FINISH_FOLLOW:
+		PHASE_PLAYER_FINISH_FOLLOW:
 			player_input_enabled = false
 			finish_follow_timer = 0.0
+			camera_follow_target_id = local_user_id
 			var player: CarController = cars.get(local_user_id, null)
 			if player != null:
-				player.set_input(_empty_input())
-			_show_message("Watching the leaders")
+				player.controlled_locally = true
+			show_results(_sorted_local_result_entries(), false)
+			_show_message("Finished!")
+		PHASE_WINNER_FOLLOW_RESULTS:
+			player_input_enabled = false
+			finish_follow_timer = 0.0
+			camera_follow_target_id = _leader_racer_id(true)
+			show_results(_sorted_local_result_entries(), false)
+			_show_message("Winner cam")
 		PHASE_RESULTS:
 			player_input_enabled = false
 
 func _physics_process_local_single(delta: float) -> void:
 	phase_timer += delta
-	if race_phase == PHASE_RACING or race_phase == PHASE_FINISH_FOLLOW:
+	if race_phase == PHASE_RACING or race_phase == PHASE_PLAYER_FINISH_FOLLOW or race_phase == PHASE_WINNER_FOLLOW_RESULTS:
 		race_elapsed += delta
 	match race_phase:
 		PHASE_INTRO:
@@ -310,11 +343,20 @@ func _physics_process_local_single(delta: float) -> void:
 		PHASE_RACING:
 			_tick_local_race(delta)
 			_update_camera(delta)
-		PHASE_FINISH_FOLLOW:
+		PHASE_PLAYER_FINISH_FOLLOW:
+			_tick_local_race(delta)
+			_update_camera_for_racer_id(local_user_id, delta)
+			finish_follow_timer += delta
+			update_results(_sorted_local_result_entries(), false)
+			if finish_follow_timer >= PLAYER_FINISH_FOLLOW_DURATION:
+				_set_local_phase(PHASE_WINNER_FOLLOW_RESULTS)
+		PHASE_WINNER_FOLLOW_RESULTS:
 			_tick_local_race(delta)
 			_update_finish_follow_camera(delta)
 			finish_follow_timer += delta
-			if _all_local_racers_done() or finish_follow_timer >= FINISH_FOLLOW_TIMEOUT:
+			var final_ready := _all_local_racers_done() or finish_follow_timer >= FINISH_FOLLOW_TIMEOUT
+			update_results(_sorted_local_result_entries(), final_ready)
+			if final_ready:
 				_submit_local_results()
 	_update_heat_distortion(delta)
 	_update_water_drops(delta)
@@ -330,6 +372,8 @@ func _tick_local_race(delta: float) -> void:
 		input_accum -= INPUT_INTERVAL
 	for rid in ai_racer_ids:
 		_tick_ai_input(rid, delta)
+	if race_phase == PHASE_PLAYER_FINISH_FOLLOW or race_phase == PHASE_WINNER_FOLLOW_RESULTS:
+		_tick_ai_input(local_user_id, delta, true)
 	_tick_local_racer_progress()
 	_update_local_track_return_point()
 	_handle_manual_return_to_track()
@@ -338,7 +382,7 @@ func _tick_local_race(delta: float) -> void:
 		_tick_local_item_slot(delta)
 		var local_state: Dictionary = racer_states.get(local_user_id, {})
 		if bool(local_state.get("finished", false)):
-			_set_local_phase(PHASE_FINISH_FOLLOW)
+			_set_local_phase(PHASE_PLAYER_FINISH_FOLLOW)
 
 func _tick_local_input() -> void:
 	var car: CarController = cars.get(local_user_id, null)
@@ -350,10 +394,10 @@ func _tick_local_input() -> void:
 	if bool(state.get("item_use", false)):
 		_consume_local_item(car)
 
-func _tick_ai_input(rid: String, _delta: float) -> void:
+func _tick_ai_input(rid: String, delta: float, allow_finished_cruise: bool = false) -> void:
 	var car: CarController = cars.get(rid, null)
 	var info: Dictionary = racer_states.get(rid, {})
-	if car == null or bool(info.get("finished", false)) or bool(info.get("wasted", false)):
+	if car == null or (bool(info.get("finished", false)) and not allow_finished_cruise) or bool(info.get("wasted", false)):
 		if car != null:
 			car.set_input(_empty_input())
 		return
@@ -361,23 +405,107 @@ func _tick_ai_input(rid: String, _delta: float) -> void:
 	if points.size() < 2:
 		car.set_input(_empty_input())
 		return
-	var target_index := int(ai_route_targets.get(rid, 0))
-	target_index = _advance_ai_target_index(car.global_transform.origin, target_index, points)
-	ai_route_targets[rid] = target_index
-	var lookahead_index := (target_index + AI_LOOKAHEAD_POINTS) % points.size()
-	var target := points[lookahead_index]
+	var driver: Dictionary = ai_driver_state.get(rid, _make_ai_driver_state(0, car))
+	var projection := TrackProgressRules.project_position(points, car.global_transform.origin, track_closed_loop)
+	var route_distance := float(projection.get("distance", 0.0))
+	var target_distance := route_distance + float(driver.get("lookahead", AI_BASE_LOOKAHEAD_DISTANCE))
+	var sample := TrackProgressRules.sample_route_at_distance(points, target_distance, track_closed_loop)
+	var tangent := sample.get("tangent", Vector3.FORWARD) as Vector3
+	tangent.y = 0.0
+	if tangent.length_squared() <= 0.001:
+		tangent = Vector3.FORWARD
+	tangent = tangent.normalized()
+	var right := Vector3(tangent.z, 0.0, -tangent.x).normalized()
+	var target := sample.get("position", car.global_transform.origin) as Vector3
+	target += right * float(driver.get("lane_offset", 0.0))
 	var local_target := car.global_transform.affine_inverse() * target
-	var steer := clampf(-local_target.x / maxf(absf(local_target.z), 4.0), -1.0, 1.0)
+	var steer := clampf(local_target.x / maxf(absf(local_target.z), 4.0), -1.0, 1.0)
+	steer += _ai_separation_steer(rid, car)
+	steer = clampf(steer, -1.0, 1.0)
 	if absf(steer) < AI_STEER_DEADZONE:
 		steer = 0.0
 	var angle := absf(atan2(local_target.x, maxf(local_target.z, 0.01)))
 	var speed := car.velocity.length()
 	var brake := 1.0 if angle > AI_BRAKE_ANGLE and speed > 18.0 else 0.0
-	var throttle := 0.45 if brake > 0.0 else 1.0
+	var throttle := 0.45 if brake > 0.0 else (0.55 if allow_finished_cruise else 1.0)
+	if absf(steer) > 0.72 and speed > 24.0:
+		throttle = minf(throttle, 0.68)
 	var drift := angle > AI_DRIFT_ANGLE and speed > 13.0
-	var boost := car.boost_meter > 55.0 and angle < 0.22
+	var boost := (not allow_finished_cruise) and car.boost_meter > 55.0 and angle < 0.22
+	_update_ai_stuck_state(rid, car, driver, float(info.get("progress", 0.0)), delta)
+	ai_driver_state[rid] = driver
 	car.controlled_locally = true
 	car.set_input({"steer": steer, "throttle": throttle, "brake": brake, "drift": drift, "boost": boost, "item_use": false})
+
+func _make_ai_driver_state(index: int, car: CarController) -> Dictionary:
+	var lanes := [-1.5, 1.5, -0.55, 0.55, -1.05, 1.05, -0.15, 0.15]
+	var lane_index := posmod(index, lanes.size())
+	var lane_offset := 0.0 if index < 0 else float(lanes[lane_index]) * AI_LANE_WIDTH
+	var lookahead := AI_BASE_LOOKAHEAD_DISTANCE + float(posmod(index, 4)) * 2.8
+	if index < 0:
+		lookahead = AI_BASE_LOOKAHEAD_DISTANCE * 0.75
+	return {
+		"lane_offset": lane_offset,
+		"lookahead": lookahead + float(index) * 0.35,
+		"last_progress": 0.0,
+		"stuck_timer": 0.0,
+		"last_safe_transform": car.global_transform if car != null else Transform3D.IDENTITY,
+	}
+
+func _ai_separation_steer(rid: String, car: CarController) -> float:
+	if car == null:
+		return 0.0
+	var steer_adjust := 0.0
+	for other_id in local_racer_ids:
+		if other_id == rid:
+			continue
+		var other: CarController = cars.get(other_id, null)
+		if other == null:
+			continue
+		var offset := other.global_transform.origin - car.global_transform.origin
+		offset.y = 0.0
+		var distance := offset.length()
+		if distance <= 0.01 or distance > AI_SEPARATION_RADIUS:
+			continue
+		var local_offset := car.global_transform.affine_inverse() * other.global_transform.origin
+		var away := -signf(local_offset.x)
+		if away == 0.0:
+			away = -1.0 if rid < other_id else 1.0
+		steer_adjust += away * (1.0 - distance / AI_SEPARATION_RADIUS) * AI_SEPARATION_STEER
+	return clampf(steer_adjust, -AI_SEPARATION_STEER, AI_SEPARATION_STEER)
+
+func _update_ai_stuck_state(rid: String, car: CarController, driver: Dictionary, progress: float, delta: float) -> void:
+	if rid == local_user_id or car == null:
+		return
+	var last_progress := float(driver.get("last_progress", progress))
+	var progressed := progress > last_progress + AI_STUCK_PROGRESS_EPSILON
+	if progressed or car.velocity.length() > 8.0:
+		driver["last_progress"] = maxf(progress, last_progress)
+		driver["stuck_timer"] = 0.0
+		driver["last_safe_transform"] = _ai_route_transform_for_position(car.global_transform.origin, float(driver.get("lane_offset", 0.0)))
+		return
+	driver["stuck_timer"] = float(driver.get("stuck_timer", 0.0)) + delta
+	if float(driver.get("stuck_timer", 0.0)) >= AI_STUCK_TIMEOUT:
+		var reset_transform: Transform3D = driver.get("last_safe_transform", _ai_route_transform_for_position(car.global_transform.origin, float(driver.get("lane_offset", 0.0))))
+		apply_instant_reset(car, _snap_to_ground(reset_transform))
+		driver["stuck_timer"] = 0.0
+
+func _ai_route_transform_for_position(position: Vector3, lane_offset: float) -> Transform3D:
+	var points := _typed_waypoints()
+	if points.size() < 2:
+		return Transform3D.IDENTITY
+	var projection := TrackProgressRules.project_position(points, position, track_closed_loop)
+	var sample := TrackProgressRules.sample_route_at_distance(points, float(projection.get("distance", 0.0)) + 4.0, track_closed_loop)
+	var tangent := sample.get("tangent", Vector3.FORWARD) as Vector3
+	tangent.y = 0.0
+	if tangent.length_squared() <= 0.001:
+		tangent = Vector3.FORWARD
+	tangent = tangent.normalized()
+	var right := Vector3(tangent.z, 0.0, -tangent.x).normalized()
+	var origin := sample.get("position", position) as Vector3
+	origin += right * lane_offset + Vector3.UP * 1.0
+	var yaw := atan2(tangent.x, tangent.z)
+	return Transform3D(Basis(Vector3.UP, yaw), origin)
 
 func _tick_local_racer_progress() -> void:
 	var checkpoint_count := _get_checkpoint_total()
@@ -500,13 +628,16 @@ func _update_camera_transition(_delta: float) -> void:
 	camera.global_transform.basis = phase_camera_from.basis.slerp(phase_camera_to.basis, ratio).orthonormalized()
 
 func _update_finish_follow_camera(delta: float) -> void:
-	var target_id := _leader_racer_id(false)
+	var target_id := _leader_racer_id(true)
 	if target_id.is_empty():
 		target_id = local_user_id
-	var car: CarController = cars.get(target_id, null)
-	if car == null:
-		return
-	_update_camera_for_car(car, delta)
+	camera_follow_target_id = target_id
+	_update_camera_for_racer_id(target_id, delta)
+
+func _update_camera_for_racer_id(rid: String, delta: float) -> void:
+	var car: CarController = cars.get(rid, null)
+	if car != null:
+		_update_camera_for_car(car, delta)
 
 func _player_follow_camera_transform() -> Transform3D:
 	var car: CarController = cars.get(local_user_id, null)
@@ -538,9 +669,11 @@ func _submit_local_results() -> void:
 	if local_results_submitted:
 		return
 	local_results_submitted = true
+	local_results_final = true
 	race_phase = PHASE_RESULTS
-	NakamaService.set_meta_value("race_results", _sorted_local_result_entries())
-	get_tree().change_scene_to_file("res://scenes/PostRace.tscn")
+	var results := _sorted_local_result_entries()
+	NakamaService.set_meta_value("race_results", results)
+	update_results(results, true)
 
 func _sorted_local_result_entries() -> Array:
 	var entries: Array = []
@@ -571,6 +704,225 @@ func _sorted_local_result_entries() -> Array:
 		return a["progress"] > b["progress"]
 	)
 	return entries
+
+func show_results(results: Array, is_final: bool) -> void:
+	_ensure_results_overlay()
+	if results_overlay == null:
+		return
+	results_overlay.visible = true
+	if speed_ui:
+		speed_ui.visible = false
+	if mobile_controls:
+		mobile_controls.visible = false
+	update_results(results, is_final)
+
+func update_results(results: Array, is_final: bool) -> void:
+	_ensure_results_overlay()
+	if results_overlay == null or not results_overlay.visible:
+		return
+	local_results_final = is_final
+	results_title_label.text = "Final Results" if is_final else "Live Results"
+	var leader: Variant = results[0] if not results.is_empty() else {}
+	var leader_name := "--"
+	if leader is Dictionary:
+		var leader_dict: Dictionary = leader
+		leader_name = _result_display_name(leader_dict, str(leader_dict.get("id", "")) == local_user_id)
+	results_status_label.text = ("FINAL  /  Winner: %s" if is_final else "LIVE  /  Leader: %s") % leader_name
+	for child in results_list.get_children():
+		child.queue_free()
+	_add_results_header()
+	var rank := 1
+	for entry in results:
+		if entry is Dictionary:
+			results_list.add_child(_build_results_row(entry, rank))
+			rank += 1
+
+func results_overlay_is_visible_for_test() -> bool:
+	return results_overlay != null and results_overlay.visible
+
+func results_overlay_is_final_for_test() -> bool:
+	return local_results_final
+
+func get_camera_follow_target_id_for_test() -> String:
+	return camera_follow_target_id
+
+func _ensure_results_overlay() -> void:
+	if results_overlay != null and is_instance_valid(results_overlay):
+		return
+	if ui_canvas == null:
+		return
+	results_overlay = Control.new()
+	results_overlay.name = "LocalResultsOverlay"
+	results_overlay.visible = false
+	results_overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
+	results_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	ui_canvas.add_child(results_overlay)
+
+	var scrim := ColorRect.new()
+	scrim.name = "ResultsScrim"
+	scrim.color = Color(0.0, 0.0, 0.0, 0.18)
+	scrim.set_anchors_preset(Control.PRESET_FULL_RECT)
+	scrim.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	results_overlay.add_child(scrim)
+
+	var panel := PanelContainer.new()
+	panel.name = "ResultsPanel"
+	panel.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
+	panel.offset_left = -492.0
+	panel.offset_top = -386.0
+	panel.offset_right = -28.0
+	panel.offset_bottom = -28.0
+	panel.mouse_filter = Control.MOUSE_FILTER_STOP
+	panel.add_theme_stylebox_override("panel", _results_panel_style())
+	results_overlay.add_child(panel)
+
+	var margin := MarginContainer.new()
+	margin.name = "ResultsMargin"
+	margin.add_theme_constant_override("margin_left", 18)
+	margin.add_theme_constant_override("margin_top", 16)
+	margin.add_theme_constant_override("margin_right", 18)
+	margin.add_theme_constant_override("margin_bottom", 16)
+	panel.add_child(margin)
+
+	var box := VBoxContainer.new()
+	box.name = "ResultsVBox"
+	box.add_theme_constant_override("separation", 8)
+	margin.add_child(box)
+
+	results_title_label = Label.new()
+	results_title_label.name = "ResultsTitle"
+	results_title_label.text = "Live Results"
+	results_title_label.add_theme_font_size_override("font_size", 28)
+	results_title_label.add_theme_color_override("font_color", Color(1.0, 0.88, 0.35, 1.0))
+	box.add_child(results_title_label)
+
+	results_status_label = Label.new()
+	results_status_label.name = "ResultsStatus"
+	results_status_label.text = "LIVE"
+	results_status_label.add_theme_font_size_override("font_size", 14)
+	results_status_label.add_theme_color_override("font_color", Color(0.72, 0.9, 1.0, 0.95))
+	box.add_child(results_status_label)
+
+	var scroll := ScrollContainer.new()
+	scroll.name = "ResultsScroll"
+	scroll.custom_minimum_size = Vector2(424, 190)
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	box.add_child(scroll)
+
+	results_list = VBoxContainer.new()
+	results_list.name = "ResultsList"
+	results_list.add_theme_constant_override("separation", 3)
+	scroll.add_child(results_list)
+
+	var buttons := HBoxContainer.new()
+	buttons.name = "ResultsButtons"
+	buttons.alignment = BoxContainer.ALIGNMENT_END
+	buttons.add_theme_constant_override("separation", 10)
+	box.add_child(buttons)
+
+	results_restart_button = _make_results_button("Restart")
+	results_restart_button.name = "RestartButton"
+	results_restart_button.pressed.connect(_restart_local_single_race)
+	buttons.add_child(results_restart_button)
+
+	results_level_select_button = _make_results_button("Level Select")
+	results_level_select_button.name = "LevelSelectButton"
+	results_level_select_button.pressed.connect(_go_to_level_select_from_results)
+	buttons.add_child(results_level_select_button)
+
+func _hide_results_overlay() -> void:
+	if results_overlay != null and is_instance_valid(results_overlay):
+		results_overlay.visible = false
+
+func _add_results_header() -> void:
+	var row := HBoxContainer.new()
+	row.name = "Header"
+	row.add_theme_constant_override("separation", 8)
+	row.add_child(_result_cell("#", 36, false, true))
+	row.add_child(_result_cell("Racer", 170, false, true))
+	row.add_child(_result_cell("Status", 94, false, true))
+	row.add_child(_result_cell("Lap", 48, false, true))
+	results_list.add_child(row)
+
+func _build_results_row(entry: Dictionary, rank: int) -> HBoxContainer:
+	var is_local := str(entry.get("id", "")) == local_user_id
+	var row := HBoxContainer.new()
+	row.name = "Result%02d" % rank
+	row.add_theme_constant_override("separation", 8)
+	row.add_child(_result_cell(str(rank), 36, is_local))
+	row.add_child(_result_cell(_result_display_name(entry, is_local), 170, is_local))
+	row.add_child(_result_cell(_result_status_text(entry), 94, is_local))
+	row.add_child(_result_cell(str(int(entry.get("lap", 0))), 48, is_local))
+	return row
+
+func _result_cell(text: String, width: int, emphasize: bool, header: bool = false) -> Label:
+	var label := Label.new()
+	label.text = text
+	label.custom_minimum_size.x = width
+	label.clip_text = true
+	label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	label.add_theme_font_size_override("font_size", 13 if not header else 12)
+	if header:
+		label.add_theme_color_override("font_color", Color(0.55, 0.78, 1.0, 0.82))
+	elif emphasize:
+		label.add_theme_color_override("font_color", Color(1.0, 0.95, 0.62, 1.0))
+	else:
+		label.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0, 0.84))
+	return label
+
+func _result_display_name(entry: Dictionary, is_local: bool) -> String:
+	var racer_id := str(entry.get("racer_id", entry.get("id", "")))
+	if is_local:
+		return "%s (You)" % racer_id
+	return racer_id
+
+func _result_status_text(entry: Dictionary) -> String:
+	if bool(entry.get("finished", false)):
+		return "Finished"
+	if bool(entry.get("wasted", false)):
+		return "Wasted"
+	return "Racing"
+
+func _make_results_button(text: String) -> Button:
+	var button := Button.new()
+	button.text = text
+	button.custom_minimum_size = Vector2(132, 44)
+	button.add_theme_font_size_override("font_size", 15)
+	button.add_theme_color_override("font_color", Color(0.05, 0.05, 0.07, 1.0))
+	button.add_theme_stylebox_override("normal", _results_button_style(Color(0.96, 0.78, 0.24, 0.95)))
+	button.add_theme_stylebox_override("hover", _results_button_style(Color(1.0, 0.86, 0.34, 1.0)))
+	button.add_theme_stylebox_override("pressed", _results_button_style(Color(0.86, 0.62, 0.14, 1.0)))
+	return button
+
+func _results_panel_style() -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.025, 0.03, 0.045, 0.88)
+	style.border_color = Color(0.0, 0.85, 1.0, 0.42)
+	style.set_border_width_all(2)
+	style.set_corner_radius_all(8)
+	style.shadow_color = Color(0, 0, 0, 0.45)
+	style.shadow_size = 14
+	return style
+
+func _results_button_style(color: Color) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = color
+	style.border_color = Color(1.0, 0.96, 0.75, 0.88)
+	style.set_border_width_all(2)
+	style.set_corner_radius_all(8)
+	style.content_margin_left = 14
+	style.content_margin_top = 8
+	style.content_margin_right = 14
+	style.content_margin_bottom = 8
+	return style
+
+func _restart_local_single_race() -> void:
+	NakamaService.set_meta_value("race_match_id", LOCAL_SINGLE_MATCH_ID)
+	NakamaService.set_meta_value("race_mode", RACE_MODE_LOCAL_SINGLE)
+	get_tree().change_scene_to_file("res://scenes/Race.tscn")
+
+func _go_to_level_select_from_results() -> void:
+	get_tree().change_scene_to_file("res://scenes/LevelSelect.tscn")
 
 func _hide_race_hud_for_intro(hidden: bool) -> void:
 	if top_left_panel:

@@ -10,6 +10,19 @@ func test_projection_progress_increases_along_route() -> void:
 	var later := TrackProgressRules.project_position(definition.route_points, Vector3(116, 3.0, -18), true)
 	assert_true(float(later.get("distance", 0.0)) > float(near_start.get("distance", 0.0)), "Projected route distance should increase along the route")
 
+func test_sample_route_at_distance_returns_position_and_tangent() -> void:
+	var route: Array[Vector3] = [Vector3.ZERO, Vector3(10, 0, 0), Vector3(10, 0, 10)]
+	var sample := TrackProgressRules.sample_route_at_distance(route, 5.0, false)
+	assert_true((sample.get("position", Vector3.ZERO) as Vector3).distance_to(Vector3(5, 0, 0)) < 0.01, "Sampler should interpolate along the first segment")
+	assert_true((sample.get("tangent", Vector3.ZERO) as Vector3).distance_to(Vector3.RIGHT) < 0.01, "Sampler should return the segment tangent")
+	assert_equal(int(sample.get("segment_index", -1)), 0, "Sampler should report the active segment")
+
+func test_sample_route_wraps_closed_loop_distance() -> void:
+	var route: Array[Vector3] = [Vector3.ZERO, Vector3(10, 0, 0), Vector3(10, 0, 10), Vector3(0, 0, 10)]
+	var sample := TrackProgressRules.sample_route_at_distance(route, 50.0, true)
+	assert_true((sample.get("position", Vector3.ZERO) as Vector3).distance_to(Vector3(10, 0, 0)) < 0.01, "Closed route sampling should wrap beyond total length")
+	assert_true(float(sample.get("route_ratio", -1.0)) >= 0.0 and float(sample.get("route_ratio", -1.0)) <= 1.0, "Wrapped route ratio should stay normalized")
+
 func test_checkpoint_order_advances_and_finishes_after_lap_sequence() -> void:
 	var checkpoint := 0
 	var lap := 1

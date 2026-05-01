@@ -29,12 +29,7 @@ func test_level_select_loads_default_track_and_writes_local_single_metadata() ->
 	screen.queue_free()
 
 func test_local_single_race_spawns_full_roster_and_blocks_input_during_intro() -> void:
-	NakamaService.set_meta_value("race_mode", "local_single")
-	NakamaService.set_meta_value("race_match_id", "local-single-race")
-	NakamaService.set_meta_value("track_id", "kitchen")
-	NakamaService.set_meta_value("selected_racer_id", "Dash")
-	var race := RaceScene.instantiate()
-	scene_tree.root.add_child(race)
+	var race: Node = _make_local_race()
 	assert_true(bool(race.get("local_single_race")), "Race scene should branch into local single-race mode")
 	assert_equal((race.get("local_racer_ids") as Array).size(), 8, "Local single race should spawn the full roster")
 	assert_equal((race.get("ai_racer_ids") as Array).size(), 7, "Local single race should create seven CPU racers")
@@ -54,3 +49,97 @@ func test_local_single_race_spawns_full_roster_and_blocks_input_during_intro() -
 		var input_state: Dictionary = car.get("input_state")
 		assert_true(float(input_state.get("throttle", 0.0)) > 0.0, "CPU racers should drive through CarController input")
 	race.queue_free()
+
+func test_local_single_ai_uses_lane_offsets_and_steers_toward_route_sample() -> void:
+	var race: Node = _make_local_race()
+	race.call("_set_local_phase", "racing")
+	var ai_ids: Array = race.get("ai_racer_ids")
+	var driver_state: Dictionary = race.get("ai_driver_state")
+	var lane_offsets := {}
+	for rid in ai_ids:
+		var state: Dictionary = driver_state.get(str(rid), {})
+		lane_offsets[float(state.get("lane_offset", 0.0))] = true
+	assert_true(lane_offsets.size() >= 6, "CPU racers should use varied lane offsets to avoid bundling")
+
+	var first_ai := str(ai_ids[0])
+	var cars: Dictionary = race.get("cars")
+	var car: CarController = cars.get(first_ai, null)
+	assert_true(car != null, "CPU racer should have a car for steering tests")
+	if car != null:
+		driver_state[first_ai] = {"lane_offset": 0.0, "lookahead": 10.0, "last_progress": 0.0, "stuck_timer": 0.0, "last_safe_transform": Transform3D.IDENTITY}
+		race.set("track_waypoints", [Vector3.ZERO, Vector3(40, 0, 0), Vector3(80, 0, 0)])
+		car.global_transform = Transform3D.IDENTITY
+		race.call("_tick_ai_input", first_ai, 0.016)
+		assert_true(float((car.get("input_state") as Dictionary).get("steer", 0.0)) > 0.0, "Target to the right should produce positive steering")
+		race.set("track_waypoints", [Vector3.ZERO, Vector3(-40, 0, 0), Vector3(-80, 0, 0)])
+		car.global_transform = Transform3D.IDENTITY
+		race.call("_tick_ai_input", first_ai, 0.016)
+		assert_true(float((car.get("input_state") as Dictionary).get("steer", 0.0)) < 0.0, "Target to the left should produce negative steering")
+	race.queue_free()
+
+func test_local_single_ai_moves_cars_from_start() -> void:
+	var race: Node = _make_local_race()
+	race.call("_set_local_phase", "racing")
+	var ai_ids: Array = race.get("ai_racer_ids")
+	var cars: Dictionary = race.get("cars")
+	var start_positions := {}
+	for rid in ai_ids:
+		var car: CarController = cars.get(str(rid), null)
+		if car != null:
+			start_positions[str(rid)] = car.global_transform.origin
+	for i in range(20):
+		for rid in ai_ids:
+			var car: CarController = cars.get(str(rid), null)
+			if car != null:
+				race.call("_tick_ai_input", str(rid), 0.016)
+				car.call("_physics_process", 0.016)
+	var moved := 0
+	for rid in ai_ids:
+		var car: CarController = cars.get(str(rid), null)
+		if car != null and car.global_transform.origin.distance_to(start_positions.get(str(rid), car.global_transform.origin)) > 0.08:
+			moved += 1
+	assert_true(moved >= 6, "Most CPU racers should move away from their start positions under physics input")
+	race.queue_free()
+
+func test_local_finish_shows_live_overlay_then_finalizes_without_scene_change() -> void:
+	var race: Node = _make_local_race()
+	race.call("_set_local_phase", "racing")
+	var states: Dictionary = race.get("racer_states")
+	var local_state: Dictionary = states.get("local_player", {})
+	local_state["finished"] = true
+	local_state["finish_time"] = 1.0
+	states["local_player"] = local_state
+	var leader_id := str((race.get("ai_racer_ids") as Array)[0])
+	var leader_state: Dictionary = states.get(leader_id, {})
+	leader_state["finished"] = true
+	leader_state["finish_time"] = 0.5
+	leader_state["progress"] = 999.0
+	states[leader_id] = leader_state
+	race.call("_tick_local_race", 0.016)
+	assert_equal(str(race.get("race_phase")), "player_finish_follow", "Player finish should enter the player camera beat")
+	assert_true(not bool(race.get("player_input_enabled")), "Player input should disable after finish")
+	assert_true(bool(race.call("results_overlay_is_visible_for_test")), "Results overlay should appear immediately as provisional")
+	assert_true(not bool(race.call("results_overlay_is_final_for_test")), "Immediate overlay should be provisional")
+	assert_equal(str(race.call("get_camera_follow_target_id_for_test")), "local_player", "Camera should initially stay on the finished player")
+	race.call("_physics_process_local_single", 2.1)
+	assert_equal(str(race.get("race_phase")), "winner_follow_results", "Camera phase should switch to winner follow after the player beat")
+	assert_equal(str(race.call("get_camera_follow_target_id_for_test")), leader_id, "Winner follow should target the first-place racer")
+	for rid in race.get("local_racer_ids"):
+		var state: Dictionary = states.get(str(rid), {})
+		state["finished"] = true
+		state["finish_time"] = float(state.get("finish_time", 5.0))
+		states[str(rid)] = state
+	race.call("_submit_local_results")
+	assert_equal(str(race.get("race_phase")), "results", "Finalization should keep the race scene in results phase")
+	assert_true(bool(race.call("results_overlay_is_final_for_test")), "Final results should mark the overlay final")
+	assert_true(race.is_inside_tree(), "Local single results should remain over Race.tscn instead of changing scene")
+	race.queue_free()
+
+func _make_local_race() -> Node:
+	NakamaService.set_meta_value("race_mode", "local_single")
+	NakamaService.set_meta_value("race_match_id", "local-single-race")
+	NakamaService.set_meta_value("track_id", "kitchen")
+	NakamaService.set_meta_value("selected_racer_id", "Dash")
+	var race := RaceScene.instantiate()
+	scene_tree.root.add_child(race)
+	return race
