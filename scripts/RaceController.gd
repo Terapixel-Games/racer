@@ -7,6 +7,7 @@ const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd"
 const TrackRuntimeScene = preload("res://scripts/track/TrackRuntimeScene.gd")
 const ItemRules = preload("res://scripts/logic/ItemRules.gd")
 const OutOfBoundsRules = preload("res://scripts/logic/OutOfBoundsRules.gd")
+const RacerRoster = preload("res://scripts/logic/RacerRoster.gd")
 
 @onready var ui_speed: Label = %SpeedLabel
 @onready var ui_speed_bar: ProgressBar = get_node_or_null("%SpeedBar") as ProgressBar
@@ -70,6 +71,25 @@ const CAMERA_NEAR := 0.05
 const CAMERA_OCCLUSION_MASK := 1
 const CAMERA_OCCLUSION_CLEARANCE := 0.7
 const CAMERA_OCCLUSION_MIN_DISTANCE := 1.1
+const RACE_MODE_LOCAL_SINGLE := "local_single"
+const LOCAL_SINGLE_MATCH_ID := "local-single-race"
+const PHASE_INTRO := "intro"
+const PHASE_GRID_ENTRY := "grid_entry"
+const PHASE_CAMERA_TRANSITION := "camera_transition"
+const PHASE_COUNTDOWN := "countdown"
+const PHASE_RACING := "racing"
+const PHASE_FINISH_FOLLOW := "finish_follow"
+const PHASE_RESULTS := "results"
+const INTRO_DURATION := 5.0
+const GRID_ENTRY_DURATION := 1.35
+const CAMERA_TRANSITION_DURATION := 1.0
+const COUNTDOWN_DURATION := 4.0
+const FINISH_FOLLOW_TIMEOUT := 10.0
+const AI_LOOKAHEAD_POINTS := 2
+const AI_STEER_DEADZONE := 0.035
+const AI_BRAKE_ANGLE := 1.15
+const AI_DRIFT_ANGLE := 0.32
+const AI_TARGET_REACH_DISTANCE := 8.0
 
 const INPUT_INTERVAL := 1.0 / Config.INPUT_TICK_HZ
 const MESSAGE_DURATION := 3.0
@@ -95,6 +115,19 @@ var previous_drift_pressed := false
 var sfx_boost: AudioStream
 var sfx_drift: AudioStream
 var sfx_item_pickup: AudioStream
+var local_single_race := false
+var race_phase := ""
+var phase_timer := 0.0
+var race_elapsed := 0.0
+var finish_follow_timer := 0.0
+var player_input_enabled := false
+var local_racer_ids: Array[String] = []
+var ai_racer_ids: Array[String] = []
+var racer_visual_ids: Dictionary = {}
+var ai_route_targets: Dictionary = {}
+var phase_camera_from := Transform3D.IDENTITY
+var phase_camera_to := Transform3D.IDENTITY
+var local_results_submitted := false
 
 const HEAT_DISTORTION_RADIUS := 38.0
 const HEAT_DISTORTION_INNER_RADIUS := 12.0
@@ -365,14 +398,25 @@ func _input(event: InputEvent) -> void:
 		return
 	if event is InputEventScreenTouch:
 		var touch := event as InputEventScreenTouch
-		if not touch.pressed:
+		if touch.pressed and _should_start_mobile_steer(touch.position):
+			_begin_mobile_steer(touch.index, touch.position)
+		elif not touch.pressed:
 			_release_mobile_touch(touch.index)
+	elif event is InputEventScreenDrag:
+		var drag := event as InputEventScreenDrag
+		if drag.index == mobile_steer_touch_id:
+			_update_steer_joystick(_screen_to_steer_joystick_local(drag.position))
 	elif event is InputEventMouseButton and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:
-		if not (event as InputEventMouseButton).pressed:
+		var mouse_button := event as InputEventMouseButton
+		if mouse_button.pressed and _should_start_mobile_steer(mouse_button.position):
+			_begin_mobile_steer(-2, mouse_button.position)
+		elif not mouse_button.pressed:
 			_release_mobile_touch(-1)
 			if mobile_steer_touch_id == -2:
 				mobile_steer_touch_id = -1
 				_reset_steer_joystick()
+	elif event is InputEventMouseMotion and mobile_steer_touch_id == -2:
+		_update_steer_joystick(_screen_to_steer_joystick_local((event as InputEventMouseMotion).position))
 
 func _apply_snapshot(data:Dictionary) -> void:
 	race_started = true
@@ -667,14 +711,12 @@ func _layout_mobile_hud() -> void:
 	var drift_size := Vector2(168.0, 168.0) * touch_scale
 	var joystick_size := Vector2(272.0, 272.0) * touch_scale
 	var knob_size := Vector2(124.0, 124.0) * touch_scale
-	var left_gap := 24.0 * viewport_scale
-	var left_width := joystick_size.x + left_gap + drift_size.x
-	var left_height := joystick_size.y
-	_set_bottom_left_rect(steer_joystick_area.get_parent() as Control, Vector2(margin, bottom_margin), Vector2(left_width, left_height))
+	var left_controls := steer_joystick_area.get_parent() as Control
+	_set_full_rect(left_controls, viewport_size)
 	_set_control_rect(steer_joystick_area, Vector2.ZERO, joystick_size)
 	_set_control_rect(steer_joystick_area.get_node("SteerJoystickBase") as Control, Vector2.ZERO, joystick_size)
 	_set_control_rect(steer_joystick_knob, (joystick_size - knob_size) * 0.5, knob_size)
-	_set_control_rect(drift_btn, Vector2(joystick_size.x + left_gap, (joystick_size.y - drift_size.y) * 0.5), drift_size)
+	_set_control_rect(drift_btn, Vector2(margin, viewport_size.y - bottom_margin - drift_size.y), drift_size)
 
 	var accel_size := Vector2(224.0, 224.0) * touch_scale
 	var brake_size := Vector2(170.0, 170.0) * touch_scale
@@ -691,6 +733,20 @@ func _layout_mobile_hud() -> void:
 	_set_control_rect(item_btn, Vector2(0.0, maxf(0.0, boost_size.y * 0.36)), item_size)
 	_set_control_rect(return_btn, Vector2(item_size.x + right_gap, maxf(0.0, boost_size.y * 0.44)), return_size)
 	_reset_steer_joystick()
+
+func _set_full_rect(control: Control, rect_size: Vector2) -> void:
+	if control == null:
+		return
+	control.anchor_left = 0.0
+	control.anchor_top = 0.0
+	control.anchor_right = 0.0
+	control.anchor_bottom = 0.0
+	control.offset_left = 0.0
+	control.offset_top = 0.0
+	control.offset_right = rect_size.x
+	control.offset_bottom = rect_size.y
+	control.size = rect_size
+	control.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 func _set_control_rect(control: Control, position: Vector2, rect_size: Vector2) -> void:
 	if control == null:
@@ -822,12 +878,52 @@ func _button_for_mobile_action(action: String) -> Button:
 			return return_btn
 	return null
 
+func _should_start_mobile_steer(screen_position: Vector2) -> bool:
+	if mobile_steer_touch_id != -1:
+		return false
+	var viewport_size := get_viewport().get_visible_rect().size
+	if viewport_size.x <= 0.0:
+		return false
+	if screen_position.x > viewport_size.x * 0.5:
+		return false
+	if _control_contains_screen_point(drift_btn, screen_position):
+		return false
+	return true
+
+func _control_contains_screen_point(control: Control, screen_position: Vector2) -> bool:
+	if control == null or not control.visible:
+		return false
+	return control.get_global_rect().has_point(screen_position)
+
+func _begin_mobile_steer(touch_id: int, screen_position: Vector2) -> void:
+	mobile_steer_touch_id = touch_id
+	_position_steer_joystick(screen_position)
+	_update_steer_joystick(_screen_to_steer_joystick_local(screen_position))
+
+func _position_steer_joystick(screen_position: Vector2) -> void:
+	if steer_joystick_area == null:
+		return
+	var viewport_size := get_viewport().get_visible_rect().size
+	var area_size := steer_joystick_area.size
+	var half_size := area_size * 0.5
+	var center := screen_position
+	center.x = clampf(center.x, half_size.x, maxf(half_size.x, viewport_size.x * 0.5 - half_size.x))
+	center.y = clampf(center.y, half_size.y, maxf(half_size.y, viewport_size.y - half_size.y))
+	var parent := steer_joystick_area.get_parent() as Control
+	var parent_origin := Vector2.ZERO if parent == null else parent.global_position
+	steer_joystick_area.position = center - half_size - parent_origin
+	steer_joystick_area.visible = true
+
+func _screen_to_steer_joystick_local(screen_position: Vector2) -> Vector2:
+	if steer_joystick_area == null:
+		return Vector2.ZERO
+	return screen_position - steer_joystick_area.global_position
+
 func _on_steer_joystick_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
 		var touch := event as InputEventScreenTouch
 		if touch.pressed and mobile_steer_touch_id == -1:
-			mobile_steer_touch_id = touch.index
-			_update_steer_joystick(touch.position)
+			_begin_mobile_steer(touch.index, steer_joystick_area.global_position + touch.position)
 			steer_joystick_area.accept_event()
 		elif not touch.pressed and touch.index == mobile_steer_touch_id:
 			mobile_steer_touch_id = -1
@@ -840,8 +936,7 @@ func _on_steer_joystick_input(event: InputEvent) -> void:
 			steer_joystick_area.accept_event()
 	elif event is InputEventMouseButton and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:
 		if (event as InputEventMouseButton).pressed:
-			mobile_steer_touch_id = -2
-			_update_steer_joystick((event as InputEventMouseButton).position)
+			_begin_mobile_steer(-2, steer_joystick_area.global_position + (event as InputEventMouseButton).position)
 		else:
 			mobile_steer_touch_id = -1
 			_reset_steer_joystick()
@@ -865,6 +960,7 @@ func _reset_steer_joystick() -> void:
 	if steer_joystick_area == null or steer_joystick_knob == null:
 		return
 	steer_joystick_knob.position = steer_joystick_area.size * 0.5 - steer_joystick_knob.size * 0.5
+	steer_joystick_area.visible = false
 
 func _get_checkpoint_total() -> int:
 	if track_checkpoint_total > 0:
