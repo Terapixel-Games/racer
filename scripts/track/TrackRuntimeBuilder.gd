@@ -6,6 +6,7 @@ const CheckpointSystemScript = preload("res://scripts/CheckpointSystem.gd")
 const FinishLineAreaScript = preload("res://scripts/FinishLineArea.gd")
 const RoadMeshScript = preload("res://scripts/RoadMesh.gd")
 const TrackDefinition = preload("res://scripts/track/TrackDefinition.gd")
+const TrackAuthoringPreview = preload("res://scripts/track/TrackAuthoringPreview.gd")
 const TrackRibbonMesh = preload("res://scripts/track/TrackRibbonMesh.gd")
 const TrackWalls = preload("res://scripts/TrackWalls.gd")
 const TrackSceneAuthoringData = preload("res://scripts/track/TrackSceneAuthoringData.gd")
@@ -623,6 +624,15 @@ static func _add_dressing_scene(parent: Node3D, definition: TrackDefinition) -> 
 		push_error("Track dressing scene root must be Node3D: %s" % definition.dressing_scene_path)
 		return
 	instance.name = "EditableRoom"
+	if instance is TrackAuthoringPreview:
+		var preview := instance as TrackAuthoringPreview
+		preview.preview_enabled = false
+		preview.live_update_in_editor = false
+		preview.show_dressing_preview = false
+	var saved_preview := instance.get_node_or_null(TrackAuthoringPreview.PREVIEW_ROOT_NAME)
+	if saved_preview != null:
+		instance.remove_child(saved_preview)
+		saved_preview.queue_free()
 	_disable_gameplay_collision(instance)
 	parent.add_child(instance)
 

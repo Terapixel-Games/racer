@@ -67,7 +67,7 @@ const PREVIEW_ROOT_NAME := "EditorTrackPreview"
 	set(value):
 		show_marker_labels = value
 		_queue_preview_refresh()
-@export var show_dressing_preview := true:
+@export var show_dressing_preview := false:
 	set(value):
 		show_dressing_preview = value
 		_queue_preview_refresh()
@@ -158,15 +158,10 @@ func refresh_preview() -> void:
 	preview_root.set_meta("generated_track_authoring_preview", true)
 	add_child(preview_root)
 
-	_add_ground_preview(preview_root)
 	_add_track_body_preview(preview_root, route_points)
 	_add_road_preview(preview_root, route_points)
+	_add_rail_preview(preview_root, route_points)
 	_add_alternate_route_previews(preview_root)
-	if show_auto_wall_preview:
-		_add_wall_preview(preview_root, route_points)
-	_add_height_guides(preview_root, route_points)
-	_add_dressing_preview(preview_root)
-	_add_marker_previews(preview_root)
 	_last_preview_signature = _preview_signature()
 
 func clear_preview() -> void:
@@ -283,6 +278,12 @@ func _add_road_preview(parent: Node3D, route_points: Array[Vector3]) -> void:
 	parent.add_child(road)
 	road.call("_rebuild")
 
+func _add_rail_preview(parent: Node3D, route_points: Array[Vector3]) -> void:
+	TrackRuntimeBuilder._build_route_rails(parent, "PreviewRails", route_points, road_width, closed_loop, "", 1.0)
+	var rails := parent.get_node_or_null("PreviewRails")
+	if rails != null:
+		TrackRuntimeBuilder._disable_gameplay_collision(rails)
+
 func _add_alternate_route_previews(parent: Node3D) -> void:
 	var routes := _collect_alternate_routes([])
 	if routes.is_empty():
@@ -313,6 +314,10 @@ func _add_alternate_route_previews(parent: Node3D) -> void:
 		road.set("road_material", _material(Color(0.08, 0.35, 1.0, road_preview_alpha), true))
 		holder.add_child(road)
 		road.call("_rebuild")
+		TrackRuntimeBuilder._build_route_rails(holder, "%sRails" % route_id, points, width, false, "", 1.0)
+		var rails := holder.get_node_or_null("%sRails" % route_id)
+		if rails != null:
+			TrackRuntimeBuilder._disable_gameplay_collision(rails)
 
 func _add_wall_preview(parent: Node3D, route_points: Array[Vector3]) -> void:
 	var holder := Node3D.new()

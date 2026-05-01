@@ -20,17 +20,17 @@ road_texture_path = "res://assets/gameplay/materials/plastic/glossy_plastic_albe
 rail_texture_path = "res://assets/gameplay/materials/metal/toy_metal_albedo.png"
 rail_texture_uv_scale = 0.5
 track_body_color = Color(0.09, 0.075, 0.065, 1)
-route_points = Array[Vector3]([Vector3(-108, 3.35, -61.92), Vector3(-84, 3.35, -67.08), Vector3(-56, 3.35, -67.08), Vector3(-28, 3.35, -65.36), Vector3(0, 3.35, -61.92), Vector3(32, 3.35, -60.2), Vector3(64, 3.35, -61.92), Vector3(96, 3.35, -56.76), Vector3(120, 3.35, -41.28), Vector3(126, 3.35, -17.2), Vector3(124, 3.35, 6.88), Vector3(120, 3.35, 32.68), Vector3(102, 3.35, 55.04), Vector3(72, 3.35, 65.36), Vector3(42, 5.85, 67.08), Vector3(12, 5.85, 65.36), Vector3(-18, 3.35, 61.92), Vector3(-48, 3.35, 65.36), Vector3(-80, 3.35, 60.2), Vector3(-108, 3.35, 46.44), Vector3(-124, 3.35, 22.36), Vector3(-126, 3.35, -3.44), Vector3(-124, 3.35, -29.24), Vector3(-116, 3.35, -49.88), Vector3(-98, 3.35, -60.2), Vector3(-72, 3.35, -65.36), Vector3(-42, 3.35, -63.64), Vector3(-12, 3.35, -56.76), Vector3(18, 3.35, -44.72), Vector3(42, 3.35, -29.24), Vector3(52, 3.35, -6.88), Vector3(46, 3.35, 15.48), Vector3(26, 3.35, 32.68), Vector3(-2, 3.35, 39.56), Vector3(-32, 3.35, 36.12), Vector3(-58, 3.35, 24.08), Vector3(-72, 3.35, 3.44), Vector3(-74, 3.35, -20.64), Vector3(-64, 3.35, -43), Vector3(-42, 3.35, -56.76), Vector3(-16, 3.35, -61.92), Vector3(14, 3.35, -61.92)])
-checkpoint_indices = Array[int]([0, 6, 12, 18, 24, 30])
-spawn_points = Array[Vector4]([Vector4(-107.579605, 4.15, -59.96468, 102.13389), Vector4(-108.420395, 4.15, -63.875317, 102.13389), Vector4(-102.69131, 4.15, -61.015663, 102.13389), Vector4(-103.5321, 4.15, -64.9263, 102.13389), Vector4(-97.80302, 4.15, -62.066647, 102.13389), Vector4(-98.64381, 4.15, -65.97728, 102.13389), Vector4(-92.91472, 4.15, -63.117634, 102.13389), Vector4(-93.75551, 4.15, -67.02827, 102.13389)])
-item_sockets = Array[Vector4]([Vector4(-28, 4.0499997, -65.36, 0), Vector4(96, 4.0499997, -56.76, 0), Vector4(120, 4.0499997, 32.68, 0), Vector4(12, 6.5499997, 65.36, 0), Vector4(-108, 4.0499997, 46.44, 0), Vector4(-116, 4.0499997, -49.88, 0), Vector4(-12, 4.0499997, -56.76, 0), Vector4(46, 4.0499997, 15.48, 0), Vector4(-58, 4.0499997, 24.08, 0), Vector4(-42, 4.0499997, -56.76, 0)])
-hazard_sockets = Array[Vector4]([Vector4(32, 4.0499997, -60.2, 0), Vector4(124, 4.0499997, 6.88, 0), Vector4(-18, 4.0499997, 61.92, 0), Vector4(-126, 4.0499997, -3.44, 0), Vector4(-42, 4.0499997, -63.64, 0), Vector4(26, 4.0499997, 32.68, 0), Vector4(-72, 4.0499997, 3.44, 0)])
+route_points = Array[Vector3]([Vector3(-108, 3.35, -61.92), Vector3(-94, 3.35, -67.08), Vector3(-78, 3.35, -70.52), Vector3(-60, 3.35, -72.24), Vector3(-40, 3.35, -71.38), Vector3(-20, 3.35, -68.8), Vector3(0, 3.35, -65.36), Vector3(24, 3.35, -65.36), Vector3(48, 3.35, -67.08), Vector3(72, 3.35, -65.36), Vector3(96, 3.35, -58.48), Vector3(116, 3.35, -44.72), Vector3(128, 3.35, -25.8), Vector3(132, 3.35, -5.16), Vector3(130, 3.35, 15.48), Vector3(122, 3.35, 36.12), Vector3(106, 3.35, 51.6), Vector3(84, 3.35, 61.92), Vector3(60, 4.75, 67.08), Vector3(34, 4.75, 70.52), Vector3(8, 3.35, 70.52), Vector3(-18, 3.35, 68.8), Vector3(-44, 3.35, 65.36), Vector3(-70, 3.35, 58.48), Vector3(-94, 3.35, 46.44), Vector3(-114, 3.35, 29.24), Vector3(-126, 3.35, 8.6), Vector3(-130, 3.35, -13.76), Vector3(-126, 3.35, -34.4), Vector3(-116, 3.35, -51.6), Vector3(-104, 3.35, -60.2), Vector3(-112, 3.35, -58.48)])
+checkpoint_indices = Array[int]([0, 6, 12, 18, 24, 28])
+spawn_points = Array[Vector4]([Vector4(-107.30834, 4.15, -60.043404, 110.23246), Vector4(-108.69166, 4.15, -63.796593, 110.23246), Vector4(-102.61686, 4.15, -61.772552, 110.23246), Vector4(-104.000175, 4.15, -65.52574, 110.23246), Vector4(-97.92537, 4.15, -63.5017, 110.23246), Vector4(-99.308685, 4.15, -67.25489, 110.23246), Vector4(-93.23388, 4.15, -65.23085, 110.23246), Vector4(-94.617195, 4.15, -68.98404, 110.23246)])
+item_sockets = Array[Vector4]([Vector4(-78, 4.0499997, -70.52, 0), Vector4(-20, 4.0499997, -68.8, 0), Vector4(48, 4.0499997, -67.08, 0), Vector4(116, 4.0499997, -44.72, 0), Vector4(130, 4.0499997, 15.48, 0), Vector4(84, 4.0499997, 61.92, 0), Vector4(8, 4.0499997, 70.52, 0), Vector4(-70, 4.0499997, 58.48, 0), Vector4(-126, 4.0499997, 8.6, 0), Vector4(-116, 4.0499997, -51.6, 0)])
+hazard_sockets = Array[Vector4]([Vector4(-40, 4.0499997, -71.38, 0), Vector4(72, 4.0499997, -65.36, 0), Vector4(132, 4.0499997, -5.16, 0), Vector4(60, 5.45, 67.08, 0), Vector4(-44, 4.0499997, 65.36, 0), Vector4(-130, 4.0499997, -13.76, 0), Vector4(-104, 4.0499997, -60.2, 0)])
 alternate_routes = Array[Dictionary]([{
 "enabled": true,
 "entry_checkpoint_index": 1,
 "exit_checkpoint_index": 3,
 "id": "glam_closet_branch",
-"points": Array[Vector3]([Vector3(64, 3.55, -72), Vector3(36, 4.75, -22), Vector3(12, 4.55, 22), Vector3(-18, 3.75, 72)]),
+"points": Array[Vector3]([Vector3(0, 3.55, -76), Vector3(18, 4.35, -32), Vector3(36, 4.35, 20), Vector3(60, 3.75, 78)]),
 "road_width": 12.0
 }])
 stage_props = Array[Dictionary]([{
@@ -102,17 +102,17 @@ surface_segments = Array[Dictionary]([{
 "surface_audio_id": "glam_closet_primary",
 "surface_material_id": "gloss"
 }, {
-"end_route_index": 24,
+"end_route_index": 20,
 "id": "glam_closet_feature_surface",
 "position": Vector3(70, 3.55, 50),
 "start_route_index": 11,
 "surface_audio_id": "glam_closet_secondary",
 "surface_material_id": "gloss_feature"
 }, {
-"end_route_index": 39,
+"end_route_index": 31,
 "id": "glam_closet_return_surface",
 "position": Vector3(-80, 3.55, 10),
-"start_route_index": 25,
+"start_route_index": 21,
 "surface_audio_id": "glam_closet_primary",
 "surface_material_id": "gloss"
 }])

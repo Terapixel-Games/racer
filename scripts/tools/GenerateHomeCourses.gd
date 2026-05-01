@@ -220,11 +220,11 @@ func _make_definition(course: Dictionary) -> TrackDefinition:
 	definition.rail_texture_uv_scale = 0.5
 	definition.track_body_color = TRACK_BODY_COLOR
 	definition.route_points = _route_points(str(course["route"]))
-	definition.checkpoint_indices = [0, 6, 12, 18, 24, 30]
+	definition.checkpoint_indices = _checkpoint_indices()
 	definition.lap_gate_checkpoint_index = 0
 	definition.spawn_points = _spawn_points(definition.route_points)
-	definition.item_sockets = _socket_points(definition.route_points, [3, 7, 11, 15, 19, 23, 27, 31, 35, 39])
-	definition.hazard_sockets = _socket_points(definition.route_points, [5, 10, 16, 21, 26, 32, 36])
+	definition.item_sockets = _socket_points(definition.route_points, [2, 5, 8, 11, 14, 17, 20, 23, 26, 29])
+	definition.hazard_sockets = _socket_points(definition.route_points, [4, 9, 13, 18, 22, 27, 30])
 	definition.alternate_routes = _alternate_routes(course)
 	definition.stage_props = _stage_props(course)
 	definition.surface_segments = _surface_segments(course)
@@ -253,10 +253,10 @@ func _save_editable_scene(course: Dictionary) -> void:
 	_add_floor(root, course)
 	_add_room_shell(root, course)
 	_add_route_markers(root, _route_points(str(course["route"])))
-	_add_checkpoint_markers(root, _route_points(str(course["route"])), [0, 6, 12, 18, 24, 30])
+	_add_checkpoint_markers(root, _route_points(str(course["route"])), _checkpoint_indices())
 	_add_socket_markers(root, "SpawnPoints", "Start", _spawn_points(_route_points(str(course["route"]))))
-	_add_socket_markers(root, "ItemSockets", "ItemSocket", _socket_points(_route_points(str(course["route"])), [3, 7, 11, 15, 19, 23, 27, 31, 35, 39]))
-	_add_socket_markers(root, "HazardSockets", "HazardSocket", _socket_points(_route_points(str(course["route"])), [5, 10, 16, 21, 26, 32, 36]))
+	_add_socket_markers(root, "ItemSockets", "ItemSocket", _socket_points(_route_points(str(course["route"])), [2, 5, 8, 11, 14, 17, 20, 23, 26, 29]))
+	_add_socket_markers(root, "HazardSockets", "HazardSocket", _socket_points(_route_points(str(course["route"])), [4, 9, 13, 18, 22, 27, 30]))
 	_add_alternate_route_nodes(root, course)
 	_add_holder(root, "ShortcutGates")
 	_add_stage_prop_nodes(root, course)
@@ -416,54 +416,78 @@ func _add_box(parent: Node3D, node_name: String, position: Vector3, size: Vector
 
 func _route_points(kind: String) -> Array[Vector3]:
 	var base: Array[Vector3] = [
-		Vector3(-108, ROAD_Y, -72), Vector3(-84, ROAD_Y, -78), Vector3(-56, ROAD_Y, -78), Vector3(-28, ROAD_Y, -76),
-		Vector3(0, ROAD_Y, -72), Vector3(32, ROAD_Y, -70), Vector3(64, ROAD_Y, -72), Vector3(96, ROAD_Y, -66),
-		Vector3(120, ROAD_Y, -48), Vector3(126, ROAD_Y, -20), Vector3(124, ROAD_Y, 8), Vector3(120, ROAD_Y, 38),
-		Vector3(102, ROAD_Y, 64), Vector3(72, ROAD_Y, 76), Vector3(42, ROAD_Y, 78), Vector3(12, ROAD_Y, 76),
-		Vector3(-18, ROAD_Y, 72), Vector3(-48, ROAD_Y, 76), Vector3(-80, ROAD_Y, 70), Vector3(-108, ROAD_Y, 54),
-		Vector3(-124, ROAD_Y, 26), Vector3(-126, ROAD_Y, -4), Vector3(-124, ROAD_Y, -34), Vector3(-116, ROAD_Y, -58),
-		Vector3(-98, ROAD_Y, -70), Vector3(-72, ROAD_Y, -76), Vector3(-42, ROAD_Y, -74), Vector3(-12, ROAD_Y, -66),
-		Vector3(18, ROAD_Y, -52), Vector3(42, ROAD_Y, -34), Vector3(52, ROAD_Y, -8), Vector3(46, ROAD_Y, 18),
-		Vector3(26, ROAD_Y, 38), Vector3(-2, ROAD_Y, 46), Vector3(-32, ROAD_Y, 42), Vector3(-58, ROAD_Y, 28),
-		Vector3(-72, ROAD_Y, 4), Vector3(-74, ROAD_Y, -24), Vector3(-64, ROAD_Y, -50), Vector3(-42, ROAD_Y, -66),
-		Vector3(-16, ROAD_Y, -72), Vector3(14, ROAD_Y, -72)
+		Vector3(-108, ROAD_Y, -72),
+		Vector3(-94, ROAD_Y, -78),
+		Vector3(-78, ROAD_Y, -82),
+		Vector3(-60, ROAD_Y, -84),
+		Vector3(-40, ROAD_Y, -83),
+		Vector3(-20, ROAD_Y, -80),
+		Vector3(0, ROAD_Y, -76),
+		Vector3(24, ROAD_Y, -76),
+		Vector3(48, ROAD_Y, -78),
+		Vector3(72, ROAD_Y, -76),
+		Vector3(96, ROAD_Y, -68),
+		Vector3(116, ROAD_Y, -52),
+		Vector3(128, ROAD_Y, -30),
+		Vector3(132, ROAD_Y, -6),
+		Vector3(130, ROAD_Y, 18),
+		Vector3(122, ROAD_Y, 42),
+		Vector3(106, ROAD_Y, 60),
+		Vector3(84, ROAD_Y, 72),
+		Vector3(60, ROAD_Y, 78),
+		Vector3(34, ROAD_Y, 82),
+		Vector3(8, ROAD_Y, 82),
+		Vector3(-18, ROAD_Y, 80),
+		Vector3(-44, ROAD_Y, 76),
+		Vector3(-70, ROAD_Y, 68),
+		Vector3(-94, ROAD_Y, 54),
+		Vector3(-114, ROAD_Y, 34),
+		Vector3(-126, ROAD_Y, 10),
+		Vector3(-130, ROAD_Y, -16),
+		Vector3(-126, ROAD_Y, -40),
+		Vector3(-116, ROAD_Y, -60),
+		Vector3(-104, ROAD_Y, -70),
+		Vector3(-112, ROAD_Y, -68)
 	]
 	if kind == "heavy_loop":
-		base[4].y += 2.8
-		base[5].y += 4.8
-		base[6].y += 2.4
-		base[17].y -= 1.5
-		base[18].y -= 2.0
+		base[7].y += 1.8
+		base[8].y += 3.2
+		base[9].y += 1.8
+		base[21].y -= 0.8
+		base[22].y -= 1.0
 	elif kind == "garden_loop":
-		base[12].x -= 8
-		base[13].z += 4
-		base[29].y += 2.2
+		base[16].x -= 6
+		base[17].z += 3
+		base[24].y += 1.2
 	elif kind == "bedroom_loop":
-		base[1].y += 3.0
-		base[2].y += 5.0
-		base[3].y += 3.0
-		base[20].z += 8
+		base[2].y += 1.5
+		base[3].y += 2.6
+		base[4].y += 1.5
+		base[25].z += 5
 	elif kind == "attic_loop":
-		base[28].y += 5.0
-		base[29].y += 8.0
-		base[30].y += 8.0
-		base[31].y += 5.0
+		base[10].y += 2.0
+		base[11].y += 3.2
+		base[12].y += 2.0
+		base[22].y += 1.2
 	elif kind == "figure_eight":
-		base[24] = Vector3(-92, ROAD_Y, -58)
-		base[28] = Vector3(0, ROAD_Y, -20)
-		base[32] = Vector3(64, ROAD_Y, 38)
-		base[36] = Vector3(-64, ROAD_Y, 24)
+		base[6].z -= 5
+		base[14].x -= 5
+		base[22].z += 5
+		base[29].x += 5
 	elif kind == "runway_loop":
 		for i in range(base.size()):
 			base[i].z *= 0.86
-		base[14].y += 2.5
-		base[15].y += 2.5
+		base[18].y += 1.4
+		base[19].y += 1.4
 	elif kind == "fast_loop":
 		for i in range(base.size()):
-			base[i].x *= 1.04
-		base[7].y += 2.5
-		base[8].y += 4.5
+			base[i].x *= 1.03
+		base[10].y += 1.8
+		base[11].y += 2.8
 	return base
+
+func _checkpoint_indices() -> Array[int]:
+	return [0, 6, 12, 18, 24, 28]
 
 func _spawn_points(route: Array[Vector3]) -> Array[Vector4]:
 	var spawns: Array[Vector4] = []
@@ -488,9 +512,9 @@ func _alternate_routes(course: Dictionary) -> Array[Dictionary]:
 	var id := str(course["id"])
 	var points: Array[Vector3] = []
 	if id in ["garden", "bedroom", "attic", "playroom", "glam_closet", "outdoor_playground"]:
-		points = [Vector3(64, ROAD_Y + 0.2, -72), Vector3(36, ROAD_Y + 1.4, -22), Vector3(12, ROAD_Y + 1.2, 22), Vector3(-18, ROAD_Y + 0.4, 72)]
+		points = [Vector3(0, ROAD_Y + 0.2, -76), Vector3(18, ROAD_Y + 1.0, -32), Vector3(36, ROAD_Y + 1.0, 20), Vector3(60, ROAD_Y + 0.4, 78)]
 	elif id == "sandbox":
-		points = [Vector3(0, ROAD_Y + 0.4, -72), Vector3(18, ROAD_Y + 5.0, -34), Vector3(4, ROAD_Y - 1.5, 10), Vector3(-48, ROAD_Y + 0.2, 76)]
+		points = [Vector3(0, ROAD_Y + 0.4, -76), Vector3(22, ROAD_Y + 3.0, -32), Vector3(30, ROAD_Y - 1.0, 18), Vector3(60, ROAD_Y + 0.2, 78)]
 	if points.is_empty():
 		return []
 	return [{
@@ -523,8 +547,8 @@ func _stage_props(course: Dictionary) -> Array[Dictionary]:
 func _surface_segments(course: Dictionary) -> Array[Dictionary]:
 	return [
 		{"id": "%s_start_surface" % course["id"], "start_route_index": 0, "end_route_index": 10, "surface_audio_id": "%s_primary" % course["id"], "surface_material_id": course["surface"], "position": Vector3(-30, ROAD_Y + 0.2, -70)},
-		{"id": "%s_feature_surface" % course["id"], "start_route_index": 11, "end_route_index": 24, "surface_audio_id": "%s_secondary" % course["id"], "surface_material_id": "%s_feature" % course["surface"], "position": Vector3(70, ROAD_Y + 0.2, 50)},
-		{"id": "%s_return_surface" % course["id"], "start_route_index": 25, "end_route_index": 39, "surface_audio_id": "%s_primary" % course["id"], "surface_material_id": course["surface"], "position": Vector3(-80, ROAD_Y + 0.2, 10)},
+		{"id": "%s_feature_surface" % course["id"], "start_route_index": 11, "end_route_index": 20, "surface_audio_id": "%s_secondary" % course["id"], "surface_material_id": "%s_feature" % course["surface"], "position": Vector3(70, ROAD_Y + 0.2, 50)},
+		{"id": "%s_return_surface" % course["id"], "start_route_index": 21, "end_route_index": 31, "surface_audio_id": "%s_primary" % course["id"], "surface_material_id": course["surface"], "position": Vector3(-80, ROAD_Y + 0.2, 10)},
 	]
 
 func _audio_zones(course: Dictionary) -> Array[Dictionary]:

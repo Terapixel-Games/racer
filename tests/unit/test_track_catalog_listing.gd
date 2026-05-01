@@ -54,6 +54,7 @@ func test_home_course_tracks_are_human_editable_and_match_kitchen_scale() -> voi
 		assert_equal(definition.rail_texture_path, "res://assets/gameplay/materials/metal/toy_metal_albedo.png", "%s should use stage rails" % track_id)
 		assert_equal(definition.rail_texture_uv_scale, 0.5, "%s should use the configured rail UV scale" % track_id)
 		assert_equal(definition.ground_size, kitchen_floor_size, "%s definition should match Kitchen floor dimensions" % track_id)
+		assert_true(_route_has_no_self_intersections(definition.route_points, definition.closed_loop), "%s route should not overlap itself" % track_id)
 		assert_equal(_floor_mesh_size(str(definition.dressing_scene_path)), kitchen_floor_size, "%s editable floor should match Kitchen floor dimensions" % track_id)
 		_assert_authoring_scene(definition.dressing_scene_path, track_id)
 
@@ -82,3 +83,40 @@ func _floor_mesh_size(scene_path: String) -> Vector2:
 		size = (mesh_instance.mesh as PlaneMesh).size
 	root.queue_free()
 	return size
+
+func _route_has_no_self_intersections(route_points: Array[Vector3], closed_loop: bool) -> bool:
+	var segment_count := route_points.size() if closed_loop else route_points.size() - 1
+	for i in range(segment_count):
+		for j in range(i + 1, segment_count):
+			if abs(i - j) <= 1:
+				continue
+			if closed_loop and i == 0 and j == segment_count - 1:
+				continue
+			if _segments_intersect(
+				Vector2(route_points[i].x, route_points[i].z),
+				Vector2(route_points[(i + 1) % route_points.size()].x, route_points[(i + 1) % route_points.size()].z),
+				Vector2(route_points[j].x, route_points[j].z),
+				Vector2(route_points[(j + 1) % route_points.size()].x, route_points[(j + 1) % route_points.size()].z)
+			):
+				return false
+	return true
+
+func _segments_intersect(a: Vector2, b: Vector2, c: Vector2, d: Vector2) -> bool:
+	var o1 := _orientation(a, b, c)
+	var o2 := _orientation(a, b, d)
+	var o3 := _orientation(c, d, a)
+	var o4 := _orientation(c, d, b)
+	if o1 * o2 < 0.0 and o3 * o4 < 0.0:
+		return true
+	return _point_on_segment(a, b, c) or _point_on_segment(a, b, d) or _point_on_segment(c, d, a) or _point_on_segment(c, d, b)
+
+func _orientation(a: Vector2, b: Vector2, c: Vector2) -> float:
+	return _cross2(b - a, c - a)
+
+func _cross2(a: Vector2, b: Vector2) -> float:
+	return a.x * b.y - a.y * b.x
+
+func _point_on_segment(a: Vector2, b: Vector2, point: Vector2) -> bool:
+	if absf(_orientation(a, b, point)) > 0.001:
+		return false
+	return point.x >= minf(a.x, b.x) - 0.001 and point.x <= maxf(a.x, b.x) + 0.001 and point.y >= minf(a.y, b.y) - 0.001 and point.y <= maxf(a.y, b.y) + 0.001

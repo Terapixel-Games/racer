@@ -72,7 +72,6 @@ ground_y = -11.0
 road_y_offset = 0.0
 track_definition_path = "res://assets/gameplay/tracks/glam_closet/glam_closet_track_definition.tres"
 metadata_output_path = "res://assets/gameplay/tracks/glam_closet/glam_closet_track_metadata.json"
-show_dressing_preview = false
 road_preview_alpha = 0.84
 wall_preview_alpha = 0.27
 
@@ -127,127 +126,97 @@ mesh = SubResource("BoxMesh_e2aqq")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108, 3.35, -61.92)
 
 [node name="RoutePoint01" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -84, 3.35, -67.08)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 3.35, -67.08)
 
 [node name="RoutePoint02" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56, 3.35, -67.08)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78, 3.35, -70.52)
 
 [node name="RoutePoint03" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 3.35, -65.36)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 3.35, -72.24)
 
 [node name="RoutePoint04" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.35, -61.92)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 3.35, -71.38)
 
 [node name="RoutePoint05" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 3.35, -60.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 3.35, -68.8)
 
 [node name="RoutePoint06" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 3.35, -61.92)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.35, -65.36)
 
 [node name="RoutePoint07" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96, 3.35, -56.76)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 3.35, -65.36)
 
 [node name="RoutePoint08" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 120, 3.35, -41.28)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 3.35, -67.08)
 
 [node name="RoutePoint09" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 126, 3.35, -17.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 3.35, -65.36)
 
 [node name="RoutePoint10" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124, 3.35, 6.88)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96, 3.35, -58.48)
 
 [node name="RoutePoint11" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 120, 3.35, 32.68)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 116, 3.35, -44.72)
 
 [node name="RoutePoint12" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 102, 3.35, 55.04)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, 3.35, -25.8)
 
 [node name="RoutePoint13" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 3.35, 65.36)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 132, 3.35, -5.16)
 
 [node name="RoutePoint14" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 5.85, 67.08)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 130, 3.35, 15.48)
 
 [node name="RoutePoint15" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 5.85, 65.36)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 122, 3.35, 36.12)
 
 [node name="RoutePoint16" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 3.35, 61.92)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 106, 3.35, 51.6)
 
 [node name="RoutePoint17" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48, 3.35, 65.36)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84, 3.35, 61.92)
 
 [node name="RoutePoint18" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 3.35, 60.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 4.75, 67.08)
 
 [node name="RoutePoint19" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108, 3.35, 46.44)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 4.75, 70.52)
 
 [node name="RoutePoint20" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -124, 3.35, 22.36)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 3.35, 70.52)
 
 [node name="RoutePoint21" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126, 3.35, -3.44)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 3.35, 68.8)
 
 [node name="RoutePoint22" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -124, 3.35, -29.24)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 3.35, 65.36)
 
 [node name="RoutePoint23" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116, 3.35, -49.88)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 3.35, 58.48)
 
 [node name="RoutePoint24" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -98, 3.35, -60.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 3.35, 46.44)
 
 [node name="RoutePoint25" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72, 3.35, -65.36)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -114, 3.35, 29.24)
 
 [node name="RoutePoint26" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 3.35, -63.64)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126, 3.35, 8.6)
 
 [node name="RoutePoint27" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3.35, -56.76)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -130, 3.35, -13.76)
 
 [node name="RoutePoint28" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 3.35, -44.72)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126, 3.35, -34.4)
 
 [node name="RoutePoint29" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 3.35, -29.24)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116, 3.35, -51.6)
 
 [node name="RoutePoint30" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52, 3.35, -6.88)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104, 3.35, -60.2)
 
 [node name="RoutePoint31" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46, 3.35, 15.48)
-
-[node name="RoutePoint32" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 3.35, 32.68)
-
-[node name="RoutePoint33" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 3.35, 39.56)
-
-[node name="RoutePoint34" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 3.35, 36.12)
-
-[node name="RoutePoint35" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58, 3.35, 24.08)
-
-[node name="RoutePoint36" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72, 3.35, 3.44)
-
-[node name="RoutePoint37" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74, 3.35, -20.64)
-
-[node name="RoutePoint38" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64, 3.35, -43)
-
-[node name="RoutePoint39" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 3.35, -56.76)
-
-[node name="RoutePoint40" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 3.35, -61.92)
-
-[node name="RoutePoint41" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 3.35, -61.92)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112, 3.35, -58.48)
 
 [node name="Checkpoints" type="Node3D" parent="."]
 
@@ -255,116 +224,116 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 3.35, -61.92)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108, 3.35, -61.92)
 
 [node name="Checkpoint01" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 3.35, -61.92)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.35, -65.36)
 
 [node name="Checkpoint02" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 102, 3.35, 55.04)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, 3.35, -25.8)
 
 [node name="Checkpoint03" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 3.35, 60.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 4.75, 67.08)
 
 [node name="Checkpoint04" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -98, 3.35, -60.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 3.35, 46.44)
 
 [node name="Checkpoint05" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52, 3.35, -6.88)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126, 3.35, -34.4)
 
 [node name="SpawnPoints" type="Node3D" parent="."]
 
 [node name="Start01" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.21019685, 0, 0.9776591, 0, 1, 0, -0.9776591, 0, -0.21019685, -107.579605, 4.15, -59.96468)
+transform = Transform3D(-0.34582978, 0, 0.9382973, 0, 1, 0, -0.9382973, 0, -0.34582978, -107.30834, 4.15, -60.043404)
 
 [node name="Start02" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.21019685, 0, 0.9776591, 0, 1, 0, -0.9776591, 0, -0.21019685, -108.420395, 4.15, -63.875317)
+transform = Transform3D(-0.34582978, 0, 0.9382973, 0, 1, 0, -0.9382973, 0, -0.34582978, -108.69166, 4.15, -63.796593)
 
 [node name="Start03" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.21019685, 0, 0.9776591, 0, 1, 0, -0.9776591, 0, -0.21019685, -102.69131, 4.15, -61.015663)
+transform = Transform3D(-0.34582978, 0, 0.9382973, 0, 1, 0, -0.9382973, 0, -0.34582978, -102.61686, 4.15, -61.772552)
 
 [node name="Start04" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.21019685, 0, 0.9776591, 0, 1, 0, -0.9776591, 0, -0.21019685, -103.5321, 4.15, -64.9263)
+transform = Transform3D(-0.34582978, 0, 0.9382973, 0, 1, 0, -0.9382973, 0, -0.34582978, -104.000175, 4.15, -65.52574)
 
 [node name="Start05" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.21019685, 0, 0.9776591, 0, 1, 0, -0.9776591, 0, -0.21019685, -97.80302, 4.15, -62.066647)
+transform = Transform3D(-0.34582978, 0, 0.9382973, 0, 1, 0, -0.9382973, 0, -0.34582978, -97.92537, 4.15, -63.5017)
 
 [node name="Start06" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.21019685, 0, 0.9776591, 0, 1, 0, -0.9776591, 0, -0.21019685, -98.64381, 4.15, -65.97728)
+transform = Transform3D(-0.34582978, 0, 0.9382973, 0, 1, 0, -0.9382973, 0, -0.34582978, -99.308685, 4.15, -67.25489)
 
 [node name="Start07" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.21019685, 0, 0.9776591, 0, 1, 0, -0.9776591, 0, -0.21019685, -92.91472, 4.15, -63.117634)
+transform = Transform3D(-0.34582978, 0, 0.9382973, 0, 1, 0, -0.9382973, 0, -0.34582978, -93.23388, 4.15, -65.23085)
 
 [node name="Start08" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.21019685, 0, 0.9776591, 0, 1, 0, -0.9776591, 0, -0.21019685, -93.75551, 4.15, -67.02827)
+transform = Transform3D(-0.34582978, 0, 0.9382973, 0, 1, 0, -0.9382973, 0, -0.34582978, -94.617195, 4.15, -68.98404)
 
 [node name="ItemSockets" type="Node3D" parent="."]
 
 [node name="ItemSocket01" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 4.0499997, -65.36)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78, 4.0499997, -70.52)
 
 [node name="ItemSocket02" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96, 4.0499997, -56.76)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 4.0499997, -68.8)
 
 [node name="ItemSocket03" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 120, 4.0499997, 32.68)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 4.0499997, -67.08)
 
 [node name="ItemSocket04" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 6.5499997, 65.36)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 116, 4.0499997, -44.72)
 
 [node name="ItemSocket05" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108, 4.0499997, 46.44)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 130, 4.0499997, 15.48)
 
 [node name="ItemSocket06" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116, 4.0499997, -49.88)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84, 4.0499997, 61.92)
 
 [node name="ItemSocket07" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 4.0499997, -56.76)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 4.0499997, 70.52)
 
 [node name="ItemSocket08" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46, 4.0499997, 15.48)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 4.0499997, 58.48)
 
 [node name="ItemSocket09" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58, 4.0499997, 24.08)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126, 4.0499997, 8.6)
 
 [node name="ItemSocket10" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 4.0499997, -56.76)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116, 4.0499997, -51.6)
 
 [node name="HazardSockets" type="Node3D" parent="."]
 
 [node name="HazardSocket01" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 4.0499997, -60.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 4.0499997, -71.38)
 
 [node name="HazardSocket02" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124, 4.0499997, 6.88)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 4.0499997, -65.36)
 
 [node name="HazardSocket03" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 4.0499997, 61.92)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 132, 4.0499997, -5.16)
 
 [node name="HazardSocket04" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126, 4.0499997, -3.44)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 5.45, 67.08)
 
 [node name="HazardSocket05" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 4.0499997, -63.64)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 4.0499997, 65.36)
 
 [node name="HazardSocket06" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 4.0499997, 32.68)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -130, 4.0499997, -13.76)
 
 [node name="HazardSocket07" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72, 4.0499997, 3.44)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104, 4.0499997, -60.2)
 
 [node name="AlternateRoutes" type="Node3D" parent="."]
 
 [node name="glam_closet_branch" type="Node3D" parent="AlternateRoutes"]
 
 [node name="Point00" type="Marker3D" parent="AlternateRoutes/glam_closet_branch"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 3.55, -72)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.55, -76)
 
 [node name="Point01" type="Marker3D" parent="AlternateRoutes/glam_closet_branch"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 4.75, -22)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 4.35, -32)
 
 [node name="Point02" type="Marker3D" parent="AlternateRoutes/glam_closet_branch"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 4.55, 22)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 4.35, 20)
 
 [node name="Point03" type="Marker3D" parent="AlternateRoutes/glam_closet_branch"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 3.75, 72)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 3.75, 78)
 
 [node name="ShortcutGates" type="Node3D" parent="."]
 
@@ -430,7 +399,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70, 3.55, 50)
 script = ExtResource("4_0v0jq")
 segment_id = "glam_closet_feature_surface"
 start_route_index = 11
-end_route_index = 24
+end_route_index = 20
 surface_audio_id = "glam_closet_secondary"
 surface_material_id = "gloss_feature"
 
@@ -438,8 +407,8 @@ surface_material_id = "gloss_feature"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 3.55, 10)
 script = ExtResource("4_0v0jq")
 segment_id = "glam_closet_return_surface"
-start_route_index = 25
-end_route_index = 39
+start_route_index = 21
+end_route_index = 31
 surface_audio_id = "glam_closet_primary"
 surface_material_id = "gloss"
 
