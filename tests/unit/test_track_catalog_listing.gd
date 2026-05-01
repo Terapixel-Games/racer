@@ -11,6 +11,16 @@ const HOME_COURSE_IDS := [
 	"glam_closet",
 	"outdoor_playground",
 ]
+const EXPECTED_STAGE_SKY_PRESETS := {
+	"kitchen": "noon_clear",
+	"sandbox": "hot_afternoon",
+	"garden": "fresh_morning",
+	"bedroom": "soft_morning",
+	"attic": "stormy_moonlight_night",
+	"playroom": "party_evening",
+	"glam_closet": "night_city_glow",
+	"outdoor_playground": "clear_afternoon",
+}
 const REQUIRED_AUTHORING_GROUPS := [
 	"RoutePoints",
 	"SpawnPoints",
@@ -53,10 +63,25 @@ func test_home_course_tracks_are_human_editable_and_match_kitchen_scale() -> voi
 		assert_equal(definition.spawn_points.size(), 8, "%s should expose 8 spawns" % track_id)
 		assert_equal(definition.rail_texture_path, "res://assets/gameplay/materials/metal/toy_metal_albedo.png", "%s should use stage rails" % track_id)
 		assert_equal(definition.rail_texture_uv_scale, 0.5, "%s should use the configured rail UV scale" % track_id)
+		assert_equal(definition.sky_preset_id, str(EXPECTED_STAGE_SKY_PRESETS[track_id]), "%s should use its stage sky preset" % track_id)
+		assert_true(not definition.sky_weather.strip_edges().is_empty(), "%s should expose editor-friendly sky weather" % track_id)
+		assert_true(definition.sky_cloud_amount >= 0.0 and definition.sky_cloud_amount <= 1.0, "%s sky cloud amount should be normalized" % track_id)
+		assert_true(definition.sky_haze_amount >= 0.0 and definition.sky_haze_amount <= 1.0, "%s sky haze amount should be normalized" % track_id)
+		var metadata: Dictionary = definition.to_metadata()
+		assert_equal(str(metadata.get("sky_preset_id", "")), str(EXPECTED_STAGE_SKY_PRESETS[track_id]), "%s metadata should export sky preset" % track_id)
+		assert_true((metadata.get("sky_top_color", []) as Array).size() == 4, "%s metadata should export sky top color" % track_id)
 		assert_equal(definition.ground_size, kitchen_floor_size, "%s definition should match Kitchen floor dimensions" % track_id)
 		assert_true(_route_has_no_self_intersections(definition.route_points, definition.closed_loop), "%s route should not overlap itself" % track_id)
 		assert_equal(_floor_mesh_size(str(definition.dressing_scene_path)), kitchen_floor_size, "%s editable floor should match Kitchen floor dimensions" % track_id)
 		_assert_authoring_scene(definition.dressing_scene_path, track_id)
+
+func test_track_sky_presets_match_stage_plan() -> void:
+	for track_id in EXPECTED_STAGE_SKY_PRESETS.keys():
+		var definition = TrackCatalog.get_definition(str(track_id))
+		assert_true(definition != null, "%s definition should load" % track_id)
+		assert_equal(definition.sky_preset_id, str(EXPECTED_STAGE_SKY_PRESETS[track_id]), "%s should use the planned sky preset" % track_id)
+		var metadata: Dictionary = TrackCatalog.get_metadata(str(track_id))
+		assert_equal(str(metadata.get("sky_preset_id", "")), str(EXPECTED_STAGE_SKY_PRESETS[track_id]), "%s package metadata should export the planned sky preset" % track_id)
 
 func _assert_authoring_scene(scene_path: String, track_id: String) -> void:
 	var packed := load(scene_path) as PackedScene

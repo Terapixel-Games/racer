@@ -282,6 +282,25 @@
 	"out_of_bounds_y": -11.0,
 	"rail_texture_path": "res://assets/gameplay/materials/metal/toy_metal_albedo.png",
 	"rail_texture_uv_scale": 0.5,
+	"sky_cloud_amount": 0.16,
+	"sky_cloud_speed": 0.014,
+	"sky_haze_amount": 0.1,
+	"sky_horizon_color": [
+		0.78,
+		0.9,
+		1.0,
+		1.0
+	],
+	"sky_light_energy": 2.45,
+	"sky_preset_id": "noon_clear",
+	"sky_time_of_day": 0.5,
+	"sky_top_color": [
+		0.44,
+		0.72,
+		1.0,
+		1.0
+	],
+	"sky_weather": "clear",
 	"reset_mode": "instant_pop",
 	"road_width": 12.0,
 	"route_length": 1292.24053764343,

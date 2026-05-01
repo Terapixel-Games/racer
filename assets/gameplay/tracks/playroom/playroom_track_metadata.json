@@ -443,6 +443,25 @@
 	],
 	"runtime_scene_path": "res://assets/gameplay/tracks/playroom/playroom_track.tscn",
 	"shortcut_gates": [],
+	"sky_cloud_amount": 0.42,
+	"sky_cloud_speed": 0.02,
+	"sky_haze_amount": 0.26,
+	"sky_horizon_color": [
+		1.0,
+		0.519999980926514,
+		0.340000003576279,
+		1.0
+	],
+	"sky_light_energy": 1.75,
+	"sky_preset_id": "party_evening",
+	"sky_time_of_day": 0.68,
+	"sky_top_color": [
+		0.319999992847443,
+		0.340000003576279,
+		0.680000007152557,
+		1.0
+	],
+	"sky_weather": "warm_evening",
 	"spawn_points": [
 		{
 			"position": [

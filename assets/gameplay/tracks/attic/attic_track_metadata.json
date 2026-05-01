@@ -443,6 +443,25 @@
 	],
 	"runtime_scene_path": "res://assets/gameplay/tracks/attic/attic_track.tscn",
 	"shortcut_gates": [],
+	"sky_cloud_amount": 0.82,
+	"sky_cloud_speed": 0.036,
+	"sky_haze_amount": 0.36,
+	"sky_horizon_color": [
+		0.159999996423721,
+		0.180000007152557,
+		0.280000001192093,
+		1.0
+	],
+	"sky_light_energy": 0.82,
+	"sky_preset_id": "stormy_moonlight_night",
+	"sky_time_of_day": 0.86,
+	"sky_top_color": [
+		0.0299999993294477,
+		0.0599999986588955,
+		0.140000000596046,
+		1.0
+	],
+	"sky_weather": "storm_moonlight",
 	"spawn_points": [
 		{
 			"position": [

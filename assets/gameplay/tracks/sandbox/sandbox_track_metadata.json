@@ -443,6 +443,25 @@
 	],
 	"runtime_scene_path": "res://assets/gameplay/tracks/sandbox/sandbox_track.tscn",
 	"shortcut_gates": [],
+	"sky_cloud_amount": 0.18,
+	"sky_cloud_speed": 0.018,
+	"sky_haze_amount": 0.24,
+	"sky_horizon_color": [
+		0.920000016689301,
+		0.819999992847443,
+		0.620000004768372,
+		1.0
+	],
+	"sky_light_energy": 2.8,
+	"sky_preset_id": "hot_afternoon",
+	"sky_time_of_day": 0.46,
+	"sky_top_color": [
+		0.479999989271164,
+		0.720000028610229,
+		0.980000019073486,
+		1.0
+	],
+	"sky_weather": "clear_hot",
 	"spawn_points": [
 		{
 			"position": [

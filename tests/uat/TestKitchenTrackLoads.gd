@@ -13,6 +13,16 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	var built_track := instance.get_node_or_null("BuiltTrack")
 	assert_true(built_track != null, "Kitchen track scene should build runtime track")
 	assert_true(instance.get_node_or_null("BuiltTrack/Road") != null, "Kitchen track should include generated road")
+	assert_equal(_node_count_by_type(built_track, "WorldEnvironment"), 1, "Kitchen runtime should build exactly one WorldEnvironment")
+	var world_environment := instance.get_node_or_null("BuiltTrack/WorldEnvironment") as WorldEnvironment
+	assert_true(world_environment != null, "Kitchen track should include a world environment")
+	if world_environment != null:
+		assert_true(world_environment.environment != null, "Kitchen world environment should own an Environment resource")
+		if world_environment.environment != null:
+			assert_true(world_environment.environment.sky != null, "Kitchen world environment should include a sky")
+			if world_environment.environment.sky != null:
+				assert_true(world_environment.environment.sky.sky_material is ShaderMaterial, "Kitchen sky should use the stage sky shader material")
+	assert_true(instance.get_node_or_null("BuiltTrack/SunLight") is DirectionalLight3D, "Kitchen runtime should include the stage directional light")
 	var road_shape_node := instance.get_node_or_null("BuiltTrack/Road/CollisionBody/CollisionShape3D") as CollisionShape3D
 	assert_true(road_shape_node != null, "Kitchen road should include collision shape")
 	if road_shape_node != null:
@@ -53,6 +63,7 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(not (instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/floor") is CollisionObject3D), "Editable room floor should be visual-only so it cannot block the course")
 	assert_true(_node_position(instance, "BuiltTrack/Dressing/EditableRoom/floor").y <= -32.0, "Editable room floor should stay below the playable course")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoomShell/BackWall") != null, "Editable room scene should include selectable room shell pieces")
+	assert_true(_mesh_material_alpha(instance, "BuiltTrack/Dressing/EditableRoom/RoomShell/WindowGlass") <= 0.35, "Kitchen window glass should be transparent enough for sky visibility")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Appliances/kitchenSink") != null, "Editable room scene should preserve hand-placed kitchen props")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/WaterSurfaces/SinkWater") != null, "Editable room scene should include authored sink water")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/WaterSurfaces/WasherWater") != null, "Editable room scene should include authored washer water")
@@ -255,3 +266,20 @@ func _enabled_collision_objects(node: Node) -> int:
 	for child in node.get_children():
 		count += _enabled_collision_objects(child)
 	return count
+
+func _node_count_by_type(node: Node, type_name: String) -> int:
+	if node == null:
+		return 0
+	var count := 1 if node.is_class(type_name) else 0
+	for child in node.get_children():
+		count += _node_count_by_type(child, type_name)
+	return count
+
+func _mesh_material_alpha(root: Node, path: NodePath) -> float:
+	var mesh := root.get_node_or_null(path) as MeshInstance3D
+	if mesh == null:
+		return 1.0
+	var material := mesh.material_override
+	if material is StandardMaterial3D:
+		return (material as StandardMaterial3D).albedo_color.a
+	return 1.0

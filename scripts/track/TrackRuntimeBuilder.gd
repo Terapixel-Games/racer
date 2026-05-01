@@ -10,6 +10,7 @@ const TrackAuthoringPreview = preload("res://scripts/track/TrackAuthoringPreview
 const TrackRibbonMesh = preload("res://scripts/track/TrackRibbonMesh.gd")
 const TrackWalls = preload("res://scripts/TrackWalls.gd")
 const TrackSceneAuthoringData = preload("res://scripts/track/TrackSceneAuthoringData.gd")
+const StageSky = preload("res://scripts/track/StageSky.gd")
 const RailScene = preload("res://assets/source/kenney/racing_kit/rail.glb")
 
 const RAIL_SIDE_SCALE := 8.0
@@ -32,7 +33,7 @@ static func build(definition: TrackDefinition) -> Dictionary:
 	var root := Node3D.new()
 	root.name = "%s_Track" % definition.id.capitalize().replace(" ", "")
 
-	_build_environment(root)
+	_build_environment(root, definition)
 	_build_ground(root, definition)
 	_build_track_body(root, definition)
 	_build_road(root, definition)
@@ -58,31 +59,9 @@ static func build(definition: TrackDefinition) -> Dictionary:
 		"metadata": definition.to_metadata(),
 	}
 
-static func _build_environment(root: Node3D) -> void:
-	var sky_material := ProceduralSkyMaterial.new()
-	sky_material.sky_horizon_color = Color(0.58, 0.72, 0.9)
-	sky_material.ground_horizon_color = Color(0.64, 0.62, 0.58)
-	var sky := Sky.new()
-	sky.sky_material = sky_material
-	var environment := Environment.new()
-	environment.background_mode = Environment.BG_SKY
-	environment.sky = sky
-	environment.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
-	environment.ambient_light_sky_contribution = 0.8
-	environment.ambient_light_energy = 1.1
-	environment.glow_enabled = true
-	environment.glow_intensity = 0.04
-	var env_node := WorldEnvironment.new()
-	env_node.name = "WorldEnvironment"
-	env_node.environment = environment
-	root.add_child(env_node)
-
-	var light := DirectionalLight3D.new()
-	light.name = "SunLight"
-	light.transform.basis = Basis().looking_at(Vector3(0.5, -0.8, 0.35).normalized(), Vector3.UP)
-	light.light_energy = 2.4
-	light.shadow_enabled = true
-	root.add_child(light)
+static func _build_environment(root: Node3D, definition: TrackDefinition) -> void:
+	root.add_child(StageSky.build_world_environment(definition))
+	root.add_child(StageSky.build_directional_light(definition))
 
 static func _build_ground(root: Node3D, definition: TrackDefinition) -> void:
 	var floor_is_out_of_bounds := definition.reset_mode == "instant_pop"
@@ -633,6 +612,8 @@ static func _add_dressing_scene(parent: Node3D, definition: TrackDefinition) -> 
 	if saved_preview != null:
 		instance.remove_child(saved_preview)
 		saved_preview.queue_free()
+	if definition.id == "kitchen":
+		_make_kitchen_window_glass_transparent(instance)
 	_disable_gameplay_collision(instance)
 	parent.add_child(instance)
 
@@ -711,9 +692,31 @@ static func _add_visual_box(parent: Node3D, node_name: String, position: Vector3
 	var material := StandardMaterial3D.new()
 	material.albedo_color = color
 	material.roughness = 0.64
+	if color.a < 1.0:
+		material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	mesh.material_override = material
 	mesh.transform = Transform3D(Basis(Vector3.UP, deg_to_rad(yaw_degrees)), position)
 	parent.add_child(mesh)
+
+static func _make_kitchen_window_glass_transparent(root: Node) -> void:
+	for node in _descendants_named(root, ["WindowGlass", "KitchenWindowGlass"]):
+		if node is MeshInstance3D:
+			var material := StandardMaterial3D.new()
+			material.albedo_color = Color(0.72, 0.9, 1.0, 0.28)
+			material.roughness = 0.08
+			material.metallic = 0.0
+			material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+			(node as MeshInstance3D).material_override = material
+
+static func _descendants_named(root: Node, names: Array[String]) -> Array[Node]:
+	var matches: Array[Node] = []
+	if root == null:
+		return matches
+	for child in root.get_children():
+		if names.has(str(child.name)):
+			matches.append(child)
+		matches.append_array(_descendants_named(child, names))
+	return matches
 
 static func _add_scene_instance(parent: Node3D, path: String, position: Vector3, yaw_degrees: float, scale: Vector3, node_name: String) -> void:
 	var packed := load(path)

@@ -443,6 +443,25 @@
 	],
 	"runtime_scene_path": "res://assets/gameplay/tracks/glam_closet/glam_closet_track.tscn",
 	"shortcut_gates": [],
+	"sky_cloud_amount": 0.22,
+	"sky_cloud_speed": 0.012,
+	"sky_haze_amount": 0.32,
+	"sky_horizon_color": [
+		0.419999986886978,
+		0.180000007152557,
+		0.579999983310699,
+		1.0
+	],
+	"sky_light_energy": 1.05,
+	"sky_preset_id": "night_city_glow",
+	"sky_time_of_day": 0.82,
+	"sky_top_color": [
+		0.0199999995529652,
+		0.0399999991059303,
+		0.119999997317791,
+		1.0
+	],
+	"sky_weather": "city_night",
 	"spawn_points": [
 		{
 			"position": [

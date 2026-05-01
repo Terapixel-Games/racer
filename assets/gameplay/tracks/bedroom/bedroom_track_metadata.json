@@ -443,6 +443,25 @@
 	],
 	"runtime_scene_path": "res://assets/gameplay/tracks/bedroom/bedroom_track.tscn",
 	"shortcut_gates": [],
+	"sky_cloud_amount": 0.28,
+	"sky_cloud_speed": 0.01,
+	"sky_haze_amount": 0.22,
+	"sky_horizon_color": [
+		0.920000016689301,
+		0.839999973773956,
+		0.779999971389771,
+		1.0
+	],
+	"sky_light_energy": 1.9,
+	"sky_preset_id": "soft_morning",
+	"sky_time_of_day": 0.3,
+	"sky_top_color": [
+		0.639999985694885,
+		0.759999990463257,
+		0.920000016689301,
+		1.0
+	],
+	"sky_weather": "soft_morning",
 	"spawn_points": [
 		{
 			"position": [

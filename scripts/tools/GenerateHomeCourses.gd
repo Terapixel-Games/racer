@@ -28,6 +28,7 @@ const COURSES := [
 		"version": "sandbox_v1_2026_05_01",
 		"ground_texture": "res://assets/gameplay/materials/sand/sandbox_sand_albedo.png",
 		"ground_color": Color(0.86, 0.72, 0.45, 1.0),
+		"sky": "hot_afternoon",
 		"route": "heavy_loop",
 		"surface": "sand",
 		"music": "res://assets/source/audio/canva/tracks/sandbox/sandbox_grit_slide_canva_01.wav",
@@ -50,6 +51,7 @@ const COURSES := [
 		"version": "garden_v1_2026_05_01",
 		"ground_texture": "res://assets/gameplay/materials/garden/garden_dirt_mud_albedo.png",
 		"ground_color": Color(0.32, 0.43, 0.24, 1.0),
+		"sky": "fresh_morning",
 		"route": "garden_loop",
 		"surface": "dirt",
 		"music": "res://assets/source/audio/suno/tracks/garden/garden_loop_suno_01.mp3",
@@ -72,6 +74,7 @@ const COURSES := [
 		"version": "bedroom_v1_2026_05_01",
 		"ground_texture": "res://assets/gameplay/materials/fabric/plush_fabric_albedo.png",
 		"ground_color": Color(0.58, 0.52, 0.64, 1.0),
+		"sky": "soft_morning",
 		"route": "bedroom_loop",
 		"surface": "fabric",
 		"music": "res://assets/source/audio/suno/tracks/bedroom/bedroom_loop_suno_01.mp3",
@@ -94,6 +97,7 @@ const COURSES := [
 		"version": "attic_v1_2026_05_01",
 		"ground_texture": "res://assets/gameplay/materials/attic/attic_cardboard_wood_albedo.png",
 		"ground_color": Color(0.48, 0.38, 0.28, 1.0),
+		"sky": "stormy_moonlight_night",
 		"route": "attic_loop",
 		"surface": "wood",
 		"music": "res://assets/source/audio/suno/tracks/attic/attic_loop_suno_01.mp3",
@@ -116,6 +120,7 @@ const COURSES := [
 		"version": "playroom_v1_2026_05_01",
 		"ground_texture": "res://assets/gameplay/materials/plastic/glossy_plastic_albedo.png",
 		"ground_color": Color(0.24, 0.5, 0.86, 1.0),
+		"sky": "party_evening",
 		"route": "figure_eight",
 		"surface": "foam",
 		"music": "res://assets/source/audio/suno/tracks/playroom/playroom_loop_suno_01.mp3",
@@ -138,6 +143,7 @@ const COURSES := [
 		"version": "glam_closet_v1_2026_05_01",
 		"ground_texture": "res://assets/gameplay/materials/glam/glam_mirror_glitter_albedo.png",
 		"ground_color": Color(0.8, 0.42, 0.68, 1.0),
+		"sky": "night_city_glow",
 		"route": "runway_loop",
 		"surface": "gloss",
 		"music": "res://assets/source/audio/suno/tracks/glam_closet/glam_closet_loop_suno_01.mp3",
@@ -160,6 +166,7 @@ const COURSES := [
 		"version": "outdoor_playground_v1_2026_05_01",
 		"ground_texture": "",
 		"ground_color": Color(0.28, 0.32, 0.34, 1.0),
+		"sky": "clear_afternoon",
 		"route": "fast_loop",
 		"surface": "asphalt",
 		"music": "res://assets/source/audio/suno/tracks/playground/playground_loop_suno_01.mp3",
@@ -219,6 +226,7 @@ func _make_definition(course: Dictionary) -> TrackDefinition:
 	definition.rail_texture_path = RAIL_TEXTURE
 	definition.rail_texture_uv_scale = 0.5
 	definition.track_body_color = TRACK_BODY_COLOR
+	_apply_sky_preset(definition, str(course["sky"]))
 	definition.route_points = _route_points(str(course["route"]))
 	definition.checkpoint_indices = _checkpoint_indices()
 	definition.lap_gate_checkpoint_index = 0
@@ -235,6 +243,38 @@ func _make_definition(course: Dictionary) -> TrackDefinition:
 	}
 	definition.audio_zones = _audio_zones(course)
 	return definition
+
+func _apply_sky_preset(definition: TrackDefinition, preset_id: String) -> void:
+	var preset := _sky_preset(preset_id)
+	definition.sky_preset_id = preset_id
+	definition.sky_time_of_day = float(preset["time_of_day"])
+	definition.sky_weather = str(preset["weather"])
+	definition.sky_top_color = _color(preset["top_color"])
+	definition.sky_horizon_color = _color(preset["horizon_color"])
+	definition.sky_cloud_amount = float(preset["cloud_amount"])
+	definition.sky_cloud_speed = float(preset["cloud_speed"])
+	definition.sky_haze_amount = float(preset["haze_amount"])
+	definition.sky_light_energy = float(preset["light_energy"])
+
+func _sky_preset(preset_id: String) -> Dictionary:
+	match preset_id:
+		"noon_clear":
+			return {"time_of_day": 0.5, "weather": "clear", "top_color": Color(0.44, 0.72, 1.0), "horizon_color": Color(0.78, 0.9, 1.0), "cloud_amount": 0.16, "cloud_speed": 0.014, "haze_amount": 0.1, "light_energy": 2.45}
+		"hot_afternoon":
+			return {"time_of_day": 0.46, "weather": "clear_hot", "top_color": Color(0.48, 0.72, 0.98), "horizon_color": Color(0.92, 0.82, 0.62), "cloud_amount": 0.18, "cloud_speed": 0.018, "haze_amount": 0.24, "light_energy": 2.8}
+		"fresh_morning":
+			return {"time_of_day": 0.28, "weather": "fresh_morning", "top_color": Color(0.54, 0.76, 0.92), "horizon_color": Color(0.78, 0.9, 0.78), "cloud_amount": 0.34, "cloud_speed": 0.014, "haze_amount": 0.2, "light_energy": 2.1}
+		"soft_morning":
+			return {"time_of_day": 0.3, "weather": "soft_morning", "top_color": Color(0.64, 0.76, 0.92), "horizon_color": Color(0.92, 0.84, 0.78), "cloud_amount": 0.28, "cloud_speed": 0.01, "haze_amount": 0.22, "light_energy": 1.9}
+		"stormy_moonlight_night":
+			return {"time_of_day": 0.86, "weather": "storm_moonlight", "top_color": Color(0.03, 0.06, 0.14), "horizon_color": Color(0.16, 0.18, 0.28), "cloud_amount": 0.82, "cloud_speed": 0.036, "haze_amount": 0.36, "light_energy": 0.82}
+		"party_evening":
+			return {"time_of_day": 0.68, "weather": "warm_evening", "top_color": Color(0.32, 0.34, 0.68), "horizon_color": Color(1.0, 0.52, 0.34), "cloud_amount": 0.42, "cloud_speed": 0.02, "haze_amount": 0.26, "light_energy": 1.75}
+		"night_city_glow":
+			return {"time_of_day": 0.82, "weather": "city_night", "top_color": Color(0.02, 0.04, 0.12), "horizon_color": Color(0.42, 0.18, 0.58), "cloud_amount": 0.22, "cloud_speed": 0.012, "haze_amount": 0.32, "light_energy": 1.05}
+		"clear_afternoon":
+			return {"time_of_day": 0.5, "weather": "clear", "top_color": Color(0.42, 0.68, 1.0), "horizon_color": Color(0.74, 0.88, 1.0), "cloud_amount": 0.24, "cloud_speed": 0.018, "haze_amount": 0.12, "light_energy": 2.55}
+	return {"time_of_day": 0.5, "weather": "clear", "top_color": Color(0.58, 0.72, 0.9), "horizon_color": Color(0.64, 0.72, 0.82), "cloud_amount": 0.25, "cloud_speed": 0.02, "haze_amount": 0.18, "light_energy": 2.4}
 
 func _save_editable_scene(course: Dictionary) -> void:
 	var root := Node3D.new()

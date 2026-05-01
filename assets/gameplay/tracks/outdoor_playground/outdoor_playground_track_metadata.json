@@ -443,6 +443,25 @@
 	],
 	"runtime_scene_path": "res://assets/gameplay/tracks/outdoor_playground/outdoor_playground_track.tscn",
 	"shortcut_gates": [],
+	"sky_cloud_amount": 0.24,
+	"sky_cloud_speed": 0.018,
+	"sky_haze_amount": 0.12,
+	"sky_horizon_color": [
+		0.740000009536743,
+		0.879999995231628,
+		1.0,
+		1.0
+	],
+	"sky_light_energy": 2.55,
+	"sky_preset_id": "clear_afternoon",
+	"sky_time_of_day": 0.5,
+	"sky_top_color": [
+		0.419999986886978,
+		0.680000007152557,
+		1.0,
+		1.0
+	],
+	"sky_weather": "clear",
 	"spawn_points": [
 		{
 			"position": [

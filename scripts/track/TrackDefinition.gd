@@ -24,6 +24,15 @@ const TrackProgressRules = preload("res://scripts/track/TrackProgressRules.gd")
 @export var rail_texture_uv_scale := 1.0
 @export var track_body_depth := 0.38
 @export var track_body_color := Color(0.08, 0.08, 0.1)
+@export var sky_preset_id := ""
+@export_range(0.0, 1.0, 0.01) var sky_time_of_day := 0.5
+@export var sky_weather := ""
+@export var sky_top_color := Color(0.58, 0.72, 0.9)
+@export var sky_horizon_color := Color(0.64, 0.72, 0.82)
+@export_range(0.0, 1.0, 0.01) var sky_cloud_amount := 0.25
+@export var sky_cloud_speed := 0.02
+@export_range(0.0, 1.0, 0.01) var sky_haze_amount := 0.18
+@export var sky_light_energy := 2.4
 @export var route_points: Array[Vector3] = []
 @export var checkpoint_indices: Array[int] = []
 @export var lap_gate_checkpoint_index := 0
@@ -96,6 +105,15 @@ func to_metadata() -> Dictionary:
 		"floor_visual_y": floor_visual_y,
 		"rail_texture_path": rail_texture_path,
 		"rail_texture_uv_scale": rail_texture_uv_scale,
+		"sky_preset_id": sky_preset_id,
+		"sky_time_of_day": sky_time_of_day,
+		"sky_weather": sky_weather,
+		"sky_top_color": _color_value_to_array(sky_top_color),
+		"sky_horizon_color": _color_value_to_array(sky_horizon_color),
+		"sky_cloud_amount": sky_cloud_amount,
+		"sky_cloud_speed": sky_cloud_speed,
+		"sky_haze_amount": sky_haze_amount,
+		"sky_light_energy": sky_light_energy,
 		"route_points": _vec3_array_to_json(route_points),
 		"route_length": TrackProgressRules.route_length(route_points, closed_loop),
 		"checkpoint_radius": road_width * 0.65,

@@ -2,6 +2,8 @@ extends "res://tests/framework/TestCase.gd"
 
 const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
 const TrackMetadataExporter = preload("res://scripts/track/TrackMetadataExporter.gd")
+const StageSky = preload("res://scripts/track/StageSky.gd")
+const TrackDefinition = preload("res://scripts/track/TrackDefinition.gd")
 
 func test_kitchen_metadata_matches_server_shape() -> void:
 	var definition := TrackCatalog.get_definition("kitchen")
@@ -29,8 +31,18 @@ func test_kitchen_metadata_matches_server_shape() -> void:
 	assert_true(float(metadata.get("floor_visual_y", 0.0)) <= -8.0, "Metadata should keep the visible floor far below the countertop")
 	assert_equal(str(metadata.get("rail_texture_path", "")), "res://assets/gameplay/materials/metal/toy_metal_albedo.png", "Metadata should include the stage rail texture")
 	assert_equal(float(metadata.get("rail_texture_uv_scale", 0.0)), 0.5, "Metadata should include the stage rail texture UV scale")
+	assert_equal(str(metadata.get("sky_preset_id", "")), "noon_clear", "Metadata should include Kitchen sky preset")
+	assert_equal(str(metadata.get("sky_weather", "")), "clear", "Metadata should include Kitchen sky weather")
+	assert_equal(float(metadata.get("sky_cloud_amount", -1.0)), 0.16, "Metadata should include Kitchen sky cloud amount")
+	assert_equal((metadata.get("sky_top_color", []) as Array).size(), 4, "Metadata should export Kitchen sky top color")
 	assert_equal(str(metadata.get("dressing_scene_path", "")), "res://assets/gameplay/tracks/kitchen/kitchen_editable_room.tscn", "Metadata should expose the editable dressing scene")
 	assert_true(float(metadata.get("route_length", 0.0)) > 700.0, "Metadata should include the full looped countertop route length")
+
+func test_stage_sky_falls_back_without_definition_fields() -> void:
+	var definition := TrackDefinition.new()
+	definition.sky_preset_id = ""
+	var sky := StageSky.build_sky(definition)
+	assert_true(sky.sky_material is ProceduralSkyMaterial, "Missing sky preset should use the generic procedural sky fallback")
 
 func test_kitchen_metadata_json_is_parseable() -> void:
 	var definition := TrackCatalog.get_definition("kitchen")
