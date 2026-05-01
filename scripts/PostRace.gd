@@ -6,9 +6,12 @@ extends Control
 @onready var title_label: Label = %Title
 
 func _ready() -> void:
+	if _is_local_single_race():
+		lobby_button.text = "Restart"
+		menu_button.text = "Level Select"
 	_populate_results()
-	lobby_button.pressed.connect(_return_lobby)
-	menu_button.pressed.connect(_return_menu)
+	lobby_button.pressed.connect(_on_primary_pressed)
+	menu_button.pressed.connect(_on_secondary_pressed)
 
 func _populate_results() -> void:
 	for child in results_list.get_children():
@@ -24,17 +27,30 @@ func _populate_results() -> void:
 	_add_header()
 	var rank := 1
 	var local_id := ""
-	if NakamaService.session:
+	if _is_local_single_race():
+		local_id = "local_player"
+	elif NakamaService.session:
 		local_id = NakamaService.session.user_id
 	for r in results:
 		results_list.add_child(_build_row(r, rank, r.get("id", "") == local_id))
 		rank += 1
 
-func _return_lobby() -> void:
-	get_tree().change_scene_to_file("res://scenes/Lobby.tscn")
+func _on_primary_pressed() -> void:
+	if _is_local_single_race():
+		NakamaService.set_meta_value("race_match_id", "local-single-race")
+		NakamaService.set_meta_value("race_mode", "local_single")
+		get_tree().change_scene_to_file("res://scenes/Race.tscn")
+	else:
+		get_tree().change_scene_to_file("res://scenes/Lobby.tscn")
 
-func _return_menu() -> void:
-	get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
+func _on_secondary_pressed() -> void:
+	if _is_local_single_race():
+		get_tree().change_scene_to_file("res://scenes/LevelSelect.tscn")
+	else:
+		get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
+
+func _is_local_single_race() -> bool:
+	return str(NakamaService.get_meta_value("race_mode", "")) == "local_single"
 
 func _sorted_results(results: Array) -> Array:
 	var copy := results.duplicate(true)
@@ -67,8 +83,9 @@ func _fallback_progress(entry: Dictionary) -> float:
 func _display_name(entry: Dictionary, is_local: bool) -> String:
 	var rid := str(entry.get("id", ""))
 	var is_ai := bool(entry.get("is_ai", rid.begins_with("ai_")))
-	var name := rid
-	if is_ai and rid.begins_with("ai_"):
+	var racer_id := str(entry.get("racer_id", "")).strip_edges()
+	var name := racer_id if not racer_id.is_empty() else rid
+	if is_ai and racer_id.is_empty() and rid.begins_with("ai_"):
 		name = "AI " + rid.trim_prefix("ai_")
 	if is_local:
 		name += " (You)"
@@ -119,5 +136,6 @@ func _update_title(results: Array) -> void:
 	if title_label == null or results.is_empty():
 		return
 	var winner : Variant = results[0]
-	var winner_name := _display_name(winner, winner.get("id", "") == (NakamaService.session.user_id if NakamaService.session else ""))
+	var local_id := "local_player" if _is_local_single_race() else (NakamaService.session.user_id if NakamaService.session else "")
+	var winner_name := _display_name(winner, winner.get("id", "") == local_id)
 	title_label.text = "Race Results — Winner: %s" % winner_name

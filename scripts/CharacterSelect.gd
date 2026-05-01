@@ -340,7 +340,7 @@ func _refresh_layout() -> void:
 
 func _continue_to_lobby() -> void:
 	_set_meta_value("selected_racer_id", selected_racer_id)
-	get_tree().change_scene_to_file("res://scenes/Lobby.tscn")
+	get_tree().change_scene_to_file("res://scenes/LevelSelect.tscn")
 
 func _go_back() -> void:
 	get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")

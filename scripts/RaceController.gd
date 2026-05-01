@@ -50,6 +50,7 @@ var racer_states: Dictionary = {}
 var checkpoint_points: Array = []
 var track_waypoints: Array = []
 var track_checkpoint_indices: Array[int] = []
+var track_lap_gate_checkpoint_index := 0
 var track_alternate_routes: Array[Dictionary] = []
 var finish_announced: bool = false
 var track_out_of_bounds_y := -50.0
@@ -83,7 +84,7 @@ const PHASE_RESULTS := "results"
 const INTRO_DURATION := 5.0
 const GRID_ENTRY_DURATION := 1.35
 const CAMERA_TRANSITION_DURATION := 1.0
-const COUNTDOWN_DURATION := 4.0
+const COUNTDOWN_DURATION := 3.5
 const FINISH_FOLLOW_TIMEOUT := 10.0
 const AI_LOOKAHEAD_POINTS := 2
 const AI_STEER_DEADZONE := 0.035
@@ -152,6 +153,9 @@ func _ready() -> void:
 	mobile_controls.visible = OS.has_feature("mobile")
 	_setup_mobile_controls()
 	_ensure_input_actions()
+	if str(NakamaService.get_meta_value("race_mode", "")) == RACE_MODE_LOCAL_SINGLE:
+		_start_local_single_race()
+		return
 	await NakamaService.ensure_connected()
 	local_user_id = NakamaService.get_user_id()
 	match_id = NakamaService.get_meta_value("race_match_id", "")
@@ -159,7 +163,9 @@ func _ready() -> void:
 		get_tree().call_deferred("change_scene_to_file", "res://scenes/MainMenu.tscn")
 		return
 	if NakamaService.offline_mode:
-		_start_offline_race()
+		NakamaService.set_meta_value("race_mode", RACE_MODE_LOCAL_SINGLE)
+		NakamaService.set_meta_value("race_match_id", LOCAL_SINGLE_MATCH_ID)
+		_start_local_single_race()
 		return
 	_connect_socket()
 	await NakamaService.join_match(match_id)
@@ -167,23 +173,441 @@ func _ready() -> void:
 	_setup_checkpoints()
 
 func _start_offline_race() -> void:
+	_start_local_single_race()
+
+func _start_local_single_race() -> void:
+	local_single_race = true
+	local_user_id = "local_player"
+	match_id = LOCAL_SINGLE_MATCH_ID
+	race_started = true
+	player_input_enabled = false
+	local_results_submitted = false
+	race_elapsed = 0.0
+	finish_follow_timer = 0.0
+	cars.clear()
+	racer_states.clear()
+	racer_visual_ids.clear()
+	ai_route_targets.clear()
+	lap_map.clear()
 	_spawn_track()
 	_setup_checkpoints()
-	var car := _spawn_car(local_user_id)
-	car.controlled_locally = true
-	lap_map[local_user_id] = 1
-	racer_states[local_user_id] = {
+	_spawn_local_racer_grid()
+	_set_local_phase(PHASE_INTRO)
+	_show_message("Track preview")
+
+func _spawn_local_racer_grid() -> void:
+	local_racer_ids.clear()
+	ai_racer_ids.clear()
+	var selected_racer := RacerRoster.normalize_id(str(NakamaService.get_meta_value("selected_racer_id", RacerRoster.DEFAULT_RACER_ID)))
+	local_racer_ids.append(local_user_id)
+	racer_visual_ids[local_user_id] = selected_racer
+	var player_car := _spawn_car(local_user_id)
+	player_car.controlled_locally = true
+	player_car.set_input(_empty_input())
+	_init_local_racer_state(local_user_id, selected_racer, false, player_car.global_transform)
+
+	var cpu_index := 1
+	for roster_id in RacerRoster.select_order():
+		if roster_id == selected_racer:
+			continue
+		var rid := "cpu_%02d" % cpu_index
+		cpu_index += 1
+		local_racer_ids.append(rid)
+		ai_racer_ids.append(rid)
+		racer_visual_ids[rid] = roster_id
+		var car := _spawn_car(rid)
+		car.controlled_locally = false
+		car.set_input(_empty_input())
+		var grid_transform := car.global_transform
+		var entry_transform := grid_transform
+		entry_transform.origin -= grid_transform.basis.z.normalized() * 22.0
+		entry_transform.origin += grid_transform.basis.x.normalized() * randf_range(-5.0, 5.0)
+		car.global_transform = _snap_to_ground(entry_transform)
+		_init_local_racer_state(rid, roster_id, true, grid_transform)
+		var state: Dictionary = racer_states[rid]
+		state["grid_transform"] = grid_transform
+		state["entry_transform"] = car.global_transform
+		racer_states[rid] = state
+		ai_route_targets[rid] = _initial_ai_route_target_for_car(car)
+
+func _init_local_racer_state(rid: String, racer_id: String, is_ai: bool, grid_transform: Transform3D) -> void:
+	racer_states[rid] = {
+		"id": rid,
+		"racer_id": racer_id,
+		"is_ai": is_ai,
 		"lap": 1,
 		"checkpoint": 0,
+		"lap_gate_passed": false,
 		"finished": false,
 		"wasted": false,
-		"pos": car.global_transform.origin,
+		"pos": grid_transform.origin,
 		"progress": 0.0,
 		"finish_time": -1.0,
+		"grid_transform": grid_transform,
 	}
-	race_started = true
-	ui_net.text = "Net: LOCAL"
-	_show_message("Local shakedown")
+	lap_map[rid] = 1
+
+func _set_local_phase(next_phase: String) -> void:
+	race_phase = next_phase
+	phase_timer = 0.0
+	match next_phase:
+		PHASE_INTRO:
+			player_input_enabled = false
+			_set_all_car_inputs(_empty_input())
+			_hide_race_hud_for_intro(true)
+		PHASE_GRID_ENTRY:
+			player_input_enabled = false
+			_set_all_car_inputs(_empty_input())
+			_show_message("Rivals rolling in")
+		PHASE_CAMERA_TRANSITION:
+			player_input_enabled = false
+			phase_camera_from = camera.global_transform
+			phase_camera_to = _player_follow_camera_transform()
+		PHASE_COUNTDOWN:
+			player_input_enabled = false
+			_show_message("3")
+		PHASE_RACING:
+			player_input_enabled = true
+			_hide_race_hud_for_intro(false)
+			for rid in ai_racer_ids:
+				var car: CarController = cars.get(rid, null)
+				if car != null:
+					car.controlled_locally = true
+			_show_message("GO!")
+		PHASE_FINISH_FOLLOW:
+			player_input_enabled = false
+			finish_follow_timer = 0.0
+			var player: CarController = cars.get(local_user_id, null)
+			if player != null:
+				player.set_input(_empty_input())
+			_show_message("Watching the leaders")
+		PHASE_RESULTS:
+			player_input_enabled = false
+
+func _physics_process_local_single(delta: float) -> void:
+	phase_timer += delta
+	if race_phase == PHASE_RACING or race_phase == PHASE_FINISH_FOLLOW:
+		race_elapsed += delta
+	match race_phase:
+		PHASE_INTRO:
+			_update_route_camera(delta)
+			if phase_timer >= INTRO_DURATION:
+				_set_local_phase(PHASE_GRID_ENTRY)
+		PHASE_GRID_ENTRY:
+			_update_grid_entry(delta)
+			_update_route_camera(delta)
+			if phase_timer >= GRID_ENTRY_DURATION:
+				_set_local_phase(PHASE_CAMERA_TRANSITION)
+		PHASE_CAMERA_TRANSITION:
+			_update_camera_transition(delta)
+			if phase_timer >= CAMERA_TRANSITION_DURATION:
+				_set_local_phase(PHASE_COUNTDOWN)
+		PHASE_COUNTDOWN:
+			_update_countdown()
+			_update_camera(0.0)
+			if phase_timer >= COUNTDOWN_DURATION:
+				_set_local_phase(PHASE_RACING)
+		PHASE_RACING:
+			_tick_local_race(delta)
+			_update_camera(delta)
+		PHASE_FINISH_FOLLOW:
+			_tick_local_race(delta)
+			_update_finish_follow_camera(delta)
+			finish_follow_timer += delta
+			if _all_local_racers_done() or finish_follow_timer >= FINISH_FOLLOW_TIMEOUT:
+				_submit_local_results()
+	_update_heat_distortion(delta)
+	_update_water_drops(delta)
+	_update_audio_zone_players()
+	_update_game_sounds()
+	_tick_message(delta)
+	_update_ui()
+
+func _tick_local_race(delta: float) -> void:
+	input_accum += delta
+	while input_accum >= INPUT_INTERVAL:
+		_tick_local_input()
+		input_accum -= INPUT_INTERVAL
+	for rid in ai_racer_ids:
+		_tick_ai_input(rid, delta)
+	_tick_local_racer_progress()
+	_update_local_track_return_point()
+	_handle_manual_return_to_track()
+	_handle_all_local_out_of_bounds()
+	if race_phase == PHASE_RACING:
+		_tick_local_item_slot(delta)
+		var local_state: Dictionary = racer_states.get(local_user_id, {})
+		if bool(local_state.get("finished", false)):
+			_set_local_phase(PHASE_FINISH_FOLLOW)
+
+func _tick_local_input() -> void:
+	var car: CarController = cars.get(local_user_id, null)
+	if car == null:
+		return
+	var state := _gather_input() if player_input_enabled else _empty_input()
+	car.controlled_locally = true
+	car.set_input(state)
+	if bool(state.get("item_use", false)):
+		_consume_local_item(car)
+
+func _tick_ai_input(rid: String, _delta: float) -> void:
+	var car: CarController = cars.get(rid, null)
+	var info: Dictionary = racer_states.get(rid, {})
+	if car == null or bool(info.get("finished", false)) or bool(info.get("wasted", false)):
+		if car != null:
+			car.set_input(_empty_input())
+		return
+	var points := _typed_waypoints()
+	if points.size() < 2:
+		car.set_input(_empty_input())
+		return
+	var target_index := int(ai_route_targets.get(rid, 0))
+	target_index = _advance_ai_target_index(car.global_transform.origin, target_index, points)
+	ai_route_targets[rid] = target_index
+	var lookahead_index := (target_index + AI_LOOKAHEAD_POINTS) % points.size()
+	var target := points[lookahead_index]
+	var local_target := car.global_transform.affine_inverse() * target
+	var steer := clampf(-local_target.x / maxf(absf(local_target.z), 4.0), -1.0, 1.0)
+	if absf(steer) < AI_STEER_DEADZONE:
+		steer = 0.0
+	var angle := absf(atan2(local_target.x, maxf(local_target.z, 0.01)))
+	var speed := car.velocity.length()
+	var brake := 1.0 if angle > AI_BRAKE_ANGLE and speed > 18.0 else 0.0
+	var throttle := 0.45 if brake > 0.0 else 1.0
+	var drift := angle > AI_DRIFT_ANGLE and speed > 13.0
+	var boost := car.boost_meter > 55.0 and angle < 0.22
+	car.controlled_locally = true
+	car.set_input({"steer": steer, "throttle": throttle, "brake": brake, "drift": drift, "boost": boost, "item_use": false})
+
+func _tick_local_racer_progress() -> void:
+	var checkpoint_count := _get_checkpoint_total()
+	var checkpoint_indices := track_checkpoint_indices
+	if checkpoint_indices.is_empty():
+		for i in range(checkpoint_count):
+			checkpoint_indices.append(i)
+	for rid in local_racer_ids:
+		var car: CarController = cars.get(rid, null)
+		var info: Dictionary = racer_states.get(rid, {})
+		if car == null or info.is_empty():
+			continue
+		info["pos"] = car.global_transform.origin
+		if not bool(info.get("finished", false)) and checkpoint_count > 0:
+			var expected := int(info.get("checkpoint", 0))
+			var route_index := checkpoint_indices[clampi(expected, 0, checkpoint_indices.size() - 1)]
+			var radius := maxf(track_road_width * 0.65, 4.0)
+			if TrackProgressRules.is_checkpoint_hit(_typed_waypoints(), route_index, car.global_transform.origin, radius):
+				var result := TrackProgressRules.apply_checkpoint_pass(
+					expected,
+					int(info.get("lap", 1)),
+					bool(info.get("lap_gate_passed", false)),
+					expected,
+					checkpoint_count,
+					track_lap_gate_checkpoint_index,
+					track_laps
+				)
+				if bool(result.get("accepted", false)):
+					info["checkpoint"] = int(result.get("checkpoint", expected))
+					info["lap"] = int(result.get("lap", int(info.get("lap", 1))))
+					info["lap_gate_passed"] = bool(result.get("lap_gate_passed", false))
+					if rid == local_user_id and int(info["lap"]) > int(lap_map.get(rid, 1)) and not bool(result.get("finished", false)):
+						_show_message("Lap %d complete" % (int(info["lap"]) - 1))
+					lap_map[rid] = int(info["lap"])
+					if bool(result.get("finished", false)):
+						info["finished"] = true
+						info["finish_time"] = race_elapsed
+						if rid == local_user_id and not finish_announced:
+							finish_announced = true
+							_show_message("Course complete!")
+		info["progress"] = _compute_progress(
+			int(info.get("lap", 1)),
+			int(info.get("checkpoint", 0)),
+			car.global_transform.origin,
+			checkpoint_count,
+			bool(info.get("finished", false)),
+			-1.0
+		)
+		racer_states[rid] = info
+
+func _handle_all_local_out_of_bounds() -> void:
+	for rid in local_racer_ids:
+		var car: CarController = cars.get(rid, null)
+		if car == null:
+			continue
+		if not OutOfBoundsRules.should_reset(car.global_transform.origin.y, track_out_of_bounds_y, track_reset_mode):
+			continue
+		var reset_transform := local_respawn_transform if rid == local_user_id and has_local_respawn_transform else _local_reset_transform_for_racer(rid)
+		apply_instant_reset(car, _snap_to_ground(reset_transform))
+		if rid == local_user_id:
+			_show_message("Dropped! Back on the counter")
+
+func _local_reset_transform_for_racer(rid: String) -> Transform3D:
+	var info: Dictionary = racer_states.get(rid, {})
+	var checkpoint := int(info.get("checkpoint", 0))
+	if track_checkpoint_indices.size() > checkpoint and track_waypoints.size() > track_checkpoint_indices[checkpoint]:
+		return centered_track_return_transform(_typed_waypoints(), track_waypoints[track_checkpoint_indices[checkpoint]], track_closed_loop, track_alternate_routes, track_checkpoint_indices)
+	if info.has("grid_transform"):
+		return info["grid_transform"]
+	return Transform3D.IDENTITY
+
+func _update_grid_entry(_delta: float) -> void:
+	var ratio: float = clampf(phase_timer / maxf(GRID_ENTRY_DURATION, 0.01), 0.0, 1.0)
+	ratio = 1.0 - pow(1.0 - ratio, 3.0)
+	for rid in ai_racer_ids:
+		var car: CarController = cars.get(rid, null)
+		var info: Dictionary = racer_states.get(rid, {})
+		if car == null or not info.has("entry_transform") or not info.has("grid_transform"):
+			continue
+		var from_transform: Transform3D = info["entry_transform"]
+		var to_transform: Transform3D = info["grid_transform"]
+		var origin := from_transform.origin.lerp(to_transform.origin, ratio)
+		var basis := from_transform.basis.slerp(to_transform.basis, ratio)
+		apply_instant_reset(car, Transform3D(basis, origin))
+		if ratio >= 0.99:
+			car.controlled_locally = true
+
+func _update_countdown() -> void:
+	var remaining := 3 - int(floor(phase_timer))
+	if remaining >= 1:
+		ui_message.text = str(remaining)
+	else:
+		ui_message.text = "GO!"
+	message_timer = 0.25
+
+func _update_route_camera(delta: float) -> void:
+	var points := _typed_waypoints()
+	if points.size() < 2:
+		return
+	var travel: float = fposmod(phase_timer / maxf(INTRO_DURATION, 0.01), 1.0) * float(points.size())
+	var index := int(floor(travel)) % points.size()
+	var next_index := (index + 1) % points.size()
+	var ratio: float = travel - floor(travel)
+	var point: Vector3 = points[index].lerp(points[next_index], ratio)
+	var forward: Vector3 = points[next_index] - point
+	forward.y = 0.0
+	if forward.length_squared() <= 0.001:
+		forward = Vector3.FORWARD
+	forward = forward.normalized()
+	var side := forward.cross(Vector3.UP).normalized()
+	var desired: Vector3 = point - forward * 17.0 + side * 7.5 + Vector3.UP * 11.0
+	var blend: float = 1.0 if delta <= 0.0 else clampf(delta * 3.0, 0.0, 1.0)
+	camera.global_transform.origin = camera.global_transform.origin.lerp(desired, blend)
+	camera.look_at(point + Vector3.UP * 1.8, Vector3.UP)
+
+func _update_camera_transition(_delta: float) -> void:
+	var ratio: float = clampf(phase_timer / maxf(CAMERA_TRANSITION_DURATION, 0.01), 0.0, 1.0)
+	ratio = ratio * ratio * (3.0 - 2.0 * ratio)
+	camera.global_transform.origin = phase_camera_from.origin.lerp(phase_camera_to.origin, ratio)
+	camera.global_transform.basis = phase_camera_from.basis.slerp(phase_camera_to.basis, ratio).orthonormalized()
+
+func _update_finish_follow_camera(delta: float) -> void:
+	var target_id := _leader_racer_id(false)
+	if target_id.is_empty():
+		target_id = local_user_id
+	var car: CarController = cars.get(target_id, null)
+	if car == null:
+		return
+	_update_camera_for_car(car, delta)
+
+func _player_follow_camera_transform() -> Transform3D:
+	var car: CarController = cars.get(local_user_id, null)
+	if car == null:
+		return camera.global_transform
+	var behind := -car.global_transform.basis.z * CAMERA_DISTANCE
+	var look_target := car.global_transform.origin + Vector3.UP * CAMERA_LOOK_HEIGHT
+	var desired := car.global_transform.origin + behind + Vector3.UP * CAMERA_HEIGHT
+	var temp := Transform3D.IDENTITY
+	temp.origin = desired
+	temp = temp.looking_at(look_target, Vector3.UP)
+	return temp
+
+func _leader_racer_id(include_finished: bool = true) -> String:
+	var entries := _sorted_local_result_entries()
+	for entry in entries:
+		if include_finished or not bool(entry.get("finished", false)):
+			return str(entry.get("id", ""))
+	return str(entries[0].get("id", "")) if not entries.is_empty() else ""
+
+func _all_local_racers_done() -> bool:
+	for rid in local_racer_ids:
+		var info: Dictionary = racer_states.get(rid, {})
+		if not bool(info.get("finished", false)) and not bool(info.get("wasted", false)):
+			return false
+	return true
+
+func _submit_local_results() -> void:
+	if local_results_submitted:
+		return
+	local_results_submitted = true
+	race_phase = PHASE_RESULTS
+	NakamaService.set_meta_value("race_results", _sorted_local_result_entries())
+	get_tree().change_scene_to_file("res://scenes/PostRace.tscn")
+
+func _sorted_local_result_entries() -> Array:
+	var entries: Array = []
+	for rid in local_racer_ids:
+		var info: Dictionary = racer_states.get(rid, {})
+		entries.append({
+			"id": rid,
+			"racer_id": str(info.get("racer_id", racer_visual_ids.get(rid, rid))),
+			"is_ai": bool(info.get("is_ai", rid != local_user_id)),
+			"lap": int(info.get("lap", 0)),
+			"checkpoint": int(info.get("checkpoint", 0)),
+			"finished": bool(info.get("finished", false)),
+			"wasted": bool(info.get("wasted", false)),
+			"progress": float(info.get("progress", 0.0)),
+			"finish_time": float(info.get("finish_time", -1.0)),
+		})
+	entries.sort_custom(func(a, b):
+		if a["finished"] != b["finished"]:
+			return a["finished"] and not b["finished"]
+		if a["wasted"] != b["wasted"]:
+			return (not a["wasted"]) and b["wasted"]
+		var a_ft := float(a.get("finish_time", -1.0))
+		var b_ft := float(b.get("finish_time", -1.0))
+		if a["finished"] and b["finished"] and a_ft >= 0.0 and b_ft >= 0.0 and a_ft != b_ft:
+			return a_ft < b_ft
+		if a["progress"] == b["progress"]:
+			return String(a["id"]) < String(b["id"])
+		return a["progress"] > b["progress"]
+	)
+	return entries
+
+func _hide_race_hud_for_intro(hidden: bool) -> void:
+	if top_left_panel:
+		top_left_panel.visible = not hidden
+	if lap_pill:
+		lap_pill.visible = not hidden
+	if top_right_panel:
+		top_right_panel.visible = not hidden
+	if speed_ui:
+		speed_ui.visible = not hidden
+	if mobile_controls:
+		mobile_controls.visible = OS.has_feature("mobile") and not hidden
+
+func _set_all_car_inputs(state: Dictionary) -> void:
+	for car in cars.values():
+		if car is CarController:
+			(car as CarController).set_input(state)
+
+func _empty_input() -> Dictionary:
+	return {"steer": 0.0, "throttle": 0.0, "brake": 0.0, "drift": false, "boost": false, "item_use": false}
+
+func _initial_ai_route_target_for_car(car: CarController) -> int:
+	var points := _typed_waypoints()
+	if car == null or points.is_empty():
+		return 0
+	var projection := TrackProgressRules.project_route_network(points, track_alternate_routes, track_checkpoint_indices, car.global_transform.origin, track_closed_loop)
+	return (int(projection.get("segment_index", 0)) + AI_LOOKAHEAD_POINTS) % points.size()
+
+func _advance_ai_target_index(position: Vector3, target_index: int, points: Array[Vector3]) -> int:
+	if points.is_empty():
+		return 0
+	var index := posmod(target_index, points.size())
+	var guard := 0
+	while guard < points.size() and position.distance_to(points[index]) < AI_TARGET_REACH_DISTANCE:
+		index = (index + 1) % points.size()
+		guard += 1
+	return index
 
 func _connect_socket() -> void:
 	if not NakamaService.socket.received_match_state.is_connected(_on_match_state):
@@ -315,6 +739,9 @@ func _area_sphere_radius(node: Node, fallback: float) -> float:
 
 func _physics_process(delta: float) -> void:
 	if not race_started:
+		return
+	if local_single_race:
+		_physics_process_local_single(delta)
 		return
 	input_accum += delta
 	while input_accum >= INPUT_INTERVAL:
@@ -474,6 +901,9 @@ func _spawn_car(racer_id:String) -> CarController:
 	else:
 		spawn_xform.origin = Vector3(spawn_index * 2.0, 1.0, spawn_index * 1.5)
 	car.global_transform = _snap_to_ground(spawn_xform)
+	var visual_id := str(racer_visual_ids.get(racer_id, ""))
+	if visual_id != "" and car.has_method("set_racer_visual"):
+		car.call("set_racer_visual", visual_id)
 	if racer_id == local_user_id:
 		local_respawn_transform = car.global_transform
 		has_local_respawn_transform = true
@@ -583,13 +1013,19 @@ func _update_ui() -> void:
 		ui_lap.text = "LAP %d/%d" % [lap, track_laps]
 		ui_drift.text = "DRIFT T%d  %d%%" % [car.get_drift_tier(), int(round(car.get_drift_charge_ratio() * 100.0))]
 	ui_item.text = "ITEM %s" % (local_item_slot if local_item_slot != "" else "--")
-	ui_net.text = "LOCAL" if NakamaService.offline_mode else ("NET OK" if NakamaService.is_online_socket_ready() else "NET ...")
+	if local_single_race:
+		ui_net.text = "LOCAL SINGLE"
+	else:
+		ui_net.text = "LOCAL" if NakamaService.offline_mode else ("NET OK" if NakamaService.is_online_socket_ready() else "NET ...")
 	_update_positions()
 
 func _update_camera(delta:float) -> void:
 	var car : CarController = cars.get(local_user_id, null)
 	if not car:
 		return
+	_update_camera_for_car(car, delta)
+
+func _update_camera_for_car(car: CarController, delta: float) -> void:
 	var behind := -car.global_transform.basis.z * CAMERA_DISTANCE
 	var look_target := car.global_transform.origin + Vector3.UP * CAMERA_LOOK_HEIGHT
 	var desired := car.global_transform.origin + behind + Vector3.UP * CAMERA_HEIGHT
@@ -602,7 +1038,8 @@ func _update_camera(delta:float) -> void:
 		APPLIANCE_RUMBLE_INNER_RADIUS
 	)
 	var shake_offset := camera_shake_offset(shake_intensity, CAMERA_SHAKE_MAX_OFFSET)
-	camera.global_transform.origin = camera.global_transform.origin.lerp(resolved + shake_offset, clampf(delta * follow_speed, 0.0, 1.0))
+	var blend := 1.0 if delta <= 0.0 else clampf(delta * follow_speed, 0.0, 1.0)
+	camera.global_transform.origin = camera.global_transform.origin.lerp(resolved + shake_offset, blend)
 	camera.look_at(look_target + shake_offset * 0.25, Vector3.UP)
 
 func _resolve_camera_occlusion(look_target: Vector3, desired: Vector3) -> Vector3:
@@ -1031,6 +1468,7 @@ func _apply_track_reset_metadata(metadata: Variant) -> void:
 	track_closed_loop = bool(data.get("closed_loop", track_closed_loop))
 	track_alternate_routes = _alternate_routes_from_metadata(data.get("alternate_routes", []))
 	track_checkpoint_indices = _checkpoint_indices_from_metadata(data.get("checkpoints", []))
+	track_lap_gate_checkpoint_index = int(data.get("lap_gate_checkpoint_index", track_lap_gate_checkpoint_index))
 	track_audio_ids = data.get("audio_ids", {}) if data.get("audio_ids", {}) is Dictionary else {}
 	track_audio_zones = data.get("audio_zones", []) if data.get("audio_zones", []) is Array else []
 	_start_track_music()
@@ -1160,6 +1598,10 @@ func _update_audio_zone_players() -> void:
 			player.stop()
 
 func _update_game_sounds() -> void:
+	if local_single_race and race_phase != PHASE_RACING:
+		previous_boost_pressed = false
+		previous_drift_pressed = false
+		return
 	var boost_pressed := Input.is_action_pressed("boost")
 	if boost_pressed and not previous_boost_pressed:
 		_play_game_sfx(sfx_boost, -2.0, randf_range(0.96, 1.04))

@@ -15,6 +15,24 @@ static func get_default_track_id() -> String:
 	var manifest := _load_manifest()
 	return str(manifest.get("default_track_id", DEFAULT_TRACK_ID))
 
+static func list_tracks() -> Array[Dictionary]:
+	var manifest := _load_manifest()
+	var tracks: Dictionary = manifest.get("tracks", {})
+	var default_id := str(manifest.get("default_track_id", DEFAULT_TRACK_ID))
+	var summaries: Array[Dictionary] = []
+	if tracks.has(default_id):
+		summaries.append(_track_summary(default_id, tracks[default_id]))
+	var ids := tracks.keys()
+	ids.sort()
+	for id_value in ids:
+		var track_id := str(id_value)
+		if track_id == default_id:
+			continue
+		summaries.append(_track_summary(track_id, tracks[id_value]))
+	if summaries.is_empty():
+		summaries.append(_track_summary(DEFAULT_TRACK_ID, _fallback_kitchen_package()))
+	return summaries
+
 static func get_package(track_id: String = DEFAULT_TRACK_ID) -> Dictionary:
 	var normalized := _normalize_track_id(track_id)
 	var manifest := _load_manifest()
@@ -95,6 +113,18 @@ static func _fallback_kitchen_package() -> Dictionary:
 		"scene_path": KITCHEN_SCENE_PATH,
 		"definition_path": KITCHEN_DEFINITION_PATH,
 		"metadata_path": KITCHEN_METADATA_PATH,
+	}
+
+static func _track_summary(track_id: String, package_value: Variant) -> Dictionary:
+	var package: Dictionary = package_value if package_value is Dictionary else {}
+	var normalized := _normalize_track_id(str(package.get("id", track_id)))
+	return {
+		"id": normalized,
+		"display_name": str(package.get("display_name", normalized.capitalize())),
+		"version": str(package.get("version", "")),
+		"scene_path": str(package.get("scene_path", "")),
+		"definition_path": str(package.get("definition_path", "")),
+		"metadata_path": str(package.get("metadata_path", "")),
 	}
 
 static func _load_metadata_json(path: String) -> Dictionary:
