@@ -664,17 +664,17 @@ func _layout_mobile_hud() -> void:
 	_set_control_rect(top_right_panel, Vector2(viewport_size.x - margin - 270.0 * info_scale, margin), Vector2(270.0, 196.0) * info_scale)
 	_set_center_bottom_rect(speed_ui, Vector2(376.0, 84.0) * info_scale, maxf(bottom_margin, 22.0 * touch_scale))
 
-	var left_width := 272.0 * touch_scale
 	var drift_size := Vector2(168.0, 168.0) * touch_scale
 	var joystick_size := Vector2(272.0, 272.0) * touch_scale
 	var knob_size := Vector2(124.0, 124.0) * touch_scale
-	var left_gap := 30.0 * viewport_scale
-	var left_height := drift_size.y + left_gap + joystick_size.y
+	var left_gap := 24.0 * viewport_scale
+	var left_width := joystick_size.x + left_gap + drift_size.x
+	var left_height := joystick_size.y
 	_set_bottom_left_rect(steer_joystick_area.get_parent() as Control, Vector2(margin, bottom_margin), Vector2(left_width, left_height))
-	_set_control_rect(drift_btn, Vector2((left_width - drift_size.x) * 0.5, 0.0), drift_size)
-	_set_control_rect(steer_joystick_area, Vector2(0.0, drift_size.y + left_gap), joystick_size)
+	_set_control_rect(steer_joystick_area, Vector2.ZERO, joystick_size)
 	_set_control_rect(steer_joystick_area.get_node("SteerJoystickBase") as Control, Vector2.ZERO, joystick_size)
 	_set_control_rect(steer_joystick_knob, (joystick_size - knob_size) * 0.5, knob_size)
+	_set_control_rect(drift_btn, Vector2(joystick_size.x + left_gap, (joystick_size.y - drift_size.y) * 0.5), drift_size)
 
 	var accel_size := Vector2(224.0, 224.0) * touch_scale
 	var brake_size := Vector2(170.0, 170.0) * touch_scale
