@@ -31,12 +31,27 @@ static func _apply_scene_markers(definition: TrackDefinition, scene_root: Node3D
 			definition.lap_gate_checkpoint_index = _collect_lap_gate_checkpoint_index(scene_root)
 		if not _spawn_points_on_route(definition.spawn_points, definition.route_points, definition.road_width, definition.closed_loop):
 			definition.spawn_points = _start_grid_from_route(definition.route_points, definition.road_width)
+	var item_sockets := _collect_socket_markers(scene_root, "ItemSockets")
+	if not item_sockets.is_empty():
+		definition.item_sockets = item_sockets
+	var hazard_sockets := _collect_socket_markers(scene_root, "HazardSockets")
+	if not hazard_sockets.is_empty():
+		definition.hazard_sockets = hazard_sockets
 	var shortcut_gates := _collect_shortcut_gates(scene_root, definition.shortcut_gates)
 	if not shortcut_gates.is_empty():
 		definition.shortcut_gates = shortcut_gates
 	var alternate_routes := _collect_alternate_routes(scene_root, definition.alternate_routes)
 	if not alternate_routes.is_empty():
 		definition.alternate_routes = alternate_routes
+	var stage_props := _collect_stage_props(scene_root)
+	if not stage_props.is_empty():
+		definition.stage_props = stage_props
+	var surface_segments := _collect_surface_segments(scene_root)
+	if not surface_segments.is_empty():
+		definition.surface_segments = surface_segments
+	var audio_zones := _collect_audio_zones(scene_root)
+	if not audio_zones.is_empty():
+		definition.audio_zones = audio_zones
 
 static func _collect_marker_positions(root: Node, holder_name: String) -> Array[Vector3]:
 	var out: Array[Vector3] = []
@@ -132,6 +147,36 @@ static func _find_by_id(items: Array[Dictionary], id: String) -> Dictionary:
 		if str(item.get("id", "")) == id:
 			return item
 	return {}
+
+static func _collect_stage_props(root: Node) -> Array[Dictionary]:
+	var props: Array[Dictionary] = []
+	var holder := root.get_node_or_null("Dressing")
+	if holder == null:
+		return props
+	for child in _sorted_node3d_children(holder):
+		if child.has_method("to_stage_prop"):
+			props.append(child.call("to_stage_prop") as Dictionary)
+	return props
+
+static func _collect_surface_segments(root: Node) -> Array[Dictionary]:
+	var segments: Array[Dictionary] = []
+	var holder := root.get_node_or_null("SurfaceSegments")
+	if holder == null:
+		return segments
+	for child in _sorted_marker_children(holder):
+		if child.has_method("to_surface_segment"):
+			segments.append(child.call("to_surface_segment") as Dictionary)
+	return segments
+
+static func _collect_audio_zones(root: Node) -> Array[Dictionary]:
+	var zones: Array[Dictionary] = []
+	var holder := root.get_node_or_null("AudioZones")
+	if holder == null:
+		return zones
+	for child in _sorted_marker_children(holder):
+		if child.has_method("to_audio_zone"):
+			zones.append(child.call("to_audio_zone") as Dictionary)
+	return zones
 
 static func _nearest_route_index(point: Vector3, route_points: Array[Vector3]) -> int:
 	var best_index := 0

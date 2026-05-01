@@ -1,0 +1,140 @@
+[gd_resource type="Resource" script_class="TrackDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/track/TrackDefinition.gd" id="1_fg0ta"]
+
+[resource]
+script = ExtResource("1_fg0ta")
+id = "sandbox"
+display_name = "Sandbox / Rexx"
+version = "sandbox_v1_2026_05_01"
+laps = 3
+out_of_bounds_y = -11.0
+reset_mode = "instant_pop"
+floor_visual_y = -32.0
+runtime_scene_path = "res://assets/gameplay/tracks/sandbox/sandbox_track.tscn"
+dressing_scene_path = "res://assets/gameplay/tracks/sandbox/sandbox_editable_room.tscn"
+ground_size = Vector2(292, 190)
+ground_color = Color(0.86, 0.72, 0.45, 1)
+ground_texture_path = "res://assets/gameplay/materials/sand/sandbox_sand_albedo.png"
+road_texture_path = "res://assets/gameplay/materials/plastic/glossy_plastic_albedo.png"
+rail_texture_path = "res://assets/gameplay/materials/metal/toy_metal_albedo.png"
+rail_texture_uv_scale = 0.5
+track_body_color = Color(0.09, 0.075, 0.065, 1)
+route_points = Array[Vector3]([Vector3(-108, 3.35, -72), Vector3(-84, 3.35, -78), Vector3(-56, 3.35, -78), Vector3(-28, 3.35, -76), Vector3(0, 6.15, -72), Vector3(32, 8.15, -70), Vector3(64, 5.75, -72), Vector3(96, 3.35, -66), Vector3(120, 3.35, -48), Vector3(126, 3.35, -20), Vector3(124, 3.35, 8), Vector3(120, 3.35, 38), Vector3(102, 3.35, 64), Vector3(72, 3.35, 76), Vector3(42, 3.35, 78), Vector3(12, 3.35, 76), Vector3(-18, 3.35, 72), Vector3(-48, 1.8499999, 76), Vector3(-80, 1.3499999, 70), Vector3(-108, 3.35, 54), Vector3(-124, 3.35, 26), Vector3(-126, 3.35, -4), Vector3(-124, 3.35, -34), Vector3(-116, 3.35, -58), Vector3(-98, 3.35, -70), Vector3(-72, 3.35, -76), Vector3(-42, 3.35, -74), Vector3(-12, 3.35, -66), Vector3(18, 3.35, -52), Vector3(42, 3.35, -34), Vector3(52, 3.35, -8), Vector3(46, 3.35, 18), Vector3(26, 3.35, 38), Vector3(-2, 3.35, 46), Vector3(-32, 3.35, 42), Vector3(-58, 3.35, 28), Vector3(-72, 3.35, 4), Vector3(-74, 3.35, -24), Vector3(-64, 3.35, -50), Vector3(-42, 3.35, -66), Vector3(-16, 3.35, -72), Vector3(14, 3.35, -72)])
+checkpoint_indices = Array[int]([0, 6, 12, 18, 24, 30])
+spawn_points = Array[Vector4]([Vector4(-107.51493, 4.15, -70.059715, 104.03625), Vector4(-108.48507, 4.15, -73.940285, 104.03625), Vector4(-102.664215, 4.15, -71.27239, 104.03625), Vector4(-103.63435, 4.15, -75.15296, 104.03625), Vector4(-97.81351, 4.15, -72.48507, 104.03625), Vector4(-98.783646, 4.15, -76.36564, 104.03625), Vector4(-92.96279, 4.15, -73.69775, 104.03625), Vector4(-93.93293, 4.15, -77.578316, 104.03625)])
+item_sockets = Array[Vector4]([Vector4(-28, 4.0499997, -76, 0), Vector4(96, 4.0499997, -66, 0), Vector4(120, 4.0499997, 38, 0), Vector4(12, 4.0499997, 76, 0), Vector4(-108, 4.0499997, 54, 0), Vector4(-116, 4.0499997, -58, 0), Vector4(-12, 4.0499997, -66, 0), Vector4(46, 4.0499997, 18, 0), Vector4(-58, 4.0499997, 28, 0), Vector4(-42, 4.0499997, -66, 0)])
+hazard_sockets = Array[Vector4]([Vector4(32, 8.849999, -70, 0), Vector4(124, 4.0499997, 8, 0), Vector4(-18, 4.0499997, 72, 0), Vector4(-126, 4.0499997, -4, 0), Vector4(-42, 4.0499997, -74, 0), Vector4(26, 4.0499997, 38, 0), Vector4(-72, 4.0499997, 4, 0)])
+alternate_routes = Array[Dictionary]([{
+"enabled": true,
+"entry_checkpoint_index": 1,
+"exit_checkpoint_index": 3,
+"id": "sandbox_branch",
+"points": Array[Vector3]([Vector3(0, 3.75, -72), Vector3(18, 8.35, -34), Vector3(4, 1.85, 10), Vector3(-48, 3.55, 76)]),
+"road_width": 12.0
+}])
+stage_props = Array[Dictionary]([{
+"asset_path": "",
+"audio_material_id": "plastic",
+"box_color": Color(0.86, 0.18, 0.14, 1),
+"box_size": Vector3(10, 26, 44),
+"collision_mode": "visual",
+"gameplay_tag": "sandbox_landmark",
+"id": "SandBucketWall",
+"kind": "box",
+"position": Vector3(-122, -8, -48),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 0.0
+}, {
+"asset_path": "",
+"audio_material_id": "plastic",
+"box_color": Color(0.95, 0.72, 0.18, 1),
+"box_size": Vector3(30, 16, 18),
+"collision_mode": "visual",
+"gameplay_tag": "sandbox_landmark",
+"id": "ToyDumpTruck",
+"kind": "box",
+"position": Vector3(96, -6, 52),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 0.0
+}, {
+"asset_path": "",
+"audio_material_id": "sand",
+"box_color": Color(0.66, 0.48, 0.27, 1),
+"box_size": Vector3(72, 7, 14),
+"collision_mode": "visual",
+"gameplay_tag": "sandbox_hazard",
+"id": "SandCastleTrench",
+"kind": "box",
+"position": Vector3(-8, -10, 10),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 0.0
+}, {
+"asset_path": "",
+"audio_material_id": "metal",
+"box_color": Color(0.15, 0.48, 0.9, 1),
+"box_size": Vector3(46, 1.2, 14),
+"collision_mode": "visual",
+"gameplay_tag": "ramp",
+"id": "ShovelRamp",
+"kind": "box",
+"position": Vector3(32, 1.8, -68),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 0.0
+}, {
+"asset_path": "",
+"audio_material_id": "wood",
+"box_color": Color(0.48, 0.26, 0.12, 1),
+"box_size": Vector3(292, 22, 4),
+"collision_mode": "visual",
+"gameplay_tag": "room_envelope",
+"id": "SandboxSideBoard",
+"kind": "box",
+"position": Vector3(0, -6, 94),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 0.0
+}])
+surface_segments = Array[Dictionary]([{
+"end_route_index": 10,
+"id": "sandbox_start_surface",
+"position": Vector3(-30, 3.55, -70),
+"start_route_index": 0,
+"surface_audio_id": "sandbox_primary",
+"surface_material_id": "sand"
+}, {
+"end_route_index": 24,
+"id": "sandbox_feature_surface",
+"position": Vector3(70, 3.55, 50),
+"start_route_index": 11,
+"surface_audio_id": "sandbox_secondary",
+"surface_material_id": "sand_feature"
+}, {
+"end_route_index": 39,
+"id": "sandbox_return_surface",
+"position": Vector3(-80, 3.55, 10),
+"start_route_index": 25,
+"surface_audio_id": "sandbox_primary",
+"surface_material_id": "sand"
+}])
+audio_zones = Array[Dictionary]([{
+"audio_id": "music",
+"audio_path": "",
+"id": "sandbox_music_zone",
+"position": Vector3(0, 0, 0),
+"radius": 120.0,
+"volume_db": -14.0,
+"zone_kind": "ambient"
+}, {
+"audio_id": "sandbox_secondary",
+"audio_path": "",
+"id": "sandbox_feature_zone",
+"position": Vector3(60, 4.35, 36),
+"radius": 28.0,
+"volume_db": -6.0,
+"zone_kind": "oneshot"
+}])
+audio_ids = {
+"music": "res://assets/source/audio/canva/tracks/sandbox/sandbox_grit_slide_canva_01.wav",
+"sandbox_primary": "res://assets/source/audio/canva/tracks/sandbox/sandbox_grit_slide_canva_01.wav",
+"sandbox_secondary": "res://assets/source/audio/canva/tracks/sandbox/sandbox_bucket_bonk_canva_01.mp3"
+}

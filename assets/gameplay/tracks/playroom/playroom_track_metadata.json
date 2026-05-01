@@ -1,0 +1,756 @@
+{
+	"alternate_routes": [
+		{
+			"enabled": true,
+			"entry_checkpoint_index": 1,
+			"exit_checkpoint_index": 3,
+			"id": "playroom_branch",
+			"points": [
+				[
+					64.0,
+					3.54999995231628,
+					-72.0
+				],
+				[
+					36.0,
+					4.75,
+					-22.0
+				],
+				[
+					12.0,
+					4.55000019073486,
+					22.0
+				],
+				[
+					-18.0,
+					3.75,
+					72.0
+				]
+			],
+			"road_width": 12.0
+		}
+	],
+	"audio_ids": {
+		"music": "res://assets/source/audio/suno/tracks/playroom/playroom_loop_suno_01.mp3",
+		"playroom_primary": "res://assets/source/audio/canva/tracks/playroom/playroom_block_crash_canva_01.mp3",
+		"playroom_secondary": "res://assets/source/audio/canva/tracks/playroom/playroom_spring_ramp_canva_01.mp3"
+	},
+	"audio_zones": [
+		{
+			"audio_id": "playroom_secondary",
+			"audio_path": "",
+			"id": "playroom_feature_zone",
+			"position": [
+				60.0,
+				4.34999990463257,
+				36.0
+			],
+			"radius": 28.0,
+			"volume_db": -6.0,
+			"zone_kind": "oneshot"
+		},
+		{
+			"audio_id": "music",
+			"audio_path": "",
+			"id": "playroom_music_zone",
+			"position": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"radius": 120.0,
+			"volume_db": -14.0,
+			"zone_kind": "ambient"
+		}
+	],
+	"checkpoint_radius": 7.8,
+	"checkpoints": [
+		{
+			"index": 0,
+			"is_lap_gate": true,
+			"position": [
+				-108.0,
+				3.34999990463257,
+				-72.0
+			],
+			"route_index": 0
+		},
+		{
+			"index": 1,
+			"is_lap_gate": false,
+			"position": [
+				64.0,
+				3.34999990463257,
+				-72.0
+			],
+			"route_index": 6
+		},
+		{
+			"index": 2,
+			"is_lap_gate": false,
+			"position": [
+				102.0,
+				3.34999990463257,
+				64.0
+			],
+			"route_index": 12
+		},
+		{
+			"index": 3,
+			"is_lap_gate": false,
+			"position": [
+				-80.0,
+				3.34999990463257,
+				70.0
+			],
+			"route_index": 18
+		},
+		{
+			"index": 4,
+			"is_lap_gate": false,
+			"position": [
+				-92.0,
+				3.34999990463257,
+				-58.0
+			],
+			"route_index": 24
+		},
+		{
+			"index": 5,
+			"is_lap_gate": false,
+			"position": [
+				52.0,
+				3.34999990463257,
+				-8.0
+			],
+			"route_index": 30
+		}
+	],
+	"closed_loop": true,
+	"display_name": "Playroom / Slammo",
+	"dressing_scene_path": "res://assets/gameplay/tracks/playroom/playroom_editable_room.tscn",
+	"floor_visual_y": -32.0,
+	"hazard_sockets": [
+		{
+			"position": [
+				32.0,
+				4.04999971389771,
+				-70.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				124.0,
+				4.04999971389771,
+				8.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				-18.0,
+				4.04999971389771,
+				72.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				-126.0,
+				4.04999971389771,
+				-4.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				-42.0,
+				4.04999971389771,
+				-74.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				64.0,
+				4.04999971389771,
+				38.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				-64.0,
+				4.04999971389771,
+				24.0
+			],
+			"yaw_degrees": 0.0
+		}
+	],
+	"id": "playroom",
+	"item_sockets": [
+		{
+			"position": [
+				-28.0,
+				4.04999971389771,
+				-76.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				96.0,
+				4.04999971389771,
+				-66.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				120.0,
+				4.04999971389771,
+				38.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				12.0,
+				4.04999971389771,
+				76.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				-108.0,
+				4.04999971389771,
+				54.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				-116.0,
+				4.04999971389771,
+				-58.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				-12.0,
+				4.04999971389771,
+				-66.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				46.0,
+				4.04999971389771,
+				18.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				-58.0,
+				4.04999971389771,
+				28.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				-42.0,
+				4.04999971389771,
+				-66.0
+			],
+			"yaw_degrees": 0.0
+		}
+	],
+	"lap_gate_checkpoint_index": 0,
+	"laps": 3,
+	"out_of_bounds_y": -11.0,
+	"rail_texture_path": "res://assets/gameplay/materials/metal/toy_metal_albedo.png",
+	"rail_texture_uv_scale": 0.5,
+	"reset_mode": "instant_pop",
+	"road_width": 12.0,
+	"route_length": 1391.37813091278,
+	"route_points": [
+		[
+			-108.0,
+			3.34999990463257,
+			-72.0
+		],
+		[
+			-84.0,
+			3.34999990463257,
+			-78.0
+		],
+		[
+			-56.0,
+			3.34999990463257,
+			-78.0
+		],
+		[
+			-28.0,
+			3.34999990463257,
+			-76.0
+		],
+		[
+			0.0,
+			3.34999990463257,
+			-72.0
+		],
+		[
+			32.0,
+			3.34999990463257,
+			-70.0
+		],
+		[
+			64.0,
+			3.34999990463257,
+			-72.0
+		],
+		[
+			96.0,
+			3.34999990463257,
+			-66.0
+		],
+		[
+			120.0,
+			3.34999990463257,
+			-48.0
+		],
+		[
+			126.0,
+			3.34999990463257,
+			-20.0
+		],
+		[
+			124.0,
+			3.34999990463257,
+			8.0
+		],
+		[
+			120.0,
+			3.34999990463257,
+			38.0
+		],
+		[
+			102.0,
+			3.34999990463257,
+			64.0
+		],
+		[
+			72.0,
+			3.34999990463257,
+			76.0
+		],
+		[
+			42.0,
+			3.34999990463257,
+			78.0
+		],
+		[
+			12.0,
+			3.34999990463257,
+			76.0
+		],
+		[
+			-18.0,
+			3.34999990463257,
+			72.0
+		],
+		[
+			-48.0,
+			3.34999990463257,
+			76.0
+		],
+		[
+			-80.0,
+			3.34999990463257,
+			70.0
+		],
+		[
+			-108.0,
+			3.34999990463257,
+			54.0
+		],
+		[
+			-124.0,
+			3.34999990463257,
+			26.0
+		],
+		[
+			-126.0,
+			3.34999990463257,
+			-4.0
+		],
+		[
+			-124.0,
+			3.34999990463257,
+			-34.0
+		],
+		[
+			-116.0,
+			3.34999990463257,
+			-58.0
+		],
+		[
+			-92.0,
+			3.34999990463257,
+			-58.0
+		],
+		[
+			-72.0,
+			3.34999990463257,
+			-76.0
+		],
+		[
+			-42.0,
+			3.34999990463257,
+			-74.0
+		],
+		[
+			-12.0,
+			3.34999990463257,
+			-66.0
+		],
+		[
+			0.0,
+			3.34999990463257,
+			-20.0
+		],
+		[
+			42.0,
+			3.34999990463257,
+			-34.0
+		],
+		[
+			52.0,
+			3.34999990463257,
+			-8.0
+		],
+		[
+			46.0,
+			3.34999990463257,
+			18.0
+		],
+		[
+			64.0,
+			3.34999990463257,
+			38.0
+		],
+		[
+			-2.0,
+			3.34999990463257,
+			46.0
+		],
+		[
+			-32.0,
+			3.34999990463257,
+			42.0
+		],
+		[
+			-58.0,
+			3.34999990463257,
+			28.0
+		],
+		[
+			-64.0,
+			3.34999990463257,
+			24.0
+		],
+		[
+			-74.0,
+			3.34999990463257,
+			-24.0
+		],
+		[
+			-64.0,
+			3.34999990463257,
+			-50.0
+		],
+		[
+			-42.0,
+			3.34999990463257,
+			-66.0
+		],
+		[
+			-16.0,
+			3.34999990463257,
+			-72.0
+		],
+		[
+			14.0,
+			3.34999990463257,
+			-72.0
+		]
+	],
+	"runtime_scene_path": "res://assets/gameplay/tracks/playroom/playroom_track.tscn",
+	"shortcut_gates": [],
+	"spawn_points": [
+		{
+			"position": [
+				-107.514930725098,
+				4.15000009536743,
+				-70.0597152709961
+			],
+			"yaw_degrees": 104.036247253418
+		},
+		{
+			"position": [
+				-108.485069274902,
+				4.15000009536743,
+				-73.9402847290039
+			],
+			"yaw_degrees": 104.036247253418
+		},
+		{
+			"position": [
+				-102.664215087891,
+				4.15000009536743,
+				-71.2723922729492
+			],
+			"yaw_degrees": 104.036247253418
+		},
+		{
+			"position": [
+				-103.634353637695,
+				4.15000009536743,
+				-75.152961730957
+			],
+			"yaw_degrees": 104.036247253418
+		},
+		{
+			"position": [
+				-97.8135070800781,
+				4.15000009536743,
+				-72.4850692749023
+			],
+			"yaw_degrees": 104.036247253418
+		},
+		{
+			"position": [
+				-98.7836456298828,
+				4.15000009536743,
+				-76.3656387329102
+			],
+			"yaw_degrees": 104.036247253418
+		},
+		{
+			"position": [
+				-92.9627914428711,
+				4.15000009536743,
+				-73.6977462768555
+			],
+			"yaw_degrees": 104.036247253418
+		},
+		{
+			"position": [
+				-93.9329299926758,
+				4.15000009536743,
+				-77.5783157348633
+			],
+			"yaw_degrees": 104.036247253418
+		}
+	],
+	"stage_props": [
+		{
+			"asset_path": "",
+			"audio_material_id": "plastic",
+			"box_color": [
+				0.140000000596046,
+				0.340000003576279,
+				0.899999976158142,
+				1.0
+			],
+			"box_size": [
+				22.0,
+				22.0,
+				22.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "playroom_landmark",
+			"id": "BlockTowerBlue",
+			"kind": "box",
+			"position": [
+				58.0,
+				-4.0,
+				0.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "plastic",
+			"box_color": [
+				0.899999976158142,
+				0.140000000596046,
+				0.140000000596046,
+				1.0
+			],
+			"box_size": [
+				22.0,
+				22.0,
+				22.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "playroom_landmark",
+			"id": "BlockTowerRed",
+			"kind": "box",
+			"position": [
+				-58.0,
+				-4.0,
+				0.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "foam",
+			"box_color": [
+				0.0799999982118607,
+				0.119999997317791,
+				0.159999996423721,
+				1.0
+			],
+			"box_size": [
+				292.0,
+				1.0,
+				2.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "floor_detail",
+			"id": "FoamMatSeam",
+			"kind": "box",
+			"position": [
+				0.0,
+				-10.0,
+				0.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "plastic",
+			"box_color": [
+				0.980000019073486,
+				0.819999992847443,
+				0.180000007152557,
+				1.0
+			],
+			"box_size": [
+				54.0,
+				2.0,
+				20.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "ramp",
+			"id": "PlasticSlide",
+			"kind": "box",
+			"position": [
+				92.0,
+				1.0,
+				-54.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "wood",
+			"box_color": [
+				0.620000004768372,
+				0.379999995231628,
+				0.180000007152557,
+				1.0
+			],
+			"box_size": [
+				16.0,
+				34.0,
+				70.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "playroom_landmark",
+			"id": "ToyShelf",
+			"kind": "box",
+			"position": [
+				-132.0,
+				4.0,
+				38.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		}
+	],
+	"surface_segments": [
+		{
+			"end_route_index": 24,
+			"id": "playroom_feature_surface",
+			"position": [
+				70.0,
+				3.54999995231628,
+				50.0
+			],
+			"start_route_index": 11,
+			"surface_audio_id": "playroom_secondary",
+			"surface_material_id": "foam_feature"
+		},
+		{
+			"end_route_index": 39,
+			"id": "playroom_return_surface",
+			"position": [
+				-80.0,
+				3.54999995231628,
+				10.0
+			],
+			"start_route_index": 25,
+			"surface_audio_id": "playroom_primary",
+			"surface_material_id": "foam"
+		},
+		{
+			"end_route_index": 10,
+			"id": "playroom_start_surface",
+			"position": [
+				-30.0,
+				3.54999995231628,
+				-70.0
+			],
+			"start_route_index": 0,
+			"surface_audio_id": "playroom_primary",
+			"surface_material_id": "foam"
+		}
+	],
+	"track_id": "playroom",
+	"version": "playroom_v1_2026_05_01",
+	"wall_height": 1.6,
+	"wall_thickness": 0.45
+}

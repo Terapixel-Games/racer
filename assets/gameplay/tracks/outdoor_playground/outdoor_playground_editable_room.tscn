@@ -1,0 +1,459 @@
+[gd_scene load_steps=21 format=3]
+
+[ext_resource type="Script" path="res://scripts/track/TrackAuthoringPreview.gd" id="1_v46l3"]
+[ext_resource type="Script" path="res://scripts/track/StagePropAuthoring.gd" id="2_nuam5"]
+[ext_resource type="Script" path="res://scripts/track/SurfaceSegmentAuthoring.gd" id="3_72hx3"]
+[ext_resource type="Script" path="res://scripts/track/AudioZoneAuthoring.gd" id="4_3tyt2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hc0tp"]
+albedo_color = Color(0.28, 0.32, 0.34, 1)
+roughness = 0.78
+uv1_scale = Vector3(24, 24, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2e740"]
+size = Vector2(292, 190)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4du5g"]
+albedo_color = Color(0.58, 0.72, 0.86, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_40lle"]
+size = Vector3(292, 58, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hr1ph"]
+albedo_color = Color(0.5336, 0.66240007, 0.79120004, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_73kc6"]
+size = Vector3(2, 58, 190)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yfpuy"]
+albedo_color = Color(0.5336, 0.66240007, 0.79120004, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_7hdex"]
+size = Vector3(2, 58, 190)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0e5r6"]
+albedo_color = Color(0.5626, 0.6984, 0.8342, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_4ktvn"]
+size = Vector3(96, 58, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mjnda"]
+albedo_color = Color(0.5626, 0.6984, 0.8342, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_mdx1i"]
+size = Vector3(96, 58, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jw58s"]
+albedo_color = Color(0.5626, 0.6984, 0.8342, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_00iql"]
+size = Vector3(96, 10, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ujml4"]
+albedo_color = Color(0.61359996, 0.74240005, 0.8712, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_aeqy1"]
+size = Vector3(292, 1, 190)
+
+[node name="OutdoorPlaygroundEditableRoom" type="Node3D"]
+script = ExtResource("1_v46l3")
+preview_enabled = false
+ground_size = Vector2(292, 190)
+ground_y = -11.0
+road_y_offset = 0.0
+track_definition_path = "res://assets/gameplay/tracks/outdoor_playground/outdoor_playground_track_definition.tres"
+metadata_output_path = "res://assets/gameplay/tracks/outdoor_playground/outdoor_playground_track_metadata.json"
+show_dressing_preview = false
+road_preview_alpha = 0.84
+wall_preview_alpha = 0.27
+
+[node name="floor" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -32, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.648705, 0)
+material_override = SubResource("StandardMaterial3D_hc0tp")
+mesh = SubResource("PlaneMesh_2e740")
+
+[node name="RoomShell" type="Node3D" parent="."]
+
+[node name="BackWall" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21, 98)
+material_override = SubResource("StandardMaterial3D_4du5g")
+mesh = SubResource("BoxMesh_40lle")
+
+[node name="LeftWall" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -146, 21, 0)
+material_override = SubResource("StandardMaterial3D_hr1ph")
+mesh = SubResource("BoxMesh_73kc6")
+
+[node name="RightWall" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146, 21, 0)
+material_override = SubResource("StandardMaterial3D_yfpuy")
+mesh = SubResource("BoxMesh_7hdex")
+
+[node name="FrontWallLeft" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96, 21, -98)
+material_override = SubResource("StandardMaterial3D_0e5r6")
+mesh = SubResource("BoxMesh_4ktvn")
+
+[node name="FrontWallRight" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96, 21, -98)
+material_override = SubResource("StandardMaterial3D_mjnda")
+mesh = SubResource("BoxMesh_mdx1i")
+
+[node name="DoorHeader" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 45, -98)
+material_override = SubResource("StandardMaterial3D_jw58s")
+mesh = SubResource("BoxMesh_00iql")
+
+[node name="Ceiling" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 55, 0)
+material_override = SubResource("StandardMaterial3D_ujml4")
+mesh = SubResource("BoxMesh_aeqy1")
+
+[node name="RoutePoints" type="Node3D" parent="."]
+
+[node name="RoutePoint00" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.32, 3.35, -72)
+
+[node name="RoutePoint01" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87.36, 3.35, -78)
+
+[node name="RoutePoint02" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.24, 3.35, -78)
+
+[node name="RoutePoint03" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.12, 3.35, -76)
+
+[node name="RoutePoint04" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.35, -72)
+
+[node name="RoutePoint05" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.28, 3.35, -70)
+
+[node name="RoutePoint06" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.56, 3.35, -72)
+
+[node name="RoutePoint07" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 99.84, 5.85, -66)
+
+[node name="RoutePoint08" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124.8, 7.85, -48)
+
+[node name="RoutePoint09" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 131.04, 3.35, -20)
+
+[node name="RoutePoint10" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128.96, 3.35, 8)
+
+[node name="RoutePoint11" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124.8, 3.35, 38)
+
+[node name="RoutePoint12" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 106.08, 3.35, 64)
+
+[node name="RoutePoint13" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.88, 3.35, 76)
+
+[node name="RoutePoint14" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.68, 3.35, 78)
+
+[node name="RoutePoint15" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.48, 3.35, 76)
+
+[node name="RoutePoint16" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.72, 3.35, 72)
+
+[node name="RoutePoint17" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.92, 3.35, 76)
+
+[node name="RoutePoint18" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83.2, 3.35, 70)
+
+[node name="RoutePoint19" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.32, 3.35, 54)
+
+[node name="RoutePoint20" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -128.96, 3.35, 26)
+
+[node name="RoutePoint21" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -131.04, 3.35, -4)
+
+[node name="RoutePoint22" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -128.96, 3.35, -34)
+
+[node name="RoutePoint23" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120.64, 3.35, -58)
+
+[node name="RoutePoint24" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -101.92, 3.35, -70)
+
+[node name="RoutePoint25" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74.88, 3.35, -76)
+
+[node name="RoutePoint26" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.68, 3.35, -74)
+
+[node name="RoutePoint27" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.48, 3.35, -66)
+
+[node name="RoutePoint28" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.72, 3.35, -52)
+
+[node name="RoutePoint29" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.68, 3.35, -34)
+
+[node name="RoutePoint30" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.08, 3.35, -8)
+
+[node name="RoutePoint31" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.84, 3.35, 18)
+
+[node name="RoutePoint32" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.04, 3.35, 38)
+
+[node name="RoutePoint33" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.08, 3.35, 46)
+
+[node name="RoutePoint34" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.28, 3.35, 42)
+
+[node name="RoutePoint35" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60.32, 3.35, 28)
+
+[node name="RoutePoint36" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74.88, 3.35, 4)
+
+[node name="RoutePoint37" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -76.96, 3.35, -24)
+
+[node name="RoutePoint38" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66.56, 3.35, -50)
+
+[node name="RoutePoint39" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.68, 3.35, -66)
+
+[node name="RoutePoint40" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.64, 3.35, -72)
+
+[node name="RoutePoint41" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.56, 3.35, -72)
+
+[node name="Checkpoints" type="Node3D" parent="."]
+
+[node name="Checkpoint00_LapGate" type="Marker3D" parent="Checkpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.32, 3.35, -72)
+
+[node name="Checkpoint01" type="Marker3D" parent="Checkpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.56, 3.35, -72)
+
+[node name="Checkpoint02" type="Marker3D" parent="Checkpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 106.08, 3.35, 64)
+
+[node name="Checkpoint03" type="Marker3D" parent="Checkpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83.2, 3.35, 70)
+
+[node name="Checkpoint04" type="Marker3D" parent="Checkpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -101.92, 3.35, -70)
+
+[node name="Checkpoint05" type="Marker3D" parent="Checkpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.08, 3.35, -8)
+
+[node name="SpawnPoints" type="Node3D" parent="."]
+
+[node name="Start01" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(-0.23372659, 0, 0.9723024, 0, 1, 0, -0.9723024, 0, -0.23372659, -111.85255, 4.15, -70.0554)
+
+[node name="Start02" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(-0.23372659, 0, 0.9723024, 0, 1, 0, -0.9723024, 0, -0.23372659, -112.78745, 4.15, -73.9446)
+
+[node name="Start03" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(-0.23372659, 0, 0.9723024, 0, 1, 0, -0.9723024, 0, -0.23372659, -106.991035, 4.15, -71.22403)
+
+[node name="Start04" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(-0.23372659, 0, 0.9723024, 0, 1, 0, -0.9723024, 0, -0.23372659, -107.92594, 4.15, -75.113235)
+
+[node name="Start05" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(-0.23372659, 0, 0.9723024, 0, 1, 0, -0.9723024, 0, -0.23372659, -102.129524, 4.15, -72.39266)
+
+[node name="Start06" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(-0.23372659, 0, 0.9723024, 0, 1, 0, -0.9723024, 0, -0.23372659, -103.06443, 4.15, -76.28187)
+
+[node name="Start07" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(-0.23372659, 0, 0.9723024, 0, 1, 0, -0.9723024, 0, -0.23372659, -97.26801, 4.15, -73.561295)
+
+[node name="Start08" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(-0.23372659, 0, 0.9723024, 0, 1, 0, -0.9723024, 0, -0.23372659, -98.20292, 4.15, -77.4505)
+
+[node name="ItemSockets" type="Node3D" parent="."]
+
+[node name="ItemSocket01" type="Marker3D" parent="ItemSockets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.12, 4.0499997, -76)
+
+[node name="ItemSocket02" type="Marker3D" parent="ItemSockets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 99.84, 6.5499997, -66)
+
+[node name="ItemSocket03" type="Marker3D" parent="ItemSockets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124.8, 4.0499997, 38)
+
+[node name="ItemSocket04" type="Marker3D" parent="ItemSockets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.48, 4.0499997, 76)
+
+[node name="ItemSocket05" type="Marker3D" parent="ItemSockets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.32, 4.0499997, 54)
+
+[node name="ItemSocket06" type="Marker3D" parent="ItemSockets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120.64, 4.0499997, -58)
+
+[node name="ItemSocket07" type="Marker3D" parent="ItemSockets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.48, 4.0499997, -66)
+
+[node name="ItemSocket08" type="Marker3D" parent="ItemSockets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.84, 4.0499997, 18)
+
+[node name="ItemSocket09" type="Marker3D" parent="ItemSockets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60.32, 4.0499997, 28)
+
+[node name="ItemSocket10" type="Marker3D" parent="ItemSockets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.68, 4.0499997, -66)
+
+[node name="HazardSockets" type="Node3D" parent="."]
+
+[node name="HazardSocket01" type="Marker3D" parent="HazardSockets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.28, 4.0499997, -70)
+
+[node name="HazardSocket02" type="Marker3D" parent="HazardSockets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128.96, 4.0499997, 8)
+
+[node name="HazardSocket03" type="Marker3D" parent="HazardSockets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.72, 4.0499997, 72)
+
+[node name="HazardSocket04" type="Marker3D" parent="HazardSockets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -131.04, 4.0499997, -4)
+
+[node name="HazardSocket05" type="Marker3D" parent="HazardSockets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.68, 4.0499997, -74)
+
+[node name="HazardSocket06" type="Marker3D" parent="HazardSockets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.04, 4.0499997, 38)
+
+[node name="HazardSocket07" type="Marker3D" parent="HazardSockets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74.88, 4.0499997, 4)
+
+[node name="AlternateRoutes" type="Node3D" parent="."]
+
+[node name="outdoor_playground_branch" type="Node3D" parent="AlternateRoutes"]
+
+[node name="Point00" type="Marker3D" parent="AlternateRoutes/outdoor_playground_branch"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 3.55, -72)
+
+[node name="Point01" type="Marker3D" parent="AlternateRoutes/outdoor_playground_branch"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 4.75, -22)
+
+[node name="Point02" type="Marker3D" parent="AlternateRoutes/outdoor_playground_branch"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 4.55, 22)
+
+[node name="Point03" type="Marker3D" parent="AlternateRoutes/outdoor_playground_branch"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 3.75, 72)
+
+[node name="ShortcutGates" type="Node3D" parent="."]
+
+[node name="Dressing" type="Node3D" parent="."]
+
+[node name="SlideSpiral" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 94, 2, -44)
+script = ExtResource("2_nuam5")
+prop_id = "SlideSpiral"
+box_size = Vector3(54, 2, 18)
+box_color = Color(0.95, 0.22, 0.16, 1)
+audio_material_id = "plastic"
+gameplay_tag = "ramp"
+
+[node name="SwingSetTopBar" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -82, 12, 48)
+script = ExtResource("2_nuam5")
+prop_id = "SwingSetTopBar"
+box_size = Vector3(58, 2, 4)
+box_color = Color(0.1, 0.2, 0.26, 1)
+audio_material_id = "metal"
+gameplay_tag = "playground_landmark"
+
+[node name="SwingChains" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -82, 4, 48)
+script = ExtResource("2_nuam5")
+prop_id = "SwingChains"
+box_size = Vector3(2, 18, 2)
+box_color = Color(0.72, 0.72, 0.7, 1)
+audio_material_id = "metal"
+gameplay_tag = "playground_landmark"
+
+[node name="MonkeyBars" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 10, 66)
+script = ExtResource("2_nuam5")
+prop_id = "MonkeyBars"
+box_size = Vector3(72, 3, 18)
+box_color = Color(0.1, 0.44, 0.8, 1)
+audio_material_id = "metal"
+gameplay_tag = "playground_landmark"
+
+[node name="MulchSlowZone" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, -10, -30)
+script = ExtResource("2_nuam5")
+prop_id = "MulchSlowZone"
+box_size = Vector3(76, 4, 26)
+box_color = Color(0.36, 0.16, 0.06, 1)
+audio_material_id = "mulch"
+gameplay_tag = "slow_zone"
+
+[node name="SurfaceSegments" type="Node3D" parent="."]
+
+[node name="outdoor_playground_start_surface" type="Marker3D" parent="SurfaceSegments"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 3.55, -70)
+script = ExtResource("3_72hx3")
+segment_id = "outdoor_playground_start_surface"
+end_route_index = 10
+surface_audio_id = "outdoor_playground_primary"
+surface_material_id = "asphalt"
+
+[node name="outdoor_playground_feature_surface" type="Marker3D" parent="SurfaceSegments"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70, 3.55, 50)
+script = ExtResource("3_72hx3")
+segment_id = "outdoor_playground_feature_surface"
+start_route_index = 11
+end_route_index = 24
+surface_audio_id = "outdoor_playground_secondary"
+surface_material_id = "asphalt_feature"
+
+[node name="outdoor_playground_return_surface" type="Marker3D" parent="SurfaceSegments"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 3.55, 10)
+script = ExtResource("3_72hx3")
+segment_id = "outdoor_playground_return_surface"
+start_route_index = 25
+end_route_index = 39
+surface_audio_id = "outdoor_playground_primary"
+surface_material_id = "asphalt"
+
+[node name="AudioZones" type="Node3D" parent="."]
+
+[node name="outdoor_playground_music_zone" type="Marker3D" parent="AudioZones"]
+script = ExtResource("4_3tyt2")
+zone_id = "outdoor_playground_music_zone"
+audio_id = "music"
+radius = 120.0
+volume_db = -14.0
+
+[node name="outdoor_playground_feature_zone" type="Marker3D" parent="AudioZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 4.35, 36)
+script = ExtResource("4_3tyt2")
+zone_id = "outdoor_playground_feature_zone"
+audio_id = "outdoor_playground_secondary"
+zone_kind = "oneshot"
+radius = 28.0

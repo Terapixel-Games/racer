@@ -1,13 +1,69 @@
 {
 	"default_track_id": "kitchen",
 	"tracks": {
+		"attic": {
+			"definition_path": "res://assets/gameplay/tracks/attic/attic_track_definition.tres",
+			"display_name": "Attic / Popper",
+			"id": "attic",
+			"metadata_path": "res://assets/gameplay/tracks/attic/attic_track_metadata.json",
+			"scene_path": "res://assets/gameplay/tracks/attic/attic_track.tscn",
+			"version": "attic_v1_2026_05_01"
+		},
+		"bedroom": {
+			"definition_path": "res://assets/gameplay/tracks/bedroom/bedroom_track_definition.tres",
+			"display_name": "Bedroom / Tuggs",
+			"id": "bedroom",
+			"metadata_path": "res://assets/gameplay/tracks/bedroom/bedroom_track_metadata.json",
+			"scene_path": "res://assets/gameplay/tracks/bedroom/bedroom_track.tscn",
+			"version": "bedroom_v1_2026_05_01"
+		},
+		"garden": {
+			"definition_path": "res://assets/gameplay/tracks/garden/garden_track_definition.tres",
+			"display_name": "Garden / Moko",
+			"id": "garden",
+			"metadata_path": "res://assets/gameplay/tracks/garden/garden_track_metadata.json",
+			"scene_path": "res://assets/gameplay/tracks/garden/garden_track.tscn",
+			"version": "garden_v1_2026_05_01"
+		},
+		"glam_closet": {
+			"definition_path": "res://assets/gameplay/tracks/glam_closet/glam_closet_track_definition.tres",
+			"display_name": "Glam Closet / Velva",
+			"id": "glam_closet",
+			"metadata_path": "res://assets/gameplay/tracks/glam_closet/glam_closet_track_metadata.json",
+			"scene_path": "res://assets/gameplay/tracks/glam_closet/glam_closet_track.tscn",
+			"version": "glam_closet_v1_2026_05_01"
+		},
 		"kitchen": {
-			"id": "kitchen",
-			"display_name": "Kitchen / Sir Clink",
-			"version": "kitchen_v2_2026_04_29",
-			"scene_path": "res://assets/gameplay/tracks/kitchen/kitchen_track.tscn",
 			"definition_path": "res://assets/gameplay/tracks/kitchen/kitchen_track_definition.tres",
-			"metadata_path": "res://assets/gameplay/tracks/kitchen/kitchen_track_metadata.json"
+			"display_name": "Kitchen / Sir Clink",
+			"id": "kitchen",
+			"metadata_path": "res://assets/gameplay/tracks/kitchen/kitchen_track_metadata.json",
+			"scene_path": "res://assets/gameplay/tracks/kitchen/kitchen_track.tscn",
+			"version": "kitchen_v2_2026_04_29"
+		},
+		"outdoor_playground": {
+			"definition_path": "res://assets/gameplay/tracks/outdoor_playground/outdoor_playground_track_definition.tres",
+			"display_name": "Outdoor Playground / Dash",
+			"id": "outdoor_playground",
+			"metadata_path": "res://assets/gameplay/tracks/outdoor_playground/outdoor_playground_track_metadata.json",
+			"scene_path": "res://assets/gameplay/tracks/outdoor_playground/outdoor_playground_track.tscn",
+			"version": "outdoor_playground_v1_2026_05_01"
+		},
+		"playroom": {
+			"definition_path": "res://assets/gameplay/tracks/playroom/playroom_track_definition.tres",
+			"display_name": "Playroom / Slammo",
+			"id": "playroom",
+			"metadata_path": "res://assets/gameplay/tracks/playroom/playroom_track_metadata.json",
+			"scene_path": "res://assets/gameplay/tracks/playroom/playroom_track.tscn",
+			"version": "playroom_v1_2026_05_01"
+		},
+		"sandbox": {
+			"definition_path": "res://assets/gameplay/tracks/sandbox/sandbox_track_definition.tres",
+			"display_name": "Sandbox / Rexx",
+			"id": "sandbox",
+			"metadata_path": "res://assets/gameplay/tracks/sandbox/sandbox_track_metadata.json",
+			"scene_path": "res://assets/gameplay/tracks/sandbox/sandbox_track.tscn",
+			"version": "sandbox_v1_2026_05_01"
 		}
 	}
 }

@@ -1,0 +1,140 @@
+[gd_resource type="Resource" script_class="TrackDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/track/TrackDefinition.gd" id="1_opv84"]
+
+[resource]
+script = ExtResource("1_opv84")
+id = "garden"
+display_name = "Garden / Moko"
+version = "garden_v1_2026_05_01"
+laps = 3
+out_of_bounds_y = -11.0
+reset_mode = "instant_pop"
+floor_visual_y = -32.0
+runtime_scene_path = "res://assets/gameplay/tracks/garden/garden_track.tscn"
+dressing_scene_path = "res://assets/gameplay/tracks/garden/garden_editable_room.tscn"
+ground_size = Vector2(292, 190)
+ground_color = Color(0.32, 0.43, 0.24, 1)
+ground_texture_path = "res://assets/gameplay/materials/garden/garden_dirt_mud_albedo.png"
+road_texture_path = "res://assets/gameplay/materials/plastic/glossy_plastic_albedo.png"
+rail_texture_path = "res://assets/gameplay/materials/metal/toy_metal_albedo.png"
+rail_texture_uv_scale = 0.5
+track_body_color = Color(0.09, 0.075, 0.065, 1)
+route_points = Array[Vector3]([Vector3(-108, 3.35, -72), Vector3(-84, 3.35, -78), Vector3(-56, 3.35, -78), Vector3(-28, 3.35, -76), Vector3(0, 3.35, -72), Vector3(32, 3.35, -70), Vector3(64, 3.35, -72), Vector3(96, 3.35, -66), Vector3(120, 3.35, -48), Vector3(126, 3.35, -20), Vector3(124, 3.35, 8), Vector3(120, 3.35, 38), Vector3(94, 3.35, 64), Vector3(72, 3.35, 80), Vector3(42, 3.35, 78), Vector3(12, 3.35, 76), Vector3(-18, 3.35, 72), Vector3(-48, 3.35, 76), Vector3(-80, 3.35, 70), Vector3(-108, 3.35, 54), Vector3(-124, 3.35, 26), Vector3(-126, 3.35, -4), Vector3(-124, 3.35, -34), Vector3(-116, 3.35, -58), Vector3(-98, 3.35, -70), Vector3(-72, 3.35, -76), Vector3(-42, 3.35, -74), Vector3(-12, 3.35, -66), Vector3(18, 3.35, -52), Vector3(42, 5.5499997, -34), Vector3(52, 3.35, -8), Vector3(46, 3.35, 18), Vector3(26, 3.35, 38), Vector3(-2, 3.35, 46), Vector3(-32, 3.35, 42), Vector3(-58, 3.35, 28), Vector3(-72, 3.35, 4), Vector3(-74, 3.35, -24), Vector3(-64, 3.35, -50), Vector3(-42, 3.35, -66), Vector3(-16, 3.35, -72), Vector3(14, 3.35, -72)])
+checkpoint_indices = Array[int]([0, 6, 12, 18, 24, 30])
+spawn_points = Array[Vector4]([Vector4(-107.51493, 4.15, -70.059715, 104.03625), Vector4(-108.48507, 4.15, -73.940285, 104.03625), Vector4(-102.664215, 4.15, -71.27239, 104.03625), Vector4(-103.63435, 4.15, -75.15296, 104.03625), Vector4(-97.81351, 4.15, -72.48507, 104.03625), Vector4(-98.783646, 4.15, -76.36564, 104.03625), Vector4(-92.96279, 4.15, -73.69775, 104.03625), Vector4(-93.93293, 4.15, -77.578316, 104.03625)])
+item_sockets = Array[Vector4]([Vector4(-28, 4.0499997, -76, 0), Vector4(96, 4.0499997, -66, 0), Vector4(120, 4.0499997, 38, 0), Vector4(12, 4.0499997, 76, 0), Vector4(-108, 4.0499997, 54, 0), Vector4(-116, 4.0499997, -58, 0), Vector4(-12, 4.0499997, -66, 0), Vector4(46, 4.0499997, 18, 0), Vector4(-58, 4.0499997, 28, 0), Vector4(-42, 4.0499997, -66, 0)])
+hazard_sockets = Array[Vector4]([Vector4(32, 4.0499997, -70, 0), Vector4(124, 4.0499997, 8, 0), Vector4(-18, 4.0499997, 72, 0), Vector4(-126, 4.0499997, -4, 0), Vector4(-42, 4.0499997, -74, 0), Vector4(26, 4.0499997, 38, 0), Vector4(-72, 4.0499997, 4, 0)])
+alternate_routes = Array[Dictionary]([{
+"enabled": true,
+"entry_checkpoint_index": 1,
+"exit_checkpoint_index": 3,
+"id": "garden_branch",
+"points": Array[Vector3]([Vector3(64, 3.55, -72), Vector3(36, 4.75, -22), Vector3(12, 4.55, 22), Vector3(-18, 3.75, 72)]),
+"road_width": 12.0
+}])
+stage_props = Array[Dictionary]([{
+"asset_path": "",
+"audio_material_id": "metal",
+"box_color": Color(0.36, 0.58, 0.72, 1),
+"box_size": Vector3(28, 18, 24),
+"collision_mode": "visual",
+"gameplay_tag": "garden_landmark",
+"id": "WateringCan",
+"kind": "box",
+"position": Vector3(104, -5, -48),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 0.0
+}, {
+"asset_path": "",
+"audio_material_id": "leaf",
+"box_color": Color(0.16, 0.52, 0.18, 1),
+"box_size": Vector3(50, 2, 20),
+"collision_mode": "visual",
+"gameplay_tag": "garden_landmark",
+"id": "LeafTunnel",
+"kind": "box",
+"position": Vector3(-70, 5, 54),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 0.0
+}, {
+"asset_path": "",
+"audio_material_id": "ceramic",
+"box_color": Color(0.62, 0.28, 0.16, 1),
+"box_size": Vector3(18, 22, 18),
+"collision_mode": "visual",
+"gameplay_tag": "garden_landmark",
+"id": "FlowerPotA",
+"kind": "box",
+"position": Vector3(-118, -3, -10),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 0.0
+}, {
+"asset_path": "",
+"audio_material_id": "stone",
+"box_color": Color(0.42, 0.46, 0.42, 1),
+"box_size": Vector3(58, 5, 18),
+"collision_mode": "visual",
+"gameplay_tag": "shortcut_landmark",
+"id": "StoneShortcut",
+"kind": "box",
+"position": Vector3(4, -7, 8),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 0.0
+}, {
+"asset_path": "",
+"audio_material_id": "mud",
+"box_color": Color(0.24, 0.16, 0.08, 1),
+"box_size": Vector3(42, 4, 28),
+"collision_mode": "visual",
+"gameplay_tag": "slow_zone",
+"id": "MudPatch",
+"kind": "box",
+"position": Vector3(66, -10, 28),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 0.0
+}])
+surface_segments = Array[Dictionary]([{
+"end_route_index": 10,
+"id": "garden_start_surface",
+"position": Vector3(-30, 3.55, -70),
+"start_route_index": 0,
+"surface_audio_id": "garden_primary",
+"surface_material_id": "dirt"
+}, {
+"end_route_index": 24,
+"id": "garden_feature_surface",
+"position": Vector3(70, 3.55, 50),
+"start_route_index": 11,
+"surface_audio_id": "garden_secondary",
+"surface_material_id": "dirt_feature"
+}, {
+"end_route_index": 39,
+"id": "garden_return_surface",
+"position": Vector3(-80, 3.55, 10),
+"start_route_index": 25,
+"surface_audio_id": "garden_primary",
+"surface_material_id": "dirt"
+}])
+audio_zones = Array[Dictionary]([{
+"audio_id": "music",
+"audio_path": "",
+"id": "garden_music_zone",
+"position": Vector3(0, 0, 0),
+"radius": 120.0,
+"volume_db": -14.0,
+"zone_kind": "ambient"
+}, {
+"audio_id": "garden_secondary",
+"audio_path": "",
+"id": "garden_feature_zone",
+"position": Vector3(60, 4.35, 36),
+"radius": 28.0,
+"volume_db": -6.0,
+"zone_kind": "oneshot"
+}])
+audio_ids = {
+"garden_primary": "res://assets/source/audio/canva/tracks/garden/garden_mud_splat_canva_01.wav",
+"garden_secondary": "res://assets/source/audio/canva/tracks/garden/garden_stone_hit_canva_01.mp3",
+"music": "res://assets/source/audio/suno/tracks/garden/garden_loop_suno_01.mp3"
+}
