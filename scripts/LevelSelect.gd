@@ -4,7 +4,7 @@ const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
 const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd")
 const TrackRuntimeScene = preload("res://scripts/track/TrackRuntimeScene.gd")
 
-const PREVIEW_CAMERA_ROUTE_SPEED := 0.075
+const PREVIEW_CAMERA_ROUTE_SPEED := 0.035
 const PREVIEW_CAMERA_BLEND := 0.055
 
 var _tracks: Array[Dictionary] = []
