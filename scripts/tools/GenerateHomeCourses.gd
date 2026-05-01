@@ -464,6 +464,12 @@ func _add_grass_zone_nodes(root: Node3D, course: Dictionary) -> void:
 		zone.enabled = bool(data["enabled"])
 		zone.position = _vec3(data["position"])
 		zone.rotation_degrees.y = float(data["yaw_degrees"])
+		var shape_node := CollisionShape3D.new()
+		shape_node.name = "CollisionShape3D"
+		var shape := BoxShape3D.new()
+		shape.size = Vector3(zone.size.x, 1.0, zone.size.y)
+		shape_node.shape = shape
+		zone.add_child(shape_node)
 		holder.add_child(zone)
 
 func _add_holder(root: Node3D, holder_name: String) -> Node3D:

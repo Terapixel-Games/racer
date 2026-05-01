@@ -140,7 +140,8 @@ func test_outdoor_playground_runtime_uses_grass_shader() -> void:
 	var track_node := built.get("node", null) as Node3D
 	scene_tree.root.add_child(track_node)
 	assert_true(definition.grass_zones.size() >= 2, "Outdoor Playground should use authored grass zones")
-	assert_true(track_node.get_node_or_null("Dressing/EditableRoom/GrassZones/MainGrassField") != null, "Runtime editable room should retain selectable grass zone nodes")
+	assert_true(track_node.get_node_or_null("Dressing/EditableRoom/GrassZones/MainGrassField") is Area3D, "Runtime editable room should retain selectable grass zone Area3D nodes")
+	assert_true(track_node.get_node_or_null("Dressing/EditableRoom/GrassZones/MainGrassField/CollisionShape3D") is CollisionShape3D, "Runtime editable room should retain editable grass zone bounds")
 	assert_equal(_mesh_shader_path(track_node, "FloorVisual"), OUTDOOR_GRASS_SHADER, "Outdoor Playground generated floor should use the grass shader")
 	assert_equal(_mesh_shader_path(track_node, "Dressing/EditableRoom/floor/MeshInstance3D"), OUTDOOR_GRASS_SHADER, "Outdoor Playground editable floor should use the grass shader at runtime")
 	assert_true(track_node.get_node_or_null("PlaygroundGrassBlades") is MultiMeshInstance3D, "Outdoor Playground should build an upright grass blade layer")

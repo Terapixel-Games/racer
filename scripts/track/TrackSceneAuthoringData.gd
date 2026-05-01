@@ -186,10 +186,30 @@ static func _collect_grass_zones(root: Node) -> Array[Dictionary]:
 	var holder := root.get_node_or_null("GrassZones")
 	if holder == null:
 		return zones
-	for child in _sorted_marker_children(holder):
+	for child in _sorted_node3d_children(holder):
 		if child.has_method("to_grass_zone"):
 			zones.append(child.call("to_grass_zone") as Dictionary)
+		elif child is Area3D:
+			var zone := _grass_zone_from_area(child as Area3D)
+			if not zone.is_empty():
+				zones.append(zone)
 	return zones
+
+static func _grass_zone_from_area(area: Area3D) -> Dictionary:
+	var shape_node := area.get_node_or_null("CollisionShape3D") as CollisionShape3D
+	if shape_node == null or not (shape_node.shape is BoxShape3D):
+		return {}
+	var shape_scale := shape_node.transform.basis.get_scale().abs()
+	var shape_size := (shape_node.shape as BoxShape3D).size
+	var center := area.position + area.transform.basis * shape_node.position
+	return {
+		"id": str(area.name),
+		"position": [center.x, center.y, center.z],
+		"yaw_degrees": area.rotation_degrees.y + shape_node.rotation_degrees.y,
+		"size": [shape_size.x * shape_scale.x, shape_size.z * shape_scale.z],
+		"density": float(area.get_meta("grass_density", 1.0)),
+		"enabled": bool(area.get_meta("grass_enabled", true)),
+	}
 
 static func _nearest_route_index(point: Vector3, route_points: Array[Vector3]) -> int:
 	var best_index := 0

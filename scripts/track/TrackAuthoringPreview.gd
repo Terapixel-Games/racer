@@ -252,7 +252,7 @@ func get_authoring_summary() -> Dictionary:
 		"dressing_props": _sorted_node3d_children(_get_or_create_holder("Dressing")).size(),
 		"surface_segments": _sorted_marker_children(_get_or_create_holder("SurfaceSegments")).size(),
 		"audio_zones": _sorted_marker_children(_get_or_create_holder("AudioZones")).size(),
-		"grass_zones": _sorted_marker_children(_get_or_create_holder("GrassZones")).size(),
+		"grass_zones": _sorted_node3d_children(_get_or_create_holder("GrassZones")).size(),
 	}
 
 func _add_ground_preview(parent: Node3D) -> void:
@@ -859,10 +859,30 @@ func _collect_grass_zones() -> Array[Dictionary]:
 	var holder := get_node_or_null("GrassZones")
 	if holder == null:
 		return zones
-	for child in _sorted_marker_children(holder):
+	for child in _sorted_node3d_children(holder):
 		if child.has_method("to_grass_zone"):
 			zones.append(child.call("to_grass_zone") as Dictionary)
+		elif child is Area3D:
+			var zone := _grass_zone_from_area(child as Area3D)
+			if not zone.is_empty():
+				zones.append(zone)
 	return zones
+
+func _grass_zone_from_area(area: Area3D) -> Dictionary:
+	var shape_node := area.get_node_or_null("CollisionShape3D") as CollisionShape3D
+	if shape_node == null or not (shape_node.shape is BoxShape3D):
+		return {}
+	var shape_scale := shape_node.transform.basis.get_scale().abs()
+	var shape_size := (shape_node.shape as BoxShape3D).size
+	var center := area.position + area.transform.basis * shape_node.position
+	return {
+		"id": str(area.name),
+		"position": [center.x, center.y, center.z],
+		"yaw_degrees": area.rotation_degrees.y + shape_node.rotation_degrees.y,
+		"size": [shape_size.x * shape_scale.x, shape_size.z * shape_scale.z],
+		"density": float(area.get_meta("grass_density", 1.0)),
+		"enabled": bool(area.get_meta("grass_enabled", true)),
+	}
 
 func _point_from_gate_value(value: Variant) -> Vector3:
 	if value is Vector3:

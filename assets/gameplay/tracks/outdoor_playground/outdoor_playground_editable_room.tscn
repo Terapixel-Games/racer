@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3]
+[gd_scene load_steps=24 format=3]
 
 [ext_resource type="Script" path="res://scripts/track/TrackAuthoringPreview.gd" id="1_v46l3"]
 [ext_resource type="Script" path="res://scripts/track/StagePropAuthoring.gd" id="2_nuam5"]
@@ -62,6 +62,12 @@ roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_aeqy1"]
 size = Vector3(292, 1, 190)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_main_grass"]
+size = Vector3(178, 1, 132)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_back_grass"]
+size = Vector3(72, 1, 56)
 
 [node name="OutdoorPlaygroundEditableRoom" type="Node3D"]
 script = ExtResource("1_v46l3")
@@ -430,15 +436,21 @@ radius = 28.0
 
 [node name="GrassZones" type="Node3D" parent="."]
 
-[node name="MainGrassField" type="Marker3D" parent="GrassZones"]
+[node name="MainGrassField" type="Area3D" parent="GrassZones"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, -11, 8)
 script = ExtResource("5_grass_zone")
 zone_id = "main_grass_field"
 size = Vector2(178, 132)
 
-[node name="BackCornerGrass" type="Marker3D" parent="GrassZones"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GrassZones/MainGrassField"]
+shape = SubResource("BoxShape3D_main_grass")
+
+[node name="BackCornerGrass" type="Area3D" parent="GrassZones"]
 transform = Transform3D(0.90630776, 0, -0.42261827, 0, 1, 0, 0.42261827, 0, 0.90630776, -86, -11, 42)
 script = ExtResource("5_grass_zone")
 zone_id = "back_corner_grass"
 size = Vector2(72, 56)
 density = 0.85
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GrassZones/BackCornerGrass"]
+shape = SubResource("BoxShape3D_back_grass")
