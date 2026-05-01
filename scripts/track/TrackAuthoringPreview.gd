@@ -17,7 +17,10 @@ const PREVIEW_ROOT_NAME := "EditorTrackPreview"
 @export var preview_enabled := true:
 	set(value):
 		preview_enabled = value
-		_queue_preview_refresh()
+		if preview_enabled:
+			_queue_preview_refresh()
+		else:
+			_queue_preview_clear()
 @export var live_update_in_editor := true:
 	set(value):
 		live_update_in_editor = value
@@ -135,6 +138,8 @@ func _ready() -> void:
 	set_process(Engine.is_editor_hint() and live_update_in_editor)
 	if preview_enabled:
 		refresh_preview()
+	else:
+		clear_preview()
 
 func _process(_delta: float) -> void:
 	if not Engine.is_editor_hint() or not live_update_in_editor:
@@ -953,6 +958,11 @@ func _queue_preview_refresh() -> void:
 	if not is_inside_tree():
 		return
 	call_deferred("refresh_preview")
+
+func _queue_preview_clear() -> void:
+	if not is_inside_tree():
+		return
+	call_deferred("clear_preview")
 
 func _clear_preview() -> void:
 	var existing := get_node_or_null(PREVIEW_ROOT_NAME)
