@@ -21,6 +21,8 @@ const RAIL_Y_OFFSET := 0.12
 const RAIL_VISUAL_CENTER := Vector3(0.15, 0.07, -0.625)
 const RAIL_COLLISION_RADIUS := 0.055
 const RAIL_COLLISION_HEIGHT := 1.0
+const PLAYGROUND_GRASS_BLADE_SHADER := "res://assets/gameplay/materials/grass/playground_grass_blades.gdshader"
+const PLAYGROUND_GRASS_BLADE_COUNT := 6200
 
 static func build(definition: TrackDefinition) -> Dictionary:
 	if definition == null:
@@ -83,6 +85,8 @@ static func _build_ground(root: Node3D, definition: TrackDefinition) -> void:
 	visual.transform.origin = Vector3(0, definition.floor_visual_y if floor_is_out_of_bounds else -0.1, 0)
 	visual.material_override = _ground_material(definition)
 	root.add_child(visual)
+	if definition.id == "outdoor_playground":
+		_build_playground_grass_blades(root, definition)
 	if floor_is_out_of_bounds and definition.id == "kitchen":
 		_build_floor_tile_grid(root, definition)
 
@@ -104,6 +108,67 @@ static func _ground_material(definition: TrackDefinition) -> Material:
 		if texture is Texture2D:
 			material.albedo_texture = texture
 	return material
+
+static func _build_playground_grass_blades(root: Node3D, definition: TrackDefinition) -> void:
+	var shader := load(PLAYGROUND_GRASS_BLADE_SHADER)
+	if not (shader is Shader):
+		push_warning("Outdoor Playground grass blade shader could not load: %s" % PLAYGROUND_GRASS_BLADE_SHADER)
+		return
+	var multimesh := MultiMesh.new()
+	multimesh.transform_format = MultiMesh.TRANSFORM_3D
+	multimesh.mesh = _grass_blade_mesh(shader as Shader)
+	multimesh.instance_count = PLAYGROUND_GRASS_BLADE_COUNT
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 783219
+	var half_x := definition.ground_size.x * 0.5
+	var half_z := definition.ground_size.y * 0.5
+	for i in range(PLAYGROUND_GRASS_BLADE_COUNT):
+		var x := rng.randf_range(-half_x, half_x)
+		var z := rng.randf_range(-half_z, half_z)
+		var yaw := rng.randf_range(0.0, TAU)
+		var width_scale := rng.randf_range(0.72, 1.28)
+		var height_scale := rng.randf_range(0.72, 1.38)
+		var basis := Basis(Vector3.UP, yaw).scaled(Vector3(width_scale, height_scale, width_scale))
+		multimesh.set_instance_transform(i, Transform3D(basis, Vector3(x, definition.floor_visual_y + 0.04, z)))
+	var blades := MultiMeshInstance3D.new()
+	blades.name = "PlaygroundGrassBlades"
+	blades.multimesh = multimesh
+	blades.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	root.add_child(blades)
+
+static func _grass_blade_mesh(shader: Shader) -> ArrayMesh:
+	var vertices := PackedVector3Array([
+		Vector3(-0.16, 0.0, 0.0),
+		Vector3(0.16, 0.0, 0.0),
+		Vector3(-0.085, 0.72, 0.0),
+		Vector3(0.085, 0.72, 0.0),
+		Vector3(-0.035, 1.28, 0.0),
+		Vector3(0.035, 1.28, 0.0),
+	])
+	var normals := PackedVector3Array()
+	var uvs := PackedVector2Array([
+		Vector2(0.0, 0.0),
+		Vector2(1.0, 0.0),
+		Vector2(0.18, 0.55),
+		Vector2(0.82, 0.55),
+		Vector2(0.4, 1.0),
+		Vector2(0.6, 1.0),
+	])
+	for i in range(vertices.size()):
+		normals.append(Vector3(0.0, 0.0, 1.0))
+	var indices := PackedInt32Array([0, 1, 2, 1, 3, 2, 2, 3, 4, 3, 5, 4])
+	var arrays := []
+	arrays.resize(Mesh.ARRAY_MAX)
+	arrays[Mesh.ARRAY_VERTEX] = vertices
+	arrays[Mesh.ARRAY_NORMAL] = normals
+	arrays[Mesh.ARRAY_TEX_UV] = uvs
+	arrays[Mesh.ARRAY_INDEX] = indices
+	var mesh := ArrayMesh.new()
+	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+	var material := ShaderMaterial.new()
+	material.shader = shader
+	mesh.surface_set_material(0, material)
+	return mesh
 
 static func _build_floor_tile_grid(root: Node3D, definition: TrackDefinition) -> void:
 	var holder := Node3D.new()

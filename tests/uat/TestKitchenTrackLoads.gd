@@ -5,6 +5,7 @@ const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd"
 const RaceController = preload("res://scripts/RaceController.gd")
 const OutOfBoundsRules = preload("res://scripts/logic/OutOfBoundsRules.gd")
 const OUTDOOR_GRASS_SHADER := "res://assets/gameplay/materials/grass/playground_grass.gdshader"
+const OUTDOOR_GRASS_BLADE_SHADER := "res://assets/gameplay/materials/grass/playground_grass_blades.gdshader"
 
 func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	var packed := load("res://assets/gameplay/tracks/kitchen/kitchen_track.tscn")
@@ -139,6 +140,9 @@ func test_outdoor_playground_runtime_uses_grass_shader() -> void:
 	scene_tree.root.add_child(track_node)
 	assert_equal(_mesh_shader_path(track_node, "FloorVisual"), OUTDOOR_GRASS_SHADER, "Outdoor Playground generated floor should use the grass shader")
 	assert_equal(_mesh_shader_path(track_node, "Dressing/EditableRoom/floor/MeshInstance3D"), OUTDOOR_GRASS_SHADER, "Outdoor Playground editable floor should use the grass shader at runtime")
+	assert_true(track_node.get_node_or_null("PlaygroundGrassBlades") is MultiMeshInstance3D, "Outdoor Playground should build an upright grass blade layer")
+	assert_true(_multimesh_instance_count(track_node, "PlaygroundGrassBlades") >= 6000, "Outdoor Playground grass should use enough blades to read as grass from kart height")
+	assert_equal(_multimesh_shader_path(track_node, "PlaygroundGrassBlades"), OUTDOOR_GRASS_BLADE_SHADER, "Outdoor Playground grass blades should use the blade sway shader")
 	track_node.queue_free()
 
 func test_car_can_be_placed_on_kitchen_start_grid() -> void:
@@ -313,4 +317,21 @@ func _mesh_shader_path(root: Node, path: NodePath) -> String:
 		var material := mesh.material_override as ShaderMaterial
 		if material.shader != null:
 			return material.shader.resource_path
+	return ""
+
+func _multimesh_instance_count(root: Node, path: NodePath) -> int:
+	var instance := root.get_node_or_null(path) as MultiMeshInstance3D
+	if instance == null or instance.multimesh == null:
+		return 0
+	return instance.multimesh.instance_count
+
+func _multimesh_shader_path(root: Node, path: NodePath) -> String:
+	var instance := root.get_node_or_null(path) as MultiMeshInstance3D
+	if instance == null or instance.multimesh == null or instance.multimesh.mesh == null:
+		return ""
+	var material := instance.multimesh.mesh.surface_get_material(0)
+	if material is ShaderMaterial:
+		var shader_material := material as ShaderMaterial
+		if shader_material.shader != null:
+			return shader_material.shader.resource_path
 	return ""
