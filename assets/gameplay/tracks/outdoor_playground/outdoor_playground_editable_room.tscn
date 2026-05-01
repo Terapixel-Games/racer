@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3]
+[gd_scene load_steps=27 format=3]
 
 [ext_resource type="Script" path="res://scripts/track/TrackAuthoringPreview.gd" id="1_v46l3"]
 [ext_resource type="Script" path="res://scripts/track/StagePropAuthoring.gd" id="2_nuam5"]
@@ -68,6 +68,17 @@ size = Vector3(178, 1, 132)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_back_grass"]
 size = Vector3(72, 1, 56)
+
+[sub_resource type="BoxMesh" id="BoxMesh_main_grass_bounds"]
+size = Vector3(178, 1, 132)
+
+[sub_resource type="BoxMesh" id="BoxMesh_back_grass_bounds"]
+size = Vector3(72, 1, 56)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grass_bounds"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.2, 0.95, 0.25, 0.22)
 
 [node name="OutdoorPlaygroundEditableRoom" type="Node3D"]
 script = ExtResource("1_v46l3")
@@ -445,6 +456,10 @@ size = Vector2(178, 132)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GrassZones/MainGrassField"]
 shape = SubResource("BoxShape3D_main_grass")
 
+[node name="BoundsPreview" type="MeshInstance3D" parent="GrassZones/MainGrassField"]
+material_override = SubResource("StandardMaterial3D_grass_bounds")
+mesh = SubResource("BoxMesh_main_grass_bounds")
+
 [node name="BackCornerGrass" type="Area3D" parent="GrassZones"]
 transform = Transform3D(0.90630776, 0, -0.42261827, 0, 1, 0, 0.42261827, 0, 0.90630776, -86, -11, 42)
 script = ExtResource("5_grass_zone")
@@ -454,3 +469,7 @@ density = 0.85
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GrassZones/BackCornerGrass"]
 shape = SubResource("BoxShape3D_back_grass")
+
+[node name="BoundsPreview" type="MeshInstance3D" parent="GrassZones/BackCornerGrass"]
+material_override = SubResource("StandardMaterial3D_grass_bounds")
+mesh = SubResource("BoxMesh_back_grass_bounds")

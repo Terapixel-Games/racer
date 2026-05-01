@@ -470,6 +470,18 @@ func _add_grass_zone_nodes(root: Node3D, course: Dictionary) -> void:
 		shape.size = Vector3(zone.size.x, 1.0, zone.size.y)
 		shape_node.shape = shape
 		zone.add_child(shape_node)
+		var preview := MeshInstance3D.new()
+		preview.name = "BoundsPreview"
+		var mesh := BoxMesh.new()
+		mesh.size = shape.size
+		preview.mesh = mesh
+		var material := StandardMaterial3D.new()
+		material.albedo_color = Color(0.2, 0.95, 0.25, 0.22)
+		material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		material.cull_mode = BaseMaterial3D.CULL_DISABLED
+		preview.material_override = material
+		zone.add_child(preview)
 		holder.add_child(zone)
 
 func _add_holder(root: Node3D, holder_name: String) -> Node3D:

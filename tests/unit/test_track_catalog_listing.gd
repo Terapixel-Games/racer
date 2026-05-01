@@ -104,6 +104,7 @@ func _assert_authoring_scene(scene_path: String, track_id: String) -> void:
 		assert_true(root.get_node("GrassZones").get_child_count() >= 2, "Outdoor Playground should expose multiple editable grass zones")
 		assert_true(root.get_node_or_null("GrassZones/MainGrassField") is Area3D, "Outdoor Playground grass zones should be editable Area3D nodes")
 		assert_true(root.get_node_or_null("GrassZones/MainGrassField/CollisionShape3D") is CollisionShape3D, "Outdoor Playground grass zones should expose editable collision bounds")
+		assert_true(root.get_node_or_null("GrassZones/MainGrassField/BoundsPreview") is MeshInstance3D, "Outdoor Playground grass zones should expose visible editor bounds")
 	assert_true(root.get_node("RoutePoints").get_child_count() >= 30, "%s should expose route markers" % track_id)
 	assert_equal(root.get_node("SpawnPoints").get_child_count(), 8, "%s should expose editable spawn markers" % track_id)
 	assert_true(root.get_node("Dressing").get_child_count() >= 5, "%s should expose editable dressing props" % track_id)
