@@ -367,6 +367,9 @@ func _physics_process_local_single(delta: float) -> void:
 			update_results(_sorted_local_result_entries(), final_ready)
 			if final_ready:
 				_submit_local_results()
+		PHASE_RESULTS:
+			_tick_results_ai_cruise(delta)
+			_update_finish_follow_camera(delta)
 	_update_heat_distortion(delta)
 	_update_water_drops(delta)
 	_update_audio_zone_players()
@@ -393,6 +396,10 @@ func _tick_local_race(delta: float) -> void:
 		var local_state: Dictionary = racer_states.get(local_user_id, {})
 		if bool(local_state.get("finished", false)):
 			_set_local_phase(PHASE_PLAYER_FINISH_FOLLOW)
+
+func _tick_results_ai_cruise(delta: float) -> void:
+	for rid in ai_racer_ids:
+		_tick_ai_input(rid, delta)
 
 func _tick_local_input() -> void:
 	var car: CarController = cars.get(local_user_id, null)

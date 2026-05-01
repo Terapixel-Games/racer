@@ -184,6 +184,13 @@ func test_local_finish_shows_live_overlay_then_finalizes_without_scene_change() 
 	assert_equal(str(race.get("race_phase")), "results", "Finalization should keep the race scene in results phase")
 	assert_true(bool(race.call("results_overlay_is_final_for_test")), "Final results should mark the overlay final")
 	assert_true(race.is_inside_tree(), "Local single results should remain over Race.tscn instead of changing scene")
+	var cars: Dictionary = race.get("cars")
+	var leader_car: CarController = cars.get(leader_id, null)
+	assert_true(leader_car != null, "Winner follow should still have a winner car during final results")
+	if leader_car != null:
+		race.call("_physics_process_local_single", 0.016)
+		var input_state: Dictionary = leader_car.get("input_state")
+		assert_true(float(input_state.get("throttle", 0.0)) > 0.0, "Winner AI should keep cruising after final results are shown")
 	race.queue_free()
 
 func _make_local_race() -> Node:
