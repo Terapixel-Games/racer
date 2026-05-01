@@ -167,7 +167,7 @@ const COURSES := [
 		"version": "outdoor_playground_v1_2026_05_01",
 		"ground_texture": "",
 		"ground_shader": PLAYGROUND_GRASS_SHADER,
-		"ground_color": Color(0.18, 0.42, 0.15, 1.0),
+		"ground_color": Color(0.24, 0.34, 0.14, 1.0),
 		"sky": "clear_afternoon",
 		"route": "fast_loop",
 		"surface": "asphalt",
