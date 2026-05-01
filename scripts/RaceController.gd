@@ -108,7 +108,7 @@ const BOOST_SFX_PATH := "res://assets/source/audio/canva/driving/boost/boost_bur
 const DRIFT_SFX_PATH := "res://assets/source/audio/canva/driving/drift/drift_release_canva_01.wav"
 const ITEM_PICKUP_SFX_PATH := "res://assets/source/audio/canva/items/pickup/item_pickup_canva_01.wav"
 const MOBILE_BASE_VIEWPORT := Vector2(1920.0, 1080.0)
-const MOBILE_TOUCH_SCALE := 2.0
+const MOBILE_TOUCH_SCALE := 1.5
 const MOBILE_SAFE_MARGIN := 28.0
 
 func _ready() -> void:
