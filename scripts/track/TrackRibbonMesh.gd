@@ -11,10 +11,10 @@ static func build_slab_mesh(route_points: Array[Vector3], road_width: float, bod
 	if points.size() < 2 or road_width <= 0.0 or body_depth <= 0.0:
 		return ArrayMesh.new()
 
-	var frames := TrackWalls.compute_frames(points, closed_loop)
 	var half_width := road_width * 0.5
-	var left := TrackWalls.compute_offset_polyline(points, frames, -half_width, closed_loop)
-	var right := TrackWalls.compute_offset_polyline(points, frames, half_width, closed_loop)
+	var edges := _road_edge_points(points, half_width, closed_loop)
+	var left := edges.get("left", PackedVector3Array()) as PackedVector3Array
+	var right := edges.get("right", PackedVector3Array()) as PackedVector3Array
 	if left.size() != points.size() or right.size() != points.size():
 		return ArrayMesh.new()
 
@@ -37,6 +37,45 @@ static func build_slab_mesh(route_points: Array[Vector3], road_width: float, bod
 	arrays[Mesh.ARRAY_INDEX] = indices
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
 	return mesh
+
+static func _road_edge_points(points: PackedVector3Array, offset: float, closed_loop: bool) -> Dictionary:
+	var normals: Array[Vector3] = []
+	var segment_count := points.size() - 1
+	for i in range(segment_count):
+		var direction := (points[i + 1] - points[i]).normalized()
+		if direction == Vector3.ZERO:
+			direction = Vector3.FORWARD
+		normals.append(Vector3(direction.z, 0.0, -direction.x))
+	if closed_loop:
+		var direction := (points[0] - points[points.size() - 1]).normalized()
+		if direction == Vector3.ZERO:
+			direction = Vector3.FORWARD
+		normals.append(Vector3(direction.z, 0.0, -direction.x))
+
+	var left := PackedVector3Array()
+	var right := PackedVector3Array()
+	for i in range(points.size()):
+		var previous_normal: Vector3
+		var next_normal: Vector3
+		if closed_loop:
+			previous_normal = normals[(i - 1 + normals.size()) % normals.size()]
+			next_normal = normals[i % normals.size()]
+		else:
+			previous_normal = normals[i - 1] if i > 0 else normals[0]
+			next_normal = normals[i] if i < normals.size() else normals[normals.size() - 1]
+		right.append(_road_miter_point(points[i], previous_normal, next_normal, offset))
+		left.append(_road_miter_point(points[i], -previous_normal, -next_normal, offset))
+	return {"left": left, "right": right}
+
+static func _road_miter_point(point: Vector3, previous_normal: Vector3, next_normal: Vector3, offset: float) -> Vector3:
+	var miter := previous_normal + next_normal
+	if miter.length() < 0.001:
+		miter = previous_normal
+	miter = miter.normalized()
+	var denom := miter.dot(previous_normal.normalized())
+	if abs(denom) < 0.001:
+		denom = 0.001 * (1.0 if denom >= 0.0 else -1.0)
+	return point + miter * (abs(offset) / denom)
 
 static func _add_slab_segment(vertices: PackedVector3Array, indices: PackedInt32Array, left_0: Vector3, right_0: Vector3, left_1: Vector3, right_1: Vector3, body_depth: float) -> void:
 	var left_0_bottom := left_0 - Vector3.UP * body_depth

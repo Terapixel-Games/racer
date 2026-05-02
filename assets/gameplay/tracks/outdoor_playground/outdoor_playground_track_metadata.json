@@ -187,6 +187,36 @@
 				-70.0
 			],
 			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "mulch",
+			"box_color": [
+				0.360000014305115,
+				0.159999996423721,
+				0.0599999986588955,
+				1.0
+			],
+			"box_size": [
+				42.0,
+				1.0,
+				18.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "playground_landmark",
+			"id": "SwingSafetyPad",
+			"kind": "box",
+			"position": [
+				-82.0,
+				-9.0,
+				48.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
 		}
 	],
 	"id": "outdoor_playground",
@@ -621,64 +651,184 @@
 			"yaw_degrees": 0.0
 		},
 		{
-			"asset_path": "",
-			"audio_material_id": "metal",
+			"asset_path": "res://assets/gameplay/tracks/outdoor_playground/wooden_playground_set_meshy.tscn",
+			"audio_material_id": "wood",
 			"box_color": [
-				0.720000028610229,
-				0.720000028610229,
-				0.699999988079071,
+				0.579999983310699,
+				0.340000003576279,
+				0.159999996423721,
 				1.0
 			],
 			"box_size": [
-				2.0,
-				18.0,
-				2.0
+				38.0,
+				22.0,
+				16.0
 			],
 			"collision_mode": "visual",
 			"gameplay_tag": "playground_landmark",
-			"id": "SwingChains",
-			"kind": "box",
+			"id": "WoodenPlaygroundSet",
+			"kind": "scene",
 			"position": [
 				-82.0,
-				4.0,
+				15.1000003814697,
 				48.0
 			],
 			"scale": [
-				1.0,
-				1.0,
-				1.0
+				24.0,
+				24.0,
+				24.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
-			"asset_path": "",
+			"asset_path": "res://assets/source/meshy/playground_props/rusty_seesaw.glb",
 			"audio_material_id": "metal",
 			"box_color": [
-				0.100000001490116,
-				0.200000002980232,
-				0.259999990463257,
+				0.48,
+				0.18,
+				0.08,
 				1.0
 			],
 			"box_size": [
-				58.0,
-				2.0,
-				4.0
+				34.0,
+				13.0,
+				6.0
 			],
 			"collision_mode": "visual",
 			"gameplay_tag": "playground_landmark",
-			"id": "SwingSetTopBar",
-			"kind": "box",
+			"id": "RustySeesaw",
+			"kind": "scene",
 			"position": [
-				-82.0,
-				12.0,
-				48.0
+				-116.0,
+				2.6,
+				34.0
 			],
 			"scale": [
-				1.0,
-				1.0,
+				18.0,
+				18.0,
+				18.0
+			],
+			"yaw_degrees": -90.0
+		},
+		{
+			"asset_path": "res://assets/source/meshy/playground_props/rusty_playground_slide.glb",
+			"audio_material_id": "metal",
+			"box_color": [
+				0.8,
+				0.32,
+				0.12,
 				1.0
 			],
+			"box_size": [
+				30.0,
+				18.0,
+				6.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "playground_landmark",
+			"id": "RustyPlaygroundSlide",
+			"kind": "scene",
+			"position": [
+				-46.0,
+				3.4,
+				58.0
+			],
+			"scale": [
+				16.0,
+				16.0,
+				16.0
+			],
 			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "res://assets/source/meshy/playground_props/weathered_green_chair.glb",
+			"audio_material_id": "plastic",
+			"box_color": [
+				0.24,
+				0.46,
+				0.2,
+				1.0
+			],
+			"box_size": [
+				10.0,
+				15.0,
+				11.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "playground_landmark",
+			"id": "WeatheredGreenChair",
+			"kind": "scene",
+			"position": [
+				-111.0,
+				1.9,
+				67.0
+			],
+			"scale": [
+				8.0,
+				8.0,
+				8.0
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"asset_path": "res://assets/source/meshy/playground_props/house.glb",
+			"audio_material_id": "wood",
+			"box_color": [
+				0.54,
+				0.36,
+				0.24,
+				1.0
+			],
+			"box_size": [
+				30.0,
+				26.0,
+				25.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "playground_landmark",
+			"id": "MeshyHouse",
+			"kind": "scene",
+			"position": [
+				42.0,
+				8.0,
+				38.0
+			],
+			"scale": [
+				18.0,
+				18.0,
+				18.0
+			],
+			"yaw_degrees": 180.0
+		},
+		{
+			"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
+			"audio_material_id": "wood",
+			"box_color": [
+				0.42,
+				0.31,
+				0.22,
+				1.0
+			],
+			"box_size": [
+				10.0,
+				11.0,
+				2.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "playground_landmark",
+			"id": "FortifiedFence",
+			"kind": "scene",
+			"position": [
+				70.0,
+				-10.5,
+				102.0
+			],
+			"scale": [
+				20.0,
+				20.0,
+				20.0
+			],
+			"yaw_degrees": -90.0
 		}
 	],
 	"surface_segments": [

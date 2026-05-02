@@ -23,6 +23,8 @@ const EXPECTED_STAGE_SKY_PRESETS := {
 	"outdoor_playground": "clear_afternoon",
 }
 const OUTDOOR_GRASS_SHADER := "res://assets/gameplay/materials/grass/playground_grass.gdshader"
+const OUTDOOR_PLAYGROUND_FLOOR_TEXTURE := "res://assets/gameplay/materials/playground/outdoor_playground_floor_albedo.png"
+const OUTDOOR_PLAYGROUND_EDITABLE_FLOOR_SIZE := Vector2(800.0, 800.0)
 const REQUIRED_AUTHORING_GROUPS := [
 	"RoutePoints",
 	"SpawnPoints",
@@ -68,16 +70,22 @@ func test_home_course_tracks_are_human_editable_and_match_kitchen_scale() -> voi
 		assert_equal(definition.sky_preset_id, str(EXPECTED_STAGE_SKY_PRESETS[track_id]), "%s should use its stage sky preset" % track_id)
 		var expected_ground_shader := OUTDOOR_GRASS_SHADER if track_id == "outdoor_playground" else ""
 		assert_equal(definition.ground_shader_path, expected_ground_shader, "%s should use the expected ground shader" % track_id)
+		if track_id == "outdoor_playground":
+			assert_equal(definition.ground_texture_path, OUTDOOR_PLAYGROUND_FLOOR_TEXTURE, "Outdoor Playground should use the authored floor texture")
 		assert_true(not definition.sky_weather.strip_edges().is_empty(), "%s should expose editor-friendly sky weather" % track_id)
 		assert_true(definition.sky_cloud_amount >= 0.0 and definition.sky_cloud_amount <= 1.0, "%s sky cloud amount should be normalized" % track_id)
 		assert_true(definition.sky_haze_amount >= 0.0 and definition.sky_haze_amount <= 1.0, "%s sky haze amount should be normalized" % track_id)
 		var metadata: Dictionary = definition.to_metadata()
 		assert_equal(str(metadata.get("sky_preset_id", "")), str(EXPECTED_STAGE_SKY_PRESETS[track_id]), "%s metadata should export sky preset" % track_id)
 		assert_equal(str(metadata.get("ground_shader_path", "")), expected_ground_shader, "%s metadata should export ground shader" % track_id)
+		if track_id == "outdoor_playground":
+			assert_equal(str(metadata.get("ground_texture_path", "")), OUTDOOR_PLAYGROUND_FLOOR_TEXTURE, "Outdoor Playground metadata should export floor texture")
 		assert_true((metadata.get("sky_top_color", []) as Array).size() == 4, "%s metadata should export sky top color" % track_id)
-		assert_equal(definition.ground_size, kitchen_floor_size, "%s definition should match Kitchen floor dimensions" % track_id)
+		var expected_ground_size := OUTDOOR_PLAYGROUND_EDITABLE_FLOOR_SIZE if track_id == "outdoor_playground" else kitchen_floor_size
+		assert_equal(definition.ground_size, expected_ground_size, "%s definition should match its authored floor dimensions" % track_id)
 		assert_true(_route_has_no_self_intersections(definition.route_points, definition.closed_loop), "%s route should not overlap itself" % track_id)
-		assert_equal(_floor_mesh_size(str(definition.dressing_scene_path)), kitchen_floor_size, "%s editable floor should match Kitchen floor dimensions" % track_id)
+		var expected_editable_floor_size := OUTDOOR_PLAYGROUND_EDITABLE_FLOOR_SIZE if track_id == "outdoor_playground" else kitchen_floor_size
+		assert_equal(_floor_mesh_size(str(definition.dressing_scene_path)), expected_editable_floor_size, "%s editable floor should match its authored dimensions" % track_id)
 		_assert_authoring_scene(definition.dressing_scene_path, track_id)
 		if track_id == "outdoor_playground":
 			var authored_definition = TrackSceneAuthoringData.apply_to_definition(definition)
@@ -102,13 +110,17 @@ func _assert_authoring_scene(scene_path: String, track_id: String) -> void:
 	if track_id == "outdoor_playground":
 		assert_true(root.get_node_or_null("GrassZones") != null, "Outdoor Playground should expose editable GrassZones")
 		assert_true(root.get_node("GrassZones").get_child_count() >= 2, "Outdoor Playground should expose multiple editable grass zones")
-		assert_true(root.get_node_or_null("GrassZones/MainGrassField") is Area3D, "Outdoor Playground grass zones should be editable Area3D nodes")
-		assert_true(root.get_node_or_null("GrassZones/MainGrassField/CollisionShape3D") is CollisionShape3D, "Outdoor Playground grass zones should expose editable collision bounds")
-		assert_true(root.get_node_or_null("GrassZones/MainGrassField/BoundsPreview") is MeshInstance3D, "Outdoor Playground grass zones should expose visible editor bounds")
+		assert_true(_has_editable_grass_zone_bounds(root.get_node("GrassZones")), "Outdoor Playground grass zones should expose editable Area3D bounds and visible editor previews")
 	assert_true(root.get_node("RoutePoints").get_child_count() >= 30, "%s should expose route markers" % track_id)
 	assert_equal(root.get_node("SpawnPoints").get_child_count(), 8, "%s should expose editable spawn markers" % track_id)
 	assert_true(root.get_node("Dressing").get_child_count() >= 5, "%s should expose editable dressing props" % track_id)
 	root.queue_free()
+
+func _has_editable_grass_zone_bounds(holder: Node) -> bool:
+	for child in holder.get_children():
+		if child is Area3D and child.get_node_or_null("CollisionShape3D") is CollisionShape3D and child.get_node_or_null("BoundsPreview") is MeshInstance3D:
+			return true
+	return false
 
 func _floor_mesh_size(scene_path: String) -> Vector2:
 	var packed := load(scene_path) as PackedScene

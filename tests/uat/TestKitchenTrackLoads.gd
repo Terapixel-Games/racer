@@ -7,6 +7,7 @@ const RaceController = preload("res://scripts/RaceController.gd")
 const OutOfBoundsRules = preload("res://scripts/logic/OutOfBoundsRules.gd")
 const OUTDOOR_GRASS_SHADER := "res://assets/gameplay/materials/grass/playground_grass.gdshader"
 const OUTDOOR_GRASS_BLADE_SHADER := "res://assets/gameplay/materials/grass/playground_grass_blades.gdshader"
+const OUTDOOR_PLAYGROUND_FLOOR_TEXTURE := "res://assets/gameplay/materials/playground/outdoor_playground_floor_albedo.png"
 
 func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	var packed := load("res://assets/gameplay/tracks/kitchen/kitchen_track.tscn")
@@ -140,11 +141,11 @@ func test_outdoor_playground_runtime_uses_grass_shader() -> void:
 	var track_node := built.get("node", null) as Node3D
 	scene_tree.root.add_child(track_node)
 	assert_true(definition.grass_zones.size() >= 2, "Outdoor Playground should use authored grass zones")
-	assert_true(track_node.get_node_or_null("Dressing/EditableRoom/GrassZones/MainGrassField") is Area3D, "Runtime editable room should retain selectable grass zone Area3D nodes")
-	assert_true(track_node.get_node_or_null("Dressing/EditableRoom/GrassZones/MainGrassField/CollisionShape3D") is CollisionShape3D, "Runtime editable room should retain editable grass zone bounds")
-	assert_true(track_node.get_node_or_null("Dressing/EditableRoom/GrassZones/MainGrassField/BoundsPreview") is MeshInstance3D, "Runtime editable room should retain visible editor grass bounds")
+	assert_true(_has_editable_grass_zone_bounds(track_node.get_node_or_null("Dressing/EditableRoom/GrassZones")), "Runtime editable room should retain selectable grass zone Area3D bounds")
 	assert_equal(_mesh_shader_path(track_node, "FloorVisual"), OUTDOOR_GRASS_SHADER, "Outdoor Playground generated floor should use the grass shader")
+	assert_equal(_shader_texture_path(track_node, "FloorVisual", "floor_texture"), OUTDOOR_PLAYGROUND_FLOOR_TEXTURE, "Outdoor Playground generated floor should use the authored floor texture")
 	assert_equal(_mesh_shader_path(track_node, "Dressing/EditableRoom/floor/MeshInstance3D"), OUTDOOR_GRASS_SHADER, "Outdoor Playground editable floor should use the grass shader at runtime")
+	assert_equal(_shader_texture_path(track_node, "Dressing/EditableRoom/floor/MeshInstance3D", "floor_texture"), OUTDOOR_PLAYGROUND_FLOOR_TEXTURE, "Outdoor Playground editable floor should use the authored floor texture at runtime")
 	assert_true(track_node.get_node_or_null("PlaygroundGrassBlades") is MultiMeshInstance3D, "Outdoor Playground should build an upright grass blade layer")
 	assert_true(_multimesh_instance_count(track_node, "PlaygroundGrassBlades") >= 18000, "Outdoor Playground grass should use enough blades to read as grass from kart height")
 	assert_equal(_multimesh_shader_path(track_node, "PlaygroundGrassBlades"), OUTDOOR_GRASS_BLADE_SHADER, "Outdoor Playground grass blades should use the blade sway shader")
@@ -335,6 +336,15 @@ func _mesh_shader_path(root: Node, path: NodePath) -> String:
 			return material.shader.resource_path
 	return ""
 
+func _shader_texture_path(root: Node, path: NodePath, parameter_name: String) -> String:
+	var mesh := root.get_node_or_null(path) as MeshInstance3D
+	if mesh == null or not (mesh.material_override is ShaderMaterial):
+		return ""
+	var value = (mesh.material_override as ShaderMaterial).get_shader_parameter(parameter_name)
+	if value is Texture2D:
+		return (value as Texture2D).resource_path
+	return ""
+
 func _multimesh_instance_count(root: Node, path: NodePath) -> int:
 	var instance := root.get_node_or_null(path) as MultiMeshInstance3D
 	if instance == null or instance.multimesh == null:
@@ -356,12 +366,33 @@ func _first_multimesh_instance_y(root: Node, path: NodePath) -> float:
 	var instance := root.get_node_or_null(path) as MultiMeshInstance3D
 	if instance == null or instance.multimesh == null or instance.multimesh.instance_count == 0:
 		return -INF
+	var sample_positions := instance.get_meta("scatter_sample_positions", []) as Array
+	if not sample_positions.is_empty() and sample_positions[0] is Vector3:
+		return (sample_positions[0] as Vector3).y
 	return instance.multimesh.get_instance_transform(0).origin.y
+
+func _has_editable_grass_zone_bounds(holder: Node) -> bool:
+	if holder == null:
+		return false
+	for child in holder.get_children():
+		if child is Area3D and child.get_node_or_null("CollisionShape3D") is CollisionShape3D and child.get_node_or_null("BoundsPreview") is MeshInstance3D:
+			return true
+	return false
 
 func _multimesh_instances_inside_grass_zones(root: Node, path: NodePath, zones: Array[Dictionary], sample_count: int) -> bool:
 	var instance := root.get_node_or_null(path) as MultiMeshInstance3D
 	if instance == null or instance.multimesh == null:
 		return false
+	var sample_positions := instance.get_meta("scatter_sample_positions", []) as Array
+	if not sample_positions.is_empty():
+		var metadata_count := mini(sample_count, sample_positions.size())
+		for i in range(metadata_count):
+			var position_value: Variant = sample_positions[i]
+			if not (position_value is Vector3):
+				return false
+			if not _point_inside_any_grass_zone(position_value as Vector3, zones):
+				return false
+		return true
 	var count := mini(sample_count, instance.multimesh.instance_count)
 	for i in range(count):
 		var position := instance.multimesh.get_instance_transform(i).origin

@@ -66,7 +66,6 @@ size = Vector3(292, 1, 190)
 
 [node name="PlayroomEditableRoom" type="Node3D"]
 script = ExtResource("1_d6eni")
-preview_enabled = false
 ground_size = Vector2(292, 190)
 ground_y = -11.0
 road_y_offset = 0.0

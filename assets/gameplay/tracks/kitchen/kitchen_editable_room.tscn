@@ -16,8 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://bjxkpgd14261g" path="res://assets/source/kenney/furniture_kit/dryer.glb" id="14_452dl"]
 [ext_resource type="PackedScene" uid="uid://d3umjcvyugjak" path="res://assets/source/kenney/furniture_kit/bookcaseOpen.glb" id="15_j8sh0"]
 [ext_resource type="Script" uid="uid://dlvn2xhwjpnou" path="res://scripts/track/TrackAuthoringPreview.gd" id="16_authoring_preview"]
-[ext_resource type="Shader" path="res://assets/shaders/toon_water.gdshader" id="17_water_shader"]
-[ext_resource type="Script" path="res://scripts/effects/ApplianceRumbler.gd" id="18_rumbler"]
+[ext_resource type="Shader" uid="uid://ld6h4swupn0a" path="res://assets/shaders/toon_water.gdshader" id="17_water_shader"]
+[ext_resource type="Script" uid="uid://bwyyudn3ij34b" path="res://scripts/effects/ApplianceRumbler.gd" id="18_rumbler"]
 
 [sub_resource type="StandardMaterial3D" id="Material_floor"]
 albedo_texture = ExtResource("1_tile")
@@ -46,6 +46,7 @@ albedo_color = Color(0.05, 0.055, 0.06, 1)
 roughness = 0.5
 
 [sub_resource type="ShaderMaterial" id="Material_toon_water"]
+render_priority = 0
 shader = ExtResource("17_water_shader")
 shader_parameter/shallow_color = Color(0.28, 0.82, 1, 0.62)
 shader_parameter/deep_color = Color(0.03, 0.24, 0.78, 0.72)
@@ -60,11 +61,11 @@ size = Vector2(1, 1)
 
 [node name="KitchenEditableRoom" type="Node3D"]
 script = ExtResource("16_authoring_preview")
+preview_enabled = true
 ground_size = Vector2(292, 190)
 ground_y = -11.0
 road_y_offset = 0.0
 track_definition_path = "res://assets/gameplay/tracks/kitchen/kitchen_track_definition.tres"
-show_dressing_preview = false
 metadata_authoring_enabled = false
 road_preview_alpha = 0.8400000000000001
 wall_preview_alpha = 0.27
@@ -90,46 +91,46 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 12.241617, -85.70883)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.85509, 12.894434, -85.70883)
 
 [node name="RoutePoint06" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.45631, 6.1077642, -85.70883)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4807596, -9.950922, -85.70883)
 
 [node name="RoutePoint07" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1272974, -1.9644995, -85.70883)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.99332, -8.417533, -74.92921)
 
 [node name="RoutePoint08" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.716504, -6.161374, -57.53198)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.182924, -9.983532, -63.398342)
 
 [node name="RoutePoint09" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.460355, -10.108944, -46.092594)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.73631, -10.108946, -19.697704)
 
 [node name="RoutePoint10" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.221233, -6.504853, -46.092594)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5177383, -0.48364305, -3.872219)
 
 [node name="RoutePoint11" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.169563, -3.948133, -38.01741)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.143187, 4.3965545, -1.5360451)
 
 [node name="RoutePoint12" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.12224, 0.37240267, -27.28061)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.409092, 6.8087606, -33.477104)
 
 [node name="RoutePoint13" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.296074, 7.2236423, -24.082308)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.00403, 8.30903, -46.51426)
 
 [node name="RoutePoint14" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.1311913, 8.474676, -24.082308)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.581417, 8.474676, -51.973278)
 
 [node name="RoutePoint15" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.730042, 8.474676, -24.082308)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.23361588, 8.474676, -50.51812)
 
 [node name="RoutePoint16" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.228416, 8.474676, -12.368471)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.70866, 8.474676, -39.754616)
 
 [node name="RoutePoint17" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.228416, 8.474676, 4.6956463)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.95707, 8.474676, -1.7438984)
 
 [node name="RoutePoint18" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.342842, 4.0384636, 12.914992)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.80008, 3.979618, 12.691161)
 
 [node name="RoutePoint19" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2249966, 2.540289, 20.049862)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.880479, 2.5402899, 20.789263)
 
 [node name="RoutePoint20" type="Marker3D" parent="RoutePoints"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2249966, -5.806324, 47.377724)
@@ -192,31 +193,31 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 101.30292, 13.806042, 83.9892
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.85849, 13.806042, 68.45016)
 
 [node name="RoutePoint40" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.396362, 13.806042, 70.28459)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.396362, 13.571825, 70.28459)
 
 [node name="RoutePoint41" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.291189, 20.538137, 78.77325)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.291189, 13.488976, 78.77325)
 
 [node name="RoutePoint42" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.992697, 29.472034, 78.77325)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.352484, 15.122713, 75.226074)
 
 [node name="RoutePoint43" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.238945, 31.504574, 66.50322)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.238945, 18.286757, 68.5296)
 
 [node name="RoutePoint44" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.703743, 24.95271, 64.17682)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.590023, 14.766483, 60.367165)
 
 [node name="RoutePoint45" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59.354485, 19.766811, 64.17682)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53.33658, 12.701881, 59.356285)
 
 [node name="RoutePoint46" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -67.22784, 19.766811, 64.17682)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.645813, 11.424791, 68.00668)
 
 [node name="RoutePoint47" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -67.22784, 14.866234, 77.63354)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65.956665, 11.666315, 71.992386)
 
 [node name="RoutePoint48" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70.84045, 14.866234, 85.033035)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.451096, 12.056118, 82.74419)
 
 [node name="RoutePoint49" type="Marker3D" parent="RoutePoints"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81.055374, 10.971151, 85.033035)
@@ -505,12 +506,12 @@ transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -17.953598, -9.231991, -93
 [node name="WaterSurfaces" type="Node3D" parent="."]
 
 [node name="SinkWater" type="MeshInstance3D" parent="WaterSurfaces"]
-transform = Transform3D(38, 0, 0, 0, 1, 0, 0, 0, 14, -87.55, 4.35, 73.55)
+transform = Transform3D(38, 0, 0, 0, 1, 0, 0, 0, 14, -92.59528, 10.294958, 84.82991)
 material_override = SubResource("Material_toon_water")
 mesh = SubResource("PlaneMesh_water")
 
 [node name="WasherWater" type="MeshInstance3D" parent="WaterSurfaces"]
-transform = Transform3D(13.5, 0, 0, 0, 1, 0, 0, 0, 11.5, 77.47208, 16.2, -74.33963)
+transform = Transform3D(8.337667, 0, 0, 0, -4.371139e-08, -6.7815514, 0, 1, -2.9643104e-07, 87.07662, 1.1761613, -73.46675)
 material_override = SubResource("Material_toon_water")
 mesh = SubResource("PlaneMesh_water")
 

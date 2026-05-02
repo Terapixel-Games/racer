@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/source/meshy/playground_wooden_set/wooden_playground_set_static.glb" id="1_static"]
+[ext_resource type="Script" path="res://assets/gameplay/tracks/outdoor_playground/WoodenPlaygroundSwingAnimator.gd" id="2_swing"]
+[ext_resource type="PackedScene" path="res://assets/source/meshy/playground_wooden_set/wooden_playground_set_swing.glb" id="3_swing_mesh"]
+
+[node name="WoodenPlaygroundSetMeshy" type="Node3D"]
+script = ExtResource("2_swing")
+swing_pivot_path = NodePath("SwingPivot")
+
+[node name="MeshyPlaysetStatic" parent="." instance=ExtResource("1_static")]
+
+[node name="SwingPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.519024, 0.331708, -0.139802)
+
+[node name="MeshySwing" parent="SwingPivot" instance=ExtResource("3_swing_mesh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.519024, -0.331708, 0.139802)

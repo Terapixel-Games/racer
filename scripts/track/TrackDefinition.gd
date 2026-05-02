@@ -106,6 +106,7 @@ func to_metadata() -> Dictionary:
 		"out_of_bounds_y": out_of_bounds_y,
 		"reset_mode": reset_mode,
 		"floor_visual_y": floor_visual_y,
+		"ground_texture_path": ground_texture_path,
 		"ground_shader_path": ground_shader_path,
 		"rail_texture_path": rail_texture_path,
 		"rail_texture_uv_scale": rail_texture_uv_scale,

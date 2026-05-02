@@ -5,6 +5,9 @@ uniform vec4 base_color : source_color = vec4(0.24, 0.34, 0.14, 1.0);
 uniform vec4 bright_color : source_color = vec4(0.38, 0.50, 0.20, 1.0);
 uniform vec4 dry_color : source_color = vec4(0.50, 0.43, 0.25, 1.0);
 uniform vec4 soil_color : source_color = vec4(0.16, 0.12, 0.07, 1.0);
+uniform sampler2D floor_texture : source_color, filter_linear_mipmap, repeat_enable;
+uniform bool use_floor_texture = false;
+uniform float floor_texture_scale = 12.0;
 uniform float patch_scale = 24.0;
 uniform float blade_scale = 120.0;
 uniform float blade_strength = 0.18;
@@ -37,6 +40,10 @@ void fragment() {
 	vec3 color = mix(base_color.rgb, bright_color.rgb, patches * 0.45);
 	color = mix(color, dry_color.rgb, dry * 0.42);
 	color = mix(color, soil_color.rgb, soil * 0.18);
+	if (use_floor_texture) {
+		vec3 floor_color = texture(floor_texture, uv * floor_texture_scale).rgb;
+		color = mix(color, floor_color, 0.88);
+	}
 	color += blades * vec3(0.035, 0.055, 0.018);
 	ALBEDO = color;
 	ROUGHNESS = 0.98;

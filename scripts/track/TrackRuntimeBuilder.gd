@@ -102,6 +102,12 @@ static func _ground_material(definition: TrackDefinition) -> Material:
 			var shader_material := ShaderMaterial.new()
 			shader_material.shader = shader
 			shader_material.set_shader_parameter("base_color", definition.ground_color)
+			if not definition.ground_texture_path.is_empty():
+				var texture := load(definition.ground_texture_path)
+				if texture is Texture2D:
+					shader_material.set_shader_parameter("floor_texture", texture)
+					shader_material.set_shader_parameter("use_floor_texture", true)
+					shader_material.set_shader_parameter("floor_texture_scale", 12.0)
 			return shader_material
 		push_warning("Ground shader path is not a Shader: %s" % shader_path)
 	var material := StandardMaterial3D.new()
@@ -127,6 +133,7 @@ static func _build_playground_grass_blades(root: Node3D, definition: TrackDefini
 	var zones := _grass_scatter_zones(definition)
 	var zone_weights: Array[float] = []
 	var total_weight := 0.0
+	var sample_positions: Array[Vector3] = []
 	for zone in zones:
 		var size := _vector2_from_value(zone.get("size", Vector2.ZERO), Vector2.ZERO)
 		var density := maxf(float(zone.get("density", 1.0)), 0.0)
@@ -149,9 +156,12 @@ static func _build_playground_grass_blades(root: Node3D, definition: TrackDefini
 		var height_scale := rng.randf_range(2.8, 6.8)
 		var basis := Basis(Vector3.UP, yaw).scaled(Vector3(width_scale, height_scale, width_scale))
 		multimesh.set_instance_transform(i, Transform3D(basis, position))
+		if sample_positions.size() < 512:
+			sample_positions.append(position)
 	var blades := MultiMeshInstance3D.new()
 	blades.name = "PlaygroundGrassBlades"
 	blades.multimesh = multimesh
+	blades.set_meta("scatter_sample_positions", sample_positions)
 	blades.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	root.add_child(blades)
 

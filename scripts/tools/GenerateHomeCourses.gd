@@ -166,7 +166,7 @@ const COURSES := [
 		"root": "OutdoorPlaygroundEditableRoom",
 		"runtime": "OutdoorPlaygroundTrack",
 		"version": "outdoor_playground_v1_2026_05_01",
-		"ground_texture": "",
+		"ground_texture": "res://assets/gameplay/materials/playground/outdoor_playground_floor_albedo.png",
 		"ground_shader": PLAYGROUND_GRASS_SHADER,
 		"ground_color": Color(0.24, 0.34, 0.14, 1.0),
 		"sky": "clear_afternoon",
