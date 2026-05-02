@@ -130,6 +130,25 @@
 	"display_name": "Sandbox / Rexx",
 	"dressing_scene_path": "res://assets/gameplay/tracks/sandbox/sandbox_editable_room.tscn",
 	"floor_visual_y": -32.0,
+	"grass_zones": [
+		{
+			"density": 0.75,
+			"enabled": true,
+			"id": "sandbox_back_grass",
+			"position": [
+				0.0,
+				-8.5,
+				76.0
+			],
+			"size": [
+				240.0,
+				34.0
+			],
+			"yaw_degrees": 0.0
+		}
+	],
+	"ground_shader_path": "",
+	"ground_texture_path": "res://assets/gameplay/materials/sand/sandbox_sand_albedo.png",
 	"hazard_sockets": [
 		{
 			"position": [
@@ -530,6 +549,276 @@
 	],
 	"stage_props": [
 		{
+			"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
+			"audio_material_id": "wood",
+			"box_color": [
+				0.419999986886978,
+				0.310000002384186,
+				0.219999998807907,
+				1.0
+			],
+			"box_size": [
+				10.0,
+				11.0,
+				2.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "room_envelope",
+			"id": "SandboxFenceBackLeft",
+			"kind": "scene",
+			"position": [
+				-58.0,
+				-10.5,
+				90.0
+			],
+			"scale": [
+				40.0,
+				40.0,
+				40.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
+			"audio_material_id": "wood",
+			"box_color": [
+				0.419999986886978,
+				0.310000002384186,
+				0.219999998807907,
+				1.0
+			],
+			"box_size": [
+				10.0,
+				11.0,
+				2.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "room_envelope",
+			"id": "SandboxFenceBackRight",
+			"kind": "scene",
+			"position": [
+				58.0,
+				-10.5,
+				90.0
+			],
+			"scale": [
+				40.0,
+				40.0,
+				40.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
+			"audio_material_id": "wood",
+			"box_color": [
+				0.419999986886978,
+				0.310000002384186,
+				0.219999998807907,
+				1.0
+			],
+			"box_size": [
+				10.0,
+				11.0,
+				2.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "room_envelope",
+			"id": "SandboxFenceFrontLeft",
+			"kind": "scene",
+			"position": [
+				-58.0,
+				-10.5,
+				-90.0
+			],
+			"scale": [
+				40.0,
+				40.0,
+				40.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
+			"audio_material_id": "wood",
+			"box_color": [
+				0.419999986886978,
+				0.310000002384186,
+				0.219999998807907,
+				1.0
+			],
+			"box_size": [
+				10.0,
+				11.0,
+				2.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "room_envelope",
+			"id": "SandboxFenceFrontRight",
+			"kind": "scene",
+			"position": [
+				58.0,
+				-10.5,
+				-90.0
+			],
+			"scale": [
+				40.0,
+				40.0,
+				40.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
+			"audio_material_id": "wood",
+			"box_color": [
+				0.419999986886978,
+				0.310000002384186,
+				0.219999998807907,
+				1.0
+			],
+			"box_size": [
+				10.0,
+				11.0,
+				2.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "room_envelope",
+			"id": "SandboxFenceLeftBack",
+			"kind": "scene",
+			"position": [
+				-138.0,
+				-10.5,
+				36.0
+			],
+			"scale": [
+				40.0,
+				40.0,
+				40.0
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
+			"audio_material_id": "wood",
+			"box_color": [
+				0.419999986886978,
+				0.310000002384186,
+				0.219999998807907,
+				1.0
+			],
+			"box_size": [
+				10.0,
+				11.0,
+				2.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "room_envelope",
+			"id": "SandboxFenceLeftFront",
+			"kind": "scene",
+			"position": [
+				-138.0,
+				-10.5,
+				-36.0
+			],
+			"scale": [
+				40.0,
+				40.0,
+				40.0
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
+			"audio_material_id": "wood",
+			"box_color": [
+				0.419999986886978,
+				0.310000002384186,
+				0.219999998807907,
+				1.0
+			],
+			"box_size": [
+				10.0,
+				11.0,
+				2.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "room_envelope",
+			"id": "SandboxFenceRightBack",
+			"kind": "scene",
+			"position": [
+				138.0,
+				-10.5,
+				36.0
+			],
+			"scale": [
+				40.0,
+				40.0,
+				40.0
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
+			"audio_material_id": "wood",
+			"box_color": [
+				0.419999986886978,
+				0.310000002384186,
+				0.219999998807907,
+				1.0
+			],
+			"box_size": [
+				10.0,
+				11.0,
+				2.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "room_envelope",
+			"id": "SandboxFenceRightFront",
+			"kind": "scene",
+			"position": [
+				138.0,
+				-10.5,
+				-36.0
+			],
+			"scale": [
+				40.0,
+				40.0,
+				40.0
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"asset_path": "res://assets/source/meshy/playground_props/house.glb",
+			"audio_material_id": "wood",
+			"box_color": [
+				0.540000021457672,
+				0.360000014305115,
+				0.239999994635582,
+				1.0
+			],
+			"box_size": [
+				30.0,
+				26.0,
+				25.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "sandbox_landmark",
+			"id": "SandboxHouse",
+			"kind": "scene",
+			"position": [
+				74.0,
+				8.0,
+				-14.0
+			],
+			"scale": [
+				16.0,
+				16.0,
+				16.0
+			],
+			"yaw_degrees": -179.999984741211
+		},
+		{
 			"asset_path": "",
 			"audio_material_id": "wood",
 			"box_color": [
@@ -620,36 +909,6 @@
 			"yaw_degrees": 0.0
 		},
 		{
-			"asset_path": "res://assets/source/meshy/sandbox_props/trex_skeleton.glb",
-			"audio_material_id": "bone",
-			"box_color": [
-				0.779999971389771,
-				0.699999988079071,
-				0.579999983310699,
-				1.0
-			],
-			"box_size": [
-				18.0,
-				36.0,
-				36.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "sandbox_landmark",
-			"id": "TrexSkeleton",
-			"kind": "scene",
-			"position": [
-				-82.0,
-				8.0,
-				42.0
-			],
-			"scale": [
-				18.0,
-				18.0,
-				18.0
-			],
-			"yaw_degrees": 25.0
-		},
-		{
 			"asset_path": "",
 			"audio_material_id": "metal",
 			"box_color": [
@@ -708,6 +967,36 @@
 				1.0
 			],
 			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "res://assets/source/meshy/sandbox_props/trex_skeleton.glb",
+			"audio_material_id": "bone",
+			"box_color": [
+				0.779999971389771,
+				0.699999988079071,
+				0.579999983310699,
+				1.0
+			],
+			"box_size": [
+				18.0,
+				36.0,
+				36.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "sandbox_landmark",
+			"id": "TrexSkeleton",
+			"kind": "scene",
+			"position": [
+				-82.0,
+				8.0,
+				42.0
+			],
+			"scale": [
+				17.9963264465332,
+				18.0,
+				17.9963264465332
+			],
+			"yaw_degrees": 25.0027484893799
 		}
 	],
 	"surface_segments": [
