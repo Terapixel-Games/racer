@@ -356,6 +356,17 @@ box_color = Color(0.95, 0.72, 0.18, 1)
 audio_material_id = "plastic"
 gameplay_tag = "sandbox_landmark"
 
+[node name="TrexSkeleton" type="Node3D" parent="Dressing"]
+transform = Transform3D(16.309845, 0, 7.6063585, 0, 18, 0, -7.6063585, 0, 16.309845, -82, 8, 42)
+script = ExtResource("3_4e70i")
+prop_kind = "scene"
+prop_id = "TrexSkeleton"
+asset_path = "res://assets/source/meshy/sandbox_props/trex_skeleton.glb"
+box_size = Vector3(18, 36, 36)
+box_color = Color(0.78, 0.7, 0.58, 1)
+audio_material_id = "bone"
+gameplay_tag = "sandbox_landmark"
+
 [node name="SandCastleTrench" type="Node3D" parent="Dressing"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, -10, 10)
 script = ExtResource("3_4e70i")

@@ -620,6 +620,36 @@
 			"yaw_degrees": 0.0
 		},
 		{
+			"asset_path": "res://assets/source/meshy/sandbox_props/trex_skeleton.glb",
+			"audio_material_id": "bone",
+			"box_color": [
+				0.779999971389771,
+				0.699999988079071,
+				0.579999983310699,
+				1.0
+			],
+			"box_size": [
+				18.0,
+				36.0,
+				36.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "sandbox_landmark",
+			"id": "TrexSkeleton",
+			"kind": "scene",
+			"position": [
+				-82.0,
+				8.0,
+				42.0
+			],
+			"scale": [
+				18.0,
+				18.0,
+				18.0
+			],
+			"yaw_degrees": 25.0
+		},
+		{
 			"asset_path": "",
 			"audio_material_id": "metal",
 			"box_color": [

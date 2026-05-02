@@ -67,6 +67,18 @@ stage_props = Array[Dictionary]([{
 "scale": Vector3(1, 1, 1),
 "yaw_degrees": 0.0
 }, {
+"asset_path": "res://assets/source/meshy/sandbox_props/trex_skeleton.glb",
+"audio_material_id": "bone",
+"box_color": Color(0.78, 0.7, 0.58, 1),
+"box_size": Vector3(18, 36, 36),
+"collision_mode": "visual",
+"gameplay_tag": "sandbox_landmark",
+"id": "TrexSkeleton",
+"kind": "scene",
+"position": Vector3(-82, 8, 42),
+"scale": Vector3(18, 18, 18),
+"yaw_degrees": 25.0
+}, {
 "asset_path": "",
 "audio_material_id": "sand",
 "box_color": Color(0.66, 0.48, 0.27, 1),
