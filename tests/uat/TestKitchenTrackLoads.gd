@@ -134,6 +134,29 @@ func test_kitchen_authoring_scene_builds_editor_preview() -> void:
 	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewDressingLayout/DressingLabels/EditableRoom_Label") == null, "Authoring preview should not label dressing ghosts")
 	instance.queue_free()
 
+func test_kitchen_authoring_preview_follows_moved_route_holder() -> void:
+	var packed := load("res://assets/gameplay/tracks/kitchen/kitchen_authoring.tscn")
+	assert_true(packed is PackedScene, "Kitchen authoring scene should load")
+	var instance := (packed as PackedScene).instantiate()
+	scene_tree.root.add_child(instance)
+	var holder := instance.get_node_or_null("RoutePoints") as Node3D
+	var marker := instance.get_node_or_null("RoutePoints/RoutePoint00") as Marker3D
+	assert_true(holder != null and marker != null, "Kitchen authoring scene should expose route point markers")
+	if holder == null or marker == null:
+		instance.queue_free()
+		return
+	holder.position += Vector3(11.0, 0.0, -7.0)
+	var expected := (instance as Node3D).to_local(marker.global_position)
+	instance.set("preview_enabled", true)
+	instance.call("refresh_preview")
+	var road := instance.get_node_or_null("EditorTrackPreview/PreviewRoad")
+	assert_true(road != null, "Authoring preview should create road geometry")
+	var points := road.get("points") as Array
+	assert_true(points.size() > 0, "Preview road should expose generated points")
+	if points.size() > 0:
+		assert_true((points[0] as Vector3).distance_to(expected) < 0.01, "Preview road should include route holder transforms")
+	instance.queue_free()
+
 func test_outdoor_playground_runtime_uses_grass_shader() -> void:
 	var definition := TrackSceneAuthoringData.apply_to_definition(TrackCatalog.get_definition("outdoor_playground"))
 	assert_true(definition != null, "Outdoor Playground definition should load")

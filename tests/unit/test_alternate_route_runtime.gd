@@ -92,6 +92,41 @@ func test_runtime_uses_route_points_from_editable_scene() -> void:
 	if FileAccess.file_exists(TMP_SCENE_PATH):
 		DirAccess.remove_absolute(ProjectSettings.globalize_path(TMP_SCENE_PATH))
 
+func test_runtime_uses_route_points_when_holder_is_moved() -> void:
+	var definition := (TrackCatalog.get_definition("kitchen") as TrackDefinition).duplicate(true) as TrackDefinition
+	var packed := load(definition.dressing_scene_path) as PackedScene
+	assert_true(packed != null, "Kitchen editable scene should load")
+	var scene_root := packed.instantiate() as Node3D
+	scene_tree.root.add_child(scene_root)
+	var holder := scene_root.get_node_or_null("RoutePoints") as Node3D
+	var marker := scene_root.get_node_or_null("RoutePoints/RoutePoint00") as Marker3D
+	assert_true(holder != null and marker != null, "Editable scene should expose a movable route point holder")
+	if holder == null or marker == null:
+		scene_root.queue_free()
+		return
+	holder.position += Vector3(9.0, 0.0, 4.0)
+	var expected := scene_root.to_local(marker.global_position)
+	var temp_scene := PackedScene.new()
+	var save_error := temp_scene.pack(scene_root)
+	assert_equal(save_error, OK, "Temporary scene should pack")
+	if save_error == OK:
+		save_error = ResourceSaver.save(temp_scene, TMP_SCENE_PATH)
+	assert_equal(save_error, OK, "Temporary scene should save")
+	scene_root.queue_free()
+	if save_error != OK:
+		return
+	definition.dressing_scene_path = TMP_SCENE_PATH
+	var built := TrackRuntimeBuilder.build(definition)
+	var waypoints := built.get("waypoints", []) as Array
+	assert_true(waypoints.size() > 0, "Runtime should build waypoints from scene-sourced route")
+	if waypoints.size() > 0:
+		assert_true((waypoints[0] as Vector3).distance_to(expected) < 0.01, "Runtime route should include route holder transforms")
+	var track := built.get("node", null) as Node3D
+	if track != null:
+		track.queue_free()
+	if FileAccess.file_exists(TMP_SCENE_PATH):
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(TMP_SCENE_PATH))
+
 func _branch_definition() -> TrackDefinition:
 	var definition := TrackDefinition.new()
 	definition.id = "branch_test"

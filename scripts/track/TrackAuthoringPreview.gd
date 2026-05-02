@@ -521,7 +521,7 @@ func _collect_marker_positions(source_holder_name: String, y_offset: float = 0.0
 	if source == null:
 		return out
 	for marker in _sorted_marker_children(source):
-		var point := (marker as Marker3D).position
+		var point := _root_space_position(marker as Node3D)
 		point.y += y_offset
 		out.append(point)
 	return out
@@ -559,7 +559,8 @@ func _collect_socket_markers(holder_name: String) -> Array[Vector4]:
 		return sockets
 	for marker in _sorted_marker_children(holder):
 		var marker_3d := marker as Marker3D
-		sockets.append(Vector4(marker_3d.position.x, marker_3d.position.y, marker_3d.position.z, marker_3d.rotation_degrees.y))
+		var position := _root_space_position(marker_3d)
+		sockets.append(Vector4(position.x, position.y, position.z, _root_space_yaw(marker_3d)))
 	return sockets
 
 func _collect_checkpoint_indices(route_points: Array[Vector3]) -> Array[int]:
@@ -568,7 +569,7 @@ func _collect_checkpoint_indices(route_points: Array[Vector3]) -> Array[int]:
 	if holder == null:
 		return indices
 	for marker in _sorted_marker_children(holder):
-		indices.append(_nearest_route_index((marker as Marker3D).position, route_points))
+		indices.append(_nearest_route_index(_root_space_position(marker as Node3D), route_points))
 	return indices
 
 func _collect_lap_gate_checkpoint_index() -> int:
@@ -593,12 +594,14 @@ func _collect_shortcut_gates(existing_gates: Array[Dictionary]) -> Array[Diction
 			var id := name.trim_suffix("_Entry")
 			if not by_id.has(id):
 				by_id[id] = {}
-			by_id[id]["entry"] = [marker_3d.position.x, marker_3d.position.y, marker_3d.position.z]
+			var entry_position := _root_space_position(marker_3d)
+			by_id[id]["entry"] = [entry_position.x, entry_position.y, entry_position.z]
 		elif name.ends_with("_Exit"):
 			var id := name.trim_suffix("_Exit")
 			if not by_id.has(id):
 				by_id[id] = {}
-			by_id[id]["exit"] = [marker_3d.position.x, marker_3d.position.y, marker_3d.position.z]
+			var exit_position := _root_space_position(marker_3d)
+			by_id[id]["exit"] = [exit_position.x, exit_position.y, exit_position.z]
 	var gates: Array[Dictionary] = []
 	for id in by_id.keys():
 		var previous := _find_shortcut_gate(existing_gates, str(id))
@@ -627,7 +630,7 @@ func _collect_alternate_routes(existing_routes: Array[Dictionary]) -> Array[Dict
 		var previous := _find_alternate_route(existing_routes, id)
 		var points: Array[Vector3] = []
 		for marker in _sorted_marker_children(route_node):
-			points.append((marker as Marker3D).position)
+			points.append(_root_space_position(marker as Node3D))
 		routes.append({
 			"id": id,
 			"points": points,
@@ -817,9 +820,10 @@ func _collect_dressing_overrides(existing_overrides: Dictionary) -> Dictionary:
 		return overrides
 	for marker in _sorted_marker_children(holder):
 		var marker_3d := marker as Marker3D
+		var position := _root_space_position(marker_3d)
 		overrides[str(marker_3d.name)] = {
-			"position": [marker_3d.position.x, marker_3d.position.y, marker_3d.position.z],
-			"yaw_degrees": marker_3d.rotation_degrees.y,
+			"position": [position.x, position.y, position.z],
+			"yaw_degrees": _root_space_yaw(marker_3d),
 			"scale": [marker_3d.scale.x, marker_3d.scale.y, marker_3d.scale.z],
 		}
 	return overrides
@@ -972,19 +976,50 @@ func _preview_signature() -> String:
 		var source := get_node_or_null(holder_name)
 		if source == null:
 			continue
+		if source is Node3D:
+			var holder_3d := source as Node3D
+			var holder_position := _root_space_position(holder_3d)
+			parts.append("%s_transform:%0.3f,%0.3f,%0.3f:%0.3f:%0.3f,%0.3f,%0.3f" % [
+				holder_name,
+				holder_position.x,
+				holder_position.y,
+				holder_position.z,
+				_root_space_yaw(holder_3d),
+				holder_3d.global_transform.basis.get_scale().x,
+				holder_3d.global_transform.basis.get_scale().y,
+				holder_3d.global_transform.basis.get_scale().z,
+			])
 		for node in _sorted_node3d_children(source):
 			var node_3d := node as Node3D
+			var position := _root_space_position(node_3d)
 			parts.append("%s:%0.3f,%0.3f,%0.3f:%0.3f:%0.3f,%0.3f,%0.3f" % [
 				node_3d.name,
-				node_3d.position.x,
-				node_3d.position.y,
-				node_3d.position.z,
-				node_3d.rotation_degrees.y,
-				node_3d.scale.x,
-				node_3d.scale.y,
-				node_3d.scale.z,
+				position.x,
+				position.y,
+				position.z,
+				_root_space_yaw(node_3d),
+				node_3d.global_transform.basis.get_scale().x,
+				node_3d.global_transform.basis.get_scale().y,
+				node_3d.global_transform.basis.get_scale().z,
 			])
 	return "|".join(parts)
+
+func _root_space_position(node: Node3D) -> Vector3:
+	if node == self:
+		return Vector3.ZERO
+	return _root_space_transform(node).origin
+
+func _root_space_yaw(node: Node3D) -> float:
+	return rad_to_deg(_root_space_transform(node).basis.get_euler().y)
+
+func _root_space_transform(node: Node3D) -> Transform3D:
+	var transform := Transform3D.IDENTITY
+	var current: Node = node
+	while current != null and current != self:
+		if current is Node3D:
+			transform = (current as Node3D).transform * transform
+		current = current.get_parent()
+	return transform
 
 func _queue_preview_refresh() -> void:
 	if not is_inside_tree():
@@ -1037,7 +1072,8 @@ func _add_audio_zone_previews(parent: Node3D) -> void:
 		sphere.height = radius * 2.0
 		mesh.mesh = sphere
 		mesh.material_override = _material(Color(0.25, 0.55, 1.0, 0.14), true)
-		mesh.position = marker_3d.position
+		var position := _root_space_position(marker_3d)
+		mesh.position = position
 		group.add_child(mesh)
 		if show_marker_labels:
-			_add_label(group, "%s_Label" % marker_3d.name, _marker_label_text(marker_3d.name, marker_3d.position), marker_3d.position + Vector3.UP * (radius + 1.0), Color(0.4, 0.72, 1.0, 1.0))
+			_add_label(group, "%s_Label" % marker_3d.name, _marker_label_text(marker_3d.name, position), position + Vector3.UP * (radius + 1.0), Color(0.4, 0.72, 1.0, 1.0))

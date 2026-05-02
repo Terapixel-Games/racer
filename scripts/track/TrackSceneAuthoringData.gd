@@ -56,35 +56,36 @@ static func _apply_scene_markers(definition: TrackDefinition, scene_root: Node3D
 	if not grass_zones.is_empty():
 		definition.grass_zones = grass_zones
 
-static func _collect_marker_positions(root: Node, holder_name: String) -> Array[Vector3]:
+static func _collect_marker_positions(root: Node3D, holder_name: String) -> Array[Vector3]:
 	var out: Array[Vector3] = []
 	var holder := root.get_node_or_null(holder_name)
 	if holder == null:
 		return out
 	for marker in _sorted_marker_children(holder):
-		out.append((marker as Marker3D).position)
+		out.append(_root_space_position(root, marker as Node3D))
 	return out
 
-static func _collect_socket_markers(root: Node, holder_name: String) -> Array[Vector4]:
+static func _collect_socket_markers(root: Node3D, holder_name: String) -> Array[Vector4]:
 	var sockets: Array[Vector4] = []
 	var holder := root.get_node_or_null(holder_name)
 	if holder == null:
 		return sockets
 	for marker in _sorted_marker_children(holder):
 		var marker_3d := marker as Marker3D
-		sockets.append(Vector4(marker_3d.position.x, marker_3d.position.y, marker_3d.position.z, marker_3d.rotation_degrees.y))
+		var position := _root_space_position(root, marker_3d)
+		sockets.append(Vector4(position.x, position.y, position.z, _root_space_yaw(root, marker_3d)))
 	return sockets
 
-static func _collect_checkpoint_indices(root: Node, route_points: Array[Vector3]) -> Array[int]:
+static func _collect_checkpoint_indices(root: Node3D, route_points: Array[Vector3]) -> Array[int]:
 	var indices: Array[int] = []
 	var holder := root.get_node_or_null("Checkpoints")
 	if holder == null:
 		return indices
 	for marker in _sorted_marker_children(holder):
-		indices.append(_nearest_route_index((marker as Marker3D).position, route_points))
+		indices.append(_nearest_route_index(_root_space_position(root, marker as Node3D), route_points))
 	return indices
 
-static func _collect_lap_gate_checkpoint_index(root: Node) -> int:
+static func _collect_lap_gate_checkpoint_index(root: Node3D) -> int:
 	var holder := root.get_node_or_null("Checkpoints")
 	if holder == null:
 		return 0
@@ -94,7 +95,7 @@ static func _collect_lap_gate_checkpoint_index(root: Node) -> int:
 			return i
 	return 0
 
-static func _collect_shortcut_gates(root: Node, existing_gates: Array[Dictionary]) -> Array[Dictionary]:
+static func _collect_shortcut_gates(root: Node3D, existing_gates: Array[Dictionary]) -> Array[Dictionary]:
 	var holder := root.get_node_or_null("ShortcutGates")
 	if holder == null:
 		return []
@@ -106,12 +107,14 @@ static func _collect_shortcut_gates(root: Node, existing_gates: Array[Dictionary
 			var id := name.trim_suffix("_Entry")
 			if not by_id.has(id):
 				by_id[id] = {}
-			by_id[id]["entry"] = [marker_3d.position.x, marker_3d.position.y, marker_3d.position.z]
+			var entry_position := _root_space_position(root, marker_3d)
+			by_id[id]["entry"] = [entry_position.x, entry_position.y, entry_position.z]
 		elif name.ends_with("_Exit"):
 			var id := name.trim_suffix("_Exit")
 			if not by_id.has(id):
 				by_id[id] = {}
-			by_id[id]["exit"] = [marker_3d.position.x, marker_3d.position.y, marker_3d.position.z]
+			var exit_position := _root_space_position(root, marker_3d)
+			by_id[id]["exit"] = [exit_position.x, exit_position.y, exit_position.z]
 	var gates: Array[Dictionary] = []
 	for id in by_id.keys():
 		var previous := _find_by_id(existing_gates, str(id))
@@ -124,7 +127,7 @@ static func _collect_shortcut_gates(root: Node, existing_gates: Array[Dictionary
 			gates.append(gate)
 	return gates
 
-static func _collect_alternate_routes(root: Node, existing_routes: Array[Dictionary]) -> Array[Dictionary]:
+static func _collect_alternate_routes(root: Node3D, existing_routes: Array[Dictionary]) -> Array[Dictionary]:
 	var holder := root.get_node_or_null("AlternateRoutes")
 	if holder == null:
 		return []
@@ -134,7 +137,7 @@ static func _collect_alternate_routes(root: Node, existing_routes: Array[Diction
 		var previous := _find_by_id(existing_routes, id)
 		var points: Array[Vector3] = []
 		for marker in _sorted_marker_children(route_node):
-			points.append((marker as Marker3D).position)
+			points.append(_root_space_position(root, marker as Node3D))
 		routes.append({
 			"id": id,
 			"points": points,
@@ -298,3 +301,20 @@ static func _sorted_node3d_children(source: Node) -> Array[Node]:
 		return str(a.name).naturalnocasecmp_to(str(b.name)) < 0
 	)
 	return nodes
+
+static func _root_space_position(root: Node3D, node: Node3D) -> Vector3:
+	if node == root:
+		return Vector3.ZERO
+	return _root_space_transform(root, node).origin
+
+static func _root_space_yaw(root: Node3D, node: Node3D) -> float:
+	return rad_to_deg(_root_space_transform(root, node).basis.get_euler().y)
+
+static func _root_space_transform(root: Node3D, node: Node3D) -> Transform3D:
+	var transform := Transform3D.IDENTITY
+	var current: Node = node
+	while current != null and current != root:
+		if current is Node3D:
+			transform = (current as Node3D).transform * transform
+		current = current.get_parent()
+	return transform
