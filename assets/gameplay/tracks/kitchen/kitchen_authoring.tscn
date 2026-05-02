@@ -423,6 +423,17 @@ box_color = Color(0.88, 0.8, 0.68, 1)
 audio_material_id = "stone"
 gameplay_tag = "countertop"
 
+[node name="SunnyPan" type="Node3D" parent="Dressing"]
+transform = Transform3D(10.392304, 0, 6, 0, 12, 0, -6, 0, 10.392304, 18, 5.2, -42)
+script = ExtResource("2")
+prop_kind = "scene"
+prop_id = "SunnyPan"
+asset_path = "res://assets/source/meshy/kitchen_props/sunny_pan.glb"
+box_size = Vector3(16, 5, 24)
+box_color = Color(0.95, 0.72, 0.18, 1)
+audio_material_id = "metal"
+gameplay_tag = "kitchen_landmark"
+
 [node name="SurfaceSegments" type="Node3D" parent="."]
 
 [node name="CountertopMain" type="Marker3D" parent="SurfaceSegments"]
