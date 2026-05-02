@@ -7,7 +7,7 @@
 			"id": "attic",
 			"metadata_path": "res://assets/gameplay/tracks/attic/attic_track_metadata.json",
 			"scene_path": "res://assets/gameplay/tracks/attic/attic_track.tscn",
-			"version": "attic_toybox_v1_2026_05_02"
+			"version": "attic_v1_2026_05_01"
 		},
 		"bedroom": {
 			"definition_path": "res://assets/gameplay/tracks/bedroom/bedroom_track_definition.tres",
@@ -15,7 +15,7 @@
 			"id": "bedroom",
 			"metadata_path": "res://assets/gameplay/tracks/bedroom/bedroom_track_metadata.json",
 			"scene_path": "res://assets/gameplay/tracks/bedroom/bedroom_track.tscn",
-			"version": "bedroom_toybox_v1_2026_05_02"
+			"version": "bedroom_v1_2026_05_01"
 		},
 		"garden": {
 			"definition_path": "res://assets/gameplay/tracks/garden/garden_track_definition.tres",
@@ -23,7 +23,7 @@
 			"id": "garden",
 			"metadata_path": "res://assets/gameplay/tracks/garden/garden_track_metadata.json",
 			"scene_path": "res://assets/gameplay/tracks/garden/garden_track.tscn",
-			"version": "garden_toybox_v1_2026_05_02"
+			"version": "garden_v1_2026_05_01"
 		},
 		"glam_closet": {
 			"definition_path": "res://assets/gameplay/tracks/glam_closet/glam_closet_track_definition.tres",
@@ -31,7 +31,7 @@
 			"id": "glam_closet",
 			"metadata_path": "res://assets/gameplay/tracks/glam_closet/glam_closet_track_metadata.json",
 			"scene_path": "res://assets/gameplay/tracks/glam_closet/glam_closet_track.tscn",
-			"version": "glam_closet_toybox_v1_2026_05_02"
+			"version": "glam_closet_v1_2026_05_01"
 		},
 		"kitchen": {
 			"definition_path": "res://assets/gameplay/tracks/kitchen/kitchen_track_definition.tres",
@@ -39,7 +39,7 @@
 			"id": "kitchen",
 			"metadata_path": "res://assets/gameplay/tracks/kitchen/kitchen_track_metadata.json",
 			"scene_path": "res://assets/gameplay/tracks/kitchen/kitchen_track.tscn",
-			"version": "kitchen_toybox_v1_2026_05_02"
+			"version": "kitchen_v2_2026_04_29"
 		},
 		"outdoor_playground": {
 			"definition_path": "res://assets/gameplay/tracks/outdoor_playground/outdoor_playground_track_definition.tres",
@@ -47,7 +47,7 @@
 			"id": "outdoor_playground",
 			"metadata_path": "res://assets/gameplay/tracks/outdoor_playground/outdoor_playground_track_metadata.json",
 			"scene_path": "res://assets/gameplay/tracks/outdoor_playground/outdoor_playground_track.tscn",
-			"version": "outdoor_playground_toybox_v1_2026_05_02"
+			"version": "outdoor_playground_v1_2026_05_01"
 		},
 		"playroom": {
 			"definition_path": "res://assets/gameplay/tracks/playroom/playroom_track_definition.tres",
@@ -55,7 +55,7 @@
 			"id": "playroom",
 			"metadata_path": "res://assets/gameplay/tracks/playroom/playroom_track_metadata.json",
 			"scene_path": "res://assets/gameplay/tracks/playroom/playroom_track.tscn",
-			"version": "playroom_toybox_v1_2026_05_02"
+			"version": "playroom_v1_2026_05_01"
 		},
 		"sandbox": {
 			"definition_path": "res://assets/gameplay/tracks/sandbox/sandbox_track_definition.tres",
@@ -63,7 +63,7 @@
 			"id": "sandbox",
 			"metadata_path": "res://assets/gameplay/tracks/sandbox/sandbox_track_metadata.json",
 			"scene_path": "res://assets/gameplay/tracks/sandbox/sandbox_track.tscn",
-			"version": "sandbox_toybox_v1_2026_05_02"
+			"version": "sandbox_v1_2026_05_01"
 		}
 	}
 }

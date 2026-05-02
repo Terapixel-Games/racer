@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3]
-
-[ext_resource type="Script" path="res://scripts/track/TrackRuntimeScene.gd" id="1_eo0kx"]
-[ext_resource type="Resource" path="res://assets/gameplay/tracks/garden/garden_track_definition.tres" id="2_b7bql"]
-
-[node name="GardenTrack" type="Node3D"]
-script = ExtResource("1_eo0kx")
-definition = ExtResource("2_b7bql")

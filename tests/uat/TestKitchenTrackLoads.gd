@@ -5,134 +5,205 @@ const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd"
 const TrackSceneAuthoringData = preload("res://scripts/track/TrackSceneAuthoringData.gd")
 const RaceController = preload("res://scripts/RaceController.gd")
 const OutOfBoundsRules = preload("res://scripts/logic/OutOfBoundsRules.gd")
-
-const ACTIVE_TRACK_IDS := [
-	"kitchen",
-	"bedroom",
-	"sandbox",
-	"garden",
-	"glam_closet",
-	"outdoor_playground",
-	"playroom",
-	"attic",
-]
-const BACKYARD_TRACK_IDS := ["sandbox", "garden", "outdoor_playground"]
-const SIGNATURE_EFFECTS := {
-	"kitchen": "SinkSplashZone",
-	"bedroom": "LampBeaconZone",
-	"sandbox": "SandBurstZone",
-	"garden": "HoseSplashZone",
-	"glam_closet": "PerfumeMistZone",
-	"outdoor_playground": "SwingGateEffect",
-	"playroom": "MarbleMachineEffect",
-	"attic": "PrankTriggerZone",
-}
 const OUTDOOR_GRASS_SHADER := "res://assets/gameplay/materials/grass/playground_grass.gdshader"
 const OUTDOOR_GRASS_BLADE_SHADER := "res://assets/gameplay/materials/grass/playground_grass_blades.gdshader"
+const OUTDOOR_PLAYGROUND_FLOOR_TEXTURE := "res://assets/gameplay/materials/playground/outdoor_playground_floor_albedo.png"
 
-func test_toybox_track_scenes_load_with_runtime_nodes() -> void:
-	for track_id in ACTIVE_TRACK_IDS:
-		var packed := load(TrackCatalog.get_scene_path(track_id))
-		assert_true(packed is PackedScene, "%s track scene should load" % track_id)
-		var instance := (packed as PackedScene).instantiate()
-		scene_tree.root.add_child(instance)
-		var built_track := instance.get_node_or_null("BuiltTrack")
-		assert_true(built_track != null, "%s track scene should build runtime track" % track_id)
-		assert_true(instance.get_node_or_null("BuiltTrack/Road") != null, "%s track should include generated road" % track_id)
-		assert_true(instance.get_node_or_null("BuiltTrack/TrackBody") != null, "%s track should include a raised visual track body" % track_id)
-		assert_true(instance.get_node_or_null("BuiltTrack/Rails") != null, "%s track should include generated route rails" % track_id)
-		assert_true(instance.get_node_or_null("BuiltTrack/CheckpointSystem") != null, "%s track should include checkpoint system" % track_id)
-		assert_true(instance.get_node_or_null("BuiltTrack/SpawnPoints") != null, "%s track should include spawn points" % track_id)
-		assert_true(instance.get_node_or_null("BuiltTrack/ItemSockets") != null, "%s track should include item sockets" % track_id)
-		assert_true(instance.get_node_or_null("BuiltTrack/HazardSockets") != null, "%s track should include hazard sockets" % track_id)
-		assert_true(instance.get_node_or_null("BuiltTrack/ShortcutGates") != null, "%s track should include shortcut gates" % track_id)
-		assert_true(instance.get_node_or_null("BuiltTrack/SurfaceSegments") != null, "%s track should include surface segment markers" % track_id)
-		assert_true(instance.get_node_or_null("BuiltTrack/AudioZones/%s" % SIGNATURE_EFFECTS[track_id]) != null, "%s track should include its signature effect audio zone" % track_id)
-		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom") != null, "%s track should include the editable room scene" % track_id)
-		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoutePoints/RoutePoint00") != null, "%s editable room should expose route points" % track_id)
-		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/SpawnPoints/Start01") != null, "%s editable room should expose spawn points" % track_id)
-		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/SignatureEffects/%s" % SIGNATURE_EFFECTS[track_id]) != null, "%s editable room should expose its signature effect hook" % track_id)
-		assert_equal(_enabled_collision_objects(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom")), 0, "%s editable dressing should not collide with the kart" % track_id)
-		if BACKYARD_TRACK_IDS.has(track_id):
-			assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/SharedBackyardBase") != null, "%s should include shared backyard dressing" % track_id)
-			assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/SharedBackyardBase/VisibleCourseTerritories/SandboxTerritory") != null, "%s should show sandbox territory" % track_id)
-			assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/SharedBackyardBase/VisibleCourseTerritories/GardenTerritory") != null, "%s should show garden territory" % track_id)
-			assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/SharedBackyardBase/VisibleCourseTerritories/PlaygroundTerritory") != null, "%s should show playground territory" % track_id)
-			assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/SharedBackyardBase/RoutePoints") == null, "%s shared backyard base should not contain active route markers" % track_id)
+func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
+	var packed := load("res://assets/gameplay/tracks/kitchen/kitchen_track.tscn")
+	assert_true(packed is PackedScene, "Kitchen track scene should load")
+	var instance := (packed as PackedScene).instantiate()
+	scene_tree.root.add_child(instance)
+	var built_track := instance.get_node_or_null("BuiltTrack")
+	assert_true(built_track != null, "Kitchen track scene should build runtime track")
+	assert_true(instance.get_node_or_null("BuiltTrack/Road") != null, "Kitchen track should include generated road")
+	assert_equal(_node_count_by_type(built_track, "WorldEnvironment"), 1, "Kitchen runtime should build exactly one WorldEnvironment")
+	var world_environment := instance.get_node_or_null("BuiltTrack/WorldEnvironment") as WorldEnvironment
+	assert_true(world_environment != null, "Kitchen track should include a world environment")
+	if world_environment != null:
+		assert_true(world_environment.environment != null, "Kitchen world environment should own an Environment resource")
+		if world_environment.environment != null:
+			assert_true(world_environment.environment.sky != null, "Kitchen world environment should include a sky")
+			if world_environment.environment.sky != null:
+				assert_true(world_environment.environment.sky.sky_material is ShaderMaterial, "Kitchen sky should use the stage sky shader material")
+	assert_true(instance.get_node_or_null("BuiltTrack/SunLight") is DirectionalLight3D, "Kitchen runtime should include the stage directional light")
+	var road_shape_node := instance.get_node_or_null("BuiltTrack/Road/CollisionBody/CollisionShape3D") as CollisionShape3D
+	assert_true(road_shape_node != null, "Kitchen road should include collision shape")
+	if road_shape_node != null:
+		assert_true(road_shape_node.shape is ConcavePolygonShape3D, "Kitchen road should use generated mesh collision")
+		if road_shape_node.shape is ConcavePolygonShape3D:
+			assert_true((road_shape_node.shape as ConcavePolygonShape3D).backface_collision, "Kitchen road collision should be visible to camera probes from underneath")
+	assert_true(instance.get_node_or_null("BuiltTrack/TrackBody") != null, "Kitchen track should include a raised visual track body")
+	assert_true(instance.get_node_or_null("BuiltTrack/Rails") != null, "Kitchen track should include generated route rails")
+	assert_true(_child_count(instance.get_node_or_null("BuiltTrack/Rails")) > 0, "Kitchen route rails should instantiate rail asset pieces")
+	assert_true(_enabled_collision_objects(instance.get_node_or_null("BuiltTrack/Rails")) > 0, "Kitchen generated rails should be collidable")
+	assert_equal(_first_material_texture_path(instance.get_node_or_null("BuiltTrack/Rails")), "res://assets/gameplay/materials/metal/toy_metal_albedo.png", "Kitchen generated rails should use the stage metal material")
+	assert_true(absf(_first_material_uv_scale(instance.get_node_or_null("BuiltTrack/Rails")) - 0.5) <= 0.01, "Kitchen generated rails should use the stage rail texture UV scale")
+	assert_true(instance.get_node_or_null("BuiltTrack/Walls") == null, "Kitchen track should not auto-generate route walls while guard segments are being authored")
+	assert_true(instance.get_node_or_null("BuiltTrack/CheckpointSystem") != null, "Kitchen track should include checkpoint system")
+	assert_true(instance.get_node_or_null("BuiltTrack/SpawnPoints") != null, "Kitchen track should include spawn points")
+	assert_true(instance.get_node_or_null("BuiltTrack/ItemSockets") != null, "Kitchen track should include item sockets")
+	assert_true(instance.get_node_or_null("BuiltTrack/HazardSockets") != null, "Kitchen track should include hazard sockets")
+	assert_true(instance.get_node_or_null("BuiltTrack/ShortcutGates") != null, "Kitchen track should include shortcut gates")
+	assert_true(instance.get_node_or_null("BuiltTrack/ShortcutSurface") == null, "Kitchen table jump surface should stay disabled while it blocks the main path")
+	assert_true(instance.get_node_or_null("BuiltTrack/SurfaceSegments/FridgeTop") != null, "Kitchen track should include surface segment metadata markers")
+	assert_true(instance.get_node_or_null("BuiltTrack/AudioZones/SinkSplashZone") != null, "Kitchen track should include authored audio zone markers")
+	assert_true(instance.get_node_or_null("BuiltTrack/AudioZones/StoveSizzleZone") != null, "Kitchen track should include stove sizzle audio zone markers")
+	assert_true(instance.get_node_or_null("BuiltTrack/SectionMarkers/SinkChicane") != null, "Kitchen track should include named layout section markers")
+	assert_true(instance.get_node_or_null("BuiltTrack/SectionMarkers/FridgeTopRun") != null, "Kitchen track should include the fridge-top route section marker")
+	assert_true(instance.get_node_or_null("BuiltTrack/FloorVisual") != null, "Kitchen track should include a non-colliding floor visual below the counter")
+	assert_true(instance.get_node_or_null("BuiltTrack/FloorTileGrid") != null, "Kitchen floor should include visible tile grid lines for room scale")
+	assert_true(_node_position(instance, "BuiltTrack/FloorVisual").y <= -8.0, "Kitchen floor visual should be far below the countertop route")
+	assert_true(instance.get_node_or_null("BuiltTrack/Ground") == null, "Kitchen floor should not be a colliding ground plane")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/KitchenCeiling") == null, "Kitchen runtime should not add old hardcoded ceiling geometry over authored room scale")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/FridgeLandmark") == null, "Kitchen runtime should not duplicate old hardcoded fridge geometry over authored room scale")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom") != null, "Kitchen track should include the directly editable room scene")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoutePoints/RoutePoint00") != null, "Editable room scene should expose editable route points")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoutePoints/rail") == null, "Editable room route points should not contain generated rail instances")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/SpawnPoints/Start01") != null, "Editable room scene should expose editable spawn points")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Checkpoints/Checkpoint00_LapGate") != null, "Editable room scene should expose editable checkpoints")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/ItemSockets/ItemSocket01") != null, "Editable room scene should expose editable item sockets")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/floor") != null, "Editable room scene should include the authored floor")
+	assert_true(not (instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/floor") is CollisionObject3D), "Editable room floor should be visual-only so it cannot block the course")
+	assert_true(_node_position(instance, "BuiltTrack/Dressing/EditableRoom/floor").y <= -32.0, "Editable room floor should stay below the playable course")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoomShell/BackWall") != null, "Editable room scene should include selectable room shell pieces")
+	assert_true(not _node_visible(instance, "BuiltTrack/Dressing/EditableRoom/RoomShell/BackWall"), "Kitchen back wall should be split around the window instead of blocking the view")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoomShell/BackWallLeftOfWindow") != null, "Kitchen window should keep editable wall trim on the left")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoomShell/BackWallRightOfWindow") != null, "Kitchen window should keep editable wall trim on the right")
+	assert_true(_mesh_material_alpha(instance, "BuiltTrack/Dressing/EditableRoom/RoomShell/WindowGlass") <= 0.15, "Kitchen window glass should be transparent enough for sky visibility")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Appliances/kitchenSink") != null, "Editable room scene should preserve hand-placed kitchen props")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/WaterSurfaces/SinkWater") != null, "Editable room scene should include authored sink water")
+	assert_true(_node_position(instance, "BuiltTrack/Dressing/EditableRoom/WaterSurfaces/SinkWater").distance_to(_authored_kitchen_position("WaterSurfaces/SinkWater")) <= 0.05, "Kitchen sink water should stay at the authored editable scene location")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/WaterSurfaces/WasherWater") != null, "Editable room scene should include authored washer water")
+	assert_true(_node_has_script(instance, "BuiltTrack/Dressing/EditableRoom/washer"), "Editable room washer should run its in-place rumble script")
+	assert_true(_node_has_script(instance, "BuiltTrack/Dressing/EditableRoom/dryer"), "Editable room dryer should run its in-place rumble script")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/UpperCabinets") != null, "Editable room scene should preserve authored upper cabinet grouping")
+	assert_equal(_enabled_collision_objects(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom")), 0, "Editable room dressing should not collide with the kart")
+	assert_equal(instance.get_node_or_null("BuiltTrack/Dressing").get_child_count(), 1, "Kitchen runtime dressing should only instantiate the editable room")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/StageProps") == null, "Kitchen runtime should not instantiate metadata stage props")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/KitchenTable") == null, "Kitchen runtime should not add hardcoded kitchen table dressing")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/KitchenSink") == null, "Kitchen runtime should not add hardcoded sink dressing")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/SpoonHazard") == null, "Kitchen runtime should not add hardcoded food hazards")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/FridgeTopSpeedStrip") == null, "Kitchen runtime should not add hardcoded route stripes")
+	instance.queue_free()
+
+func test_kitchen_authoring_scene_builds_editor_preview() -> void:
+	var packed := load("res://assets/gameplay/tracks/kitchen/kitchen_authoring.tscn")
+	assert_true(packed is PackedScene, "Kitchen authoring scene should load")
+	var instance := (packed as PackedScene).instantiate()
+	scene_tree.root.add_child(instance)
+	assert_true(instance.has_method("refresh_preview"), "Kitchen authoring root should expose preview refresh")
+	assert_true(instance.has_method("sync_markers_from_definition"), "Kitchen authoring root should expose marker sync")
+	assert_true(instance.has_method("apply_markers_to_definition"), "Kitchen authoring root should expose definition export")
+	assert_true(instance.has_method("export_metadata"), "Kitchen authoring root should expose metadata export")
+	assert_true(instance.has_method("validate_authoring"), "Kitchen authoring root should expose authoring validation")
+	var summary := instance.call("get_authoring_summary") as Dictionary
+	assert_equal(int(summary.get("route_points", 0)), 38, "Kitchen builder should report editable route points")
+	assert_equal(int(summary.get("spawn_points", 0)), 8, "Kitchen builder should report editable spawn points")
+	assert_equal(int(summary.get("checkpoints", 0)), 6, "Kitchen builder should report editable checkpoints")
+	assert_true(int(summary.get("dressing_props", 0)) >= 10, "Kitchen builder should report selectable editable dressing props")
+	assert_equal(int(summary.get("surface_segments", 0)), 3, "Kitchen builder should report editable surface segments")
+	assert_equal(int(summary.get("audio_zones", 0)), 4, "Kitchen builder should report editable audio zones")
+	assert_equal((instance.call("validate_authoring") as Array).size(), 0, "Kitchen authoring markers should validate against track rules")
+	instance.set("preview_enabled", true)
+	instance.call("refresh_preview")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewCounterSurface") == null, "Authoring preview should not ghost the room surface")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewTrackBody") != null, "Authoring preview should include the raised track body")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewRoad") != null, "Authoring preview should include generated road")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewRails") != null, "Authoring preview should include generated rails")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewWalls") == null, "Authoring preview should keep auto wall preview off by default")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewHeightGuides/RouteHeight00") == null, "Authoring preview should not ghost height guides")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewHeightGuides/OverUnderGap04") == null, "Authoring preview should not show old over-under gap markers on the flattened room route")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewMarkers/RoutePoints/RoutePoint00") == null, "Authoring preview should not ghost marker blocks")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewMarkers/RoutePoints/RoutePoint00_Label") == null, "Authoring preview should keep position labels off by default so they do not block the scene")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewMarkers/ItemSockets/ItemSocket01") == null, "Authoring preview should not ghost item socket markers")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewMarkers/SurfaceSegments/CountertopMain") == null, "Authoring preview should not ghost surface segment markers")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewMarkers/AudioZones/SinkSplashZone") == null, "Authoring preview should not ghost audio zone markers")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewMarkers/AudioZones/StoveSizzleZone") == null, "Authoring preview should not ghost stove audio zone markers")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewDressingLayout/Dressing/EditableRoom") == null, "Authoring preview should not ghost the editable room dressing layout")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewDressingLayout/Dressing/KitchenSink") == null, "Authoring preview should not add legacy runtime dressing")
+	assert_true(instance.get_node_or_null("Dressing/KitchenSink") != null, "Authoring scene should include an editable KitchenSink dressing marker")
+	assert_true(instance.get_node_or_null("Dressing/KitchenSink").has_method("to_stage_prop"), "Kitchen sink should be a selectable stage prop authoring node")
+	assert_true(instance.get_node_or_null("Dressing/FridgeLandmark").has_method("to_stage_prop"), "Kitchen fridge should be a selectable stage prop authoring node")
+	assert_true(instance.get_node_or_null("SurfaceSegments/FridgeTop").has_method("to_surface_segment"), "Kitchen surface segments should export authoring data")
+	assert_true(instance.get_node_or_null("AudioZones/SinkSplashZone").has_method("to_audio_zone"), "Kitchen audio zones should export authoring data")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewDressingLayout/DressingLabels/EditableRoom_Label") == null, "Authoring preview should keep dressing labels off by default")
+	instance.set("show_marker_labels", true)
+	instance.call("refresh_preview")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewMarkers/RoutePoints/RoutePoint00_Label") == null, "Authoring preview should not label marker ghosts")
+	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewDressingLayout/DressingLabels/EditableRoom_Label") == null, "Authoring preview should not label dressing ghosts")
+	instance.queue_free()
+
+func test_kitchen_authoring_preview_follows_moved_route_holder() -> void:
+	var packed := load("res://assets/gameplay/tracks/kitchen/kitchen_authoring.tscn")
+	assert_true(packed is PackedScene, "Kitchen authoring scene should load")
+	var instance := (packed as PackedScene).instantiate()
+	scene_tree.root.add_child(instance)
+	var holder := instance.get_node_or_null("RoutePoints") as Node3D
+	var marker := instance.get_node_or_null("RoutePoints/RoutePoint00") as Marker3D
+	assert_true(holder != null and marker != null, "Kitchen authoring scene should expose route point markers")
+	if holder == null or marker == null:
 		instance.queue_free()
+		return
+	holder.position += Vector3(11.0, 0.0, -7.0)
+	var expected := (instance as Node3D).to_local(marker.global_position)
+	instance.set("preview_enabled", true)
+	instance.call("refresh_preview")
+	var road := instance.get_node_or_null("EditorTrackPreview/PreviewRoad")
+	assert_true(road != null, "Authoring preview should create road geometry")
+	var points := road.get("points") as Array
+	assert_true(points.size() > 0, "Preview road should expose generated points")
+	if points.size() > 0:
+		assert_true((points[0] as Vector3).distance_to(expected) < 0.01, "Preview road should include route holder transforms")
+	instance.queue_free()
 
-func test_toybox_authoring_scenes_build_editor_preview() -> void:
-	for track_id in ACTIVE_TRACK_IDS:
-		var definition = TrackCatalog.get_definition(track_id)
-		var packed := load(definition.dressing_scene_path)
-		assert_true(packed is PackedScene, "%s authoring scene should load" % track_id)
-		var instance := (packed as PackedScene).instantiate()
-		scene_tree.root.add_child(instance)
-		assert_true(instance.has_method("refresh_preview"), "%s authoring root should expose preview refresh" % track_id)
-		assert_true(instance.has_method("sync_markers_from_definition"), "%s authoring root should expose marker sync" % track_id)
-		assert_true(instance.has_method("apply_markers_to_definition"), "%s authoring root should expose definition export" % track_id)
-		assert_true(instance.has_method("export_metadata"), "%s authoring root should expose metadata export" % track_id)
-		assert_true(instance.has_method("validate_authoring"), "%s authoring root should expose authoring validation" % track_id)
-		var summary := instance.call("get_authoring_summary") as Dictionary
-		assert_true(int(summary.get("route_points", 0)) >= 9, "%s builder should report editable route points" % track_id)
-		assert_equal(int(summary.get("spawn_points", 0)), 8, "%s builder should report editable spawn points" % track_id)
-		assert_equal(int(summary.get("checkpoints", 0)), 6, "%s builder should report editable checkpoints" % track_id)
-		assert_true(int(summary.get("dressing_props", 0)) >= 6, "%s builder should report selectable editable dressing props" % track_id)
-		assert_equal(int(summary.get("surface_segments", 0)), 3, "%s builder should report editable surface segments" % track_id)
-		assert_equal(int(summary.get("audio_zones", 0)), 3, "%s builder should report editable audio zones" % track_id)
-		assert_equal((instance.call("validate_authoring") as Array).size(), 0, "%s authoring markers should validate against track rules" % track_id)
-		instance.set("preview_enabled", true)
-		instance.call("refresh_preview")
-		assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewTrackBody") != null, "%s authoring preview should include the raised track body" % track_id)
-		assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewRoad") != null, "%s authoring preview should include generated road" % track_id)
-		assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewRails") != null, "%s authoring preview should include generated rails" % track_id)
-		instance.queue_free()
+func test_outdoor_playground_runtime_uses_grass_shader() -> void:
+	var definition := TrackSceneAuthoringData.apply_to_definition(TrackCatalog.get_definition("outdoor_playground"))
+	assert_true(definition != null, "Outdoor Playground definition should load")
+	var built := TrackRuntimeBuilder.build(definition)
+	var track_node := built.get("node", null) as Node3D
+	scene_tree.root.add_child(track_node)
+	assert_true(definition.grass_zones.size() >= 2, "Outdoor Playground should use authored grass zones")
+	assert_true(_has_editable_grass_zone_bounds(track_node.get_node_or_null("Dressing/EditableRoom/GrassZones")), "Runtime editable room should retain selectable grass zone Area3D bounds")
+	assert_equal(_mesh_shader_path(track_node, "FloorVisual"), OUTDOOR_GRASS_SHADER, "Outdoor Playground generated floor should use the grass shader")
+	assert_equal(_shader_texture_path(track_node, "FloorVisual", "floor_texture"), OUTDOOR_PLAYGROUND_FLOOR_TEXTURE, "Outdoor Playground generated floor should use the authored floor texture")
+	assert_equal(_mesh_shader_path(track_node, "Dressing/EditableRoom/floor/MeshInstance3D"), OUTDOOR_GRASS_SHADER, "Outdoor Playground editable floor should use the grass shader at runtime")
+	assert_equal(_shader_texture_path(track_node, "Dressing/EditableRoom/floor/MeshInstance3D", "floor_texture"), OUTDOOR_PLAYGROUND_FLOOR_TEXTURE, "Outdoor Playground editable floor should use the authored floor texture at runtime")
+	assert_true(track_node.get_node_or_null("PlaygroundGrassBlades") is MultiMeshInstance3D, "Outdoor Playground should build an upright grass blade layer")
+	assert_true(_multimesh_instance_count(track_node, "PlaygroundGrassBlades") >= 18000, "Outdoor Playground grass should use enough blades to read as grass from kart height")
+	assert_equal(_multimesh_shader_path(track_node, "PlaygroundGrassBlades"), OUTDOOR_GRASS_BLADE_SHADER, "Outdoor Playground grass blades should use the blade sway shader")
+	assert_true(_first_multimesh_instance_y(track_node, "PlaygroundGrassBlades") > definition.floor_visual_y + 10.0, "Outdoor Playground grass blades should sit on the authored visible floor, not the lower reset plane")
+	assert_true(_multimesh_instances_inside_grass_zones(track_node, "PlaygroundGrassBlades", definition.grass_zones, 300), "Outdoor Playground grass blades should be scattered inside authored grass zones")
+	track_node.queue_free()
 
-func test_backyard_runtime_uses_grass_shader_and_visible_shared_base() -> void:
-	for track_id in BACKYARD_TRACK_IDS:
-		var definition := TrackSceneAuthoringData.apply_to_definition(TrackCatalog.get_definition(track_id))
-		assert_true(definition != null, "%s definition should load" % track_id)
-		var built := TrackRuntimeBuilder.build(definition)
-		var track_node := built.get("node", null) as Node3D
-		scene_tree.root.add_child(track_node)
-		assert_true(definition.grass_zones.size() >= 2, "%s should use authored grass zones" % track_id)
-		assert_equal(_mesh_shader_path(track_node, "FloorVisual"), OUTDOOR_GRASS_SHADER, "%s generated floor should use the grass shader" % track_id)
-		assert_equal(_mesh_shader_path(track_node, "Dressing/EditableRoom/floor/MeshInstance3D"), OUTDOOR_GRASS_SHADER, "%s editable floor should use the grass shader at runtime" % track_id)
-		assert_true(track_node.get_node_or_null("PlaygroundGrassBlades") is MultiMeshInstance3D, "%s should build an upright grass blade layer" % track_id)
-		assert_true(_multimesh_instance_count(track_node, "PlaygroundGrassBlades") >= 18000, "%s grass should use enough blades to read from kart height" % track_id)
-		assert_equal(_multimesh_shader_path(track_node, "PlaygroundGrassBlades"), OUTDOOR_GRASS_BLADE_SHADER, "%s grass blades should use the blade sway shader" % track_id)
-		assert_true(_multimesh_instances_inside_grass_zones(track_node, "PlaygroundGrassBlades", definition.grass_zones, 300), "%s grass blades should be scattered inside authored grass zones" % track_id)
-		track_node.queue_free()
-
-func test_car_can_be_placed_on_toybox_start_grids() -> void:
+func test_car_can_be_placed_on_kitchen_start_grid() -> void:
+	var definition := TrackCatalog.get_definition("kitchen")
+	var built := TrackRuntimeBuilder.build(definition)
+	var track_node := built.get("node", null) as Node3D
+	scene_tree.root.add_child(track_node)
+	var spawns: Array = built.get("spawns", [])
+	var route_points: Array[Vector3] = []
+	for point in built.get("waypoints", definition.route_points):
+		if point is Vector3:
+			route_points.append(point)
+	assert_true(spawns.size() >= 8, "Kitchen builder should return 8 spawn transforms")
+	for spawn in spawns:
+		if spawn is Transform3D:
+			var distance := _distance_to_route_xz((spawn as Transform3D).origin, route_points, definition.closed_loop)
+			assert_true(distance <= definition.road_width * 0.5 + 0.1, "Kitchen start grid should place every spawn on the road")
 	var car_scene := load("res://scenes/Car.tscn")
 	assert_true(car_scene is PackedScene, "Car scene should load")
-	for track_id in ACTIVE_TRACK_IDS:
-		var definition := TrackCatalog.get_definition(track_id)
-		var built := TrackRuntimeBuilder.build(definition)
-		var track_node := built.get("node", null) as Node3D
-		scene_tree.root.add_child(track_node)
-		var spawns: Array = built.get("spawns", [])
-		var route_points: Array[Vector3] = []
-		for point in built.get("waypoints", definition.route_points):
-			if point is Vector3:
-				route_points.append(point)
-		assert_true(spawns.size() >= 8, "%s builder should return 8 spawn transforms" % track_id)
-		for spawn in spawns:
-			if spawn is Transform3D:
-				var distance := _distance_to_route_xz((spawn as Transform3D).origin, route_points, definition.closed_loop)
-				assert_true(distance <= definition.road_width * 0.5 + 0.1, "%s start grid should place every spawn on the road" % track_id)
-		var car := (car_scene as PackedScene).instantiate() as Node3D
-		scene_tree.root.add_child(car)
-		car.global_transform = spawns[0]
-		assert_true(car.global_transform.origin.distance_to((spawns[0] as Transform3D).origin) < 0.01, "%s car should be placeable on the start grid" % track_id)
-		car.queue_free()
-		track_node.queue_free()
+	var car := (car_scene as PackedScene).instantiate() as Node3D
+	scene_tree.root.add_child(car)
+	car.global_transform = spawns[0]
+	assert_true(car.global_transform.origin.distance_to((spawns[0] as Transform3D).origin) < 0.01, "Car should be placeable on the Kitchen start grid")
+	car.queue_free()
+	track_node.queue_free()
 
-func test_out_of_bounds_instant_pop_reset() -> void:
+func test_kitchen_out_of_bounds_instant_pop_reset() -> void:
 	var definition := TrackCatalog.get_definition("kitchen")
 	assert_true(not OutOfBoundsRules.should_reset(-10.0, definition.out_of_bounds_y, definition.reset_mode), "Driving on the authored floor should not auto-reset")
-	assert_true(OutOfBoundsRules.should_reset(definition.out_of_bounds_y - 0.5, definition.out_of_bounds_y, definition.reset_mode), "Falling below the floor should trigger reset")
+	assert_true(OutOfBoundsRules.should_reset(definition.out_of_bounds_y - 0.5, definition.out_of_bounds_y, definition.reset_mode), "Falling below the floor should trigger Kitchen reset")
 	var car_scene := load("res://scenes/Car.tscn")
 	assert_true(car_scene is PackedScene, "Car scene should load")
 	var car := (car_scene as PackedScene).instantiate() as CharacterBody3D
@@ -151,8 +222,7 @@ func test_manual_return_uses_last_road_center_point() -> void:
 	var reset_transform := RaceController.centered_track_return_transform(definition.route_points, off_course_position, definition.closed_loop)
 	var distance := _distance_to_route_xz(reset_transform.origin, definition.route_points, definition.closed_loop)
 	assert_true(distance <= 0.01, "Manual return transform should land on the route centerline")
-	assert_true(reset_transform.origin.y >= _route_min_y(definition.route_points) + 0.8, "Manual return transform should preserve kart clearance above the route")
-	assert_true(reset_transform.origin.y <= _route_max_y(definition.route_points) + 1.2, "Manual return transform should not lift the kart above the authored route envelope")
+	assert_true(absf(reset_transform.origin.y - (definition.route_points[3].y + 1.0)) < 0.2, "Manual return transform should preserve the road height plus kart clearance")
 
 func _distance_to_route_xz(point: Vector3, route_points: Array[Vector3], closed_loop: bool) -> float:
 	var best := INF
@@ -172,17 +242,81 @@ func _distance_to_segment_xz(point: Vector3, a3: Vector3, b3: Vector3) -> float:
 	var t := clampf((point_2d - a).dot(ab) / length_squared, 0.0, 1.0)
 	return point_2d.distance_to(a + ab * t)
 
-func _route_min_y(route_points: Array[Vector3]) -> float:
-	var min_y := INF
-	for point in route_points:
-		min_y = minf(min_y, point.y)
-	return min_y
+func _node_scale_x(root: Node, path: NodePath) -> float:
+	var node := root.get_node_or_null(path) as Node3D
+	if node == null:
+		return 0.0
+	return node.transform.basis.get_scale().x
 
-func _route_max_y(route_points: Array[Vector3]) -> float:
-	var max_y := -INF
-	for point in route_points:
-		max_y = maxf(max_y, point.y)
-	return max_y
+func _node_position(root: Node, path: NodePath) -> Vector3:
+	var node := root.get_node_or_null(path) as Node3D
+	if node == null:
+		return Vector3.ZERO
+	return node.transform.origin
+
+func _authored_kitchen_position(path: NodePath) -> Vector3:
+	var packed := load("res://assets/gameplay/tracks/kitchen/kitchen_editable_room.tscn")
+	if not (packed is PackedScene):
+		return Vector3.ZERO
+	var instance := (packed as PackedScene).instantiate() as Node3D
+	var position := _node_position(instance, path)
+	instance.queue_free()
+	return position
+
+func _node_visible(root: Node, path: NodePath) -> bool:
+	var node := root.get_node_or_null(path) as Node3D
+	if node == null:
+		return false
+	return node.visible
+
+func _node_has_script(root: Node, path: NodePath) -> bool:
+	var node := root.get_node_or_null(path)
+	return node != null and node.get_script() != null
+
+func _box_size_x(root: Node, path: NodePath) -> float:
+	var mesh_instance := root.get_node_or_null(path) as MeshInstance3D
+	if mesh_instance == null or not (mesh_instance.mesh is BoxMesh):
+		return 0.0
+	return (mesh_instance.mesh as BoxMesh).size.x
+
+func _box_size_y(root: Node, path: NodePath) -> float:
+	var mesh_instance := root.get_node_or_null(path) as MeshInstance3D
+	if mesh_instance == null or not (mesh_instance.mesh is BoxMesh):
+		return 0.0
+	return (mesh_instance.mesh as BoxMesh).size.y
+
+func _child_count(node: Node) -> int:
+	if node == null:
+		return 0
+	return node.get_child_count()
+
+func _first_material_texture_path(node: Node) -> String:
+	if node == null:
+		return ""
+	if node is MeshInstance3D:
+		var mesh_instance := node as MeshInstance3D
+		if mesh_instance.material_override is StandardMaterial3D:
+			var material := mesh_instance.material_override as StandardMaterial3D
+			if material.albedo_texture != null:
+				return material.albedo_texture.resource_path
+	for child in node.get_children():
+		var found := _first_material_texture_path(child)
+		if not found.is_empty():
+			return found
+	return ""
+
+func _first_material_uv_scale(node: Node) -> float:
+	if node == null:
+		return 0.0
+	if node is MeshInstance3D:
+		var mesh_instance := node as MeshInstance3D
+		if mesh_instance.material_override is StandardMaterial3D:
+			return (mesh_instance.material_override as StandardMaterial3D).uv1_scale.x
+	for child in node.get_children():
+		var found := _first_material_uv_scale(child)
+		if found > 0.0:
+			return found
+	return 0.0
 
 func _enabled_collision_objects(node: Node) -> int:
 	if node == null:
@@ -198,6 +332,23 @@ func _enabled_collision_objects(node: Node) -> int:
 		count += _enabled_collision_objects(child)
 	return count
 
+func _node_count_by_type(node: Node, type_name: String) -> int:
+	if node == null:
+		return 0
+	var count := 1 if node.is_class(type_name) else 0
+	for child in node.get_children():
+		count += _node_count_by_type(child, type_name)
+	return count
+
+func _mesh_material_alpha(root: Node, path: NodePath) -> float:
+	var mesh := root.get_node_or_null(path) as MeshInstance3D
+	if mesh == null:
+		return 1.0
+	var material := mesh.material_override
+	if material is StandardMaterial3D:
+		return (material as StandardMaterial3D).albedo_color.a
+	return 1.0
+
 func _mesh_shader_path(root: Node, path: NodePath) -> String:
 	var mesh := root.get_node_or_null(path) as MeshInstance3D
 	if mesh == null:
@@ -206,6 +357,15 @@ func _mesh_shader_path(root: Node, path: NodePath) -> String:
 		var material := mesh.material_override as ShaderMaterial
 		if material.shader != null:
 			return material.shader.resource_path
+	return ""
+
+func _shader_texture_path(root: Node, path: NodePath, parameter_name: String) -> String:
+	var mesh := root.get_node_or_null(path) as MeshInstance3D
+	if mesh == null or not (mesh.material_override is ShaderMaterial):
+		return ""
+	var value = (mesh.material_override as ShaderMaterial).get_shader_parameter(parameter_name)
+	if value is Texture2D:
+		return (value as Texture2D).resource_path
 	return ""
 
 func _multimesh_instance_count(root: Node, path: NodePath) -> int:
@@ -224,6 +384,23 @@ func _multimesh_shader_path(root: Node, path: NodePath) -> String:
 		if shader_material.shader != null:
 			return shader_material.shader.resource_path
 	return ""
+
+func _first_multimesh_instance_y(root: Node, path: NodePath) -> float:
+	var instance := root.get_node_or_null(path) as MultiMeshInstance3D
+	if instance == null or instance.multimesh == null or instance.multimesh.instance_count == 0:
+		return -INF
+	var sample_positions := instance.get_meta("scatter_sample_positions", []) as Array
+	if not sample_positions.is_empty() and sample_positions[0] is Vector3:
+		return (sample_positions[0] as Vector3).y
+	return instance.multimesh.get_instance_transform(0).origin.y
+
+func _has_editable_grass_zone_bounds(holder: Node) -> bool:
+	if holder == null:
+		return false
+	for child in holder.get_children():
+		if child is Area3D and child.get_node_or_null("CollisionShape3D") is CollisionShape3D and child.get_node_or_null("BoundsPreview") is MeshInstance3D:
+			return true
+	return false
 
 func _multimesh_instances_inside_grass_zones(root: Node, path: NodePath, zones: Array[Dictionary], sample_count: int) -> bool:
 	var instance := root.get_node_or_null(path) as MultiMeshInstance3D

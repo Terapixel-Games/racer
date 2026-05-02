@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3]
-
-[ext_resource type="Script" path="res://scripts/track/TrackRuntimeScene.gd" id="1_wy1eb"]
-[ext_resource type="Resource" path="res://assets/gameplay/tracks/outdoor_playground/outdoor_playground_track_definition.tres" id="2_k3kcw"]
-
-[node name="OutdoorPlaygroundTrack" type="Node3D"]
-script = ExtResource("1_wy1eb")
-definition = ExtResource("2_k3kcw")

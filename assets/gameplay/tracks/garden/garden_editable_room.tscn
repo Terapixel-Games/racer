@@ -1,158 +1,72 @@
-[gd_scene load_steps=43 format=3]
+[gd_scene load_steps=22 format=3]
 
-[ext_resource type="Script" path="res://scripts/track/TrackAuthoringPreview.gd" id="1_3b1kc"]
-[ext_resource type="Shader" path="res://assets/gameplay/materials/grass/playground_grass.gdshader" id="2_dbsfv"]
-[ext_resource type="Texture2D" path="res://assets/gameplay/materials/garden/garden_dirt_mud_albedo.png" id="3_usqjs"]
-[ext_resource type="PackedScene" path="res://assets/gameplay/tracks/shared/backyard/backyard_base.tscn" id="4_imbde"]
-[ext_resource type="Script" path="res://scripts/track/StagePropAuthoring.gd" id="5_pxrnt"]
-[ext_resource type="Script" path="res://scripts/track/SurfaceSegmentAuthoring.gd" id="6_fcjt7"]
-[ext_resource type="Script" path="res://scripts/track/AudioZoneAuthoring.gd" id="7_c7s44"]
-[ext_resource type="Script" path="res://scripts/track/GrassZoneAuthoring.gd" id="8_h5urc"]
+[ext_resource type="Script" path="res://scripts/track/TrackAuthoringPreview.gd" id="1_ca2g7"]
+[ext_resource type="Texture2D" path="res://assets/gameplay/materials/garden/garden_dirt_mud_albedo.png" id="2_s2vtt"]
+[ext_resource type="Script" path="res://scripts/track/StagePropAuthoring.gd" id="3_e632n"]
+[ext_resource type="Script" path="res://scripts/track/SurfaceSegmentAuthoring.gd" id="4_3b1kc"]
+[ext_resource type="Script" path="res://scripts/track/AudioZoneAuthoring.gd" id="5_dbsfv"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hw76t"]
-render_priority = 0
-shader = ExtResource("2_dbsfv")
-shader_parameter/base_color = Color(0.32, 0.43, 0.24, 1)
-shader_parameter/bright_color = null
-shader_parameter/dry_color = null
-shader_parameter/soil_color = null
-shader_parameter/floor_texture = ExtResource("3_usqjs")
-shader_parameter/use_floor_texture = null
-shader_parameter/floor_texture_scale = null
-shader_parameter/patch_scale = null
-shader_parameter/blade_scale = null
-shader_parameter/blade_strength = null
-shader_parameter/wind_speed = null
-shader_parameter/wind_strength = null
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_usqjs"]
+albedo_color = Color(0.32, 0.43, 0.24, 1)
+albedo_texture = ExtResource("2_s2vtt")
+roughness = 0.78
+uv1_scale = Vector3(24, 24, 1)
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_pck1m"]
-size = Vector2(840, 620)
+[sub_resource type="PlaneMesh" id="PlaneMesh_imbde"]
+size = Vector2(292, 190)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x6ax5"]
-albedo_color = Color(0.28, 0.42, 0.18, 1)
-roughness = 0.82
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_yrll2"]
-size = Vector2(840, 620)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g1op7"]
-albedo_color = Color(0.54, 0.36, 0.2, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pxrnt"]
+albedo_color = Color(0.38, 0.52, 0.34, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_331xs"]
-size = Vector3(840, 34, 5)
+[sub_resource type="BoxMesh" id="BoxMesh_fcjt7"]
+size = Vector3(292, 58, 2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_617qk"]
-albedo_color = Color(0.5, 0.32, 0.18, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c7s44"]
+albedo_color = Color(0.3496, 0.4784, 0.31280002, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_80exk"]
-size = Vector3(840, 34, 5)
+[sub_resource type="BoxMesh" id="BoxMesh_h5urc"]
+size = Vector3(2, 58, 190)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_83e3x"]
-albedo_color = Color(0.48, 0.3, 0.16, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hw76t"]
+albedo_color = Color(0.3496, 0.4784, 0.31280002, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_u240u"]
-size = Vector3(5, 34, 620)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4k3ih"]
-albedo_color = Color(0.48, 0.3, 0.16, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_g0q58"]
-size = Vector3(5, 34, 620)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vqf3o"]
-albedo_color = Color(0.82, 0.64, 0.36, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_g3ddx"]
-size = Vector3(190, 5, 150)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7cp2w"]
-albedo_color = Color(0.22, 0.48, 0.2, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_oqgo4"]
-size = Vector3(210, 5, 170)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k6gwf"]
-albedo_color = Color(0.32, 0.36, 0.3, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_rwjk6"]
-size = Vector3(240, 5, 180)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_82jmk"]
-albedo_color = Color(0.86, 0.12, 0.1, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_t5y1o"]
-size = Vector3(54, 18, 14)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0wmib"]
-albedo_color = Color(0.86, 0.34, 0.58, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_pm3mg"]
-size = Vector3(116, 10, 16)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3w0qm"]
-albedo_color = Color(0.58, 0.34, 0.12, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_ojwrw"]
-size = Vector3(170, 14, 8)
+[sub_resource type="BoxMesh" id="BoxMesh_pck1m"]
+size = Vector3(2, 58, 190)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3dr1h"]
-transparency = 1
-cull_mode = 2
-shading_mode = 0
-albedo_color = Color(0.2, 0.95, 0.25, 0.22)
+albedo_color = Color(0.3686, 0.5044, 0.3298, 1)
+roughness = 0.72
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_bwvof"]
-size = Vector3(230, 1, 170)
+[sub_resource type="BoxMesh" id="BoxMesh_bwvof"]
+size = Vector3(96, 58, 2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_akr5s"]
-transparency = 1
-cull_mode = 2
-shading_mode = 0
-albedo_color = Color(0.2, 0.95, 0.25, 0.22)
+albedo_color = Color(0.3686, 0.5044, 0.3298, 1)
+roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_irvv3"]
-size = Vector3(230, 1, 170)
+size = Vector3(96, 58, 2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k845m"]
-transparency = 1
-cull_mode = 2
-shading_mode = 0
-albedo_color = Color(0.2, 0.95, 0.25, 0.22)
+albedo_color = Color(0.3686, 0.5044, 0.3298, 1)
+roughness = 0.72
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_3ku2d"]
-size = Vector3(160, 1, 80)
+[sub_resource type="BoxMesh" id="BoxMesh_3ku2d"]
+size = Vector3(96, 10, 2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fs8lf"]
-transparency = 1
-cull_mode = 2
-shading_mode = 0
-albedo_color = Color(0.2, 0.95, 0.25, 0.22)
+albedo_color = Color(0.4296, 0.5584, 0.3928, 1)
+roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_rgout"]
-size = Vector3(160, 1, 80)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xgw4a"]
-transparency = 1
-cull_mode = 2
-shading_mode = 0
-albedo_color = Color(0.24, 0.64, 0.24, 0.42)
-
-[sub_resource type="BoxMesh" id="BoxMesh_ia8jm"]
-size = Vector3(20, 4, 14)
+size = Vector3(292, 1, 190)
 
 [node name="GardenEditableRoom" type="Node3D"]
-script = ExtResource("1_3b1kc")
-ground_size = Vector2(840, 620)
+script = ExtResource("1_ca2g7")
+ground_size = Vector2(292, 190)
 ground_y = -11.0
 road_y_offset = 0.0
 track_definition_path = "res://assets/gameplay/tracks/garden/garden_track_definition.tres"
@@ -165,367 +79,351 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -32, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.648705, 0)
-material_override = SubResource("ShaderMaterial_hw76t")
-mesh = SubResource("PlaneMesh_pck1m")
+material_override = SubResource("StandardMaterial3D_usqjs")
+mesh = SubResource("PlaneMesh_imbde")
 
-[node name="SharedBackyardBase" type="Node3D" parent="." instance=ExtResource("4_imbde")]
+[node name="RoomShell" type="Node3D" parent="."]
 
-[node name="BackyardFloor" type="Node3D" parent="SharedBackyardBase"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -32, 0)
+[node name="BackWall" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21, 98)
+material_override = SubResource("StandardMaterial3D_pxrnt")
+mesh = SubResource("BoxMesh_fcjt7")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SharedBackyardBase/BackyardFloor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.648705, 0)
-material_override = SubResource("StandardMaterial3D_x6ax5")
-mesh = SubResource("PlaneMesh_yrll2")
+[node name="LeftWall" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -146, 21, 0)
+material_override = SubResource("StandardMaterial3D_c7s44")
+mesh = SubResource("BoxMesh_h5urc")
 
-[node name="YardFence" type="Node3D" parent="SharedBackyardBase"]
+[node name="RightWall" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146, 21, 0)
+material_override = SubResource("StandardMaterial3D_hw76t")
+mesh = SubResource("BoxMesh_pck1m")
 
-[node name="BackFence" type="MeshInstance3D" parent="SharedBackyardBase/YardFence"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17, 315)
-material_override = SubResource("StandardMaterial3D_g1op7")
-mesh = SubResource("BoxMesh_331xs")
+[node name="FrontWallLeft" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96, 21, -98)
+material_override = SubResource("StandardMaterial3D_3dr1h")
+mesh = SubResource("BoxMesh_bwvof")
 
-[node name="FrontFence" type="MeshInstance3D" parent="SharedBackyardBase/YardFence"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17, -315)
-material_override = SubResource("StandardMaterial3D_617qk")
-mesh = SubResource("BoxMesh_80exk")
+[node name="FrontWallRight" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96, 21, -98)
+material_override = SubResource("StandardMaterial3D_akr5s")
+mesh = SubResource("BoxMesh_irvv3")
 
-[node name="LeftFence" type="MeshInstance3D" parent="SharedBackyardBase/YardFence"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -425, 17, 0)
-material_override = SubResource("StandardMaterial3D_83e3x")
-mesh = SubResource("BoxMesh_u240u")
+[node name="DoorHeader" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 45, -98)
+material_override = SubResource("StandardMaterial3D_k845m")
+mesh = SubResource("BoxMesh_3ku2d")
 
-[node name="RightFence" type="MeshInstance3D" parent="SharedBackyardBase/YardFence"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 425, 17, 0)
-material_override = SubResource("StandardMaterial3D_4k3ih")
-mesh = SubResource("BoxMesh_g0q58")
-
-[node name="VisibleCourseTerritories" type="Node3D" parent="SharedBackyardBase"]
-
-[node name="SandboxTerritory" type="MeshInstance3D" parent="SharedBackyardBase/VisibleCourseTerritories"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 250, -7, 130)
-material_override = SubResource("StandardMaterial3D_vqf3o")
-mesh = SubResource("BoxMesh_g3ddx")
-
-[node name="GardenTerritory" type="MeshInstance3D" parent="SharedBackyardBase/VisibleCourseTerritories"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -240, -7, 130)
-material_override = SubResource("StandardMaterial3D_7cp2w")
-mesh = SubResource("BoxMesh_oqgo4")
-
-[node name="PlaygroundTerritory" type="MeshInstance3D" parent="SharedBackyardBase/VisibleCourseTerritories"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7, -150)
-material_override = SubResource("StandardMaterial3D_k6gwf")
-mesh = SubResource("BoxMesh_rwjk6")
-
-[node name="DistantSlideSilhouette" type="MeshInstance3D" parent="SharedBackyardBase/VisibleCourseTerritories"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70, 9, -205)
-material_override = SubResource("StandardMaterial3D_82jmk")
-mesh = SubResource("BoxMesh_t5y1o")
-
-[node name="DistantFlowerBeds" type="MeshInstance3D" parent="SharedBackyardBase/VisibleCourseTerritories"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -245, 4, 210)
-material_override = SubResource("StandardMaterial3D_0wmib")
-mesh = SubResource("BoxMesh_pm3mg")
-
-[node name="DistantSandboxWall" type="MeshInstance3D" parent="SharedBackyardBase/VisibleCourseTerritories"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 250, 2, 50)
-material_override = SubResource("StandardMaterial3D_3w0qm")
-mesh = SubResource("BoxMesh_ojwrw")
+[node name="Ceiling" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 55, 0)
+material_override = SubResource("StandardMaterial3D_fs8lf")
+mesh = SubResource("BoxMesh_rgout")
 
 [node name="RoutePoints" type="Node3D" parent="."]
 
 [node name="RoutePoint00" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -334, 3.35, 64)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108, 3.35, -72)
 
 [node name="RoutePoint01" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -288, 3.75, 38)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 3.35, -78)
 
 [node name="RoutePoint02" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -230, 4.35, 48)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78, 3.35, -82)
 
 [node name="RoutePoint03" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -176, 3.35, 82)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 3.35, -84)
 
 [node name="RoutePoint04" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150, 3.35, 140)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 3.35, -83)
 
 [node name="RoutePoint05" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -176, 2.95, 194)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 3.35, -80)
 
 [node name="RoutePoint06" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -240, 3.35, 214)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.35, -76)
 
 [node name="RoutePoint07" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -306, 4.15, 184)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 3.35, -76)
 
 [node name="RoutePoint08" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -354, 3.35, 126)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 3.35, -78)
+
+[node name="RoutePoint09" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 3.35, -76)
+
+[node name="RoutePoint10" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96, 3.35, -68)
+
+[node name="RoutePoint11" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 116, 3.35, -52)
+
+[node name="RoutePoint12" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, 3.35, -30)
+
+[node name="RoutePoint13" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 132, 3.35, -6)
+
+[node name="RoutePoint14" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 130, 3.35, 18)
+
+[node name="RoutePoint15" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 122, 3.35, 42)
+
+[node name="RoutePoint16" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 3.35, 60)
+
+[node name="RoutePoint17" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84, 3.35, 75)
+
+[node name="RoutePoint18" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 3.35, 78)
+
+[node name="RoutePoint19" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 3.35, 82)
+
+[node name="RoutePoint20" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 3.35, 82)
+
+[node name="RoutePoint21" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 3.35, 80)
+
+[node name="RoutePoint22" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 3.35, 76)
+
+[node name="RoutePoint23" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 3.35, 68)
+
+[node name="RoutePoint24" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 4.5499997, 54)
+
+[node name="RoutePoint25" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -114, 3.35, 34)
+
+[node name="RoutePoint26" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126, 3.35, 10)
+
+[node name="RoutePoint27" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -130, 3.35, -16)
+
+[node name="RoutePoint28" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126, 3.35, -40)
+
+[node name="RoutePoint29" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116, 3.35, -60)
+
+[node name="RoutePoint30" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104, 3.35, -70)
+
+[node name="RoutePoint31" type="Marker3D" parent="RoutePoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112, 3.35, -68)
 
 [node name="Checkpoints" type="Node3D" parent="."]
 
 [node name="Checkpoint00_LapGate" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -334, 3.35, 64)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108, 3.35, -72)
 
 [node name="Checkpoint01" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -288, 3.75, 38)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.35, -76)
 
 [node name="Checkpoint02" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -176, 3.35, 82)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, 3.35, -30)
 
 [node name="Checkpoint03" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150, 3.35, 140)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 3.35, 78)
 
 [node name="Checkpoint04" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -240, 3.35, 214)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 4.5499997, 54)
 
 [node name="Checkpoint05" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -306, 4.15, 184)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126, 3.35, -40)
 
 [node name="SpawnPoints" type="Node3D" parent="."]
 
 [node name="Start01" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.49205735, 0, 0.8705628, 0, 1, 0, -0.8705628, 0, -0.49205735, -333.0159, 4.15, 65.74113)
+transform = Transform3D(-0.3939193, 0, 0.91914505, 0, 1, 0, -0.91914505, 0, -0.3939193, -107.21216, 4.15, -70.16171)
 
 [node name="Start02" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.49205735, 0, 0.8705628, 0, 1, 0, -0.8705628, 0, -0.49205735, -334.9841, 4.15, 62.258873)
+transform = Transform3D(-0.3939193, 0, 0.91914505, 0, 1, 0, -0.91914505, 0, -0.3939193, -108.78784, 4.15, -73.83829)
 
 [node name="Start03" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.49205735, 0, 0.8705628, 0, 1, 0, -0.8705628, 0, -0.49205735, -328.6631, 4.15, 63.28084)
+transform = Transform3D(-0.3939193, 0, 0.91914505, 0, 1, 0, -0.91914505, 0, -0.3939193, -102.61643, 4.15, -72.13131)
 
 [node name="Start04" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.49205735, 0, 0.8705628, 0, 1, 0, -0.8705628, 0, -0.49205735, -330.6313, 4.15, 59.798588)
+transform = Transform3D(-0.3939193, 0, 0.91914505, 0, 1, 0, -0.91914505, 0, -0.3939193, -104.192116, 4.15, -75.807884)
 
 [node name="Start05" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.49205735, 0, 0.8705628, 0, 1, 0, -0.8705628, 0, -0.49205735, -324.31027, 4.15, 60.820553)
+transform = Transform3D(-0.3939193, 0, 0.91914505, 0, 1, 0, -0.91914505, 0, -0.3939193, -98.020706, 4.15, -74.10091)
 
 [node name="Start06" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.49205735, 0, 0.8705628, 0, 1, 0, -0.8705628, 0, -0.49205735, -326.27847, 4.15, 57.3383)
+transform = Transform3D(-0.3939193, 0, 0.91914505, 0, 1, 0, -0.91914505, 0, -0.3939193, -99.59639, 4.15, -77.77748)
 
 [node name="Start07" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.49205735, 0, 0.8705628, 0, 1, 0, -0.8705628, 0, -0.49205735, -319.95746, 4.15, 58.360268)
+transform = Transform3D(-0.3939193, 0, 0.91914505, 0, 1, 0, -0.91914505, 0, -0.3939193, -93.42498, 4.15, -76.0705)
 
 [node name="Start08" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.49205735, 0, 0.8705628, 0, 1, 0, -0.8705628, 0, -0.49205735, -321.92566, 4.15, 54.878014)
+transform = Transform3D(-0.3939193, 0, 0.91914505, 0, 1, 0, -0.91914505, 0, -0.3939193, -95.00066, 4.15, -79.74708)
 
 [node name="ItemSockets" type="Node3D" parent="."]
 
 [node name="ItemSocket01" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -288, 4.45, 38)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78, 4.0499997, -82)
 
 [node name="ItemSocket02" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -230, 5.0499997, 48)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 4.0499997, -80)
 
 [node name="ItemSocket03" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150, 4.0499997, 140)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 4.0499997, -78)
 
 [node name="ItemSocket04" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -176, 3.65, 194)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 116, 4.0499997, -52)
 
 [node name="ItemSocket05" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -306, 4.85, 184)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 130, 4.0499997, 18)
 
 [node name="ItemSocket06" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -354, 4.0499997, 126)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84, 4.0499997, 75)
 
 [node name="ItemSocket07" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -334, 4.0499997, 64)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 4.0499997, 82)
 
 [node name="ItemSocket08" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -288, 4.45, 38)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 4.0499997, 68)
+
+[node name="ItemSocket09" type="Marker3D" parent="ItemSockets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126, 4.0499997, 10)
+
+[node name="ItemSocket10" type="Marker3D" parent="ItemSockets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116, 4.0499997, -60)
 
 [node name="HazardSockets" type="Node3D" parent="."]
 
 [node name="HazardSocket01" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -230, 5.0499997, 48)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 4.0499997, -83)
 
 [node name="HazardSocket02" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150, 4.0499997, 140)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 4.0499997, -76)
 
 [node name="HazardSocket03" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -240, 4.0499997, 214)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 132, 4.0499997, -6)
 
 [node name="HazardSocket04" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -354, 4.0499997, 126)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 4.0499997, 78)
 
 [node name="HazardSocket05" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -288, 4.45, 38)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 4.0499997, 76)
 
 [node name="HazardSocket06" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -230, 5.0499997, 48)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -130, 4.0499997, -16)
+
+[node name="HazardSocket07" type="Marker3D" parent="HazardSockets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104, 4.0499997, -70)
 
 [node name="AlternateRoutes" type="Node3D" parent="."]
 
-[node name="garden_alt_route" type="Node3D" parent="AlternateRoutes"]
+[node name="garden_branch" type="Node3D" parent="AlternateRoutes"]
 
-[node name="Point00" type="Marker3D" parent="AlternateRoutes/garden_alt_route"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -230, 4.75, 48)
+[node name="Point00" type="Marker3D" parent="AlternateRoutes/garden_branch"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.55, -76)
 
-[node name="Point01" type="Marker3D" parent="AlternateRoutes/garden_alt_route"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -190, 5.05, 94)
+[node name="Point01" type="Marker3D" parent="AlternateRoutes/garden_branch"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 4.35, -32)
 
-[node name="Point02" type="Marker3D" parent="AlternateRoutes/garden_alt_route"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150, 3.75, 140)
+[node name="Point02" type="Marker3D" parent="AlternateRoutes/garden_branch"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 4.35, 20)
+
+[node name="Point03" type="Marker3D" parent="AlternateRoutes/garden_branch"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 3.75, 78)
 
 [node name="ShortcutGates" type="Node3D" parent="."]
 
-[node name="garden_shortcut_Entry" type="Marker3D" parent="ShortcutGates"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -230, 4.35, 48)
-
-[node name="garden_shortcut_Exit" type="Marker3D" parent="ShortcutGates"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150, 3.35, 140)
-
 [node name="Dressing" type="Node3D" parent="."]
 
-[node name="RootGate" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -292, 9, 42)
-script = ExtResource("5_pxrnt")
-prop_id = "RootGate"
-box_size = Vector3(46, 20, 8)
-box_color = Color(0.38, 0.2, 0.08, 1)
-audio_material_id = "wood"
+[node name="WateringCan" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 104, -5, -48)
+script = ExtResource("3_e632n")
+prop_id = "WateringCan"
+box_size = Vector3(28, 18, 24)
+box_color = Color(0.36, 0.58, 0.72, 1)
+audio_material_id = "metal"
 gameplay_tag = "garden_landmark"
 
-[node name="StoneBridge" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -236, 4, 54)
-script = ExtResource("5_pxrnt")
-prop_id = "StoneBridge"
-box_size = Vector3(58, 4, 18)
-box_color = Color(0.48, 0.5, 0.46, 1)
-audio_material_id = "stone"
-gameplay_tag = "shortcut_landmark"
-
-[node name="HoseCrossing" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -158, 3.5, 138)
-script = ExtResource("5_pxrnt")
-prop_id = "HoseCrossing"
-box_size = Vector3(48, 3, 10)
-box_color = Color(0.1, 0.48, 0.18, 1)
-audio_material_id = "rubber"
-gameplay_tag = "signature_effect"
-
-[node name="FlowerCanopy" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -230, 16, 210)
-script = ExtResource("5_pxrnt")
-prop_id = "FlowerCanopy"
-box_size = Vector3(70, 24, 20)
-box_color = Color(0.88, 0.36, 0.62, 1)
+[node name="LeafTunnel" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 5, 54)
+script = ExtResource("3_e632n")
+prop_id = "LeafTunnel"
+box_size = Vector3(50, 2, 20)
+box_color = Color(0.16, 0.52, 0.18, 1)
 audio_material_id = "leaf"
 gameplay_tag = "garden_landmark"
 
-[node name="SurvivalMarkers" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -340, 2, 116)
-script = ExtResource("5_pxrnt")
-prop_id = "SurvivalMarkers"
-box_size = Vector3(32, 10, 10)
-box_color = Color(0.76, 0.54, 0.22, 1)
-audio_material_id = "plastic"
-gameplay_tag = "story_landmark"
+[node name="FlowerPotA" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -118, -3, -10)
+script = ExtResource("3_e632n")
+prop_id = "FlowerPotA"
+box_size = Vector3(18, 22, 18)
+box_color = Color(0.62, 0.28, 0.16, 1)
+audio_material_id = "ceramic"
+gameplay_tag = "garden_landmark"
 
-[node name="LogHazard" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -190, 4, 188)
-script = ExtResource("5_pxrnt")
-prop_id = "LogHazard"
-box_size = Vector3(46, 9, 12)
-box_color = Color(0.32, 0.18, 0.08, 1)
-audio_material_id = "wood"
-gameplay_tag = "hazard_line"
+[node name="StoneShortcut" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -7, 8)
+script = ExtResource("3_e632n")
+prop_id = "StoneShortcut"
+box_size = Vector3(58, 5, 18)
+box_color = Color(0.42, 0.46, 0.42, 1)
+audio_material_id = "stone"
+gameplay_tag = "shortcut_landmark"
+
+[node name="MudPatch" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66, -10, 28)
+script = ExtResource("3_e632n")
+prop_id = "MudPatch"
+box_size = Vector3(42, 4, 28)
+box_color = Color(0.24, 0.16, 0.08, 1)
+audio_material_id = "mud"
+gameplay_tag = "slow_zone"
 
 [node name="SurfaceSegments" type="Node3D" parent="."]
 
 [node name="garden_start_surface" type="Marker3D" parent="SurfaceSegments"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -288, 3.75, 38)
-script = ExtResource("6_fcjt7")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 3.55, -70)
+script = ExtResource("4_3b1kc")
 segment_id = "garden_start_surface"
-end_route_index = 2
+end_route_index = 10
 surface_audio_id = "garden_primary"
 surface_material_id = "dirt"
 
 [node name="garden_feature_surface" type="Marker3D" parent="SurfaceSegments"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150, 3.35, 140)
-script = ExtResource("6_fcjt7")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70, 3.55, 50)
+script = ExtResource("4_3b1kc")
 segment_id = "garden_feature_surface"
-start_route_index = 2
-end_route_index = 5
+start_route_index = 11
+end_route_index = 20
 surface_audio_id = "garden_secondary"
 surface_material_id = "dirt_feature"
 
 [node name="garden_return_surface" type="Marker3D" parent="SurfaceSegments"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -306, 4.15, 184)
-script = ExtResource("6_fcjt7")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 3.55, 10)
+script = ExtResource("4_3b1kc")
 segment_id = "garden_return_surface"
-start_route_index = 5
-end_route_index = 8
+start_route_index = 21
+end_route_index = 31
 surface_audio_id = "garden_primary"
 surface_material_id = "dirt"
 
 [node name="AudioZones" type="Node3D" parent="."]
 
 [node name="garden_music_zone" type="Marker3D" parent="AudioZones"]
-script = ExtResource("7_c7s44")
+script = ExtResource("5_dbsfv")
 zone_id = "garden_music_zone"
 audio_id = "music"
-radius = 140.0
+radius = 120.0
 volume_db = -14.0
 
-[node name="HoseSplashZone" type="Marker3D" parent="AudioZones"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150, 3.35, 140)
-script = ExtResource("7_c7s44")
-zone_id = "HoseSplashZone"
+[node name="garden_feature_zone" type="Marker3D" parent="AudioZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 4.35, 36)
+script = ExtResource("5_dbsfv")
+zone_id = "garden_feature_zone"
 audio_id = "garden_secondary"
 zone_kind = "oneshot"
 radius = 28.0
-
-[node name="garden_route_zone" type="Marker3D" parent="AudioZones"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -230, 4.35, 48)
-script = ExtResource("7_c7s44")
-zone_id = "garden_route_zone"
-audio_id = "garden_primary"
-zone_kind = "oneshot"
-radius = 26.0
-volume_db = -7.0
-
-[node name="GrassZones" type="Node3D" parent="."]
-
-[node name="GardenActiveGrass" type="Area3D" parent="GrassZones"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -240, 0, 110)
-script = ExtResource("8_h5urc")
-zone_id = "garden_active_grass"
-size = Vector2(230, 170)
-
-[node name="BoundsPreview" type="MeshInstance3D" parent="GrassZones/GardenActiveGrass"]
-visible = false
-material_override = SubResource("StandardMaterial3D_3dr1h")
-cast_shadow = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GrassZones/GardenActiveGrass"]
-shape = SubResource("BoxShape3D_bwvof")
-
-[node name="@MeshInstance3D@4" type="MeshInstance3D" parent="GrassZones/GardenActiveGrass"]
-material_override = SubResource("StandardMaterial3D_akr5s")
-mesh = SubResource("BoxMesh_irvv3")
-
-[node name="GardenBorderGrass" type="Area3D" parent="GrassZones"]
-transform = Transform3D(0.95105654, 0, 0.309017, 0, 1, 0, -0.309017, 0, 0.95105654, -240, 0, 190)
-script = ExtResource("8_h5urc")
-zone_id = "garden_border_grass"
-size = Vector2(160, 80)
-density = 0.65
-
-[node name="BoundsPreview" type="MeshInstance3D" parent="GrassZones/GardenBorderGrass"]
-visible = false
-material_override = SubResource("StandardMaterial3D_k845m")
-cast_shadow = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GrassZones/GardenBorderGrass"]
-shape = SubResource("BoxShape3D_3ku2d")
-
-[node name="@MeshInstance3D@5" type="MeshInstance3D" parent="GrassZones/GardenBorderGrass"]
-material_override = SubResource("StandardMaterial3D_fs8lf")
-mesh = SubResource("BoxMesh_rgout")
-
-[node name="SignatureEffects" type="Node3D" parent="."]
-
-[node name="HoseSplashZone" type="MeshInstance3D" parent="SignatureEffects"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150, 3.35, 140)
-material_override = SubResource("StandardMaterial3D_xgw4a")
-mesh = SubResource("BoxMesh_ia8jm")
