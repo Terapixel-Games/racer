@@ -6,14 +6,14 @@
 script = ExtResource("1_4n4ml")
 id = "outdoor_playground"
 display_name = "Outdoor Playground / Dash"
-version = "outdoor_playground_v1_2026_05_01"
+version = "outdoor_playground_toybox_v1_2026_05_02"
 laps = 3
 out_of_bounds_y = -11.0
 reset_mode = "instant_pop"
 floor_visual_y = -32.0
 runtime_scene_path = "res://assets/gameplay/tracks/outdoor_playground/outdoor_playground_track.tscn"
 dressing_scene_path = "res://assets/gameplay/tracks/outdoor_playground/outdoor_playground_editable_room.tscn"
-ground_size = Vector2(800, 800)
+ground_size = Vector2(840, 620)
 ground_color = Color(0.24, 0.34, 0.14, 1)
 ground_texture_path = "res://assets/gameplay/materials/playground/outdoor_playground_floor_albedo.png"
 ground_shader_path = "res://assets/gameplay/materials/grass/playground_grass.gdshader"
@@ -29,159 +29,119 @@ sky_cloud_amount = 0.24
 sky_cloud_speed = 0.018
 sky_haze_amount = 0.12
 sky_light_energy = 2.55
-route_points = Array[Vector3]([Vector3(-111.24, 3.35, -72), Vector3(-96.82, 3.35, -78), Vector3(-80.34, 3.35, -82), Vector3(-61.8, 3.35, -84), Vector3(-41.2, 3.35, -83), Vector3(-20.6, 3.35, -80), Vector3(0, 3.35, -76), Vector3(24.72, 3.35, -76), Vector3(49.44, 3.35, -78), Vector3(74.16, 3.35, -76), Vector3(98.88, 5.15, -68), Vector3(119.48, 6.15, -52), Vector3(131.84, 3.35, -30), Vector3(135.96, 3.35, -6), Vector3(133.9, 3.35, 18), Vector3(125.66, 3.35, 42), Vector3(109.18, 3.35, 60), Vector3(86.52, 3.35, 72), Vector3(61.8, 3.35, 78), Vector3(35.02, 3.35, 82), Vector3(8.24, 3.35, 82), Vector3(-18.54, 3.35, 80), Vector3(-45.32, 3.35, 76), Vector3(-72.1, 3.35, 68), Vector3(-96.82, 3.35, 54), Vector3(-117.42, 3.35, 34), Vector3(-129.78, 3.35, 10), Vector3(-133.9, 3.35, -16), Vector3(-129.78, 3.35, -40), Vector3(-119.48, 3.35, -60), Vector3(-107.12, 3.35, -70), Vector3(-115.36, 3.35, -68)])
-checkpoint_indices = Array[int]([0, 6, 12, 18, 24, 28])
-spawn_points = Array[Vector4]([Vector4(-110.47168, 4.15, -70.153465, 112.59165), Vector4(-112.008316, 4.15, -73.846535, 112.59165), Vector4(-105.85535, 4.15, -72.07427, 112.59165), Vector4(-107.39198, 4.15, -75.76734, 112.59165), Vector4(-101.23902, 4.15, -73.99507, 112.59165), Vector4(-102.77566, 4.15, -77.68814, 112.59165), Vector4(-96.62269, 4.15, -75.91588, 112.59165), Vector4(-98.159325, 4.15, -79.60895, 112.59165)])
-item_sockets = Array[Vector4]([Vector4(-80.34, 4.0499997, -82, 0), Vector4(-20.6, 4.0499997, -80, 0), Vector4(49.44, 4.0499997, -78, 0), Vector4(119.48, 6.85, -52, 0), Vector4(133.9, 4.0499997, 18, 0), Vector4(86.52, 4.0499997, 72, 0), Vector4(8.24, 4.0499997, 82, 0), Vector4(-72.1, 4.0499997, 68, 0), Vector4(-129.78, 4.0499997, 10, 0), Vector4(-119.48, 4.0499997, -60, 0)])
-hazard_sockets = Array[Vector4]([Vector4(-41.2, 4.0499997, -83, 0), Vector4(74.16, 4.0499997, -76, 0), Vector4(135.96, 4.0499997, -6, 0), Vector4(61.8, 4.0499997, 78, 0), Vector4(-45.32, 4.0499997, 76, 0), Vector4(-133.9, 4.0499997, -16, 0), Vector4(-107.12, 4.0499997, -70, 0)])
+route_points = Array[Vector3]([Vector3(-122, 3.35, -226), Vector3(-72, 3.35, -252), Vector3(-4, 3.35, -248), Vector3(62, 5.75, -220), Vector3(116, 6.75, -172), Vector3(124, 3.35, -104), Vector3(70, 3.35, -58), Vector3(-8, 3.35, -48), Vector3(-88, 3.35, -82), Vector3(-134, 3.35, -150)])
+checkpoint_indices = Array[int]([0, 1, 3, 5, 6, 8])
+spawn_points = Array[Vector4]([Vector4(-121.07729, 4.15, -224.22557, 117.474434), Vector4(-122.92271, 4.15, -227.77443, 117.474434), Vector4(-116.64121, 4.15, -226.53233, 117.474434), Vector4(-118.486626, 4.15, -230.08119, 117.474434), Vector4(-112.205124, 4.15, -228.8391, 117.474434), Vector4(-114.05054, 4.15, -232.38795, 117.474434), Vector4(-107.76904, 4.15, -231.14586, 117.474434), Vector4(-109.614456, 4.15, -234.69472, 117.474434)])
+item_sockets = Array[Vector4]([Vector4(-72, 4.0499997, -252, 0), Vector4(-4, 4.0499997, -248, 0), Vector4(116, 7.45, -172, 0), Vector4(124, 4.0499997, -104, 0), Vector4(-8, 4.0499997, -48, 0), Vector4(-88, 4.0499997, -82, 0), Vector4(-134, 4.0499997, -150, 0), Vector4(-122, 4.0499997, -226, 0)])
+hazard_sockets = Array[Vector4]([Vector4(-4, 4.0499997, -248, 0), Vector4(116, 7.45, -172, 0), Vector4(70, 4.0499997, -58, 0), Vector4(-88, 4.0499997, -82, 0), Vector4(-122, 4.0499997, -226, 0), Vector4(-72, 4.0499997, -252, 0)])
+shortcut_gates = Array[Dictionary]([{
+"entry": Vector3(-4, 3.35, -248),
+"exit": Vector3(124, 3.35, -104),
+"id": "outdoor_playground_shortcut",
+"kind": "shortcut",
+"surface_enabled": true,
+"width": 9.0
+}])
 alternate_routes = Array[Dictionary]([{
 "enabled": true,
 "entry_checkpoint_index": 1,
 "exit_checkpoint_index": 3,
-"id": "outdoor_playground_branch",
-"points": Array[Vector3]([Vector3(0, 3.55, -76), Vector3(18, 4.35, -32), Vector3(36, 4.35, 20), Vector3(60, 3.75, 78)]),
-"road_width": 12.0
+"id": "outdoor_playground_alt_route",
+"points": [Vector3(-4, 3.75, -248), Vector3(60, 4.55, -176), Vector3(124, 3.75, -104)],
+"road_width": 9.600000000000001
 }])
 stage_props = Array[Dictionary]([{
 "asset_path": "",
 "audio_material_id": "plastic",
-"box_color": Color(0.95, 0.22, 0.16, 1),
-"box_size": Vector3(54, 2, 18),
+"box_color": Color(0.92, 0.16, 0.12, 1),
+"box_size": Vector3(58, 2.5, 20),
 "collision_mode": "visual",
 "gameplay_tag": "ramp",
-"id": "SlideSpiral",
+"id": "SlideDrop",
 "kind": "box",
-"position": Vector3(94, 2, -44),
+"position": Vector3(84, 8, -208),
 "scale": Vector3(1, 1, 1),
-"yaw_degrees": 0.0
-}, {
-"asset_path": "res://assets/gameplay/tracks/outdoor_playground/wooden_playground_set_meshy.tscn",
-"audio_material_id": "wood",
-"box_color": Color(0.58, 0.34, 0.16, 1),
-"box_size": Vector3(38, 22, 16),
-"collision_mode": "visual",
-"gameplay_tag": "playground_landmark",
-"id": "WoodenPlaygroundSet",
-"kind": "scene",
-"position": Vector3(-82, 15.1, 48),
-"scale": Vector3(24, 24, 24),
 "yaw_degrees": 0.0
 }, {
 "asset_path": "",
-"audio_material_id": "mulch",
-"box_color": Color(0.36, 0.16, 0.06, 1),
-"box_size": Vector3(42, 1, 18),
+"audio_material_id": "metal",
+"box_color": Color(0.1, 0.22, 0.28, 1),
+"box_size": Vector3(58, 24, 8),
 "collision_mode": "visual",
-"gameplay_tag": "playground_landmark",
-"id": "SwingSafetyPad",
+"gameplay_tag": "signature_effect",
+"id": "SwingGate",
 "kind": "box",
-"position": Vector3(-82, -9, 48),
+"position": Vector3(-96, 13, -82),
 "scale": Vector3(1, 1, 1),
 "yaw_degrees": 0.0
 }, {
-"asset_path": "res://assets/source/meshy/playground_props/rusty_seesaw.glb",
-"audio_material_id": "metal",
-"box_color": Color(0.48, 0.18, 0.08, 1),
-"box_size": Vector3(34, 13, 6),
+"asset_path": "",
+"audio_material_id": "chalk",
+"box_color": Color(0.9, 0.9, 0.84, 1),
+"box_size": Vector3(72, 0.3, 16),
 "collision_mode": "visual",
-"gameplay_tag": "playground_landmark",
-"id": "RustySeesaw",
-"kind": "scene",
-"position": Vector3(-116, 2.6, 34),
-"scale": Vector3(18, 18, 18),
-"yaw_degrees": -90.0
-}, {
-"asset_path": "res://assets/source/meshy/playground_props/rusty_playground_slide.glb",
-"audio_material_id": "metal",
-"box_color": Color(0.8, 0.32, 0.12, 1),
-"box_size": Vector3(30, 18, 6),
-"collision_mode": "visual",
-"gameplay_tag": "playground_landmark",
-"id": "RustyPlaygroundSlide",
-"kind": "scene",
-"position": Vector3(-46, 3.4, 58),
-"scale": Vector3(16, 16, 16),
+"gameplay_tag": "route_language",
+"id": "ChalkRouteArrows",
+"kind": "box",
+"position": Vector3(-8, 3, -48),
+"scale": Vector3(1, 1, 1),
 "yaw_degrees": 0.0
-}, {
-"asset_path": "res://assets/source/meshy/playground_props/weathered_green_chair.glb",
-"audio_material_id": "plastic",
-"box_color": Color(0.24, 0.46, 0.2, 1),
-"box_size": Vector3(10, 15, 11),
-"collision_mode": "visual",
-"gameplay_tag": "playground_landmark",
-"id": "WeatheredGreenChair",
-"kind": "scene",
-"position": Vector3(-111, 1.9, 67),
-"scale": Vector3(8, 8, 8),
-"yaw_degrees": 90.0
-}, {
-"asset_path": "res://assets/source/meshy/playground_props/house.glb",
-"audio_material_id": "wood",
-"box_color": Color(0.54, 0.36, 0.24, 1),
-"box_size": Vector3(30, 26, 25),
-"collision_mode": "visual",
-"gameplay_tag": "playground_landmark",
-"id": "MeshyHouse",
-"kind": "scene",
-"position": Vector3(42, 8, 38),
-"scale": Vector3(18, 18, 18),
-"yaw_degrees": 180.0
-}, {
-"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
-"audio_material_id": "wood",
-"box_color": Color(0.42, 0.31, 0.22, 1),
-"box_size": Vector3(10, 11, 2),
-"collision_mode": "visual",
-"gameplay_tag": "playground_landmark",
-"id": "FortifiedFence",
-"kind": "scene",
-"position": Vector3(70, -10.5, 102),
-"scale": Vector3(20, 20, 20),
-"yaw_degrees": -90.0
 }, {
 "asset_path": "",
 "audio_material_id": "metal",
 "box_color": Color(0.1, 0.44, 0.8, 1),
-"box_size": Vector3(72, 3, 18),
+"box_size": Vector3(78, 3, 6),
 "collision_mode": "visual",
-"gameplay_tag": "playground_landmark",
-"id": "MonkeyBars",
+"gameplay_tag": "shortcut_landmark",
+"id": "RailShortcut",
 "kind": "box",
-"position": Vector3(8, 10, 66),
+"position": Vector3(42, 7, -58),
 "scale": Vector3(1, 1, 1),
 "yaw_degrees": 0.0
 }, {
 "asset_path": "",
-"audio_material_id": "mulch",
-"box_color": Color(0.36, 0.16, 0.06, 1),
-"box_size": Vector3(76, 4, 26),
+"audio_material_id": "plastic",
+"box_color": Color(0.16, 0.42, 0.74, 1),
+"box_size": Vector3(52, 9, 26),
 "collision_mode": "visual",
-"gameplay_tag": "slow_zone",
-"id": "MulchSlowZone",
+"gameplay_tag": "stunt_landmark",
+"id": "HalfPipeBank",
 "kind": "box",
-"position": Vector3(-16, -10, -30),
+"position": Vector3(118, 5, -136),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 0.0
+}, {
+"asset_path": "",
+"audio_material_id": "wood",
+"box_color": Color(0.58, 0.36, 0.18, 1),
+"box_size": Vector3(32, 20, 5),
+"collision_mode": "visual",
+"gameplay_tag": "story_landmark",
+"id": "BrokenBorderGate",
+"kind": "box",
+"position": Vector3(-124, 10, -226),
 "scale": Vector3(1, 1, 1),
 "yaw_degrees": 0.0
 }])
 surface_segments = Array[Dictionary]([{
-"end_route_index": 10,
+"end_route_index": 3,
 "id": "outdoor_playground_start_surface",
-"position": Vector3(-30, 3.55, -70),
+"position": Vector3(-72, 3.35, -252),
 "start_route_index": 0,
 "surface_audio_id": "outdoor_playground_primary",
 "surface_material_id": "asphalt"
 }, {
-"end_route_index": 20,
+"end_route_index": 6,
 "id": "outdoor_playground_feature_surface",
-"position": Vector3(70, 3.55, 50),
-"start_route_index": 11,
+"position": Vector3(124, 3.35, -104),
+"start_route_index": 3,
 "surface_audio_id": "outdoor_playground_secondary",
 "surface_material_id": "asphalt_feature"
 }, {
-"end_route_index": 31,
+"end_route_index": 9,
 "id": "outdoor_playground_return_surface",
-"position": Vector3(-80, 3.55, 10),
-"start_route_index": 21,
+"position": Vector3(-88, 3.35, -82),
+"start_route_index": 6,
 "surface_audio_id": "outdoor_playground_primary",
 "surface_material_id": "asphalt"
 }])
@@ -190,17 +150,40 @@ audio_zones = Array[Dictionary]([{
 "audio_path": "",
 "id": "outdoor_playground_music_zone",
 "position": Vector3(0, 0, 0),
-"radius": 120.0,
+"radius": 140.0,
 "volume_db": -14.0,
 "zone_kind": "ambient"
 }, {
 "audio_id": "outdoor_playground_secondary",
 "audio_path": "",
-"id": "outdoor_playground_feature_zone",
-"position": Vector3(60, 4.35, 36),
+"id": "SwingGateEffect",
+"position": Vector3(124, 3.35, -104),
 "radius": 28.0,
 "volume_db": -6.0,
 "zone_kind": "oneshot"
+}, {
+"audio_id": "outdoor_playground_primary",
+"audio_path": "",
+"id": "outdoor_playground_route_zone",
+"position": Vector3(-4, 3.35, -248),
+"radius": 26.0,
+"volume_db": -7.0,
+"zone_kind": "oneshot"
+}])
+grass_zones = Array[Dictionary]([{
+"density": 1.0,
+"enabled": true,
+"id": "outdoor_playground_active_grass",
+"position": Vector3(0, 0, -150),
+"size": Vector2(230, 170),
+"yaw_degrees": 0.0
+}, {
+"density": 0.65,
+"enabled": true,
+"id": "outdoor_playground_border_grass",
+"position": Vector3(0, 0, -70),
+"size": Vector2(160, 80),
+"yaw_degrees": 18.0
 }])
 audio_ids = {
 "music": "res://assets/source/audio/suno/tracks/playground/playground_loop_suno_01.mp3",

@@ -1,0 +1,142 @@
+[gd_scene load_steps=23 format=3]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x6ax5"]
+albedo_color = Color(0.28, 0.42, 0.18, 1)
+roughness = 0.82
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_yrll2"]
+size = Vector2(840, 620)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g1op7"]
+albedo_color = Color(0.54, 0.36, 0.2, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_331xs"]
+size = Vector3(840, 34, 5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_617qk"]
+albedo_color = Color(0.5, 0.32, 0.18, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_80exk"]
+size = Vector3(840, 34, 5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_83e3x"]
+albedo_color = Color(0.48, 0.3, 0.16, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_u240u"]
+size = Vector3(5, 34, 620)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4k3ih"]
+albedo_color = Color(0.48, 0.3, 0.16, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_g0q58"]
+size = Vector3(5, 34, 620)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vqf3o"]
+albedo_color = Color(0.82, 0.64, 0.36, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_g3ddx"]
+size = Vector3(190, 5, 150)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7cp2w"]
+albedo_color = Color(0.22, 0.48, 0.2, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_oqgo4"]
+size = Vector3(210, 5, 170)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k6gwf"]
+albedo_color = Color(0.32, 0.36, 0.3, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_rwjk6"]
+size = Vector3(240, 5, 180)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_82jmk"]
+albedo_color = Color(0.86, 0.12, 0.1, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_t5y1o"]
+size = Vector3(54, 18, 14)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0wmib"]
+albedo_color = Color(0.86, 0.34, 0.58, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_pm3mg"]
+size = Vector3(116, 10, 16)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3w0qm"]
+albedo_color = Color(0.58, 0.34, 0.12, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_ojwrw"]
+size = Vector3(170, 14, 8)
+
+[node name="BackyardBase" type="Node3D"]
+
+[node name="BackyardFloor" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -32, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BackyardFloor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.648705, 0)
+material_override = SubResource("StandardMaterial3D_x6ax5")
+mesh = SubResource("PlaneMesh_yrll2")
+
+[node name="YardFence" type="Node3D" parent="."]
+
+[node name="BackFence" type="MeshInstance3D" parent="YardFence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17, 315)
+material_override = SubResource("StandardMaterial3D_g1op7")
+mesh = SubResource("BoxMesh_331xs")
+
+[node name="FrontFence" type="MeshInstance3D" parent="YardFence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17, -315)
+material_override = SubResource("StandardMaterial3D_617qk")
+mesh = SubResource("BoxMesh_80exk")
+
+[node name="LeftFence" type="MeshInstance3D" parent="YardFence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -425, 17, 0)
+material_override = SubResource("StandardMaterial3D_83e3x")
+mesh = SubResource("BoxMesh_u240u")
+
+[node name="RightFence" type="MeshInstance3D" parent="YardFence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 425, 17, 0)
+material_override = SubResource("StandardMaterial3D_4k3ih")
+mesh = SubResource("BoxMesh_g0q58")
+
+[node name="VisibleCourseTerritories" type="Node3D" parent="."]
+
+[node name="SandboxTerritory" type="MeshInstance3D" parent="VisibleCourseTerritories"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 250, -7, 130)
+material_override = SubResource("StandardMaterial3D_vqf3o")
+mesh = SubResource("BoxMesh_g3ddx")
+
+[node name="GardenTerritory" type="MeshInstance3D" parent="VisibleCourseTerritories"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -240, -7, 130)
+material_override = SubResource("StandardMaterial3D_7cp2w")
+mesh = SubResource("BoxMesh_oqgo4")
+
+[node name="PlaygroundTerritory" type="MeshInstance3D" parent="VisibleCourseTerritories"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7, -150)
+material_override = SubResource("StandardMaterial3D_k6gwf")
+mesh = SubResource("BoxMesh_rwjk6")
+
+[node name="DistantSlideSilhouette" type="MeshInstance3D" parent="VisibleCourseTerritories"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70, 9, -205)
+material_override = SubResource("StandardMaterial3D_82jmk")
+mesh = SubResource("BoxMesh_t5y1o")
+
+[node name="DistantFlowerBeds" type="MeshInstance3D" parent="VisibleCourseTerritories"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -245, 4, 210)
+material_override = SubResource("StandardMaterial3D_0wmib")
+mesh = SubResource("BoxMesh_pm3mg")
+
+[node name="DistantSandboxWall" type="MeshInstance3D" parent="VisibleCourseTerritories"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 250, 2, 50)
+material_override = SubResource("StandardMaterial3D_3w0qm")
+mesh = SubResource("BoxMesh_ojwrw")

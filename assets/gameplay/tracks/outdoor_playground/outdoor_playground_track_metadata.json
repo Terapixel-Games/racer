@@ -4,30 +4,25 @@
 			"enabled": true,
 			"entry_checkpoint_index": 1,
 			"exit_checkpoint_index": 3,
-			"id": "outdoor_playground_branch",
+			"id": "outdoor_playground_alt_route",
 			"points": [
 				[
-					0.0,
-					3.54999995231628,
-					-76.0
-				],
-				[
-					18.0,
-					4.34999990463257,
-					-32.0
-				],
-				[
-					36.0,
-					4.34999990463257,
-					20.0
+					-4.0,
+					3.75,
+					-248.0
 				],
 				[
 					60.0,
+					4.55000019073486,
+					-176.0
+				],
+				[
+					124.0,
 					3.75,
-					78.0
+					-104.0
 				]
 			],
-			"road_width": 12.0
+			"road_width": 9.6
 		}
 	],
 	"audio_ids": {
@@ -37,19 +32,6 @@
 	},
 	"audio_zones": [
 		{
-			"audio_id": "outdoor_playground_secondary",
-			"audio_path": "",
-			"id": "outdoor_playground_feature_zone",
-			"position": [
-				60.0,
-				4.34999990463257,
-				36.0
-			],
-			"radius": 28.0,
-			"volume_db": -6.0,
-			"zone_kind": "oneshot"
-		},
-		{
 			"audio_id": "music",
 			"audio_path": "",
 			"id": "outdoor_playground_music_zone",
@@ -58,9 +40,35 @@
 				0.0,
 				0.0
 			],
-			"radius": 120.0,
+			"radius": 140.0,
 			"volume_db": -14.0,
 			"zone_kind": "ambient"
+		},
+		{
+			"audio_id": "outdoor_playground_primary",
+			"audio_path": "",
+			"id": "outdoor_playground_route_zone",
+			"position": [
+				-4.0,
+				3.34999990463257,
+				-248.0
+			],
+			"radius": 26.0,
+			"volume_db": -7.0,
+			"zone_kind": "oneshot"
+		},
+		{
+			"audio_id": "outdoor_playground_secondary",
+			"audio_path": "",
+			"id": "SwingGateEffect",
+			"position": [
+				124.0,
+				3.34999990463257,
+				-104.0
+			],
+			"radius": 28.0,
+			"volume_db": -6.0,
+			"zone_kind": "oneshot"
 		}
 	],
 	"checkpoint_radius": 7.8,
@@ -69,9 +77,9 @@
 			"index": 0,
 			"is_lap_gate": true,
 			"position": [
-				-111.23999786377,
+				-122.0,
 				3.34999990463257,
-				-72.0
+				-226.0
 			],
 			"route_index": 0
 		},
@@ -79,142 +87,137 @@
 			"index": 1,
 			"is_lap_gate": false,
 			"position": [
-				0.0,
+				-72.0,
 				3.34999990463257,
-				-76.0
+				-252.0
 			],
-			"route_index": 6
+			"route_index": 1
 		},
 		{
 			"index": 2,
 			"is_lap_gate": false,
 			"position": [
-				131.839996337891,
-				3.34999990463257,
-				-30.0
+				62.0,
+				5.75,
+				-220.0
 			],
-			"route_index": 12
+			"route_index": 3
 		},
 		{
 			"index": 3,
 			"is_lap_gate": false,
 			"position": [
-				61.7999992370605,
+				124.0,
 				3.34999990463257,
-				78.0
+				-104.0
 			],
-			"route_index": 18
+			"route_index": 5
 		},
 		{
 			"index": 4,
 			"is_lap_gate": false,
 			"position": [
-				-96.8199996948242,
+				70.0,
 				3.34999990463257,
-				54.0
+				-58.0
 			],
-			"route_index": 24
+			"route_index": 6
 		},
 		{
 			"index": 5,
 			"is_lap_gate": false,
 			"position": [
-				-129.779998779297,
+				-88.0,
 				3.34999990463257,
-				-40.0
+				-82.0
 			],
-			"route_index": 28
+			"route_index": 8
 		}
 	],
 	"closed_loop": true,
 	"display_name": "Outdoor Playground / Dash",
 	"dressing_scene_path": "res://assets/gameplay/tracks/outdoor_playground/outdoor_playground_editable_room.tscn",
 	"floor_visual_y": -32.0,
+	"grass_zones": [
+		{
+			"density": 1.0,
+			"enabled": true,
+			"id": "outdoor_playground_active_grass",
+			"position": [
+				0.0,
+				0.0,
+				-150.0
+			],
+			"size": [
+				230.0,
+				170.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"density": 0.65,
+			"enabled": true,
+			"id": "outdoor_playground_border_grass",
+			"position": [
+				0.0,
+				0.0,
+				-70.0
+			],
+			"size": [
+				160.0,
+				80.0
+			],
+			"yaw_degrees": 18.0
+		}
+	],
 	"ground_shader_path": "res://assets/gameplay/materials/grass/playground_grass.gdshader",
+	"ground_texture_path": "res://assets/gameplay/materials/playground/outdoor_playground_floor_albedo.png",
 	"hazard_sockets": [
 		{
 			"position": [
-				-41.2000007629395,
+				-4.0,
 				4.04999971389771,
-				-83.0
+				-248.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				74.1600036621094,
-				4.04999971389771,
-				-76.0
+				116.0,
+				7.44999980926514,
+				-172.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				135.960006713867,
+				70.0,
 				4.04999971389771,
-				-6.0
+				-58.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				61.7999992370605,
+				-88.0,
 				4.04999971389771,
-				78.0
+				-82.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				-45.3199996948242,
+				-122.0,
 				4.04999971389771,
-				76.0
+				-226.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				-133.899993896484,
+				-72.0,
 				4.04999971389771,
-				-16.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				-107.120002746582,
-				4.04999971389771,
-				-70.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"asset_path": "",
-			"audio_material_id": "mulch",
-			"box_color": [
-				0.360000014305115,
-				0.159999996423721,
-				0.0599999986588955,
-				1.0
-			],
-			"box_size": [
-				42.0,
-				1.0,
-				18.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "playground_landmark",
-			"id": "SwingSafetyPad",
-			"kind": "box",
-			"position": [
-				-82.0,
-				-9.0,
-				48.0
-			],
-			"scale": [
-				1.0,
-				1.0,
-				1.0
+				-252.0
 			],
 			"yaw_degrees": 0.0
 		}
@@ -223,7 +226,47 @@
 	"item_sockets": [
 		{
 			"position": [
-				-80.3399963378906,
+				-72.0,
+				4.04999971389771,
+				-252.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				-4.0,
+				4.04999971389771,
+				-248.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				116.0,
+				7.44999980926514,
+				-172.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				124.0,
+				4.04999971389771,
+				-104.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				-8.0,
+				4.04999971389771,
+				-48.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				-88.0,
 				4.04999971389771,
 				-82.0
 			],
@@ -231,73 +274,17 @@
 		},
 		{
 			"position": [
-				-20.6000003814697,
+				-134.0,
 				4.04999971389771,
-				-80.0
+				-150.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				49.439998626709,
+				-122.0,
 				4.04999971389771,
-				-78.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				119.480003356934,
-				6.84999990463257,
-				-52.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				133.899993896484,
-				4.04999971389771,
-				18.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				86.5199966430664,
-				4.04999971389771,
-				72.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				8.23999977111816,
-				4.04999971389771,
-				82.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				-72.0999984741211,
-				4.04999971389771,
-				68.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				-129.779998779297,
-				4.04999971389771,
-				10.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				-119.480003356934,
-				4.04999971389771,
-				-60.0
+				-226.0
 			],
 			"yaw_degrees": 0.0
 		}
@@ -309,171 +296,78 @@
 	"rail_texture_uv_scale": 0.5,
 	"reset_mode": "instant_pop",
 	"road_width": 12.0,
-	"route_length": 737.954039096832,
+	"route_length": 732.556625366211,
 	"route_points": [
 		[
-			-111.23999786377,
+			-122.0,
 			3.34999990463257,
-			-72.0
+			-226.0
 		],
 		[
-			-96.8199996948242,
+			-72.0,
 			3.34999990463257,
-			-78.0
+			-252.0
 		],
 		[
-			-80.3399963378906,
+			-4.0,
+			3.34999990463257,
+			-248.0
+		],
+		[
+			62.0,
+			5.75,
+			-220.0
+		],
+		[
+			116.0,
+			6.75,
+			-172.0
+		],
+		[
+			124.0,
+			3.34999990463257,
+			-104.0
+		],
+		[
+			70.0,
+			3.34999990463257,
+			-58.0
+		],
+		[
+			-8.0,
+			3.34999990463257,
+			-48.0
+		],
+		[
+			-88.0,
 			3.34999990463257,
 			-82.0
 		],
 		[
-			-61.7999992370605,
+			-134.0,
 			3.34999990463257,
-			-84.0
-		],
-		[
-			-41.2000007629395,
-			3.34999990463257,
-			-83.0
-		],
-		[
-			-20.6000003814697,
-			3.34999990463257,
-			-80.0
-		],
-		[
-			0.0,
-			3.34999990463257,
-			-76.0
-		],
-		[
-			24.7199993133545,
-			3.34999990463257,
-			-76.0
-		],
-		[
-			49.439998626709,
-			3.34999990463257,
-			-78.0
-		],
-		[
-			74.1600036621094,
-			3.34999990463257,
-			-76.0
-		],
-		[
-			98.879997253418,
-			5.15000009536743,
-			-68.0
-		],
-		[
-			119.480003356934,
-			6.15000009536743,
-			-52.0
-		],
-		[
-			131.839996337891,
-			3.34999990463257,
-			-30.0
-		],
-		[
-			135.960006713867,
-			3.34999990463257,
-			-6.0
-		],
-		[
-			133.899993896484,
-			3.34999990463257,
-			18.0
-		],
-		[
-			125.660003662109,
-			3.34999990463257,
-			42.0
-		],
-		[
-			109.180000305176,
-			3.34999990463257,
-			60.0
-		],
-		[
-			86.5199966430664,
-			3.34999990463257,
-			72.0
-		],
-		[
-			61.7999992370605,
-			3.34999990463257,
-			78.0
-		],
-		[
-			35.0200004577637,
-			3.34999990463257,
-			82.0
-		],
-		[
-			8.23999977111816,
-			3.34999990463257,
-			82.0
-		],
-		[
-			-18.5400009155273,
-			3.34999990463257,
-			80.0
-		],
-		[
-			-45.3199996948242,
-			3.34999990463257,
-			76.0
-		],
-		[
-			-72.0999984741211,
-			3.34999990463257,
-			68.0
-		],
-		[
-			-96.8199996948242,
-			3.34999990463257,
-			54.0
-		],
-		[
-			-117.419998168945,
-			3.34999990463257,
-			34.0
-		],
-		[
-			-129.779998779297,
-			3.34999990463257,
-			10.0
-		],
-		[
-			-133.899993896484,
-			3.34999990463257,
-			-16.0
-		],
-		[
-			-129.779998779297,
-			3.34999990463257,
-			-40.0
-		],
-		[
-			-119.480003356934,
-			3.34999990463257,
-			-60.0
-		],
-		[
-			-107.120002746582,
-			3.34999990463257,
-			-70.0
-		],
-		[
-			-115.360000610352,
-			3.34999990463257,
-			-68.0
+			-150.0
 		]
 	],
 	"runtime_scene_path": "res://assets/gameplay/tracks/outdoor_playground/outdoor_playground_track.tscn",
-	"shortcut_gates": [],
+	"shortcut_gates": [
+		{
+			"entry": [
+				-4.0,
+				3.34999990463257,
+				-248.0
+			],
+			"exit": [
+				124.0,
+				3.34999990463257,
+				-104.0
+			],
+			"id": "outdoor_playground_shortcut",
+			"kind": "shortcut",
+			"surface_enabled": true,
+			"width": 9.0
+		}
+	],
 	"sky_cloud_amount": 0.24,
 	"sky_cloud_speed": 0.018,
 	"sky_haze_amount": 0.12,
@@ -496,70 +390,160 @@
 	"spawn_points": [
 		{
 			"position": [
-				-110.4716796875,
+				-121.077293395996,
 				4.15000009536743,
-				-70.1534652709961
+				-224.225570678711
 			],
-			"yaw_degrees": 112.591651916504
+			"yaw_degrees": 117.474433898926
 		},
 		{
 			"position": [
-				-112.008316040039,
+				-122.922706604004,
 				4.15000009536743,
-				-73.8465347290039
+				-227.774429321289
 			],
-			"yaw_degrees": 112.591651916504
+			"yaw_degrees": 117.474433898926
 		},
 		{
 			"position": [
-				-105.855346679688,
+				-116.641212463379,
 				4.15000009536743,
-				-72.0742721557617
+				-226.532333374023
 			],
-			"yaw_degrees": 112.591651916504
+			"yaw_degrees": 117.474433898926
 		},
 		{
 			"position": [
-				-107.391983032227,
+				-118.486625671387,
 				4.15000009536743,
-				-75.7673416137695
+				-230.081192016602
 			],
-			"yaw_degrees": 112.591651916504
+			"yaw_degrees": 117.474433898926
 		},
 		{
 			"position": [
-				-101.23902130127,
+				-112.205123901367,
 				4.15000009536743,
-				-73.9950714111328
+				-228.839096069336
 			],
-			"yaw_degrees": 112.591651916504
+			"yaw_degrees": 117.474433898926
 		},
 		{
 			"position": [
-				-102.775657653809,
+				-114.050537109375,
 				4.15000009536743,
-				-77.6881408691406
+				-232.387954711914
 			],
-			"yaw_degrees": 112.591651916504
+			"yaw_degrees": 117.474433898926
 		},
 		{
 			"position": [
-				-96.622688293457,
+				-107.76904296875,
 				4.15000009536743,
-				-75.9158782958984
+				-231.145858764648
 			],
-			"yaw_degrees": 112.591651916504
+			"yaw_degrees": 117.474433898926
 		},
 		{
 			"position": [
-				-98.1593246459961,
+				-109.614456176758,
 				4.15000009536743,
-				-79.6089477539063
+				-234.694717407227
 			],
-			"yaw_degrees": 112.591651916504
+			"yaw_degrees": 117.474433898926
 		}
 	],
 	"stage_props": [
+		{
+			"asset_path": "",
+			"audio_material_id": "wood",
+			"box_color": [
+				0.579999983310699,
+				0.360000014305115,
+				0.180000007152557,
+				1.0
+			],
+			"box_size": [
+				32.0,
+				20.0,
+				5.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "story_landmark",
+			"id": "BrokenBorderGate",
+			"kind": "box",
+			"position": [
+				-124.0,
+				10.0,
+				-226.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "chalk",
+			"box_color": [
+				0.899999976158142,
+				0.899999976158142,
+				0.839999973773956,
+				1.0
+			],
+			"box_size": [
+				72.0,
+				0.300000011920929,
+				16.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "route_language",
+			"id": "ChalkRouteArrows",
+			"kind": "box",
+			"position": [
+				-8.0,
+				3.0,
+				-48.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "plastic",
+			"box_color": [
+				0.159999996423721,
+				0.419999986886978,
+				0.740000009536743,
+				1.0
+			],
+			"box_size": [
+				52.0,
+				9.0,
+				26.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "stunt_landmark",
+			"id": "HalfPipeBank",
+			"kind": "box",
+			"position": [
+				118.0,
+				5.0,
+				-136.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
 		{
 			"asset_path": "",
 			"audio_material_id": "metal",
@@ -570,48 +554,18 @@
 				1.0
 			],
 			"box_size": [
-				72.0,
+				78.0,
 				3.0,
-				18.0
+				6.0
 			],
 			"collision_mode": "visual",
-			"gameplay_tag": "playground_landmark",
-			"id": "MonkeyBars",
+			"gameplay_tag": "shortcut_landmark",
+			"id": "RailShortcut",
 			"kind": "box",
 			"position": [
-				8.0,
-				10.0,
-				66.0
-			],
-			"scale": [
-				1.0,
-				1.0,
-				1.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"asset_path": "",
-			"audio_material_id": "mulch",
-			"box_color": [
-				0.360000014305115,
-				0.159999996423721,
-				0.0599999986588955,
-				1.0
-			],
-			"box_size": [
-				76.0,
-				4.0,
-				26.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "slow_zone",
-			"id": "MulchSlowZone",
-			"kind": "box",
-			"position": [
-				-16.0,
-				-10.0,
-				-30.0
+				42.0,
+				7.0,
+				-58.0
 			],
 			"scale": [
 				1.0,
@@ -624,24 +578,24 @@
 			"asset_path": "",
 			"audio_material_id": "plastic",
 			"box_color": [
-				0.949999988079071,
-				0.219999998807907,
+				0.920000016689301,
 				0.159999996423721,
+				0.119999997317791,
 				1.0
 			],
 			"box_size": [
-				54.0,
-				2.0,
-				18.0
+				58.0,
+				2.5,
+				20.0
 			],
 			"collision_mode": "visual",
 			"gameplay_tag": "ramp",
-			"id": "SlideSpiral",
+			"id": "SlideDrop",
 			"kind": "box",
 			"position": [
-				94.0,
-				2.0,
-				-44.0
+				84.0,
+				8.0,
+				-208.0
 			],
 			"scale": [
 				1.0,
@@ -651,218 +605,68 @@
 			"yaw_degrees": 0.0
 		},
 		{
-			"asset_path": "res://assets/gameplay/tracks/outdoor_playground/wooden_playground_set_meshy.tscn",
-			"audio_material_id": "wood",
-			"box_color": [
-				0.579999983310699,
-				0.340000003576279,
-				0.159999996423721,
-				1.0
-			],
-			"box_size": [
-				38.0,
-				22.0,
-				16.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "playground_landmark",
-			"id": "WoodenPlaygroundSet",
-			"kind": "scene",
-			"position": [
-				-82.0,
-				15.1000003814697,
-				48.0
-			],
-			"scale": [
-				24.0,
-				24.0,
-				24.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"asset_path": "res://assets/source/meshy/playground_props/rusty_seesaw.glb",
+			"asset_path": "",
 			"audio_material_id": "metal",
 			"box_color": [
-				0.48,
-				0.18,
-				0.08,
+				0.100000001490116,
+				0.219999998807907,
+				0.280000001192093,
 				1.0
 			],
 			"box_size": [
-				34.0,
-				13.0,
-				6.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "playground_landmark",
-			"id": "RustySeesaw",
-			"kind": "scene",
-			"position": [
-				-116.0,
-				2.6,
-				34.0
-			],
-			"scale": [
-				18.0,
-				18.0,
-				18.0
-			],
-			"yaw_degrees": -90.0
-		},
-		{
-			"asset_path": "res://assets/source/meshy/playground_props/rusty_playground_slide.glb",
-			"audio_material_id": "metal",
-			"box_color": [
-				0.8,
-				0.32,
-				0.12,
-				1.0
-			],
-			"box_size": [
-				30.0,
-				18.0,
-				6.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "playground_landmark",
-			"id": "RustyPlaygroundSlide",
-			"kind": "scene",
-			"position": [
-				-46.0,
-				3.4,
-				58.0
-			],
-			"scale": [
-				16.0,
-				16.0,
-				16.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"asset_path": "res://assets/source/meshy/playground_props/weathered_green_chair.glb",
-			"audio_material_id": "plastic",
-			"box_color": [
-				0.24,
-				0.46,
-				0.2,
-				1.0
-			],
-			"box_size": [
-				10.0,
-				15.0,
-				11.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "playground_landmark",
-			"id": "WeatheredGreenChair",
-			"kind": "scene",
-			"position": [
-				-111.0,
-				1.9,
-				67.0
-			],
-			"scale": [
-				8.0,
-				8.0,
+				58.0,
+				24.0,
 				8.0
 			],
-			"yaw_degrees": 90.0
-		},
-		{
-			"asset_path": "res://assets/source/meshy/playground_props/house.glb",
-			"audio_material_id": "wood",
-			"box_color": [
-				0.54,
-				0.36,
-				0.24,
-				1.0
-			],
-			"box_size": [
-				30.0,
-				26.0,
-				25.0
-			],
 			"collision_mode": "visual",
-			"gameplay_tag": "playground_landmark",
-			"id": "MeshyHouse",
-			"kind": "scene",
+			"gameplay_tag": "signature_effect",
+			"id": "SwingGate",
+			"kind": "box",
 			"position": [
-				42.0,
-				8.0,
-				38.0
+				-96.0,
+				13.0,
+				-82.0
 			],
 			"scale": [
-				18.0,
-				18.0,
-				18.0
-			],
-			"yaw_degrees": 180.0
-		},
-		{
-			"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
-			"audio_material_id": "wood",
-			"box_color": [
-				0.42,
-				0.31,
-				0.22,
+				1.0,
+				1.0,
 				1.0
 			],
-			"box_size": [
-				10.0,
-				11.0,
-				2.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "playground_landmark",
-			"id": "FortifiedFence",
-			"kind": "scene",
-			"position": [
-				70.0,
-				-10.5,
-				102.0
-			],
-			"scale": [
-				20.0,
-				20.0,
-				20.0
-			],
-			"yaw_degrees": -90.0
+			"yaw_degrees": 0.0
 		}
 	],
 	"surface_segments": [
 		{
-			"end_route_index": 20,
+			"end_route_index": 6,
 			"id": "outdoor_playground_feature_surface",
 			"position": [
-				70.0,
-				3.54999995231628,
-				50.0
+				124.0,
+				3.34999990463257,
+				-104.0
 			],
-			"start_route_index": 11,
+			"start_route_index": 3,
 			"surface_audio_id": "outdoor_playground_secondary",
 			"surface_material_id": "asphalt_feature"
 		},
 		{
-			"end_route_index": 31,
+			"end_route_index": 9,
 			"id": "outdoor_playground_return_surface",
 			"position": [
-				-80.0,
-				3.54999995231628,
-				10.0
+				-88.0,
+				3.34999990463257,
+				-82.0
 			],
-			"start_route_index": 21,
+			"start_route_index": 6,
 			"surface_audio_id": "outdoor_playground_primary",
 			"surface_material_id": "asphalt"
 		},
 		{
-			"end_route_index": 10,
+			"end_route_index": 3,
 			"id": "outdoor_playground_start_surface",
 			"position": [
-				-30.0,
-				3.54999995231628,
-				-70.0
+				-72.0,
+				3.34999990463257,
+				-252.0
 			],
 			"start_route_index": 0,
 			"surface_audio_id": "outdoor_playground_primary",
@@ -870,7 +674,7 @@
 		}
 	],
 	"track_id": "outdoor_playground",
-	"version": "outdoor_playground_v1_2026_05_01",
+	"version": "outdoor_playground_toybox_v1_2026_05_02",
 	"wall_height": 1.6,
 	"wall_thickness": 0.45
 }

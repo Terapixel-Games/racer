@@ -1,52 +1,158 @@
-[gd_scene load_steps=11 format=3 uid="uid://uxfe1mclfecx"]
+[gd_scene load_steps=43 format=3]
 
-[ext_resource type="Script" uid="uid://dlvn2xhwjpnou" path="res://scripts/track/TrackAuthoringPreview.gd" id="1_v46l3"]
-[ext_resource type="Script" uid="uid://doxmi6s12eqc5" path="res://scripts/track/StagePropAuthoring.gd" id="2_nuam5"]
-[ext_resource type="Script" uid="uid://o3okkegl41gl" path="res://scripts/track/SurfaceSegmentAuthoring.gd" id="3_72hx3"]
-[ext_resource type="Script" uid="uid://caggqafc2elyk" path="res://scripts/track/AudioZoneAuthoring.gd" id="4_3tyt2"]
-[ext_resource type="Script" uid="uid://capjso3b7axtk" path="res://scripts/track/GrassZoneAuthoring.gd" id="5_grass_zone"]
+[ext_resource type="Script" path="res://scripts/track/TrackAuthoringPreview.gd" id="1_hc0tp"]
+[ext_resource type="Shader" path="res://assets/gameplay/materials/grass/playground_grass.gdshader" id="2_2e740"]
+[ext_resource type="Texture2D" path="res://assets/gameplay/materials/playground/outdoor_playground_floor_albedo.png" id="3_4du5g"]
+[ext_resource type="PackedScene" path="res://assets/gameplay/tracks/shared/backyard/backyard_base.tscn" id="4_40lle"]
+[ext_resource type="Script" path="res://scripts/track/StagePropAuthoring.gd" id="5_hr1ph"]
+[ext_resource type="Script" path="res://scripts/track/SurfaceSegmentAuthoring.gd" id="6_73kc6"]
+[ext_resource type="Script" path="res://scripts/track/AudioZoneAuthoring.gd" id="7_yfpuy"]
+[ext_resource type="Script" path="res://scripts/track/GrassZoneAuthoring.gd" id="8_7hdex"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hc0tp"]
-albedo_color = Color(0.28, 0.32, 0.34, 1)
-roughness = 0.78
-uv1_scale = Vector3(24, 24, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0e5r6"]
+render_priority = 0
+shader = ExtResource("2_2e740")
+shader_parameter/base_color = Color(0.24, 0.34, 0.14, 1)
+shader_parameter/bright_color = null
+shader_parameter/dry_color = null
+shader_parameter/soil_color = null
+shader_parameter/floor_texture = ExtResource("3_4du5g")
+shader_parameter/use_floor_texture = null
+shader_parameter/floor_texture_scale = null
+shader_parameter/patch_scale = null
+shader_parameter/blade_scale = null
+shader_parameter/blade_strength = null
+shader_parameter/wind_speed = null
+shader_parameter/wind_strength = null
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_2e740"]
-size = Vector2(800, 800)
+[sub_resource type="PlaneMesh" id="PlaneMesh_4ktvn"]
+size = Vector2(840, 620)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_back_grass"]
-size = Vector3(400, 1, 200)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x6ax5"]
+albedo_color = Color(0.28, 0.42, 0.18, 1)
+roughness = 0.82
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_back_grass_2"]
-size = Vector3(400, 1, 200)
+[sub_resource type="PlaneMesh" id="PlaneMesh_yrll2"]
+size = Vector2(840, 620)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_back_grass_3"]
-size = Vector3(400, 1, 200)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g1op7"]
+albedo_color = Color(0.54, 0.36, 0.2, 1)
+roughness = 0.72
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_back_grass_4"]
-size = Vector3(400, 1, 200)
+[sub_resource type="BoxMesh" id="BoxMesh_331xs"]
+size = Vector3(840, 34, 5)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grass_bounds"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_617qk"]
+albedo_color = Color(0.5, 0.32, 0.18, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_80exk"]
+size = Vector3(840, 34, 5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_83e3x"]
+albedo_color = Color(0.48, 0.3, 0.16, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_u240u"]
+size = Vector3(5, 34, 620)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4k3ih"]
+albedo_color = Color(0.48, 0.3, 0.16, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_g0q58"]
+size = Vector3(5, 34, 620)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vqf3o"]
+albedo_color = Color(0.82, 0.64, 0.36, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_g3ddx"]
+size = Vector3(190, 5, 150)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7cp2w"]
+albedo_color = Color(0.22, 0.48, 0.2, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_oqgo4"]
+size = Vector3(210, 5, 170)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k6gwf"]
+albedo_color = Color(0.32, 0.36, 0.3, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_rwjk6"]
+size = Vector3(240, 5, 180)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_82jmk"]
+albedo_color = Color(0.86, 0.12, 0.1, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_t5y1o"]
+size = Vector3(54, 18, 14)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0wmib"]
+albedo_color = Color(0.86, 0.34, 0.58, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_pm3mg"]
+size = Vector3(116, 10, 16)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3w0qm"]
+albedo_color = Color(0.58, 0.34, 0.12, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_ojwrw"]
+size = Vector3(170, 14, 8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mjnda"]
 transparency = 1
+cull_mode = 2
 shading_mode = 0
 albedo_color = Color(0.2, 0.95, 0.25, 0.22)
 
-[sub_resource type="BoxMesh" id="BoxMesh_back_grass_bounds"]
-size = Vector3(400, 1, 200)
+[sub_resource type="BoxShape3D" id="BoxShape3D_mdx1i"]
+size = Vector3(230, 1, 170)
 
-[sub_resource type="BoxMesh" id="BoxMesh_back_grass_bounds_2"]
-size = Vector3(400, 1, 200)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jw58s"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(0.2, 0.95, 0.25, 0.22)
 
-[sub_resource type="BoxMesh" id="BoxMesh_back_grass_bounds_3"]
-size = Vector3(400, 1, 200)
+[sub_resource type="BoxMesh" id="BoxMesh_00iql"]
+size = Vector3(230, 1, 170)
 
-[sub_resource type="BoxMesh" id="BoxMesh_back_grass_bounds_4"]
-size = Vector3(400, 1, 200)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ujml4"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(0.2, 0.95, 0.25, 0.22)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_aeqy1"]
+size = Vector3(160, 1, 80)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dso4g"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(0.2, 0.95, 0.25, 0.22)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ao4qd"]
+size = Vector3(160, 1, 80)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pglj6"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(0.96, 0.22, 0.12, 0.38)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fb0vi"]
+size = Vector3(20, 4, 14)
 
 [node name="OutdoorPlaygroundEditableRoom" type="Node3D"]
-script = ExtResource("1_v46l3")
-preview_enabled = true
-ground_size = Vector2(800, 800)
+script = ExtResource("1_hc0tp")
+ground_size = Vector2(840, 620)
 ground_y = -11.0
 road_y_offset = 0.0
 track_definition_path = "res://assets/gameplay/tracks/outdoor_playground/outdoor_playground_track_definition.tres"
@@ -58,1443 +164,371 @@ wall_preview_alpha = 0.27
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -32, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.648705, 11.163528)
-material_override = SubResource("StandardMaterial3D_hc0tp")
-mesh = SubResource("PlaneMesh_2e740")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.648705, 0)
+material_override = SubResource("ShaderMaterial_0e5r6")
+mesh = SubResource("PlaneMesh_4ktvn")
 
-[node name="RoomShell" type="Node3D" parent="."]
+[node name="SharedBackyardBase" type="Node3D" parent="." instance=ExtResource("4_40lle")]
+
+[node name="BackyardFloor" type="Node3D" parent="SharedBackyardBase"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -32, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SharedBackyardBase/BackyardFloor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.648705, 0)
+material_override = SubResource("StandardMaterial3D_x6ax5")
+mesh = SubResource("PlaneMesh_yrll2")
+
+[node name="YardFence" type="Node3D" parent="SharedBackyardBase"]
+
+[node name="BackFence" type="MeshInstance3D" parent="SharedBackyardBase/YardFence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17, 315)
+material_override = SubResource("StandardMaterial3D_g1op7")
+mesh = SubResource("BoxMesh_331xs")
+
+[node name="FrontFence" type="MeshInstance3D" parent="SharedBackyardBase/YardFence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17, -315)
+material_override = SubResource("StandardMaterial3D_617qk")
+mesh = SubResource("BoxMesh_80exk")
+
+[node name="LeftFence" type="MeshInstance3D" parent="SharedBackyardBase/YardFence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -425, 17, 0)
+material_override = SubResource("StandardMaterial3D_83e3x")
+mesh = SubResource("BoxMesh_u240u")
+
+[node name="RightFence" type="MeshInstance3D" parent="SharedBackyardBase/YardFence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 425, 17, 0)
+material_override = SubResource("StandardMaterial3D_4k3ih")
+mesh = SubResource("BoxMesh_g0q58")
+
+[node name="VisibleCourseTerritories" type="Node3D" parent="SharedBackyardBase"]
+
+[node name="SandboxTerritory" type="MeshInstance3D" parent="SharedBackyardBase/VisibleCourseTerritories"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 250, -7, 130)
+material_override = SubResource("StandardMaterial3D_vqf3o")
+mesh = SubResource("BoxMesh_g3ddx")
+
+[node name="GardenTerritory" type="MeshInstance3D" parent="SharedBackyardBase/VisibleCourseTerritories"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -240, -7, 130)
+material_override = SubResource("StandardMaterial3D_7cp2w")
+mesh = SubResource("BoxMesh_oqgo4")
+
+[node name="PlaygroundTerritory" type="MeshInstance3D" parent="SharedBackyardBase/VisibleCourseTerritories"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7, -150)
+material_override = SubResource("StandardMaterial3D_k6gwf")
+mesh = SubResource("BoxMesh_rwjk6")
+
+[node name="DistantSlideSilhouette" type="MeshInstance3D" parent="SharedBackyardBase/VisibleCourseTerritories"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70, 9, -205)
+material_override = SubResource("StandardMaterial3D_82jmk")
+mesh = SubResource("BoxMesh_t5y1o")
+
+[node name="DistantFlowerBeds" type="MeshInstance3D" parent="SharedBackyardBase/VisibleCourseTerritories"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -245, 4, 210)
+material_override = SubResource("StandardMaterial3D_0wmib")
+mesh = SubResource("BoxMesh_pm3mg")
+
+[node name="DistantSandboxWall" type="MeshInstance3D" parent="SharedBackyardBase/VisibleCourseTerritories"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 250, 2, 50)
+material_override = SubResource("StandardMaterial3D_3w0qm")
+mesh = SubResource("BoxMesh_ojwrw")
 
 [node name="RoutePoints" type="Node3D" parent="."]
 
 [node name="RoutePoint00" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -101.32725, -8.767965, -44.652336)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -122, 3.35, -226)
 
 [node name="RoutePoint01" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87.72835, -9.274012, -46.31087)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72, 3.35, -252)
 
 [node name="RoutePoint02" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.040657, -8.205278, -26.995079)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3.35, -248)
 
 [node name="RoutePoint03" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.587025, -6.335131, -10.5921955)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 5.75, -220)
 
 [node name="RoutePoint04" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.213814, -4.9633737, 22.48392)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 116, 6.75, -172)
 
 [node name="RoutePoint05" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.433235, -5.883842, 32.945152)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124, 3.35, -104)
 
 [node name="RoutePoint06" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.360256, 3.2224097, 37.351624)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70, 3.35, -58)
 
 [node name="RoutePoint07" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9211445, 3.2224097, 28.686737)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 3.35, -48)
 
 [node name="RoutePoint08" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.44, 3.2224097, -77.745285)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -88, 3.35, -82)
 
 [node name="RoutePoint09" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.16, 3.2224097, -76)
-
-[node name="RoutePoint10" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 98.88, 5.02241, -68)
-
-[node name="RoutePoint11" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 119.48, 6.02241, -52)
-
-[node name="RoutePoint12" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 131.84, 3.2224097, -30)
-
-[node name="RoutePoint13" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 135.96, 3.2224097, -6)
-
-[node name="RoutePoint14" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 133.9, 3.2224097, 18)
-
-[node name="RoutePoint15" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125.66, 3.2224097, 42)
-
-[node name="RoutePoint16" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 109.18, 3.2224097, 60)
-
-[node name="RoutePoint17" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86.52, 3.2224097, 72)
-
-[node name="RoutePoint18" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.8, 3.2224097, 78)
-
-[node name="RoutePoint19" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.02, 3.2224097, 82)
-
-[node name="RoutePoint20" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.24, 3.2224097, 82)
-
-[node name="RoutePoint21" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.54, 3.2224097, 80)
-
-[node name="RoutePoint22" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.32, 3.2224097, 76)
-
-[node name="RoutePoint23" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.1, 3.2224097, 68)
-
-[node name="RoutePoint24" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96.82, 3.2224097, 54)
-
-[node name="RoutePoint25" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -117.42, 3.2224097, 34)
-
-[node name="RoutePoint26" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -129.78, 3.2224097, 10)
-
-[node name="RoutePoint27" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -133.9, 3.2224097, -16)
-
-[node name="RoutePoint28" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -129.78, 3.2224097, -40)
-
-[node name="RoutePoint29" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126.04733, 3.2224097, -55.54164)
-
-[node name="RoutePoint30" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -121.2798, 3.2224097, -65.35753)
-
-[node name="RoutePoint31" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -115.36, 3.2224097, -68)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -134, 3.35, -150)
 
 [node name="Checkpoints" type="Node3D" parent="."]
 
 [node name="Checkpoint00_LapGate" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -111.24, 3.35, -72)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -122, 3.35, -226)
 
 [node name="Checkpoint01" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.35, -76)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72, 3.35, -252)
 
 [node name="Checkpoint02" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 131.84, 3.35, -30)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 5.75, -220)
 
 [node name="Checkpoint03" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.8, 3.35, 78)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124, 3.35, -104)
 
 [node name="Checkpoint04" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96.82, 3.35, 54)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70, 3.35, -58)
 
 [node name="Checkpoint05" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -129.78, 3.35, -40)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -88, 3.35, -82)
 
 [node name="SpawnPoints" type="Node3D" parent="."]
 
 [node name="Start01" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.38416082, 0, 0.9232662, 0, 1, 0, -0.9232662, 0, -0.38416082, -110.47168, 4.15, -70.153465)
+transform = Transform3D(-0.46135274, 0, 0.8872168, 0, 1, 0, -0.8872168, 0, -0.46135274, -121.07729, 4.15, -224.22557)
 
 [node name="Start02" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.38416082, 0, 0.9232662, 0, 1, 0, -0.9232662, 0, -0.38416082, -112.008316, 4.15, -73.846535)
+transform = Transform3D(-0.46135274, 0, 0.8872168, 0, 1, 0, -0.8872168, 0, -0.46135274, -122.92271, 4.15, -227.77443)
 
 [node name="Start03" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.38416082, 0, 0.9232662, 0, 1, 0, -0.9232662, 0, -0.38416082, -105.85535, 4.15, -72.07427)
+transform = Transform3D(-0.46135274, 0, 0.8872168, 0, 1, 0, -0.8872168, 0, -0.46135274, -116.64121, 4.15, -226.53233)
 
 [node name="Start04" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.38416082, 0, 0.9232662, 0, 1, 0, -0.9232662, 0, -0.38416082, -107.39198, 4.15, -75.76734)
+transform = Transform3D(-0.46135274, 0, 0.8872168, 0, 1, 0, -0.8872168, 0, -0.46135274, -118.486626, 4.15, -230.08119)
 
 [node name="Start05" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.38416082, 0, 0.9232662, 0, 1, 0, -0.9232662, 0, -0.38416082, -101.23902, 4.15, -73.99507)
+transform = Transform3D(-0.46135274, 0, 0.8872168, 0, 1, 0, -0.8872168, 0, -0.46135274, -112.205124, 4.15, -228.8391)
 
 [node name="Start06" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.38416082, 0, 0.9232662, 0, 1, 0, -0.9232662, 0, -0.38416082, -102.77566, 4.15, -77.68814)
+transform = Transform3D(-0.46135274, 0, 0.8872168, 0, 1, 0, -0.8872168, 0, -0.46135274, -114.05054, 4.15, -232.38795)
 
 [node name="Start07" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.38416082, 0, 0.9232662, 0, 1, 0, -0.9232662, 0, -0.38416082, -96.62269, 4.15, -75.91588)
+transform = Transform3D(-0.46135274, 0, 0.8872168, 0, 1, 0, -0.8872168, 0, -0.46135274, -107.76904, 4.15, -231.14586)
 
 [node name="Start08" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.38416082, 0, 0.9232662, 0, 1, 0, -0.9232662, 0, -0.38416082, -98.159325, 4.15, -79.60895)
+transform = Transform3D(-0.46135274, 0, 0.8872168, 0, 1, 0, -0.8872168, 0, -0.46135274, -109.614456, 4.15, -234.69472)
 
 [node name="ItemSockets" type="Node3D" parent="."]
 
 [node name="ItemSocket01" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80.34, 4.0499997, -82)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72, 4.0499997, -252)
 
 [node name="ItemSocket02" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.6, 4.0499997, -80)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 4.0499997, -248)
 
 [node name="ItemSocket03" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.44, 4.0499997, -78)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 116, 7.45, -172)
 
 [node name="ItemSocket04" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 119.48, 6.85, -52)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124, 4.0499997, -104)
 
 [node name="ItemSocket05" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 133.9, 4.0499997, 18)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 4.0499997, -48)
 
 [node name="ItemSocket06" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86.52, 4.0499997, 72)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -88, 4.0499997, -82)
 
 [node name="ItemSocket07" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.24, 4.0499997, 82)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -134, 4.0499997, -150)
 
 [node name="ItemSocket08" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.1, 4.0499997, 68)
-
-[node name="ItemSocket09" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -129.78, 4.0499997, 10)
-
-[node name="ItemSocket10" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -119.48, 4.0499997, -60)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -122, 4.0499997, -226)
 
 [node name="HazardSockets" type="Node3D" parent="."]
 
 [node name="HazardSocket01" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.2, 4.0499997, -83)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 4.0499997, -248)
 
 [node name="HazardSocket02" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.16, 4.0499997, -76)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 116, 7.45, -172)
 
 [node name="HazardSocket03" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 135.96, 4.0499997, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70, 4.0499997, -58)
 
 [node name="HazardSocket04" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.8, 4.0499997, 78)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -88, 4.0499997, -82)
 
 [node name="HazardSocket05" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.32, 4.0499997, 76)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -122, 4.0499997, -226)
 
 [node name="HazardSocket06" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -133.9, 4.0499997, -16)
-
-[node name="HazardSocket07" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -107.12, 4.0499997, -70)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72, 4.0499997, -252)
 
 [node name="AlternateRoutes" type="Node3D" parent="."]
 
-[node name="outdoor_playground_branch" type="Node3D" parent="AlternateRoutes"]
+[node name="outdoor_playground_alt_route" type="Node3D" parent="AlternateRoutes"]
 
-[node name="Point00" type="Marker3D" parent="AlternateRoutes/outdoor_playground_branch"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.55, -76)
+[node name="Point00" type="Marker3D" parent="AlternateRoutes/outdoor_playground_alt_route"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3.75, -248)
 
-[node name="Point01" type="Marker3D" parent="AlternateRoutes/outdoor_playground_branch"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 4.35, -32)
+[node name="Point01" type="Marker3D" parent="AlternateRoutes/outdoor_playground_alt_route"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 4.55, -176)
 
-[node name="Point02" type="Marker3D" parent="AlternateRoutes/outdoor_playground_branch"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 4.35, 20)
-
-[node name="Point03" type="Marker3D" parent="AlternateRoutes/outdoor_playground_branch"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 3.75, 78)
+[node name="Point02" type="Marker3D" parent="AlternateRoutes/outdoor_playground_alt_route"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124, 3.75, -104)
 
 [node name="ShortcutGates" type="Node3D" parent="."]
 
+[node name="outdoor_playground_shortcut_Entry" type="Marker3D" parent="ShortcutGates"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3.35, -248)
+
+[node name="outdoor_playground_shortcut_Exit" type="Marker3D" parent="ShortcutGates"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124, 3.35, -104)
+
 [node name="Dressing" type="Node3D" parent="."]
 
-[node name="SlideSpiral" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 94, 2, -44)
-script = ExtResource("2_nuam5")
-prop_id = "SlideSpiral"
-box_size = Vector3(54, 2, 18)
-box_color = Color(0.95, 0.22, 0.16, 1)
+[node name="SlideDrop" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84, 8, -208)
+script = ExtResource("5_hr1ph")
+prop_id = "SlideDrop"
+box_size = Vector3(58, 2.5, 20)
+box_color = Color(0.92, 0.16, 0.12, 1)
 audio_material_id = "plastic"
 gameplay_tag = "ramp"
 
-[node name="WoodenPlaygroundSet" type="Node3D" parent="Dressing"]
-transform = Transform3D(24, 0, 0, 0, 24, 0, 0, 0, 24, -34.51095, 2.3804035, 5.6168156)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "WoodenPlaygroundSet"
-asset_path = "res://assets/gameplay/tracks/outdoor_playground/wooden_playground_set_meshy.tscn"
-box_size = Vector3(38, 22, 16)
-box_color = Color(0.58, 0.34, 0.16, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="SwingSafetyPad" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -82, -9, 48)
-script = ExtResource("2_nuam5")
-prop_id = "SwingSafetyPad"
-box_size = Vector3(42, 1, 18)
-box_color = Color(0.36, 0.16, 0.06, 1)
-audio_material_id = "mulch"
-gameplay_tag = "playground_landmark"
-
-[node name="RustySeesaw" type="Node3D" parent="Dressing"]
-transform = Transform3D(0, 0, 18, 0, 18, 0, -18, 0, 0, -116, 2.6, 34)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "RustySeesaw"
-asset_path = "res://assets/source/meshy/playground_props/rusty_seesaw.glb"
-box_size = Vector3(34, 13, 6)
-box_color = Color(0.48, 0.18, 0.08, 1)
+[node name="SwingGate" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96, 13, -82)
+script = ExtResource("5_hr1ph")
+prop_id = "SwingGate"
+box_size = Vector3(58, 24, 8)
+box_color = Color(0.1, 0.22, 0.28, 1)
 audio_material_id = "metal"
-gameplay_tag = "playground_landmark"
+gameplay_tag = "signature_effect"
 
-[node name="RustyPlaygroundSlide" type="Node3D" parent="Dressing"]
-transform = Transform3D(16, 0, 0, 0, 16, 0, 0, 0, 16, -46, 3.4, 58)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "RustyPlaygroundSlide"
-asset_path = "res://assets/source/meshy/playground_props/rusty_playground_slide.glb"
-box_size = Vector3(30, 18, 6)
-box_color = Color(0.8, 0.32, 0.12, 1)
-audio_material_id = "metal"
-gameplay_tag = "playground_landmark"
+[node name="ChalkRouteArrows" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 3, -48)
+script = ExtResource("5_hr1ph")
+prop_id = "ChalkRouteArrows"
+box_size = Vector3(72, 0.3, 16)
+box_color = Color(0.9, 0.9, 0.84, 1)
+audio_material_id = "chalk"
+gameplay_tag = "route_language"
 
-[node name="WeatheredGreenChair" type="Node3D" parent="Dressing"]
-transform = Transform3D(0, 0, -8, 0, 8, 0, 8, 0, 0, -111, 1.9, 67)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "WeatheredGreenChair"
-asset_path = "res://assets/source/meshy/playground_props/weathered_green_chair.glb"
-box_size = Vector3(10, 15, 11)
-box_color = Color(0.24, 0.46, 0.2, 1)
-audio_material_id = "plastic"
-gameplay_tag = "playground_landmark"
-
-[node name="MeshyHouse" type="Node3D" parent="Dressing"]
-transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 3.3100739, 62.167175, 299.13434)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "MeshyHouse"
-asset_path = "res://assets/source/meshy/playground_props/house.glb"
-box_size = Vector3(30, 26, 25)
-box_color = Color(0.54, 0.36, 0.24, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="MonkeyBars" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 10, 66)
-script = ExtResource("2_nuam5")
-prop_id = "MonkeyBars"
-box_size = Vector3(72, 3, 18)
+[node name="RailShortcut" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 7, -58)
+script = ExtResource("5_hr1ph")
+prop_id = "RailShortcut"
+box_size = Vector3(78, 3, 6)
 box_color = Color(0.1, 0.44, 0.8, 1)
 audio_material_id = "metal"
-gameplay_tag = "playground_landmark"
-
-[node name="MulchSlowZone" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, -10, -30)
-script = ExtResource("2_nuam5")
-prop_id = "MulchSlowZone"
-box_size = Vector3(76, 4, 26)
-box_color = Color(0.36, 0.16, 0.06, 1)
-audio_material_id = "mulch"
-gameplay_tag = "slow_zone"
-
-[node name="Fence" type="Node3D" parent="Dressing"]
-
-[node name="FortifiedFence2" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 97.98486, -10.5, 268.26822)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence3" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 116.473495, -10.5, 268.26822)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence4" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 135.64757, -10.5, 268.26822)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence5" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 154.13194, -10.5, 268.26822)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence6" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 173.61563, -10.5, 268.26822)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence57" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -164.09756, -10.5, 268.26822)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence58" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -145.60895, -10.5, 268.26822)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence59" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -126.43487, -10.5, 268.26822)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence60" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -107.95049, -10.5, 268.26822)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence61" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -88.466805, -10.5, 268.26822)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence62" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -259.1681, -10.5, 268.26822)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence63" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -240.67947, -10.5, 268.26822)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence64" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -221.50539, -10.5, 268.26822)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence65" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -203.02101, -10.5, 268.26822)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence66" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -183.53732, -10.5, 268.26822)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence67" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -198.61769, -10.5, -203.5872)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence68" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -180.12907, -10.5, -203.5872)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence69" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -256.0255, -10.5, -203.5872)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence70" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -237.54114, -10.5, -203.5872)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence71" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -218.05745, -10.5, -203.5872)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence72" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -104.3974, -10.5, -203.5872)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence73" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -85.90878, -10.5, -203.5872)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence74" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -161.80522, -10.5, -203.5872)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence75" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -143.32085, -10.5, -203.5872)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence76" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -123.83716, -10.5, -203.5872)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence77" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -10.369156, -10.5, -203.5872)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence78" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 8.119461, -10.5, -203.5872)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence79" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -67.77698, -10.5, -203.5872)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence80" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -49.292603, -10.5, -203.5872)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence81" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -29.808914, -10.5, -203.5872)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence82" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 83.64931, -10.5, -203.5872)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence83" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 102.137924, -10.5, -203.5872)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence84" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 26.241486, -10.5, -203.5872)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence85" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 44.72586, -10.5, -203.5872)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence86" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 64.20955, -10.5, -203.5872)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence87" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 177.50476, -10.5, -203.5872)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence89" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 120.09693, -10.5, -203.5872)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence90" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 138.5813, -10.5, -203.5872)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence91" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 158.065, -10.5, -203.5872)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence7" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, 191.82097, -10.5, 250.23581)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence8" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, 191.82097, -10.5, 231.74716)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence9" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, 191.82097, -10.5, 212.57309)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence10" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, 191.82097, -10.5, 194.08871)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence11" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, 191.82097, -10.5, 174.60504)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence12" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, 191.82097, -10.5, 156.26125)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence13" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, 191.82097, -10.5, 137.7726)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence14" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, 191.82097, -10.5, 118.598526)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence15" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, 191.82097, -10.5, 100.11415)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence16" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, 191.82097, -10.5, 80.63048)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence17" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, 191.82097, -10.5, 61.58953)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence18" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, 191.82097, -10.5, 43.100883)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence19" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, 191.82097, -10.5, 23.926811)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence20" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, 191.82097, -10.5, 5.442436)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence21" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, 191.82097, -10.5, -14.041237)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence22" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, 191.82097, -10.5, -32.77867)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence23" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, 191.82097, -10.5, -51.26732)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence24" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, 191.82097, -10.5, -70.44139)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence25" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, 191.82097, -10.5, -88.925766)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence26" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, 191.82097, -10.5, -108.40944)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence27" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, 191.82097, -10.5, -127.64302)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence28" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, 191.82097, -10.5, -146.13167)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence29" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, 191.82097, -10.5, -165.30574)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence30" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, 191.82097, -10.5, -183.79012)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence31" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, 191.82097, -10.5, -203.27379)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence32" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, -256.7184, -10.5, 250.23581)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence33" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, -256.7184, -10.5, 231.74716)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence34" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, -256.7184, -10.5, 212.57309)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence35" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, -256.7184, -10.5, 194.08871)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence36" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, -256.7184, -10.5, 174.60504)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence37" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, -256.7184, -10.5, 156.26125)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence38" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, -256.7184, -10.5, 137.7726)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence39" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, -256.7184, -10.5, 118.598526)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence40" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, -256.7184, -10.5, 100.11415)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence41" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, -256.7184, -10.5, 80.63048)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence42" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, -256.7184, -10.5, 61.58953)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence43" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, -256.7184, -10.5, 43.100883)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence44" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, -256.7184, -10.5, 23.926811)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence45" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, -256.7184, -10.5, 5.442436)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence46" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, -256.7184, -10.5, -14.041237)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence47" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, -256.7184, -10.5, -32.77867)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence48" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, -256.7184, -10.5, -51.26732)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence49" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, -256.7184, -10.5, -70.44139)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence50" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, -256.7184, -10.5, -88.925766)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence51" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, -256.7184, -10.5, -108.40944)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence52" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, -256.7184, -10.5, -127.64302)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence53" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, -256.7184, -10.5, -146.13167)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence54" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, -256.7184, -10.5, -165.30574)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence55" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, -256.7184, -10.5, -183.79012)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
-
-[node name="FortifiedFence56" type="Node3D" parent="Dressing/Fence"]
-transform = Transform3D(-1.7484556e-06, 0, 40, 0, 40, 0, -40, 0, -1.7484556e-06, -256.7184, -10.5, -203.27379)
-script = ExtResource("2_nuam5")
-prop_kind = "scene"
-prop_id = "FortifiedFence"
-asset_path = "res://assets/source/kenney/survival_kit/fence_fortified.glb"
-box_size = Vector3(10, 11, 2)
-box_color = Color(0.42, 0.31, 0.22, 1)
-audio_material_id = "wood"
-gameplay_tag = "playground_landmark"
+gameplay_tag = "shortcut_landmark"
+
+[node name="HalfPipeBank" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 118, 5, -136)
+script = ExtResource("5_hr1ph")
+prop_id = "HalfPipeBank"
+box_size = Vector3(52, 9, 26)
+box_color = Color(0.16, 0.42, 0.74, 1)
+audio_material_id = "plastic"
+gameplay_tag = "stunt_landmark"
+
+[node name="BrokenBorderGate" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -124, 10, -226)
+script = ExtResource("5_hr1ph")
+prop_id = "BrokenBorderGate"
+box_size = Vector3(32, 20, 5)
+box_color = Color(0.58, 0.36, 0.18, 1)
+audio_material_id = "wood"
+gameplay_tag = "story_landmark"
 
 [node name="SurfaceSegments" type="Node3D" parent="."]
 
 [node name="outdoor_playground_start_surface" type="Marker3D" parent="SurfaceSegments"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 3.55, -70)
-script = ExtResource("3_72hx3")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72, 3.35, -252)
+script = ExtResource("6_73kc6")
 segment_id = "outdoor_playground_start_surface"
-end_route_index = 10
+end_route_index = 3
 surface_audio_id = "outdoor_playground_primary"
 surface_material_id = "asphalt"
 
 [node name="outdoor_playground_feature_surface" type="Marker3D" parent="SurfaceSegments"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70, 3.55, 50)
-script = ExtResource("3_72hx3")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124, 3.35, -104)
+script = ExtResource("6_73kc6")
 segment_id = "outdoor_playground_feature_surface"
-start_route_index = 11
-end_route_index = 20
+start_route_index = 3
+end_route_index = 6
 surface_audio_id = "outdoor_playground_secondary"
 surface_material_id = "asphalt_feature"
 
 [node name="outdoor_playground_return_surface" type="Marker3D" parent="SurfaceSegments"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 3.55, 10)
-script = ExtResource("3_72hx3")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -88, 3.35, -82)
+script = ExtResource("6_73kc6")
 segment_id = "outdoor_playground_return_surface"
-start_route_index = 21
-end_route_index = 31
+start_route_index = 6
+end_route_index = 9
 surface_audio_id = "outdoor_playground_primary"
 surface_material_id = "asphalt"
 
 [node name="AudioZones" type="Node3D" parent="."]
 
 [node name="outdoor_playground_music_zone" type="Marker3D" parent="AudioZones"]
-script = ExtResource("4_3tyt2")
+script = ExtResource("7_yfpuy")
 zone_id = "outdoor_playground_music_zone"
 audio_id = "music"
-radius = 120.0
+radius = 140.0
 volume_db = -14.0
 
-[node name="outdoor_playground_feature_zone" type="Marker3D" parent="AudioZones"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 4.35, 36)
-script = ExtResource("4_3tyt2")
-zone_id = "outdoor_playground_feature_zone"
+[node name="SwingGateEffect" type="Marker3D" parent="AudioZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124, 3.35, -104)
+script = ExtResource("7_yfpuy")
+zone_id = "SwingGateEffect"
 audio_id = "outdoor_playground_secondary"
 zone_kind = "oneshot"
 radius = 28.0
 
+[node name="outdoor_playground_route_zone" type="Marker3D" parent="AudioZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3.35, -248)
+script = ExtResource("7_yfpuy")
+zone_id = "outdoor_playground_route_zone"
+audio_id = "outdoor_playground_primary"
+zone_kind = "oneshot"
+radius = 26.0
+volume_db = -7.0
+
 [node name="GrassZones" type="Node3D" parent="."]
 
-[node name="BackCornerGrass" type="Area3D" parent="GrassZones"]
-transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, -7.053982, -120.731995)
-monitoring = false
-monitorable = false
-script = ExtResource("5_grass_zone")
-zone_id = "back_corner_grass"
-size = Vector2(400, 200)
-density = 2.85
+[node name="OutdoorPlaygroundActiveGrass" type="Area3D" parent="GrassZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -150)
+script = ExtResource("8_7hdex")
+zone_id = "outdoor_playground_active_grass"
+size = Vector2(230, 170)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GrassZones/BackCornerGrass"]
-transform = Transform3D(0.99999464, 0, 0, 0, 1, 0, 0, 0, 0.99999464, 0, 0, -94.85867)
-shape = SubResource("BoxShape3D_back_grass")
-
-[node name="BoundsPreview3" type="MeshInstance3D" parent="GrassZones/BackCornerGrass"]
-transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0, 0, -74.6086)
+[node name="BoundsPreview" type="MeshInstance3D" parent="GrassZones/OutdoorPlaygroundActiveGrass"]
 visible = false
-material_override = SubResource("StandardMaterial3D_grass_bounds")
-mesh = SubResource("BoxMesh_back_grass_bounds")
-skeleton = NodePath("../..")
+material_override = SubResource("StandardMaterial3D_mjnda")
+cast_shadow = 0
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="GrassZones/BackCornerGrass"]
-transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0, -80.774506)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GrassZones/OutdoorPlaygroundActiveGrass"]
+shape = SubResource("BoxShape3D_mdx1i")
 
-[node name="BackCornerGrass2" type="Area3D" parent="GrassZones"]
-transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, -8.268887, 232.99042)
-monitoring = false
-monitorable = false
-script = ExtResource("5_grass_zone")
-zone_id = "back_corner_grass"
-size = Vector2(400, 200)
-density = 0.85
+[node name="@MeshInstance3D@6" type="MeshInstance3D" parent="GrassZones/OutdoorPlaygroundActiveGrass"]
+material_override = SubResource("StandardMaterial3D_jw58s")
+mesh = SubResource("BoxMesh_00iql")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GrassZones/BackCornerGrass2"]
-transform = Transform3D(0.9999982, 0, 0, 0, 1, 0, 0, 0, 0.9999982, 0, 0, 0)
-shape = SubResource("BoxShape3D_back_grass_2")
+[node name="OutdoorPlaygroundBorderGrass" type="Area3D" parent="GrassZones"]
+transform = Transform3D(0.95105654, 0, 0.309017, 0, 1, 0, -0.309017, 0, 0.95105654, 0, 0, -70)
+script = ExtResource("8_7hdex")
+zone_id = "outdoor_playground_border_grass"
+size = Vector2(160, 80)
+density = 0.65
 
-[node name="BoundsPreview2" type="MeshInstance3D" parent="GrassZones/BackCornerGrass2"]
-material_override = SubResource("StandardMaterial3D_grass_bounds")
-mesh = SubResource("BoxMesh_back_grass_bounds_2")
-skeleton = NodePath("../..")
+[node name="BoundsPreview" type="MeshInstance3D" parent="GrassZones/OutdoorPlaygroundBorderGrass"]
+visible = false
+material_override = SubResource("StandardMaterial3D_ujml4")
+cast_shadow = 0
 
-[node name="BoundsPreview3" type="MeshInstance3D" parent="GrassZones/BackCornerGrass2"]
-transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0, 0, 1.4758759)
-material_override = SubResource("StandardMaterial3D_grass_bounds")
-mesh = SubResource("BoxMesh_back_grass_bounds_2")
-skeleton = NodePath("../..")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GrassZones/OutdoorPlaygroundBorderGrass"]
+shape = SubResource("BoxShape3D_aeqy1")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="GrassZones/BackCornerGrass2"]
+[node name="@MeshInstance3D@7" type="MeshInstance3D" parent="GrassZones/OutdoorPlaygroundBorderGrass"]
+material_override = SubResource("StandardMaterial3D_dso4g")
+mesh = SubResource("BoxMesh_ao4qd")
 
-[node name="BackCornerGrass3" type="Area3D" parent="GrassZones"]
-transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, -228.37158, -8.630779, -18.41684)
-monitoring = false
-monitorable = false
-script = ExtResource("5_grass_zone")
-zone_id = "back_corner_grass"
-size = Vector2(400, 200)
-density = 2.85
+[node name="SignatureEffects" type="Node3D" parent="."]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GrassZones/BackCornerGrass3"]
-shape = SubResource("BoxShape3D_back_grass_3")
-
-[node name="BoundsPreview2" type="MeshInstance3D" parent="GrassZones/BackCornerGrass3"]
-material_override = SubResource("StandardMaterial3D_grass_bounds")
-mesh = SubResource("BoxMesh_back_grass_bounds_3")
-skeleton = NodePath("../..")
-
-[node name="BoundsPreview3" type="MeshInstance3D" parent="GrassZones/BackCornerGrass3"]
-material_override = SubResource("StandardMaterial3D_grass_bounds")
-mesh = SubResource("BoxMesh_back_grass_bounds_3")
-skeleton = NodePath("../..")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="GrassZones/BackCornerGrass3"]
-
-[node name="BackCornerGrass4" type="Area3D" parent="GrassZones"]
-transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, 263.5164, -8.049877, -18.41684)
-monitoring = false
-monitorable = false
-script = ExtResource("5_grass_zone")
-zone_id = "back_corner_grass"
-size = Vector2(400, 200)
-density = 2.85
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GrassZones/BackCornerGrass4"]
-shape = SubResource("BoxShape3D_back_grass_4")
-
-[node name="BoundsPreview2" type="MeshInstance3D" parent="GrassZones/BackCornerGrass4"]
-material_override = SubResource("StandardMaterial3D_grass_bounds")
-mesh = SubResource("BoxMesh_back_grass_bounds_4")
-skeleton = NodePath("../..")
-
-[node name="BoundsPreview3" type="MeshInstance3D" parent="GrassZones/BackCornerGrass4"]
-material_override = SubResource("StandardMaterial3D_grass_bounds")
-mesh = SubResource("BoxMesh_back_grass_bounds_4")
-skeleton = NodePath("../..")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="GrassZones/BackCornerGrass4"]
+[node name="SwingGateEffect" type="MeshInstance3D" parent="SignatureEffects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124, 3.35, -104)
+material_override = SubResource("StandardMaterial3D_pglj6")
+mesh = SubResource("BoxMesh_fb0vi")

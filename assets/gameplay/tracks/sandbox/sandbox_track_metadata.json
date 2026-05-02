@@ -4,30 +4,25 @@
 			"enabled": true,
 			"entry_checkpoint_index": 1,
 			"exit_checkpoint_index": 3,
-			"id": "sandbox_branch",
+			"id": "sandbox_alt_route",
 			"points": [
 				[
-					0.0,
+					256.0,
+					5.95000028610229,
+					36.0
+				],
+				[
+					304.0,
+					5.64999961853027,
+					74.0
+				],
+				[
+					352.0,
 					3.75,
-					-76.0
-				],
-				[
-					22.0,
-					6.34999990463257,
-					-32.0
-				],
-				[
-					30.0,
-					2.34999990463257,
-					18.0
-				],
-				[
-					60.0,
-					3.54999995231628,
-					78.0
+					112.0
 				]
 			],
-			"road_width": 12.0
+			"road_width": 9.6
 		}
 	],
 	"audio_ids": {
@@ -37,19 +32,6 @@
 	},
 	"audio_zones": [
 		{
-			"audio_id": "sandbox_secondary",
-			"audio_path": "",
-			"id": "sandbox_feature_zone",
-			"position": [
-				60.0,
-				4.34999990463257,
-				36.0
-			],
-			"radius": 28.0,
-			"volume_db": -6.0,
-			"zone_kind": "oneshot"
-		},
-		{
 			"audio_id": "music",
 			"audio_path": "",
 			"id": "sandbox_music_zone",
@@ -58,9 +40,35 @@
 				0.0,
 				0.0
 			],
-			"radius": 120.0,
+			"radius": 140.0,
 			"volume_db": -14.0,
 			"zone_kind": "ambient"
+		},
+		{
+			"audio_id": "sandbox_primary",
+			"audio_path": "",
+			"id": "sandbox_route_zone",
+			"position": [
+				256.0,
+				5.55000019073486,
+				36.0
+			],
+			"radius": 26.0,
+			"volume_db": -7.0,
+			"zone_kind": "oneshot"
+		},
+		{
+			"audio_id": "sandbox_secondary",
+			"audio_path": "",
+			"id": "SandBurstZone",
+			"position": [
+				352.0,
+				3.34999990463257,
+				112.0
+			],
+			"radius": 28.0,
+			"volume_db": -6.0,
+			"zone_kind": "oneshot"
 		}
 	],
 	"checkpoint_radius": 7.8,
@@ -69,9 +77,9 @@
 			"index": 0,
 			"is_lap_gate": true,
 			"position": [
-				-108.0,
+				164.0,
 				3.34999990463257,
-				-72.0
+				72.0
 			],
 			"route_index": 0
 		},
@@ -79,51 +87,51 @@
 			"index": 1,
 			"is_lap_gate": false,
 			"position": [
-				0.0,
-				3.34999990463257,
-				-76.0
+				202.0,
+				3.95000004768372,
+				42.0
 			],
-			"route_index": 6
+			"route_index": 1
 		},
 		{
 			"index": 2,
 			"is_lap_gate": false,
 			"position": [
-				128.0,
-				3.34999990463257,
-				-30.0
+				320.0,
+				4.34999990463257,
+				58.0
 			],
-			"route_index": 12
+			"route_index": 3
 		},
 		{
 			"index": 3,
 			"is_lap_gate": false,
 			"position": [
-				60.0,
+				352.0,
 				3.34999990463257,
-				78.0
+				112.0
 			],
-			"route_index": 18
+			"route_index": 4
 		},
 		{
 			"index": 4,
 			"is_lap_gate": false,
 			"position": [
-				-94.0,
-				3.34999990463257,
-				54.0
+				272.0,
+				2.84999990463257,
+				200.0
 			],
-			"route_index": 24
+			"route_index": 6
 		},
 		{
 			"index": 5,
 			"is_lap_gate": false,
 			"position": [
-				-126.0,
+				204.0,
 				3.34999990463257,
-				-40.0
+				188.0
 			],
-			"route_index": 28
+			"route_index": 7
 		}
 	],
 	"closed_loop": true,
@@ -132,77 +140,84 @@
 	"floor_visual_y": -32.0,
 	"grass_zones": [
 		{
-			"density": 0.75,
+			"density": 1.0,
 			"enabled": true,
-			"id": "sandbox_back_grass",
+			"id": "sandbox_active_grass",
 			"position": [
+				250.0,
 				0.0,
-				-8.5,
-				76.0
+				130.0
 			],
 			"size": [
-				240.0,
-				34.0
+				230.0,
+				170.0
 			],
 			"yaw_degrees": 0.0
+		},
+		{
+			"density": 0.65,
+			"enabled": true,
+			"id": "sandbox_border_grass",
+			"position": [
+				250.0,
+				0.0,
+				210.0
+			],
+			"size": [
+				160.0,
+				80.0
+			],
+			"yaw_degrees": 18.0
 		}
 	],
-	"ground_shader_path": "",
+	"ground_shader_path": "res://assets/gameplay/materials/grass/playground_grass.gdshader",
 	"ground_texture_path": "res://assets/gameplay/materials/sand/sandbox_sand_albedo.png",
 	"hazard_sockets": [
 		{
 			"position": [
-				-40.0,
+				256.0,
+				6.25,
+				36.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				352.0,
 				4.04999971389771,
-				-83.0
+				112.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				72.0,
-				5.84999990463257,
-				-76.0
+				272.0,
+				3.54999995231628,
+				200.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				132.0,
+				158.0,
 				4.04999971389771,
-				-6.0
+				138.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				60.0,
-				4.04999971389771,
-				78.0
+				202.0,
+				4.65000009536743,
+				42.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				-44.0,
-				3.04999995231628,
-				76.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				-130.0,
-				4.04999971389771,
-				-16.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				-104.0,
-				4.04999971389771,
-				-70.0
+				256.0,
+				6.25,
+				36.0
 			],
 			"yaw_degrees": 0.0
 		}
@@ -211,47 +226,55 @@
 	"item_sockets": [
 		{
 			"position": [
-				-78.0,
+				202.0,
+				4.65000009536743,
+				42.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				256.0,
+				6.25,
+				36.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				352.0,
 				4.04999971389771,
-				-82.0
+				112.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				-20.0,
+				330.0,
 				4.04999971389771,
-				-80.0
+				170.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				48.0,
-				7.24999952316284,
-				-78.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				116.0,
+				204.0,
 				4.04999971389771,
-				-52.0
+				188.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				130.0,
+				158.0,
 				4.04999971389771,
-				18.0
+				138.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				84.0,
+				164.0,
 				4.04999971389771,
 				72.0
 			],
@@ -259,33 +282,9 @@
 		},
 		{
 			"position": [
-				8.0,
-				4.04999971389771,
-				82.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				-70.0,
-				4.04999971389771,
-				68.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				-126.0,
-				4.04999971389771,
-				10.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				-116.0,
-				4.04999971389771,
-				-60.0
+				202.0,
+				4.65000009536743,
+				42.0
 			],
 			"yaw_degrees": 0.0
 		}
@@ -297,171 +296,73 @@
 	"rail_texture_uv_scale": 0.5,
 	"reset_mode": "instant_pop",
 	"road_width": 12.0,
-	"route_length": 723.769570827484,
+	"route_length": 563.837478637695,
 	"route_points": [
 		[
-			-108.0,
-			3.34999990463257,
-			-72.0
-		],
-		[
-			-94.0,
-			3.34999990463257,
-			-78.0
-		],
-		[
-			-78.0,
-			3.34999990463257,
-			-82.0
-		],
-		[
-			-60.0,
-			3.34999990463257,
-			-84.0
-		],
-		[
-			-40.0,
-			3.34999990463257,
-			-83.0
-		],
-		[
-			-20.0,
-			3.34999990463257,
-			-80.0
-		],
-		[
-			0.0,
-			3.34999990463257,
-			-76.0
-		],
-		[
-			24.0,
-			5.15000009536743,
-			-76.0
-		],
-		[
-			48.0,
-			6.54999971389771,
-			-78.0
-		],
-		[
-			72.0,
-			5.15000009536743,
-			-76.0
-		],
-		[
-			96.0,
-			3.34999990463257,
-			-68.0
-		],
-		[
-			116.0,
-			3.34999990463257,
-			-52.0
-		],
-		[
-			128.0,
-			3.34999990463257,
-			-30.0
-		],
-		[
-			132.0,
-			3.34999990463257,
-			-6.0
-		],
-		[
-			130.0,
-			3.34999990463257,
-			18.0
-		],
-		[
-			122.0,
-			3.34999990463257,
-			42.0
-		],
-		[
-			106.0,
-			3.34999990463257,
-			60.0
-		],
-		[
-			84.0,
+			164.0,
 			3.34999990463257,
 			72.0
 		],
 		[
-			60.0,
+			202.0,
+			3.95000004768372,
+			42.0
+		],
+		[
+			256.0,
+			5.55000019073486,
+			36.0
+		],
+		[
+			320.0,
+			4.34999990463257,
+			58.0
+		],
+		[
+			352.0,
 			3.34999990463257,
-			78.0
+			112.0
 		],
 		[
-			34.0,
+			330.0,
 			3.34999990463257,
-			82.0
+			170.0
 		],
 		[
-			8.0,
+			272.0,
+			2.84999990463257,
+			200.0
+		],
+		[
+			204.0,
 			3.34999990463257,
-			82.0
+			188.0
 		],
 		[
-			-18.0,
-			2.54999995231628,
-			80.0
-		],
-		[
-			-44.0,
-			2.34999990463257,
-			76.0
-		],
-		[
-			-70.0,
+			158.0,
 			3.34999990463257,
-			68.0
-		],
-		[
-			-94.0,
-			3.34999990463257,
-			54.0
-		],
-		[
-			-114.0,
-			3.34999990463257,
-			34.0
-		],
-		[
-			-126.0,
-			3.34999990463257,
-			10.0
-		],
-		[
-			-130.0,
-			3.34999990463257,
-			-16.0
-		],
-		[
-			-126.0,
-			3.34999990463257,
-			-40.0
-		],
-		[
-			-116.0,
-			3.34999990463257,
-			-60.0
-		],
-		[
-			-104.0,
-			3.34999990463257,
-			-70.0
-		],
-		[
-			-112.0,
-			3.34999990463257,
-			-68.0
+			138.0
 		]
 	],
 	"runtime_scene_path": "res://assets/gameplay/tracks/sandbox/sandbox_track.tscn",
-	"shortcut_gates": [],
+	"shortcut_gates": [
+		{
+			"entry": [
+				256.0,
+				5.55000019073486,
+				36.0
+			],
+			"exit": [
+				352.0,
+				3.34999990463257,
+				112.0
+			],
+			"id": "sandbox_shortcut",
+			"kind": "shortcut",
+			"surface_enabled": true,
+			"width": 9.0
+		}
+	],
 	"sky_cloud_amount": 0.18,
 	"sky_cloud_speed": 0.018,
 	"sky_haze_amount": 0.24,
@@ -484,362 +385,92 @@
 	"spawn_points": [
 		{
 			"position": [
-				-107.212158203125,
+				165.239288330078,
 				4.15000009536743,
-				-70.1617126464844
+				73.5697631835938
 			],
-			"yaw_degrees": 113.198593139648
+			"yaw_degrees": 128.290161132813
 		},
 		{
 			"position": [
-				-108.787841796875,
+				162.760711669922,
 				4.15000009536743,
-				-73.8382873535156
+				70.4302368164063
 			],
-			"yaw_degrees": 113.198593139648
+			"yaw_degrees": 128.290161132813
 		},
 		{
 			"position": [
-				-102.616432189941,
+				169.163696289063,
 				4.15000009536743,
-				-72.1313095092773
+				70.4715423583984
 			],
-			"yaw_degrees": 113.198593139648
+			"yaw_degrees": 128.290161132813
 		},
 		{
 			"position": [
-				-104.192115783691,
+				166.685119628906,
 				4.15000009536743,
-				-75.8078842163086
+				67.3320159912109
 			],
-			"yaw_degrees": 113.198593139648
+			"yaw_degrees": 128.290161132813
 		},
 		{
 			"position": [
-				-98.0207061767578,
+				173.088119506836,
 				4.15000009536743,
-				-74.1009063720703
+				67.3733215332031
 			],
-			"yaw_degrees": 113.198593139648
+			"yaw_degrees": 128.290161132813
 		},
 		{
 			"position": [
-				-99.5963897705078,
+				170.60954284668,
 				4.15000009536743,
-				-77.7774810791016
+				64.2337951660156
 			],
-			"yaw_degrees": 113.198593139648
+			"yaw_degrees": 128.290161132813
 		},
 		{
 			"position": [
-				-93.4249801635742,
+				177.01252746582,
 				4.15000009536743,
-				-76.0705032348633
+				64.2751007080078
 			],
-			"yaw_degrees": 113.198593139648
+			"yaw_degrees": 128.290161132813
 		},
 		{
 			"position": [
-				-95.0006637573242,
+				174.533950805664,
 				4.15000009536743,
-				-79.7470779418945
+				61.135570526123
 			],
-			"yaw_degrees": 113.198593139648
+			"yaw_degrees": 128.290161132813
 		}
 	],
 	"stage_props": [
 		{
-			"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
-			"audio_material_id": "wood",
+			"asset_path": "",
+			"audio_material_id": "bone",
 			"box_color": [
-				0.419999986886978,
-				0.310000002384186,
-				0.219999998807907,
+				0.839999973773956,
+				0.779999971389771,
+				0.620000004768372,
 				1.0
 			],
 			"box_size": [
-				10.0,
-				11.0,
-				2.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "room_envelope",
-			"id": "SandboxFenceBackLeft",
-			"kind": "scene",
-			"position": [
-				-58.0,
-				-10.5,
-				90.0
-			],
-			"scale": [
-				40.0,
-				40.0,
-				40.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
-			"audio_material_id": "wood",
-			"box_color": [
-				0.419999986886978,
-				0.310000002384186,
-				0.219999998807907,
-				1.0
-			],
-			"box_size": [
-				10.0,
-				11.0,
-				2.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "room_envelope",
-			"id": "SandboxFenceBackRight",
-			"kind": "scene",
-			"position": [
-				58.0,
-				-10.5,
-				90.0
-			],
-			"scale": [
-				40.0,
-				40.0,
-				40.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
-			"audio_material_id": "wood",
-			"box_color": [
-				0.419999986886978,
-				0.310000002384186,
-				0.219999998807907,
-				1.0
-			],
-			"box_size": [
-				10.0,
-				11.0,
-				2.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "room_envelope",
-			"id": "SandboxFenceFrontLeft",
-			"kind": "scene",
-			"position": [
-				-58.0,
-				-10.5,
-				-90.0
-			],
-			"scale": [
-				40.0,
-				40.0,
-				40.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
-			"audio_material_id": "wood",
-			"box_color": [
-				0.419999986886978,
-				0.310000002384186,
-				0.219999998807907,
-				1.0
-			],
-			"box_size": [
-				10.0,
-				11.0,
-				2.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "room_envelope",
-			"id": "SandboxFenceFrontRight",
-			"kind": "scene",
-			"position": [
-				58.0,
-				-10.5,
-				-90.0
-			],
-			"scale": [
-				40.0,
-				40.0,
-				40.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
-			"audio_material_id": "wood",
-			"box_color": [
-				0.419999986886978,
-				0.310000002384186,
-				0.219999998807907,
-				1.0
-			],
-			"box_size": [
-				10.0,
-				11.0,
-				2.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "room_envelope",
-			"id": "SandboxFenceLeftBack",
-			"kind": "scene",
-			"position": [
-				-138.0,
-				-10.5,
-				36.0
-			],
-			"scale": [
-				40.0,
-				40.0,
-				40.0
-			],
-			"yaw_degrees": 90.0
-		},
-		{
-			"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
-			"audio_material_id": "wood",
-			"box_color": [
-				0.419999986886978,
-				0.310000002384186,
-				0.219999998807907,
-				1.0
-			],
-			"box_size": [
-				10.0,
-				11.0,
-				2.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "room_envelope",
-			"id": "SandboxFenceLeftFront",
-			"kind": "scene",
-			"position": [
-				-138.0,
-				-10.5,
-				-36.0
-			],
-			"scale": [
-				40.0,
-				40.0,
-				40.0
-			],
-			"yaw_degrees": 90.0
-		},
-		{
-			"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
-			"audio_material_id": "wood",
-			"box_color": [
-				0.419999986886978,
-				0.310000002384186,
-				0.219999998807907,
-				1.0
-			],
-			"box_size": [
-				10.0,
-				11.0,
-				2.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "room_envelope",
-			"id": "SandboxFenceRightBack",
-			"kind": "scene",
-			"position": [
-				138.0,
-				-10.5,
-				36.0
-			],
-			"scale": [
-				40.0,
-				40.0,
-				40.0
-			],
-			"yaw_degrees": 90.0
-		},
-		{
-			"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
-			"audio_material_id": "wood",
-			"box_color": [
-				0.419999986886978,
-				0.310000002384186,
-				0.219999998807907,
-				1.0
-			],
-			"box_size": [
-				10.0,
-				11.0,
-				2.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "room_envelope",
-			"id": "SandboxFenceRightFront",
-			"kind": "scene",
-			"position": [
-				138.0,
-				-10.5,
-				-36.0
-			],
-			"scale": [
-				40.0,
-				40.0,
-				40.0
-			],
-			"yaw_degrees": 90.0
-		},
-		{
-			"asset_path": "res://assets/source/meshy/playground_props/house.glb",
-			"audio_material_id": "wood",
-			"box_color": [
-				0.540000021457672,
-				0.360000014305115,
-				0.239999994635582,
-				1.0
-			],
-			"box_size": [
-				30.0,
-				26.0,
-				25.0
+				42.0,
+				22.0,
+				6.0
 			],
 			"collision_mode": "visual",
 			"gameplay_tag": "sandbox_landmark",
-			"id": "SandboxHouse",
-			"kind": "scene",
-			"position": [
-				74.0,
-				8.0,
-				-14.0
-			],
-			"scale": [
-				16.0,
-				16.0,
-				16.0
-			],
-			"yaw_degrees": -179.999984741211
-		},
-		{
-			"asset_path": "",
-			"audio_material_id": "wood",
-			"box_color": [
-				0.479999989271164,
-				0.259999990463257,
-				0.119999997317791,
-				1.0
-			],
-			"box_size": [
-				292.0,
-				22.0,
-				4.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "room_envelope",
-			"id": "SandboxSideBoard",
+			"id": "FossilArch",
 			"kind": "box",
 			"position": [
-				0.0,
-				-6.0,
-				94.0
+				210.0,
+				10.0,
+				188.0
 			],
 			"scale": [
 				1.0,
@@ -852,24 +483,24 @@
 			"asset_path": "",
 			"audio_material_id": "plastic",
 			"box_color": [
-				0.860000014305115,
+				0.899999976158142,
 				0.180000007152557,
-				0.140000000596046,
+				0.119999997317791,
 				1.0
 			],
 			"box_size": [
-				10.0,
-				26.0,
-				44.0
+				36.0,
+				20.0,
+				24.0
 			],
 			"collision_mode": "visual",
-			"gameplay_tag": "sandbox_landmark",
-			"id": "SandBucketWall",
+			"gameplay_tag": "tunnel",
+			"id": "OverturnedBucketTunnel",
 			"kind": "box",
 			"position": [
-				-122.0,
-				-8.0,
-				-48.0
+				318.0,
+				8.0,
+				58.0
 			],
 			"scale": [
 				1.0,
@@ -882,24 +513,54 @@
 			"asset_path": "",
 			"audio_material_id": "sand",
 			"box_color": [
-				0.660000026226044,
-				0.479999989271164,
-				0.270000010728836,
+				0.920000016689301,
+				0.720000028610229,
+				0.360000014305115,
+				0.800000011920929
+			],
+			"box_size": [
+				42.0,
+				3.0,
+				18.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "signature_effect",
+			"id": "SandBurstZone",
+			"kind": "box",
+			"position": [
+				252.0,
+				4.0,
+				40.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "sand",
+			"box_color": [
+				0.740000009536743,
+				0.5,
+				0.219999998807907,
 				1.0
 			],
 			"box_size": [
-				72.0,
-				7.0,
-				14.0
+				54.0,
+				16.0,
+				30.0
 			],
 			"collision_mode": "visual",
-			"gameplay_tag": "sandbox_hazard",
-			"id": "SandCastleTrench",
+			"gameplay_tag": "sandbox_landmark",
+			"id": "SandRidgeThrone",
 			"kind": "box",
 			"position": [
-				-8.0,
-				-10.0,
-				10.0
+				260.0,
+				7.0,
+				120.0
 			],
 			"scale": [
 				1.0,
@@ -912,24 +573,24 @@
 			"asset_path": "",
 			"audio_material_id": "metal",
 			"box_color": [
-				0.150000005960464,
-				0.479999989271164,
+				0.119999997317791,
+				0.46000000834465,
 				0.899999976158142,
 				1.0
 			],
 			"box_size": [
-				46.0,
-				1.20000004768372,
-				14.0
+				44.0,
+				2.0,
+				16.0
 			],
 			"collision_mode": "visual",
 			"gameplay_tag": "ramp",
 			"id": "ShovelRamp",
 			"kind": "box",
 			"position": [
-				32.0,
-				1.79999995231628,
-				-68.0
+				202.0,
+				5.0,
+				42.0
 			],
 			"scale": [
 				1.0,
@@ -942,24 +603,24 @@
 			"asset_path": "",
 			"audio_material_id": "plastic",
 			"box_color": [
-				0.949999988079071,
 				0.720000028610229,
-				0.180000007152557,
+				0.379999995231628,
+				0.140000000596046,
 				1.0
 			],
 			"box_size": [
-				30.0,
-				16.0,
-				18.0
+				34.0,
+				12.0,
+				28.0
 			],
 			"collision_mode": "visual",
-			"gameplay_tag": "sandbox_landmark",
-			"id": "ToyDumpTruck",
+			"gameplay_tag": "story_landmark",
+			"id": "TributePile",
 			"kind": "box",
 			"position": [
-				96.0,
-				-6.0,
-				52.0
+				340.0,
+				4.0,
+				152.0
 			],
 			"scale": [
 				1.0,
@@ -967,70 +628,40 @@
 				1.0
 			],
 			"yaw_degrees": 0.0
-		},
-		{
-			"asset_path": "res://assets/source/meshy/sandbox_props/trex_skeleton.glb",
-			"audio_material_id": "bone",
-			"box_color": [
-				0.779999971389771,
-				0.699999988079071,
-				0.579999983310699,
-				1.0
-			],
-			"box_size": [
-				18.0,
-				36.0,
-				36.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "sandbox_landmark",
-			"id": "TrexSkeleton",
-			"kind": "scene",
-			"position": [
-				-82.0,
-				8.0,
-				42.0
-			],
-			"scale": [
-				17.9963264465332,
-				18.0,
-				17.9963264465332
-			],
-			"yaw_degrees": 25.0027484893799
 		}
 	],
 	"surface_segments": [
 		{
-			"end_route_index": 20,
+			"end_route_index": 5,
 			"id": "sandbox_feature_surface",
 			"position": [
-				70.0,
-				3.54999995231628,
-				50.0
+				352.0,
+				3.34999990463257,
+				112.0
 			],
-			"start_route_index": 11,
+			"start_route_index": 2,
 			"surface_audio_id": "sandbox_secondary",
 			"surface_material_id": "sand_feature"
 		},
 		{
-			"end_route_index": 31,
+			"end_route_index": 8,
 			"id": "sandbox_return_surface",
 			"position": [
-				-80.0,
-				3.54999995231628,
-				10.0
+				204.0,
+				3.34999990463257,
+				188.0
 			],
-			"start_route_index": 21,
+			"start_route_index": 5,
 			"surface_audio_id": "sandbox_primary",
 			"surface_material_id": "sand"
 		},
 		{
-			"end_route_index": 10,
+			"end_route_index": 2,
 			"id": "sandbox_start_surface",
 			"position": [
-				-30.0,
-				3.54999995231628,
-				-70.0
+				202.0,
+				3.95000004768372,
+				42.0
 			],
 			"start_route_index": 0,
 			"surface_audio_id": "sandbox_primary",
@@ -1038,7 +669,7 @@
 		}
 	],
 	"track_id": "sandbox",
-	"version": "sandbox_v1_2026_05_01",
+	"version": "sandbox_toybox_v1_2026_05_02",
 	"wall_height": 1.6,
 	"wall_thickness": 0.45
 }

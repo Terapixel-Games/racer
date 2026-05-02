@@ -109,7 +109,7 @@ static func _fallback_kitchen_package() -> Dictionary:
 	return {
 		"id": DEFAULT_TRACK_ID,
 		"display_name": "Kitchen / Sir Clink",
-		"version": "kitchen_v2_2026_04_29",
+		"version": "kitchen_toybox_v1_2026_05_02",
 		"scene_path": KITCHEN_SCENE_PATH,
 		"definition_path": KITCHEN_DEFINITION_PATH,
 		"metadata_path": KITCHEN_METADATA_PATH,

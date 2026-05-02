@@ -89,7 +89,7 @@ static func _build_ground(root: Node3D, definition: TrackDefinition) -> void:
 	visual.transform.origin = Vector3(0, definition.floor_visual_y if floor_is_out_of_bounds else -0.1, 0)
 	visual.material_override = _ground_material(definition)
 	root.add_child(visual)
-	if definition.id == "outdoor_playground":
+	if not definition.grass_zones.is_empty():
 		_build_playground_grass_blades(root, definition)
 	if floor_is_out_of_bounds and definition.id == "kitchen":
 		_build_floor_tile_grid(root, definition)

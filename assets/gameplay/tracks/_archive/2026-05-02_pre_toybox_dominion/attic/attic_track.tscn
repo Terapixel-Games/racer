@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/track/TrackRuntimeScene.gd" id="1_68uns"]
+[ext_resource type="Resource" path="res://assets/gameplay/tracks/attic/attic_track_definition.tres" id="2_8xdod"]
+
+[node name="AtticTrack" type="Node3D"]
+script = ExtResource("1_68uns")
+definition = ExtResource("2_8xdod")

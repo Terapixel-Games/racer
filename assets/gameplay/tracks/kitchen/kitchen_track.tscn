@@ -1,8 +1,8 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="Script" path="res://scripts/track/TrackRuntimeScene.gd" id="1"]
-[ext_resource type="Resource" path="res://assets/gameplay/tracks/kitchen/kitchen_track_definition.tres" id="2"]
+[ext_resource type="Script" path="res://scripts/track/TrackRuntimeScene.gd" id="1_85kd3"]
+[ext_resource type="Resource" path="res://assets/gameplay/tracks/kitchen/kitchen_track_definition.tres" id="2_nid1f"]
 
 [node name="KitchenTrack" type="Node3D"]
-script = ExtResource("1")
-definition = ExtResource("2")
+script = ExtResource("1_85kd3")
+definition = ExtResource("2_nid1f")

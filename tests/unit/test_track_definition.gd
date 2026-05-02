@@ -3,39 +3,46 @@ extends "res://tests/framework/TestCase.gd"
 const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
 const TrackDefinition = preload("res://scripts/track/TrackDefinition.gd")
 
-func test_kitchen_definition_validates() -> void:
+const ACTIVE_TRACK_IDS := [
+	"kitchen",
+	"bedroom",
+	"sandbox",
+	"garden",
+	"glam_closet",
+	"outdoor_playground",
+	"playroom",
+	"attic",
+]
+
+func test_active_toybox_definitions_validate() -> void:
+	for track_id in ACTIVE_TRACK_IDS:
+		var definition := TrackCatalog.get_definition(track_id)
+		assert_true(definition != null, "%s definition should load" % track_id)
+		assert_equal(definition.validate(), [], "%s definition should be valid" % track_id)
+		assert_equal(definition.laps, 3, "%s should run 3 laps" % track_id)
+		assert_true(definition.route_points.size() >= 9, "%s should expose a complete route loop" % track_id)
+		assert_equal(definition.checkpoint_indices.size(), 6, "%s should expose six checkpoints" % track_id)
+		assert_equal(definition.spawn_points.size(), 8, "%s should expose 8 spawn points" % track_id)
+		assert_equal(definition.item_sockets.size(), 8, "%s should expose item sockets" % track_id)
+		assert_equal(definition.hazard_sockets.size(), 6, "%s should expose hazard sockets" % track_id)
+		assert_equal(definition.alternate_routes.size(), 1, "%s should expose one alternate route" % track_id)
+		assert_equal(definition.shortcut_gates.size(), 1, "%s should expose one shortcut gate pair" % track_id)
+		assert_true(definition.version.contains("_toybox_v1_2026_05_02"), "%s should use the Toybox version" % track_id)
+		assert_true(_route_fits_ground_bounds(definition), "%s route should stay within authored ground bounds" % track_id)
+
+func test_kitchen_definition_uses_new_toybox_court_landmarks() -> void:
 	var definition := TrackCatalog.get_definition("kitchen")
-	assert_true(definition != null, "Kitchen definition should load")
-	assert_equal(definition.validate(), [], "Kitchen definition should be valid")
-	assert_equal(definition.laps, 3, "Kitchen should run 3 laps now that the route is a compact countertop circuit")
-	assert_equal(definition.route_points.size(), 38, "Kitchen should keep the looped countertop raceway route aligned to the editable room")
-	assert_equal(definition.checkpoint_indices, [0, 8, 16, 25, 30, 34], "Kitchen checkpoints should follow the looped route")
-	assert_equal(definition.item_sockets.size(), 10, "Kitchen should expose 10 item sockets for the longer track")
-	assert_equal(definition.hazard_sockets.size(), 8, "Kitchen should expose 8 hazard sockets")
-	assert_true(_route_fits_ground_bounds(definition), "Kitchen route should stay within the authored ground bounds")
-	assert_equal(definition.reset_mode, "instant_pop", "Kitchen should use instant pop-back resets")
-	assert_true(definition.out_of_bounds_y < -10.0, "Kitchen out-of-bounds threshold should sit below the authored floor")
-	assert_true(definition.floor_visual_y <= -32.0, "Kitchen floor visual should sit far below the countertop route")
-	assert_equal(definition.rail_texture_path, "res://assets/gameplay/materials/metal/toy_metal_albedo.png", "Kitchen rails should use the stage-specific toy metal material")
-	assert_equal(definition.rail_texture_uv_scale, 0.5, "Kitchen rails should use the stage-specific rail texture UV scale")
-	assert_equal(definition.dressing_scene_path, "res://assets/gameplay/tracks/kitchen/kitchen_editable_room.tscn", "Kitchen should load a directly editable room scene")
-	assert_equal(definition.shortcut_gates.size(), 1, "Kitchen should expose one table-jump shortcut")
-	assert_true(definition.dressing_overrides.has("KitchenSink"), "Kitchen should expose an editable sink dressing override")
-	assert_true(definition.stage_props.size() >= 10, "Kitchen should export selectable stage props from the authoring scene")
-	assert_true(_has_stage_prop(definition, "KitchenSink"), "Kitchen should export the sink as a selectable stage prop")
-	assert_true(_has_stage_prop(definition, "FridgeLandmark"), "Kitchen should export the fridge as a selectable stage prop")
-	var fridge_prop := _stage_prop(definition, "FridgeLandmark")
-	assert_equal(str(fridge_prop.get("kind", "")), "scene", "Kitchen fridge should use the imported Meshy refrigerator scene asset")
-	assert_equal(str(fridge_prop.get("asset_path", "")), "res://assets/source/meshy/kitchen/retro_cream_refrigerator.glb", "Kitchen fridge should point to the Meshy refrigerator GLB")
-	assert_true(not _has_any_stage_prop(definition, ["FrontCabinetBase", "BackCabinetBaseLeft", "BackCabinetBaseRight", "IslandCabinetBase", "LeftCabinetBaseFront", "LeftCabinetBaseBack", "RightCabinetBase"]), "Kitchen should not export below-track cabinet base slabs")
-	assert_equal(definition.surface_segments.size(), 3, "Kitchen should export surface audio segment assignments")
-	assert_equal(definition.audio_zones.size(), 4, "Kitchen should export authored audio zones")
-	assert_equal(str(definition.audio_ids.get("sink_splash", "")), "res://assets/source/audio/canva/tracks/kitchen/kitchen_sink_water.mp3", "Kitchen sink zone should use the supplied sink water audio")
-	assert_equal(str(definition.audio_ids.get("stove_sizzle", "")), "res://assets/source/audio/canva/tracks/kitchen/kitchen_oven_sizzle.mp3", "Kitchen stove zone should use the converted oven sizzle audio")
-	assert_true(_route_height_range(definition.route_points) <= 0.2, "Kitchen route should stay on the new room counter height instead of floating above the room")
-	assert_equal(_overpass_crossing_count(definition.route_points, definition.closed_loop, 1.8), 0, "Kitchen route should be a flat non-overpass loop for the editable room")
-	assert_true(_route_has_no_unresolved_self_intersections(definition.route_points, definition.closed_loop, 1.8), "Kitchen route centerline should only overlap when vertically separated")
-	assert_true(_route_follows_counter_or_island_space(definition.route_points), "Kitchen route should follow outer counters or the central island loop")
+	assert_true(_has_stage_prop(definition, "CourtStartGate"), "Kitchen should include the court start gate")
+	assert_true(_has_stage_prop(definition, "SinkGauntlet"), "Kitchen should include the sink gauntlet")
+	assert_true(_has_stage_prop(definition, "CuttingBoardBridge"), "Kitchen should include the cutting-board bridge")
+	assert_true(_has_stage_prop(definition, "TournamentFinishArch"), "Kitchen should include the tournament finish arch")
+	assert_true(_has_audio_zone(definition, "SinkSplashZone"), "Kitchen should expose the sink splash signature effect zone")
+
+func test_bedroom_definition_preserves_tuggs_belief() -> void:
+	var definition := TrackCatalog.get_definition("bedroom")
+	assert_true(_has_stage_prop(definition, "WaitingLine"), "Bedroom should show toys kept ready for the family's return")
+	assert_true(_has_stage_prop(definition, "ToyTriageCorner"), "Bedroom should include Tuggs' protected triage area")
+	assert_true(_has_audio_zone(definition, "LampBeaconZone"), "Bedroom should expose the lamp beacon signature effect zone")
 
 func test_validation_rejects_missing_route() -> void:
 	var definition := _base_definition()
@@ -119,27 +126,16 @@ func _has_error(errors: Array[String], needle: String) -> bool:
 	return false
 
 func _has_stage_prop(definition: TrackDefinition, prop_id: String) -> bool:
-	return not _stage_prop(definition, prop_id).is_empty()
-
-func _has_any_stage_prop(definition: TrackDefinition, prop_ids: Array[String]) -> bool:
-	for prop_id in prop_ids:
-		if _has_stage_prop(definition, prop_id):
+	for prop in definition.stage_props:
+		if str(prop.get("id", "")) == prop_id:
 			return true
 	return false
 
-func _stage_prop(definition: TrackDefinition, prop_id: String) -> Dictionary:
-	for prop in definition.stage_props:
-		if str(prop.get("id", "")) == prop_id:
-			return prop
-	return {}
-
-func _route_height_range(route_points: Array[Vector3]) -> float:
-	var min_y := INF
-	var max_y := -INF
-	for point in route_points:
-		min_y = minf(min_y, point.y)
-		max_y = maxf(max_y, point.y)
-	return max_y - min_y
+func _has_audio_zone(definition: TrackDefinition, zone_id: String) -> bool:
+	for zone in definition.audio_zones:
+		if str(zone.get("id", "")) == zone_id:
+			return true
+	return false
 
 func _route_fits_ground_bounds(definition: TrackDefinition) -> bool:
 	var half_width := definition.ground_size.x * 0.5
@@ -151,96 +147,3 @@ func _route_fits_ground_bounds(definition: TrackDefinition) -> bool:
 		if absf(point.z) + clearance > half_depth:
 			return false
 	return true
-
-func _route_has_fridge_top_section(route_points: Array[Vector3]) -> bool:
-	var fridge_top_points := 0
-	for point in route_points:
-		if point.x >= 120.0 and point.x <= 132.0 and point.z >= 18.0 and point.z <= 52.0 and point.y >= 14.0:
-			fridge_top_points += 1
-	return fridge_top_points >= 2
-
-func _route_has_no_unresolved_self_intersections(route_points: Array[Vector3], closed_loop: bool, min_vertical_clearance: float) -> bool:
-	var segment_count := route_points.size() if closed_loop else route_points.size() - 1
-	for i in range(segment_count):
-		for j in range(i + 1, segment_count):
-			if abs(i - j) <= 1:
-				continue
-			if closed_loop and i == 0 and j == segment_count - 1:
-				continue
-			var gap := _segment_crossing_height_gap(
-				route_points[i],
-				route_points[(i + 1) % route_points.size()],
-				route_points[j],
-				route_points[(j + 1) % route_points.size()]
-			)
-			if gap >= 0.0 and gap < min_vertical_clearance:
-				return false
-	return true
-
-func _overpass_crossing_count(route_points: Array[Vector3], closed_loop: bool, min_vertical_clearance: float) -> int:
-	var count := 0
-	var segment_count := route_points.size() if closed_loop else route_points.size() - 1
-	for i in range(segment_count):
-		for j in range(i + 1, segment_count):
-			if abs(i - j) <= 1:
-				continue
-			if closed_loop and i == 0 and j == segment_count - 1:
-				continue
-			var gap := _segment_crossing_height_gap(
-				route_points[i],
-				route_points[(i + 1) % route_points.size()],
-				route_points[j],
-				route_points[(j + 1) % route_points.size()]
-			)
-			if gap >= min_vertical_clearance:
-				count += 1
-	return count
-
-func _segment_crossing_height_gap(a3: Vector3, b3: Vector3, c3: Vector3, d3: Vector3) -> float:
-	var a := Vector2(a3.x, a3.z)
-	var b := Vector2(b3.x, b3.z)
-	var c := Vector2(c3.x, c3.z)
-	var d := Vector2(d3.x, d3.z)
-	if not _segments_intersect(a, b, c, d):
-		return -1.0
-	var r := b - a
-	var s := d - c
-	var denom := _cross2(r, s)
-	if absf(denom) < 0.001:
-		return 0.0
-	var t := _cross2(c - a, s) / denom
-	var u := _cross2(c - a, r) / denom
-	if t < -0.001 or t > 1.001 or u < -0.001 or u > 1.001:
-		return -1.0
-	var y_a := lerpf(a3.y, b3.y, clampf(t, 0.0, 1.0))
-	var y_b := lerpf(c3.y, d3.y, clampf(u, 0.0, 1.0))
-	return absf(y_a - y_b)
-
-func _route_follows_counter_or_island_space(route_points: Array[Vector3]) -> bool:
-	for point in route_points:
-		var on_front_or_back := absf(point.z + 84.0) <= 16.0 or absf(point.z - 84.0) <= 16.0
-		var on_left_or_right := absf(point.x + 116.0) <= 28.0 or absf(point.x - 122.0) <= 28.0
-		var on_island_loop := point.x >= -42.0 and point.x <= 90.0 and point.z >= -74.0 and point.z <= 8.0
-		if not (on_front_or_back or on_left_or_right or on_island_loop):
-			return false
-	return true
-
-func _segments_intersect(a: Vector2, b: Vector2, c: Vector2, d: Vector2) -> bool:
-	var o1 := _orientation(a, b, c)
-	var o2 := _orientation(a, b, d)
-	var o3 := _orientation(c, d, a)
-	var o4 := _orientation(c, d, b)
-	if o1 * o2 < 0.0 and o3 * o4 < 0.0:
-		return true
-	return _point_on_segment(a, b, c) or _point_on_segment(a, b, d) or _point_on_segment(c, d, a) or _point_on_segment(c, d, b)
-
-func _orientation(a: Vector2, b: Vector2, c: Vector2) -> float:
-	return _cross2(b - a, c - a)
-
-func _cross2(a: Vector2, b: Vector2) -> float:
-	return a.x * b.y - a.y * b.x
-
-func _point_on_segment(a: Vector2, b: Vector2, point: Vector2) -> bool:
-	if absf(_orientation(a, b, point)) > 0.001:
-		return false
-	return point.x >= minf(a.x, b.x) - 0.001 and point.x <= maxf(a.x, b.x) + 0.001 and point.y >= minf(a.y, b.y) - 0.001 and point.y <= maxf(a.y, b.y) + 0.001

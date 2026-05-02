@@ -6,7 +6,7 @@
 script = ExtResource("1_6t3d8")
 id = "playroom"
 display_name = "Playroom / Slammo"
-version = "playroom_v1_2026_05_01"
+version = "playroom_toybox_v1_2026_05_02"
 laps = 3
 out_of_bounds_y = -11.0
 reset_mode = "instant_pop"
@@ -14,7 +14,7 @@ floor_visual_y = -32.0
 runtime_scene_path = "res://assets/gameplay/tracks/playroom/playroom_track.tscn"
 dressing_scene_path = "res://assets/gameplay/tracks/playroom/playroom_editable_room.tscn"
 ground_size = Vector2(292, 190)
-ground_color = Color(0.24, 0.5, 0.86, 1)
+ground_color = Color(0.22, 0.5, 0.86, 1)
 ground_texture_path = "res://assets/gameplay/materials/plastic/glossy_plastic_albedo.png"
 road_texture_path = "res://assets/gameplay/materials/plastic/glossy_plastic_albedo.png"
 rail_texture_path = "res://assets/gameplay/materials/metal/toy_metal_albedo.png"
@@ -28,111 +28,119 @@ sky_horizon_color = Color(1, 0.52, 0.34, 1)
 sky_cloud_amount = 0.42
 sky_haze_amount = 0.26
 sky_light_energy = 1.75
-route_points = Array[Vector3]([Vector3(-108, 3.35, -72), Vector3(-94, 3.35, -78), Vector3(-78, 3.35, -82), Vector3(-60, 3.35, -84), Vector3(-40, 3.35, -83), Vector3(-20, 3.35, -80), Vector3(0, 3.35, -81), Vector3(24, 3.35, -76), Vector3(48, 3.35, -78), Vector3(72, 3.35, -76), Vector3(96, 3.35, -68), Vector3(116, 3.35, -52), Vector3(128, 3.35, -30), Vector3(132, 3.35, -6), Vector3(125, 3.35, 18), Vector3(122, 3.35, 42), Vector3(106, 3.35, 60), Vector3(84, 3.35, 72), Vector3(60, 3.35, 78), Vector3(34, 3.35, 82), Vector3(8, 3.35, 82), Vector3(-18, 3.35, 80), Vector3(-44, 3.35, 81), Vector3(-70, 3.35, 68), Vector3(-94, 3.35, 54), Vector3(-114, 3.35, 34), Vector3(-126, 3.35, 10), Vector3(-130, 3.35, -16), Vector3(-126, 3.35, -40), Vector3(-111, 3.35, -60), Vector3(-104, 3.35, -70), Vector3(-112, 3.35, -68)])
-checkpoint_indices = Array[int]([0, 6, 12, 18, 24, 28])
-spawn_points = Array[Vector4]([Vector4(-107.21216, 4.15, -70.16171, 113.19859), Vector4(-108.78784, 4.15, -73.83829, 113.19859), Vector4(-102.61643, 4.15, -72.13131, 113.19859), Vector4(-104.192116, 4.15, -75.807884, 113.19859), Vector4(-98.020706, 4.15, -74.10091, 113.19859), Vector4(-99.59639, 4.15, -77.77748, 113.19859), Vector4(-93.42498, 4.15, -76.0705, 113.19859), Vector4(-95.00066, 4.15, -79.74708, 113.19859)])
-item_sockets = Array[Vector4]([Vector4(-78, 4.0499997, -82, 0), Vector4(-20, 4.0499997, -80, 0), Vector4(48, 4.0499997, -78, 0), Vector4(116, 4.0499997, -52, 0), Vector4(125, 4.0499997, 18, 0), Vector4(84, 4.0499997, 72, 0), Vector4(8, 4.0499997, 82, 0), Vector4(-70, 4.0499997, 68, 0), Vector4(-126, 4.0499997, 10, 0), Vector4(-111, 4.0499997, -60, 0)])
-hazard_sockets = Array[Vector4]([Vector4(-40, 4.0499997, -83, 0), Vector4(72, 4.0499997, -76, 0), Vector4(132, 4.0499997, -6, 0), Vector4(60, 4.0499997, 78, 0), Vector4(-44, 4.0499997, 81, 0), Vector4(-130, 4.0499997, -16, 0), Vector4(-104, 4.0499997, -70, 0)])
+route_points = Array[Vector3]([Vector3(-108, 3.35, -48), Vector3(-62, 3.35, -78), Vector3(-6, 4.35, -52), Vector3(52, 3.35, -78), Vector3(110, 3.35, -38), Vector3(78, 3.35, 12), Vector3(112, 5.15, 58), Vector3(42, 3.35, 78), Vector3(-12, 3.35, 46), Vector3(-68, 3.35, 78), Vector3(-116, 3.35, 28)])
+checkpoint_indices = Array[int]([0, 1, 3, 5, 7, 9])
+spawn_points = Array[Vector4]([Vector4(-106.90746, 4.15, -46.32478, 123.11134), Vector4(-109.09254, 4.15, -49.67522, 123.11134), Vector4(-102.71941, 4.15, -49.056118, 123.11134), Vector4(-104.90449, 4.15, -52.40656, 123.11134), Vector4(-98.53136, 4.15, -51.787457, 123.11134), Vector4(-100.71643, 4.15, -55.137897, 123.11134), Vector4(-94.34331, 4.15, -54.518795, 123.11134), Vector4(-96.52838, 4.15, -57.869236, 123.11134)])
+item_sockets = Array[Vector4]([Vector4(-62, 4.0499997, -78, 0), Vector4(-6, 5.0499997, -52, 0), Vector4(110, 4.0499997, -38, 0), Vector4(78, 4.0499997, 12, 0), Vector4(42, 4.0499997, 78, 0), Vector4(-12, 4.0499997, 46, 0), Vector4(-68, 4.0499997, 78, 0), Vector4(-116, 4.0499997, 28, 0)])
+hazard_sockets = Array[Vector4]([Vector4(-6, 5.0499997, -52, 0), Vector4(110, 4.0499997, -38, 0), Vector4(112, 5.85, 58, 0), Vector4(-12, 4.0499997, 46, 0), Vector4(-116, 4.0499997, 28, 0), Vector4(-108, 4.0499997, -48, 0)])
+shortcut_gates = Array[Dictionary]([{
+"entry": Vector3(-6, 4.35, -52),
+"exit": Vector3(78, 3.35, 12),
+"id": "playroom_shortcut",
+"kind": "shortcut",
+"surface_enabled": true,
+"width": 9.0
+}])
 alternate_routes = Array[Dictionary]([{
 "enabled": true,
 "entry_checkpoint_index": 1,
 "exit_checkpoint_index": 3,
-"id": "playroom_branch",
-"points": Array[Vector3]([Vector3(0, 3.55, -76), Vector3(18, 4.35, -32), Vector3(36, 4.35, 20), Vector3(60, 3.75, 78)]),
-"road_width": 12.0
+"id": "playroom_alt_route",
+"points": [Vector3(-6, 4.75, -52), Vector3(36, 5.05, -20), Vector3(78, 3.75, 12)],
+"road_width": 9.600000000000001
 }])
 stage_props = Array[Dictionary]([{
 "asset_path": "",
-"audio_material_id": "plastic",
-"box_color": Color(0.9, 0.14, 0.14, 1),
-"box_size": Vector3(22, 22, 22),
-"collision_mode": "visual",
-"gameplay_tag": "playroom_landmark",
-"id": "BlockTowerRed",
-"kind": "box",
-"position": Vector3(-58, -4, 0),
-"scale": Vector3(1, 1, 1),
-"yaw_degrees": 0.0
-}, {
-"asset_path": "",
-"audio_material_id": "plastic",
-"box_color": Color(0.14, 0.34, 0.9, 1),
-"box_size": Vector3(22, 22, 22),
-"collision_mode": "visual",
-"gameplay_tag": "playroom_landmark",
-"id": "BlockTowerBlue",
-"kind": "box",
-"position": Vector3(58, -4, 0),
-"scale": Vector3(1, 1, 1),
-"yaw_degrees": 0.0
-}, {
-"asset_path": "res://assets/source/meshy/playroom_props/boxing_ring.glb",
 "audio_material_id": "foam",
-"box_color": Color(0.52, 0.12, 0.12, 1),
-"box_size": Vector3(46, 24, 58),
+"box_color": Color(0.92, 0.18, 0.16, 1),
+"box_size": Vector3(52, 6, 52),
 "collision_mode": "visual",
-"gameplay_tag": "playroom_landmark",
-"id": "BoxingRing",
-"kind": "scene",
-"position": Vector3(0, -3.3, 0),
-"scale": Vector3(28, 28, 28),
+"gameplay_tag": "arena_landmark",
+"id": "ToyRingPlatform",
+"kind": "box",
+"position": Vector3(-6, 4, -12),
+"scale": Vector3(1, 1, 1),
 "yaw_degrees": 0.0
 }, {
 "asset_path": "",
 "audio_material_id": "plastic",
-"box_color": Color(0.98, 0.82, 0.18, 1),
-"box_size": Vector3(54, 2, 20),
+"box_color": Color(0.98, 0.76, 0.16, 1),
+"box_size": Vector3(48, 2, 18),
 "collision_mode": "visual",
-"gameplay_tag": "ramp",
-"id": "PlasticSlide",
+"gameplay_tag": "signature_effect",
+"id": "ChampionRamp",
 "kind": "box",
-"position": Vector3(92, 1, -54),
+"position": Vector3(94, 5.2, 58),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 0.0
+}, {
+"asset_path": "",
+"audio_material_id": "plastic",
+"box_color": Color(0.16, 0.34, 0.92, 1),
+"box_size": Vector3(58, 18, 16),
+"collision_mode": "visual",
+"gameplay_tag": "crowd_landmark",
+"id": "BlockGrandstands",
+"kind": "box",
+"position": Vector3(-88, 6, 72),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 0.0
+}, {
+"asset_path": "",
+"audio_material_id": "plastic",
+"box_color": Color(0.72, 0.86, 0.94, 1),
+"box_size": Vector3(38, 30, 20),
+"collision_mode": "visual",
+"gameplay_tag": "hazard_machine",
+"id": "MarbleMachine",
+"kind": "box",
+"position": Vector3(88, 15, -36),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 0.0
+}, {
+"asset_path": "",
+"audio_material_id": "metal",
+"box_color": Color(0.96, 0.72, 0.18, 1),
+"box_size": Vector3(34, 16, 8),
+"collision_mode": "visual",
+"gameplay_tag": "finish_landmark",
+"id": "TrophyFinishStretch",
+"kind": "box",
+"position": Vector3(-108, 8, -48),
 "scale": Vector3(1, 1, 1),
 "yaw_degrees": 0.0
 }, {
 "asset_path": "",
 "audio_material_id": "foam",
-"box_color": Color(0.08, 0.12, 0.16, 1),
-"box_size": Vector3(292, 1, 2),
+"box_color": Color(0.12, 0.16, 0.22, 1),
+"box_size": Vector3(120, 2, 80),
 "collision_mode": "visual",
-"gameplay_tag": "floor_detail",
-"id": "FoamMatSeam",
+"gameplay_tag": "arena_landmark",
+"id": "ArenaLoop",
 "kind": "box",
-"position": Vector3(0, -10, 0),
-"scale": Vector3(1, 1, 1),
-"yaw_degrees": 0.0
-}, {
-"asset_path": "",
-"audio_material_id": "wood",
-"box_color": Color(0.62, 0.38, 0.18, 1),
-"box_size": Vector3(16, 34, 70),
-"collision_mode": "visual",
-"gameplay_tag": "playroom_landmark",
-"id": "ToyShelf",
-"kind": "box",
-"position": Vector3(-132, 4, 38),
+"position": Vector3(0, 2, 0),
 "scale": Vector3(1, 1, 1),
 "yaw_degrees": 0.0
 }])
 surface_segments = Array[Dictionary]([{
-"end_route_index": 10,
+"end_route_index": 3,
 "id": "playroom_start_surface",
-"position": Vector3(-30, 3.55, -70),
+"position": Vector3(-62, 3.35, -78),
 "start_route_index": 0,
 "surface_audio_id": "playroom_primary",
 "surface_material_id": "foam"
 }, {
-"end_route_index": 20,
+"end_route_index": 6,
 "id": "playroom_feature_surface",
-"position": Vector3(70, 3.55, 50),
-"start_route_index": 11,
+"position": Vector3(78, 3.35, 12),
+"start_route_index": 3,
 "surface_audio_id": "playroom_secondary",
 "surface_material_id": "foam_feature"
 }, {
-"end_route_index": 31,
+"end_route_index": 10,
 "id": "playroom_return_surface",
-"position": Vector3(-80, 3.55, 10),
-"start_route_index": 21,
+"position": Vector3(-68, 3.35, 78),
+"start_route_index": 6,
 "surface_audio_id": "playroom_primary",
 "surface_material_id": "foam"
 }])
@@ -141,16 +149,24 @@ audio_zones = Array[Dictionary]([{
 "audio_path": "",
 "id": "playroom_music_zone",
 "position": Vector3(0, 0, 0),
-"radius": 120.0,
+"radius": 96.0,
 "volume_db": -14.0,
 "zone_kind": "ambient"
 }, {
 "audio_id": "playroom_secondary",
 "audio_path": "",
-"id": "playroom_feature_zone",
-"position": Vector3(60, 4.35, 36),
+"id": "MarbleMachineEffect",
+"position": Vector3(78, 3.35, 12),
 "radius": 28.0,
 "volume_db": -6.0,
+"zone_kind": "oneshot"
+}, {
+"audio_id": "playroom_primary",
+"audio_path": "",
+"id": "playroom_route_zone",
+"position": Vector3(-6, 4.35, -52),
+"radius": 26.0,
+"volume_db": -7.0,
 "zone_kind": "oneshot"
 }])
 audio_ids = {

@@ -4,30 +4,25 @@
 			"enabled": true,
 			"entry_checkpoint_index": 1,
 			"exit_checkpoint_index": 3,
-			"id": "attic_branch",
+			"id": "attic_alt_route",
 			"points": [
 				[
-					0.0,
-					3.54999995231628,
-					-76.0
+					-20.0,
+					5.55000019073486,
+					-74.0
 				],
 				[
-					18.0,
-					4.34999990463257,
-					-32.0
+					40.0,
+					5.44999980926514,
+					-14.0
 				],
 				[
-					36.0,
-					4.34999990463257,
-					20.0
-				],
-				[
-					60.0,
+					100.0,
 					3.75,
-					78.0
+					46.0
 				]
 			],
-			"road_width": 12.0
+			"road_width": 9.6
 		}
 	],
 	"audio_ids": {
@@ -37,19 +32,6 @@
 	},
 	"audio_zones": [
 		{
-			"audio_id": "attic_secondary",
-			"audio_path": "",
-			"id": "attic_feature_zone",
-			"position": [
-				60.0,
-				4.34999990463257,
-				36.0
-			],
-			"radius": 28.0,
-			"volume_db": -6.0,
-			"zone_kind": "oneshot"
-		},
-		{
 			"audio_id": "music",
 			"audio_path": "",
 			"id": "attic_music_zone",
@@ -58,9 +40,35 @@
 				0.0,
 				0.0
 			],
-			"radius": 120.0,
+			"radius": 96.0,
 			"volume_db": -14.0,
 			"zone_kind": "ambient"
+		},
+		{
+			"audio_id": "attic_primary",
+			"audio_path": "",
+			"id": "attic_route_zone",
+			"position": [
+				-20.0,
+				5.15000009536743,
+				-74.0
+			],
+			"radius": 26.0,
+			"volume_db": -7.0,
+			"zone_kind": "oneshot"
+		},
+		{
+			"audio_id": "attic_secondary",
+			"audio_path": "",
+			"id": "PrankTriggerZone",
+			"position": [
+				100.0,
+				3.34999990463257,
+				46.0
+			],
+			"radius": 28.0,
+			"volume_db": -6.0,
+			"zone_kind": "oneshot"
 		}
 	],
 	"checkpoint_radius": 7.8,
@@ -71,7 +79,7 @@
 			"position": [
 				-108.0,
 				3.34999990463257,
-				-72.0
+				-60.0
 			],
 			"route_index": 0
 		},
@@ -79,85 +87,80 @@
 			"index": 1,
 			"is_lap_gate": false,
 			"position": [
-				0.0,
+				-72.0,
 				3.34999990463257,
-				-76.0
+				-80.0
 			],
-			"route_index": 6
+			"route_index": 1
 		},
 		{
 			"index": 2,
 			"is_lap_gate": false,
 			"position": [
-				128.0,
-				5.34999990463257,
-				-30.0
+				42.0,
+				6.15000009536743,
+				-46.0
 			],
-			"route_index": 12
+			"route_index": 3
 		},
 		{
 			"index": 3,
 			"is_lap_gate": false,
 			"position": [
-				60.0,
+				100.0,
 				3.34999990463257,
-				78.0
+				46.0
 			],
-			"route_index": 18
+			"route_index": 5
 		},
 		{
 			"index": 4,
 			"is_lap_gate": false,
 			"position": [
-				-94.0,
+				50.0,
 				3.34999990463257,
-				54.0
+				78.0
 			],
-			"route_index": 24
+			"route_index": 6
 		},
 		{
 			"index": 5,
 			"is_lap_gate": false,
 			"position": [
-				-126.0,
+				-72.0,
 				3.34999990463257,
-				-40.0
+				48.0
 			],
-			"route_index": 28
+			"route_index": 8
 		}
 	],
 	"closed_loop": true,
 	"display_name": "Attic / Popper",
 	"dressing_scene_path": "res://assets/gameplay/tracks/attic/attic_editable_room.tscn",
 	"floor_visual_y": -32.0,
+	"grass_zones": [],
+	"ground_shader_path": "",
+	"ground_texture_path": "res://assets/gameplay/materials/attic/attic_cardboard_wood_albedo.png",
 	"hazard_sockets": [
 		{
 			"position": [
-				-40.0,
-				4.04999971389771,
-				-83.0
+				-20.0,
+				5.84999990463257,
+				-74.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				72.0,
+				106.0,
 				4.04999971389771,
-				-76.0
+				-12.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				132.0,
-				4.04999971389771,
-				-6.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				60.0,
+				50.0,
 				4.04999971389771,
 				78.0
 			],
@@ -165,25 +168,25 @@
 		},
 		{
 			"position": [
-				-44.0,
-				5.24999952316284,
-				76.0
+				-72.0,
+				4.04999971389771,
+				48.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				-130.0,
+				-108.0,
 				4.04999971389771,
-				-16.0
+				-60.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				-104.0,
+				-72.0,
 				4.04999971389771,
-				-70.0
+				-80.0
 			],
 			"yaw_degrees": 0.0
 		}
@@ -192,15 +195,7 @@
 	"item_sockets": [
 		{
 			"position": [
-				-78.0,
-				4.04999971389771,
-				-82.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				-20.0,
+				-72.0,
 				4.04999971389771,
 				-80.0
 			],
@@ -208,31 +203,31 @@
 		},
 		{
 			"position": [
-				48.0,
+				-20.0,
+				5.84999990463257,
+				-74.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				106.0,
 				4.04999971389771,
-				-78.0
+				-12.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				116.0,
-				7.24999952316284,
-				-52.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				130.0,
+				100.0,
 				4.04999971389771,
-				18.0
+				46.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				84.0,
+				-14.0,
 				4.04999971389771,
 				72.0
 			],
@@ -240,31 +235,23 @@
 		},
 		{
 			"position": [
-				8.0,
+				-72.0,
 				4.04999971389771,
-				82.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				-70.0,
-				4.04999971389771,
-				68.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				-126.0,
-				4.04999971389771,
-				10.0
+				48.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
 				-116.0,
+				4.04999971389771,
+				4.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				-108.0,
 				4.04999971389771,
 				-60.0
 			],
@@ -278,171 +265,78 @@
 	"rail_texture_uv_scale": 0.5,
 	"reset_mode": "instant_pop",
 	"road_width": 12.0,
-	"route_length": 723.79710149765,
+	"route_length": 605.566299438477,
 	"route_points": [
 		[
 			-108.0,
 			3.34999990463257,
-			-72.0
+			-60.0
 		],
 		[
-			-94.0,
-			3.34999990463257,
-			-78.0
-		],
-		[
-			-78.0,
-			3.34999990463257,
-			-82.0
-		],
-		[
-			-60.0,
-			3.34999990463257,
-			-84.0
-		],
-		[
-			-40.0,
-			3.34999990463257,
-			-83.0
-		],
-		[
-			-20.0,
+			-72.0,
 			3.34999990463257,
 			-80.0
 		],
 		[
-			0.0,
-			3.34999990463257,
-			-76.0
+			-20.0,
+			5.15000009536743,
+			-74.0
 		],
 		[
-			24.0,
-			3.34999990463257,
-			-76.0
-		],
-		[
-			48.0,
-			3.34999990463257,
-			-78.0
-		],
-		[
-			72.0,
-			3.34999990463257,
-			-76.0
-		],
-		[
-			96.0,
-			5.34999990463257,
-			-68.0
-		],
-		[
-			116.0,
-			6.54999971389771,
-			-52.0
-		],
-		[
-			128.0,
-			5.34999990463257,
-			-30.0
-		],
-		[
-			132.0,
-			3.34999990463257,
-			-6.0
-		],
-		[
-			130.0,
-			3.34999990463257,
-			18.0
-		],
-		[
-			122.0,
-			3.34999990463257,
-			42.0
+			42.0,
+			6.15000009536743,
+			-46.0
 		],
 		[
 			106.0,
 			3.34999990463257,
-			60.0
+			-12.0
 		],
 		[
-			84.0,
+			100.0,
 			3.34999990463257,
-			72.0
+			46.0
 		],
 		[
-			60.0,
+			50.0,
 			3.34999990463257,
 			78.0
 		],
 		[
-			34.0,
+			-14.0,
 			3.34999990463257,
-			82.0
+			72.0
 		],
 		[
-			8.0,
+			-72.0,
 			3.34999990463257,
-			82.0
-		],
-		[
-			-18.0,
-			3.34999990463257,
-			80.0
-		],
-		[
-			-44.0,
-			4.54999971389771,
-			76.0
-		],
-		[
-			-70.0,
-			3.34999990463257,
-			68.0
-		],
-		[
-			-94.0,
-			3.34999990463257,
-			54.0
-		],
-		[
-			-114.0,
-			3.34999990463257,
-			34.0
-		],
-		[
-			-126.0,
-			3.34999990463257,
-			10.0
-		],
-		[
-			-130.0,
-			3.34999990463257,
-			-16.0
-		],
-		[
-			-126.0,
-			3.34999990463257,
-			-40.0
+			48.0
 		],
 		[
 			-116.0,
 			3.34999990463257,
-			-60.0
-		],
-		[
-			-104.0,
-			3.34999990463257,
-			-70.0
-		],
-		[
-			-112.0,
-			3.34999990463257,
-			-68.0
+			4.0
 		]
 	],
 	"runtime_scene_path": "res://assets/gameplay/tracks/attic/attic_track.tscn",
-	"shortcut_gates": [],
+	"shortcut_gates": [
+		{
+			"entry": [
+				-20.0,
+				5.15000009536743,
+				-74.0
+			],
+			"exit": [
+				100.0,
+				3.34999990463257,
+				46.0
+			],
+			"id": "attic_shortcut",
+			"kind": "shortcut",
+			"surface_enabled": true,
+			"width": 9.0
+		}
+	],
 	"sky_cloud_amount": 0.82,
 	"sky_cloud_speed": 0.036,
 	"sky_haze_amount": 0.36,
@@ -465,67 +359,67 @@
 	"spawn_points": [
 		{
 			"position": [
-				-107.212158203125,
+				-107.028717041016,
 				4.15000009536743,
-				-70.1617126464844
+				-58.2516860961914
 			],
-			"yaw_degrees": 113.198593139648
+			"yaw_degrees": 119.05460357666
 		},
 		{
 			"position": [
-				-108.787841796875,
+				-108.971282958984,
 				4.15000009536743,
-				-73.8382873535156
+				-61.7483139038086
 			],
-			"yaw_degrees": 113.198593139648
+			"yaw_degrees": 119.05460357666
 		},
 		{
 			"position": [
-				-102.616432189941,
+				-102.657928466797,
 				4.15000009536743,
-				-72.1313095092773
+				-60.6799011230469
 			],
-			"yaw_degrees": 113.198593139648
+			"yaw_degrees": 119.05460357666
 		},
 		{
 			"position": [
-				-104.192115783691,
+				-104.600494384766,
 				4.15000009536743,
-				-75.8078842163086
+				-64.1765289306641
 			],
-			"yaw_degrees": 113.198593139648
+			"yaw_degrees": 119.05460357666
 		},
 		{
 			"position": [
-				-98.0207061767578,
+				-98.2871475219727,
 				4.15000009536743,
-				-74.1009063720703
+				-63.1081161499023
 			],
-			"yaw_degrees": 113.198593139648
+			"yaw_degrees": 119.05460357666
 		},
 		{
 			"position": [
-				-99.5963897705078,
+				-100.229713439941,
 				4.15000009536743,
-				-77.7774810791016
+				-66.6047439575195
 			],
-			"yaw_degrees": 113.198593139648
+			"yaw_degrees": 119.05460357666
 		},
 		{
 			"position": [
-				-93.4249801635742,
+				-93.9163589477539,
 				4.15000009536743,
-				-76.0705032348633
+				-65.5363311767578
 			],
-			"yaw_degrees": 113.198593139648
+			"yaw_degrees": 119.05460357666
 		},
 		{
 			"position": [
-				-95.0006637573242,
+				-95.8589248657227,
 				4.15000009536743,
-				-79.7470779418945
+				-69.032958984375
 			],
-			"yaw_degrees": 113.198593139648
+			"yaw_degrees": 119.05460357666
 		}
 	],
 	"stage_props": [
@@ -533,24 +427,24 @@
 			"asset_path": "",
 			"audio_material_id": "cardboard",
 			"box_color": [
-				0.579999983310699,
-				0.419999986886978,
-				0.239999994635582,
+				0.540000021457672,
+				0.379999995231628,
+				0.200000002980232,
 				1.0
 			],
 			"box_size": [
-				28.0,
+				60.0,
 				20.0,
-				28.0
+				18.0
 			],
 			"collision_mode": "visual",
 			"gameplay_tag": "attic_landmark",
-			"id": "BoxMazeA",
+			"id": "BoxStackSwitchback",
 			"kind": "box",
 			"position": [
-				-104.0,
-				-4.0,
-				-28.0
+				-16.0,
+				7.0,
+				72.0
 			],
 			"scale": [
 				1.0,
@@ -561,26 +455,56 @@
 		},
 		{
 			"asset_path": "",
-			"audio_material_id": "cardboard",
+			"audio_material_id": "plastic",
 			"box_color": [
-				0.5,
-				0.360000014305115,
+				0.879999995231628,
 				0.200000002980232,
+				0.159999996423721,
 				1.0
 			],
 			"box_size": [
 				34.0,
-				24.0,
-				26.0
+				22.0,
+				5.0
 			],
 			"collision_mode": "visual",
-			"gameplay_tag": "attic_landmark",
-			"id": "BoxMazeB",
+			"gameplay_tag": "prank_landmark",
+			"id": "FalseFinishGate",
 			"kind": "box",
 			"position": [
-				86.0,
-				-4.0,
-				34.0
+				104.0,
+				12.0,
+				-12.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "glass",
+			"box_color": [
+				0.560000002384186,
+				0.660000026226044,
+				0.819999992847443,
+				1.0
+			],
+			"box_size": [
+				28.0,
+				10.0,
+				18.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "hazard_machine",
+			"id": "MarbleTrap",
+			"kind": "box",
+			"position": [
+				-106.0,
+				5.0,
+				4.0
 			],
 			"scale": [
 				1.0,
@@ -593,24 +517,24 @@
 			"asset_path": "",
 			"audio_material_id": "wood",
 			"box_color": [
-				0.239999994635582,
-				0.140000000596046,
+				0.360000014305115,
+				0.200000002980232,
 				0.0799999982118607,
 				1.0
 			],
 			"box_size": [
-				46.0,
-				18.0,
-				24.0
+				56.0,
+				16.0,
+				22.0
 			],
 			"collision_mode": "visual",
 			"gameplay_tag": "attic_landmark",
-			"id": "OldTrunk",
+			"id": "PrankTrunkMaze",
 			"kind": "box",
 			"position": [
-				10.0,
-				-5.0,
-				62.0
+				-70.0,
+				5.0,
+				-74.0
 			],
 			"scale": [
 				1.0,
@@ -623,24 +547,24 @@
 			"asset_path": "",
 			"audio_material_id": "fabric",
 			"box_color": [
-				0.899999976158142,
+				0.839999973773956,
 				0.819999992847443,
-				0.620000004768372,
+				0.759999990463257,
 				1.0
 			],
 			"box_size": [
-				1.0,
-				30.0,
-				1.0
+				48.0,
+				20.0,
+				24.0
 			],
 			"collision_mode": "visual",
-			"gameplay_tag": "attic_landmark",
-			"id": "PullCord",
+			"gameplay_tag": "soft_occluder",
+			"id": "SheetTunnel",
 			"kind": "box",
 			"position": [
-				64.0,
-				15.0,
-				-48.0
+				82.0,
+				9.0,
+				46.0
 			],
 			"scale": [
 				1.0,
@@ -651,26 +575,26 @@
 		},
 		{
 			"asset_path": "",
-			"audio_material_id": "wood",
+			"audio_material_id": "fabric",
 			"box_color": [
-				0.340000003576279,
-				0.200000002980232,
-				0.100000001490116,
+				0.860000014305115,
+				0.779999971389771,
+				0.579999983310699,
 				1.0
 			],
 			"box_size": [
-				112.0,
-				2.20000004768372,
-				12.0
+				4.0,
+				28.0,
+				4.0
 			],
 			"collision_mode": "visual",
-			"gameplay_tag": "ramp",
-			"id": "RafterBranch",
+			"gameplay_tag": "signature_effect",
+			"id": "StringLiftShortcut",
 			"kind": "box",
 			"position": [
-				0.0,
-				10.0,
-				-8.0
+				42.0,
+				14.0,
+				-46.0
 			],
 			"scale": [
 				1.0,
@@ -682,36 +606,36 @@
 	],
 	"surface_segments": [
 		{
-			"end_route_index": 20,
+			"end_route_index": 6,
 			"id": "attic_feature_surface",
 			"position": [
-				70.0,
-				3.54999995231628,
-				50.0
+				100.0,
+				3.34999990463257,
+				46.0
 			],
-			"start_route_index": 11,
+			"start_route_index": 3,
 			"surface_audio_id": "attic_secondary",
 			"surface_material_id": "wood_feature"
 		},
 		{
-			"end_route_index": 31,
+			"end_route_index": 9,
 			"id": "attic_return_surface",
 			"position": [
-				-80.0,
-				3.54999995231628,
-				10.0
+				-72.0,
+				3.34999990463257,
+				48.0
 			],
-			"start_route_index": 21,
+			"start_route_index": 6,
 			"surface_audio_id": "attic_primary",
 			"surface_material_id": "wood"
 		},
 		{
-			"end_route_index": 10,
+			"end_route_index": 3,
 			"id": "attic_start_surface",
 			"position": [
-				-30.0,
-				3.54999995231628,
-				-70.0
+				-72.0,
+				3.34999990463257,
+				-80.0
 			],
 			"start_route_index": 0,
 			"surface_audio_id": "attic_primary",
@@ -719,7 +643,7 @@
 		}
 	],
 	"track_id": "attic",
-	"version": "attic_v1_2026_05_01",
+	"version": "attic_toybox_v1_2026_05_02",
 	"wall_height": 1.6,
 	"wall_thickness": 0.45
 }

@@ -1,0 +1,1273 @@
+{
+	"alternate_routes": [],
+	"audio_ids": {
+		"clatter": "res://assets/source/audio/canva/tracks/kitchen/kitchen_clatter_canva_01.mp3",
+		"music": "res://assets/source/audio/suno/tracks/kitchen/kitchen_loop_suno_01.mp3",
+		"sink_splash": "res://assets/source/audio/canva/tracks/kitchen/kitchen_sink_water.mp3",
+		"stove_sizzle": "res://assets/source/audio/canva/tracks/kitchen/kitchen_oven_sizzle.mp3",
+		"utensil_clink": "res://assets/source/audio/canva/tracks/kitchen/kitchen_utensil_clink_canva_01.wav"
+	},
+	"audio_zones": [
+		{
+			"audio_id": "clatter",
+			"audio_path": "",
+			"id": "FridgeHumZone",
+			"position": [
+				126.0,
+				3.8,
+				34.0
+			],
+			"radius": 26.0,
+			"volume_db": -16.0,
+			"zone_kind": "ambient"
+		},
+		{
+			"audio_id": "clatter",
+			"audio_path": "",
+			"id": "KitchenClatterZone",
+			"position": [
+				0.0,
+				5.0,
+				0.0
+			],
+			"radius": 120.0,
+			"volume_db": -12.0,
+			"zone_kind": "ambient"
+		},
+		{
+			"audio_id": "sink_splash",
+			"audio_path": "",
+			"id": "SinkSplashZone",
+			"position": [
+				-8.0,
+				4.45,
+				74.0
+			],
+			"radius": 18.0,
+			"volume_db": -5.0,
+			"zone_kind": "oneshot"
+		},
+		{
+			"audio_id": "stove_sizzle",
+			"audio_path": "",
+			"id": "StoveSizzleZone",
+			"position": [
+				-121.48029,
+				-8.806137,
+				-12.746695
+			],
+			"radius": 30.0,
+			"volume_db": -6.0,
+			"zone_kind": "ambient"
+		}
+	],
+	"checkpoint_radius": 7.8,
+	"checkpoints": [
+		{
+			"index": 0,
+			"is_lap_gate": true,
+			"position": [
+				-109.010559082031,
+				12.2416172027588,
+				-83.7088317871094
+			],
+			"route_index": 0
+		},
+		{
+			"index": 1,
+			"is_lap_gate": false,
+			"position": [
+				13.7165040969849,
+				-6.16137409210205,
+				-57.5319786071777
+			],
+			"route_index": 8
+		},
+		{
+			"index": 2,
+			"is_lap_gate": false,
+			"position": [
+				131.073120117188,
+				21.8720359802246,
+				0.473842620849609
+			],
+			"route_index": 34
+		},
+		{
+			"index": 3,
+			"is_lap_gate": false,
+			"position": [
+				-45.703742980957,
+				24.952709197998,
+				64.1768188476563
+			],
+			"route_index": 44
+		},
+		{
+			"index": 4,
+			"is_lap_gate": false,
+			"position": [
+				-131.503677368164,
+				14.2086582183838,
+				3.63001251220703
+			],
+			"route_index": 53
+		},
+		{
+			"index": 5,
+			"is_lap_gate": false,
+			"position": [
+				-116.993064880371,
+				11.9566898345947,
+				-83.3384552001953
+			],
+			"route_index": 58
+		}
+	],
+	"closed_loop": true,
+	"display_name": "Kitchen / Sir Clink",
+	"dressing_scene_path": "res://assets/gameplay/tracks/kitchen/kitchen_editable_room.tscn",
+	"floor_visual_y": -32.0,
+	"hazard_sockets": [
+		{
+			"position": [
+				-40.0,
+				4.05000019073486,
+				-76.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				24.0,
+				4.05000019073486,
+				-76.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				104.0,
+				4.05000019073486,
+				-70.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				122.0,
+				4.05000019073486,
+				-8.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				114.0,
+				4.05000019073486,
+				68.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				48.0,
+				4.05000019073486,
+				76.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				-76.0,
+				4.05000019073486,
+				74.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				-116.0,
+				4.05000019073486,
+				-20.0
+			],
+			"yaw_degrees": 0.0
+		}
+	],
+	"id": "kitchen",
+	"item_sockets": [
+		{
+			"position": [
+				-72.0,
+				4.05000019073486,
+				-76.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				-8.0,
+				4.05000019073486,
+				-76.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				56.0,
+				4.05000019073486,
+				-76.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				118.0,
+				4.05000019073486,
+				-42.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				122.0,
+				4.05000019073486,
+				18.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				92.0,
+				4.05000019073486,
+				76.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				24.0,
+				4.05000019073486,
+				76.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				-48.0,
+				4.05000019073486,
+				76.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				-116.0,
+				4.05000019073486,
+				24.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				-116.0,
+				4.05000019073486,
+				-44.0
+			],
+			"yaw_degrees": 0.0
+		}
+	],
+	"lap_gate_checkpoint_index": 0,
+	"laps": 3,
+	"out_of_bounds_y": -11.0,
+	"rail_texture_path": "res://assets/gameplay/materials/metal/toy_metal_albedo.png",
+	"rail_texture_uv_scale": 0.5,
+	"sky_cloud_amount": 0.16,
+	"sky_cloud_speed": 0.014,
+	"sky_haze_amount": 0.1,
+	"sky_horizon_color": [
+		0.78,
+		0.9,
+		1.0,
+		1.0
+	],
+	"sky_light_energy": 2.45,
+	"sky_preset_id": "noon_clear",
+	"sky_time_of_day": 0.5,
+	"sky_top_color": [
+		0.44,
+		0.72,
+		1.0,
+		1.0
+	],
+	"sky_weather": "clear",
+	"reset_mode": "instant_pop",
+	"road_width": 12.0,
+	"route_length": 1292.24053764343,
+	"route_points": [
+		[
+			-109.010559082031,
+			12.2416172027588,
+			-83.7088317871094
+		],
+		[
+			-88.0,
+			12.2416172027588,
+			-85.7088317871094
+		],
+		[
+			-72.0,
+			12.2416172027588,
+			-85.7088317871094
+		],
+		[
+			-56.0,
+			12.2416172027588,
+			-85.7088317871094
+		],
+		[
+			-40.0,
+			12.2416172027588,
+			-85.7088317871094
+		],
+		[
+			-27.8550891876221,
+			12.8944339752197,
+			-85.7088317871094
+		],
+		[
+			-9.4563102722168,
+			6.10776424407959,
+			-85.7088317871094
+		],
+		[
+			3.12729740142822,
+			-1.96449947357178,
+			-85.7088317871094
+		],
+		[
+			13.7165040969849,
+			-6.16137409210205,
+			-57.5319786071777
+		],
+		[
+			-7.46035480499268,
+			-10.108943939209,
+			-46.0925941467285
+		],
+		[
+			-31.2212333679199,
+			-6.50485277175903,
+			-46.0925941467285
+		],
+		[
+			-45.169563293457,
+			-3.94813299179077,
+			-38.0174102783203
+		],
+		[
+			-34.1222381591797,
+			0.372402667999268,
+			-27.2806091308594
+		],
+		[
+			-18.2960739135742,
+			7.22364234924316,
+			-24.0823078155518
+		],
+		[
+			5.13119125366211,
+			8.47467613220215,
+			-24.0823078155518
+		],
+		[
+			16.7300415039063,
+			8.47467613220215,
+			-24.0823078155518
+		],
+		[
+			24.2284164428711,
+			8.47467613220215,
+			-12.3684711456299
+		],
+		[
+			24.2284164428711,
+			8.47467613220215,
+			4.69564628601074
+		],
+		[
+			9.34284210205078,
+			4.0384635925293,
+			12.9149923324585
+		],
+		[
+			5.22499656677246,
+			2.5402889251709,
+			20.049861907959
+		],
+		[
+			5.22499656677246,
+			-5.80632400512695,
+			47.3777236938477
+		],
+		[
+			5.22499656677246,
+			-5.80632400512695,
+			58.8229598999023
+		],
+		[
+			15.8474025726318,
+			-5.80632400512695,
+			65.0187530517578
+		],
+		[
+			46.0409622192383,
+			-5.80632400512695,
+			65.0187530517578
+		],
+		[
+			53.6106643676758,
+			-5.80632400512695,
+			53.1223258972168
+		],
+		[
+			53.6106643676758,
+			-5.80632400512695,
+			12.8660488128662
+		],
+		[
+			50.0894775390625,
+			4.48058986663818,
+			-19.5235748291016
+		],
+		[
+			46.568286895752,
+			14.7675037384033,
+			-51.9131965637207
+		],
+		[
+			46.568286895752,
+			14.7675037384033,
+			-74.8582305908203
+		],
+		[
+			58.6229934692383,
+			14.7675046920776,
+			-86.8540573120117
+		],
+		[
+			116.480400085449,
+			14.7675046920776,
+			-83.7860641479492
+		],
+		[
+			124.898223876953,
+			14.7675046920776,
+			-76.8033599853516
+		],
+		[
+			124.898223876953,
+			12.7749738693237,
+			-60.858757019043
+		],
+		[
+			124.898223876953,
+			12.7749738693237,
+			-18.8295555114746
+		],
+		[
+			131.073120117188,
+			21.8720359802246,
+			0.473842620849609
+		],
+		[
+			131.073120117188,
+			21.8720359802246,
+			48.2752723693848
+		],
+		[
+			131.073120117188,
+			13.8060417175293,
+			68.2743835449219
+		],
+		[
+			125.491485595703,
+			13.8060417175293,
+			83.9891967773438
+		],
+		[
+			101.302917480469,
+			13.8060417175293,
+			83.9891967773438
+		],
+		[
+			48.8584899902344,
+			13.8060417175293,
+			68.4501571655273
+		],
+		[
+			24.3963623046875,
+			13.8060417175293,
+			70.2845916748047
+		],
+		[
+			4.29118919372559,
+			20.5381374359131,
+			78.7732467651367
+		],
+		[
+			-14.992696762085,
+			29.4720344543457,
+			78.7732467651367
+		],
+		[
+			-23.2389450073242,
+			31.5045738220215,
+			66.5032196044922
+		],
+		[
+			-45.703742980957,
+			24.952709197998,
+			64.1768188476563
+		],
+		[
+			-59.3544845581055,
+			19.7668113708496,
+			64.1768188476563
+		],
+		[
+			-67.2278366088867,
+			19.7668113708496,
+			64.1768188476563
+		],
+		[
+			-67.2278366088867,
+			14.8662338256836,
+			77.6335372924805
+		],
+		[
+			-70.840446472168,
+			14.8662338256836,
+			85.0330352783203
+		],
+		[
+			-81.0553741455078,
+			10.9711513519287,
+			85.0330352783203
+		],
+		[
+			-119.480346679688,
+			11.6033897399902,
+			85.0330352783203
+		],
+		[
+			-131.503677368164,
+			11.6033897399902,
+			79.8555221557617
+		],
+		[
+			-131.503677368164,
+			11.6033897399902,
+			64.6186752319336
+		],
+		[
+			-131.503677368164,
+			14.2086582183838,
+			3.63001251220703
+		],
+		[
+			-131.503677368164,
+			14.2086582183838,
+			-40.9504089355469
+		],
+		[
+			-131.503677368164,
+			11.9566898345947,
+			-56.7150039672852
+		],
+		[
+			-131.503677368164,
+			11.9566898345947,
+			-72.3133697509766
+		],
+		[
+			-126.417518615723,
+			11.9566898345947,
+			-83.3384552001953
+		],
+		[
+			-116.993064880371,
+			11.9566898345947,
+			-83.3384552001953
+		]
+	],
+	"runtime_scene_path": "res://assets/gameplay/tracks/kitchen/kitchen_track.tscn",
+	"shortcut_gates": [
+		{
+			"entry": [
+				74.0,
+				3.34999990463257,
+				-74.0
+			],
+			"exit": [
+				88.0,
+				3.34999990463257,
+				76.0
+			],
+			"id": "table_jump",
+			"kind": "jump",
+			"surface_enabled": false,
+			"width": 8.0
+		}
+	],
+	"spawn_points": [
+		{
+			"position": [
+				-108.86841583252,
+				13.0416173934937,
+				-82.2155838012695
+			],
+			"yaw_degrees": 95.437614440918
+		},
+		{
+			"position": [
+				-109.152702331543,
+				13.0416173934937,
+				-85.2020797729492
+			],
+			"yaw_degrees": 95.437614440918
+		},
+		{
+			"position": [
+				-103.890914916992,
+				13.0416173934937,
+				-82.6893920898438
+			],
+			"yaw_degrees": 95.437614440918
+		},
+		{
+			"position": [
+				-104.175201416016,
+				13.0416173934937,
+				-85.6758880615234
+			],
+			"yaw_degrees": 95.437614440918
+		},
+		{
+			"position": [
+				-98.9134140014648,
+				13.0416173934937,
+				-83.163200378418
+			],
+			"yaw_degrees": 95.437614440918
+		},
+		{
+			"position": [
+				-99.1977005004883,
+				13.0416173934937,
+				-86.1496963500977
+			],
+			"yaw_degrees": 95.437614440918
+		},
+		{
+			"position": [
+				-93.935920715332,
+				13.0416173934937,
+				-83.6370086669922
+			],
+			"yaw_degrees": 95.437614440918
+		},
+		{
+			"position": [
+				-94.2202072143555,
+				13.0416173934937,
+				-86.6235046386719
+			],
+			"yaw_degrees": 95.437614440918
+		}
+	],
+	"stage_props": [
+		{
+			"asset_path": "",
+			"audio_material_id": "stone",
+			"box_color": [
+				0.86,
+				0.78,
+				0.65,
+				1.0
+			],
+			"box_size": [
+				228.0,
+				0.36,
+				16.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "countertop",
+			"id": "BackCountertop",
+			"kind": "box",
+			"position": [
+				0.0,
+				2.95,
+				84.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "res://assets/source/meshy/kitchen/retro_cream_refrigerator.glb",
+			"audio_material_id": "metal",
+			"box_color": [
+				0.68,
+				0.72,
+				0.76,
+				1.0
+			],
+			"box_size": [
+				10.0,
+				52.4,
+				38.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "kitchen_landmark",
+			"id": "FridgeLandmark",
+			"kind": "scene",
+			"position": [
+				126.0,
+				-5.8,
+				34.0
+			],
+			"scale": [
+				27.6,
+				27.6,
+				27.6
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "stone",
+			"box_color": [
+				0.86,
+				0.78,
+				0.65,
+				1.0
+			],
+			"box_size": [
+				234.0,
+				0.36,
+				16.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "countertop",
+			"id": "FrontCountertop",
+			"kind": "box",
+			"position": [
+				0.0,
+				2.95,
+				-84.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "drywall",
+			"box_color": [
+				0.62,
+				0.57,
+				0.49,
+				1.0
+			],
+			"box_size": [
+				252.0,
+				87.4,
+				2.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "room_envelope",
+			"id": "KitchenBackWall",
+			"kind": "box",
+			"position": [
+				0.0,
+				11.7,
+				98.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "drywall",
+			"box_color": [
+				0.68,
+				0.7,
+				0.7,
+				1.0
+			],
+			"box_size": [
+				292.0,
+				1.0,
+				200.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "room_envelope",
+			"id": "KitchenCeiling",
+			"kind": "box",
+			"position": [
+				9.0,
+				55.4,
+				0.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "wood",
+			"box_color": [
+				0.32,
+				0.17,
+				0.08,
+				1.0
+			],
+			"box_size": [
+				2.0,
+				38.0,
+				1.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "doorway",
+			"id": "KitchenDoorFrameLeft",
+			"kind": "box",
+			"position": [
+				-28.0,
+				-13.0,
+				-99.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "wood",
+			"box_color": [
+				0.32,
+				0.17,
+				0.08,
+				1.0
+			],
+			"box_size": [
+				2.0,
+				38.0,
+				1.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "doorway",
+			"id": "KitchenDoorFrameRight",
+			"kind": "box",
+			"position": [
+				54.0,
+				-13.0,
+				-99.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "wood",
+			"box_color": [
+				0.32,
+				0.17,
+				0.08,
+				1.0
+			],
+			"box_size": [
+				84.0,
+				1.7,
+				1.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "doorway",
+			"id": "KitchenDoorFrameTop",
+			"kind": "box",
+			"position": [
+				13.0,
+				6.5,
+				-99.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "drywall",
+			"box_color": [
+				0.6,
+				0.56,
+				0.5,
+				1.0
+			],
+			"box_size": [
+				80.0,
+				22.8,
+				2.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "room_envelope",
+			"id": "KitchenFrontDoorHeader",
+			"kind": "box",
+			"position": [
+				13.0,
+				44.0,
+				-98.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "drywall",
+			"box_color": [
+				0.6,
+				0.56,
+				0.5,
+				1.0
+			],
+			"box_size": [
+				110.0,
+				87.4,
+				2.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "room_envelope",
+			"id": "KitchenFrontWallLeft",
+			"kind": "box",
+			"position": [
+				-91.0,
+				11.7,
+				-98.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "drywall",
+			"box_color": [
+				0.6,
+				0.56,
+				0.5,
+				1.0
+			],
+			"box_size": [
+				94.0,
+				87.4,
+				2.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "room_envelope",
+			"id": "KitchenFrontWallRight",
+			"kind": "box",
+			"position": [
+				99.0,
+				11.7,
+				-98.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "stone",
+			"box_color": [
+				0.88,
+				0.8,
+				0.68,
+				1.0
+			],
+			"box_size": [
+				140.0,
+				0.36,
+				92.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "countertop",
+			"id": "KitchenIslandCountertop",
+			"kind": "box",
+			"position": [
+				22.0,
+				2.95,
+				-36.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "drywall",
+			"box_color": [
+				0.58,
+				0.54,
+				0.48,
+				1.0
+			],
+			"box_size": [
+				2.0,
+				87.4,
+				196.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "room_envelope",
+			"id": "KitchenLeftWall",
+			"kind": "box",
+			"position": [
+				-128.0,
+				11.7,
+				0.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "res://assets/source/meshy/kitchen_props/sunny_pan.glb",
+			"audio_material_id": "metal",
+			"box_color": [
+				0.95,
+				0.72,
+				0.18,
+				1.0
+			],
+			"box_size": [
+				16.0,
+				5.0,
+				24.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "kitchen_landmark",
+			"id": "SunnyPan",
+			"kind": "scene",
+			"position": [
+				18.0,
+				5.2,
+				-42.0
+			],
+			"scale": [
+				12.0,
+				12.0,
+				12.0
+			],
+			"yaw_degrees": 30.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "drywall",
+			"box_color": [
+				0.58,
+				0.54,
+				0.48,
+				1.0
+			],
+			"box_size": [
+				2.0,
+				87.4,
+				196.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "room_envelope",
+			"id": "KitchenRightWall",
+			"kind": "box",
+			"position": [
+				146.0,
+				11.7,
+				0.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "res://assets/source/kenney/furniture_kit/kitchenSink.glb",
+			"audio_material_id": "ceramic",
+			"box_color": [
+				0.75,
+				0.72,
+				0.64,
+				1.0
+			],
+			"box_size": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "kitchen_landmark",
+			"id": "KitchenSink",
+			"kind": "scene",
+			"position": [
+				-8.0,
+				2.15,
+				88.0
+			],
+			"scale": [
+				10.5,
+				10.5,
+				10.5
+			],
+			"yaw_degrees": 180.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "stone",
+			"box_color": [
+				0.82,
+				0.76,
+				0.66,
+				1.0
+			],
+			"box_size": [
+				16.0,
+				0.36,
+				160.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "countertop",
+			"id": "LeftCountertop",
+			"kind": "box",
+			"position": [
+				-116.0,
+				2.95,
+				-2.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "stone",
+			"box_color": [
+				0.82,
+				0.76,
+				0.66,
+				1.0
+			],
+			"box_size": [
+				16.0,
+				0.36,
+				160.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "countertop",
+			"id": "RightCountertop",
+			"kind": "box",
+			"position": [
+				122.0,
+				2.95,
+				-2.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		}
+	],
+	"surface_segments": [
+		{
+			"end_route_index": 16,
+			"id": "CountertopMain",
+			"position": [
+				-26.0,
+				3.7,
+				-78.0
+			],
+			"start_route_index": 0,
+			"surface_audio_id": "countertop",
+			"surface_material_id": "stone"
+		},
+		{
+			"end_route_index": 23,
+			"id": "FridgeTop",
+			"position": [
+				122.0,
+				3.35,
+				30.0
+			],
+			"start_route_index": 18,
+			"surface_audio_id": "fridge_top",
+			"surface_material_id": "metal"
+		},
+		{
+			"end_route_index": 29,
+			"id": "WetSink",
+			"position": [
+				-8.0,
+				4.2,
+				74.0
+			],
+			"start_route_index": 25,
+			"surface_audio_id": "wet_sink",
+			"surface_material_id": "wet_stone"
+		}
+	],
+	"track_id": "kitchen",
+	"version": "kitchen_v2_2026_04_29",
+	"wall_height": 1.6,
+	"wall_thickness": 0.45
+}

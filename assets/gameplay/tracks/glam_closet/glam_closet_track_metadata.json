@@ -4,30 +4,25 @@
 			"enabled": true,
 			"entry_checkpoint_index": 1,
 			"exit_checkpoint_index": 3,
-			"id": "glam_closet_branch",
+			"id": "glam_closet_alt_route",
 			"points": [
 				[
-					0.0,
-					3.54999995231628,
+					10.0,
+					3.75,
 					-76.0
 				],
 				[
-					18.0,
-					4.34999990463257,
-					-32.0
+					61.0,
+					5.25,
+					-35.0
 				],
 				[
-					36.0,
-					4.34999990463257,
-					20.0
-				],
-				[
-					60.0,
-					3.75,
-					78.0
+					112.0,
+					5.15000009536743,
+					6.0
 				]
 			],
-			"road_width": 12.0
+			"road_width": 9.6
 		}
 	],
 	"audio_ids": {
@@ -37,19 +32,6 @@
 	},
 	"audio_zones": [
 		{
-			"audio_id": "glam_closet_secondary",
-			"audio_path": "",
-			"id": "glam_closet_feature_zone",
-			"position": [
-				60.0,
-				4.34999990463257,
-				36.0
-			],
-			"radius": 28.0,
-			"volume_db": -6.0,
-			"zone_kind": "oneshot"
-		},
-		{
 			"audio_id": "music",
 			"audio_path": "",
 			"id": "glam_closet_music_zone",
@@ -58,9 +40,35 @@
 				0.0,
 				0.0
 			],
-			"radius": 120.0,
+			"radius": 96.0,
 			"volume_db": -14.0,
 			"zone_kind": "ambient"
+		},
+		{
+			"audio_id": "glam_closet_primary",
+			"audio_path": "",
+			"id": "glam_closet_route_zone",
+			"position": [
+				10.0,
+				3.34999990463257,
+				-76.0
+			],
+			"radius": 26.0,
+			"volume_db": -7.0,
+			"zone_kind": "oneshot"
+		},
+		{
+			"audio_id": "glam_closet_secondary",
+			"audio_path": "",
+			"id": "PerfumeMistZone",
+			"position": [
+				112.0,
+				4.75,
+				6.0
+			],
+			"radius": 28.0,
+			"volume_db": -6.0,
+			"zone_kind": "oneshot"
 		}
 	],
 	"checkpoint_radius": 7.8,
@@ -69,9 +77,9 @@
 			"index": 0,
 			"is_lap_gate": true,
 			"position": [
-				-108.0,
+				-112.0,
 				3.34999990463257,
-				-61.9199981689453
+				-58.0
 			],
 			"route_index": 0
 		},
@@ -79,111 +87,106 @@
 			"index": 1,
 			"is_lap_gate": false,
 			"position": [
-				0.0,
+				-58.0,
 				3.34999990463257,
-				-65.3600006103516
+				-78.0
 			],
-			"route_index": 6
+			"route_index": 1
 		},
 		{
 			"index": 2,
 			"is_lap_gate": false,
 			"position": [
-				128.0,
+				78.0,
 				3.34999990463257,
-				-25.7999992370605
+				-48.0
 			],
-			"route_index": 12
+			"route_index": 3
 		},
 		{
 			"index": 3,
 			"is_lap_gate": false,
 			"position": [
-				60.0,
+				112.0,
 				4.75,
-				67.0800018310547
+				6.0
 			],
-			"route_index": 18
+			"route_index": 4
 		},
 		{
 			"index": 4,
 			"is_lap_gate": false,
 			"position": [
-				-94.0,
+				24.0,
 				3.34999990463257,
-				46.439998626709
+				78.0
 			],
-			"route_index": 24
+			"route_index": 6
 		},
 		{
 			"index": 5,
 			"is_lap_gate": false,
 			"position": [
-				-126.0,
+				-40.0,
 				3.34999990463257,
-				-34.4000015258789
+				68.0
 			],
-			"route_index": 28
+			"route_index": 7
 		}
 	],
 	"closed_loop": true,
 	"display_name": "Glam Closet / Velva",
 	"dressing_scene_path": "res://assets/gameplay/tracks/glam_closet/glam_closet_editable_room.tscn",
 	"floor_visual_y": -32.0,
+	"grass_zones": [],
+	"ground_shader_path": "",
+	"ground_texture_path": "res://assets/gameplay/materials/glam/glam_mirror_glitter_albedo.png",
 	"hazard_sockets": [
 		{
 			"position": [
-				-40.0,
+				10.0,
 				4.04999971389771,
-				-71.379997253418
+				-76.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				72.0,
-				4.04999971389771,
-				-65.3600006103516
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				132.0,
-				4.04999971389771,
-				-5.15999984741211
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				60.0,
+				112.0,
 				5.44999980926514,
-				67.0800018310547
+				6.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				-44.0,
+				24.0,
 				4.04999971389771,
-				65.3600006103516
+				78.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				-130.0,
+				-100.0,
 				4.04999971389771,
-				-13.7600002288818
+				28.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				-104.0,
+				-58.0,
 				4.04999971389771,
-				-60.2000007629395
+				-78.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"position": [
+				10.0,
+				4.04999971389771,
+				-76.0
 			],
 			"yaw_degrees": 0.0
 		}
@@ -192,81 +195,65 @@
 	"item_sockets": [
 		{
 			"position": [
-				-78.0,
+				-58.0,
 				4.04999971389771,
-				-70.5199966430664
+				-78.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				-20.0,
+				10.0,
 				4.04999971389771,
-				-68.8000030517578
+				-76.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				48.0,
-				4.04999971389771,
-				-67.0800018310547
+				112.0,
+				5.44999980926514,
+				6.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				116.0,
-				4.04999971389771,
-				-44.7200012207031
+				82.0,
+				5.44999980926514,
+				58.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				130.0,
+				-40.0,
 				4.04999971389771,
-				15.4799995422363
+				68.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				84.0,
+				-100.0,
 				4.04999971389771,
-				61.9199981689453
+				28.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				8.0,
+				-112.0,
 				4.04999971389771,
-				70.5199966430664
+				-58.0
 			],
 			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				-70.0,
+				-58.0,
 				4.04999971389771,
-				58.4799995422363
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				-126.0,
-				4.04999971389771,
-				8.60000038146973
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				-116.0,
-				4.04999971389771,
-				-51.5999984741211
+				-78.0
 			],
 			"yaw_degrees": 0.0
 		}
@@ -278,171 +265,73 @@
 	"rail_texture_uv_scale": 0.5,
 	"reset_mode": "instant_pop",
 	"road_width": 12.0,
-	"route_length": 689.068662643433,
+	"route_length": 608.102294921875,
 	"route_points": [
 		[
-			-108.0,
+			-112.0,
 			3.34999990463257,
-			-61.9199981689453
+			-58.0
 		],
 		[
-			-94.0,
+			-58.0,
 			3.34999990463257,
-			-67.0800018310547
+			-78.0
 		],
 		[
-			-78.0,
+			10.0,
 			3.34999990463257,
-			-70.5199966430664
+			-76.0
 		],
 		[
-			-60.0,
+			78.0,
 			3.34999990463257,
-			-72.2399978637695
+			-48.0
 		],
 		[
-			-40.0,
-			3.34999990463257,
-			-71.379997253418
+			112.0,
+			4.75,
+			6.0
 		],
 		[
-			-20.0,
-			3.34999990463257,
-			-68.8000030517578
-		],
-		[
-			0.0,
-			3.34999990463257,
-			-65.3600006103516
+			82.0,
+			4.75,
+			58.0
 		],
 		[
 			24.0,
 			3.34999990463257,
-			-65.3600006103516
+			78.0
 		],
 		[
-			48.0,
+			-40.0,
 			3.34999990463257,
-			-67.0800018310547
+			68.0
 		],
 		[
-			72.0,
+			-100.0,
 			3.34999990463257,
-			-65.3600006103516
-		],
-		[
-			96.0,
-			3.34999990463257,
-			-58.4799995422363
-		],
-		[
-			116.0,
-			3.34999990463257,
-			-44.7200012207031
-		],
-		[
-			128.0,
-			3.34999990463257,
-			-25.7999992370605
-		],
-		[
-			132.0,
-			3.34999990463257,
-			-5.15999984741211
-		],
-		[
-			130.0,
-			3.34999990463257,
-			15.4799995422363
-		],
-		[
-			122.0,
-			3.34999990463257,
-			36.1199989318848
-		],
-		[
-			106.0,
-			3.34999990463257,
-			51.5999984741211
-		],
-		[
-			84.0,
-			3.34999990463257,
-			61.9199981689453
-		],
-		[
-			60.0,
-			4.75,
-			67.0800018310547
-		],
-		[
-			34.0,
-			4.75,
-			70.5199966430664
-		],
-		[
-			8.0,
-			3.34999990463257,
-			70.5199966430664
-		],
-		[
-			-18.0,
-			3.34999990463257,
-			68.8000030517578
-		],
-		[
-			-44.0,
-			3.34999990463257,
-			65.3600006103516
-		],
-		[
-			-70.0,
-			3.34999990463257,
-			58.4799995422363
-		],
-		[
-			-94.0,
-			3.34999990463257,
-			46.439998626709
-		],
-		[
-			-114.0,
-			3.34999990463257,
-			29.2399997711182
-		],
-		[
-			-126.0,
-			3.34999990463257,
-			8.60000038146973
-		],
-		[
-			-130.0,
-			3.34999990463257,
-			-13.7600002288818
-		],
-		[
-			-126.0,
-			3.34999990463257,
-			-34.4000015258789
-		],
-		[
-			-116.0,
-			3.34999990463257,
-			-51.5999984741211
-		],
-		[
-			-104.0,
-			3.34999990463257,
-			-60.2000007629395
-		],
-		[
-			-112.0,
-			3.34999990463257,
-			-58.4799995422363
+			28.0
 		]
 	],
 	"runtime_scene_path": "res://assets/gameplay/tracks/glam_closet/glam_closet_track.tscn",
-	"shortcut_gates": [],
+	"shortcut_gates": [
+		{
+			"entry": [
+				10.0,
+				3.34999990463257,
+				-76.0
+			],
+			"exit": [
+				112.0,
+				4.75,
+				6.0
+			],
+			"id": "glam_closet_shortcut",
+			"kind": "shortcut",
+			"surface_enabled": true,
+			"width": 9.0
+		}
+	],
 	"sky_cloud_amount": 0.22,
 	"sky_cloud_speed": 0.012,
 	"sky_haze_amount": 0.32,
@@ -465,67 +354,67 @@
 	"spawn_points": [
 		{
 			"position": [
-				-107.30834197998,
+				-111.305374145508,
 				4.15000009536743,
-				-60.0434036254883
+				-56.1245040893555
 			],
-			"yaw_degrees": 110.232460021973
+			"yaw_degrees": 110.323135375977
 		},
 		{
 			"position": [
-				-108.69165802002,
+				-112.694625854492,
 				4.15000009536743,
-				-63.7965927124023
+				-59.8754959106445
 			],
-			"yaw_degrees": 110.232460021973
+			"yaw_degrees": 110.323135375977
 		},
 		{
 			"position": [
-				-102.616859436035,
+				-106.616630554199,
 				4.15000009536743,
-				-61.7725524902344
+				-57.8610763549805
 			],
-			"yaw_degrees": 110.232460021973
+			"yaw_degrees": 110.323135375977
 		},
 		{
 			"position": [
-				-104.000175476074,
+				-108.005882263184,
 				4.15000009536743,
-				-65.5257415771484
+				-61.6120681762695
 			],
-			"yaw_degrees": 110.232460021973
+			"yaw_degrees": 110.323135375977
 		},
 		{
 			"position": [
-				-97.9253692626953,
+				-101.927886962891,
 				4.15000009536743,
-				-63.5017013549805
+				-59.5976486206055
 			],
-			"yaw_degrees": 110.232460021973
+			"yaw_degrees": 110.323135375977
 		},
 		{
 			"position": [
-				-99.3086853027344,
+				-103.317138671875,
 				4.15000009536743,
-				-67.2548904418945
+				-63.3486404418945
 			],
-			"yaw_degrees": 110.232460021973
+			"yaw_degrees": 110.323135375977
 		},
 		{
 			"position": [
-				-93.2338790893555,
+				-97.239143371582,
 				4.15000009536743,
-				-65.2308502197266
+				-61.3342208862305
 			],
-			"yaw_degrees": 110.232460021973
+			"yaw_degrees": 110.323135375977
 		},
 		{
 			"position": [
-				-94.6171951293945,
+				-98.6283950805664,
 				4.15000009536743,
-				-68.9840393066406
+				-65.0852127075195
 			],
-			"yaw_degrees": 110.232460021973
+			"yaw_degrees": 110.323135375977
 		}
 	],
 	"stage_props": [
@@ -533,144 +422,174 @@
 			"asset_path": "",
 			"audio_material_id": "plastic",
 			"box_color": [
-				0.239999994635582,
-				0.119999997317791,
-				0.219999998807907,
-				1.0
-			],
-			"box_size": [
-				54.0,
-				6.0,
-				24.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "glam_landmark",
-			"id": "MakeupPalette",
-			"kind": "box",
-			"position": [
-				-24.0,
-				-8.0,
-				-64.0
-			],
-			"scale": [
-				1.0,
-				1.0,
-				1.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"asset_path": "",
-			"audio_material_id": "glass",
-			"box_color": [
-				0.720000028610229,
-				0.899999976158142,
-				0.959999978542328,
-				1.0
-			],
-			"box_size": [
-				18.0,
-				22.0,
-				18.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "glam_landmark",
-			"id": "PerfumeBottle",
-			"kind": "box",
-			"position": [
-				98.0,
-				-3.0,
-				-46.0
-			],
-			"scale": [
-				1.0,
-				1.0,
-				1.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"asset_path": "",
-			"audio_material_id": "fabric",
-			"box_color": [
-				0.899999976158142,
-				0.239999994635582,
-				0.620000004768372,
-				1.0
-			],
-			"box_size": [
-				86.0,
-				1.0,
-				16.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "shortcut_landmark",
-			"id": "ScarfBridge",
-			"kind": "box",
-			"position": [
-				4.0,
-				3.79999995231628,
-				12.0
-			],
-			"scale": [
-				1.0,
-				1.0,
-				1.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"asset_path": "",
-			"audio_material_id": "wood",
-			"box_color": [
-				0.180000007152557,
-				0.119999997317791,
-				0.100000001490116,
-				1.0
-			],
-			"box_size": [
-				26.0,
-				18.0,
-				54.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "glam_landmark",
-			"id": "ShoeRack",
-			"kind": "box",
-			"position": [
-				112.0,
-				-5.0,
-				46.0
-			],
-			"scale": [
-				1.0,
-				1.0,
-				1.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"asset_path": "",
-			"audio_material_id": "glass",
-			"box_color": [
-				0.860000014305115,
-				0.879999995231628,
+				0.980000019073486,
+				0.819999992847443,
 				0.939999997615814,
 				1.0
 			],
 			"box_size": [
-				12.0,
-				34.0,
-				48.0
+				62.0,
+				10.0,
+				14.0
 			],
 			"collision_mode": "visual",
 			"gameplay_tag": "glam_landmark",
-			"id": "VanityMirror",
+			"id": "DisplayPedestals",
 			"kind": "box",
 			"position": [
-				-118.0,
-				6.0,
+				-28.0,
+				4.0,
+				72.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "velvet",
+			"box_color": [
+				0.419999986886978,
+				0.119999997317791,
+				0.319999992847443,
+				1.0
+			],
+			"box_size": [
+				48.0,
+				2.0,
 				18.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "ramp",
+			"id": "JewelryBoxRamp",
+			"kind": "box",
+			"position": [
+				74.0,
+				5.5,
+				58.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "glass",
+			"box_color": [
+				0.779999971389771,
+				0.879999995231628,
+				0.959999978542328,
+				1.0
+			],
+			"box_size": [
+				48.0,
+				28.0,
+				5.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "glam_landmark",
+			"id": "MirrorArch",
+			"kind": "box",
+			"position": [
+				-70.0,
+				14.0,
+				-72.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "mist",
+			"box_color": [
+				0.759999990463257,
+				0.879999995231628,
+				1.0,
+				0.449999988079071
+			],
+			"box_size": [
+				34.0,
+				20.0,
+				24.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "signature_effect",
+			"id": "PerfumeMistZone",
+			"kind": "box",
+			"position": [
+				100.0,
+				8.0,
+				8.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "metal",
+			"box_color": [
+				0.959999978542328,
+				0.779999971389771,
+				0.239999994635582,
+				1.0
+			],
+			"box_size": [
+				28.0,
+				22.0,
+				5.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "shortcut_landmark",
+			"id": "StatusGate",
+			"kind": "box",
+			"position": [
+				-104.0,
+				11.0,
+				28.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "gloss",
+			"box_color": [
+				0.899999976158142,
+				0.419999986886978,
+				0.680000007152557,
+				1.0
+			],
+			"box_size": [
+				96.0,
+				2.0,
+				16.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "runway",
+			"id": "VanityRunway",
+			"kind": "box",
+			"position": [
+				0.0,
+				2.0,
+				-74.0
 			],
 			"scale": [
 				1.0,
@@ -682,36 +601,36 @@
 	],
 	"surface_segments": [
 		{
-			"end_route_index": 20,
+			"end_route_index": 5,
 			"id": "glam_closet_feature_surface",
 			"position": [
-				70.0,
-				3.54999995231628,
-				50.0
+				112.0,
+				4.75,
+				6.0
 			],
-			"start_route_index": 11,
+			"start_route_index": 2,
 			"surface_audio_id": "glam_closet_secondary",
 			"surface_material_id": "gloss_feature"
 		},
 		{
-			"end_route_index": 31,
+			"end_route_index": 8,
 			"id": "glam_closet_return_surface",
 			"position": [
-				-80.0,
-				3.54999995231628,
-				10.0
+				-40.0,
+				3.34999990463257,
+				68.0
 			],
-			"start_route_index": 21,
+			"start_route_index": 5,
 			"surface_audio_id": "glam_closet_primary",
 			"surface_material_id": "gloss"
 		},
 		{
-			"end_route_index": 10,
+			"end_route_index": 2,
 			"id": "glam_closet_start_surface",
 			"position": [
-				-30.0,
-				3.54999995231628,
-				-70.0
+				-58.0,
+				3.34999990463257,
+				-78.0
 			],
 			"start_route_index": 0,
 			"surface_audio_id": "glam_closet_primary",
@@ -719,7 +638,7 @@
 		}
 	],
 	"track_id": "glam_closet",
-	"version": "glam_closet_v1_2026_05_01",
+	"version": "glam_closet_toybox_v1_2026_05_02",
 	"wall_height": 1.6,
 	"wall_thickness": 0.45
 }

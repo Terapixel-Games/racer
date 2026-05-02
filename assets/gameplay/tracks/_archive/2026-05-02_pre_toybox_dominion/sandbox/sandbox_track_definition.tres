@@ -1,0 +1,277 @@
+[gd_resource type="Resource" script_class="TrackDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/track/TrackDefinition.gd" id="1_fg0ta"]
+
+[resource]
+script = ExtResource("1_fg0ta")
+id = "sandbox"
+display_name = "Sandbox / Rexx"
+version = "sandbox_v1_2026_05_01"
+laps = 3
+out_of_bounds_y = -11.0
+reset_mode = "instant_pop"
+floor_visual_y = -32.0
+runtime_scene_path = "res://assets/gameplay/tracks/sandbox/sandbox_track.tscn"
+dressing_scene_path = "res://assets/gameplay/tracks/sandbox/sandbox_editable_room.tscn"
+ground_size = Vector2(292, 190)
+ground_color = Color(0.86, 0.72, 0.45, 1)
+ground_texture_path = "res://assets/gameplay/materials/sand/sandbox_sand_albedo.png"
+road_texture_path = "res://assets/gameplay/materials/plastic/glossy_plastic_albedo.png"
+rail_texture_path = "res://assets/gameplay/materials/metal/toy_metal_albedo.png"
+rail_texture_uv_scale = 0.5
+track_body_color = Color(0.09, 0.075, 0.065, 1)
+sky_preset_id = "hot_afternoon"
+sky_time_of_day = 0.46
+sky_weather = "clear_hot"
+sky_top_color = Color(0.48, 0.72, 0.98, 1)
+sky_horizon_color = Color(0.92, 0.82, 0.62, 1)
+sky_cloud_amount = 0.18
+sky_cloud_speed = 0.018
+sky_haze_amount = 0.24
+sky_light_energy = 2.8
+route_points = Array[Vector3]([Vector3(-108, 3.35, -72), Vector3(-94, 3.35, -78), Vector3(-78, 3.35, -82), Vector3(-60, 3.35, -84), Vector3(-40, 3.35, -83), Vector3(-20, 3.35, -80), Vector3(0, 3.35, -76), Vector3(24, 5.15, -76), Vector3(48, 6.5499997, -78), Vector3(72, 5.15, -76), Vector3(96, 3.35, -68), Vector3(116, 3.35, -52), Vector3(128, 3.35, -30), Vector3(132, 3.35, -6), Vector3(130, 3.35, 18), Vector3(122, 3.35, 42), Vector3(106, 3.35, 60), Vector3(84, 3.35, 72), Vector3(60, 3.35, 78), Vector3(34, 3.35, 82), Vector3(8, 3.35, 82), Vector3(-18, 2.55, 80), Vector3(-44, 2.35, 76), Vector3(-70, 3.35, 68), Vector3(-94, 3.35, 54), Vector3(-114, 3.35, 34), Vector3(-126, 3.35, 10), Vector3(-130, 3.35, -16), Vector3(-126, 3.35, -40), Vector3(-116, 3.35, -60), Vector3(-104, 3.35, -70), Vector3(-112, 3.35, -68)])
+checkpoint_indices = Array[int]([0, 6, 12, 18, 24, 28])
+spawn_points = Array[Vector4]([Vector4(-107.21216, 4.15, -70.16171, 113.19859), Vector4(-108.78784, 4.15, -73.83829, 113.19859), Vector4(-102.61643, 4.15, -72.13131, 113.19859), Vector4(-104.192116, 4.15, -75.807884, 113.19859), Vector4(-98.020706, 4.15, -74.10091, 113.19859), Vector4(-99.59639, 4.15, -77.77748, 113.19859), Vector4(-93.42498, 4.15, -76.0705, 113.19859), Vector4(-95.00066, 4.15, -79.74708, 113.19859)])
+item_sockets = Array[Vector4]([Vector4(-78, 4.0499997, -82, 0), Vector4(-20, 4.0499997, -80, 0), Vector4(48, 7.2499995, -78, 0), Vector4(116, 4.0499997, -52, 0), Vector4(130, 4.0499997, 18, 0), Vector4(84, 4.0499997, 72, 0), Vector4(8, 4.0499997, 82, 0), Vector4(-70, 4.0499997, 68, 0), Vector4(-126, 4.0499997, 10, 0), Vector4(-116, 4.0499997, -60, 0)])
+hazard_sockets = Array[Vector4]([Vector4(-40, 4.0499997, -83, 0), Vector4(72, 5.85, -76, 0), Vector4(132, 4.0499997, -6, 0), Vector4(60, 4.0499997, 78, 0), Vector4(-44, 3.05, 76, 0), Vector4(-130, 4.0499997, -16, 0), Vector4(-104, 4.0499997, -70, 0)])
+alternate_routes = Array[Dictionary]([{
+"enabled": true,
+"entry_checkpoint_index": 1,
+"exit_checkpoint_index": 3,
+"id": "sandbox_branch",
+"points": Array[Vector3]([Vector3(0, 3.75, -76), Vector3(22, 6.35, -32), Vector3(30, 2.35, 18), Vector3(60, 3.55, 78)]),
+"road_width": 12.0
+}])
+stage_props = Array[Dictionary]([{
+"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
+"audio_material_id": "wood",
+"box_color": [0.42, 0.31, 0.22, 1.0],
+"box_size": [10.0, 11.0, 2.0],
+"collision_mode": "visual",
+"gameplay_tag": "room_envelope",
+"id": "SandboxFenceBackLeft",
+"kind": "scene",
+"position": [-58.0, -10.5, 90.0],
+"scale": [40.0, 40.0, 40.0],
+"yaw_degrees": 0.0
+}, {
+"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
+"audio_material_id": "wood",
+"box_color": [0.42, 0.31, 0.22, 1.0],
+"box_size": [10.0, 11.0, 2.0],
+"collision_mode": "visual",
+"gameplay_tag": "room_envelope",
+"id": "SandboxFenceBackRight",
+"kind": "scene",
+"position": [58.0, -10.5, 90.0],
+"scale": [40.0, 40.0, 40.0],
+"yaw_degrees": 0.0
+}, {
+"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
+"audio_material_id": "wood",
+"box_color": [0.42, 0.31, 0.22, 1.0],
+"box_size": [10.0, 11.0, 2.0],
+"collision_mode": "visual",
+"gameplay_tag": "room_envelope",
+"id": "SandboxFenceFrontLeft",
+"kind": "scene",
+"position": [-58.0, -10.5, -90.0],
+"scale": [40.0, 40.0, 40.0],
+"yaw_degrees": 0.0
+}, {
+"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
+"audio_material_id": "wood",
+"box_color": [0.42, 0.31, 0.22, 1.0],
+"box_size": [10.0, 11.0, 2.0],
+"collision_mode": "visual",
+"gameplay_tag": "room_envelope",
+"id": "SandboxFenceFrontRight",
+"kind": "scene",
+"position": [58.0, -10.5, -90.0],
+"scale": [40.0, 40.0, 40.0],
+"yaw_degrees": 0.0
+}, {
+"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
+"audio_material_id": "wood",
+"box_color": [0.42, 0.31, 0.22, 1.0],
+"box_size": [10.0, 11.0, 2.0],
+"collision_mode": "visual",
+"gameplay_tag": "room_envelope",
+"id": "SandboxFenceLeftBack",
+"kind": "scene",
+"position": [-138.0, -10.5, 36.0],
+"scale": [40.0, 40.0, 40.0],
+"yaw_degrees": 90.0
+}, {
+"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
+"audio_material_id": "wood",
+"box_color": [0.42, 0.31, 0.22, 1.0],
+"box_size": [10.0, 11.0, 2.0],
+"collision_mode": "visual",
+"gameplay_tag": "room_envelope",
+"id": "SandboxFenceLeftFront",
+"kind": "scene",
+"position": [-138.0, -10.5, -36.0],
+"scale": [40.0, 40.0, 40.0],
+"yaw_degrees": 90.0
+}, {
+"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
+"audio_material_id": "wood",
+"box_color": [0.42, 0.31, 0.22, 1.0],
+"box_size": [10.0, 11.0, 2.0],
+"collision_mode": "visual",
+"gameplay_tag": "room_envelope",
+"id": "SandboxFenceRightBack",
+"kind": "scene",
+"position": [138.0, -10.5, 36.0],
+"scale": [40.0, 40.0, 40.0],
+"yaw_degrees": 90.0
+}, {
+"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
+"audio_material_id": "wood",
+"box_color": [0.42, 0.31, 0.22, 1.0],
+"box_size": [10.0, 11.0, 2.0],
+"collision_mode": "visual",
+"gameplay_tag": "room_envelope",
+"id": "SandboxFenceRightFront",
+"kind": "scene",
+"position": [138.0, -10.5, -36.0],
+"scale": [40.0, 40.0, 40.0],
+"yaw_degrees": 90.0
+}, {
+"asset_path": "res://assets/source/meshy/playground_props/house.glb",
+"audio_material_id": "wood",
+"box_color": [0.54, 0.36, 0.24, 1.0],
+"box_size": [30.0, 26.0, 25.0],
+"collision_mode": "visual",
+"gameplay_tag": "sandbox_landmark",
+"id": "SandboxHouse",
+"kind": "scene",
+"position": [74.0, 8.0, -14.0],
+"scale": [16.0, 16.0, 16.0],
+"yaw_degrees": -179.99998
+}, {
+"asset_path": "",
+"audio_material_id": "wood",
+"box_color": [0.48, 0.26, 0.12, 1.0],
+"box_size": [292.0, 22.0, 4.0],
+"collision_mode": "visual",
+"gameplay_tag": "room_envelope",
+"id": "SandboxSideBoard",
+"kind": "box",
+"position": [0.0, -6.0, 94.0],
+"scale": [1.0, 1.0, 1.0],
+"yaw_degrees": 0.0
+}, {
+"asset_path": "",
+"audio_material_id": "plastic",
+"box_color": [0.86, 0.18, 0.14, 1.0],
+"box_size": [10.0, 26.0, 44.0],
+"collision_mode": "visual",
+"gameplay_tag": "sandbox_landmark",
+"id": "SandBucketWall",
+"kind": "box",
+"position": [-122.0, -8.0, -48.0],
+"scale": [1.0, 1.0, 1.0],
+"yaw_degrees": 0.0
+}, {
+"asset_path": "",
+"audio_material_id": "sand",
+"box_color": [0.66, 0.48, 0.27, 1.0],
+"box_size": [72.0, 7.0, 14.0],
+"collision_mode": "visual",
+"gameplay_tag": "sandbox_hazard",
+"id": "SandCastleTrench",
+"kind": "box",
+"position": [-8.0, -10.0, 10.0],
+"scale": [1.0, 1.0, 1.0],
+"yaw_degrees": 0.0
+}, {
+"asset_path": "",
+"audio_material_id": "metal",
+"box_color": [0.15, 0.48, 0.9, 1.0],
+"box_size": [46.0, 1.2, 14.0],
+"collision_mode": "visual",
+"gameplay_tag": "ramp",
+"id": "ShovelRamp",
+"kind": "box",
+"position": [32.0, 1.8, -68.0],
+"scale": [1.0, 1.0, 1.0],
+"yaw_degrees": 0.0
+}, {
+"asset_path": "",
+"audio_material_id": "plastic",
+"box_color": [0.95, 0.72, 0.18, 1.0],
+"box_size": [30.0, 16.0, 18.0],
+"collision_mode": "visual",
+"gameplay_tag": "sandbox_landmark",
+"id": "ToyDumpTruck",
+"kind": "box",
+"position": [96.0, -6.0, 52.0],
+"scale": [1.0, 1.0, 1.0],
+"yaw_degrees": 0.0
+}, {
+"asset_path": "res://assets/source/meshy/sandbox_props/trex_skeleton.glb",
+"audio_material_id": "bone",
+"box_color": [0.78, 0.7, 0.58, 1.0],
+"box_size": [18.0, 36.0, 36.0],
+"collision_mode": "visual",
+"gameplay_tag": "sandbox_landmark",
+"id": "TrexSkeleton",
+"kind": "scene",
+"position": [-82.0, 8.0, 42.0],
+"scale": [17.996326, 18.0, 17.996326],
+"yaw_degrees": 25.002748
+}])
+surface_segments = Array[Dictionary]([{
+"end_route_index": 20,
+"id": "sandbox_feature_surface",
+"position": [70.0, 3.55, 50.0],
+"start_route_index": 11,
+"surface_audio_id": "sandbox_secondary",
+"surface_material_id": "sand_feature"
+}, {
+"end_route_index": 31,
+"id": "sandbox_return_surface",
+"position": [-80.0, 3.55, 10.0],
+"start_route_index": 21,
+"surface_audio_id": "sandbox_primary",
+"surface_material_id": "sand"
+}, {
+"end_route_index": 10,
+"id": "sandbox_start_surface",
+"position": [-30.0, 3.55, -70.0],
+"start_route_index": 0,
+"surface_audio_id": "sandbox_primary",
+"surface_material_id": "sand"
+}])
+audio_zones = Array[Dictionary]([{
+"audio_id": "sandbox_secondary",
+"audio_path": "",
+"id": "sandbox_feature_zone",
+"position": [60.0, 4.35, 36.0],
+"radius": 28.0,
+"volume_db": -6.0,
+"zone_kind": "oneshot"
+}, {
+"audio_id": "music",
+"audio_path": "",
+"id": "sandbox_music_zone",
+"position": [0.0, 0.0, 0.0],
+"radius": 120.0,
+"volume_db": -14.0,
+"zone_kind": "ambient"
+}])
+grass_zones = Array[Dictionary]([{
+"density": 0.75,
+"enabled": true,
+"id": "sandbox_back_grass",
+"position": [0.0, -8.5, 76.0],
+"size": [240.0, 34.0],
+"yaw_degrees": 0.0
+}])
+audio_ids = {
+"music": "res://assets/source/audio/canva/tracks/sandbox/sandbox_grit_slide_canva_01.wav",
+"sandbox_primary": "res://assets/source/audio/canva/tracks/sandbox/sandbox_grit_slide_canva_01.wav",
+"sandbox_secondary": "res://assets/source/audio/canva/tracks/sandbox/sandbox_bucket_bonk_canva_01.mp3"
+}
