@@ -66,6 +66,18 @@ stage_props = Array[Dictionary]([{
 "scale": Vector3(1, 1, 1),
 "yaw_degrees": 0.0
 }, {
+"asset_path": "res://assets/source/meshy/playroom_props/boxing_ring.glb",
+"audio_material_id": "foam",
+"box_color": Color(0.52, 0.12, 0.12, 1),
+"box_size": Vector3(46, 24, 58),
+"collision_mode": "visual",
+"gameplay_tag": "playroom_landmark",
+"id": "BoxingRing",
+"kind": "scene",
+"position": Vector3(0, -3.3, 0),
+"scale": Vector3(28, 28, 28),
+"yaw_degrees": 0.0
+}, {
 "asset_path": "",
 "audio_material_id": "plastic",
 "box_color": Color(0.98, 0.82, 0.18, 1),

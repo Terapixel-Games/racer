@@ -590,6 +590,36 @@
 			"yaw_degrees": 0.0
 		},
 		{
+			"asset_path": "res://assets/source/meshy/playroom_props/boxing_ring.glb",
+			"audio_material_id": "foam",
+			"box_color": [
+				0.519999980926514,
+				0.119999997317791,
+				0.119999997317791,
+				1.0
+			],
+			"box_size": [
+				46.0,
+				24.0,
+				58.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "playroom_landmark",
+			"id": "BoxingRing",
+			"kind": "scene",
+			"position": [
+				0.0,
+				-3.29999995231628,
+				0.0
+			],
+			"scale": [
+				28.0,
+				28.0,
+				28.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
 			"asset_path": "",
 			"audio_material_id": "foam",
 			"box_color": [

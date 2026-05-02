@@ -356,6 +356,17 @@ box_color = Color(0.14, 0.34, 0.9, 1)
 audio_material_id = "plastic"
 gameplay_tag = "playroom_landmark"
 
+[node name="BoxingRing" type="Node3D" parent="Dressing"]
+transform = Transform3D(28, 0, 0, 0, 28, 0, 0, 0, 28, 0, -3.3, 0)
+script = ExtResource("3_ktcui")
+prop_kind = "scene"
+prop_id = "BoxingRing"
+asset_path = "res://assets/source/meshy/playroom_props/boxing_ring.glb"
+box_size = Vector3(46, 24, 58)
+box_color = Color(0.52, 0.12, 0.12, 1)
+audio_material_id = "foam"
+gameplay_tag = "playroom_landmark"
+
 [node name="PlasticSlide" type="Node3D" parent="Dressing"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 1, -54)
 script = ExtResource("3_ktcui")
