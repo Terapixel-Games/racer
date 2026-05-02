@@ -111,6 +111,7 @@ func _assert_authoring_scene(scene_path: String, track_id: String) -> void:
 		assert_true(root.get_node_or_null("GrassZones") != null, "Outdoor Playground should expose editable GrassZones")
 		assert_true(root.get_node("GrassZones").get_child_count() >= 2, "Outdoor Playground should expose multiple editable grass zones")
 		assert_true(_has_editable_grass_zone_bounds(root.get_node("GrassZones")), "Outdoor Playground grass zones should expose editable Area3D bounds and visible editor previews")
+		assert_true(_grass_zone_shapes_are_unique(root.get_node("GrassZones")), "Outdoor Playground grass zones should use unique collision shapes so zones can be resized independently")
 	assert_true(root.get_node("RoutePoints").get_child_count() >= 30, "%s should expose route markers" % track_id)
 	assert_equal(root.get_node("SpawnPoints").get_child_count(), 8, "%s should expose editable spawn markers" % track_id)
 	assert_true(root.get_node("Dressing").get_child_count() >= 5, "%s should expose editable dressing props" % track_id)
@@ -121,6 +122,20 @@ func _has_editable_grass_zone_bounds(holder: Node) -> bool:
 		if child is Area3D and child.get_node_or_null("CollisionShape3D") is CollisionShape3D and child.get_node_or_null("BoundsPreview") is MeshInstance3D:
 			return true
 	return false
+
+func _grass_zone_shapes_are_unique(holder: Node) -> bool:
+	var shape_ids := {}
+	for child in holder.get_children():
+		if not (child is Area3D):
+			continue
+		var shape_node := child.get_node_or_null("CollisionShape3D") as CollisionShape3D
+		if shape_node == null or shape_node.shape == null:
+			return false
+		var shape_id := shape_node.shape.get_instance_id()
+		if shape_ids.has(shape_id):
+			return false
+		shape_ids[shape_id] = true
+	return true
 
 func _floor_mesh_size(scene_path: String) -> Vector2:
 	var packed := load(scene_path) as PackedScene

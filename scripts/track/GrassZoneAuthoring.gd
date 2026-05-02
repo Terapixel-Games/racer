@@ -20,6 +20,7 @@ var _size := Vector2(80.0, 60.0)
 func _ready() -> void:
 	monitoring = false
 	monitorable = false
+	_ensure_unique_edit_resources()
 	_sync_collision_shape_from_size()
 	if Engine.is_editor_hint():
 		set_process(true)
@@ -71,9 +72,11 @@ func _sync_collision_shape_from_size() -> void:
 	var shape_node := _get_or_create_collision_shape()
 	if shape_node == null:
 		return
+	_ensure_unique_shape_resource(shape_node)
 	var box := shape_node.shape as BoxShape3D
 	if box == null:
 		box = BoxShape3D.new()
+		box.resource_local_to_scene = true
 		shape_node.shape = box
 	box.size = Vector3(size.x, 1.0, size.y)
 
@@ -93,6 +96,7 @@ func _get_or_create_collision_shape() -> CollisionShape3D:
 	shape_node = CollisionShape3D.new()
 	shape_node.name = "CollisionShape3D"
 	shape_node.shape = BoxShape3D.new()
+	shape_node.shape.resource_local_to_scene = true
 	add_child(shape_node)
 	if owner != null:
 		shape_node.owner = owner
@@ -110,6 +114,11 @@ func _sync_bounds_preview() -> void:
 	var box_mesh := preview.mesh as BoxMesh
 	if box_mesh == null:
 		box_mesh = BoxMesh.new()
+		box_mesh.resource_local_to_scene = true
+		preview.mesh = box_mesh
+	elif not box_mesh.resource_local_to_scene:
+		box_mesh = box_mesh.duplicate(true) as BoxMesh
+		box_mesh.resource_local_to_scene = true
 		preview.mesh = box_mesh
 	box_mesh.size = box.size
 	preview.transform = shape_node.transform
@@ -139,3 +148,22 @@ func _bounds_material() -> StandardMaterial3D:
 	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	material.cull_mode = BaseMaterial3D.CULL_DISABLED
 	return material
+
+func _ensure_unique_edit_resources() -> void:
+	var shape_node := get_node_or_null("CollisionShape3D") as CollisionShape3D
+	if shape_node != null:
+		_ensure_unique_shape_resource(shape_node)
+	var preview := get_node_or_null("BoundsPreview") as MeshInstance3D
+	if preview != null and preview.mesh is BoxMesh and not preview.mesh.resource_local_to_scene:
+		var mesh := (preview.mesh as BoxMesh).duplicate(true) as BoxMesh
+		mesh.resource_local_to_scene = true
+		preview.mesh = mesh
+
+func _ensure_unique_shape_resource(shape_node: CollisionShape3D) -> void:
+	if shape_node.shape == null:
+		return
+	if shape_node.shape.resource_local_to_scene:
+		return
+	var shape := shape_node.shape.duplicate(true) as Shape3D
+	shape.resource_local_to_scene = true
+	shape_node.shape = shape

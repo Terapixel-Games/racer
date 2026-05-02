@@ -17,13 +17,31 @@ size = Vector2(800, 800)
 [sub_resource type="BoxShape3D" id="BoxShape3D_back_grass"]
 size = Vector3(400, 1, 200)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_back_grass_2"]
+size = Vector3(400, 1, 200)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_back_grass_3"]
+size = Vector3(400, 1, 200)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_back_grass_4"]
+size = Vector3(400, 1, 200)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grass_bounds"]
 transparency = 1
 shading_mode = 0
 albedo_color = Color(0.2, 0.95, 0.25, 0.22)
 
 [sub_resource type="BoxMesh" id="BoxMesh_back_grass_bounds"]
-size = Vector3(400, 1, 30)
+size = Vector3(400, 1, 200)
+
+[sub_resource type="BoxMesh" id="BoxMesh_back_grass_bounds_2"]
+size = Vector3(400, 1, 200)
+
+[sub_resource type="BoxMesh" id="BoxMesh_back_grass_bounds_3"]
+size = Vector3(400, 1, 200)
+
+[sub_resource type="BoxMesh" id="BoxMesh_back_grass_bounds_4"]
+size = Vector3(400, 1, 200)
 
 [node name="OutdoorPlaygroundEditableRoom" type="Node3D"]
 script = ExtResource("1_v46l3")
@@ -1418,17 +1436,17 @@ density = 0.85
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GrassZones/BackCornerGrass2"]
 transform = Transform3D(0.9999982, 0, 0, 0, 1, 0, 0, 0, 0.9999982, 0, 0, 0)
-shape = SubResource("BoxShape3D_back_grass")
+shape = SubResource("BoxShape3D_back_grass_2")
 
 [node name="BoundsPreview2" type="MeshInstance3D" parent="GrassZones/BackCornerGrass2"]
 material_override = SubResource("StandardMaterial3D_grass_bounds")
-mesh = SubResource("BoxMesh_back_grass_bounds")
+mesh = SubResource("BoxMesh_back_grass_bounds_2")
 skeleton = NodePath("../..")
 
 [node name="BoundsPreview3" type="MeshInstance3D" parent="GrassZones/BackCornerGrass2"]
 transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0, 0, 1.4758759)
 material_override = SubResource("StandardMaterial3D_grass_bounds")
-mesh = SubResource("BoxMesh_back_grass_bounds")
+mesh = SubResource("BoxMesh_back_grass_bounds_2")
 skeleton = NodePath("../..")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="GrassZones/BackCornerGrass2"]
@@ -1443,16 +1461,16 @@ size = Vector2(400, 200)
 density = 2.85
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GrassZones/BackCornerGrass3"]
-shape = SubResource("BoxShape3D_back_grass")
+shape = SubResource("BoxShape3D_back_grass_3")
 
 [node name="BoundsPreview2" type="MeshInstance3D" parent="GrassZones/BackCornerGrass3"]
 material_override = SubResource("StandardMaterial3D_grass_bounds")
-mesh = SubResource("BoxMesh_back_grass_bounds")
+mesh = SubResource("BoxMesh_back_grass_bounds_3")
 skeleton = NodePath("../..")
 
 [node name="BoundsPreview3" type="MeshInstance3D" parent="GrassZones/BackCornerGrass3"]
 material_override = SubResource("StandardMaterial3D_grass_bounds")
-mesh = SubResource("BoxMesh_back_grass_bounds")
+mesh = SubResource("BoxMesh_back_grass_bounds_3")
 skeleton = NodePath("../..")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="GrassZones/BackCornerGrass3"]
@@ -1467,16 +1485,16 @@ size = Vector2(400, 200)
 density = 2.85
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GrassZones/BackCornerGrass4"]
-shape = SubResource("BoxShape3D_back_grass")
+shape = SubResource("BoxShape3D_back_grass_4")
 
 [node name="BoundsPreview2" type="MeshInstance3D" parent="GrassZones/BackCornerGrass4"]
 material_override = SubResource("StandardMaterial3D_grass_bounds")
-mesh = SubResource("BoxMesh_back_grass_bounds")
+mesh = SubResource("BoxMesh_back_grass_bounds_4")
 skeleton = NodePath("../..")
 
 [node name="BoundsPreview3" type="MeshInstance3D" parent="GrassZones/BackCornerGrass4"]
 material_override = SubResource("StandardMaterial3D_grass_bounds")
-mesh = SubResource("BoxMesh_back_grass_bounds")
+mesh = SubResource("BoxMesh_back_grass_bounds_4")
 skeleton = NodePath("../..")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="GrassZones/BackCornerGrass4"]
