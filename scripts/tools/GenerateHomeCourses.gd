@@ -484,6 +484,16 @@ func _add_grass_zone_nodes(root: Node3D, course: Dictionary) -> void:
 		material.cull_mode = BaseMaterial3D.CULL_DISABLED
 		preview.material_override = material
 		zone.add_child(preview)
+		var grass_ground := MeshInstance3D.new()
+		grass_ground.name = "GrassGround"
+		grass_ground.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		var grass_plane := PlaneMesh.new()
+		grass_plane.resource_local_to_scene = true
+		grass_plane.size = Vector2(zone.size.x, zone.size.y)
+		grass_ground.mesh = grass_plane
+		grass_ground.position.y = (shape.size.y * 0.5) + 0.04
+		grass_ground.material_override = _grass_ground_material(grass_plane.size)
+		zone.add_child(grass_ground)
 		holder.add_child(zone)
 
 func _add_holder(root: Node3D, holder_name: String) -> Node3D:
@@ -504,6 +514,23 @@ func _add_box(parent: Node3D, node_name: String, position: Vector3, size: Vector
 	material.roughness = 0.72
 	mesh.material_override = material
 	parent.add_child(mesh)
+
+func _grass_ground_material(patch_size: Vector2) -> Material:
+	var shader := load(PLAYGROUND_GRASS_SHADER)
+	if shader is Shader:
+		var material := ShaderMaterial.new()
+		material.shader = shader
+		material.set_shader_parameter("base_color", Color(0.18, 0.32, 0.1, 1.0))
+		material.set_shader_parameter("bright_color", Color(0.38, 0.58, 0.18, 1.0))
+		material.set_shader_parameter("dry_color", Color(0.50, 0.43, 0.24, 1.0))
+		material.set_shader_parameter("soil_color", Color(0.12, 0.09, 0.05, 1.0))
+		material.set_shader_parameter("patch_scale", maxf(maxf(patch_size.x, patch_size.y) / 8.0, 8.0))
+		material.set_shader_parameter("blade_scale", maxf(maxf(patch_size.x, patch_size.y) * 2.0, 80.0))
+		return material
+	var fallback := StandardMaterial3D.new()
+	fallback.albedo_color = Color(0.24, 0.45, 0.14, 1.0)
+	fallback.roughness = 0.95
+	return fallback
 
 func _route_points(kind: String) -> Array[Vector3]:
 	var base: Array[Vector3] = [

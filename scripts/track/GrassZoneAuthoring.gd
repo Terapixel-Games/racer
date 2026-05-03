@@ -2,7 +2,12 @@
 extends Area3D
 class_name GrassZoneAuthoring
 
+const GRASS_GROUND_NODE_NAME := "GrassGround"
+const GRASS_GROUND_SHADER := "res://assets/gameplay/materials/grass/playground_grass.gdshader"
+const GRASS_GROUND_Y_OFFSET := 0.04
+
 var _size := Vector2(80.0, 60.0)
+var _show_grass_ground := true
 
 @export var zone_id := ""
 @export var size: Vector2 = Vector2(80.0, 60.0):
@@ -16,12 +21,19 @@ var _size := Vector2(80.0, 60.0)
 @export var enabled := true
 @export var show_bounds_preview := true
 @export var bounds_preview_color := Color(0.2, 0.95, 0.25, 0.22)
+@export var show_grass_ground := true:
+	set(value):
+		_show_grass_ground = value
+		_sync_grass_ground()
+	get:
+		return _show_grass_ground
 
 func _ready() -> void:
 	monitoring = false
 	monitorable = false
 	_ensure_unique_edit_resources()
 	_sync_collision_shape_from_size()
+	_sync_grass_ground()
 	if Engine.is_editor_hint():
 		set_process(true)
 		_sync_bounds_preview()
@@ -34,6 +46,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		_sync_size_from_collision_shape()
+		_sync_grass_ground()
 		_sync_bounds_preview()
 
 func to_grass_zone() -> Dictionary:
@@ -79,6 +92,7 @@ func _sync_collision_shape_from_size() -> void:
 		box.resource_local_to_scene = true
 		shape_node.shape = box
 	box.size = Vector3(size.x, 1.0, size.y)
+	_sync_grass_ground()
 
 func _sync_size_from_collision_shape() -> void:
 	var shape_node := get_node_or_null("CollisionShape3D") as CollisionShape3D
@@ -128,6 +142,29 @@ func _sync_bounds_preview() -> void:
 		var material := preview.material_override as StandardMaterial3D
 		material.albedo_color = bounds_preview_color
 
+func _sync_grass_ground() -> void:
+	var ground := _get_or_create_grass_ground()
+	if ground == null:
+		return
+	var shape_node := get_node_or_null("CollisionShape3D") as CollisionShape3D
+	ground.visible = show_grass_ground and enabled and shape_node != null and shape_node.shape is BoxShape3D
+	if not ground.visible:
+		return
+	var box := shape_node.shape as BoxShape3D
+	var plane := ground.mesh as PlaneMesh
+	if plane == null:
+		plane = PlaneMesh.new()
+		plane.resource_local_to_scene = true
+		ground.mesh = plane
+	elif not plane.resource_local_to_scene or _is_grass_ground_mesh_shared(ground):
+		plane = plane.duplicate(true) as PlaneMesh
+		plane.resource_local_to_scene = true
+		ground.mesh = plane
+	plane.size = Vector2(box.size.x, box.size.z)
+	ground.transform = shape_node.transform
+	ground.position.y += (box.size.y * 0.5) + GRASS_GROUND_Y_OFFSET
+	ground.material_override = _grass_ground_material(plane.size)
+
 func _get_or_create_bounds_preview() -> MeshInstance3D:
 	var preview := get_node_or_null("BoundsPreview") as MeshInstance3D
 	if preview != null:
@@ -141,6 +178,18 @@ func _get_or_create_bounds_preview() -> MeshInstance3D:
 		preview.owner = owner
 	return preview
 
+func _get_or_create_grass_ground() -> MeshInstance3D:
+	var ground := get_node_or_null(GRASS_GROUND_NODE_NAME) as MeshInstance3D
+	if ground != null:
+		return ground
+	ground = MeshInstance3D.new()
+	ground.name = GRASS_GROUND_NODE_NAME
+	ground.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	add_child(ground)
+	if owner != null:
+		ground.owner = owner
+	return ground
+
 func _bounds_material() -> StandardMaterial3D:
 	var material := StandardMaterial3D.new()
 	material.albedo_color = bounds_preview_color
@@ -148,6 +197,23 @@ func _bounds_material() -> StandardMaterial3D:
 	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	material.cull_mode = BaseMaterial3D.CULL_DISABLED
 	return material
+
+func _grass_ground_material(patch_size: Vector2) -> Material:
+	var shader := load(GRASS_GROUND_SHADER)
+	if shader is Shader:
+		var material := ShaderMaterial.new()
+		material.shader = shader
+		material.set_shader_parameter("base_color", Color(0.18, 0.32, 0.1, 1.0))
+		material.set_shader_parameter("bright_color", Color(0.38, 0.58, 0.18, 1.0))
+		material.set_shader_parameter("dry_color", Color(0.50, 0.43, 0.24, 1.0))
+		material.set_shader_parameter("soil_color", Color(0.12, 0.09, 0.05, 1.0))
+		material.set_shader_parameter("patch_scale", maxf(maxf(patch_size.x, patch_size.y) / 8.0, 8.0))
+		material.set_shader_parameter("blade_scale", maxf(maxf(patch_size.x, patch_size.y) * 2.0, 80.0))
+		return material
+	var fallback := StandardMaterial3D.new()
+	fallback.albedo_color = Color(0.24, 0.45, 0.14, 1.0)
+	fallback.roughness = 0.95
+	return fallback
 
 func _ensure_unique_edit_resources() -> void:
 	var shape_node := get_node_or_null("CollisionShape3D") as CollisionShape3D
@@ -160,6 +226,13 @@ func _ensure_unique_edit_resources() -> void:
 			mesh = mesh.duplicate(true) as BoxMesh
 			mesh.resource_local_to_scene = true
 			preview.mesh = mesh
+	var ground := get_node_or_null(GRASS_GROUND_NODE_NAME) as MeshInstance3D
+	if ground != null and ground.mesh is PlaneMesh:
+		var grass_mesh := ground.mesh as PlaneMesh
+		if not grass_mesh.resource_local_to_scene or _is_grass_ground_mesh_shared(ground):
+			grass_mesh = grass_mesh.duplicate(true) as PlaneMesh
+			grass_mesh.resource_local_to_scene = true
+			ground.mesh = grass_mesh
 
 func _ensure_unique_shape_resource(shape_node: CollisionShape3D) -> void:
 	if shape_node.shape == null:
@@ -193,6 +266,19 @@ func _is_preview_mesh_shared(preview: MeshInstance3D) -> bool:
 		if other_preview == preview:
 			continue
 		if other_preview.mesh == mesh:
+			return true
+	return false
+
+func _is_grass_ground_mesh_shared(ground: MeshInstance3D) -> bool:
+	var mesh := ground.mesh
+	if mesh == null:
+		return false
+	var root := _resource_scan_root()
+	for other in root.find_children("*", "MeshInstance3D", true, false):
+		var other_mesh := other as MeshInstance3D
+		if other_mesh == ground:
+			continue
+		if other_mesh.mesh == mesh:
 			return true
 	return false
 

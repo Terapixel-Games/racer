@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://itu1yapapa5j"]
+[gd_scene load_steps=26 format=3 uid="uid://itu1yapapa5j"]
 
 [ext_resource type="Script" uid="uid://dlvn2xhwjpnou" path="res://scripts/track/TrackAuthoringPreview.gd" id="1_v46l3"]
 [ext_resource type="Script" uid="uid://doxmi6s12eqc5" path="res://scripts/track/StagePropAuthoring.gd" id="2_nuam5"]
 [ext_resource type="Script" uid="uid://o3okkegl41gl" path="res://scripts/track/SurfaceSegmentAuthoring.gd" id="3_72hx3"]
 [ext_resource type="Script" uid="uid://caggqafc2elyk" path="res://scripts/track/AudioZoneAuthoring.gd" id="4_3tyt2"]
 [ext_resource type="Script" uid="uid://capjso3b7axtk" path="res://scripts/track/GrassZoneAuthoring.gd" id="5_grass_zone"]
+[ext_resource type="Shader" path="res://assets/gameplay/materials/grass/playground_grass.gdshader" id="6_grass_ground_shader"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hc0tp"]
 albedo_color = Color(0.28, 0.32, 0.34, 1)
@@ -45,6 +46,53 @@ size = Vector3(149.45215, 1, 311.5337)
 [sub_resource type="BoxShape3D" id="BoxShape3D_back_corner_grass_6"]
 resource_local_to_scene = true
 size = Vector3(968.8491, 1, 72.600586)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_grass_ground"]
+resource_local_to_scene = true
+shader = ExtResource("6_grass_ground_shader")
+shader_parameter/base_color = Color(0.18, 0.32, 0.1, 1)
+shader_parameter/bright_color = Color(0.38, 0.58, 0.18, 1)
+shader_parameter/dry_color = Color(0.5, 0.43, 0.24, 1)
+shader_parameter/soil_color = Color(0.12, 0.09, 0.05, 1)
+shader_parameter/use_floor_texture = false
+shader_parameter/floor_texture_scale = 12.0
+shader_parameter/patch_scale = 50.0
+shader_parameter/blade_scale = 900.0
+shader_parameter/blade_strength = 0.18
+shader_parameter/wind_speed = 0.16
+shader_parameter/wind_strength = 0.025
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_grass_ground_1"]
+resource_local_to_scene = true
+size = Vector2(800, 200)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_grass_ground_2"]
+resource_local_to_scene = true
+size = Vector2(315.64545, 400)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_grass_ground_3"]
+resource_local_to_scene = true
+size = Vector2(447.0161, 177.25342)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_grass_ground_4"]
+resource_local_to_scene = true
+size = Vector2(639.6494, 165.26746)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_grass_ground_7"]
+resource_local_to_scene = true
+size = Vector2(639.6494, 165.26746)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_grass_ground_5"]
+resource_local_to_scene = true
+size = Vector2(330, 250)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_grass_ground_8"]
+resource_local_to_scene = true
+size = Vector2(149.45215, 311.5337)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_grass_ground_6"]
+resource_local_to_scene = true
+size = Vector2(968.8491, 72.600586)
 
 [node name="OutdoorPlaygroundEditableRoom" type="Node3D"]
 script = ExtResource("1_v46l3")
@@ -1403,6 +1451,12 @@ density = 2.85
 transform = Transform3D(0.9999924, 0, 0, 0, 1, 0, 0, 0, 0.9999924, 0, 0, -94.85867)
 shape = SubResource("BoxShape3D_nuam5")
 
+[node name="GrassGround" type="MeshInstance3D" parent="GrassZones/BackCornerGrass"]
+transform = Transform3D(0.9999924, 0, 0, 0, 1, 0, 0, 0, 0.9999924, 0, 0.54, -94.85867)
+cast_shadow = 0
+material_override = SubResource("ShaderMaterial_grass_ground")
+mesh = SubResource("PlaneMesh_grass_ground_1")
+
 [node name="BackCornerGrass2" type="Area3D" parent="GrassZones"]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -17.229141, -8.268887, 297.38516)
 monitoring = false
@@ -1414,6 +1468,12 @@ size = Vector2(315.64545, 400)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GrassZones/BackCornerGrass2"]
 transform = Transform3D(0.99999017, 0, 0, 0, 1, 0, 0, 0, 0.99999017, 25.363537, 0, 0)
 shape = SubResource("BoxShape3D_72hx3")
+
+[node name="GrassGround" type="MeshInstance3D" parent="GrassZones/BackCornerGrass2"]
+transform = Transform3D(0.99999017, 0, 0, 0, 1, 0, 0, 0, 0.99999017, 25.363537, 0.54, 0)
+cast_shadow = 0
+material_override = SubResource("ShaderMaterial_grass_ground")
+mesh = SubResource("PlaneMesh_grass_ground_2")
 
 [node name="BackCornerGrass3" type="Area3D" parent="GrassZones"]
 transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, -300.2225, -9.425716, 40.10984)
@@ -1428,6 +1488,12 @@ density = 2.85
 transform = Transform3D(0.99999446, 0, -8.881784e-14, 0, 1, 0, 8.881784e-14, 0, 0.99999446, 73.50788, 0, 61.37329)
 shape = SubResource("BoxShape3D_3tyt2")
 
+[node name="GrassGround" type="MeshInstance3D" parent="GrassZones/BackCornerGrass3"]
+transform = Transform3D(0.99999446, 0, -8.881784e-14, 0, 1, 0, 8.881784e-14, 0, 0.99999446, 73.50788, 0.54, 61.37329)
+cast_shadow = 0
+material_override = SubResource("ShaderMaterial_grass_ground")
+mesh = SubResource("PlaneMesh_grass_ground_3")
+
 [node name="BackCornerGrass4" type="Area3D" parent="GrassZones"]
 transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, 320.82242, -8.049877, 20.818817)
 monitoring = false
@@ -1440,6 +1506,12 @@ density = 2.85
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GrassZones/BackCornerGrass4"]
 transform = Transform3D(0.9999949, 0, -8.1712415e-14, 0, 1, 0, 8.1712415e-14, 0, 0.9999949, -154.82439, 0, -72.42525)
 shape = SubResource("BoxShape3D_hc0tp")
+
+[node name="GrassGround" type="MeshInstance3D" parent="GrassZones/BackCornerGrass4"]
+transform = Transform3D(0.9999949, 0, -8.1712415e-14, 0, 1, 0, 8.1712415e-14, 0, 0.9999949, -154.82439, 0.54, -72.42525)
+cast_shadow = 0
+material_override = SubResource("ShaderMaterial_grass_ground")
+mesh = SubResource("PlaneMesh_grass_ground_4")
 
 [node name="BackCornerGrass7" type="Area3D" parent="GrassZones"]
 transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, 486.81686, -8.049877, -93.47775)
@@ -1454,6 +1526,12 @@ density = 2.85
 transform = Transform3D(0.9999949, 0, -8.1712415e-14, 0, 1, 0, 8.1712415e-14, 0, 0.9999949, -154.82439, 0, -72.42525)
 shape = SubResource("BoxShape3D_2e740")
 
+[node name="GrassGround" type="MeshInstance3D" parent="GrassZones/BackCornerGrass7"]
+transform = Transform3D(0.9999949, 0, -8.1712415e-14, 0, 1, 0, 8.1712415e-14, 0, 0.9999949, -154.82439, 0.54, -72.42525)
+cast_shadow = 0
+material_override = SubResource("ShaderMaterial_grass_ground")
+mesh = SubResource("PlaneMesh_grass_ground_7")
+
 [node name="BackCornerGrass5" type="Area3D" parent="GrassZones"]
 transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, -274.75424, -8.049877, 469.97058)
 monitoring = false
@@ -1466,6 +1544,12 @@ density = 2.85
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GrassZones/BackCornerGrass5"]
 transform = Transform3D(0.9999982, 0, -2.842171e-14, 0, 1, 0, 2.842171e-14, 0, 0.9999982, 0, 0, 0)
 shape = SubResource("BoxShape3D_back_corner_grass_5")
+
+[node name="GrassGround" type="MeshInstance3D" parent="GrassZones/BackCornerGrass5"]
+transform = Transform3D(0.9999982, 0, -2.842171e-14, 0, 1, 0, 2.842171e-14, 0, 0.9999982, 0, 0.54, 0)
+cast_shadow = 0
+material_override = SubResource("ShaderMaterial_grass_ground")
+mesh = SubResource("PlaneMesh_grass_ground_5")
 
 [node name="BackCornerGrass8" type="Area3D" parent="GrassZones"]
 transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, -23.74057, -8.049877, -273.91046)
@@ -1480,6 +1564,12 @@ density = 2.85
 transform = Transform3D(0.9999936, 0, -1.030287e-13, 0, 1, 0, 1.030287e-13, 0, 0.9999936, -90.27362, 0, 30.766783)
 shape = SubResource("BoxShape3D_4du5g")
 
+[node name="GrassGround" type="MeshInstance3D" parent="GrassZones/BackCornerGrass8"]
+transform = Transform3D(0.9999936, 0, -1.030287e-13, 0, 1, 0, 1.030287e-13, 0, 0.9999936, -90.27362, 0.54, 30.766783)
+cast_shadow = 0
+material_override = SubResource("ShaderMaterial_grass_ground")
+mesh = SubResource("PlaneMesh_grass_ground_8")
+
 [node name="BackCornerGrass6" type="Area3D" parent="GrassZones"]
 transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, -274.75424, -8.049877, -274.15076)
 monitoring = false
@@ -1492,3 +1582,9 @@ density = 2.85
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GrassZones/BackCornerGrass6"]
 transform = Transform3D(0.99999034, 0, -1.5276669e-13, 0, 1, 0, 1.5276669e-13, 0, 0.99999034, -319.42255, 0, -88.6994)
 shape = SubResource("BoxShape3D_back_corner_grass_6")
+
+[node name="GrassGround" type="MeshInstance3D" parent="GrassZones/BackCornerGrass6"]
+transform = Transform3D(0.99999034, 0, -1.5276669e-13, 0, 1, 0, 1.5276669e-13, 0, 0.99999034, -319.42255, 0.54, -88.6994)
+cast_shadow = 0
+material_override = SubResource("ShaderMaterial_grass_ground")
+mesh = SubResource("PlaneMesh_grass_ground_6")
