@@ -201,6 +201,9 @@ func _ready() -> void:
 	_spawn_track()
 	_setup_checkpoints()
 
+func _exit_tree() -> void:
+	_stop_race_audio()
+
 func _start_offline_race() -> void:
 	_start_local_single_race()
 
@@ -755,6 +758,7 @@ func update_results(results: Array, is_final: bool) -> void:
 	if results_overlay == null or not results_overlay.visible:
 		return
 	local_results_final = is_final
+	_update_results_buttons_for_mode()
 	results_title_label.text = _results_title_text(is_final)
 	var leader: Variant = results[0] if not results.is_empty() else {}
 	var leader_name := "--"
@@ -781,6 +785,11 @@ func results_overlay_is_final_for_test() -> bool:
 
 func get_camera_follow_target_id_for_test() -> String:
 	return camera_follow_target_id
+
+func get_primary_results_button_text_for_test() -> String:
+	_ensure_results_overlay()
+	_update_results_buttons_for_mode()
+	return results_restart_button.text if results_restart_button != null else ""
 
 func _ensure_results_overlay() -> void:
 	if results_overlay != null and is_instance_valid(results_overlay):
@@ -976,25 +985,30 @@ func _results_button_style(color: Color) -> StyleBoxFlat:
 	return style
 
 func _restart_local_single_race() -> void:
+	_stop_race_audio()
 	NakamaService.set_meta_value("race_match_id", LOCAL_SINGLE_MATCH_ID)
 	NakamaService.set_meta_value("race_mode", RACE_MODE_LOCAL_SINGLE)
 	get_tree().change_scene_to_file("res://scenes/Race.tscn")
 
 func _go_to_level_select_from_results() -> void:
+	_stop_race_audio()
 	get_tree().change_scene_to_file("res://scenes/LevelSelect.tscn")
 
 func _on_results_primary_pressed() -> void:
 	if _is_local_tournament_mode():
 		if NavigationFlow.has_next_tournament_round(NakamaService):
 			NavigationFlow.advance_tournament_round(NakamaService)
+			_stop_race_audio()
 			get_tree().change_scene_to_file("res://scenes/Race.tscn")
 		else:
+			_stop_race_audio()
 			get_tree().change_scene_to_file(NavigationFlow.resolve_placeholder_ending(NakamaService))
 		return
 	_restart_local_single_race()
 
 func _on_results_secondary_pressed() -> void:
 	if _is_local_tournament_mode():
+		_stop_race_audio()
 		get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
 		return
 	_go_to_level_select_from_results()
@@ -1011,14 +1025,19 @@ func _results_title_text(is_final: bool) -> String:
 func _results_status_text_for_overlay(is_final: bool, leader_name: String) -> String:
 	if _is_local_tournament_mode():
 		if is_final:
-			_update_tournament_result_buttons()
 			return "FINAL  /  Points updated"
 		return "LIVE  /  Leader: %s" % leader_name
 	return ("FINAL  /  Winner: %s" if is_final else "LIVE  /  Leader: %s") % leader_name
 
-func _update_tournament_result_buttons() -> void:
+func _update_results_buttons_for_mode() -> void:
+	if not _is_local_tournament_mode():
+		if results_restart_button != null:
+			results_restart_button.text = "Restart"
+		if results_level_select_button != null:
+			results_level_select_button.text = "Level Select"
+		return
 	if results_restart_button != null:
-		results_restart_button.text = "Next Race" if NavigationFlow.has_next_tournament_round(NakamaService) else "Finish Tournament"
+		results_restart_button.text = "Next Race" if NavigationFlow.has_next_tournament_round(NakamaService) else "Show Ending"
 	if results_level_select_button != null:
 		results_level_select_button.text = "Main Menu"
 
@@ -1489,6 +1508,7 @@ func _handle_reset(data:Dictionary) -> void:
 func _handle_wasted(data:Dictionary) -> void:
 	var target: String = data.get("player_id", "")
 	if target == local_user_id:
+		_stop_race_audio()
 		get_tree().change_scene_to_file("res://scenes/Wasted.tscn")
 
 func _handle_finish(data:Dictionary) -> void:
@@ -1498,6 +1518,7 @@ func _handle_finish(data:Dictionary) -> void:
 
 func _handle_match_end(data:Dictionary) -> void:
 	NakamaService.set_meta_value("race_results", data.get("results", []))
+	_stop_race_audio()
 	get_tree().change_scene_to_file("res://scenes/PostRace.tscn")
 
 func _on_checkpoint_valid(body:Node, checkpoint_index:int, transform:Transform3D) -> void:
@@ -2035,11 +2056,14 @@ func _update_water_drops(delta: float) -> void:
 func _start_track_music() -> void:
 	if music_player == null:
 		return
+	music_player.stop()
 	var music_path := str(track_audio_ids.get("music", ""))
 	if music_path.is_empty():
+		music_player.stream = null
 		return
 	var stream := load(music_path) as AudioStream
 	if stream == null:
+		music_player.stream = null
 		return
 	_enable_audio_loop(stream)
 	music_player.stream = stream
@@ -2048,13 +2072,17 @@ func _start_track_music() -> void:
 func _prepare_audio_zone_players() -> void:
 	for player in audio_zone_players.values():
 		if player is AudioStreamPlayer:
-			(player as AudioStreamPlayer).queue_free()
+			var audio_player := player as AudioStreamPlayer
+			audio_player.stop()
+			audio_player.queue_free()
 	audio_zone_players.clear()
 	audio_zone_active.clear()
 	for zone_value in track_audio_zones:
 		if not (zone_value is Dictionary):
 			continue
 		var zone := zone_value as Dictionary
+		if _is_music_audio_zone(zone):
+			continue
 		var zone_id := str(zone.get("id", ""))
 		var stream := _stream_for_audio_zone(zone)
 		if zone_id.is_empty() or stream == null:
@@ -2068,6 +2096,22 @@ func _prepare_audio_zone_players() -> void:
 		add_child(player)
 		audio_zone_players[zone_id] = player
 		audio_zone_active[zone_id] = false
+
+func _stop_race_audio() -> void:
+	if music_player != null:
+		music_player.stop()
+	for player in audio_zone_players.values():
+		if player is AudioStreamPlayer:
+			(player as AudioStreamPlayer).stop()
+	audio_zone_active.clear()
+
+func _is_music_audio_zone(zone: Dictionary) -> bool:
+	var audio_id := str(zone.get("audio_id", "")).strip_edges()
+	if audio_id == "music":
+		return true
+	var audio_path := str(zone.get("audio_path", "")).strip_edges()
+	var music_path := str(track_audio_ids.get("music", "")).strip_edges()
+	return not audio_path.is_empty() and audio_path == music_path
 
 func _stream_for_audio_zone(zone: Dictionary) -> AudioStream:
 	var audio_path := str(zone.get("audio_path", "")).strip_edges()

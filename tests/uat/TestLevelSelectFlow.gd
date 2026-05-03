@@ -201,11 +201,48 @@ func test_local_finish_shows_live_overlay_then_finalizes_without_scene_change() 
 		assert_true(float(input_state.get("throttle", 0.0)) > 0.0, "Winner AI should keep cruising after final results are shown")
 	race.queue_free()
 
+func test_local_tournament_results_show_next_race_before_final_round() -> void:
+	var race: Node = _make_local_tournament_race(0)
+	race.call("show_results", [
+		{"id": "local_player", "racer_id": "Dash", "finished": true, "finish_time": 1.0},
+		{"id": "ai_1", "racer_id": "Rexx", "finished": true, "finish_time": 2.0},
+	], true)
+	assert_equal(str(race.call("get_primary_results_button_text_for_test")), "Next Race", "Tournament result primary action should advance to the next race while rounds remain")
+	race.queue_free()
+
+func test_local_tournament_results_show_ending_after_final_round() -> void:
+	var race: Node = _make_local_tournament_race(3)
+	race.call("show_results", [
+		{"id": "local_player", "racer_id": "Dash", "finished": true, "finish_time": 1.0},
+	], true)
+	assert_equal(str(race.call("get_primary_results_button_text_for_test")), "Show Ending", "Final tournament round should route to placeholder ending")
+	race.queue_free()
+
+func test_race_ignores_music_audio_zones_to_avoid_duplicate_track_music() -> void:
+	var race: Node = _make_local_tournament_race(0)
+	race.set("track_audio_ids", {"music": "res://assets/source/audio/suno/tracks/kitchen/kitchen_loop_suno_01.mp3"})
+	assert_true(bool(race.call("_is_music_audio_zone", {"audio_id": "music"})), "Audio zone using the music id should be treated as track music")
+	assert_true(bool(race.call("_is_music_audio_zone", {"audio_path": "res://assets/source/audio/suno/tracks/kitchen/kitchen_loop_suno_01.mp3"})), "Audio zone using the active music path should be treated as track music")
+	assert_true(not bool(race.call("_is_music_audio_zone", {"audio_id": "sink"})), "Non-music audio zones should still play as zones")
+	race.queue_free()
+
 func _make_local_race() -> Node:
 	NakamaService.set_meta_value("race_mode", "local_single")
 	NakamaService.set_meta_value("race_match_id", "local-single-race")
 	NakamaService.set_meta_value("track_id", "kitchen")
 	NakamaService.set_meta_value("selected_racer_id", "Dash")
+	var race := RaceScene.instantiate()
+	scene_tree.root.add_child(race)
+	return race
+
+func _make_local_tournament_race(round_index: int) -> Node:
+	NakamaService.set_meta_value("race_mode", "local_tournament")
+	NakamaService.set_meta_value("race_match_id", "local-tournament-race")
+	NakamaService.set_meta_value("track_id", "kitchen")
+	NakamaService.set_meta_value("selected_racer_id", "Dash")
+	NakamaService.set_meta_value("tournament_track_ids", ["kitchen", "sandbox", "attic", "bedroom"])
+	NakamaService.set_meta_value("tournament_round_index", round_index)
+	NakamaService.set_meta_value("tournament_points", {})
 	var race := RaceScene.instantiate()
 	scene_tree.root.add_child(race)
 	return race
