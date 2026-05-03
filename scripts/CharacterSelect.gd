@@ -1,6 +1,7 @@
 extends Control
 
 const RacerRoster = preload("res://scripts/logic/RacerRoster.gd")
+const NavigationFlow = preload("res://scripts/logic/NavigationFlow.gd")
 
 var selected_racer_id := RacerRoster.DEFAULT_RACER_ID
 var card_buttons: Dictionary = {}
@@ -15,7 +16,9 @@ var _subtitle_label: Label
 var _name_label: Label
 var _class_label: Label
 var _motive_label: Label
-var _continue_button: Button
+var _local_button: Button
+var _multiplayer_button: Button
+var _flow_label: Label
 
 func _ready() -> void:
 	_build_screen()
@@ -39,6 +42,21 @@ func has_portrait_for(racer_id: String) -> bool:
 	var profile := RacerRoster.get_profile(racer_id)
 	var path := str(profile.get("portrait", ""))
 	return not path.is_empty() and ResourceLoader.exists(path)
+
+func get_flow_action_labels_for_test() -> Array[String]:
+	_refresh_flow_actions()
+	var labels: Array[String] = []
+	if _local_button != null and _local_button.visible:
+		labels.append(_local_button.text)
+	if _multiplayer_button != null and _multiplayer_button.visible:
+		labels.append(_multiplayer_button.text)
+	return labels
+
+func prepare_local_flow_for_test() -> String:
+	return _prepare_local_flow()
+
+func prepare_multiplayer_flow_for_test() -> String:
+	return _prepare_multiplayer_flow()
 
 func _build_screen() -> void:
 	set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -73,7 +91,6 @@ func _build_screen() -> void:
 
 	var header := HBoxContainer.new()
 	header.name = "Header"
-	header.alignment = BoxContainer.ALIGNMENT_BEGIN
 	main.add_child(header)
 
 	var header_text := VBoxContainer.new()
@@ -128,7 +145,7 @@ func _build_screen() -> void:
 	var preview_box := VBoxContainer.new()
 	preview_box.name = "Preview"
 	preview_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	preview_box.add_theme_constant_override("separation", 14)
+	preview_box.add_theme_constant_override("separation", 12)
 	preview_scroll.add_child(preview_box)
 
 	_preview_texture = TextureRect.new()
@@ -188,14 +205,31 @@ func _build_screen() -> void:
 		row.add_child(bar)
 		stat_bars[stat_name] = bar
 
-	_continue_button = Button.new()
-	_continue_button.name = "ContinueButton"
-	_continue_button.text = "Lock In"
-	_continue_button.custom_minimum_size = Vector2(0, 68)
-	_continue_button.add_theme_font_size_override("font_size", 28)
-	_continue_button.add_theme_color_override("font_color", Color(0.06, 0.05, 0.08, 1.0))
-	_continue_button.pressed.connect(_continue_to_lobby)
-	preview_box.add_child(_continue_button)
+	_local_button = Button.new()
+	_local_button.name = "ContinueButton"
+	_local_button.text = "Lock In"
+	_local_button.custom_minimum_size = Vector2(0, 68)
+	_local_button.add_theme_font_size_override("font_size", 28)
+	_local_button.add_theme_color_override("font_color", Color(0.06, 0.05, 0.08, 1.0))
+	_local_button.pressed.connect(_start_local_flow)
+	preview_box.add_child(_local_button)
+
+	_multiplayer_button = Button.new()
+	_multiplayer_button.name = "MultiplayerButton"
+	_multiplayer_button.text = "Multiplayer"
+	_multiplayer_button.custom_minimum_size = Vector2(0, 58)
+	_multiplayer_button.add_theme_font_size_override("font_size", 22)
+	_multiplayer_button.add_theme_color_override("font_color", Color(0.9, 0.95, 1.0, 1.0))
+	_multiplayer_button.pressed.connect(_start_multiplayer_flow)
+	preview_box.add_child(_multiplayer_button)
+
+	_flow_label = Label.new()
+	_flow_label.name = "FlowHint"
+	_flow_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_flow_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_flow_label.add_theme_font_size_override("font_size", 15)
+	_flow_label.add_theme_color_override("font_color", Color(0.78, 0.86, 0.98, 0.86))
+	preview_box.add_child(_flow_label)
 
 	var grid_panel := PanelContainer.new()
 	grid_panel.name = "GridPanel"
@@ -295,9 +329,10 @@ func _select_racer(racer_id: String) -> void:
 	var profile := RacerRoster.get_profile(racer_id)
 	var accent: Color = profile.get("accent", Color(0.8, 0.8, 0.8, 1.0))
 	_preview_panel.add_theme_stylebox_override("panel", _panel_style(accent.darkened(0.72), accent, 3, 22))
-	_continue_button.add_theme_stylebox_override("normal", _button_style(accent.lightened(0.15), Color(1.0, 0.96, 0.8, 0.95)))
-	_continue_button.add_theme_stylebox_override("hover", _button_style(accent.lightened(0.25), Color(1.0, 1.0, 1.0, 1.0)))
-	_continue_button.text = "Lock In: %s" % racer_id
+	_local_button.add_theme_stylebox_override("normal", _button_style(accent.lightened(0.15), Color(1.0, 0.96, 0.8, 0.95)))
+	_local_button.add_theme_stylebox_override("hover", _button_style(accent.lightened(0.25), Color(1.0, 1.0, 1.0, 1.0)))
+	_multiplayer_button.add_theme_stylebox_override("normal", _button_style(Color(0.12, 0.14, 0.2, 0.95), accent.lightened(0.12)))
+	_multiplayer_button.add_theme_stylebox_override("hover", _button_style(Color(0.16, 0.18, 0.26, 0.98), accent.lightened(0.28)))
 
 	for id in card_buttons.keys():
 		var card := card_buttons[id] as Button
@@ -312,6 +347,7 @@ func _select_racer(racer_id: String) -> void:
 	for stat_name in stat_bars.keys():
 		var bar := stat_bars[stat_name] as ProgressBar
 		bar.value = int(stats.get(stat_name, 0))
+	_refresh_flow_actions()
 
 func _refresh_layout() -> void:
 	var width := get_viewport_rect().size.x
@@ -334,16 +370,76 @@ func _refresh_layout() -> void:
 	_name_label.add_theme_font_size_override("font_size", 30 if compact_height else 38)
 	_class_label.add_theme_font_size_override("font_size", 17 if compact_height else 20)
 	_motive_label.add_theme_font_size_override("font_size", 16 if compact_height else 18)
-	_continue_button.custom_minimum_size = Vector2(0, 58 if compact_height else 68)
+	_local_button.custom_minimum_size = Vector2(0, 58 if compact_height else 68)
+	_multiplayer_button.custom_minimum_size = Vector2(0, 52 if compact_height else 58)
 	for card in card_buttons.values():
 		(card as Button).custom_minimum_size = Vector2(154, 218) if compact_width else Vector2(172, 230)
 
-func _continue_to_lobby() -> void:
+func _start_local_flow() -> void:
+	var target := _prepare_local_flow()
+	if target != "":
+		get_tree().change_scene_to_file(target)
+
+func _start_multiplayer_flow() -> void:
+	var target := _prepare_multiplayer_flow()
+	if target != "":
+		get_tree().change_scene_to_file(target)
+
+func _prepare_local_flow() -> String:
 	_set_meta_value("selected_racer_id", selected_racer_id)
-	get_tree().change_scene_to_file("res://scenes/LevelSelect.tscn")
+	match _nav_flow_mode():
+		NavigationFlow.FLOW_SINGLE_RACE:
+			return "res://scenes/LevelSelect.tscn"
+		NavigationFlow.FLOW_TOURNAMENT:
+			NavigationFlow.prepare_local_tournament(_get_nakama_service())
+			return "res://scenes/Race.tscn"
+		_:
+			return "res://scenes/LevelSelect.tscn"
+
+func _prepare_multiplayer_flow() -> String:
+	_set_meta_value("selected_racer_id", selected_racer_id)
+	match _nav_flow_mode():
+		NavigationFlow.FLOW_SINGLE_RACE:
+			NavigationFlow.prepare_single_multiplayer(_get_nakama_service())
+			return "res://scenes/Lobby.tscn"
+		NavigationFlow.FLOW_TOURNAMENT:
+			NavigationFlow.prepare_tournament_multiplayer(_get_nakama_service())
+			return "res://scenes/Lobby.tscn"
+		_:
+			return ""
 
 func _go_back() -> void:
+	NavigationFlow.clear_nav_flow_mode(_get_nakama_service())
 	get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
+
+func _refresh_flow_actions() -> void:
+	if _local_button == null:
+		return
+	var flow_mode := _nav_flow_mode()
+	match flow_mode:
+		NavigationFlow.FLOW_SINGLE_RACE:
+			_title_label.text = "Single Race"
+			_subtitle_label.text = "Select a racer, then choose local track select or a multiplayer lobby."
+			_local_button.text = "Local"
+			_multiplayer_button.visible = true
+			_flow_label.text = "Racer locked: %s" % selected_racer_id
+		NavigationFlow.FLOW_TOURNAMENT:
+			_title_label.text = "Tournament"
+			_subtitle_label.text = "Select a racer, then start a four-track local cup or tournament lobby."
+			_local_button.text = "Local"
+			_multiplayer_button.visible = true
+			_flow_label.text = "Racer locked: %s" % selected_racer_id
+		_:
+			_title_label.text = "Choose Racer"
+			_subtitle_label.text = "Lock a toy rival before the Kitchen shakedown."
+			_local_button.text = "Lock In: %s" % selected_racer_id
+			_multiplayer_button.visible = false
+			_flow_label.text = ""
+	_local_button.disabled = selected_racer_id.is_empty()
+	_multiplayer_button.disabled = selected_racer_id.is_empty()
+
+func _nav_flow_mode() -> String:
+	return NavigationFlow.get_nav_flow_mode(_get_nakama_service())
 
 func _get_meta_value(key: String, default_value: Variant) -> Variant:
 	var service := _get_nakama_service()
@@ -387,7 +483,7 @@ func _button_style(bg: Color, border: Color) -> StyleBoxFlat:
 	style.bg_color = bg
 	style.border_color = border
 	style.set_border_width_all(2)
-	style.set_corner_radius_all(18)
+	style.set_corner_radius_all(8)
 	style.content_margin_left = 18
 	style.content_margin_top = 12
 	style.content_margin_right = 18

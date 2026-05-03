@@ -8,6 +8,7 @@ const TrackRuntimeScene = preload("res://scripts/track/TrackRuntimeScene.gd")
 const ItemRules = preload("res://scripts/logic/ItemRules.gd")
 const OutOfBoundsRules = preload("res://scripts/logic/OutOfBoundsRules.gd")
 const RacerRoster = preload("res://scripts/logic/RacerRoster.gd")
+const NavigationFlow = preload("res://scripts/logic/NavigationFlow.gd")
 
 @onready var ui_speed: Label = %SpeedLabel
 @onready var ui_speed_bar: ProgressBar = get_node_or_null("%SpeedBar") as ProgressBar
@@ -75,7 +76,9 @@ const CAMERA_OCCLUSION_MASK := 1
 const CAMERA_OCCLUSION_CLEARANCE := 0.7
 const CAMERA_OCCLUSION_MIN_DISTANCE := 1.1
 const RACE_MODE_LOCAL_SINGLE := "local_single"
+const RACE_MODE_LOCAL_TOURNAMENT := "local_tournament"
 const LOCAL_SINGLE_MATCH_ID := "local-single-race"
+const LOCAL_TOURNAMENT_MATCH_ID := "local-tournament-race"
 const PHASE_INTRO := "intro"
 const PHASE_GRID_ENTRY := "grid_entry"
 const PHASE_CAMERA_TRANSITION := "camera_transition"
@@ -179,7 +182,7 @@ func _ready() -> void:
 	mobile_controls.visible = OS.has_feature("mobile")
 	_setup_mobile_controls()
 	_ensure_input_actions()
-	if str(NakamaService.get_meta_value("race_mode", "")) == RACE_MODE_LOCAL_SINGLE:
+	if _is_local_arcade_race_mode():
 		_start_local_single_race()
 		return
 	await NakamaService.ensure_connected()
@@ -204,7 +207,7 @@ func _start_offline_race() -> void:
 func _start_local_single_race() -> void:
 	local_single_race = true
 	local_user_id = "local_player"
-	match_id = LOCAL_SINGLE_MATCH_ID
+	match_id = LOCAL_TOURNAMENT_MATCH_ID if _is_local_tournament_mode() else LOCAL_SINGLE_MATCH_ID
 	race_started = true
 	player_input_enabled = false
 	local_results_submitted = false
@@ -702,6 +705,8 @@ func _submit_local_results() -> void:
 	race_phase = PHASE_RESULTS
 	var results := _sorted_local_result_entries()
 	NakamaService.set_meta_value("race_results", results)
+	if _is_local_tournament_mode():
+		NavigationFlow.award_tournament_points(NakamaService, results)
 	update_results(results, true)
 
 func _sorted_local_result_entries() -> Array:
@@ -750,13 +755,13 @@ func update_results(results: Array, is_final: bool) -> void:
 	if results_overlay == null or not results_overlay.visible:
 		return
 	local_results_final = is_final
-	results_title_label.text = "Final Results" if is_final else "Live Results"
+	results_title_label.text = _results_title_text(is_final)
 	var leader: Variant = results[0] if not results.is_empty() else {}
 	var leader_name := "--"
 	if leader is Dictionary:
 		var leader_dict: Dictionary = leader
 		leader_name = _result_display_name(leader_dict, str(leader_dict.get("id", "")) == local_user_id)
-	results_status_label.text = ("FINAL  /  Winner: %s" if is_final else "LIVE  /  Leader: %s") % leader_name
+	results_status_label.text = _results_status_text_for_overlay(is_final, leader_name)
 	for child in results_list.get_children():
 		child.queue_free()
 	_add_results_header()
@@ -765,6 +770,8 @@ func update_results(results: Array, is_final: bool) -> void:
 		if entry is Dictionary:
 			results_list.add_child(_build_results_row(entry, rank))
 			rank += 1
+	if _is_local_tournament_mode():
+		_add_tournament_standings_rows()
 
 func results_overlay_is_visible_for_test() -> bool:
 	return results_overlay != null and results_overlay.visible
@@ -851,12 +858,12 @@ func _ensure_results_overlay() -> void:
 
 	results_restart_button = _make_results_button("Restart")
 	results_restart_button.name = "RestartButton"
-	results_restart_button.pressed.connect(_restart_local_single_race)
+	results_restart_button.pressed.connect(_on_results_primary_pressed)
 	buttons.add_child(results_restart_button)
 
 	results_level_select_button = _make_results_button("Level Select")
 	results_level_select_button.name = "LevelSelectButton"
-	results_level_select_button.pressed.connect(_go_to_level_select_from_results)
+	results_level_select_button.pressed.connect(_on_results_secondary_pressed)
 	buttons.add_child(results_level_select_button)
 
 func _hide_results_overlay() -> void:
@@ -883,6 +890,29 @@ func _build_results_row(entry: Dictionary, rank: int) -> HBoxContainer:
 	row.add_child(_result_cell(_result_status_text(entry), 94, is_local))
 	row.add_child(_result_cell(str(int(entry.get("lap", 0))), 48, is_local))
 	return row
+
+func _add_tournament_standings_rows() -> void:
+	var points: Dictionary = NakamaService.get_meta_value("tournament_points", {})
+	if points.is_empty():
+		return
+	var spacer := Label.new()
+	spacer.text = "Tournament Points"
+	spacer.add_theme_font_size_override("font_size", 14)
+	spacer.add_theme_color_override("font_color", Color(1.0, 0.88, 0.35, 1.0))
+	results_list.add_child(spacer)
+	var standings := NavigationFlow.sorted_standings(points)
+	var rank := 1
+	for entry in standings:
+		if entry is Dictionary:
+			var row := HBoxContainer.new()
+			row.name = "TournamentStanding%02d" % rank
+			row.add_theme_constant_override("separation", 8)
+			row.add_child(_result_cell(str(rank), 36, str((entry as Dictionary).get("racer_id", "")) == str(NakamaService.get_meta_value("selected_racer_id", ""))))
+			row.add_child(_result_cell(str((entry as Dictionary).get("racer_id", "")), 170, false))
+			row.add_child(_result_cell("%d pts" % int((entry as Dictionary).get("points", 0)), 94, false))
+			row.add_child(_result_cell("", 48, false))
+			results_list.add_child(row)
+			rank += 1
 
 func _result_cell(text: String, width: int, emphasize: bool, header: bool = false) -> Label:
 	var label := Label.new()
@@ -952,6 +982,52 @@ func _restart_local_single_race() -> void:
 
 func _go_to_level_select_from_results() -> void:
 	get_tree().change_scene_to_file("res://scenes/LevelSelect.tscn")
+
+func _on_results_primary_pressed() -> void:
+	if _is_local_tournament_mode():
+		if NavigationFlow.has_next_tournament_round(NakamaService):
+			NavigationFlow.advance_tournament_round(NakamaService)
+			get_tree().change_scene_to_file("res://scenes/Race.tscn")
+		else:
+			get_tree().change_scene_to_file(NavigationFlow.resolve_placeholder_ending(NakamaService))
+		return
+	_restart_local_single_race()
+
+func _on_results_secondary_pressed() -> void:
+	if _is_local_tournament_mode():
+		get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
+		return
+	_go_to_level_select_from_results()
+
+func _results_title_text(is_final: bool) -> String:
+	if _is_local_tournament_mode():
+		var round_index := NavigationFlow.get_tournament_round_index(NakamaService) + 1
+		var round_count := NavigationFlow.get_tournament_track_ids(NakamaService).size()
+		if round_count <= 0:
+			round_count = NavigationFlow.TOURNAMENT_ROUND_COUNT
+		return ("Tournament Round %d/%d" if is_final else "Live Tournament Round %d/%d") % [round_index, round_count]
+	return "Final Results" if is_final else "Live Results"
+
+func _results_status_text_for_overlay(is_final: bool, leader_name: String) -> String:
+	if _is_local_tournament_mode():
+		if is_final:
+			_update_tournament_result_buttons()
+			return "FINAL  /  Points updated"
+		return "LIVE  /  Leader: %s" % leader_name
+	return ("FINAL  /  Winner: %s" if is_final else "LIVE  /  Leader: %s") % leader_name
+
+func _update_tournament_result_buttons() -> void:
+	if results_restart_button != null:
+		results_restart_button.text = "Next Race" if NavigationFlow.has_next_tournament_round(NakamaService) else "Finish Tournament"
+	if results_level_select_button != null:
+		results_level_select_button.text = "Main Menu"
+
+func _is_local_arcade_race_mode() -> bool:
+	var mode := str(NakamaService.get_meta_value("race_mode", ""))
+	return mode == RACE_MODE_LOCAL_SINGLE or mode == RACE_MODE_LOCAL_TOURNAMENT
+
+func _is_local_tournament_mode() -> bool:
+	return str(NakamaService.get_meta_value("race_mode", "")) == RACE_MODE_LOCAL_TOURNAMENT
 
 func _hide_race_hud_for_intro(hidden: bool) -> void:
 	if top_left_panel:

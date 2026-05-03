@@ -28,6 +28,14 @@ func test_level_select_loads_default_track_and_writes_local_single_metadata() ->
 	assert_equal(NakamaService.get_meta_value("race_mode", ""), "local_single", "Level select should configure local single-race mode")
 	screen.queue_free()
 
+func test_level_select_back_target_returns_to_character_select_for_single_flow() -> void:
+	NakamaService.set_meta_value("nav_flow_mode", "single_race")
+	var screen := LevelSelectScene.instantiate()
+	scene_tree.root.add_child(screen)
+	assert_equal(screen.call("get_back_target_for_test"), "res://scenes/CharacterSelect.tscn", "Level select back target should return to character select")
+	assert_equal(NakamaService.get_meta_value("nav_flow_mode", ""), "single_race", "Level select should preserve single-race navigation flow")
+	screen.queue_free()
+
 func test_local_single_race_spawns_full_roster_and_blocks_input_during_intro() -> void:
 	var race: Node = _make_local_race()
 	assert_true(bool(race.get("local_single_race")), "Race scene should branch into local single-race mode")

@@ -3,6 +3,7 @@ extends Control
 const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
 const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd")
 const TrackRuntimeScene = preload("res://scripts/track/TrackRuntimeScene.gd")
+const NavigationFlow = preload("res://scripts/logic/NavigationFlow.gd")
 
 const PREVIEW_CAMERA_ROUTE_SPEED := 0.035
 const PREVIEW_CAMERA_BLEND := 0.055
@@ -40,6 +41,9 @@ func get_selected_track_id() -> String:
 
 func apply_selected_track_for_test() -> void:
 	_apply_selected_track_metadata()
+
+func get_back_target_for_test() -> String:
+	return "res://scenes/CharacterSelect.tscn"
 
 func preview_has_visible_road_edges_for_test() -> bool:
 	return _has_visible_preview_road_edges(_preview_root)
@@ -310,6 +314,10 @@ func _apply_selected_track_metadata() -> void:
 	NakamaService.set_meta_value("race_mode", "local_single")
 
 func _go_back() -> void:
+	if NavigationFlow.get_nav_flow_mode(NakamaService) == NavigationFlow.FLOW_SINGLE_RACE:
+		NavigationFlow.set_nav_flow_mode(NakamaService, NavigationFlow.FLOW_SINGLE_RACE)
+		get_tree().change_scene_to_file("res://scenes/CharacterSelect.tscn")
+		return
 	get_tree().change_scene_to_file("res://scenes/CharacterSelect.tscn")
 
 func _make_button(text: String, min_size: Vector2) -> Button:
