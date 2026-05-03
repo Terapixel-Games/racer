@@ -467,12 +467,14 @@ func _add_grass_zone_nodes(root: Node3D, course: Dictionary) -> void:
 		var shape_node := CollisionShape3D.new()
 		shape_node.name = "CollisionShape3D"
 		var shape := BoxShape3D.new()
+		shape.resource_local_to_scene = true
 		shape.size = Vector3(zone.size.x, 1.0, zone.size.y)
 		shape_node.shape = shape
 		zone.add_child(shape_node)
 		var preview := MeshInstance3D.new()
 		preview.name = "BoundsPreview"
 		var mesh := BoxMesh.new()
+		mesh.resource_local_to_scene = true
 		mesh.size = shape.size
 		preview.mesh = mesh
 		var material := StandardMaterial3D.new()

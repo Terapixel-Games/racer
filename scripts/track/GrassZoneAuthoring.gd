@@ -90,7 +90,7 @@ func _sync_size_from_collision_shape() -> void:
 		size = next_size
 
 func _get_or_create_collision_shape() -> CollisionShape3D:
-	var shape_node := get_node_or_null("CollisionShape3D") as CollisionShape3D
+	var shape_node := self.get_node_or_null("CollisionShape3D") as CollisionShape3D
 	if shape_node != null:
 		return shape_node
 	shape_node = CollisionShape3D.new()
@@ -154,16 +154,51 @@ func _ensure_unique_edit_resources() -> void:
 	if shape_node != null:
 		_ensure_unique_shape_resource(shape_node)
 	var preview := get_node_or_null("BoundsPreview") as MeshInstance3D
-	if preview != null and preview.mesh is BoxMesh and not preview.mesh.resource_local_to_scene:
-		var mesh := (preview.mesh as BoxMesh).duplicate(true) as BoxMesh
-		mesh.resource_local_to_scene = true
-		preview.mesh = mesh
+	if preview != null and preview.mesh is BoxMesh:
+		var mesh := preview.mesh as BoxMesh
+		if not mesh.resource_local_to_scene or _is_preview_mesh_shared(preview):
+			mesh = mesh.duplicate(true) as BoxMesh
+			mesh.resource_local_to_scene = true
+			preview.mesh = mesh
 
 func _ensure_unique_shape_resource(shape_node: CollisionShape3D) -> void:
 	if shape_node.shape == null:
 		return
-	if shape_node.shape.resource_local_to_scene:
+	if shape_node.shape.resource_local_to_scene and not _is_shape_resource_shared(shape_node):
 		return
 	var shape := shape_node.shape.duplicate(true) as Shape3D
 	shape.resource_local_to_scene = true
 	shape_node.shape = shape
+
+func _is_shape_resource_shared(shape_node: CollisionShape3D) -> bool:
+	var shape := shape_node.shape
+	if shape == null:
+		return false
+	var root := _resource_scan_root()
+	for other in root.find_children("*", "CollisionShape3D", true, false):
+		var other_shape := other as CollisionShape3D
+		if other_shape == shape_node:
+			continue
+		if other_shape.shape == shape:
+			return true
+	return false
+
+func _is_preview_mesh_shared(preview: MeshInstance3D) -> bool:
+	var mesh := preview.mesh
+	if mesh == null:
+		return false
+	var root := _resource_scan_root()
+	for other in root.find_children("*", "MeshInstance3D", true, false):
+		var other_preview := other as MeshInstance3D
+		if other_preview == preview:
+			continue
+		if other_preview.mesh == mesh:
+			return true
+	return false
+
+func _resource_scan_root() -> Node:
+	if Engine.is_editor_hint() and get_tree() != null and get_tree().edited_scene_root != null:
+		return get_tree().edited_scene_root
+	if owner != null:
+		return owner
+	return self
