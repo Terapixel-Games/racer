@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://ddekoxla6mhtx"]
+[gd_scene load_steps=44 format=3 uid="uid://ddekoxla6mhtx"]
 
 [ext_resource type="Script" uid="uid://dlvn2xhwjpnou" path="res://scripts/track/TrackAuthoringPreview.gd" id="1_g7m3g"]
 [ext_resource type="Texture2D" uid="uid://00xrdbjyq0ql" path="res://assets/gameplay/materials/attic/attic_cardboard_wood_albedo.png" id="2_tw6u0"]
@@ -135,6 +135,21 @@ size = Vector3(3, 3, 118)
 [sub_resource type="BoxMesh" id="BoxMesh_attic_end_gable"]
 size = Vector3(292, 34, 2)
 
+[sub_resource type="BoxMesh" id="BoxMesh_attic_full_side_closure"]
+size = Vector3(2, 88, 196)
+
+[sub_resource type="BoxMesh" id="BoxMesh_attic_full_end_closure"]
+size = Vector3(296, 88, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_attic_window_side_closure"]
+size = Vector3(2, 88, 68)
+
+[sub_resource type="BoxMesh" id="BoxMesh_attic_window_lower_closure"]
+size = Vector3(2, 30, 64)
+
+[sub_resource type="BoxMesh" id="BoxMesh_attic_window_upper_closure"]
+size = Vector3(2, 38, 64)
+
 [node name="AtticEditableRoom" type="Node3D"]
 script = ExtResource("1_g7m3g")
 ground_size = Vector2(292, 190)
@@ -195,6 +210,41 @@ mesh = SubResource("BoxMesh_0xbxm")
 transform = Transform3D(1, 0, 0, 0, 0.777146, 0.62932, 0, -0.62932, 0.777146, 0, 48, -42)
 material_override = SubResource("StandardMaterial3D_attic_roof_planks")
 mesh = SubResource("BoxMesh_0xbxm")
+
+[node name="BackWallClosure" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24, 99.5)
+material_override = SubResource("StandardMaterial3D_attic_wall_planks")
+mesh = SubResource("BoxMesh_attic_full_end_closure")
+
+[node name="FrontWallClosure" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24, -99.5)
+material_override = SubResource("StandardMaterial3D_attic_wall_planks")
+mesh = SubResource("BoxMesh_attic_full_end_closure")
+
+[node name="LeftWallClosure" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -147.5, 24, 0)
+material_override = SubResource("StandardMaterial3D_attic_wall_planks")
+mesh = SubResource("BoxMesh_attic_full_side_closure")
+
+[node name="RightWallFrontClosure" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 147.5, 24, -62)
+material_override = SubResource("StandardMaterial3D_attic_wall_planks")
+mesh = SubResource("BoxMesh_attic_window_side_closure")
+
+[node name="RightWallRearClosure" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 147.5, 24, 84)
+material_override = SubResource("StandardMaterial3D_attic_wall_planks")
+mesh = SubResource("BoxMesh_attic_window_side_closure")
+
+[node name="RightWindowLowerClosure" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 147.5, 1, 42)
+material_override = SubResource("StandardMaterial3D_attic_wall_planks")
+mesh = SubResource("BoxMesh_attic_window_lower_closure")
+
+[node name="RightWindowUpperClosure" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 147.5, 46, 42)
+material_override = SubResource("StandardMaterial3D_attic_wall_planks")
+mesh = SubResource("BoxMesh_attic_window_upper_closure")
 
 [node name="BackUpperGableWall" type="MeshInstance3D" parent="RoomShell"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 98)
