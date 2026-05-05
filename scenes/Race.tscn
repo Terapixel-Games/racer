@@ -291,21 +291,21 @@ mouse_filter = 2
 layout_mode = 0
 offset_left = 24.0
 offset_top = 20.0
-offset_right = 344.0
-offset_bottom = 366.0
+offset_right = 454.0
+offset_bottom = 474.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("PanelDark")
 
 [node name="Margin" type="MarginContainer" parent="UI/HUD/TopLeftPanel"]
 layout_mode = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 14
-theme_override_constants/margin_right = 14
-theme_override_constants/margin_bottom = 14
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 16
 
 [node name="VBox" type="VBoxContainer" parent="UI/HUD/TopLeftPanel/Margin"]
 layout_mode = 2
-theme_override_constants/separation = 5
+theme_override_constants/separation = 10
 
 [node name="RankBadge" type="PanelContainer" parent="UI/HUD/TopLeftPanel/Margin/VBox"]
 layout_mode = 2
@@ -316,8 +316,8 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.05, 0.035, 0.02, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 0.8)
-theme_override_constants/outline_size = 2
-theme_override_font_sizes/font_size = 68
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 96
 text = "--"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -327,13 +327,13 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0, 0.85, 1, 0.9)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.8)
 theme_override_constants/outline_size = 2
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 22
 text = "LEADERS"
 
 [node name="LeaderboardRows" type="VBoxContainer" parent="UI/HUD/TopLeftPanel/Margin/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 6
+theme_override_constants/separation = 8
 
 [node name="Leader1" type="PanelContainer" parent="UI/HUD/TopLeftPanel/Margin/VBox/LeaderboardRows"]
 unique_name_in_owner = true
@@ -342,18 +342,18 @@ theme_override_styles/panel = SubResource("LeaderRow")
 
 [node name="Leader1Margin" type="MarginContainer" parent="UI/HUD/TopLeftPanel/Margin/VBox/LeaderboardRows/Leader1"]
 layout_mode = 2
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 7
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 7
 
 [node name="Leader1HBox" type="HBoxContainer" parent="UI/HUD/TopLeftPanel/Margin/VBox/LeaderboardRows/Leader1/Leader1Margin"]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 12
 
 [node name="Leader1Portrait" type="TextureRect" parent="UI/HUD/TopLeftPanel/Margin/VBox/LeaderboardRows/Leader1/Leader1Margin/Leader1HBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(38, 38)
+custom_minimum_size = Vector2(56, 56)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
@@ -365,7 +365,7 @@ size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 0.96)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.75)
 theme_override_constants/outline_size = 2
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 24
 text = "1  YOU"
 vertical_alignment = 1
 
@@ -376,18 +376,18 @@ theme_override_styles/panel = SubResource("LeaderRow")
 
 [node name="Leader2Margin" type="MarginContainer" parent="UI/HUD/TopLeftPanel/Margin/VBox/LeaderboardRows/Leader2"]
 layout_mode = 2
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 7
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 7
 
 [node name="Leader2HBox" type="HBoxContainer" parent="UI/HUD/TopLeftPanel/Margin/VBox/LeaderboardRows/Leader2/Leader2Margin"]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 12
 
 [node name="Leader2Portrait" type="TextureRect" parent="UI/HUD/TopLeftPanel/Margin/VBox/LeaderboardRows/Leader2/Leader2Margin/Leader2HBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(38, 38)
+custom_minimum_size = Vector2(56, 56)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
@@ -399,7 +399,7 @@ size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 0.82)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.75)
 theme_override_constants/outline_size = 2
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 24
 text = "2  RIVAL"
 vertical_alignment = 1
 
@@ -410,18 +410,18 @@ theme_override_styles/panel = SubResource("LeaderRow")
 
 [node name="Leader3Margin" type="MarginContainer" parent="UI/HUD/TopLeftPanel/Margin/VBox/LeaderboardRows/Leader3"]
 layout_mode = 2
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 7
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 7
 
 [node name="Leader3HBox" type="HBoxContainer" parent="UI/HUD/TopLeftPanel/Margin/VBox/LeaderboardRows/Leader3/Leader3Margin"]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 12
 
 [node name="Leader3Portrait" type="TextureRect" parent="UI/HUD/TopLeftPanel/Margin/VBox/LeaderboardRows/Leader3/Leader3Margin/Leader3HBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(38, 38)
+custom_minimum_size = Vector2(56, 56)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
@@ -433,7 +433,7 @@ size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 0.72)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.75)
 theme_override_constants/outline_size = 2
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 24
 text = "3  RIVAL"
 vertical_alignment = 1
 
@@ -444,18 +444,18 @@ theme_override_styles/panel = SubResource("LeaderRow")
 
 [node name="Leader4Margin" type="MarginContainer" parent="UI/HUD/TopLeftPanel/Margin/VBox/LeaderboardRows/Leader4"]
 layout_mode = 2
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 7
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 7
 
 [node name="Leader4HBox" type="HBoxContainer" parent="UI/HUD/TopLeftPanel/Margin/VBox/LeaderboardRows/Leader4/Leader4Margin"]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 12
 
 [node name="Leader4Portrait" type="TextureRect" parent="UI/HUD/TopLeftPanel/Margin/VBox/LeaderboardRows/Leader4/Leader4Margin/Leader4HBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(38, 38)
+custom_minimum_size = Vector2(56, 56)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
@@ -467,7 +467,7 @@ size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 0.62)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.75)
 theme_override_constants/outline_size = 2
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 24
 text = "4  RIVAL"
 vertical_alignment = 1
 
@@ -475,23 +475,23 @@ vertical_alignment = 1
 layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
-offset_top = 20.0
-offset_right = 210.0
-offset_bottom = 84.0
-offset_left = -210.0
+offset_top = 18.0
+offset_right = 310.0
+offset_bottom = 96.0
+offset_left = -310.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("PillDark")
 
 [node name="RaceRibbonMargin" type="MarginContainer" parent="UI/HUD/LapPill"]
 layout_mode = 2
-theme_override_constants/margin_left = 18
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 18
-theme_override_constants/margin_bottom = 8
+theme_override_constants/margin_left = 26
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 26
+theme_override_constants/margin_bottom = 10
 
 [node name="RaceRibbonHBox" type="HBoxContainer" parent="UI/HUD/LapPill/RaceRibbonMargin"]
 layout_mode = 2
-theme_override_constants/separation = 18
+theme_override_constants/separation = 28
 
 [node name="LapLabel" type="Label" parent="UI/HUD/LapPill/RaceRibbonMargin/RaceRibbonHBox"]
 unique_name_in_owner = true
@@ -499,8 +499,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 0.96)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.82)
-theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 24
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 34
 text = "LAP --"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -511,8 +511,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 0.82, 0.2, 0.98)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.82)
-theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 24
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 34
 text = "TIME 00:00.00"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -536,19 +536,19 @@ vertical_alignment = 1
 layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -346.0
+offset_left = -438.0
 offset_top = 20.0
 offset_right = -24.0
-offset_bottom = 272.0
+offset_bottom = 346.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("PanelDark")
 
 [node name="RightMargin" type="MarginContainer" parent="UI/HUD/TopRightPanel"]
 layout_mode = 2
-theme_override_constants/margin_left = 14
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 14
-theme_override_constants/margin_bottom = 12
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 16
 
 [node name="RightVBox" type="VBoxContainer" parent="UI/HUD/TopRightPanel/RightMargin"]
 layout_mode = 2
@@ -560,12 +560,12 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.86)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.7)
 theme_override_constants/outline_size = 2
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 18
 text = "MODE"
 horizontal_alignment = 2
 
 [node name="MiniMap" type="PanelContainer" parent="UI/HUD/TopRightPanel/RightMargin/RightVBox"]
-custom_minimum_size = Vector2(274, 172)
+custom_minimum_size = Vector2(360, 246)
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("MiniMapPanel")
@@ -587,37 +587,37 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_top = -148.0
-offset_right = 272.0
-offset_bottom = -42.0
-offset_left = -272.0
+offset_top = -190.0
+offset_right = 360.0
+offset_bottom = -36.0
+offset_left = -360.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("PanelDark")
 
 [node name="SpeedMargin" type="MarginContainer" parent="UI/HUD/SpeedUI"]
 layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 12
+theme_override_constants/margin_left = 26
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 26
+theme_override_constants/margin_bottom = 16
 
 [node name="SpeedVBox" type="VBoxContainer" parent="UI/HUD/SpeedUI/SpeedMargin"]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 10
 
 [node name="SpeedLabel" type="Label" parent="UI/HUD/SpeedUI/SpeedMargin/SpeedVBox"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.96)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.8)
-theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 44
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 62
 text = "000 KM/H"
 horizontal_alignment = 1
 
 [node name="SpeedItemRow" type="HBoxContainer" parent="UI/HUD/SpeedUI/SpeedMargin/SpeedVBox"]
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 16
 
 [node name="MeterColumn" type="VBoxContainer" parent="UI/HUD/SpeedUI/SpeedMargin/SpeedVBox/SpeedItemRow"]
 layout_mode = 2
@@ -626,7 +626,7 @@ theme_override_constants/separation = 5
 
 [node name="SpeedBar" type="ProgressBar" parent="UI/HUD/SpeedUI/SpeedMargin/SpeedVBox/SpeedItemRow/MeterColumn"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(320, 12)
+custom_minimum_size = Vector2(440, 16)
 layout_mode = 2
 max_value = 120.0
 step = 0.1
@@ -636,7 +636,7 @@ theme_override_styles/fill = SubResource("SpeedFill")
 
 [node name="DriftBar" type="ProgressBar" parent="UI/HUD/SpeedUI/SpeedMargin/SpeedVBox/SpeedItemRow/MeterColumn"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(320, 12)
+custom_minimum_size = Vector2(440, 16)
 layout_mode = 2
 max_value = 100.0
 step = 0.1
@@ -650,13 +650,13 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0, 0.85, 1, 0.9)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.75)
 theme_override_constants/outline_size = 2
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 18
 text = "DRIFT --"
 horizontal_alignment = 1
 
 [node name="ItemSlot" type="PanelContainer" parent="UI/HUD/SpeedUI/SpeedMargin/SpeedVBox/SpeedItemRow"]
 layout_mode = 2
-custom_minimum_size = Vector2(132, 54)
+custom_minimum_size = Vector2(164, 70)
 theme_override_styles/panel = SubResource("ItemSlot")
 
 [node name="ItemLabel" type="Label" parent="UI/HUD/SpeedUI/SpeedMargin/SpeedVBox/SpeedItemRow/ItemSlot"]
@@ -665,7 +665,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.82, 0.2, 0.98)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.8)
 theme_override_constants/outline_size = 2
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 24
 text = "ITEM\n--"
 horizontal_alignment = 1
 vertical_alignment = 1

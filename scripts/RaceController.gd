@@ -99,6 +99,8 @@ const CAMERA_TRANSITION_DURATION := 1.0
 const COUNTDOWN_DURATION := 3.5
 const FINISH_FOLLOW_TIMEOUT := 10.0
 const PLAYER_FINISH_FOLLOW_DURATION := 2.0
+const WINNER_CAMERA_CUT_INTERVAL := 2.75
+const WINNER_CAMERA_FOLLOW_SPEED := 5.5
 const AI_LOOKAHEAD_POINTS := 2
 const AI_STEER_DEADZONE := 0.035
 const AI_BRAKE_ANGLE := 1.15
@@ -425,6 +427,10 @@ func _tick_local_race(delta: float) -> void:
 func _tick_results_ai_cruise(delta: float) -> void:
 	for rid in ai_racer_ids:
 		_tick_ai_input(rid, delta)
+	if _leader_racer_id(true) == local_user_id:
+		_tick_ai_input(local_user_id, delta, true)
+	_tick_local_racer_progress()
+	_handle_all_local_out_of_bounds()
 
 func _tick_local_input() -> void:
 	var car: CarController = cars.get(local_user_id, null)
@@ -686,7 +692,23 @@ func _update_finish_follow_camera(delta: float) -> void:
 	if target_id.is_empty():
 		target_id = local_user_id
 	camera_follow_target_id = target_id
-	_update_camera_for_racer_id(target_id, delta)
+	var car: CarController = cars.get(target_id, null)
+	if car == null:
+		return
+	if race_phase == PHASE_WINNER_FOLLOW_RESULTS or race_phase == PHASE_RESULTS:
+		_update_winner_cinematic_camera(car, delta)
+	else:
+		_update_camera_for_car(car, delta)
+
+func _update_winner_cinematic_camera(car: CarController, delta: float) -> void:
+	var shot_time := phase_timer if race_phase == PHASE_RESULTS else finish_follow_timer
+	var pose := winner_cinematic_camera_pose(car.global_transform, car.velocity, shot_time, WINNER_CAMERA_CUT_INTERVAL)
+	var desired := pose.get("position", camera.global_transform.origin) as Vector3
+	var look_target := pose.get("look_target", car.global_transform.origin + Vector3.UP) as Vector3
+	var resolved := _resolve_camera_occlusion(look_target, desired)
+	var blend := 1.0 if delta <= 0.0 else clampf(delta * WINNER_CAMERA_FOLLOW_SPEED, 0.0, 1.0)
+	camera.global_transform.origin = camera.global_transform.origin.lerp(resolved, blend)
+	camera.look_at(look_target, Vector3.UP)
 
 func _update_camera_for_racer_id(rid: String, delta: float) -> void:
 	var car: CarController = cars.get(rid, null)
@@ -831,8 +853,8 @@ func _ensure_results_overlay() -> void:
 	var panel := PanelContainer.new()
 	panel.name = "ResultsPanel"
 	panel.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
-	panel.offset_left = -492.0
-	panel.offset_top = -386.0
+	panel.offset_left = -690.0
+	panel.offset_top = -520.0
 	panel.offset_right = -28.0
 	panel.offset_bottom = -28.0
 	panel.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -841,46 +863,46 @@ func _ensure_results_overlay() -> void:
 
 	var margin := MarginContainer.new()
 	margin.name = "ResultsMargin"
-	margin.add_theme_constant_override("margin_left", 18)
-	margin.add_theme_constant_override("margin_top", 16)
-	margin.add_theme_constant_override("margin_right", 18)
-	margin.add_theme_constant_override("margin_bottom", 16)
+	margin.add_theme_constant_override("margin_left", 26)
+	margin.add_theme_constant_override("margin_top", 22)
+	margin.add_theme_constant_override("margin_right", 26)
+	margin.add_theme_constant_override("margin_bottom", 22)
 	panel.add_child(margin)
 
 	var box := VBoxContainer.new()
 	box.name = "ResultsVBox"
-	box.add_theme_constant_override("separation", 8)
+	box.add_theme_constant_override("separation", 12)
 	margin.add_child(box)
 
 	results_title_label = Label.new()
 	results_title_label.name = "ResultsTitle"
 	results_title_label.text = "Live Results"
-	results_title_label.add_theme_font_size_override("font_size", 28)
+	results_title_label.add_theme_font_size_override("font_size", 40)
 	results_title_label.add_theme_color_override("font_color", Color(1.0, 0.88, 0.35, 1.0))
 	box.add_child(results_title_label)
 
 	results_status_label = Label.new()
 	results_status_label.name = "ResultsStatus"
 	results_status_label.text = "LIVE"
-	results_status_label.add_theme_font_size_override("font_size", 14)
+	results_status_label.add_theme_font_size_override("font_size", 20)
 	results_status_label.add_theme_color_override("font_color", Color(0.72, 0.9, 1.0, 0.95))
 	box.add_child(results_status_label)
 
 	var scroll := ScrollContainer.new()
 	scroll.name = "ResultsScroll"
-	scroll.custom_minimum_size = Vector2(424, 190)
+	scroll.custom_minimum_size = Vector2(610, 292)
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	box.add_child(scroll)
 
 	results_list = VBoxContainer.new()
 	results_list.name = "ResultsList"
-	results_list.add_theme_constant_override("separation", 3)
+	results_list.add_theme_constant_override("separation", 6)
 	scroll.add_child(results_list)
 
 	var buttons := HBoxContainer.new()
 	buttons.name = "ResultsButtons"
 	buttons.alignment = BoxContainer.ALIGNMENT_END
-	buttons.add_theme_constant_override("separation", 10)
+	buttons.add_theme_constant_override("separation", 14)
 	box.add_child(buttons)
 
 	results_restart_button = _make_results_button("Restart")
@@ -900,22 +922,22 @@ func _hide_results_overlay() -> void:
 func _add_results_header() -> void:
 	var row := HBoxContainer.new()
 	row.name = "Header"
-	row.add_theme_constant_override("separation", 8)
-	row.add_child(_result_cell("#", 36, false, true))
-	row.add_child(_result_cell("Racer", 170, false, true))
-	row.add_child(_result_cell("Status", 94, false, true))
-	row.add_child(_result_cell("Lap", 48, false, true))
+	row.add_theme_constant_override("separation", 12)
+	row.add_child(_result_cell("#", 48, false, true))
+	row.add_child(_result_cell("Racer", 250, false, true))
+	row.add_child(_result_cell("Status", 150, false, true))
+	row.add_child(_result_cell("Lap", 70, false, true))
 	results_list.add_child(row)
 
 func _build_results_row(entry: Dictionary, rank: int) -> HBoxContainer:
 	var is_local := str(entry.get("id", "")) == local_user_id
 	var row := HBoxContainer.new()
 	row.name = "Result%02d" % rank
-	row.add_theme_constant_override("separation", 8)
-	row.add_child(_result_cell(str(rank), 36, is_local))
-	row.add_child(_result_cell(_result_display_name(entry, is_local), 170, is_local))
-	row.add_child(_result_cell(_result_status_text(entry), 94, is_local))
-	row.add_child(_result_cell(str(int(entry.get("lap", 0))), 48, is_local))
+	row.add_theme_constant_override("separation", 12)
+	row.add_child(_result_cell(str(rank), 48, is_local))
+	row.add_child(_result_cell(_result_display_name(entry, is_local), 250, is_local))
+	row.add_child(_result_cell(_result_status_text(entry), 150, is_local))
+	row.add_child(_result_cell(str(int(entry.get("lap", 0))), 70, is_local))
 	return row
 
 func _add_tournament_standings_rows() -> void:
@@ -924,7 +946,7 @@ func _add_tournament_standings_rows() -> void:
 		return
 	var spacer := Label.new()
 	spacer.text = "Tournament Points"
-	spacer.add_theme_font_size_override("font_size", 14)
+	spacer.add_theme_font_size_override("font_size", 20)
 	spacer.add_theme_color_override("font_color", Color(1.0, 0.88, 0.35, 1.0))
 	results_list.add_child(spacer)
 	var standings := NavigationFlow.sorted_standings(points)
@@ -933,11 +955,11 @@ func _add_tournament_standings_rows() -> void:
 		if entry is Dictionary:
 			var row := HBoxContainer.new()
 			row.name = "TournamentStanding%02d" % rank
-			row.add_theme_constant_override("separation", 8)
-			row.add_child(_result_cell(str(rank), 36, str((entry as Dictionary).get("racer_id", "")) == str(NakamaService.get_meta_value("selected_racer_id", ""))))
-			row.add_child(_result_cell(str((entry as Dictionary).get("racer_id", "")), 170, false))
-			row.add_child(_result_cell("%d pts" % int((entry as Dictionary).get("points", 0)), 94, false))
-			row.add_child(_result_cell("", 48, false))
+			row.add_theme_constant_override("separation", 12)
+			row.add_child(_result_cell(str(rank), 48, str((entry as Dictionary).get("racer_id", "")) == str(NakamaService.get_meta_value("selected_racer_id", ""))))
+			row.add_child(_result_cell(str((entry as Dictionary).get("racer_id", "")), 250, false))
+			row.add_child(_result_cell("%d pts" % int((entry as Dictionary).get("points", 0)), 150, false))
+			row.add_child(_result_cell("", 70, false))
 			results_list.add_child(row)
 			rank += 1
 
@@ -947,7 +969,7 @@ func _result_cell(text: String, width: int, emphasize: bool, header: bool = fals
 	label.custom_minimum_size.x = width
 	label.clip_text = true
 	label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-	label.add_theme_font_size_override("font_size", 13 if not header else 12)
+	label.add_theme_font_size_override("font_size", 20 if not header else 17)
 	if header:
 		label.add_theme_color_override("font_color", Color(0.55, 0.78, 1.0, 0.82))
 	elif emphasize:
@@ -972,8 +994,8 @@ func _result_status_text(entry: Dictionary) -> String:
 func _make_results_button(text: String) -> Button:
 	var button := Button.new()
 	button.text = text
-	button.custom_minimum_size = Vector2(132, 44)
-	button.add_theme_font_size_override("font_size", 15)
+	button.custom_minimum_size = Vector2(172, 56)
+	button.add_theme_font_size_override("font_size", 19)
 	button.add_theme_color_override("font_color", Color(0.05, 0.05, 0.07, 1.0))
 	button.add_theme_stylebox_override("normal", _results_button_style(Color(0.96, 0.78, 0.24, 0.95)))
 	button.add_theme_stylebox_override("hover", _results_button_style(Color(1.0, 0.86, 0.34, 1.0)))
@@ -1719,6 +1741,28 @@ static func camera_follow_position(car_transform: Transform3D, distance: float, 
 
 static func camera_follow_look_target(car_transform: Transform3D, look_height: float) -> Vector3:
 	return car_transform.origin + Vector3.UP * look_height
+
+static func winner_cinematic_camera_pose(car_transform: Transform3D, velocity: Vector3, shot_time: float, cut_interval: float) -> Dictionary:
+	var forward := -car_transform.basis.z
+	forward.y = 0.0
+	if forward.length_squared() <= 0.001:
+		forward = Vector3.FORWARD
+	forward = forward.normalized()
+	var right := Vector3(forward.z, 0.0, -forward.x).normalized()
+	var shot := posmod(int(floor(maxf(shot_time, 0.0) / maxf(cut_interval, 0.1))), 4)
+	var speed_lift := clampf(velocity.length() / 80.0, 0.0, 1.0)
+	var look_target := car_transform.origin + Vector3.UP * (0.9 + speed_lift * 0.35)
+	var position := car_transform.origin
+	match shot:
+		0:
+			position += -forward * 5.0 + Vector3.UP * 2.0
+		1:
+			position += forward * 4.0 + right * 2.1 + Vector3.UP * 1.25
+		2:
+			position += -right * 4.4 + forward * 1.2 + Vector3.UP * 1.65
+		_:
+			position += -forward * 2.2 + right * 3.8 + Vector3.UP * 3.6
+	return {"position": position, "look_target": look_target, "shot": shot}
 
 static func camera_shake_offset(intensity: float, max_offset: float) -> Vector3:
 	var amount := clampf(intensity, 0.0, 1.0) * max_offset

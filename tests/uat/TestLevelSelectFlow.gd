@@ -201,6 +201,33 @@ func test_local_finish_shows_live_overlay_then_finalizes_without_scene_change() 
 		assert_true(float(input_state.get("throttle", 0.0)) > 0.0, "Winner AI should keep cruising after final results are shown")
 	race.queue_free()
 
+func test_final_results_recovers_winner_if_they_fall_off_track() -> void:
+	var race: Node = _make_local_race()
+	race.call("_set_local_phase", "racing")
+	var leader_id := str((race.get("ai_racer_ids") as Array)[0])
+	var states: Dictionary = race.get("racer_states")
+	var leader_state: Dictionary = states.get(leader_id, {})
+	leader_state["finished"] = true
+	leader_state["finish_time"] = 0.5
+	leader_state["progress"] = 999.0
+	states[leader_id] = leader_state
+	for rid in race.get("local_racer_ids"):
+		if str(rid) == leader_id:
+			continue
+		var state: Dictionary = states.get(str(rid), {})
+		state["finished"] = true
+		state["finish_time"] = 5.0
+		states[str(rid)] = state
+	race.call("_submit_local_results")
+	var cars: Dictionary = race.get("cars")
+	var leader_car: CarController = cars.get(leader_id, null)
+	assert_true(leader_car != null, "Winner car should exist in final results")
+	if leader_car != null:
+		leader_car.global_transform.origin = Vector3(0, -80, 0)
+		race.call("_physics_process_local_single", 0.016)
+		assert_true(leader_car.global_transform.origin.y > -20.0, "Final results should recover the winner if they fall below the track")
+	race.queue_free()
+
 func test_local_tournament_results_show_next_race_before_final_round() -> void:
 	var race: Node = _make_local_tournament_race(0)
 	race.call("show_results", [

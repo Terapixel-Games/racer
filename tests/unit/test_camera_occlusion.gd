@@ -45,6 +45,15 @@ func test_minimap_projection_stays_inside_bounds() -> void:
 	assert_true(projected.x >= 10.0 and projected.x <= 190.0, "Projected minimap x should stay within padded map bounds")
 	assert_true(projected.y >= 10.0 and projected.y <= 90.0, "Projected minimap y should stay within padded map bounds")
 
+func test_winner_cinematic_camera_cycles_distinct_angles() -> void:
+	var car_transform := Transform3D(Basis.IDENTITY, Vector3(0, 2, 0))
+	var first := RaceController.winner_cinematic_camera_pose(car_transform, Vector3(0, 0, -40), 0.2, 2.75)
+	var second := RaceController.winner_cinematic_camera_pose(car_transform, Vector3(0, 0, -40), 3.0, 2.75)
+	var third := RaceController.winner_cinematic_camera_pose(car_transform, Vector3(0, 0, -40), 6.0, 2.75)
+	assert_true(int(first.get("shot", -1)) != int(second.get("shot", -1)), "Winner camera should cut to a different shot after the interval")
+	assert_true((first.get("position", Vector3.ZERO) as Vector3).distance_to(second.get("position", Vector3.ZERO) as Vector3) > 1.0, "Winner camera shots should use visibly different positions")
+	assert_true((second.get("position", Vector3.ZERO) as Vector3).distance_to(third.get("position", Vector3.ZERO) as Vector3) > 1.0, "Winner camera should continue cycling through cinematic angles")
+
 func test_motion_blur_intensity_is_zero_below_threshold() -> void:
 	var intensity := RaceController.motion_blur_intensity_for_speed(12.0, 16.0, 50.0, 0.72)
 	assert_equal(intensity, 0.0, "Speed below threshold should not enable motion blur")
