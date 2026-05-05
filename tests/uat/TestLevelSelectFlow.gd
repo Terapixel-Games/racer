@@ -269,7 +269,7 @@ func test_finished_ai_cruise_uses_centerline_instead_of_race_lane() -> void:
 		assert_true(not bool(input_state.get("drift", true)), "Finished AI cruise should not drift into rails or edge geometry")
 	race.queue_free()
 
-func test_local_position_uses_route_distance_over_checkpoint_floor() -> void:
+func test_local_position_prefers_cleared_checkpoints_over_route_projection() -> void:
 	var race: Node = _make_local_race()
 	race.call("_set_local_phase", "racing")
 	race.set("track_waypoints", [Vector3.ZERO, Vector3(0, 0, -100)])
@@ -296,8 +296,8 @@ func test_local_position_uses_route_distance_over_checkpoint_floor() -> void:
 		},
 	})
 	var entries: Array = race.call("_sorted_position_entries")
-	assert_equal(str((entries[0] as Dictionary).get("id", "")), ai_id, "A racer visibly farther along the route should rank ahead even if checkpoint state lags")
-	assert_equal(int(race.call("_local_position")), 2, "Local position should match projected route distance during active racing")
+	assert_equal(str((entries[0] as Dictionary).get("id", "")), local_id, "A racer with more cleared checkpoints should rank ahead of raw route projection")
+	assert_equal(int(race.call("_local_position")), 1, "Local position should be checkpoint-authoritative during active racing")
 	race.queue_free()
 
 func test_local_position_does_not_rank_lap_gate_seam_as_full_lap() -> void:

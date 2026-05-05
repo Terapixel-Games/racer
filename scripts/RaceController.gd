@@ -2265,12 +2265,7 @@ func _compute_progress(lap: int, checkpoint: int, pos: Vector3, checkpoint_total
 	var clamped_total : int = max(checkpoint_total, 1)
 	var laps_done : int = max(lap, 0) - 1
 	if track_waypoints.size() >= 2:
-		return TrackProgressRules.progress_from_race_distance(
-			lap,
-			clamped_total,
-			float(_progress_projection_for_checkpoint(pos, checkpoint, clamped_total).get("route_ratio", 0.0)),
-			finished
-		)
+		return _checkpoint_progress_value(lap, checkpoint, pos, clamped_total, finished)
 	var base := float(laps_done * clamped_total + clamp(checkpoint, 0, clamped_total))
 	var next_idx : int = clamp(checkpoint % clamped_total, 0, clamped_total - 1)
 	if checkpoint_points.size() > next_idx:
@@ -2285,6 +2280,35 @@ func _compute_progress(lap: int, checkpoint: int, pos: Vector3, checkpoint_total
 	if finished:
 		base += clamped_total * 2
 	return base
+
+func _checkpoint_progress_value(lap: int, checkpoint: int, pos: Vector3, checkpoint_total: int, finished: bool) -> float:
+	var clamped_total: int = max(checkpoint_total, 1)
+	var laps_done: int = max(lap, 1) - 1
+	var next_checkpoint: int = clampi(checkpoint, 0, clamped_total - 1)
+	var cleared_checkpoints: int = next_checkpoint
+	var base := float(laps_done * clamped_total + cleared_checkpoints)
+	var segment_ratio: float = _checkpoint_segment_ratio(pos, next_checkpoint, clamped_total)
+	if next_checkpoint == track_lap_gate_checkpoint_index and lap <= 1:
+		var projection: Dictionary = TrackProgressRules.project_route_network(
+			_typed_waypoints(),
+			track_alternate_routes,
+			_checkpoint_indices_for_progress(clamped_total),
+			pos,
+			track_closed_loop
+		)
+		segment_ratio = clampf(float(projection.get("route_ratio", 0.0)) * float(clamped_total), 0.0, 0.999)
+	base += clampf(segment_ratio, 0.0, 0.999)
+	if finished:
+		base += clamped_total * 2
+	return base
+
+func _checkpoint_segment_ratio(pos: Vector3, checkpoint: int, checkpoint_total: int) -> float:
+	var projection: Dictionary = _progress_projection_for_checkpoint(pos, checkpoint, checkpoint_total)
+	var start_distance: float = float(projection.get("segment_start_distance", 0.0))
+	var end_distance: float = float(projection.get("segment_end_distance", start_distance))
+	var distance: float = float(projection.get("windowed_distance", projection.get("distance", start_distance)))
+	var span: float = maxf(end_distance - start_distance, 0.001)
+	return clampf((distance - start_distance) / span, 0.0, 0.999)
 
 func _checkpoint_indices_for_progress(checkpoint_total: int) -> Array[int]:
 	var indices: Array[int] = []
@@ -2354,6 +2378,9 @@ func _progress_projection_for_checkpoint(pos: Vector3, checkpoint: int, checkpoi
 	var normalized_distance := fposmod(clamped_distance, route_total) if track_closed_loop else clamped_distance
 	projection["distance"] = normalized_distance
 	projection["route_ratio"] = normalized_distance / route_total
+	projection["windowed_distance"] = clamped_distance
+	projection["segment_start_distance"] = window_start
+	projection["segment_end_distance"] = window_end
 	return projection
 
 func _cache_checkpoint_points() -> void:
