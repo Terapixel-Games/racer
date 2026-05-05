@@ -13,14 +13,18 @@ const NavigationFlow = preload("res://scripts/logic/NavigationFlow.gd")
 @onready var ui_speed: Label = %SpeedLabel
 @onready var ui_speed_bar: ProgressBar = get_node_or_null("%SpeedBar") as ProgressBar
 @onready var ui_lap: Label = %LapLabel
+@onready var ui_time: Label = %TimeLabel
 @onready var ui_position: Label = %PositionLabel
 @onready var ui_net: Label = %NetLabel
 @onready var ui_item: Label = %ItemLabel
 @onready var ui_drift: Label = %DriftLabel
+@onready var ui_drift_bar: ProgressBar = get_node_or_null("%DriftBar") as ProgressBar
 @onready var top_left_panel: Control = $UI/HUD/TopLeftPanel
 @onready var lap_pill: Control = $UI/HUD/LapPill
 @onready var top_right_panel: Control = $UI/HUD/TopRightPanel
 @onready var speed_ui: Control = $UI/HUD/SpeedUI
+@onready var leaderboard_rows: VBoxContainer = %LeaderboardRows
+@onready var race_minimap: Control = %RaceMiniMap
 @onready var checkpoint_system: Node = %CheckpointSystem
 @onready var camera: Camera3D = %FollowCamera
 @onready var mobile_controls: Control = %MobileControls
@@ -66,12 +70,12 @@ var has_local_respawn_transform := false
 var last_on_track_center_transform := Transform3D.IDENTITY
 var has_last_on_track_center_transform := false
 var local_car_off_course := false
-const CAMERA_DISTANCE := 5.2
-const CAMERA_HEIGHT := 1.8
-const CAMERA_LOOK_HEIGHT := 0.85
+const CAMERA_DISTANCE := 3.75
+const CAMERA_HEIGHT := 1.35
+const CAMERA_LOOK_HEIGHT := 0.72
 const CAMERA_FOLLOW_SPEED := 8.0
 const CAMERA_OCCLUDED_FOLLOW_SPEED := 18.0
-const CAMERA_FOV := 68.0
+const CAMERA_FOV := 64.0
 const CAMERA_NEAR := 0.05
 const CAMERA_OCCLUSION_MASK := 1
 const CAMERA_OCCLUSION_CLEARANCE := 0.7
@@ -158,6 +162,8 @@ var countdown_label: Label
 var countdown_label_tween: Tween
 var countdown_overlay_timer := 0.0
 var countdown_last_text := ""
+var last_displayed_position := -1
+var last_displayed_item_slot := ""
 
 const HEAT_DISTORTION_RADIUS := 38.0
 const HEAT_DISTORTION_INNER_RADIUS := 12.0
@@ -691,9 +697,8 @@ func _player_follow_camera_transform() -> Transform3D:
 	var car: CarController = cars.get(local_user_id, null)
 	if car == null:
 		return camera.global_transform
-	var behind := -car.global_transform.basis.z * CAMERA_DISTANCE
-	var look_target := car.global_transform.origin + Vector3.UP * CAMERA_LOOK_HEIGHT
-	var desired := car.global_transform.origin + behind + Vector3.UP * CAMERA_HEIGHT
+	var look_target := camera_follow_look_target(car.global_transform, CAMERA_LOOK_HEIGHT)
+	var desired := camera_follow_position(car.global_transform, CAMERA_DISTANCE, CAMERA_HEIGHT)
 	var temp := Transform3D.IDENTITY
 	temp.origin = desired
 	temp = temp.looking_at(look_target, Vector3.UP)
@@ -1463,6 +1468,26 @@ func _update_positions() -> void:
 	if racer_states.is_empty():
 		ui_position.text = "--/--"
 		return
+	var entries := _sorted_position_entries()
+	var placement_entry = null
+	for e in entries:
+		if e["id"] == local_user_id:
+			placement_entry = e
+			break
+	var pos_index := entries.find(placement_entry)
+	var total := entries.size()
+	if placement_entry == null or pos_index == -1:
+		ui_position.text = "--/--"
+	else:
+		var placement := pos_index + 1
+		ui_position.text = ordinal_rank(placement)
+		if last_displayed_position != -1 and placement != last_displayed_position:
+			_pulse_control(ui_position, Vector2(1.12, 1.12), 0.18)
+		last_displayed_position = placement
+	_update_leaderboard(entries)
+	_update_minimap()
+
+func _sorted_position_entries() -> Array:
 	var checkpoint_total := _get_checkpoint_total()
 	var entries: Array = []
 	for rid in racer_states.keys():
@@ -1473,12 +1498,13 @@ func _update_positions() -> void:
 		var finished: bool = info.get("finished", false)
 		var wasted: bool = info.get("wasted", false)
 		var server_progress: float = float(info.get("progress", -1.0))
-		var progress := _compute_progress(lap, checkpoint, pos, checkpoint_total, finished, server_progress)
+		var racer_id := str(info.get("racer_id", racer_visual_ids.get(rid, rid)))
 		entries.append({
 			"id": rid,
+			"racer_id": racer_id,
 			"finished": finished,
 			"wasted": wasted,
-			"progress": progress,
+			"progress": _compute_progress(lap, checkpoint, pos, checkpoint_total, finished, server_progress),
 			"finish_time": float(info.get("finish_time", -1.0)),
 		})
 	entries.sort_custom(func(a, b):
@@ -1494,17 +1520,59 @@ func _update_positions() -> void:
 			return String(a["id"]) < String(b["id"])
 		return a["progress"] > b["progress"]
 	)
-	var placement_entry = null
-	for e in entries:
-		if e["id"] == local_user_id:
-			placement_entry = e
-			break
-	var pos_index := entries.find(placement_entry)
-	var total := entries.size()
-	if placement_entry == null or pos_index == -1:
-		ui_position.text = "--/--"
-	else:
-		ui_position.text = "%d/%d" % [pos_index + 1, total]
+	return entries
+
+func _update_leaderboard(entries: Array) -> void:
+	for i in range(4):
+		var row := get_node_or_null("UI/HUD/TopLeftPanel/Margin/VBox/LeaderboardRows/Leader%d" % [i + 1]) as PanelContainer
+		var label := get_node_or_null("%%Leader%dLabel" % [i + 1]) as Label
+		var portrait := get_node_or_null("%%Leader%dPortrait" % [i + 1]) as TextureRect
+		if row == null or label == null or portrait == null:
+			continue
+		var has_entry := i < entries.size()
+		row.visible = has_entry
+		if not has_entry:
+			continue
+		var entry: Dictionary = entries[i]
+		var rid := str(entry.get("id", ""))
+		var racer_id := RacerRoster.normalize_id(str(entry.get("racer_id", rid)))
+		var label_name := "YOU" if rid == local_user_id else racer_id.to_upper()
+		label.text = "%d  %s" % [i + 1, label_name]
+		label.modulate = Color(1.0, 1.0, 1.0, 1.0 if rid == local_user_id else maxf(0.56, 0.88 - float(i) * 0.08))
+		row.modulate = Color(1.0, 1.0, 1.0, 1.0 if rid == local_user_id else 0.82)
+		var profile := RacerRoster.get_profile(racer_id)
+		var accent: Color = profile.get("accent", Color(0.0, 0.85, 1.0, 1.0))
+		label.add_theme_color_override("font_color", Color.WHITE if rid == local_user_id else accent.lightened(0.22))
+		if row.has_theme_stylebox_override("panel"):
+			var style := row.get_theme_stylebox("panel").duplicate() as StyleBoxFlat
+			style.border_color = Color(1.0, 0.82, 0.2, 0.86) if rid == local_user_id else accent.lightened(0.18)
+			style.bg_color = Color(0.0, 0.38, 0.52, 0.62) if rid == local_user_id else Color(0.02, 0.05, 0.07, 0.48)
+			row.add_theme_stylebox_override("panel", style)
+		var portrait_path := RacerRoster.get_portrait_path(racer_id)
+		if portrait_path != "" and ResourceLoader.exists(portrait_path):
+			portrait.texture = load(portrait_path)
+
+func _update_minimap() -> void:
+	if race_minimap == null or not race_minimap.has_method("set_race_data"):
+		return
+	var racer_points := {}
+	var racer_colors := {}
+	for rid in racer_states.keys():
+		var car: CarController = cars.get(rid, null)
+		var info: Dictionary = racer_states.get(rid, {})
+		racer_points[rid] = car.global_transform.origin if car != null else info.get("pos", Vector3.ZERO)
+		var racer_id := RacerRoster.normalize_id(str(info.get("racer_id", racer_visual_ids.get(rid, rid))))
+		var profile := RacerRoster.get_profile(racer_id)
+		racer_colors[rid] = profile.get("accent", Color(1.0, 0.92, 0.28, 1.0))
+	race_minimap.call("set_race_data", track_waypoints, racer_points, racer_colors, local_user_id)
+
+func _pulse_control(control: Control, peak_scale: Vector2, duration: float) -> void:
+	if control == null or not is_instance_valid(control):
+		return
+	control.pivot_offset = control.size * 0.5
+	var tween := create_tween()
+	tween.tween_property(control, "scale", peak_scale, duration * 0.45).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_property(control, "scale", Vector2.ONE, duration * 0.55).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 func _handle_reset(data:Dictionary) -> void:
 	var target: String = data.get("player_id", "")
@@ -1550,12 +1618,21 @@ func _update_ui() -> void:
 			ui_speed_bar.value = clampf(speed, 0.0, float(ui_speed_bar.max_value))
 		var lap: int = lap_map.get(local_user_id, 1 if race_started else 0)
 		ui_lap.text = "LAP %d/%d" % [lap, track_laps]
-		ui_drift.text = "DRIFT T%d  %d%%" % [car.get_drift_tier(), int(round(car.get_drift_charge_ratio() * 100.0))]
-	ui_item.text = "ITEM %s" % (local_item_slot if local_item_slot != "" else "--")
+		var drift_ratio := car.get_drift_charge_ratio()
+		ui_drift.text = "DRIFT T%d  %d%%" % [car.get_drift_tier(), int(round(drift_ratio * 100.0))]
+		if ui_drift_bar:
+			ui_drift_bar.value = clampf(drift_ratio * 100.0, 0.0, 100.0)
+	if ui_time:
+		ui_time.text = "TIME %s" % format_race_time(race_elapsed)
+	var display_item := local_item_slot if local_item_slot != "" else "--"
+	ui_item.text = "ITEM\n%s" % display_item.to_upper()
+	if local_item_slot != "" and local_item_slot != last_displayed_item_slot:
+		_pulse_control(ui_item, Vector2(1.08, 1.08), 0.16)
+	last_displayed_item_slot = local_item_slot
 	if local_single_race:
-		ui_net.text = "LOCAL SINGLE"
+		ui_net.text = "SOLO RACE"
 	else:
-		ui_net.text = "LOCAL" if NakamaService.offline_mode else ("NET OK" if NakamaService.is_online_socket_ready() else "NET ...")
+		ui_net.text = "LOCAL RACE" if NakamaService.offline_mode else ("ONLINE" if NakamaService.is_online_socket_ready() else "CONNECTING")
 	_update_positions()
 
 func _update_camera(delta:float) -> void:
@@ -1565,9 +1642,8 @@ func _update_camera(delta:float) -> void:
 	_update_camera_for_car(car, delta)
 
 func _update_camera_for_car(car: CarController, delta: float) -> void:
-	var behind := -car.global_transform.basis.z * CAMERA_DISTANCE
-	var look_target := car.global_transform.origin + Vector3.UP * CAMERA_LOOK_HEIGHT
-	var desired := car.global_transform.origin + behind + Vector3.UP * CAMERA_HEIGHT
+	var look_target := camera_follow_look_target(car.global_transform, CAMERA_LOOK_HEIGHT)
+	var desired := camera_follow_position(car.global_transform, CAMERA_DISTANCE, CAMERA_HEIGHT)
 	var resolved := _resolve_camera_occlusion(look_target, desired)
 	var follow_speed := CAMERA_OCCLUDED_FOLLOW_SPEED if resolved.distance_squared_to(desired) > 0.01 else CAMERA_FOLLOW_SPEED
 	var shake_intensity := appliance_rumble_target_intensity(
@@ -1638,6 +1714,12 @@ static func camera_position_before_occluder(look_target: Vector3, desired: Vecto
 	safe_distance = minf(safe_distance, desired_distance)
 	return look_target + direction * safe_distance
 
+static func camera_follow_position(car_transform: Transform3D, distance: float, height: float) -> Vector3:
+	return car_transform.origin + (-car_transform.basis.z * distance) + Vector3.UP * height
+
+static func camera_follow_look_target(car_transform: Transform3D, look_height: float) -> Vector3:
+	return car_transform.origin + Vector3.UP * look_height
+
 static func camera_shake_offset(intensity: float, max_offset: float) -> Vector3:
 	var amount := clampf(intensity, 0.0, 1.0) * max_offset
 	if amount <= 0.0:
@@ -1662,6 +1744,29 @@ static func approach_motion_blur_intensity(current: float, target: float, delta:
 		return clampf(target, 0.0, MOTION_BLUR_MAX_INTENSITY)
 	var weight := clampf(delta * fade_speed, 0.0, 1.0)
 	return lerpf(current, target, weight)
+
+static func ordinal_rank(rank: int) -> String:
+	if rank <= 0:
+		return "--"
+	var teen := rank % 100
+	if teen >= 11 and teen <= 13:
+		return "%dth" % rank
+	match rank % 10:
+		1:
+			return "%dst" % rank
+		2:
+			return "%dnd" % rank
+		3:
+			return "%drd" % rank
+		_:
+			return "%dth" % rank
+
+static func format_race_time(seconds: float) -> String:
+	var centiseconds := int(floor(maxf(seconds, 0.0) * 100.0))
+	var minutes := centiseconds / 6000
+	var secs := (centiseconds / 100) % 60
+	var centis := centiseconds % 100
+	return "%02d:%02d.%02d" % [minutes, secs, centis]
 
 func _ensure_input_actions() -> void:
 	_add_action_if_missing("accelerate")
@@ -2408,32 +2513,7 @@ func _local_position() -> int:
 	if ui_position == null:
 		return 1
 	var car_count : int = max(racer_states.size(), 1)
-	var entries: Array = []
-	for rid in racer_states.keys():
-		var info: Dictionary = racer_states[rid]
-		entries.append({
-			"id": rid,
-			"finished": bool(info.get("finished", false)),
-			"wasted": bool(info.get("wasted", false)),
-			"progress": _compute_progress(
-				int(info.get("lap", 0)),
-				int(info.get("checkpoint", 0)),
-				info.get("pos", Vector3.ZERO),
-				_get_checkpoint_total(),
-				bool(info.get("finished", false)),
-				float(info.get("progress", -1.0))
-			),
-			"finish_time": float(info.get("finish_time", -1.0)),
-		})
-	entries.sort_custom(func(a, b):
-		if a["finished"] != b["finished"]:
-			return a["finished"] and not b["finished"]
-		if a["wasted"] != b["wasted"]:
-			return (not a["wasted"]) and b["wasted"]
-		if a["progress"] == b["progress"]:
-			return String(a["id"]) < String(b["id"])
-		return a["progress"] > b["progress"]
-	)
+	var entries := _sorted_position_entries()
 	for i in range(entries.size()):
 		if String(entries[i]["id"]) == local_user_id:
 			return i + 1
