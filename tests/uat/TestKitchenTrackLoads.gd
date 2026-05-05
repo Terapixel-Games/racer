@@ -218,12 +218,15 @@ func test_jack_in_the_box_setpiece_builds_animated_parts() -> void:
 	assert_true(packed is PackedScene, "Jack-in-the-box setpiece scene should load")
 	var instance := (packed as PackedScene).instantiate() as Node3D
 	scene_tree.root.add_child(instance)
-	for node_path in ["BoxBase", "Lid", "Crank", "Spring", "ClownHead", "Eyes", "TriggerArea", "CrankAudio", "SpringAudio", "LaughAudio"]:
+	for node_path in ["BoxBase", "Lid", "Crank", "Spring", "SpringCoil", "ClownHead", "Eyes", "Mouth", "Hat", "LeftHand", "RightHand", "TriggerArea", "AnimationPlayer", "CrankAudio", "SpringAudio", "LaughAudio"]:
 		assert_true(instance.get_node_or_null(node_path) != null, "Jack-in-the-box setpiece should create %s" % node_path)
 	var trigger_area := instance.get_node_or_null("TriggerArea") as Area3D
 	assert_true(trigger_area != null and trigger_area.get_node_or_null("CollisionShape3D") is CollisionShape3D, "Jack-in-the-box should expose an Area3D trigger shape")
 	assert_true(instance.has_method("trigger"), "Jack-in-the-box should expose a trigger method")
 	instance.call("trigger")
+	assert_equal(str(instance.call("state_for_test")), "windup", "Jack-in-the-box should enter windup after triggering")
+	instance.call("trigger")
+	assert_equal(str(instance.call("state_for_test")), "windup", "Jack-in-the-box should ignore repeat triggers while active")
 	assert_true((instance.get_node_or_null("CrankAudio") as AudioStreamPlayer3D).stream != null, "Jack crank stream should load")
 	assert_true((instance.get_node_or_null("SpringAudio") as AudioStreamPlayer3D).stream != null, "Jack spring stream should load")
 	assert_true((instance.get_node_or_null("LaughAudio") as AudioStreamPlayer3D).stream != null, "Jack laugh stream should load")
