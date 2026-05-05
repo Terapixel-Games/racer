@@ -345,6 +345,74 @@ func test_local_position_does_not_rank_lap_gate_seam_as_full_lap() -> void:
 	assert_equal(int(race.call("_local_position")), 2, "Local position should account for visible opponents ahead after the lap gate")
 	race.queue_free()
 
+func test_local_position_uses_completed_lap_distance_across_seam() -> void:
+	var race: Node = _make_local_race()
+	race.call("_set_local_phase", "racing")
+	race.set("track_waypoints", [
+		Vector3.ZERO,
+		Vector3(100, 0, 0),
+		Vector3(100, 0, 100),
+		Vector3(0, 0, 100),
+	])
+	race.set("track_closed_loop", true)
+	race.set("track_checkpoint_total", 4)
+	var checkpoint_indices: Array[int] = [0, 1, 2, 3]
+	race.set("track_checkpoint_indices", checkpoint_indices)
+	var local_id := str(race.get("local_user_id"))
+	var ai_id := "ai_previous_lap_near_finish"
+	race.set("racer_states", {
+		local_id: {
+			"racer_id": "Dash",
+			"lap": 2,
+			"checkpoint": 1,
+			"pos": Vector3(10, 1, 0),
+			"finished": false,
+			"wasted": false,
+		},
+		ai_id: {
+			"racer_id": "Tuggs",
+			"lap": 1,
+			"checkpoint": 0,
+			"pos": Vector3(1, 1, 0),
+			"finished": false,
+			"wasted": false,
+		},
+	})
+	var entries: Array = race.call("_sorted_position_entries")
+	assert_equal(str((entries[0] as Dictionary).get("id", "")), local_id, "A racer on a later lap should rank ahead even near the route seam")
+	race.queue_free()
+
+func test_local_progress_catches_up_when_checkpoint_trigger_is_missed() -> void:
+	var race: Node = _make_local_race()
+	race.call("_set_local_phase", "racing")
+	race.set("track_waypoints", [
+		Vector3.ZERO,
+		Vector3(50, 0, 0),
+		Vector3(100, 0, 0),
+	])
+	race.set("track_closed_loop", false)
+	race.set("track_checkpoint_total", 3)
+	var checkpoint_indices: Array[int] = [0, 1, 2]
+	race.set("track_checkpoint_indices", checkpoint_indices)
+	var local_id := str(race.get("local_user_id"))
+	var states: Dictionary = race.get("racer_states")
+	var local_state: Dictionary = states.get(local_id, {})
+	local_state["lap"] = 1
+	local_state["checkpoint"] = 1
+	local_state["finished"] = false
+	states[local_id] = local_state
+	race.set("racer_states", states)
+	var cars: Dictionary = race.get("cars")
+	var car: CarController = cars.get(local_id, null)
+	assert_true(car != null, "Local race should provide a local car for progress ticking")
+	if car != null:
+		car.global_transform = Transform3D(Basis.IDENTITY, Vector3(56, 1, 6))
+		race.call("_tick_local_racer_progress")
+		states = race.get("racer_states")
+		local_state = states.get(local_id, {})
+		assert_equal(int(local_state.get("checkpoint", -1)), 2, "Route-distance catch-up should advance a missed checkpoint after clearly passing it")
+	race.queue_free()
+
 func test_local_position_can_rank_player_last_in_full_field() -> void:
 	var race: Node = _make_local_race()
 	race.call("_set_local_phase", "racing")

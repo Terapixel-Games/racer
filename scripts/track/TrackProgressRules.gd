@@ -166,6 +166,53 @@ static func distance_at_route_index(route_points: Array[Vector3], route_index: i
 		total += points[i].distance_to(points[i + 1])
 	return total
 
+static func checkpoint_distances(route_points: Array[Vector3], checkpoint_indices: Array[int], closed_loop: bool = true) -> Array[float]:
+	var distances: Array[float] = []
+	for index in checkpoint_indices:
+		distances.append(distance_at_route_index(route_points, int(index), closed_loop))
+	return distances
+
+static func race_distance(
+	route_points: Array[Vector3],
+	alternate_routes: Array[Dictionary],
+	checkpoint_indices: Array[int],
+	position: Vector3,
+	lap: int,
+	closed_loop: bool = true
+) -> Dictionary:
+	var points := _sanitize_route(route_points)
+	var route_total: float = route_length(points, closed_loop)
+	if points.size() < 2 or route_total <= 0.001:
+		var safe_lap: int = max(lap, 1)
+		return {
+			"route_length": 0.0,
+			"lap_distance": 0.0,
+			"route_ratio": 0.0,
+			"total_distance": float(safe_lap - 1),
+			"projection": {},
+		}
+	var projection: Dictionary = project_route_network(points, alternate_routes, checkpoint_indices, position, closed_loop)
+	var lap_distance: float = clampf(float(projection.get("distance", 0.0)), 0.0, route_total)
+	if closed_loop:
+		lap_distance = fposmod(lap_distance, route_total)
+	var completed_laps: int = max(lap, 1) - 1
+	return {
+		"route_length": route_total,
+		"lap_distance": lap_distance,
+		"route_ratio": clampf(lap_distance / route_total, 0.0, 0.999),
+		"total_distance": float(completed_laps) * route_total + lap_distance,
+		"projection": projection,
+	}
+
+static func progress_from_race_distance(lap: int, checkpoint_count: int, route_ratio: float, finished: bool = false) -> float:
+	var safe_checkpoint_count: int = max(checkpoint_count, 1)
+	var laps_done: int = max(lap, 1) - 1
+	var value := float(laps_done * safe_checkpoint_count)
+	value += clampf(route_ratio, 0.0, 0.999) * float(safe_checkpoint_count)
+	if finished:
+		value += safe_checkpoint_count * 2.0
+	return value
+
 static func is_checkpoint_hit(route_points: Array[Vector3], checkpoint_route_index: int, position: Vector3, radius: float) -> bool:
 	if checkpoint_route_index < 0 or checkpoint_route_index >= route_points.size():
 		return false

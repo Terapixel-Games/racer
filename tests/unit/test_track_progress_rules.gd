@@ -23,6 +23,17 @@ func test_sample_route_wraps_closed_loop_distance() -> void:
 	assert_true((sample.get("position", Vector3.ZERO) as Vector3).distance_to(Vector3(10, 0, 0)) < 0.01, "Closed route sampling should wrap beyond total length")
 	assert_true(float(sample.get("route_ratio", -1.0)) >= 0.0 and float(sample.get("route_ratio", -1.0)) <= 1.0, "Wrapped route ratio should stay normalized")
 
+func test_race_distance_combines_lap_and_projected_route_distance() -> void:
+	var route: Array[Vector3] = [Vector3.ZERO, Vector3(100, 0, 0), Vector3(100, 0, 100), Vector3(0, 0, 100)]
+	var distance := TrackProgressRules.race_distance(route, [], [0, 1, 2, 3], Vector3(50, 0, 0), 2, true)
+	assert_true(absf(float(distance.get("route_length", 0.0)) - 400.0) < 0.01, "Closed route length should include the return segment")
+	assert_true(absf(float(distance.get("lap_distance", 0.0)) - 50.0) < 0.01, "Lap distance should come from route projection")
+	assert_true(absf(float(distance.get("total_distance", 0.0)) - 450.0) < 0.01, "Total race distance should include completed laps")
+
+func test_progress_from_race_distance_does_not_double_count_checkpoint_index() -> void:
+	var value := TrackProgressRules.progress_from_race_distance(1, 6, 0.25, false)
+	assert_true(absf(value - 1.5) < 0.01, "Continuous progress should be route ratio scaled by checkpoint count, not checkpoint plus route ratio")
+
 func test_checkpoint_order_advances_and_finishes_after_lap_sequence() -> void:
 	var checkpoint := 0
 	var lap := 1
