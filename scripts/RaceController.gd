@@ -2336,6 +2336,8 @@ func _progress_projection_for_checkpoint(pos: Vector3, checkpoint: int, checkpoi
 		return projection
 	var route_total := maxf(TrackProgressRules.route_length(points, track_closed_loop), 0.001)
 	var next_checkpoint := clampi(checkpoint, 0, checkpoint_total - 1)
+	if next_checkpoint == track_lap_gate_checkpoint_index:
+		return projection
 	var previous_checkpoint := posmod(next_checkpoint - 1, checkpoint_total)
 	var previous_route_index := checkpoint_indices[previous_checkpoint]
 	var next_route_index := checkpoint_indices[next_checkpoint]

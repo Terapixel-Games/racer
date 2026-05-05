@@ -488,6 +488,38 @@ func test_local_position_can_rank_player_last_in_full_field() -> void:
 	assert_true(last_label != null and last_label.text.begins_with("8  YOU"), "Visible leaderboard should show the local racer in 8th when last")
 	race.queue_free()
 
+func test_local_position_can_rank_player_last_before_first_checkpoint() -> void:
+	var race: Node = _make_local_race()
+	race.call("_set_local_phase", "racing")
+	race.set("track_waypoints", [Vector3.ZERO, Vector3(0, 0, -140)])
+	race.set("track_closed_loop", false)
+	race.set("track_checkpoint_total", 4)
+	race.set("track_lap_gate_checkpoint_index", 0)
+	var local_id := str(race.get("local_user_id"))
+	var states := {
+		local_id: {
+			"racer_id": "Dash",
+			"lap": 1,
+			"checkpoint": 0,
+			"pos": Vector3(0, 1, -10),
+			"finished": false,
+			"wasted": false,
+		},
+	}
+	var roster_ids := ["Tuggs", "Moko", "Rexx", "Popper", "Sir Clink", "Slammo", "Velva"]
+	for i in range(roster_ids.size()):
+		states["cpu_%02d" % [i + 1]] = {
+			"racer_id": roster_ids[i],
+			"lap": 1,
+			"checkpoint": 0,
+			"pos": Vector3(0, 1, -30 - i * 12),
+			"finished": false,
+			"wasted": false,
+		}
+	race.set("racer_states", states)
+	assert_equal(int(race.call("_local_position")), 8, "Local position should show 8th when seven racers are ahead before the first checkpoint")
+	race.queue_free()
+
 func test_close_position_changes_preserve_previous_order_until_gap_is_clear() -> void:
 	var race: Node = _make_local_race()
 	race.call("_set_local_phase", "racing")
