@@ -446,6 +446,41 @@ func test_local_progress_does_not_catch_up_from_initial_projected_position() -> 
 		assert_equal(int(local_state.get("checkpoint", -1)), 1, "Catch-up should require crossing from a prior route distance, not initial projection")
 	race.queue_free()
 
+func test_local_progress_catches_up_missed_start_checkpoint_on_first_lap() -> void:
+	var race: Node = _make_local_race()
+	race.call("_set_local_phase", "racing")
+	race.set("track_waypoints", [
+		Vector3.ZERO,
+		Vector3(50, 0, 0),
+		Vector3(100, 0, 0),
+	])
+	race.set("track_closed_loop", false)
+	race.set("track_checkpoint_total", 3)
+	race.set("track_lap_gate_checkpoint_index", 0)
+	var checkpoint_indices: Array[int] = [0, 1, 2]
+	race.set("track_checkpoint_indices", checkpoint_indices)
+	var local_id := str(race.get("local_user_id"))
+	var states: Dictionary = race.get("racer_states")
+	var local_state: Dictionary = states.get(local_id, {})
+	local_state["lap"] = 1
+	local_state["checkpoint"] = 0
+	local_state["finished"] = false
+	local_state.erase("route_distance")
+	states[local_id] = local_state
+	race.set("racer_states", states)
+	var cars: Dictionary = race.get("cars")
+	var car: CarController = cars.get(local_id, null)
+	assert_true(car != null, "Local race should provide a local car for progress ticking")
+	if car != null:
+		car.global_transform = Transform3D(Basis.IDENTITY, Vector3(10, 1, 0))
+		race.call("_tick_local_racer_progress")
+		states = race.get("racer_states")
+		local_state = states.get(local_id, {})
+		assert_equal(int(local_state.get("checkpoint", -1)), 1, "First-lap start checkpoint should catch up after leaving the grid")
+		assert_equal(int(local_state.get("lap", -1)), 1, "Start checkpoint catch-up should not advance the lap")
+		assert_true(not bool(local_state.get("finished", false)), "Start checkpoint catch-up should not finish the race")
+	race.queue_free()
+
 func test_local_position_can_rank_player_last_in_full_field() -> void:
 	var race: Node = _make_local_race()
 	race.call("_set_local_phase", "racing")
