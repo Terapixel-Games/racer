@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://ddekoxla6mhtx"]
+[gd_scene load_steps=39 format=3 uid="uid://ddekoxla6mhtx"]
 
 [ext_resource type="Script" uid="uid://dlvn2xhwjpnou" path="res://scripts/track/TrackAuthoringPreview.gd" id="1_g7m3g"]
 [ext_resource type="Texture2D" uid="uid://00xrdbjyq0ql" path="res://assets/gameplay/materials/attic/attic_cardboard_wood_albedo.png" id="2_tw6u0"]
@@ -132,6 +132,9 @@ size = Vector3(292, 3.2, 4)
 [sub_resource type="BoxMesh" id="BoxMesh_attic_rafter"]
 size = Vector3(3, 3, 118)
 
+[sub_resource type="BoxMesh" id="BoxMesh_attic_end_gable"]
+size = Vector3(292, 34, 2)
+
 [node name="AtticEditableRoom" type="Node3D"]
 script = ExtResource("1_g7m3g")
 ground_size = Vector2(292, 190)
@@ -192,6 +195,26 @@ mesh = SubResource("BoxMesh_0xbxm")
 transform = Transform3D(1, 0, 0, 0, 0.777146, 0.62932, 0, -0.62932, 0.777146, 0, 48, -42)
 material_override = SubResource("StandardMaterial3D_attic_roof_planks")
 mesh = SubResource("BoxMesh_0xbxm")
+
+[node name="BackUpperGableWall" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 98)
+material_override = SubResource("StandardMaterial3D_attic_wall_planks")
+mesh = SubResource("BoxMesh_attic_end_gable")
+
+[node name="FrontUpperGableWall" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, -98)
+material_override = SubResource("StandardMaterial3D_attic_wall_planks")
+mesh = SubResource("BoxMesh_attic_end_gable")
+
+[node name="LeftUpperEaveWall" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -146, 50, 0)
+material_override = SubResource("StandardMaterial3D_attic_wall_planks")
+mesh = SubResource("BoxMesh_50xf8")
+
+[node name="RightUpperEaveWall" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146, 50, 0)
+material_override = SubResource("StandardMaterial3D_attic_wall_planks")
+mesh = SubResource("BoxMesh_50xf8")
 
 
 [node name="RightWallFrontRun" type="MeshInstance3D" parent="RoomShell"]
