@@ -3,6 +3,9 @@ extends MeshInstance3D
 class_name RoadMesh
 
 const TrackWalls = preload("res://scripts/TrackWalls.gd")
+const ROAD_SUPPORT_NAME := "RoadSupportCollision"
+const ROAD_SUPPORT_THICKNESS := 0.55
+const ROAD_SUPPORT_SURFACE_OFFSET := 0.18
 
 @export var points: Array[Vector3] = []
 @export var width: float = 10.0
@@ -136,6 +139,8 @@ func _update_collision(mesh: Mesh) -> void:
 	var body := get_node_or_null("CollisionBody") as StaticBody3D
 	if body == null:
 		return
+	body.collision_layer = 1
+	body.collision_mask = 2
 	var shape_node := body.get_node_or_null("CollisionShape3D") as CollisionShape3D
 	if shape_node == null:
 		return
@@ -144,6 +149,50 @@ func _update_collision(mesh: Mesh) -> void:
 		if shape is ConcavePolygonShape3D:
 			(shape as ConcavePolygonShape3D).backface_collision = true
 		shape_node.shape = shape
+	_update_support_collision()
+
+func _update_support_collision() -> void:
+	var existing := get_node_or_null(ROAD_SUPPORT_NAME)
+	if existing:
+		existing.queue_free()
+	if points.size() < 2 or width <= 0.0:
+		return
+	var holder := Node3D.new()
+	holder.name = ROAD_SUPPORT_NAME
+	add_child(holder)
+	var segment_count := points.size() if force_close and points.size() > 2 else points.size() - 1
+	for i in range(segment_count):
+		var start: Vector3 = points[i]
+		var end: Vector3 = points[(i + 1) % points.size()]
+		var segment := end - start
+		var length := segment.length()
+		if length <= 0.05:
+			continue
+		var basis := support_collision_basis(segment)
+		var body := StaticBody3D.new()
+		body.name = "Support%02d" % i
+		body.collision_layer = 1
+		body.collision_mask = 2
+		var shape := BoxShape3D.new()
+		shape.size = Vector3(width, ROAD_SUPPORT_THICKNESS, length + width * 0.18)
+		var shape_node := CollisionShape3D.new()
+		shape_node.name = "CollisionShape3D"
+		shape_node.shape = shape
+		body.add_child(shape_node)
+		var center := start.lerp(end, 0.5) - basis.y * (ROAD_SUPPORT_THICKNESS * 0.5 + ROAD_SUPPORT_SURFACE_OFFSET)
+		body.transform = Transform3D(basis, center)
+		holder.add_child(body)
+
+static func support_collision_basis(segment: Vector3) -> Basis:
+	var z_axis := segment.normalized()
+	if z_axis.length_squared() <= 0.0001:
+		z_axis = Vector3.FORWARD
+	var x_axis := Vector3.UP.cross(z_axis)
+	if x_axis.length_squared() <= 0.0001:
+		x_axis = Vector3.RIGHT
+	x_axis = x_axis.normalized()
+	var y_axis := z_axis.cross(x_axis).normalized()
+	return Basis(x_axis, y_axis, z_axis).orthonormalized()
 
 func _try_gather_waypoints() -> void:
 	var root := get_parent()
