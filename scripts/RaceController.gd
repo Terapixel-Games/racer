@@ -2170,7 +2170,9 @@ func _compute_progress(lap: int, checkpoint: int, pos: Vector3, checkpoint_total
 			pos,
 			track_closed_loop
 		)
-		base += clampf(float(projection.get("route_ratio", 0.0)), 0.0, 0.999)
+		var route_progress := clampf(float(projection.get("route_ratio", 0.0)), 0.0, 0.999) * float(clamped_total)
+		var checkpoint_floor := float(clamp(checkpoint, 0, clamped_total - 1))
+		base += maxf(route_progress, checkpoint_floor)
 		if finished:
 			base += clamped_total * 2
 		return base
