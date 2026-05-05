@@ -3,9 +3,8 @@ extends MeshInstance3D
 class_name RoadMesh
 
 const TrackWalls = preload("res://scripts/TrackWalls.gd")
-const ROAD_SUPPORT_NAME := "RoadSupportCollision"
-const ROAD_SUPPORT_THICKNESS := 0.55
-const ROAD_SUPPORT_SURFACE_OFFSET := 0.18
+const ROAD_COLLISION_BACKUP_LAYERS := 3
+const ROAD_COLLISION_LAYER_SPACING := 0.16
 
 @export var points: Array[Vector3] = []
 @export var width: float = 10.0
@@ -144,55 +143,38 @@ func _update_collision(mesh: Mesh) -> void:
 	var shape_node := body.get_node_or_null("CollisionShape3D") as CollisionShape3D
 	if shape_node == null:
 		return
-	var shape := mesh.create_trimesh_shape()
+	var collision_mesh := build_layered_collision_mesh(mesh, ROAD_COLLISION_BACKUP_LAYERS, ROAD_COLLISION_LAYER_SPACING)
+	var shape := collision_mesh.create_trimesh_shape()
 	if shape:
 		if shape is ConcavePolygonShape3D:
 			(shape as ConcavePolygonShape3D).backface_collision = true
 		shape_node.shape = shape
-	_update_support_collision()
 
-func _update_support_collision() -> void:
-	var existing := get_node_or_null(ROAD_SUPPORT_NAME)
-	if existing:
-		existing.queue_free()
-	if points.size() < 2 or width <= 0.0:
-		return
-	var holder := Node3D.new()
-	holder.name = ROAD_SUPPORT_NAME
-	add_child(holder)
-	var segment_count := points.size() if force_close and points.size() > 2 else points.size() - 1
-	for i in range(segment_count):
-		var start: Vector3 = points[i]
-		var end: Vector3 = points[(i + 1) % points.size()]
-		var segment := end - start
-		var length := segment.length()
-		if length <= 0.05:
-			continue
-		var basis := support_collision_basis(segment)
-		var body := StaticBody3D.new()
-		body.name = "Support%02d" % i
-		body.collision_layer = 1
-		body.collision_mask = 2
-		var shape := BoxShape3D.new()
-		shape.size = Vector3(width, ROAD_SUPPORT_THICKNESS, length + width * 0.18)
-		var shape_node := CollisionShape3D.new()
-		shape_node.name = "CollisionShape3D"
-		shape_node.shape = shape
-		body.add_child(shape_node)
-		var center := start.lerp(end, 0.5) - basis.y * (ROAD_SUPPORT_THICKNESS * 0.5 + ROAD_SUPPORT_SURFACE_OFFSET)
-		body.transform = Transform3D(basis, center)
-		holder.add_child(body)
-
-static func support_collision_basis(segment: Vector3) -> Basis:
-	var z_axis := segment.normalized()
-	if z_axis.length_squared() <= 0.0001:
-		z_axis = Vector3.FORWARD
-	var x_axis := Vector3.UP.cross(z_axis)
-	if x_axis.length_squared() <= 0.0001:
-		x_axis = Vector3.RIGHT
-	x_axis = x_axis.normalized()
-	var y_axis := z_axis.cross(x_axis).normalized()
-	return Basis(x_axis, y_axis, z_axis).orthonormalized()
+static func build_layered_collision_mesh(source_mesh: Mesh, layer_count: int, layer_spacing: float) -> ArrayMesh:
+	if source_mesh == null or source_mesh.get_surface_count() <= 0:
+		return ArrayMesh.new()
+	var source_arrays := source_mesh.surface_get_arrays(0)
+	var source_vertices := source_arrays[Mesh.ARRAY_VERTEX] as PackedVector3Array
+	var source_indices := source_arrays[Mesh.ARRAY_INDEX] as PackedInt32Array
+	if source_vertices.is_empty() or source_indices.is_empty():
+		return ArrayMesh.new()
+	var count: int = maxi(layer_count, 1)
+	var vertices := PackedVector3Array()
+	var indices := PackedInt32Array()
+	for layer in range(count):
+		var offset := Vector3.DOWN * maxf(layer_spacing, 0.0) * float(layer)
+		var base := vertices.size()
+		for vertex in source_vertices:
+			vertices.append(vertex + offset)
+		for index in source_indices:
+			indices.append(base + index)
+	var arrays: Array = []
+	arrays.resize(Mesh.ARRAY_MAX)
+	arrays[Mesh.ARRAY_VERTEX] = vertices
+	arrays[Mesh.ARRAY_INDEX] = indices
+	var mesh := ArrayMesh.new()
+	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+	return mesh
 
 func _try_gather_waypoints() -> void:
 	var root := get_parent()

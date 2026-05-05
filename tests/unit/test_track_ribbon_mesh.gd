@@ -50,7 +50,7 @@ func test_track_body_side_faces_align_to_road_edges() -> void:
 		assert_true(_has_matching_vertex(vertex, body_top_vertices), "Track body side face should sit exactly under the road edge")
 	road.queue_free()
 
-func test_road_mesh_adds_invisible_support_collision_under_surface() -> void:
+func test_road_collision_uses_layered_road_surfaces_without_support_boxes() -> void:
 	var road := RoadMeshScript.new()
 	road.points = [
 		Vector3(-10, 3.0, 0),
@@ -67,23 +67,27 @@ func test_road_mesh_adds_invisible_support_collision_under_surface() -> void:
 	road.add_child(collision_body)
 	add_child(road)
 	road.call("_rebuild")
-	var support := road.get_node_or_null("RoadSupportCollision")
-	assert_true(support != null, "Road mesh should build invisible support collision under the thin trimesh road")
-	if support != null:
-		assert_equal(support.get_child_count(), 2, "Open road support should add one support slab per road segment")
-		var support_body := support.get_child(0) as StaticBody3D
-		assert_true(support_body != null, "Support slab should be a static collision body")
-		if support_body != null:
-			assert_equal(support_body.collision_layer, 1, "Support slab should collide on the world layer")
-			assert_equal(support_body.collision_mask, 2, "Support slab should only need to scan for kart bodies")
-			var support_shape := support_body.get_node_or_null("CollisionShape3D") as CollisionShape3D
-			assert_true(support_shape != null and support_shape.shape is BoxShape3D, "Support slab should use a box shape with physical thickness")
+	assert_true(road.get_node_or_null("RoadSupportCollision") == null, "Road collision should not add invisible support boxes that can catch karts at seams")
+	var shape := collision_shape.shape as ConcavePolygonShape3D
+	assert_true(shape != null, "Road collision should still use generated trimesh collision")
+	if shape != null:
+		assert_true(shape.backface_collision, "Layered road collision should still catch probes from below")
+		var collision_mesh := RoadMeshScript.build_layered_collision_mesh(road.call("_build_mesh") as Mesh, 3, 0.16)
+		assert_equal(_vertex_count(collision_mesh), _vertex_count(road.call("_build_mesh") as Mesh) * 3, "Layered road collision should add backup road planes without box end caps")
 	road.queue_free()
 
-func test_road_support_collision_basis_keeps_surface_normal_upward() -> void:
-	var basis := RoadMeshScript.support_collision_basis(Vector3(4.0, 1.0, 8.0))
-	assert_true(basis.y.dot(Vector3.UP) > 0.9, "Support slab local up should stay close to world up on normal road slopes")
-	assert_true(absf(basis.z.normalized().dot(Vector3(4.0, 1.0, 8.0).normalized())) > 0.99, "Support slab local depth should follow the route segment")
+func test_layered_collision_mesh_offsets_backup_layers_downward() -> void:
+	var road := RoadMeshScript.new()
+	road.points = [Vector3(0, 3.0, 0), Vector3(0, 4.0, 12)]
+	road.width = 8.0
+	road.force_close = false
+	var source_mesh := road.call("_build_mesh") as Mesh
+	var collision_mesh := RoadMeshScript.build_layered_collision_mesh(source_mesh, 3, 0.16)
+	var source_vertices := source_mesh.surface_get_arrays(0)[Mesh.ARRAY_VERTEX] as PackedVector3Array
+	var collision_vertices := collision_mesh.surface_get_arrays(0)[Mesh.ARRAY_VERTEX] as PackedVector3Array
+	assert_true(absf(collision_vertices[source_vertices.size()].y - (source_vertices[0].y - 0.16)) <= 0.001, "Second collision layer should sit just below the visual road")
+	assert_true(absf(collision_vertices[source_vertices.size() * 2].y - (source_vertices[0].y - 0.32)) <= 0.001, "Third collision layer should sit below the second backup layer")
+	road.queue_free()
 
 func _unique_top_vertices(mesh: ArrayMesh, min_y: float) -> Array[Vector3]:
 	var out: Array[Vector3] = []
@@ -101,6 +105,13 @@ func _unique_vertices(mesh: ArrayMesh) -> Array[Vector3]:
 	for vertex in vertices:
 		_add_unique_vertex(out, vertex)
 	return out
+
+func _vertex_count(mesh: Mesh) -> int:
+	if mesh == null or mesh.get_surface_count() <= 0:
+		return 0
+	var arrays := mesh.surface_get_arrays(0)
+	var vertices := arrays[Mesh.ARRAY_VERTEX] as PackedVector3Array
+	return vertices.size()
 
 func _add_unique_vertex(vertices: Array[Vector3], candidate: Vector3) -> void:
 	for vertex in vertices:
