@@ -180,6 +180,7 @@ func test_attic_mayhem_authoring_scene_contains_redesign_assets() -> void:
 	assert_true(FileAccess.file_exists("res://assets/gameplay/tracks/attic/reference/attic_mayhem_reference.png"), "Attic Mayhem reference image should be copied into the repo")
 	assert_true(FileAccess.file_exists("res://assets/gameplay/tracks/attic/props/source/jack_in_the_box_source.glb"), "Jack-in-the-box source GLB should be retained for future cleanup")
 	assert_true(FileAccess.file_exists("res://assets/gameplay/tracks/attic/props/old_chest.glb"), "Old chest GLB should be imported")
+	assert_true(FileAccess.file_exists("res://assets/gameplay/tracks/attic/props/industrial_object.glb"), "Industrial object GLB should be imported")
 	assert_true(FileAccess.file_exists("res://assets/source/audio/sfx/attic/wind_blowing.mp3"), "Attic wind audio should be imported")
 	assert_true(FileAccess.file_exists("res://assets/source/audio/sfx/attic/jack_crank.mp3"), "Jack crank audio should be imported")
 	assert_true(FileAccess.file_exists("res://assets/source/audio/sfx/attic/jack_spring.mp3"), "Jack spring audio should be imported")
@@ -208,6 +209,7 @@ func test_attic_mayhem_authoring_scene_contains_redesign_assets() -> void:
 	assert_equal(_first_material_texture_path(instance.get_node_or_null("RoomShell/AtticWindowStormBackdrop")), "res://assets/gameplay/tracks/attic/textures/window_storm_backdrop.png", "Attic window backdrop should use the storm texture")
 	assert_true(instance.get_node_or_null("Dressing/JackInTheBoxSetpiece") != null, "Attic dressing should include the jack-in-the-box setpiece marker")
 	assert_true(instance.get_node_or_null("Dressing/OldChestMeshy") != null, "Attic dressing should include the old chest marker")
+	assert_true(instance.get_node_or_null("Dressing/IndustrialObjectMeshy") != null, "Attic dressing should include the industrial object marker")
 	assert_true(instance.get_node_or_null("AudioZones/attic_window_wind_zone") != null, "Attic authoring scene should expose the window wind zone")
 	instance.queue_free()
 
@@ -251,6 +253,7 @@ func test_attic_mayhem_runtime_builds_redesigned_room() -> void:
 	assert_true(track_node.get_node_or_null("Dressing/EditableRoom/RoomShell/AtticRidgeBeam") != null, "Runtime attic should include the pitched shell ridge beam")
 	assert_true(track_node.get_node_or_null("Dressing/EditableRoom/RoomShell/AtticWindowGlass") != null, "Runtime attic should include the square window glass")
 	assert_true(track_node.get_node_or_null("Dressing/EditableRoom/Dressing/JackInTheBoxSetpiece") != null, "Runtime attic should include the jack-in-the-box setpiece marker")
+	assert_true(track_node.get_node_or_null("Dressing/EditableRoom/Dressing/IndustrialObjectMeshy") != null, "Runtime attic should include the industrial object marker")
 	assert_true(track_node.get_node_or_null("AudioZones/attic_window_wind_zone") != null, "Runtime attic should build the window wind audio zone")
 	assert_true((built.get("waypoints", []) as Array).size() >= 30, "Runtime attic should keep the full route")
 	assert_true((built.get("spawns", []) as Array).size() >= 8, "Runtime attic should keep a full start grid")

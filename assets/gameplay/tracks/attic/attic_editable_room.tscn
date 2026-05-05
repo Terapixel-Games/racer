@@ -696,6 +696,15 @@ collision_mode = "visual"
 audio_material_id = "wood"
 gameplay_tag = "attic_landmark"
 
+[node name="IndustrialObjectMeshy" type="Node3D" parent="Dressing"]
+transform = Transform3D(7.2767024, 0, -5.290067, 0, 9, 0, 5.290067, 0, 7.2767024, -116, -5, 56)
+script = ExtResource("3_ay1ow")
+prop_kind = "scene"
+prop_id = "IndustrialObjectMeshy"
+asset_path = "res://assets/gameplay/tracks/attic/props/industrial_object.glb"
+audio_material_id = "metal"
+gameplay_tag = "attic_landmark"
+
 [node name="KenneyCrateStackA" type="Node3D" parent="Dressing"]
 transform = Transform3D(0.978148, 0, -0.207912, 0, 1, 0, 0.207912, 0, 0.978148, 118, -5, 74)
 script = ExtResource("3_ay1ow")
