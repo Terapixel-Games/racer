@@ -104,7 +104,7 @@ func test_local_single_ai_uses_lane_offsets_and_steers_toward_route_sample() -> 
 	var car: CarController = cars.get(first_ai, null)
 	assert_true(car != null, "CPU racer should have a car for steering tests")
 	if car != null:
-		driver_state[first_ai] = {"lane_offset": 0.0, "lookahead": 10.0, "last_progress": 0.0, "stuck_timer": 0.0, "last_safe_transform": Transform3D.IDENTITY}
+		driver_state[first_ai] = {"lane_offset": 0.0, "lookahead": 10.0, "last_progress": 0.0, "stuck_timer": 0.0, "last_safe_transform": Transform3D.IDENTITY, "last_position": Vector3.ZERO}
 		race.set("track_waypoints", [Vector3.ZERO, Vector3(40, 0, 0), Vector3(80, 0, 0)])
 		car.global_transform = Transform3D.IDENTITY
 		race.call("_tick_ai_input", first_ai, 0.016)
@@ -161,7 +161,7 @@ func test_local_single_finished_ai_keeps_cruising_after_final_lap() -> void:
 		assert_true(not bool(input_state.get("boost", false)), "Finished CPU racers should cruise without boost")
 	race.queue_free()
 
-func test_ai_unstuck_reset_advances_past_snag_instead_of_looping() -> void:
+func test_ai_unstuck_reset_does_not_advance_racer_progress() -> void:
 	var race: Node = _make_local_race()
 	race.call("_set_local_phase", "racing")
 	race.set("track_waypoints", [Vector3(0, 0, 0), Vector3(0, 0, -100)])
@@ -180,11 +180,37 @@ func test_ai_unstuck_reset_advances_past_snag_instead_of_looping() -> void:
 			"last_progress": 0.0,
 			"stuck_timer": 2.4,
 			"last_safe_transform": Transform3D(Basis.IDENTITY, Vector3(0, 1, 0)),
+			"last_position": Vector3(0, 1, 0),
 			"unstuck_count": 0,
 		}
 		race.call("_update_ai_stuck_state", first_ai, car, driver, 0.0, 0.2)
-		assert_true(car.global_transform.origin.z < -15.0, "AI unstuck reset should advance along the route instead of returning to the same snag")
+		assert_true(absf(car.global_transform.origin.z) <= 0.2, "AI unstuck reset should not move racers forward along the route")
 		assert_equal(car.velocity, Vector3.ZERO, "AI unstuck reset should clear velocity before resuming")
+	race.queue_free()
+
+func test_finished_ai_cruise_does_not_unstuck_while_moving() -> void:
+	var race: Node = _make_local_race()
+	race.call("_set_local_phase", "racing")
+	var ai_ids: Array = race.get("ai_racer_ids")
+	var first_ai := str(ai_ids[0])
+	var cars: Dictionary = race.get("cars")
+	var car: CarController = cars.get(first_ai, null)
+	assert_true(car != null, "CPU racer should exist for finished cruise recovery")
+	if car != null:
+		car.global_transform = Transform3D(Basis.IDENTITY, Vector3(0, 1, -12))
+		car.velocity = Vector3(0, 0, -12)
+		var driver := {
+			"lane_offset": 0.0,
+			"lookahead": 10.0,
+			"last_progress": 999.0,
+			"stuck_timer": 2.4,
+			"last_safe_transform": Transform3D(Basis.IDENTITY, Vector3(0, 1, 0)),
+			"last_position": Vector3(0, 1, 0),
+			"unstuck_count": 0,
+		}
+		race.call("_update_ai_stuck_state", first_ai, car, driver, 999.0, 0.2, true)
+		assert_true(car.global_transform.origin.distance_to(Vector3(0, 1, -12)) <= 0.01, "Moving finished racers should keep driving instead of being unstuck")
+		assert_equal(float(driver.get("stuck_timer", -1.0)), 0.0, "Movement during finished cruise should reset stuck timer")
 	race.queue_free()
 
 func test_local_finish_shows_live_overlay_then_finalizes_without_scene_change() -> void:

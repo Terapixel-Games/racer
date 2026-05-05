@@ -109,8 +109,7 @@ const AI_BASE_LOOKAHEAD_DISTANCE := 26.0
 const AI_LANE_WIDTH := 2.35
 const AI_STUCK_PROGRESS_EPSILON := 0.035
 const AI_STUCK_TIMEOUT := 2.5
-const AI_STUCK_RESET_ADVANCE := 22.0
-const AI_SAFE_TRANSFORM_LOOKAHEAD := 8.0
+const AI_CRUISE_MOVEMENT_EPSILON := 1.2
 const AI_SEPARATION_RADIUS := 5.2
 const AI_SEPARATION_STEER := 0.38
 const AI_TARGET_REACH_DISTANCE := 8.0
@@ -484,7 +483,7 @@ func _tick_ai_input(rid: String, delta: float, allow_finished_cruise: bool = fal
 		throttle = minf(throttle, 0.68)
 	var drift := angle > AI_DRIFT_ANGLE and speed > 13.0
 	var boost := (not finished_cruise) and car.boost_meter > 55.0 and angle < 0.22
-	_update_ai_stuck_state(rid, car, driver, float(info.get("progress", 0.0)), delta)
+	_update_ai_stuck_state(rid, car, driver, float(info.get("progress", 0.0)), delta, finished_cruise)
 	ai_driver_state[rid] = driver
 	car.controlled_locally = true
 	car.set_input({"steer": steer, "throttle": throttle, "brake": brake, "drift": drift, "boost": boost, "item_use": false})
@@ -502,6 +501,7 @@ func _make_ai_driver_state(index: int, car: CarController) -> Dictionary:
 		"last_progress": 0.0,
 		"stuck_timer": 0.0,
 		"last_safe_transform": car.global_transform if car != null else Transform3D.IDENTITY,
+		"last_position": car.global_transform.origin if car != null else Vector3.ZERO,
 	}
 
 func _ai_separation_steer(rid: String, car: CarController) -> float:
@@ -526,16 +526,19 @@ func _ai_separation_steer(rid: String, car: CarController) -> float:
 		steer_adjust += away * (1.0 - distance / AI_SEPARATION_RADIUS) * AI_SEPARATION_STEER
 	return clampf(steer_adjust, -AI_SEPARATION_STEER, AI_SEPARATION_STEER)
 
-func _update_ai_stuck_state(rid: String, car: CarController, driver: Dictionary, progress: float, delta: float) -> void:
+func _update_ai_stuck_state(rid: String, car: CarController, driver: Dictionary, progress: float, delta: float, finished_cruise: bool = false) -> void:
 	if rid == local_user_id or car == null:
 		return
 	var last_progress := float(driver.get("last_progress", progress))
 	var progressed := progress > last_progress + AI_STUCK_PROGRESS_EPSILON
-	if progressed:
+	var last_position := driver.get("last_position", car.global_transform.origin) as Vector3
+	var moved := car.global_transform.origin.distance_to(last_position) > AI_CRUISE_MOVEMENT_EPSILON or car.velocity.length() > 4.0
+	if progressed or (finished_cruise and moved):
 		driver["last_progress"] = maxf(progress, last_progress)
 		driver["stuck_timer"] = 0.0
 		driver["unstuck_count"] = 0
-		driver["last_safe_transform"] = _ai_route_transform_for_position(car.global_transform.origin, float(driver.get("lane_offset", 0.0)), AI_SAFE_TRANSFORM_LOOKAHEAD)
+		driver["last_safe_transform"] = _ai_route_transform_for_position(car.global_transform.origin, float(driver.get("lane_offset", 0.0)), 0.0)
+		driver["last_position"] = car.global_transform.origin
 		return
 	driver["stuck_timer"] = float(driver.get("stuck_timer", 0.0)) + delta
 	if float(driver.get("stuck_timer", 0.0)) >= AI_STUCK_TIMEOUT:
@@ -543,12 +546,13 @@ func _update_ai_stuck_state(rid: String, car: CarController, driver: Dictionary,
 		driver["unstuck_count"] = unstuck_count
 		var reset_transform := _ai_route_transform_for_position(
 			car.global_transform.origin,
-			float(driver.get("lane_offset", 0.0)),
-			AI_STUCK_RESET_ADVANCE * float(clampi(unstuck_count, 1, 3))
+			0.0,
+			0.0
 		)
 		apply_instant_reset(car, _snap_to_ground(reset_transform))
 		driver["last_safe_transform"] = reset_transform
 		driver["last_progress"] = progress
+		driver["last_position"] = reset_transform.origin
 		driver["stuck_timer"] = 0.0
 
 func _ai_route_transform_for_position(position: Vector3, lane_offset: float, advance_distance: float = 4.0) -> Transform3D:
