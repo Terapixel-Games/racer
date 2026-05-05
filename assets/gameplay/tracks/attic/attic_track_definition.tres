@@ -5,8 +5,8 @@
 [resource]
 script = ExtResource("1_35kql")
 id = "attic"
-display_name = "Attic / Popper"
-version = "attic_v1_2026_05_01"
+display_name = "Attic Mayhem"
+version = "attic_mayhem_v1_2026_05_05"
 laps = 3
 out_of_bounds_y = -11.0
 reset_mode = "instant_pop"
@@ -14,6 +14,7 @@ floor_visual_y = -32.0
 runtime_scene_path = "res://assets/gameplay/tracks/attic/attic_track.tscn"
 dressing_scene_path = "res://assets/gameplay/tracks/attic/attic_editable_room.tscn"
 ground_size = Vector2(292, 190)
+road_width = 15.0
 ground_color = Color(0.48, 0.38, 0.28, 1)
 ground_texture_path = "res://assets/gameplay/materials/attic/attic_cardboard_wood_albedo.png"
 road_texture_path = "res://assets/gameplay/materials/plastic/glossy_plastic_albedo.png"
@@ -141,9 +142,18 @@ audio_zones = Array[Dictionary]([{
 "radius": 28.0,
 "volume_db": -6.0,
 "zone_kind": "oneshot"
+}, {
+"audio_id": "attic_window_wind",
+"audio_path": "res://assets/source/audio/sfx/attic/wind_blowing.mp3",
+"id": "attic_window_wind_zone",
+"position": Vector3(132, 18, 42),
+"radius": 46.0,
+"volume_db": -10.0,
+"zone_kind": "ambient"
 }])
 audio_ids = {
 "attic_primary": "res://assets/source/audio/canva/tracks/attic/attic_creak_canva_01.mp3",
 "attic_secondary": "res://assets/source/audio/canva/tracks/attic/attic_prank_squeak_canva_01.wav",
+"attic_window_wind": "res://assets/source/audio/sfx/attic/wind_blowing.mp3",
 "music": "res://assets/source/audio/suno/tracks/attic/attic_loop_suno_01.mp3"
 }

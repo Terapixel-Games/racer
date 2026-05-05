@@ -1,10 +1,14 @@
-[gd_scene load_steps=22 format=3]
+[gd_scene load_steps=38 format=3 uid="uid://ddekoxla6mhtx"]
 
-[ext_resource type="Script" path="res://scripts/track/TrackAuthoringPreview.gd" id="1_g7m3g"]
-[ext_resource type="Texture2D" path="res://assets/gameplay/materials/attic/attic_cardboard_wood_albedo.png" id="2_tw6u0"]
-[ext_resource type="Script" path="res://scripts/track/StagePropAuthoring.gd" id="3_ay1ow"]
-[ext_resource type="Script" path="res://scripts/track/SurfaceSegmentAuthoring.gd" id="4_ksclq"]
-[ext_resource type="Script" path="res://scripts/track/AudioZoneAuthoring.gd" id="5_c3enl"]
+[ext_resource type="Script" uid="uid://dlvn2xhwjpnou" path="res://scripts/track/TrackAuthoringPreview.gd" id="1_g7m3g"]
+[ext_resource type="Texture2D" uid="uid://00xrdbjyq0ql" path="res://assets/gameplay/materials/attic/attic_cardboard_wood_albedo.png" id="2_tw6u0"]
+[ext_resource type="Script" uid="uid://doxmi6s12eqc5" path="res://scripts/track/StagePropAuthoring.gd" id="3_ay1ow"]
+[ext_resource type="Script" uid="uid://o3okkegl41gl" path="res://scripts/track/SurfaceSegmentAuthoring.gd" id="4_ksclq"]
+[ext_resource type="Script" uid="uid://caggqafc2elyk" path="res://scripts/track/AudioZoneAuthoring.gd" id="5_c3enl"]
+[ext_resource type="Shader" path="res://assets/shaders/attic_window_glass.gdshader" id="6_glass"]
+[ext_resource type="Texture2D" path="res://assets/gameplay/tracks/attic/textures/window_storm_backdrop.png" id="7_storm"]
+[ext_resource type="Texture2D" path="res://assets/gameplay/tracks/attic/kenney/kenney_planks.png" id="8_planks"]
+[ext_resource type="Texture2D" path="res://assets/gameplay/tracks/attic/kenney/kenney_roof.png" id="9_roof"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ci6am"]
 albedo_color = Color(0.48, 0.38, 0.28, 1)
@@ -34,7 +38,7 @@ albedo_color = Color(0.38639998, 0.2944, 0.2208, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_50xf8"]
-size = Vector3(2, 58, 190)
+size = Vector3(2, 34, 190)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f0c0w"]
 albedo_color = Color(0.4074, 0.3104, 0.2328, 1)
@@ -62,7 +66,71 @@ albedo_color = Color(0.4664, 0.3744, 0.3008, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_0xbxm"]
-size = Vector3(292, 1, 190)
+size = Vector3(292, 1.4, 154)
+
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_attic_wall_planks"]
+albedo_color = Color(0.32, 0.22, 0.14, 1)
+albedo_texture = ExtResource("8_planks")
+roughness = 0.72
+uv1_scale = Vector3(14, 14, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_attic_roof_planks"]
+albedo_color = Color(0.18, 0.12, 0.075, 1)
+albedo_texture = ExtResource("9_roof")
+roughness = 0.76
+uv1_scale = Vector3(18, 18, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_attic_dark_trim"]
+albedo_color = Color(0.16, 0.09, 0.045, 1)
+albedo_texture = ExtResource("8_planks")
+roughness = 0.78
+uv1_scale = Vector3(8, 8, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_attic_glass"]
+shader = ExtResource("6_glass")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_storm_backdrop"]
+shading_mode = 0
+cull_mode = 2
+albedo_texture = ExtResource("7_storm")
+roughness = 1.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_attic_right_front"]
+size = Vector3(2, 34, 98)
+
+[sub_resource type="BoxMesh" id="BoxMesh_attic_right_rear"]
+size = Vector3(2, 34, 36)
+
+[sub_resource type="BoxMesh" id="BoxMesh_attic_window_below"]
+size = Vector3(2, 12, 40)
+
+[sub_resource type="BoxMesh" id="BoxMesh_attic_window_above"]
+size = Vector3(2, 22, 40)
+
+[sub_resource type="BoxMesh" id="BoxMesh_attic_frame_h"]
+size = Vector3(2.9, 2.4, 44)
+
+[sub_resource type="BoxMesh" id="BoxMesh_attic_frame_v"]
+size = Vector3(2.9, 19, 2.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_attic_cross_v"]
+size = Vector3(1.8, 18, 1.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_attic_cross_h"]
+size = Vector3(1.8, 1.1, 41)
+
+[sub_resource type="BoxMesh" id="BoxMesh_attic_glass"]
+size = Vector3(0.2, 17, 41)
+
+[sub_resource type="BoxMesh" id="BoxMesh_attic_backdrop"]
+size = Vector3(0.2, 30, 58)
+
+[sub_resource type="BoxMesh" id="BoxMesh_attic_ridge"]
+size = Vector3(292, 3.2, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_attic_rafter"]
+size = Vector3(3, 3, 118)
 
 [node name="AtticEditableRoom" type="Node3D"]
 script = ExtResource("1_g7m3g")
@@ -95,7 +163,8 @@ material_override = SubResource("StandardMaterial3D_kg0m8")
 mesh = SubResource("BoxMesh_tv4r8")
 
 [node name="RightWall" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146, 21, 0)
+visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146, 10, 0)
 material_override = SubResource("StandardMaterial3D_1cvrh")
 mesh = SubResource("BoxMesh_50xf8")
 
@@ -115,9 +184,157 @@ material_override = SubResource("StandardMaterial3D_j3f6d")
 mesh = SubResource("BoxMesh_u6hxo")
 
 [node name="Ceiling" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 55, 0)
-material_override = SubResource("StandardMaterial3D_n1k7c")
+transform = Transform3D(1, 0, 0, 0, 0.777146, -0.62932, 0, 0.62932, 0.777146, 0, 48, 42)
+material_override = SubResource("StandardMaterial3D_attic_roof_planks")
 mesh = SubResource("BoxMesh_0xbxm")
+
+[node name="Ceiling2" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 0.777146, 0.62932, 0, -0.62932, 0.777146, 0, 48, -42)
+material_override = SubResource("StandardMaterial3D_attic_roof_planks")
+mesh = SubResource("BoxMesh_0xbxm")
+
+
+[node name="RightWallFrontRun" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146, 10, -48)
+material_override = SubResource("StandardMaterial3D_attic_wall_planks")
+mesh = SubResource("BoxMesh_attic_right_front")
+
+[node name="RightWallRearRun" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146, 10, 80)
+material_override = SubResource("StandardMaterial3D_attic_wall_planks")
+mesh = SubResource("BoxMesh_attic_right_rear")
+
+[node name="RightWallBelowWindow" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146, 6, 42)
+material_override = SubResource("StandardMaterial3D_attic_wall_planks")
+mesh = SubResource("BoxMesh_attic_window_below")
+
+[node name="RightWallAboveWindow" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146, 40, 42)
+material_override = SubResource("StandardMaterial3D_attic_wall_planks")
+mesh = SubResource("BoxMesh_attic_window_above")
+
+[node name="AtticRidgeBeam" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 67, 0)
+material_override = SubResource("StandardMaterial3D_attic_dark_trim")
+mesh = SubResource("BoxMesh_attic_ridge")
+
+[node name="RafterLeft01" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 0.777146, -0.62932, 0, 0.62932, 0.777146, -120, 49, 38)
+material_override = SubResource("StandardMaterial3D_attic_dark_trim")
+mesh = SubResource("BoxMesh_attic_rafter")
+
+[node name="RafterLeft02" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 0.777146, -0.62932, 0, 0.62932, 0.777146, -80, 49, 38)
+material_override = SubResource("StandardMaterial3D_attic_dark_trim")
+mesh = SubResource("BoxMesh_attic_rafter")
+
+[node name="RafterLeft03" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 0.777146, -0.62932, 0, 0.62932, 0.777146, -40, 49, 38)
+material_override = SubResource("StandardMaterial3D_attic_dark_trim")
+mesh = SubResource("BoxMesh_attic_rafter")
+
+[node name="RafterLeft04" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 0.777146, -0.62932, 0, 0.62932, 0.777146, 0, 49, 38)
+material_override = SubResource("StandardMaterial3D_attic_dark_trim")
+mesh = SubResource("BoxMesh_attic_rafter")
+
+[node name="RafterLeft05" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 0.777146, -0.62932, 0, 0.62932, 0.777146, 40, 49, 38)
+material_override = SubResource("StandardMaterial3D_attic_dark_trim")
+mesh = SubResource("BoxMesh_attic_rafter")
+
+[node name="RafterLeft06" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 0.777146, -0.62932, 0, 0.62932, 0.777146, 80, 49, 38)
+material_override = SubResource("StandardMaterial3D_attic_dark_trim")
+mesh = SubResource("BoxMesh_attic_rafter")
+
+[node name="RafterLeft07" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 0.777146, -0.62932, 0, 0.62932, 0.777146, 120, 49, 38)
+material_override = SubResource("StandardMaterial3D_attic_dark_trim")
+mesh = SubResource("BoxMesh_attic_rafter")
+
+[node name="RafterRight01" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 0.777146, 0.62932, 0, -0.62932, 0.777146, -120, 49, -38)
+material_override = SubResource("StandardMaterial3D_attic_dark_trim")
+mesh = SubResource("BoxMesh_attic_rafter")
+
+[node name="RafterRight02" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 0.777146, 0.62932, 0, -0.62932, 0.777146, -80, 49, -38)
+material_override = SubResource("StandardMaterial3D_attic_dark_trim")
+mesh = SubResource("BoxMesh_attic_rafter")
+
+[node name="RafterRight03" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 0.777146, 0.62932, 0, -0.62932, 0.777146, -40, 49, -38)
+material_override = SubResource("StandardMaterial3D_attic_dark_trim")
+mesh = SubResource("BoxMesh_attic_rafter")
+
+[node name="RafterRight04" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 0.777146, 0.62932, 0, -0.62932, 0.777146, 0, 49, -38)
+material_override = SubResource("StandardMaterial3D_attic_dark_trim")
+mesh = SubResource("BoxMesh_attic_rafter")
+
+[node name="RafterRight05" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 0.777146, 0.62932, 0, -0.62932, 0.777146, 40, 49, -38)
+material_override = SubResource("StandardMaterial3D_attic_dark_trim")
+mesh = SubResource("BoxMesh_attic_rafter")
+
+[node name="RafterRight06" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 0.777146, 0.62932, 0, -0.62932, 0.777146, 80, 49, -38)
+material_override = SubResource("StandardMaterial3D_attic_dark_trim")
+mesh = SubResource("BoxMesh_attic_rafter")
+
+[node name="RafterRight07" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 0.777146, 0.62932, 0, -0.62932, 0.777146, 120, 49, -38)
+material_override = SubResource("StandardMaterial3D_attic_dark_trim")
+mesh = SubResource("BoxMesh_attic_rafter")
+
+[node name="AtticWindowFrameTop" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 144.7, 30, 42)
+material_override = SubResource("StandardMaterial3D_attic_dark_trim")
+mesh = SubResource("BoxMesh_attic_frame_h")
+
+[node name="AtticWindowFrameBottom" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 144.7, 14, 42)
+material_override = SubResource("StandardMaterial3D_attic_dark_trim")
+mesh = SubResource("BoxMesh_attic_frame_h")
+
+[node name="AtticWindowFrameFront" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 144.7, 22, 20)
+material_override = SubResource("StandardMaterial3D_attic_dark_trim")
+mesh = SubResource("BoxMesh_attic_frame_v")
+
+[node name="AtticWindowFrameRear" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 144.7, 22, 64)
+material_override = SubResource("StandardMaterial3D_attic_dark_trim")
+mesh = SubResource("BoxMesh_attic_frame_v")
+
+[node name="AtticWindowCrossbarVertical" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 144.35, 22, 42)
+material_override = SubResource("StandardMaterial3D_attic_dark_trim")
+mesh = SubResource("BoxMesh_attic_cross_v")
+
+[node name="AtticWindowCrossbarHorizontal" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 144.3, 22, 42)
+material_override = SubResource("StandardMaterial3D_attic_dark_trim")
+mesh = SubResource("BoxMesh_attic_cross_h")
+
+[node name="AtticWindowGlass" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 143.8, 22, 42)
+material_override = SubResource("ShaderMaterial_attic_glass")
+mesh = SubResource("BoxMesh_attic_glass")
+
+[node name="AtticWindowStormBackdrop" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 149.4, 22, 42)
+material_override = SubResource("StandardMaterial3D_storm_backdrop")
+mesh = SubResource("BoxMesh_attic_backdrop")
+
+[node name="AtticMoonLight" type="SpotLight3D" parent="RoomShell"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 137, 28, 42)
+light_color = Color(0.55, 0.72, 1, 1)
+light_energy = 5.5
+spot_range = 95.0
+spot_angle = 42.0
 
 [node name="RoutePoints" type="Node3D" parent="."]
 
@@ -383,6 +600,61 @@ box_color = Color(0.9, 0.82, 0.62, 1)
 audio_material_id = "fabric"
 gameplay_tag = "attic_landmark"
 
+
+[node name="JackInTheBoxSetpiece" type="Node3D" parent="Dressing"]
+transform = Transform3D(-0.679441, 0, -0.73373, 0, 1, 0, 0.73373, 0, -0.679441, 111, 1.6, 36)
+script = ExtResource("3_ay1ow")
+prop_kind = "scene"
+prop_id = "JackInTheBoxSetpiece"
+asset_path = "res://assets/gameplay/tracks/attic/props/JackInTheBoxSetpiece.tscn"
+scale = Vector3(2.8, 2.8, 2.8)
+collision_mode = "visual"
+audio_material_id = "wood"
+gameplay_tag = "toy_setpiece"
+
+[node name="OldChestMeshy" type="Node3D" parent="Dressing"]
+transform = Transform3D(0.951057, 0, 0.309017, 0, 1, 0, -0.309017, 0, 0.951057, 92, -5, 54)
+script = ExtResource("3_ay1ow")
+prop_kind = "scene"
+prop_id = "OldChestMeshy"
+asset_path = "res://assets/gameplay/tracks/attic/props/old_chest.glb"
+scale = Vector3(15, 15, 15)
+collision_mode = "visual"
+audio_material_id = "wood"
+gameplay_tag = "attic_landmark"
+
+[node name="KenneyCrateStackA" type="Node3D" parent="Dressing"]
+transform = Transform3D(0.978148, 0, -0.207912, 0, 1, 0, 0.207912, 0, 0.978148, 118, -5, 74)
+script = ExtResource("3_ay1ow")
+prop_kind = "scene"
+prop_id = "KenneyCrateStackA"
+asset_path = "res://assets/gameplay/tracks/attic/kenney/kenney_detail_crate.glb"
+scale = Vector3(10, 10, 10)
+collision_mode = "visual"
+audio_material_id = "wood"
+gameplay_tag = "attic_clutter"
+
+[node name="KenneyCrateStackB" type="Node3D" parent="Dressing"]
+transform = Transform3D(0.913545, 0, 0.406737, 0, 1, 0, -0.406737, 0, 0.913545, -92, -5, -30)
+script = ExtResource("3_ay1ow")
+prop_kind = "scene"
+prop_id = "KenneyCrateStackB"
+asset_path = "res://assets/gameplay/tracks/attic/kenney/kenney_detail_crate.glb"
+scale = Vector3(12, 12, 12)
+collision_mode = "visual"
+audio_material_id = "wood"
+gameplay_tag = "attic_clutter"
+
+[node name="WindowToyBlocks" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, -6.5, 20)
+script = ExtResource("3_ay1ow")
+prop_id = "WindowToyBlocks"
+box_size = Vector3(18, 10, 10)
+box_color = Color(0.55, 0.16, 0.12, 1)
+collision_mode = "visual"
+audio_material_id = "wood"
+gameplay_tag = "toy_blocks"
+
 [node name="SurfaceSegments" type="Node3D" parent="."]
 
 [node name="attic_start_surface" type="Marker3D" parent="SurfaceSegments"]
@@ -427,3 +699,14 @@ zone_id = "attic_feature_zone"
 audio_id = "attic_secondary"
 zone_kind = "oneshot"
 radius = 28.0
+
+
+[node name="attic_window_wind_zone" type="Marker3D" parent="AudioZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 132, 18, 42)
+script = ExtResource("5_c3enl")
+zone_id = "attic_window_wind_zone"
+audio_id = "attic_window_wind"
+audio_path = "res://assets/source/audio/sfx/attic/wind_blowing.mp3"
+zone_kind = "ambient"
+radius = 46.0
+volume_db = -10.0

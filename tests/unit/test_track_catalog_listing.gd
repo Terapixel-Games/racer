@@ -63,7 +63,8 @@ func test_home_course_tracks_are_human_editable_and_match_kitchen_scale() -> voi
 		assert_true(definition != null, "%s definition should load" % track_id)
 		assert_equal(definition.validate(), [], "%s definition should validate" % track_id)
 		assert_equal(definition.laps, 3, "%s should run 3 laps" % track_id)
-		assert_equal(definition.road_width, 12.0, "%s should preserve Kitchen road width" % track_id)
+		var expected_road_width := 15.0 if track_id == "attic" else 12.0
+		assert_equal(definition.road_width, expected_road_width, "%s should use its planned road width" % track_id)
 		assert_equal(definition.spawn_points.size(), 8, "%s should expose 8 spawns" % track_id)
 		assert_equal(definition.rail_texture_path, "res://assets/gameplay/materials/metal/toy_metal_albedo.png", "%s should use stage rails" % track_id)
 		assert_equal(definition.rail_texture_uv_scale, 0.5, "%s should use the configured rail UV scale" % track_id)

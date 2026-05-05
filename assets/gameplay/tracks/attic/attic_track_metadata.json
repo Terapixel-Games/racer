@@ -33,7 +33,8 @@
 	"audio_ids": {
 		"attic_primary": "res://assets/source/audio/canva/tracks/attic/attic_creak_canva_01.mp3",
 		"attic_secondary": "res://assets/source/audio/canva/tracks/attic/attic_prank_squeak_canva_01.wav",
-		"music": "res://assets/source/audio/suno/tracks/attic/attic_loop_suno_01.mp3"
+		"music": "res://assets/source/audio/suno/tracks/attic/attic_loop_suno_01.mp3",
+		"attic_window_wind": "res://assets/source/audio/sfx/attic/wind_blowing.mp3"
 	},
 	"audio_zones": [
 		{
@@ -61,9 +62,22 @@
 			"radius": 120.0,
 			"volume_db": -14.0,
 			"zone_kind": "ambient"
+		},
+		{
+			"audio_id": "attic_window_wind",
+			"audio_path": "res://assets/source/audio/sfx/attic/wind_blowing.mp3",
+			"id": "attic_window_wind_zone",
+			"position": [
+				132.0,
+				18.0,
+				42.0
+			],
+			"radius": 46.0,
+			"volume_db": -10.0,
+			"zone_kind": "ambient"
 		}
 	],
-	"checkpoint_radius": 7.8,
+	"checkpoint_radius": 9.75,
 	"checkpoints": [
 		{
 			"index": 0,
@@ -127,7 +141,7 @@
 		}
 	],
 	"closed_loop": true,
-	"display_name": "Attic / Popper",
+	"display_name": "Attic Mayhem",
 	"dressing_scene_path": "res://assets/gameplay/tracks/attic/attic_editable_room.tscn",
 	"floor_visual_y": -32.0,
 	"hazard_sockets": [
@@ -277,7 +291,7 @@
 	"rail_texture_path": "res://assets/gameplay/materials/metal/toy_metal_albedo.png",
 	"rail_texture_uv_scale": 0.5,
 	"reset_mode": "instant_pop",
-	"road_width": 12.0,
+	"road_width": 15.0,
 	"route_length": 723.79710149765,
 	"route_points": [
 		[
@@ -719,7 +733,7 @@
 		}
 	],
 	"track_id": "attic",
-	"version": "attic_v1_2026_05_01",
+	"version": "attic_mayhem_v1_2026_05_05",
 	"wall_height": 1.6,
 	"wall_thickness": 0.45
 }

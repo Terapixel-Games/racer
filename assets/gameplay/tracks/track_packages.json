@@ -3,11 +3,11 @@
 	"tracks": {
 		"attic": {
 			"definition_path": "res://assets/gameplay/tracks/attic/attic_track_definition.tres",
-			"display_name": "Attic / Popper",
+			"display_name": "Attic Mayhem",
 			"id": "attic",
 			"metadata_path": "res://assets/gameplay/tracks/attic/attic_track_metadata.json",
 			"scene_path": "res://assets/gameplay/tracks/attic/attic_track.tscn",
-			"version": "attic_v1_2026_05_01"
+			"version": "attic_mayhem_v1_2026_05_05"
 		},
 		"bedroom": {
 			"definition_path": "res://assets/gameplay/tracks/bedroom/bedroom_track_definition.tres",

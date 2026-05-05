@@ -176,6 +176,64 @@ func test_outdoor_playground_runtime_uses_grass_shader() -> void:
 	assert_true(_multimesh_instances_inside_grass_zones(track_node, "PlaygroundGrassBlades", definition.grass_zones, 300), "Outdoor Playground grass blades should be scattered inside authored grass zones")
 	track_node.queue_free()
 
+func test_attic_mayhem_authoring_scene_contains_redesign_assets() -> void:
+	assert_true(FileAccess.file_exists("res://assets/gameplay/tracks/attic/reference/attic_mayhem_reference.png"), "Attic Mayhem reference image should be copied into the repo")
+	assert_true(FileAccess.file_exists("res://assets/gameplay/tracks/attic/props/source/jack_in_the_box_source.glb"), "Jack-in-the-box source GLB should be retained for future cleanup")
+	assert_true(FileAccess.file_exists("res://assets/gameplay/tracks/attic/props/old_chest.glb"), "Old chest GLB should be imported")
+	assert_true(FileAccess.file_exists("res://assets/source/audio/sfx/attic/wind_blowing.mp3"), "Attic wind audio should be imported")
+	assert_true(FileAccess.file_exists("res://assets/source/audio/sfx/attic/jack_crank.mp3"), "Jack crank audio should be imported")
+	assert_true(FileAccess.file_exists("res://assets/source/audio/sfx/attic/jack_spring.mp3"), "Jack spring audio should be imported")
+	assert_true(FileAccess.file_exists("res://assets/source/audio/sfx/attic/jack_laugh.mp3"), "Jack laugh audio should be imported")
+	var packed := load("res://assets/gameplay/tracks/attic/attic_editable_room.tscn")
+	assert_true(packed is PackedScene, "Attic editable scene should load")
+	var instance := (packed as PackedScene).instantiate()
+	scene_tree.root.add_child(instance)
+	assert_true(instance.get_node_or_null("RoomShell/AtticRidgeBeam") != null, "Attic shell should include a ridge beam")
+	assert_true(instance.get_node_or_null("RoomShell/RafterLeft01") != null, "Attic shell should include left rafters")
+	assert_true(instance.get_node_or_null("RoomShell/RafterRight01") != null, "Attic shell should include right rafters")
+	assert_true(instance.get_node_or_null("RoomShell/AtticWindowGlass") != null, "Attic shell should include intact square window glass")
+	assert_true(instance.get_node_or_null("RoomShell/AtticWindowStormBackdrop") != null, "Attic shell should include the storm backdrop behind the window")
+	assert_equal(_mesh_shader_path(instance, "RoomShell/AtticWindowGlass"), "res://assets/shaders/attic_window_glass.gdshader", "Attic window glass should use the glass shader")
+	assert_equal(_first_material_texture_path(instance.get_node_or_null("RoomShell/AtticWindowStormBackdrop")), "res://assets/gameplay/tracks/attic/textures/window_storm_backdrop.png", "Attic window backdrop should use the storm texture")
+	assert_true(instance.get_node_or_null("Dressing/JackInTheBoxSetpiece") != null, "Attic dressing should include the jack-in-the-box setpiece marker")
+	assert_true(instance.get_node_or_null("Dressing/OldChestMeshy") != null, "Attic dressing should include the old chest marker")
+	assert_true(instance.get_node_or_null("AudioZones/attic_window_wind_zone") != null, "Attic authoring scene should expose the window wind zone")
+	instance.queue_free()
+
+func test_jack_in_the_box_setpiece_builds_animated_parts() -> void:
+	var packed := load("res://assets/gameplay/tracks/attic/props/JackInTheBoxSetpiece.tscn")
+	assert_true(packed is PackedScene, "Jack-in-the-box setpiece scene should load")
+	var instance := (packed as PackedScene).instantiate() as Node3D
+	scene_tree.root.add_child(instance)
+	for node_path in ["BoxBase", "Lid", "Crank", "Spring", "ClownHead", "Eyes", "TriggerArea", "CrankAudio", "SpringAudio", "LaughAudio"]:
+		assert_true(instance.get_node_or_null(node_path) != null, "Jack-in-the-box setpiece should create %s" % node_path)
+	var trigger_area := instance.get_node_or_null("TriggerArea") as Area3D
+	assert_true(trigger_area != null and trigger_area.get_node_or_null("CollisionShape3D") is CollisionShape3D, "Jack-in-the-box should expose an Area3D trigger shape")
+	assert_true(instance.has_method("trigger"), "Jack-in-the-box should expose a trigger method")
+	instance.call("trigger")
+	assert_true((instance.get_node_or_null("CrankAudio") as AudioStreamPlayer3D).stream != null, "Jack crank stream should load")
+	assert_true((instance.get_node_or_null("SpringAudio") as AudioStreamPlayer3D).stream != null, "Jack spring stream should load")
+	assert_true((instance.get_node_or_null("LaughAudio") as AudioStreamPlayer3D).stream != null, "Jack laugh stream should load")
+	instance.queue_free()
+
+func test_attic_mayhem_runtime_builds_redesigned_room() -> void:
+	var definition := TrackSceneAuthoringData.apply_to_definition(TrackCatalog.get_definition("attic"))
+	assert_true(definition != null, "Attic definition should load")
+	assert_true(definition.road_width >= 15.0, "Attic Mayhem route should be widened for AI reliability")
+	assert_true(definition.audio_ids.has("attic_window_wind"), "Attic definition should include window wind audio")
+	assert_true(definition.audio_zones.size() >= 3, "Attic definition should export music, feature, and window wind zones")
+	var built := TrackRuntimeBuilder.build(definition)
+	var track_node := built.get("node", null) as Node3D
+	scene_tree.root.add_child(track_node)
+	assert_true(track_node.get_node_or_null("Dressing/EditableRoom/RoomShell/AtticRidgeBeam") != null, "Runtime attic should include the pitched shell ridge beam")
+	assert_true(track_node.get_node_or_null("Dressing/EditableRoom/RoomShell/AtticWindowGlass") != null, "Runtime attic should include the square window glass")
+	assert_true(track_node.get_node_or_null("Dressing/EditableRoom/Dressing/JackInTheBoxSetpiece") != null, "Runtime attic should include the jack-in-the-box setpiece marker")
+	assert_true(track_node.get_node_or_null("AudioZones/attic_window_wind_zone") != null, "Runtime attic should build the window wind audio zone")
+	assert_true((built.get("waypoints", []) as Array).size() >= 30, "Runtime attic should keep the full route")
+	assert_true((built.get("spawns", []) as Array).size() >= 8, "Runtime attic should keep a full start grid")
+	assert_true(_enabled_collision_objects(track_node.get_node_or_null("Dressing/EditableRoom")) == 0, "Runtime editable attic dressing should not collide with racers")
+	track_node.queue_free()
+
 func test_car_can_be_placed_on_kitchen_start_grid() -> void:
 	var definition := TrackCatalog.get_definition("kitchen")
 	var built := TrackRuntimeBuilder.build(definition)
