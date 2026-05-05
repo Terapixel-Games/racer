@@ -109,6 +109,8 @@ const AI_BASE_LOOKAHEAD_DISTANCE := 26.0
 const AI_LANE_WIDTH := 2.35
 const AI_STUCK_PROGRESS_EPSILON := 0.035
 const AI_STUCK_TIMEOUT := 2.5
+const AI_STUCK_RESET_ADVANCE := 22.0
+const AI_SAFE_TRANSFORM_LOOKAHEAD := 8.0
 const AI_SEPARATION_RADIUS := 5.2
 const AI_SEPARATION_STEER := 0.38
 const AI_TARGET_REACH_DISTANCE := 8.0
@@ -529,23 +531,32 @@ func _update_ai_stuck_state(rid: String, car: CarController, driver: Dictionary,
 		return
 	var last_progress := float(driver.get("last_progress", progress))
 	var progressed := progress > last_progress + AI_STUCK_PROGRESS_EPSILON
-	if progressed or car.velocity.length() > 8.0:
+	if progressed:
 		driver["last_progress"] = maxf(progress, last_progress)
 		driver["stuck_timer"] = 0.0
-		driver["last_safe_transform"] = _ai_route_transform_for_position(car.global_transform.origin, float(driver.get("lane_offset", 0.0)))
+		driver["unstuck_count"] = 0
+		driver["last_safe_transform"] = _ai_route_transform_for_position(car.global_transform.origin, float(driver.get("lane_offset", 0.0)), AI_SAFE_TRANSFORM_LOOKAHEAD)
 		return
 	driver["stuck_timer"] = float(driver.get("stuck_timer", 0.0)) + delta
 	if float(driver.get("stuck_timer", 0.0)) >= AI_STUCK_TIMEOUT:
-		var reset_transform: Transform3D = driver.get("last_safe_transform", _ai_route_transform_for_position(car.global_transform.origin, float(driver.get("lane_offset", 0.0))))
+		var unstuck_count := int(driver.get("unstuck_count", 0)) + 1
+		driver["unstuck_count"] = unstuck_count
+		var reset_transform := _ai_route_transform_for_position(
+			car.global_transform.origin,
+			float(driver.get("lane_offset", 0.0)),
+			AI_STUCK_RESET_ADVANCE * float(clampi(unstuck_count, 1, 3))
+		)
 		apply_instant_reset(car, _snap_to_ground(reset_transform))
+		driver["last_safe_transform"] = reset_transform
+		driver["last_progress"] = progress
 		driver["stuck_timer"] = 0.0
 
-func _ai_route_transform_for_position(position: Vector3, lane_offset: float) -> Transform3D:
+func _ai_route_transform_for_position(position: Vector3, lane_offset: float, advance_distance: float = 4.0) -> Transform3D:
 	var points := _typed_waypoints()
 	if points.size() < 2:
 		return Transform3D.IDENTITY
 	var projection := TrackProgressRules.project_position(points, position, track_closed_loop)
-	var sample := TrackProgressRules.sample_route_at_distance(points, float(projection.get("distance", 0.0)) + 4.0, track_closed_loop)
+	var sample := TrackProgressRules.sample_route_at_distance(points, float(projection.get("distance", 0.0)) + maxf(advance_distance, 0.0), track_closed_loop)
 	var tangent := sample.get("tangent", Vector3.FORWARD) as Vector3
 	tangent.y = 0.0
 	if tangent.length_squared() <= 0.001:

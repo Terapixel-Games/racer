@@ -140,6 +140,12 @@ func _update_collision(mesh: Mesh) -> void:
 		return
 	body.collision_layer = 1
 	body.collision_mask = 2
+	if body.physics_material_override == null:
+		var physics_material := PhysicsMaterial.new()
+		physics_material.friction = 0.08
+		physics_material.bounce = 0.0
+		physics_material.rough = false
+		body.physics_material_override = physics_material
 	var shape_node := body.get_node_or_null("CollisionShape3D") as CollisionShape3D
 	if shape_node == null:
 		return

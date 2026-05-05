@@ -74,6 +74,9 @@ func test_road_collision_uses_layered_road_surfaces_without_support_boxes() -> v
 		assert_true(shape.backface_collision, "Layered road collision should still catch probes from below")
 		var collision_mesh := RoadMeshScript.build_layered_collision_mesh(road.call("_build_mesh") as Mesh, 3, 0.16)
 		assert_equal(_vertex_count(collision_mesh), _vertex_count(road.call("_build_mesh") as Mesh) * 3, "Layered road collision should add backup road planes without box end caps")
+	assert_true(collision_body.physics_material_override != null, "Road collision should apply a physics material")
+	if collision_body.physics_material_override != null:
+		assert_true(collision_body.physics_material_override.friction <= 0.1, "Road collision should stay slick enough to avoid snagging karts on high-contact seams")
 	road.queue_free()
 
 func test_layered_collision_mesh_offsets_backup_layers_downward() -> void:

@@ -6,6 +6,7 @@ const RaceScene = preload("res://scenes/Race.tscn")
 const RacerRoster = preload("res://scripts/logic/RacerRoster.gd")
 
 func test_character_select_continue_targets_level_select() -> void:
+	NakamaService.set_meta_value("selected_racer_id", RacerRoster.DEFAULT_RACER_ID)
 	var screen := CharacterSelectScene.instantiate()
 	scene_tree.root.add_child(screen)
 	var button := screen.find_child("ContinueButton", true, false) as Button
@@ -158,6 +159,32 @@ func test_local_single_finished_ai_keeps_cruising_after_final_lap() -> void:
 		var input_state: Dictionary = car.get("input_state")
 		assert_true(float(input_state.get("throttle", 0.0)) > 0.0, "Finished CPU racers should continue cruising after the final lap")
 		assert_true(not bool(input_state.get("boost", false)), "Finished CPU racers should cruise without boost")
+	race.queue_free()
+
+func test_ai_unstuck_reset_advances_past_snag_instead_of_looping() -> void:
+	var race: Node = _make_local_race()
+	race.call("_set_local_phase", "racing")
+	race.set("track_waypoints", [Vector3(0, 0, 0), Vector3(0, 0, -100)])
+	race.set("track_closed_loop", false)
+	var ai_ids: Array = race.get("ai_racer_ids")
+	var first_ai := str(ai_ids[0])
+	var cars: Dictionary = race.get("cars")
+	var car: CarController = cars.get(first_ai, null)
+	assert_true(car != null, "CPU racer should exist for unstuck recovery")
+	if car != null:
+		car.global_transform = Transform3D(Basis.IDENTITY, Vector3(0, 1, 0))
+		car.velocity = Vector3.ZERO
+		var driver := {
+			"lane_offset": 0.0,
+			"lookahead": 10.0,
+			"last_progress": 0.0,
+			"stuck_timer": 2.4,
+			"last_safe_transform": Transform3D(Basis.IDENTITY, Vector3(0, 1, 0)),
+			"unstuck_count": 0,
+		}
+		race.call("_update_ai_stuck_state", first_ai, car, driver, 0.0, 0.2)
+		assert_true(car.global_transform.origin.z < -15.0, "AI unstuck reset should advance along the route instead of returning to the same snag")
+		assert_equal(car.velocity, Vector3.ZERO, "AI unstuck reset should clear velocity before resuming")
 	race.queue_free()
 
 func test_local_finish_shows_live_overlay_then_finalizes_without_scene_change() -> void:
