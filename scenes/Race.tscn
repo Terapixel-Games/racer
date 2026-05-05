@@ -143,10 +143,10 @@ shader_parameter/refraction_strength = 0.026
 [sub_resource type="ShaderMaterial" id="MotionBlurMaterial"]
 shader = ExtResource("15_motion")
 shader_parameter/intensity = 0.0
-shader_parameter/radial_strength = 0.012
-shader_parameter/streak_strength = 0.014
-shader_parameter/edge_bias = 0.62
-shader_parameter/speed_tint = Color(0.42, 0.86, 1, 0.035)
+shader_parameter/radial_strength = 0.018
+shader_parameter/streak_strength = 0.024
+shader_parameter/edge_bias = 0.72
+shader_parameter/speed_tint = Color(0.42, 0.86, 1, 0.055)
 
 [node name="Race" type="Node3D"]
 script = ExtResource("1")

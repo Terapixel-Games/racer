@@ -167,9 +167,9 @@ const SINK_WATER_DROPS_DRY_SPEED := 0.55
 const APPLIANCE_RUMBLE_RADIUS := 34.0
 const APPLIANCE_RUMBLE_INNER_RADIUS := 13.0
 const CAMERA_SHAKE_MAX_OFFSET := 0.34
-const MOTION_BLUR_START_SPEED := 24.0
-const MOTION_BLUR_FULL_SPEED := 62.0
-const MOTION_BLUR_MAX_INTENSITY := 0.36
+const MOTION_BLUR_START_SPEED := 16.0
+const MOTION_BLUR_FULL_SPEED := 50.0
+const MOTION_BLUR_MAX_INTENSITY := 0.72
 const MOTION_BLUR_FADE_IN_SPEED := 5.4
 const MOTION_BLUR_FADE_OUT_SPEED := 7.2
 const MOTION_BLUR_VISIBLE_EPSILON := 0.01
@@ -384,6 +384,10 @@ func _physics_process_local_single(delta: float) -> void:
 		PHASE_RESULTS:
 			_tick_results_ai_cruise(delta)
 			_update_finish_follow_camera(delta)
+	if race_phase == PHASE_RACING or race_phase == PHASE_PLAYER_FINISH_FOLLOW:
+		_update_motion_blur(delta)
+	else:
+		_apply_motion_blur_intensity(0.0)
 	_update_heat_distortion(delta)
 	_update_water_drops(delta)
 	_update_audio_zone_players()

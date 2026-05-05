@@ -2,10 +2,10 @@ shader_type canvas_item;
 
 uniform sampler2D screen_texture : hint_screen_texture, filter_linear_mipmap;
 uniform float intensity : hint_range(0.0, 1.0) = 0.0;
-uniform float radial_strength : hint_range(0.0, 0.035) = 0.012;
-uniform float streak_strength : hint_range(0.0, 0.04) = 0.014;
-uniform float edge_bias : hint_range(0.0, 1.0) = 0.62;
-uniform vec4 speed_tint : source_color = vec4(0.42, 0.86, 1.0, 0.035);
+uniform float radial_strength : hint_range(0.0, 0.035) = 0.018;
+uniform float streak_strength : hint_range(0.0, 0.04) = 0.024;
+uniform float edge_bias : hint_range(0.0, 1.0) = 0.72;
+uniform vec4 speed_tint : source_color = vec4(0.42, 0.86, 1.0, 0.055);
 
 void fragment() {
 	vec2 center = vec2(0.5);
@@ -29,6 +29,7 @@ void fragment() {
 
 	vec4 blended = mix(radial_color, streak_color, edge_mask * edge_bias);
 	vec4 base = texture(screen_texture, SCREEN_UV);
+	float blend_amount = clamp(active * (0.52 + edge_mask * 0.38), 0.0, 1.0);
 	vec4 tinted = blended + speed_tint * speed_tint.a * active * edge_mask;
-	COLOR = mix(base, tinted, active);
+	COLOR = mix(base, tinted, blend_amount);
 }
