@@ -113,6 +113,7 @@ const AI_CRUISE_MOVEMENT_EPSILON := 1.2
 const AI_SEPARATION_RADIUS := 5.2
 const AI_SEPARATION_STEER := 0.38
 const AI_TARGET_REACH_DISTANCE := 8.0
+const POSITION_HYSTERESIS_PROGRESS := 0.18
 
 const INPUT_INTERVAL := 1.0 / Config.INPUT_TICK_HZ
 const MESSAGE_DURATION := 3.0
@@ -166,6 +167,7 @@ var countdown_label_tween: Tween
 var countdown_overlay_timer := 0.0
 var countdown_last_text := ""
 var last_displayed_position := -1
+var last_position_order: Array[String] = []
 var last_displayed_item_slot := ""
 
 const HEAT_DISTORTION_RADIUS := 38.0
@@ -536,8 +538,9 @@ func _update_ai_stuck_state(rid: String, car: CarController, driver: Dictionary,
 	var last_progress := float(driver.get("last_progress", progress))
 	var progressed := progress > last_progress + AI_STUCK_PROGRESS_EPSILON
 	var last_position := driver.get("last_position", car.global_transform.origin) as Vector3
-	var moved := car.global_transform.origin.distance_to(last_position) > AI_CRUISE_MOVEMENT_EPSILON or car.velocity.length() > 4.0
-	if progressed or (finished_cruise and moved):
+	var moved_position := car.global_transform.origin.distance_to(last_position) > AI_CRUISE_MOVEMENT_EPSILON
+	var moving_cruise := finished_cruise and car.velocity.length() > 4.0
+	if progressed or moved_position or moving_cruise:
 		driver["last_progress"] = maxf(progress, last_progress)
 		driver["stuck_timer"] = 0.0
 		driver["unstuck_count"] = 0
@@ -615,7 +618,7 @@ func _tick_local_racer_progress() -> void:
 						if rid == local_user_id and not finish_announced:
 							finish_announced = true
 							_show_message("Course complete!")
-		info["progress"] = _compute_progress(
+		var computed_progress := _compute_progress(
 			int(info.get("lap", 1)),
 			int(info.get("checkpoint", 0)),
 			car.global_transform.origin,
@@ -623,6 +626,10 @@ func _tick_local_racer_progress() -> void:
 			bool(info.get("finished", false)),
 			-1.0
 		)
+		var previous_progress := float(info.get("progress", -1.0))
+		if not bool(info.get("finished", false)) and previous_progress >= 0.0:
+			computed_progress = maxf(computed_progress, previous_progress)
+		info["progress"] = computed_progress
 		racer_states[rid] = info
 
 func _handle_all_local_out_of_bounds() -> void:
@@ -1525,6 +1532,9 @@ func _update_positions() -> void:
 		if last_displayed_position != -1 and placement != last_displayed_position:
 			_pulse_control(ui_position, Vector2(1.12, 1.12), 0.18)
 		last_displayed_position = placement
+	last_position_order.clear()
+	for entry in entries:
+		last_position_order.append(str((entry as Dictionary).get("id", "")))
 	_update_leaderboard(entries)
 	_update_minimap()
 
@@ -1561,7 +1571,36 @@ func _sorted_position_entries() -> Array:
 			return String(a["id"]) < String(b["id"])
 		return a["progress"] > b["progress"]
 	)
-	return entries
+	return _stabilize_position_entries(entries)
+
+func _stabilize_position_entries(entries: Array) -> Array:
+	if last_position_order.size() < 2 or entries.size() < 2:
+		return entries
+	var previous_order := {}
+	for i in range(last_position_order.size()):
+		previous_order[str(last_position_order[i])] = i
+	var stabilized := entries.duplicate()
+	var changed := true
+	while changed:
+		changed = false
+		for i in range(stabilized.size() - 1):
+			var current: Dictionary = stabilized[i]
+			var next: Dictionary = stabilized[i + 1]
+			if bool(current.get("finished", false)) != bool(next.get("finished", false)):
+				continue
+			if bool(current.get("wasted", false)) != bool(next.get("wasted", false)):
+				continue
+			var current_id := str(current.get("id", ""))
+			var next_id := str(next.get("id", ""))
+			if not previous_order.has(current_id) or not previous_order.has(next_id):
+				continue
+			if absf(float(current.get("progress", 0.0)) - float(next.get("progress", 0.0))) > POSITION_HYSTERESIS_PROGRESS:
+				continue
+			if int(previous_order[current_id]) > int(previous_order[next_id]):
+				stabilized[i] = next
+				stabilized[i + 1] = current
+				changed = true
+	return stabilized
 
 func _update_leaderboard(entries: Array) -> void:
 	for i in range(4):

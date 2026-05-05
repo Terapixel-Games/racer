@@ -213,6 +213,32 @@ func test_finished_ai_cruise_does_not_unstuck_while_moving() -> void:
 		assert_equal(float(driver.get("stuck_timer", -1.0)), 0.0, "Movement during finished cruise should reset stuck timer")
 	race.queue_free()
 
+func test_active_ai_movement_resets_stuck_timer_when_progress_projection_stalls() -> void:
+	var race: Node = _make_local_race()
+	race.call("_set_local_phase", "racing")
+	race.set("track_waypoints", [Vector3(0, 0, 0), Vector3(0, 0, -100)])
+	race.set("track_closed_loop", false)
+	var first_ai := str((race.get("ai_racer_ids") as Array)[0])
+	var cars: Dictionary = race.get("cars")
+	var car: CarController = cars.get(first_ai, null)
+	assert_true(car != null, "CPU racer should exist for active movement stuck recovery")
+	if car != null:
+		car.global_transform = Transform3D(Basis.IDENTITY, Vector3(0, 1, -5))
+		car.velocity = Vector3.ZERO
+		var driver := {
+			"lane_offset": 0.0,
+			"lookahead": 10.0,
+			"last_progress": 10.0,
+			"stuck_timer": 2.4,
+			"last_safe_transform": Transform3D(Basis.IDENTITY, Vector3(0, 1, 0)),
+			"last_position": Vector3(0, 1, 0),
+			"unstuck_count": 0,
+		}
+		race.call("_update_ai_stuck_state", first_ai, car, driver, 10.0, 0.2)
+		assert_equal(float(driver.get("stuck_timer", -1.0)), 0.0, "Active AI that is physically moving should not be treated as stuck when progress projection stalls")
+		assert_equal(int(driver.get("unstuck_count", -1)), 0, "Active AI movement should prevent an unnecessary unstuck reset")
+	race.queue_free()
+
 func test_finished_ai_cruise_uses_centerline_instead_of_race_lane() -> void:
 	var race: Node = _make_local_race()
 	race.call("_set_local_phase", "racing")
@@ -272,6 +298,40 @@ func test_local_position_uses_route_distance_over_checkpoint_floor() -> void:
 	var entries: Array = race.call("_sorted_position_entries")
 	assert_equal(str((entries[0] as Dictionary).get("id", "")), ai_id, "A racer visibly farther along the route should rank ahead even if checkpoint state lags")
 	assert_equal(int(race.call("_local_position")), 2, "Local position should match projected route distance during active racing")
+	race.queue_free()
+
+func test_close_position_changes_preserve_previous_order_until_gap_is_clear() -> void:
+	var race: Node = _make_local_race()
+	race.call("_set_local_phase", "racing")
+	var local_id := str(race.get("local_user_id"))
+	var ai_id := "ai_close_rival"
+	race.set("racer_states", {
+		local_id: {
+			"racer_id": "Dash",
+			"lap": 1,
+			"checkpoint": 0,
+			"pos": Vector3.ZERO,
+			"finished": false,
+			"wasted": false,
+			"progress": 4.00,
+		},
+		ai_id: {
+			"racer_id": "Moko",
+			"lap": 1,
+			"checkpoint": 0,
+			"pos": Vector3.ZERO,
+			"finished": false,
+			"wasted": false,
+			"progress": 3.95,
+		},
+	})
+	race.call("_update_positions")
+	var states: Dictionary = race.get("racer_states")
+	var ai_state: Dictionary = states.get(ai_id, {})
+	ai_state["progress"] = 4.08
+	states[ai_id] = ai_state
+	var entries: Array = race.call("_sorted_position_entries")
+	assert_equal(str((entries[0] as Dictionary).get("id", "")), local_id, "Small progress noise should not reorder racers without a clear overtake")
 	race.queue_free()
 
 func test_local_finish_shows_live_overlay_then_finalizes_without_scene_change() -> void:
