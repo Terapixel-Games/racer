@@ -590,12 +590,14 @@ func _tick_local_racer_progress() -> void:
 		if car == null or info.is_empty():
 			continue
 		info["pos"] = car.global_transform.origin
+		var previous_route_distance := float(info.get("route_distance", -1.0))
+		var current_route_distance := _projected_route_distance(car.global_transform.origin, checkpoint_indices)
 		if not bool(info.get("finished", false)) and checkpoint_count > 0:
 			var expected := int(info.get("checkpoint", 0))
 			var expected_index := clampi(expected, 0, checkpoint_indices.size() - 1)
 			var route_index := checkpoint_indices[expected_index]
 			var radius := maxf(track_road_width * 0.65, 4.0)
-			if TrackProgressRules.is_checkpoint_hit(_typed_waypoints(), route_index, car.global_transform.origin, radius) or _has_projected_past_checkpoint(car.global_transform.origin, expected, checkpoint_indices):
+			if TrackProgressRules.is_checkpoint_hit(_typed_waypoints(), route_index, car.global_transform.origin, radius) or _has_projected_past_checkpoint(current_route_distance, previous_route_distance, expected, checkpoint_indices):
 				var result := TrackProgressRules.apply_checkpoint_pass(
 					expected,
 					int(info.get("lap", 1)),
@@ -631,6 +633,7 @@ func _tick_local_racer_progress() -> void:
 			if previous_progress - computed_progress <= POSITION_HYSTERESIS_PROGRESS:
 				computed_progress = maxf(computed_progress, previous_progress)
 		info["progress"] = computed_progress
+		info["route_distance"] = current_route_distance
 		racer_states[rid] = info
 
 func _handle_all_local_out_of_bounds() -> void:
@@ -2297,9 +2300,16 @@ func _checkpoint_indices_for_progress(checkpoint_total: int) -> Array[int]:
 		indices.append(clampi(i, 0, point_count - 1))
 	return indices
 
-func _has_projected_past_checkpoint(pos: Vector3, expected_checkpoint: int, checkpoint_indices: Array[int]) -> bool:
+func _projected_route_distance(pos: Vector3, checkpoint_indices: Array[int]) -> float:
 	var points := _typed_waypoints()
 	if points.size() < 2 or checkpoint_indices.is_empty():
+		return -1.0
+	var projection := TrackProgressRules.project_route_network(points, track_alternate_routes, checkpoint_indices, pos, track_closed_loop)
+	return float(projection.get("distance", 0.0))
+
+func _has_projected_past_checkpoint(current_route_distance: float, previous_route_distance: float, expected_checkpoint: int, checkpoint_indices: Array[int]) -> bool:
+	var points := _typed_waypoints()
+	if points.size() < 2 or checkpoint_indices.is_empty() or previous_route_distance < 0.0 or current_route_distance < 0.0:
 		return false
 	var expected := clampi(expected_checkpoint, 0, checkpoint_indices.size() - 1)
 	if expected == track_lap_gate_checkpoint_index:
@@ -2308,9 +2318,9 @@ func _has_projected_past_checkpoint(pos: Vector3, expected_checkpoint: int, chec
 	if route_total <= 0.001:
 		return false
 	var checkpoint_distance := TrackProgressRules.distance_at_route_index(points, checkpoint_indices[expected], track_closed_loop)
-	var projection := TrackProgressRules.project_route_network(points, track_alternate_routes, checkpoint_indices, pos, track_closed_loop)
-	var projected_distance := float(projection.get("distance", 0.0))
-	return projected_distance >= checkpoint_distance + CHECKPOINT_CATCHUP_DISTANCE
+	if track_closed_loop and current_route_distance + CHECKPOINT_CATCHUP_DISTANCE < previous_route_distance:
+		return false
+	return previous_route_distance < checkpoint_distance and current_route_distance >= checkpoint_distance + CHECKPOINT_CATCHUP_DISTANCE
 
 func _progress_projection_for_checkpoint(pos: Vector3, checkpoint: int, checkpoint_total: int) -> Dictionary:
 	var points := _typed_waypoints()
