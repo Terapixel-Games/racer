@@ -227,6 +227,18 @@ func test_jack_in_the_box_setpiece_builds_animated_parts() -> void:
 	assert_true((instance.get_node_or_null("LaughAudio") as AudioStreamPlayer3D).stream != null, "Jack laugh stream should load")
 	instance.queue_free()
 
+func test_jack_in_the_box_resets_closed_after_pop() -> void:
+	var packed := load("res://assets/gameplay/tracks/attic/props/JackInTheBoxSetpiece.tscn")
+	assert_true(packed is PackedScene, "Jack-in-the-box setpiece scene should load")
+	var instance := (packed as PackedScene).instantiate() as Node3D
+	scene_tree.root.add_child(instance)
+	instance.set("popped_open_seconds", 0.2)
+	instance.call("trigger")
+	for i in range(36):
+		instance.call("_process", 0.1)
+	assert_true(bool(instance.call("is_closed")), "Jack-in-the-box should reset to the closed pose after popping")
+	instance.queue_free()
+
 func test_attic_mayhem_runtime_builds_redesigned_room() -> void:
 	var definition := TrackSceneAuthoringData.apply_to_definition(TrackCatalog.get_definition("attic"))
 	assert_true(definition != null, "Attic definition should load")

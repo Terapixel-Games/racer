@@ -9,6 +9,7 @@ const STATE_RESET := "reset"
 
 @export var trigger_radius := 12.0
 @export var cooldown_seconds := 8.0
+@export var popped_open_seconds := 1.0
 @export var auto_demo := false
 
 var _state := STATE_IDLE
@@ -48,7 +49,7 @@ func _process(delta: float) -> void:
 				_start_bounce()
 		STATE_BOUNCE:
 			_tick_bounce()
-			if _state_time >= 2.25:
+			if _state_time >= maxf(popped_open_seconds, 0.0):
 				_start_reset()
 		STATE_RESET:
 			_tick_reset()
@@ -65,6 +66,12 @@ func trigger() -> void:
 	if _crank_player:
 		_crank_player.play()
 
+func is_closed() -> bool:
+	return _state == STATE_IDLE and _lid != null and _spring != null and _clown_head != null \
+		and absf(_lid.rotation_degrees.x) <= 0.01 \
+		and absf(_spring.scale.y - 0.08) <= 0.01 \
+		and _clown_head.position.distance_to(Vector3(0.0, 0.42, 0.0)) <= 0.01
+
 func _start_pop() -> void:
 	_state = STATE_POP
 	_state_time = 0.0
@@ -80,6 +87,8 @@ func _start_bounce() -> void:
 func _start_reset() -> void:
 	_state = STATE_RESET
 	_state_time = 0.0
+	if _laugh_player:
+		_laugh_player.stop()
 
 func _tick_windup() -> void:
 	var shake := sin(_state_time * 48.0) * 0.055
@@ -96,7 +105,8 @@ func _tick_pop() -> void:
 	_clown_head.rotation_degrees.z = sin(t * PI) * 12.0
 
 func _tick_bounce() -> void:
-	var decay := maxf(1.0 - _state_time / 2.25, 0.0)
+	var duration := maxf(popped_open_seconds, 0.01)
+	var decay := maxf(1.0 - _state_time / duration, 0.0)
 	var wave := sin(_state_time * TAU * 3.2)
 	_lid.rotation_degrees.x = -112.0 + wave * 3.0 * decay
 	_spring.scale.y = 1.0 + wave * 0.16 * decay
