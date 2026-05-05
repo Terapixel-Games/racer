@@ -41,6 +41,11 @@ func _process(delta: float) -> void:
 	_cooldown = maxf(_cooldown - delta, 0.0)
 	if auto_demo and _state == STATE_IDLE and _cooldown <= 0.0:
 		trigger()
+	elif _state == STATE_IDLE and _cooldown <= 0.0 and _trigger_area != null:
+		for body in _trigger_area.get_overlapping_bodies():
+			if _is_valid_trigger_body(body):
+				trigger()
+				break
 	if _state == STATE_IDLE:
 		return
 	_state_time += delta
@@ -213,6 +218,8 @@ func _ensure_trigger_area() -> Area3D:
 			sphere = SphereShape3D.new()
 			shape_node.shape = sphere
 		sphere.radius = trigger_radius
+	area.collision_layer = 0
+	area.collision_mask = 2
 	area.monitoring = true
 	area.monitorable = true
 	if not area.body_entered.is_connected(_on_trigger_body_entered):
@@ -227,8 +234,12 @@ func _ensure_animation_player() -> AnimationPlayer:
 		add_child(player)
 	return player
 
-func _on_trigger_body_entered(_body: Node3D) -> void:
-	trigger()
+func _on_trigger_body_entered(body: Node3D) -> void:
+	if _is_valid_trigger_body(body):
+		trigger()
+
+func _is_valid_trigger_body(body: Node) -> bool:
+	return body is CarController
 
 func _part(node_name: String) -> Node3D:
 	var existing := get_node_or_null(node_name) as Node3D

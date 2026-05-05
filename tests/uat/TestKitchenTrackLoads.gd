@@ -227,9 +227,28 @@ func test_jack_in_the_box_setpiece_builds_animated_parts() -> void:
 	assert_equal(str(instance.call("state_for_test")), "windup", "Jack-in-the-box should enter windup after triggering")
 	instance.call("trigger")
 	assert_equal(str(instance.call("state_for_test")), "windup", "Jack-in-the-box should ignore repeat triggers while active")
+	instance.set("cooldown_seconds", 0.2)
 	assert_true((instance.get_node_or_null("CrankAudio") as AudioStreamPlayer3D).stream != null, "Jack crank stream should load")
 	assert_true((instance.get_node_or_null("SpringAudio") as AudioStreamPlayer3D).stream != null, "Jack spring stream should load")
 	assert_true((instance.get_node_or_null("LaughAudio") as AudioStreamPlayer3D).stream != null, "Jack laugh stream should load")
+	instance.queue_free()
+
+func test_jack_in_the_box_only_triggers_for_racers() -> void:
+	var packed := load("res://assets/gameplay/tracks/attic/props/JackInTheBoxSetpiece.tscn")
+	assert_true(packed is PackedScene, "Jack-in-the-box setpiece scene should load")
+	var instance := (packed as PackedScene).instantiate() as Node3D
+	scene_tree.root.add_child(instance)
+	var trigger_area := instance.get_node_or_null("TriggerArea") as Area3D
+	assert_equal(trigger_area.collision_mask, 2, "Jack-in-the-box trigger should only listen to the car collision layer")
+	var static_body := StaticBody3D.new()
+	instance.call("_on_trigger_body_entered", static_body)
+	assert_equal(str(instance.call("state_for_test")), "idle", "Static track geometry should not trigger the jack-in-the-box")
+	var car_scene := load("res://scenes/Car.tscn") as PackedScene
+	var car := car_scene.instantiate() as CarController
+	instance.call("_on_trigger_body_entered", car)
+	assert_equal(str(instance.call("state_for_test")), "windup", "A racer body should trigger the jack-in-the-box")
+	static_body.queue_free()
+	car.queue_free()
 	instance.queue_free()
 
 func test_jack_in_the_box_resets_closed_after_pop() -> void:
@@ -242,6 +261,21 @@ func test_jack_in_the_box_resets_closed_after_pop() -> void:
 	for i in range(36):
 		instance.call("_process", 0.1)
 	assert_true(bool(instance.call("is_closed")), "Jack-in-the-box should reset to the closed pose after popping")
+	instance.queue_free()
+
+func test_jack_in_the_box_retriggers_after_cooldown() -> void:
+	var packed := load("res://assets/gameplay/tracks/attic/props/JackInTheBoxSetpiece.tscn")
+	assert_true(packed is PackedScene, "Jack-in-the-box setpiece scene should load")
+	var instance := (packed as PackedScene).instantiate() as Node3D
+	scene_tree.root.add_child(instance)
+	instance.set("popped_open_seconds", 0.1)
+	instance.set("cooldown_seconds", 0.2)
+	instance.call("trigger")
+	for i in range(24):
+		instance.call("_process", 0.1)
+	assert_true(bool(instance.call("is_closed")), "Jack-in-the-box should close after its first pop")
+	instance.call("trigger")
+	assert_equal(str(instance.call("state_for_test")), "windup", "Jack-in-the-box should accept another trigger after cooldown")
 	instance.queue_free()
 
 func test_attic_mayhem_runtime_builds_redesigned_room() -> void:
