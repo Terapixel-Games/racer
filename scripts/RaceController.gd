@@ -173,6 +173,7 @@ const MOTION_BLUR_MAX_INTENSITY := 0.72
 const MOTION_BLUR_FADE_IN_SPEED := 5.4
 const MOTION_BLUR_FADE_OUT_SPEED := 7.2
 const MOTION_BLUR_VISIBLE_EPSILON := 0.01
+const MOTION_BLUR_ENV_EFFECT_SUPPRESSION := 0.55
 const BOOST_SFX_PATH := "res://assets/source/audio/canva/driving/boost/boost_burst_canva_01.wav"
 const DRIFT_SFX_PATH := "res://assets/source/audio/canva/driving/drift/drift_release_canva_01.wav"
 const ITEM_PICKUP_SFX_PATH := "res://assets/source/audio/canva/items/pickup/item_pickup_canva_01.wav"
@@ -384,12 +385,12 @@ func _physics_process_local_single(delta: float) -> void:
 		PHASE_RESULTS:
 			_tick_results_ai_cruise(delta)
 			_update_finish_follow_camera(delta)
+	_update_heat_distortion(delta)
+	_update_water_drops(delta)
 	if race_phase == PHASE_RACING or race_phase == PHASE_PLAYER_FINISH_FOLLOW:
 		_update_motion_blur(delta)
 	else:
 		_apply_motion_blur_intensity(0.0)
-	_update_heat_distortion(delta)
-	_update_water_drops(delta)
 	_update_audio_zone_players()
 	_update_game_sounds()
 	_tick_countdown_overlay(delta)
@@ -1287,9 +1288,9 @@ func _physics_process(delta: float) -> void:
 	_tick_local_item_slot(delta)
 	_update_ui()
 	_update_camera(delta)
-	_update_motion_blur(delta)
 	_update_heat_distortion(delta)
 	_update_water_drops(delta)
+	_update_motion_blur(delta)
 	_update_audio_zone_players()
 	_update_game_sounds()
 	_tick_countdown_overlay(delta)
@@ -1593,6 +1594,8 @@ func _update_motion_blur(delta: float) -> void:
 		MOTION_BLUR_FULL_SPEED,
 		MOTION_BLUR_MAX_INTENSITY
 	)
+	var effect_intensity: float = maxf(heat_distortion_intensity, water_drop_intensity)
+	target *= 1.0 - (clampf(effect_intensity, 0.0, 1.0) * MOTION_BLUR_ENV_EFFECT_SUPPRESSION)
 	var fade_speed := MOTION_BLUR_FADE_IN_SPEED if target > motion_blur_intensity else MOTION_BLUR_FADE_OUT_SPEED
 	motion_blur_intensity = approach_motion_blur_intensity(motion_blur_intensity, target, delta, fade_speed)
 	_apply_motion_blur_intensity(motion_blur_intensity)

@@ -38,3 +38,9 @@ func test_motion_blur_approach_moves_without_overshooting() -> void:
 	var decreasing := RaceController.approach_motion_blur_intensity(0.3, 0.0, 0.1, 7.0)
 	assert_true(decreasing < 0.3, "Decreasing blur should move toward target")
 	assert_true(decreasing >= 0.0, "Decreasing blur should not undershoot target")
+
+func test_motion_blur_suppression_keeps_environment_effects_visible() -> void:
+	var base := RaceController.motion_blur_intensity_for_speed(50.0, 16.0, 50.0, 0.72)
+	var suppressed: float = base * (1.0 - 1.0 * 0.55)
+	assert_true(suppressed < base, "Environment effects should reduce blur strength")
+	assert_true(suppressed > 0.0, "Suppression should preserve some speed feedback")
