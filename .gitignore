@@ -2,6 +2,7 @@
 .godot/
 /android/
 /configs/AdMob.local.txt
+/.gamedev_ai/
 
 # Local verification/capture output
 tmp/

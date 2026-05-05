@@ -41,7 +41,7 @@ project/assembly_name="Racer"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_ai/plugin.cfg")
+enabled=PackedStringArray("res://addons/gamedev_ai/plugin.cfg", "res://addons/godot_ai/plugin.cfg")
 
 [rendering]
 
