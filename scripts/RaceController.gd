@@ -37,6 +37,7 @@ const NavigationFlow = preload("res://scripts/logic/NavigationFlow.gd")
 @onready var steer_joystick_knob: Control = %SteerJoystickKnob
 @onready var heat_distortion: ColorRect = %HeatDistortion
 @onready var water_drops: ColorRect = %WaterDrops
+@onready var motion_blur: ColorRect = %MotionBlur
 
 var match_id: String = ""
 var local_user_id: String = ""
@@ -120,6 +121,7 @@ var heat_distortion_intensity := 0.0
 var sink_water_zones: Array[Dictionary] = []
 var appliance_rumble_positions: Array[Vector3] = []
 var water_drop_intensity := 0.0
+var motion_blur_intensity := 0.0
 var track_audio_ids: Dictionary = {}
 var track_audio_zones: Array = []
 var audio_zone_players: Dictionary = {}
@@ -165,6 +167,12 @@ const SINK_WATER_DROPS_DRY_SPEED := 0.55
 const APPLIANCE_RUMBLE_RADIUS := 34.0
 const APPLIANCE_RUMBLE_INNER_RADIUS := 13.0
 const CAMERA_SHAKE_MAX_OFFSET := 0.34
+const MOTION_BLUR_START_SPEED := 24.0
+const MOTION_BLUR_FULL_SPEED := 62.0
+const MOTION_BLUR_MAX_INTENSITY := 0.36
+const MOTION_BLUR_FADE_IN_SPEED := 5.4
+const MOTION_BLUR_FADE_OUT_SPEED := 7.2
+const MOTION_BLUR_VISIBLE_EPSILON := 0.01
 const BOOST_SFX_PATH := "res://assets/source/audio/canva/driving/boost/boost_burst_canva_01.wav"
 const DRIFT_SFX_PATH := "res://assets/source/audio/canva/driving/drift/drift_release_canva_01.wav"
 const ITEM_PICKUP_SFX_PATH := "res://assets/source/audio/canva/items/pickup/item_pickup_canva_01.wav"
@@ -1275,6 +1283,7 @@ func _physics_process(delta: float) -> void:
 	_tick_local_item_slot(delta)
 	_update_ui()
 	_update_camera(delta)
+	_update_motion_blur(delta)
 	_update_heat_distortion(delta)
 	_update_water_drops(delta)
 	_update_audio_zone_players()
@@ -1567,6 +1576,31 @@ func _update_camera_for_car(car: CarController, delta: float) -> void:
 	camera.global_transform.origin = camera.global_transform.origin.lerp(resolved + shake_offset, blend)
 	camera.look_at(look_target + shake_offset * 0.25, Vector3.UP)
 
+func _update_motion_blur(delta: float) -> void:
+	var car: CarController = cars.get(local_user_id, null)
+	if car == null:
+		_apply_motion_blur_intensity(0.0)
+		return
+	var horizontal_velocity := car.velocity
+	horizontal_velocity.y = 0.0
+	var target := motion_blur_intensity_for_speed(
+		horizontal_velocity.length(),
+		MOTION_BLUR_START_SPEED,
+		MOTION_BLUR_FULL_SPEED,
+		MOTION_BLUR_MAX_INTENSITY
+	)
+	var fade_speed := MOTION_BLUR_FADE_IN_SPEED if target > motion_blur_intensity else MOTION_BLUR_FADE_OUT_SPEED
+	motion_blur_intensity = approach_motion_blur_intensity(motion_blur_intensity, target, delta, fade_speed)
+	_apply_motion_blur_intensity(motion_blur_intensity)
+
+func _apply_motion_blur_intensity(intensity: float) -> void:
+	if motion_blur == null:
+		return
+	var visible_intensity := clampf(intensity, 0.0, MOTION_BLUR_MAX_INTENSITY)
+	motion_blur.visible = visible_intensity > MOTION_BLUR_VISIBLE_EPSILON
+	if motion_blur.material is ShaderMaterial:
+		(motion_blur.material as ShaderMaterial).set_shader_parameter("intensity", visible_intensity)
+
 func _resolve_camera_occlusion(look_target: Vector3, desired: Vector3) -> Vector3:
 	var space_state := get_world_3d().direct_space_state
 	var params := PhysicsRayQueryParameters3D.create(look_target, desired, CAMERA_OCCLUSION_MASK)
@@ -1607,6 +1641,20 @@ static func camera_shake_offset(intensity: float, max_offset: float) -> Vector3:
 		cos(t * 53.0) * amount * 0.62,
 		sin(t * 37.0 + 1.7) * amount * 0.45
 	)
+
+static func motion_blur_intensity_for_speed(speed: float, start_speed: float, full_speed: float, max_intensity: float) -> float:
+	if max_intensity <= 0.0:
+		return 0.0
+	var range := maxf(full_speed - start_speed, 0.01)
+	var ratio := clampf((maxf(speed, 0.0) - start_speed) / range, 0.0, 1.0)
+	ratio = ratio * ratio * (3.0 - 2.0 * ratio)
+	return ratio * max_intensity
+
+static func approach_motion_blur_intensity(current: float, target: float, delta: float, fade_speed: float) -> float:
+	if delta <= 0.0 or fade_speed <= 0.0:
+		return clampf(target, 0.0, MOTION_BLUR_MAX_INTENSITY)
+	var weight := clampf(delta * fade_speed, 0.0, 1.0)
+	return lerpf(current, target, weight)
 
 func _ensure_input_actions() -> void:
 	_add_action_if_missing("accelerate")
