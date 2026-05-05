@@ -213,6 +213,36 @@ func test_finished_ai_cruise_does_not_unstuck_while_moving() -> void:
 		assert_equal(float(driver.get("stuck_timer", -1.0)), 0.0, "Movement during finished cruise should reset stuck timer")
 	race.queue_free()
 
+func test_finished_ai_cruise_uses_centerline_instead_of_race_lane() -> void:
+	var race: Node = _make_local_race()
+	race.call("_set_local_phase", "racing")
+	var ai_ids: Array = race.get("ai_racer_ids")
+	var first_ai := str(ai_ids[0])
+	var states: Dictionary = race.get("racer_states")
+	var ai_state: Dictionary = states.get(first_ai, {})
+	ai_state["finished"] = true
+	states[first_ai] = ai_state
+	var cars: Dictionary = race.get("cars")
+	var car: CarController = cars.get(first_ai, null)
+	assert_true(car != null, "CPU racer should exist for finished centerline cruise")
+	if car != null:
+		race.set("track_waypoints", [Vector3.ZERO, Vector3(0, 0, -80)])
+		var driver_state: Dictionary = race.get("ai_driver_state")
+		driver_state[first_ai] = {
+			"lane_offset": 20.0,
+			"lookahead": 18.0,
+			"last_progress": 999.0,
+			"stuck_timer": 0.0,
+			"last_safe_transform": Transform3D.IDENTITY,
+			"last_position": Vector3.ZERO,
+		}
+		car.global_transform = Transform3D(Basis.IDENTITY, Vector3(0, 1, 0))
+		race.call("_tick_ai_input", first_ai, 0.016)
+		var input_state: Dictionary = car.get("input_state")
+		assert_true(absf(float(input_state.get("steer", 0.0))) <= 0.05, "Finished AI cruise should target the route centerline instead of its race lane")
+		assert_true(not bool(input_state.get("drift", true)), "Finished AI cruise should not drift into rails or edge geometry")
+	race.queue_free()
+
 func test_local_finish_shows_live_overlay_then_finalizes_without_scene_change() -> void:
 	var race: Node = _make_local_race()
 	race.call("_set_local_phase", "racing")

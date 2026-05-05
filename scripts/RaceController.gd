@@ -468,20 +468,24 @@ func _tick_ai_input(rid: String, delta: float, allow_finished_cruise: bool = fal
 	tangent = tangent.normalized()
 	var right := Vector3(tangent.z, 0.0, -tangent.x).normalized()
 	var target := sample.get("position", car.global_transform.origin) as Vector3
-	target += right * float(driver.get("lane_offset", 0.0))
+	var lane_offset := 0.0 if finished_cruise else float(driver.get("lane_offset", 0.0))
+	target += right * lane_offset
 	var local_target := car.global_transform.affine_inverse() * target
 	var steer := clampf(local_target.x / maxf(absf(local_target.z), 4.0), -1.0, 1.0)
-	steer += _ai_separation_steer(rid, car)
+	if not finished_cruise:
+		steer += _ai_separation_steer(rid, car)
 	steer = clampf(steer, -1.0, 1.0)
 	if absf(steer) < AI_STEER_DEADZONE:
 		steer = 0.0
 	var angle := absf(atan2(local_target.x, maxf(local_target.z, 0.01)))
 	var speed := car.velocity.length()
 	var brake := 1.0 if angle > AI_BRAKE_ANGLE and speed > 18.0 else 0.0
-	var throttle := 0.45 if brake > 0.0 else (0.55 if finished_cruise else 1.0)
+	if finished_cruise and speed > 24.0:
+		brake = 0.35
+	var throttle := 0.45 if brake > 0.0 else (0.68 if finished_cruise else 1.0)
 	if absf(steer) > 0.72 and speed > 24.0:
 		throttle = minf(throttle, 0.68)
-	var drift := angle > AI_DRIFT_ANGLE and speed > 13.0
+	var drift := (not finished_cruise) and angle > AI_DRIFT_ANGLE and speed > 13.0
 	var boost := (not finished_cruise) and car.boost_meter > 55.0 and angle < 0.22
 	_update_ai_stuck_state(rid, car, driver, float(info.get("progress", 0.0)), delta, finished_cruise)
 	ai_driver_state[rid] = driver
