@@ -345,6 +345,48 @@ func test_local_position_does_not_rank_lap_gate_seam_as_full_lap() -> void:
 	assert_equal(int(race.call("_local_position")), 2, "Local position should account for visible opponents ahead after the lap gate")
 	race.queue_free()
 
+func test_local_position_can_rank_player_last_in_full_field() -> void:
+	var race: Node = _make_local_race()
+	race.call("_set_local_phase", "racing")
+	race.set("track_waypoints", [Vector3.ZERO, Vector3(0, 0, -140)])
+	race.set("track_closed_loop", false)
+	race.set("track_checkpoint_total", 4)
+	var local_id := str(race.get("local_user_id"))
+	var states := {
+		local_id: {
+			"racer_id": "Dash",
+			"lap": 1,
+			"checkpoint": 1,
+			"pos": Vector3(0, 1, -10),
+			"finished": false,
+			"wasted": false,
+		},
+	}
+	var roster_ids := ["Tuggs", "Moko", "Rexx", "Popper", "Sir Clink", "Slammo", "Velva"]
+	for i in range(roster_ids.size()):
+		states["cpu_%02d" % [i + 1]] = {
+			"racer_id": roster_ids[i],
+			"lap": 1,
+			"checkpoint": 1,
+			"pos": Vector3(0, 1, -30 - i * 12),
+			"finished": false,
+			"wasted": false,
+	}
+	race.set("racer_states", states)
+	assert_equal(int(race.call("_local_position")), 8, "Local position should be able to show 8th when the full field is ahead")
+	race.call("_update_positions")
+	var rows := race.get_node("UI/HUD/TopLeftPanel/Margin/VBox/LeaderboardRows") as VBoxContainer
+	assert_true(rows.get_child_count() >= 8, "Race leaderboard should create enough rows for the full local field")
+	var visible_rows := 0
+	for child in rows.get_children():
+		if (child as Control).visible:
+			visible_rows += 1
+	assert_equal(visible_rows, 8, "Race leaderboard should display all eight local racers")
+	var last_row := rows.get_child(7)
+	var last_label := last_row.find_child("*Label", true, false) as Label
+	assert_true(last_label != null and last_label.text.begins_with("8  YOU"), "Visible leaderboard should show the local racer in 8th when last")
+	race.queue_free()
+
 func test_close_position_changes_preserve_previous_order_until_gap_is_clear() -> void:
 	var race: Node = _make_local_race()
 	race.call("_set_local_phase", "racing")

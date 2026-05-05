@@ -114,6 +114,7 @@ const AI_SEPARATION_RADIUS := 5.2
 const AI_SEPARATION_STEER := 0.38
 const AI_TARGET_REACH_DISTANCE := 8.0
 const POSITION_HYSTERESIS_PROGRESS := 0.18
+const MAX_LEADERBOARD_ROWS := 8
 
 const INPUT_INTERVAL := 1.0 / Config.INPUT_TICK_HZ
 const MESSAGE_DURATION := 3.0
@@ -1607,13 +1608,20 @@ func _stabilize_position_entries(entries: Array) -> Array:
 	return stabilized
 
 func _update_leaderboard(entries: Array) -> void:
-	for i in range(4):
-		var row := get_node_or_null("UI/HUD/TopLeftPanel/Margin/VBox/LeaderboardRows/Leader%d" % [i + 1]) as PanelContainer
-		var label := get_node_or_null("%%Leader%dLabel" % [i + 1]) as Label
-		var portrait := get_node_or_null("%%Leader%dPortrait" % [i + 1]) as TextureRect
+	if leaderboard_rows == null:
+		return
+	var row_count := mini(entries.size(), MAX_LEADERBOARD_ROWS)
+	_ensure_leaderboard_row_count(row_count)
+	_layout_leaderboard_for_field(row_count)
+	for i in range(leaderboard_rows.get_child_count()):
+		var row := leaderboard_rows.get_child(i) as PanelContainer
+		if row == null:
+			continue
+		var label := _leaderboard_row_label(row)
+		var portrait := _leaderboard_row_portrait(row)
 		if row == null or label == null or portrait == null:
 			continue
-		var has_entry := i < entries.size()
+		var has_entry := i < row_count
 		row.visible = has_entry
 		if not has_entry:
 			continue
@@ -1635,6 +1643,56 @@ func _update_leaderboard(entries: Array) -> void:
 		var portrait_path := RacerRoster.get_portrait_path(racer_id)
 		if portrait_path != "" and ResourceLoader.exists(portrait_path):
 			portrait.texture = load(portrait_path)
+
+func _ensure_leaderboard_row_count(row_count: int) -> void:
+	if leaderboard_rows == null or leaderboard_rows.get_child_count() <= 0:
+		return
+	var target := clampi(row_count, 0, MAX_LEADERBOARD_ROWS)
+	while leaderboard_rows.get_child_count() < target:
+		var template := leaderboard_rows.get_child(leaderboard_rows.get_child_count() - 1)
+		var row := template.duplicate()
+		row.name = "Leader%d" % (leaderboard_rows.get_child_count() + 1)
+		leaderboard_rows.add_child(row)
+
+func _layout_leaderboard_for_field(row_count: int) -> void:
+	if top_left_panel != null:
+		top_left_panel.size = Vector2(430.0, 620.0 if row_count > 4 else 454.0)
+		top_left_panel.offset_right = top_left_panel.offset_left + top_left_panel.size.x
+		top_left_panel.offset_bottom = top_left_panel.offset_top + top_left_panel.size.y
+	if leaderboard_rows != null:
+		leaderboard_rows.add_theme_constant_override("separation", 5 if row_count > 4 else 8)
+	for child in leaderboard_rows.get_children():
+		var row := child as PanelContainer
+		if row == null:
+			continue
+		var portrait := _leaderboard_row_portrait(row)
+		if portrait != null:
+			portrait.custom_minimum_size = Vector2(38, 38) if row_count > 4 else Vector2(56, 56)
+		var label := _leaderboard_row_label(row)
+		if label != null:
+			label.add_theme_font_size_override("font_size", 20 if row_count > 4 else 24)
+		var margin := _leaderboard_row_margin(row)
+		if margin != null:
+			var vertical := 4 if row_count > 4 else 7
+			margin.add_theme_constant_override("margin_left", 8)
+			margin.add_theme_constant_override("margin_top", vertical)
+			margin.add_theme_constant_override("margin_right", 10)
+			margin.add_theme_constant_override("margin_bottom", vertical)
+
+func _leaderboard_row_margin(row: Node) -> MarginContainer:
+	if row == null:
+		return null
+	return row.find_child("*Margin", true, false) as MarginContainer
+
+func _leaderboard_row_label(row: Node) -> Label:
+	if row == null:
+		return null
+	return row.find_child("*Label", true, false) as Label
+
+func _leaderboard_row_portrait(row: Node) -> TextureRect:
+	if row == null:
+		return null
+	return row.find_child("*Portrait", true, false) as TextureRect
 
 func _update_minimap() -> void:
 	if race_minimap == null or not race_minimap.has_method("set_race_data"):
