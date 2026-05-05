@@ -300,6 +300,51 @@ func test_local_position_uses_route_distance_over_checkpoint_floor() -> void:
 	assert_equal(int(race.call("_local_position")), 2, "Local position should match projected route distance during active racing")
 	race.queue_free()
 
+func test_local_position_does_not_rank_lap_gate_seam_as_full_lap() -> void:
+	var race: Node = _make_local_race()
+	race.call("_set_local_phase", "racing")
+	race.set("track_waypoints", [
+		Vector3(-108, 0, -72),
+		Vector3(0, 0, -76),
+		Vector3(128, 0, -30),
+		Vector3(60, 0, 78),
+		Vector3(-94, 0, 54),
+		Vector3(-126, 0, -40),
+		Vector3(-112, 0, -68),
+	])
+	race.set("track_closed_loop", true)
+	race.set("track_checkpoint_total", 6)
+	var checkpoint_indices: Array[int] = [0, 1, 2, 3, 4, 5]
+	race.set("track_checkpoint_indices", checkpoint_indices)
+	var local_id := str(race.get("local_user_id"))
+	var ai_id := "ai_ahead_after_gate"
+	race.set("racer_states", {
+		local_id: {
+			"racer_id": "Dash",
+			"lap": 1,
+			"checkpoint": 1,
+			"pos": Vector3(-110, 1, -70),
+			"finished": false,
+			"wasted": false,
+			"progress": 5.8,
+		},
+		ai_id: {
+			"racer_id": "Tuggs",
+			"lap": 1,
+			"checkpoint": 2,
+			"pos": Vector3(40, 1, -74),
+			"finished": false,
+			"wasted": false,
+			"progress": 2.0,
+		},
+	})
+	var local_progress := float(race.call("_compute_progress", 1, 1, Vector3(-110, 1, -70), 6, false, -1.0))
+	assert_true(local_progress < 2.0, "Lap-gate seam projection should stay inside the current checkpoint window")
+	var entries: Array = race.call("_sorted_position_entries")
+	assert_equal(str((entries[0] as Dictionary).get("id", "")), ai_id, "Cached seam progress should not put the local racer first while opponents are ahead")
+	assert_equal(int(race.call("_local_position")), 2, "Local position should account for visible opponents ahead after the lap gate")
+	race.queue_free()
+
 func test_close_position_changes_preserve_previous_order_until_gap_is_clear() -> void:
 	var race: Node = _make_local_race()
 	race.call("_set_local_phase", "racing")

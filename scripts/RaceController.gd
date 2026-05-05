@@ -628,7 +628,8 @@ func _tick_local_racer_progress() -> void:
 		)
 		var previous_progress := float(info.get("progress", -1.0))
 		if not bool(info.get("finished", false)) and previous_progress >= 0.0:
-			computed_progress = maxf(computed_progress, previous_progress)
+			if previous_progress - computed_progress <= POSITION_HYSTERESIS_PROGRESS:
+				computed_progress = maxf(computed_progress, previous_progress)
 		info["progress"] = computed_progress
 		racer_states[rid] = info
 
@@ -1548,7 +1549,7 @@ func _sorted_position_entries() -> Array:
 		var pos: Vector3 = info.get("pos", Vector3.ZERO)
 		var finished: bool = info.get("finished", false)
 		var wasted: bool = info.get("wasted", false)
-		var server_progress: float = float(info.get("progress", -1.0))
+		var server_progress: float = -1.0 if _uses_local_position_progress() else float(info.get("progress", -1.0))
 		var racer_id := str(info.get("racer_id", racer_visual_ids.get(rid, rid)))
 		entries.append({
 			"id": rid,
@@ -1572,6 +1573,9 @@ func _sorted_position_entries() -> Array:
 		return a["progress"] > b["progress"]
 	)
 	return _stabilize_position_entries(entries)
+
+func _uses_local_position_progress() -> bool:
+	return local_single_race or not local_racer_ids.is_empty() or NakamaService.offline_mode
 
 func _stabilize_position_entries(entries: Array) -> Array:
 	if last_position_order.size() < 2 or entries.size() < 2:
@@ -2202,13 +2206,7 @@ func _compute_progress(lap: int, checkpoint: int, pos: Vector3, checkpoint_total
 	var laps_done : int = max(lap, 0) - 1
 	var base := float(laps_done * clamped_total + clamp(checkpoint, 0, clamped_total))
 	if track_waypoints.size() >= 2:
-		var projection := TrackProgressRules.project_route_network(
-			_typed_waypoints(),
-			track_alternate_routes,
-			track_checkpoint_indices,
-			pos,
-			track_closed_loop
-		)
+		var projection := _progress_projection_for_checkpoint(pos, checkpoint, clamped_total)
 		var route_progress := clampf(float(projection.get("route_ratio", 0.0)), 0.0, 0.999) * float(clamped_total)
 		var checkpoint_floor := float(clamp(checkpoint, 0, clamped_total - 1))
 		base += maxf(route_progress, checkpoint_floor)
@@ -2228,6 +2226,37 @@ func _compute_progress(lap: int, checkpoint: int, pos: Vector3, checkpoint_total
 	if finished:
 		base += clamped_total * 2
 	return base
+
+func _progress_projection_for_checkpoint(pos: Vector3, checkpoint: int, checkpoint_total: int) -> Dictionary:
+	var points := _typed_waypoints()
+	var projection := TrackProgressRules.project_route_network(
+		points,
+		track_alternate_routes,
+		track_checkpoint_indices,
+		pos,
+		track_closed_loop
+	)
+	if points.size() < 2 or track_checkpoint_indices.size() < checkpoint_total or checkpoint_total <= 1:
+		return projection
+	var route_total := maxf(TrackProgressRules.route_length(points, track_closed_loop), 0.001)
+	var next_checkpoint := clampi(checkpoint, 0, checkpoint_total - 1)
+	var previous_checkpoint := posmod(next_checkpoint - 1, checkpoint_total)
+	var previous_route_index := track_checkpoint_indices[previous_checkpoint]
+	var next_route_index := track_checkpoint_indices[next_checkpoint]
+	var window_start := TrackProgressRules.distance_at_route_index(points, previous_route_index, track_closed_loop)
+	var window_end := TrackProgressRules.distance_at_route_index(points, next_route_index, track_closed_loop)
+	if window_end <= window_start and track_closed_loop:
+		window_end += route_total
+	if window_end <= window_start:
+		return projection
+	var projected_distance := float(projection.get("distance", 0.0))
+	if track_closed_loop and projected_distance < window_start:
+		projected_distance += route_total
+	var clamped_distance := clampf(projected_distance, window_start, window_end)
+	var normalized_distance := fposmod(clamped_distance, route_total) if track_closed_loop else clamped_distance
+	projection["distance"] = normalized_distance
+	projection["route_ratio"] = normalized_distance / route_total
+	return projection
 
 func _cache_checkpoint_points() -> void:
 	checkpoint_points.clear()
