@@ -3,6 +3,8 @@ extends "res://tests/framework/TestCase.gd"
 const TrackDefinition = preload("res://scripts/track/TrackDefinition.gd")
 const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
 const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd")
+const TrackSegmentRoadBuilder = preload("res://scripts/track/TrackSegmentRoadBuilder.gd")
+const TrackGridRoadBuilder = preload("res://scripts/track/TrackGridRoadBuilder.gd")
 
 const TMP_SCENE_PATH := "user://tmp_scene_source_route.tscn"
 
@@ -57,20 +59,23 @@ func test_rail_overlap_filter_keeps_grade_separated_crossings() -> void:
 		"Rails at grade-separated crossings should be preserved"
 	)
 
-func test_runtime_uses_route_points_from_editable_scene() -> void:
+func test_runtime_uses_road_grid_from_editable_scene() -> void:
 	var definition := (TrackCatalog.get_definition("kitchen") as TrackDefinition).duplicate(true) as TrackDefinition
 	var packed := load(definition.dressing_scene_path) as PackedScene
 	assert_true(packed != null, "Kitchen editable scene should load")
 	var scene_root := packed.instantiate() as Node3D
 	scene_tree.root.add_child(scene_root)
-	var marker := scene_root.get_node_or_null("RoutePoints/RoutePoint00") as Marker3D
-	assert_true(marker != null, "Editable scene should expose route point markers")
-	if marker == null:
+	var grid := scene_root.get_node_or_null("RoadGridMap") as Node3D
+	assert_true(grid != null and grid.has_method("to_grid_road_layout"), "Editable scene should expose RoadGridMap")
+	if grid == null or not grid.has_method("to_grid_road_layout"):
 		scene_root.queue_free()
 		return
-	var original := marker.position
+	var original := grid.position
 	var moved := original + Vector3(3.0, 0.0, 0.0)
-	marker.position = moved
+	grid.position = moved
+	var expected_layout := grid.call("to_grid_road_layout", definition.road_width) as Dictionary
+	var expected_route := TrackGridRoadBuilder.route_points_from_grid_layout(expected_layout, definition.closed_loop)
+	var expected_start := expected_route[0] if not expected_route.is_empty() else Vector3.ZERO
 	var temp_scene := PackedScene.new()
 	var save_error := temp_scene.pack(scene_root)
 	assert_equal(save_error, OK, "Temporary scene should pack")
@@ -83,29 +88,30 @@ func test_runtime_uses_route_points_from_editable_scene() -> void:
 	definition.dressing_scene_path = TMP_SCENE_PATH
 	var built := TrackRuntimeBuilder.build(definition)
 	var waypoints := built.get("waypoints", []) as Array
-	assert_true(waypoints.size() > 0, "Runtime should build waypoints from scene-sourced route")
+	assert_true(waypoints.size() > 0, "Runtime should build waypoints from scene-sourced RoadGridMap")
 	if waypoints.size() > 0:
-		assert_true((waypoints[0] as Vector3).distance_to(moved) < 0.01, "Runtime route should follow the editable scene marker")
+		assert_true((waypoints[0] as Vector3).distance_to(expected_start) < 0.01, "Runtime route should follow the editable RoadGridMap")
 	var track := built.get("node", null) as Node3D
 	if track != null:
 		track.queue_free()
 	if FileAccess.file_exists(TMP_SCENE_PATH):
 		DirAccess.remove_absolute(ProjectSettings.globalize_path(TMP_SCENE_PATH))
 
-func test_runtime_uses_route_points_when_holder_is_moved() -> void:
+func test_runtime_uses_road_grid_when_holder_is_moved() -> void:
 	var definition := (TrackCatalog.get_definition("kitchen") as TrackDefinition).duplicate(true) as TrackDefinition
 	var packed := load(definition.dressing_scene_path) as PackedScene
 	assert_true(packed != null, "Kitchen editable scene should load")
 	var scene_root := packed.instantiate() as Node3D
 	scene_tree.root.add_child(scene_root)
-	var holder := scene_root.get_node_or_null("RoutePoints") as Node3D
-	var marker := scene_root.get_node_or_null("RoutePoints/RoutePoint00") as Marker3D
-	assert_true(holder != null and marker != null, "Editable scene should expose a movable route point holder")
-	if holder == null or marker == null:
+	var grid := scene_root.get_node_or_null("RoadGridMap") as Node3D
+	assert_true(grid != null and grid.has_method("to_grid_road_layout"), "Editable scene should expose a movable RoadGridMap")
+	if grid == null or not grid.has_method("to_grid_road_layout"):
 		scene_root.queue_free()
 		return
-	holder.position += Vector3(9.0, 0.0, 4.0)
-	var expected := scene_root.to_local(marker.global_position)
+	grid.position += Vector3(9.0, 0.0, 4.0)
+	var expected_layout := grid.call("to_grid_road_layout", definition.road_width) as Dictionary
+	var expected_route := TrackGridRoadBuilder.route_points_from_grid_layout(expected_layout, definition.closed_loop)
+	var expected_start := expected_route[0] if not expected_route.is_empty() else Vector3.ZERO
 	var temp_scene := PackedScene.new()
 	var save_error := temp_scene.pack(scene_root)
 	assert_equal(save_error, OK, "Temporary scene should pack")
@@ -118,9 +124,9 @@ func test_runtime_uses_route_points_when_holder_is_moved() -> void:
 	definition.dressing_scene_path = TMP_SCENE_PATH
 	var built := TrackRuntimeBuilder.build(definition)
 	var waypoints := built.get("waypoints", []) as Array
-	assert_true(waypoints.size() > 0, "Runtime should build waypoints from scene-sourced route")
+	assert_true(waypoints.size() > 0, "Runtime should build waypoints from scene-sourced RoadGridMap")
 	if waypoints.size() > 0:
-		assert_true((waypoints[0] as Vector3).distance_to(expected) < 0.01, "Runtime route should include route holder transforms")
+		assert_true((waypoints[0] as Vector3).distance_to(expected_start) < 0.01, "Runtime route should include RoadGridMap transforms")
 	var track := built.get("node", null) as Node3D
 	if track != null:
 		track.queue_free()

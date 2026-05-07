@@ -2,6 +2,8 @@ extends RefCounted
 class_name TrackSceneAuthoringData
 
 const TrackDefinition = preload("res://scripts/track/TrackDefinition.gd")
+const TrackSegmentRoadBuilder = preload("res://scripts/track/TrackSegmentRoadBuilder.gd")
+const TrackGridRoadBuilder = preload("res://scripts/track/TrackGridRoadBuilder.gd")
 
 static func apply_to_definition(source: TrackDefinition) -> TrackDefinition:
 	if source == null:
@@ -22,20 +24,53 @@ static func apply_to_definition(source: TrackDefinition) -> TrackDefinition:
 	return definition
 
 static func _apply_scene_markers(definition: TrackDefinition, scene_root: Node3D) -> void:
+	var grid_layout := _collect_road_grid(scene_root, definition.road_width)
+	if not grid_layout.is_empty():
+		definition.road_visual_style = "kenney_gridmap"
+		definition.road_grid_layout = grid_layout
+		definition.road_segment_layout = []
+		var grid_route := TrackGridRoadBuilder.route_points_from_grid_layout(grid_layout, definition.closed_loop)
+		if grid_route.size() >= 3:
+			definition.route_points = grid_route
+			var grid_checkpoints := TrackGridRoadBuilder.checkpoint_indices_from_grid_layout(grid_layout, definition.route_points)
+			if grid_checkpoints.size() >= 3 and _indices_strictly_increasing(grid_checkpoints):
+				definition.checkpoint_indices = grid_checkpoints
+				definition.lap_gate_checkpoint_index = 0
+			definition.spawn_points = TrackGridRoadBuilder.start_grid_from_grid_layout(grid_layout, definition.route_points)
+			definition.item_sockets = TrackGridRoadBuilder.sockets_from_grid_layout(grid_layout, definition.route_points, "item_route_indices", 10)
+			definition.hazard_sockets = TrackGridRoadBuilder.sockets_from_grid_layout(grid_layout, definition.route_points, "hazard_route_indices", 8)
+	var segment_layout := _collect_road_segments(scene_root, definition.road_width)
+	if grid_layout.is_empty() and not segment_layout.is_empty():
+		definition.road_segment_layout = segment_layout
+		var segment_route := TrackSegmentRoadBuilder.route_points_from_layout(segment_layout, definition.closed_loop)
+		if segment_route.size() >= 3:
+			definition.route_points = segment_route
+			var segment_checkpoints := TrackSegmentRoadBuilder.checkpoint_indices_from_layout(segment_layout, definition.route_points, definition.closed_loop)
+			if segment_checkpoints.size() >= 3 and _indices_strictly_increasing(segment_checkpoints):
+				definition.checkpoint_indices = segment_checkpoints
+				definition.lap_gate_checkpoint_index = 0
+			definition.spawn_points = TrackSegmentRoadBuilder.start_grid_from_layout(segment_layout, definition.road_width)
+			var generated_items := TrackSegmentRoadBuilder.sockets_from_layout(segment_layout, "item", 10, definition.road_width)
+			if not generated_items.is_empty():
+				definition.item_sockets = generated_items
+			var generated_hazards := TrackSegmentRoadBuilder.sockets_from_layout(segment_layout, "hazard", 8, definition.road_width)
+			if not generated_hazards.is_empty():
+				definition.hazard_sockets = generated_hazards
 	var route_points := _collect_marker_positions(scene_root, "RoutePoints")
 	if route_points.size() >= 3:
-		definition.route_points = route_points
+		if grid_layout.is_empty() and segment_layout.is_empty():
+			definition.route_points = route_points
 		var checkpoint_indices := _collect_checkpoint_indices(scene_root, route_points)
-		if checkpoint_indices.size() >= 3 and _indices_strictly_increasing(checkpoint_indices):
+		if grid_layout.is_empty() and segment_layout.is_empty() and checkpoint_indices.size() >= 3 and _indices_strictly_increasing(checkpoint_indices):
 			definition.checkpoint_indices = checkpoint_indices
 			definition.lap_gate_checkpoint_index = _collect_lap_gate_checkpoint_index(scene_root)
-		if not _spawn_points_on_route(definition.spawn_points, definition.route_points, definition.road_width, definition.closed_loop):
+		if grid_layout.is_empty() and segment_layout.is_empty() and not _spawn_points_on_route(definition.spawn_points, definition.route_points, definition.road_width, definition.closed_loop):
 			definition.spawn_points = _start_grid_from_route(definition.route_points, definition.road_width)
 	var item_sockets := _collect_socket_markers(scene_root, "ItemSockets")
-	if not item_sockets.is_empty():
+	if grid_layout.is_empty() and segment_layout.is_empty() and not item_sockets.is_empty():
 		definition.item_sockets = item_sockets
 	var hazard_sockets := _collect_socket_markers(scene_root, "HazardSockets")
-	if not hazard_sockets.is_empty():
+	if grid_layout.is_empty() and segment_layout.is_empty() and not hazard_sockets.is_empty():
 		definition.hazard_sockets = hazard_sockets
 	var shortcut_gates := _collect_shortcut_gates(scene_root, definition.shortcut_gates)
 	if not shortcut_gates.is_empty():
@@ -55,6 +90,25 @@ static func _apply_scene_markers(definition: TrackDefinition, scene_root: Node3D
 	var grass_zones := _collect_grass_zones(scene_root)
 	if not grass_zones.is_empty():
 		definition.grass_zones = grass_zones
+
+static func _collect_road_grid(root: Node3D, road_width: float) -> Dictionary:
+	var grid := root.get_node_or_null("RoadGridMap")
+	if grid == null or not grid.has_method("to_grid_road_layout"):
+		return {}
+	var layout := grid.call("to_grid_road_layout", road_width) as Dictionary
+	if (layout.get("ordered_route_cells", []) as Array).size() < 3:
+		return {}
+	return layout
+
+static func _collect_road_segments(root: Node3D, road_width: float) -> Array[Dictionary]:
+	var segments: Array[Dictionary] = []
+	var holder := root.get_node_or_null("RoadSegments")
+	if holder == null:
+		return segments
+	for child in _sorted_node3d_children(holder):
+		if child.has_method("to_road_segment"):
+			segments.append(child.call("to_road_segment", road_width) as Dictionary)
+	return segments
 
 static func _collect_marker_positions(root: Node3D, holder_name: String) -> Array[Vector3]:
 	var out: Array[Vector3] = []

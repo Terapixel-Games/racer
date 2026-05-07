@@ -10,6 +10,9 @@ const TrackAuthoringPreview = preload("res://scripts/track/TrackAuthoringPreview
 const TrackRibbonMesh = preload("res://scripts/track/TrackRibbonMesh.gd")
 const TrackWalls = preload("res://scripts/TrackWalls.gd")
 const TrackSceneAuthoringData = preload("res://scripts/track/TrackSceneAuthoringData.gd")
+const RoadSegmentProfile = preload("res://scripts/track/RoadSegmentProfile.gd")
+const TrackSegmentRoadBuilder = preload("res://scripts/track/TrackSegmentRoadBuilder.gd")
+const TrackGridRoadBuilder = preload("res://scripts/track/TrackGridRoadBuilder.gd")
 const StageSky = preload("res://scripts/track/StageSky.gd")
 const RailScene = preload("res://assets/source/kenney/racing_kit/rail.glb")
 
@@ -260,6 +263,17 @@ static func _build_track_body(root: Node3D, definition: TrackDefinition) -> void
 	root.add_child(body)
 
 static func _build_road(root: Node3D, definition: TrackDefinition) -> void:
+	if definition.road_visual_style == "kenney_gridmap" and not definition.road_grid_layout.is_empty():
+		root.add_child(TrackGridRoadBuilder.build_grid_road(definition.road_grid_layout, _segment_profile(definition)))
+	if definition.road_visual_style == "kenney_segments" and not definition.road_segment_layout.is_empty():
+		var segment_road := TrackSegmentRoadBuilder.build_segment_road(
+			definition.route_points,
+			definition.road_width,
+			definition.closed_loop,
+			definition.road_segment_layout,
+			_segment_profile(definition)
+		)
+		root.add_child(segment_road)
 	var road := MeshInstance3D.new()
 	road.name = "Road"
 	road.set_script(RoadMeshScript)
@@ -272,6 +286,11 @@ static func _build_road(root: Node3D, definition: TrackDefinition) -> void:
 		var texture := load(definition.road_texture_path)
 		if texture is Texture2D:
 			road.set("road_texture", texture)
+	if (
+		(definition.road_visual_style == "kenney_segments" and not definition.road_segment_layout.is_empty())
+		or (definition.road_visual_style == "kenney_gridmap" and not definition.road_grid_layout.is_empty())
+	):
+		road.visible = false
 
 	var collision_body := StaticBody3D.new()
 	collision_body.name = "CollisionBody"
@@ -317,6 +336,11 @@ static func _build_alternate_routes(root: Node3D, definition: TrackDefinition) -
 			var texture := load(definition.road_texture_path)
 			if texture is Texture2D:
 				road.set("road_texture", texture)
+		if definition.road_visual_style == "kenney_segments":
+			var segment_road := TrackSegmentRoadBuilder.build_segment_road(points, width, false, [], _segment_profile(definition))
+			segment_road.name = "%sSegmentRoad" % route_id
+			holder.add_child(segment_road)
+			road.visible = false
 		var collision_body := StaticBody3D.new()
 		collision_body.name = "CollisionBody"
 		var collision_shape := CollisionShape3D.new()
@@ -324,6 +348,12 @@ static func _build_alternate_routes(root: Node3D, definition: TrackDefinition) -
 		collision_body.add_child(collision_shape)
 		road.add_child(collision_body)
 		holder.add_child(road)
+
+static func _segment_profile(definition: TrackDefinition) -> RoadSegmentProfile:
+	var profile := RoadSegmentProfile.default_profile()
+	profile.id = definition.road_segment_profile
+	profile.material_style = definition.road_segment_material_style
+	return profile
 
 static func _build_route_network_rails(root: Node3D, definition: TrackDefinition) -> void:
 	var routes: Array[Dictionary] = [{

@@ -21,6 +21,11 @@ const TrackProgressRules = preload("res://scripts/track/TrackProgressRules.gd")
 @export var ground_texture_path := ""
 @export var ground_shader_path := ""
 @export var road_texture_path := ""
+@export_enum("kenney_segments", "kenney_gridmap", "procedural") var road_visual_style := "kenney_segments"
+@export var road_segment_profile := "kenney_racing_kit"
+@export var road_segment_material_style := "toy_plastic"
+@export var road_segment_layout: Array[Dictionary] = []
+@export var road_grid_layout: Dictionary = {}
 @export var rail_texture_path := ""
 @export var rail_texture_uv_scale := 1.0
 @export var track_body_depth := 0.38
@@ -65,6 +70,10 @@ func validate() -> Array[String]:
 		errors.append("Track route must include at least 3 route points.")
 	if TrackProgressRules.route_length(route_points, closed_loop) <= 1.0:
 		errors.append("Track route length is too short.")
+	if road_visual_style.strip_edges().is_empty():
+		errors.append("Track road visual style is required.")
+	if road_visual_style == "kenney_segments" and road_segment_profile.strip_edges().is_empty():
+		errors.append("Track road segment profile is required for Kenney segment roads.")
 	_validate_checkpoints(errors)
 	_validate_alternate_routes(errors)
 	if spawn_points.size() < 8:
@@ -108,6 +117,11 @@ func to_metadata() -> Dictionary:
 		"floor_visual_y": floor_visual_y,
 		"ground_texture_path": ground_texture_path,
 		"ground_shader_path": ground_shader_path,
+		"road_visual_style": road_visual_style,
+		"road_segment_profile": road_segment_profile,
+		"road_segment_material_style": road_segment_material_style,
+		"road_segment_layout": _road_segment_layout_to_json(road_segment_layout),
+		"road_grid_layout": _road_grid_layout_to_json(road_grid_layout),
 		"rail_texture_path": rail_texture_path,
 		"rail_texture_uv_scale": rail_texture_uv_scale,
 		"sky_preset_id": sky_preset_id,
@@ -299,6 +313,61 @@ func _stage_props_to_json(props: Array[Dictionary]) -> Array:
 			"gameplay_tag": str(prop.get("gameplay_tag", "")),
 		})
 	return out
+
+func _road_segment_layout_to_json(layout: Array[Dictionary]) -> Array:
+	var out: Array = []
+	for segment in layout:
+		out.append({
+			"segment_id": str(segment.get("segment_id", "straight_long")),
+			"position": _point_value_to_array(segment.get("position", Vector3.ZERO)),
+			"yaw_degrees": float(segment.get("yaw_degrees", 0.0)),
+			"pitch_degrees": float(segment.get("pitch_degrees", 0.0)),
+			"length": float(segment.get("length", 0.0)),
+		})
+	return out
+
+func _road_grid_layout_to_json(layout: Dictionary) -> Dictionary:
+	if layout.is_empty():
+		return {}
+	var out := layout.duplicate(true)
+	if out.has("origin"):
+		out["origin"] = _point_value_to_array(out.get("origin", Vector3.ZERO))
+	if out.has("cell_size"):
+		out["cell_size"] = _point_value_to_array(out.get("cell_size", Vector3.ZERO))
+	for point_key in ["ordered_route_points"]:
+		if out.has(point_key):
+			var points: Array = []
+			for value in out.get(point_key, []):
+				points.append(_point_value_to_array(value))
+			out[point_key] = points
+	if out.has("ordered_route_cells"):
+		var ordered: Array = []
+		for value in out.get("ordered_route_cells", []):
+			ordered.append(_vector3i_value_to_array(value))
+		out["ordered_route_cells"] = ordered
+	if out.has("cells"):
+		var cells: Array = []
+		for value in out.get("cells", []):
+			if not (value is Dictionary):
+				continue
+			var cell := (value as Dictionary).duplicate(true)
+			cell["cell"] = _vector3i_value_to_array(cell.get("cell", Vector3i.ZERO))
+			if cell.has("position"):
+				cell["position"] = _point_value_to_array(cell.get("position", Vector3.ZERO))
+			cells.append(cell)
+		out["cells"] = cells
+	return out
+
+func _vector3i_value_to_array(value: Variant) -> Array:
+	if value is Vector3i:
+		return [value.x, value.y, value.z]
+	if value is Vector3:
+		return [roundi(value.x), roundi(value.y), roundi(value.z)]
+	if value is Array and value.size() >= 3:
+		return [int(value[0]), int(value[1]), int(value[2])]
+	if value is Dictionary:
+		return [int(value.get("x", 0)), int(value.get("y", 0)), int(value.get("z", 0))]
+	return [0, 0, 0]
 
 func _surface_segments_to_json(segments: Array[Dictionary]) -> Array:
 	var out: Array = []

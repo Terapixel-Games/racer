@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bjsw0btvu0kqt"]
+[gd_scene load_steps=31 format=3 uid="uid://b7gyhd0y2mi0y"]
 
 [ext_resource type="Texture2D" uid="uid://dyof4gx7wh6w7" path="res://assets/source/generated/textures/toy_materials_2026-04-27/kitchen_tile_albedo.png" id="1_tile"]
 [ext_resource type="PackedScene" uid="uid://bnh07515k0fhb" path="res://assets/source/meshy/kitchen/retro_cream_refrigerator.glb" id="2_fridge"]
@@ -18,6 +18,9 @@
 [ext_resource type="Script" uid="uid://dlvn2xhwjpnou" path="res://scripts/track/TrackAuthoringPreview.gd" id="16_authoring_preview"]
 [ext_resource type="Shader" uid="uid://ld6h4swupn0a" path="res://assets/shaders/toon_water.gdshader" id="17_water_shader"]
 [ext_resource type="Script" uid="uid://bwyyudn3ij34b" path="res://scripts/effects/ApplianceRumbler.gd" id="18_rumbler"]
+[ext_resource type="Script" uid="uid://bgd1wifvcickd" path="res://scripts/track/RoadSegmentAuthoring.gd" id="19_j8sh0"]
+[ext_resource type="MeshLibrary" uid="uid://cij7p2ixjkcke" path="res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres" id="20_msb3l"]
+[ext_resource type="Script" uid="uid://ciqqj1srodgqx" path="res://scripts/track/RoadGridMapAuthoring.gd" id="21_uxd1m"]
 
 [sub_resource type="StandardMaterial3D" id="Material_floor"]
 albedo_texture = ExtResource("1_tile")
@@ -61,7 +64,6 @@ size = Vector2(1, 1)
 
 [node name="KitchenEditableRoom" type="Node3D"]
 script = ExtResource("16_authoring_preview")
-preview_enabled = true
 ground_size = Vector2(292, 190)
 ground_y = -11.0
 road_y_offset = 0.0
@@ -684,3 +686,386 @@ transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06,
 
 [node name="bookcaseOpen2" parent="." instance=ExtResource("15_j8sh0")]
 transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, 139.41138, -9.231991, 26.151482)
+
+[node name="RoadSegments" type="Node3D" parent="."]
+visible = false
+
+[node name="RoadSegment000" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.094761826, 0, 0.99549997, 0, 1, 0, -0.99549997, 0, -0.094761826, -98.50528, 12.241617, -84.70883)
+script = ExtResource("19_j8sh0")
+segment_length = 21.105536
+role_tags = Array[String](["checkpoint", "start"])
+
+[node name="RoadSegment001" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -80, 12.241617, -85.70883)
+script = ExtResource("19_j8sh0")
+role_tags = Array[String](["item"])
+
+[node name="RoadSegment002" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -64, 12.241617, -85.70883)
+script = ExtResource("19_j8sh0")
+
+[node name="RoadSegment003" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -48, 12.241617, -85.70883)
+script = ExtResource("19_j8sh0")
+role_tags = Array[String](["hazard"])
+
+[node name="RoadSegment004" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -33.927544, 12.568026, -85.70883)
+script = ExtResource("19_j8sh0")
+segment_length = 12.162443
+pitch_degrees = 3.076818364162517
+
+[node name="RoadSegment005" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -11.687164, 1.471756, -85.70883)
+script = ExtResource("19_j8sh0")
+segment_id = "ramp_long"
+segment_length = 39.591885
+pitch_degrees = -35.24129806417845
+role_tags = Array[String](["item"])
+
+[node name="RoadSegment006" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.54664356, 0, 0.8373654, 0, 1, 0, -0.8373654, 0, 0.54664356, 12.7370405, -9.184227, -80.319016)
+script = ExtResource("19_j8sh0")
+segment_length = 19.779188
+pitch_degrees = 4.446338293359434
+role_tags = Array[String](["hazard"])
+
+[node name="RoadSegment007" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.9638065, 0, 0.26660278, 0, 1, 0, -0.26660278, 0, 0.9638065, 22.588123, -9.200533, -69.16377)
+script = ExtResource("19_j8sh0")
+segment_id = "ramp_long"
+segment_length = 12.065934
+pitch_degrees = -7.457272695297014
+role_tags = Array[String](["checkpoint"])
+
+[node name="RoadSegment008" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.9969043, 0, -0.078624606, 0, 1, 0, 0.078624606, 0, 0.9969043, 22.459618, -10.046239, -41.548023)
+script = ExtResource("19_j8sh0")
+segment_length = 43.83652
+pitch_degrees = -0.1639203215038112
+
+[node name="RoadSegment009" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.6983802, 0, -0.715727, 0, 1, 0, 0.715727, 0, 0.6983802, 12.627024, -5.296294, -11.784962)
+script = ExtResource("19_j8sh0")
+segment_id = "ramp_long"
+segment_length = 24.619799
+pitch_degrees = 23.014111691360768
+
+[node name="RoadSegment010" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.071345896, 0, -0.99745166, 0, 1, 0, 0.99745166, 0, 0.071345896, -11.812725, 1.9564557, -2.704132)
+script = ExtResource("19_j8sh0")
+segment_id = "ramp_long"
+segment_length = 33.106045
+pitch_degrees = 8.476924561457151
+
+[node name="RoadSegment011" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.9520361, 0, -0.30598587, 0, 1, 0, 0.30598587, 0, -0.9520361, -33.27614, 5.6026573, -17.506575)
+script = ExtResource("19_j8sh0")
+segment_length = 33.636868
+pitch_degrees = 4.112391607817947
+
+[node name="RoadSegment012" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.9237567, 0, 0.38297975, 0, 1, 0, -0.38297975, 0, -0.9237567, -35.70656, 7.558895, -39.99568)
+script = ExtResource("19_j8sh0")
+segment_id = "ramp_long"
+segment_length = 14.192707
+pitch_degrees = 6.067903254993481
+
+[node name="RoadSegment013" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.31543794, 0, 0.9489462, 0, 1, 0, -0.9489462, 0, -0.31543794, -24.792723, 8.391853, -49.243767)
+script = ExtResource("19_j8sh0")
+segment_length = 17.306948
+pitch_degrees = 0.5483920563536531
+
+[node name="RoadSegment014" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.08866188, 0, 0.9960618, 0, 1, 0, -0.9960618, 0, 0.08866188, -8.4075165, 8.474676, -51.245697)
+script = ExtResource("19_j8sh0")
+segment_length = 16.412437
+
+[node name="RoadSegment015" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.63942236, 0, 0.76885563, 0, 1, 0, -0.76885563, 0, 0.63942236, 6.237522, 8.474676, -45.136368)
+script = ExtResource("19_j8sh0")
+segment_length = 16.833168
+
+[node name="RoadSegment016" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.9938118, 0, 0.11107706, 0, 1, 0, -0.11107706, 0, 0.9938118, 14.832865, 8.474676, -20.749256)
+script = ExtResource("19_j8sh0")
+segment_length = 38.247402
+
+[node name="RoadSegment017" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.89592516, 0, -0.44420505, 0, 1, 0, 0.44420505, 0, 0.89592516, 13.378574, 6.227147, 5.4736314)
+script = ExtResource("19_j8sh0")
+segment_id = "ramp_long"
+segment_length = 16.727192
+pitch_degrees = -15.5885638796389
+
+[node name="RoadSegment018" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.97303635, 0, -0.23065183, 0, 1, 0, 0.23065183, 0, 0.97303635, 8.84028, 3.259954, 16.740211)
+script = ExtResource("19_j8sh0")
+segment_id = "ramp_long"
+segment_length = 8.446052
+pitch_degrees = -9.811909787314027
+
+[node name="RoadSegment019" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.99504966, 0, -0.09937908, 0, 1, 0, 0.09937908, 0, 0.99504966, 6.5527377, -1.6330171, 34.083492)
+script = ExtResource("19_j8sh0")
+segment_id = "ramp_long"
+segment_length = 27.993996
+pitch_degrees = -17.34695948250975
+
+[node name="RoadSegment020" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2249966, -5.806324, 53.10034)
+script = ExtResource("19_j8sh0")
+segment_length = 11.445236
+
+[node name="RoadSegment021" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.50383407, 0, 0.86380047, 0, 1, 0, -0.86380047, 0, 0.50383407, 10.5362, -5.806324, 61.920856)
+script = ExtResource("19_j8sh0")
+segment_length = 12.297291
+
+[node name="RoadSegment022" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 30.944183, -5.806324, 65.01875)
+script = ExtResource("19_j8sh0")
+segment_length = 30.19356
+
+[node name="RoadSegment023" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.8436857, 0, 0.53683746, 0, 1, 0, -0.53683746, 0, -0.8436857, 49.825813, -5.806324, 59.07054)
+script = ExtResource("19_j8sh0")
+segment_length = 14.100545
+
+[node name="RoadSegment024" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 53.610664, -5.806324, 32.994186)
+script = ExtResource("19_j8sh0")
+segment_length = 40.25628
+
+[node name="RoadSegment025" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.99414253, 0, -0.108076684, 0, 1, 0, 0.108076684, 0, -0.99414253, 51.85007, -0.66286707, -3.328764)
+script = ExtResource("19_j8sh0")
+segment_id = "ramp_long"
+segment_length = 34.16588
+pitch_degrees = 17.522924151010006
+
+[node name="RoadSegment026" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.99414253, 0, -0.10807692, 0, 1, 0, 0.10807692, 0, -0.99414253, 48.32888, 9.624046, -35.718384)
+script = ExtResource("19_j8sh0")
+segment_id = "ramp_long"
+segment_length = 34.165874
+pitch_degrees = 17.52292607712716
+
+[node name="RoadSegment027" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 46.568287, 14.767504, -63.38571)
+script = ExtResource("19_j8sh0")
+segment_length = 22.945034
+
+[node name="RoadSegment028" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.70537347, 0, 0.7088359, 0, 1, 0, -0.7088359, 0, -0.70537347, 52.595642, 14.767504, -80.85614)
+script = ExtResource("19_j8sh0")
+segment_length = 17.006346
+role_tags = Array[String](["item"])
+
+[node name="RoadSegment029" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.052952383, 0, 0.998597, 0, 1, 0, -0.998597, 0, 0.052952383, 87.5517, 14.767505, -85.32006)
+script = ExtResource("19_j8sh0")
+segment_length = 57.938694
+role_tags = Array[String](["hazard"])
+
+[node name="RoadSegment030" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.63844806, 0, 0.76966494, 0, 1, 0, -0.76966494, 0, 0.63844806, 120.689316, 14.767505, -80.29471)
+script = ExtResource("19_j8sh0")
+segment_length = 10.936997
+
+[node name="RoadSegment031" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124.898224, 13.771239, -68.831055)
+script = ExtResource("19_j8sh0")
+segment_id = "ramp_long"
+segment_length = 16.068619
+pitch_degrees = -7.123089651282997
+
+[node name="RoadSegment032" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124.898224, 12.774974, -39.844154)
+script = ExtResource("19_j8sh0")
+segment_length = 42.0292
+role_tags = Array[String](["item"])
+
+[node name="RoadSegment033" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.9524555, 0, 0.30467764, 0, 1, 0, -0.30467764, 0, 0.9524555, 127.98567, 17.323505, -9.177856)
+script = ExtResource("19_j8sh0")
+segment_id = "ramp_long"
+segment_length = 22.21502
+pitch_degrees = 24.173463061288817
+role_tags = Array[String](["hazard"])
+
+[node name="RoadSegment034" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 131.07312, 21.872036, 24.374557)
+script = ExtResource("19_j8sh0")
+segment_length = 47.80143
+role_tags = Array[String](["checkpoint", "item"])
+
+[node name="RoadSegment035" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 131.07312, 17.839039, 58.274826)
+script = ExtResource("19_j8sh0")
+segment_id = "ramp_long"
+segment_length = 21.564432
+pitch_degrees = -21.96508954859056
+
+[node name="RoadSegment036" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.9423255, 0, -0.33469796, 0, 1, 0, 0.33469796, 0, 0.9423255, 128.2823, 13.806042, 76.13179)
+script = ExtResource("19_j8sh0")
+segment_length = 16.67663
+
+[node name="RoadSegment037" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 113.3972, 13.806042, 83.9892)
+script = ExtResource("19_j8sh0")
+segment_length = 24.188568
+role_tags = Array[String](["hazard"])
+
+[node name="RoadSegment038" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.28408742, 0, -0.9587984, 0, 1, 0, 0.9587984, 0, -0.28408742, 75.0807, 13.806042, 76.21968)
+script = ExtResource("19_j8sh0")
+segment_length = 54.69808
+role_tags = Array[String](["item"])
+
+[node name="RoadSegment039" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.07478076, 0, -0.9972, 0, 1, 0, 0.9972, 0, 0.07478076, 36.627426, 13.688933, 69.36737)
+script = ExtResource("19_j8sh0")
+segment_length = 24.531933
+pitch_degrees = -0.5470352290228765
+role_tags = Array[String](["hazard"])
+
+[node name="RoadSegment040" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.38896444, 0, -0.9212528, 0, 1, 0, 0.9212528, 0, 0.38896444, 14.343776, 13.5304, 74.528915)
+script = ExtResource("19_j8sh0")
+segment_length = 21.823889
+pitch_degrees = -0.21751109965663556
+role_tags = Array[String](["item"])
+
+[node name="RoadSegment041" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.23542392, 0, -0.9718928, 0, 1, 0, 0.9718928, 0, -0.23542392, -3.0306473, 14.305844, 76.999664)
+script = ExtResource("19_j8sh0")
+segment_id = "ramp_long"
+segment_length = 15.155484
+pitch_degrees = 6.188421024533593
+
+[node name="RoadSegment042" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.46110946, 0, -0.8873433, 0, 1, 0, 0.8873433, 0, -0.46110946, -16.795715, 16.704735, 71.87784)
+script = ExtResource("19_j8sh0")
+segment_id = "ramp_long"
+segment_length = 14.863203
+pitch_degrees = 12.291042678125972
+
+[node name="RoadSegment043" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.58381766, 0, -0.8118848, 0, 1, 0, 0.8118848, 0, -0.58381766, -28.914484, 16.526619, 64.44838)
+script = ExtResource("19_j8sh0")
+segment_id = "ramp_long"
+segment_length = 14.417513
+pitch_degrees = -14.132579801075291
+role_tags = Array[String](["checkpoint"])
+
+[node name="RoadSegment044" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.053845264, 0, -0.9985493, 0, 1, 0, 0.9985493, 0, -0.053845264, -43.963303, 13.734182, 59.861725)
+script = ExtResource("19_j8sh0")
+segment_id = "ramp_long"
+segment_length = 18.886974
+pitch_degrees = -6.275745421004609
+
+[node name="RoadSegment045" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.6807092, 0, -0.7325537, 0, 1, 0, 0.7325537, 0, 0.6807092, -57.991196, 12.063336, 63.681484)
+script = ExtResource("19_j8sh0")
+segment_id = "ramp_long"
+segment_length = 12.77193
+pitch_degrees = -5.73870648690957
+role_tags = Array[String](["item"])
+
+[node name="RoadSegment046" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.7692233, 0, -0.6389801, 0, 1, 0, 0.6389801, 0, 0.7692233, -64.30124, 11.545553, 69.999535)
+script = ExtResource("19_j8sh0")
+segment_length = 5.1870894
+pitch_degrees = 2.6687983179144497
+
+[node name="RoadSegment047" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.82037127, 0, -0.5718313, 0, 1, 0, 0.5718313, 0, 0.82037127, -69.70388, 11.861217, 77.368286)
+script = ExtResource("19_j8sh0")
+segment_length = 13.111814
+pitch_degrees = 1.7036052194261475
+role_tags = Array[String](["hazard"])
+
+[node name="RoadSegment048" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.2882218, 0, -0.9575637, 0, 1, 0, 0.9575637, 0, 0.2882218, -77.253235, 11.513635, 83.88861)
+script = ExtResource("19_j8sh0")
+segment_id = "ramp_long"
+segment_length = 8.015051
+pitch_degrees = -7.779793644433715
+
+[node name="RoadSegment049" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -100.26786, 11.287271, 85.033035)
+script = ExtResource("19_j8sh0")
+segment_length = 38.430176
+pitch_degrees = 0.9426505839759765
+
+[node name="RoadSegment050" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.39551, 0, -0.9184617, 0, 1, 0, 0.9184617, 0, -0.39551, -125.49201, 11.60339, 82.444275)
+script = ExtResource("19_j8sh0")
+segment_length = 13.090727
+
+[node name="RoadSegment051" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -131.50368, 11.60339, 72.2371)
+script = ExtResource("19_j8sh0")
+segment_length = 15.236847
+
+[node name="RoadSegment052" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -131.50368, 12.906024, 34.124344)
+script = ExtResource("19_j8sh0")
+segment_length = 61.04428
+pitch_degrees = 2.4460315444264515
+role_tags = Array[String](["item"])
+
+[node name="RoadSegment053" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -131.50368, 14.208658, -18.660198)
+script = ExtResource("19_j8sh0")
+segment_length = 44.58042
+role_tags = Array[String](["checkpoint", "hazard"])
+
+[node name="RoadSegment054" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -131.50368, 13.082674, -48.832706)
+script = ExtResource("19_j8sh0")
+segment_id = "ramp_long"
+segment_length = 15.924629
+pitch_degrees = -8.129686977438114
+role_tags = Array[String](["item"])
+
+[node name="RoadSegment055" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -131.50368, 11.95669, -64.51419)
+script = ExtResource("19_j8sh0")
+segment_length = 15.598366
+
+[node name="RoadSegment056" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.9080327, 0, 0.41889927, 0, 1, 0, -0.41889927, 0, -0.9080327, -128.9606, 11.95669, -77.82591)
+script = ExtResource("19_j8sh0")
+segment_length = 12.141726
+
+[node name="RoadSegment057" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -121.70529, 11.95669, -83.338455)
+script = ExtResource("19_j8sh0")
+segment_length = 9.424454
+
+[node name="RoadSegment058" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.046348576, 0, 0.9989253, 0, 1, 0, -0.9989253, 0, -0.046348576, -113.001816, 12.0991535, -83.52364)
+script = ExtResource("19_j8sh0")
+segment_length = 7.996172
+pitch_degrees = 2.0420512519069884
+role_tags = Array[String](["checkpoint"])
+
+[node name="RoadGridMap" type="GridMap" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.25, 0)
+mesh_library = ExtResource("20_msb3l")
+cell_size = Vector3(16, 4, 16)
+data = {
+"cells": PackedInt32Array(65527, 0, 1, 65529, 0, 1441793, 65530, 1, 655360, 65529, 65535, 655360, 65529, 65534, 655360, 65528, 0, 1048577, 65527, 65533, 1048577, 65527, 65530, 1, 65530, 65535, 1441793, 65534, 65530, 1441793, 65529, 65532, 1441793, 65534, 4, 655361, 65534, 65532, 655360, 65534, 65533, 655360, 65534, 65534, 655360, 65534, 65535, 655360, 65534, 0, 655360, 65534, 1, 655360, 65534, 2, 655360, 65534, 3, 655360, 65532, 4, 1048576, 65531, 4, 1048576, 65529, 4, 1048576, 65530, 4, 1048576, 65528, 4, 1048576, 65527, 4, 1048577, 65527, 2, 0, 65527, 1, 0, 65530, 2, 655361, 65528, 2, 1048577, 65528, 65531, 1048576, 65529, 65531, 1048576, 65530, 65531, 1048576, 65531, 65531, 1048576, 65532, 65531, 1048576, 65527, 65531, 0)
+}
+script = ExtResource("21_uxd1m")
+ordered_route_cells = Array[Vector3i]([Vector3i(-7, 0, -5), Vector3i(-6, 0, -5), Vector3i(-5, 0, -5), Vector3i(-4, 0, -5), Vector3i(-3, 0, -5), Vector3i(-2, 0, -5), Vector3i(-1, 0, -5), Vector3i(0, 0, -5), Vector3i(1, 0, -5), Vector3i(2, 0, -5), Vector3i(3, 0, -5), Vector3i(4, 0, -5), Vector3i(5, 0, -5), Vector3i(6, 0, -5), Vector3i(7, 0, -5), Vector3i(7, 0, -4), Vector3i(7, 0, -3), Vector3i(7, 0, -2), Vector3i(7, 0, -1), Vector3i(7, 0, 0), Vector3i(7, 0, 1), Vector3i(7, 0, 2), Vector3i(7, 0, 3), Vector3i(7, 0, 4), Vector3i(7, 0, 5), Vector3i(6, 0, 5), Vector3i(5, 0, 5), Vector3i(4, 0, 5), Vector3i(3, 0, 5), Vector3i(2, 0, 5), Vector3i(1, 0, 5), Vector3i(0, 0, 5), Vector3i(-1, 0, 5), Vector3i(-2, 0, 5), Vector3i(-3, 0, 5), Vector3i(-4, 0, 5), Vector3i(-5, 0, 5), Vector3i(-6, 0, 5), Vector3i(-7, 0, 5), Vector3i(-7, 0, 4), Vector3i(-7, 0, 3), Vector3i(-7, 0, 2), Vector3i(-7, 0, 1), Vector3i(-7, 0, 0), Vector3i(-7, 0, -1), Vector3i(-7, 0, -2), Vector3i(-7, 0, -3), Vector3i(-7, 0, -4)])
+checkpoint_route_indices = Array[int]([0, 8, 16, 24, 32, 40])
+item_route_indices = Array[int]([4, 8, 12, 16, 20, 24, 28, 32, 36, 44])
+hazard_route_indices = Array[int]([6, 14, 22, 26, 30, 34, 38, 42])
+road_width_override = 12.0
