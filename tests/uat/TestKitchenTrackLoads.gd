@@ -22,6 +22,7 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/GridRoad") != null, "Kitchen track should include Kenney Racing Kit grid road visuals")
 	assert_true(instance.get_node_or_null("BuiltTrack/GridRoad") is GridMap, "Kitchen visible road should be a runtime GridMap so Kenney tile materials and rotations are preserved")
 	assert_true(_grid_road_covers_route(instance.get_node_or_null("BuiltTrack/GridRoad") as GridMap, definition), "Kitchen GridRoad should have one visible tile for every route cell so textures stay aligned with rails")
+	assert_true(_grid_road_corner_orientations_match_route(instance.get_node_or_null("BuiltTrack/GridRoad") as GridMap, definition), "Kitchen GridRoad corner tiles should rotate to connect the previous and next route cells")
 	assert_equal(_node_count_by_type(built_track, "WorldEnvironment"), 1, "Kitchen runtime should build exactly one WorldEnvironment")
 	var world_environment := instance.get_node_or_null("BuiltTrack/WorldEnvironment") as WorldEnvironment
 	assert_true(world_environment != null, "Kitchen track should include a world environment")
@@ -400,6 +401,37 @@ func _grid_road_covers_route(grid: GridMap, definition) -> bool:
 		if grid.get_cell_item(cell) < 0:
 			return false
 	return true
+
+func _grid_road_corner_orientations_match_route(grid: GridMap, definition) -> bool:
+	if grid == null or definition == null:
+		return false
+	var cells := (definition.road_grid_layout.get("ordered_route_cells", []) as Array)
+	if cells.size() < 4:
+		return false
+	var expected := {
+		Vector3i(1, 0, 0): {Vector3i(0, 0, 1): 22},
+		Vector3i(0, 0, 1): {Vector3i(-1, 0, 0): 10},
+		Vector3i(-1, 0, 0): {Vector3i(0, 0, -1): 16},
+		Vector3i(0, 0, -1): {Vector3i(1, 0, 0): 0},
+	}
+	var corner_count := 0
+	for i in range(cells.size()):
+		var previous := cells[(i - 1 + cells.size()) % cells.size()] as Vector3i
+		var current := cells[i] as Vector3i
+		var next := cells[(i + 1) % cells.size()] as Vector3i
+		var incoming := current - previous
+		var outgoing := next - current
+		if incoming == outgoing:
+			continue
+		corner_count += 1
+		if not expected.has(incoming):
+			return false
+		var outgoing_map := expected[incoming] as Dictionary
+		if not outgoing_map.has(outgoing):
+			return false
+		if grid.get_cell_item_orientation(current) != int(outgoing_map[outgoing]):
+			return false
+	return corner_count == 4
 
 func _authored_kitchen_position(path: NodePath) -> Vector3:
 	var packed := load("res://assets/gameplay/tracks/kitchen/kitchen_editable_room.tscn")

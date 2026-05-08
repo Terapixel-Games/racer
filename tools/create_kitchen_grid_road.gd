@@ -241,13 +241,13 @@ func _corner_orientation_for_route_index(route: Array[Vector3i], index: int) -> 
 	var outgoing := next - current
 	var yaw := 0.0
 	if incoming.x > 0 and outgoing.z > 0:
-		yaw = 0.0
-	elif incoming.z > 0 and outgoing.x < 0:
 		yaw = 270.0
-	elif incoming.x < 0 and outgoing.z < 0:
+	elif incoming.z > 0 and outgoing.x < 0:
 		yaw = 180.0
-	elif incoming.z < 0 and outgoing.x > 0:
+	elif incoming.x < 0 and outgoing.z < 0:
 		yaw = 90.0
+	elif incoming.z < 0 and outgoing.x > 0:
+		yaw = 0.0
 	else:
 		return _orientation_for_direction(outgoing)
 	return _orthogonal_orientation_for_yaw(yaw)

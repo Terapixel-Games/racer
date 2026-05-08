@@ -24,8 +24,8 @@ road_grid_layout = {
 "cells": Array[Dictionary]([{
 "cell": Vector3i(-4, 0, -3),
 "item": 1,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
 "position": Vector3(-56, 14.25, -40)
 }, {
 "cell": Vector3i(-3, 0, -3),
@@ -72,8 +72,8 @@ road_grid_layout = {
 }, {
 "cell": Vector3i(4, 0, -3),
 "item": 1,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
 "position": Vector3(72, 14.25, -40)
 }, {
 "cell": Vector3i(-4, 0, -2),
@@ -138,8 +138,8 @@ road_grid_layout = {
 }, {
 "cell": Vector3i(-4, 0, 3),
 "item": 1,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
+"orientation": 16,
+"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
 "position": Vector3(-56, 14.25, 56)
 }, {
 "cell": Vector3i(-3, 0, 3),
@@ -186,8 +186,8 @@ road_grid_layout = {
 }, {
 "cell": Vector3i(4, 0, 3),
 "item": 1,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
 "position": Vector3(72, 14.25, 56)
 }]),
 "checkpoint_route_indices": Array[int]([0, 5, 10, 14, 19, 24]),
