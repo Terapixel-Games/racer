@@ -24,6 +24,8 @@ const RAIL_COLLISION_HEIGHT := 0.72
 const RAIL_MIN_SEGMENT_LENGTH := 2.25
 const RAIL_JOIN_GAP_SCALE := 0.5
 const RAIL_CORRIDOR_HEIGHT_TOLERANCE := 1.8
+const RAIL_CURVE_SAMPLES := 5
+const RAIL_CURVE_RADIUS_SCALE := 0.48
 const PLAYGROUND_GRASS_BLADE_SHADER := "res://assets/gameplay/materials/grass/playground_grass_blades.gdshader"
 const PLAYGROUND_GRASS_BLADE_COUNT := 18000
 const PLAYGROUND_GRASS_FLOOR_CLEARANCE := 0.68
@@ -345,7 +347,8 @@ static func _build_route_rails(
 	parent.add_child(holder)
 	var rail_material := _rail_material(rail_texture_path, rail_texture_uv_scale)
 	var edge_offset := road_width * 0.5 + RAIL_EDGE_OFFSET
-	var edges := _road_edge_points(route_points, edge_offset, closed_loop)
+	var rail_route := _smoothed_rail_route_points(route_points, closed_loop, road_width * RAIL_CURVE_RADIUS_SCALE, RAIL_CURVE_SAMPLES)
+	var edges := _road_edge_points(rail_route, edge_offset, closed_loop)
 	_add_rail_polyline_pieces(holder, edges.get("left", []), closed_loop, "L", rail_material, route_network, join_gaps, route_key)
 	_add_rail_polyline_pieces(holder, edges.get("right", []), closed_loop, "R", rail_material, route_network, join_gaps, route_key)
 	if holder.get_child_count() == 0:
@@ -360,6 +363,57 @@ static func _rail_material(rail_texture_path: String, rail_texture_uv_scale: flo
 		if texture is Texture2D:
 			material.albedo_texture = texture
 	return material
+
+static func _smoothed_rail_route_points(route_points: Array[Vector3], closed_loop: bool, radius: float, samples: int) -> Array[Vector3]:
+	if route_points.size() < 3 or radius <= 0.0 or samples <= 0:
+		return route_points.duplicate()
+	var out: Array[Vector3] = []
+	for i in range(route_points.size()):
+		var current := route_points[i]
+		if not closed_loop and (i == 0 or i == route_points.size() - 1):
+			out.append(current)
+			continue
+		var previous := route_points[(i - 1 + route_points.size()) % route_points.size()]
+		var next := route_points[(i + 1) % route_points.size()]
+		var corner := _rail_corner_arc_points(previous, current, next, radius, samples)
+		if corner.is_empty():
+			out.append(current)
+			continue
+		for point in corner:
+			if out.is_empty() or (out.back() as Vector3).distance_to(point) > 0.01:
+				out.append(point)
+	return out
+
+static func _rail_corner_arc_points(previous: Vector3, current: Vector3, next: Vector3, radius: float, samples: int) -> Array[Vector3]:
+	if absf(previous.y - current.y) > 0.05 or absf(next.y - current.y) > 0.05:
+		return []
+	var incoming := current - previous
+	var outgoing := next - current
+	incoming.y = 0.0
+	outgoing.y = 0.0
+	var incoming_length := incoming.length()
+	var outgoing_length := outgoing.length()
+	if incoming_length <= 0.05 or outgoing_length <= 0.05:
+		return []
+	var incoming_dir := incoming / incoming_length
+	var outgoing_dir := outgoing / outgoing_length
+	if absf(incoming_dir.dot(outgoing_dir)) >= 0.985:
+		return []
+	var corner_radius := minf(radius, minf(incoming_length * 0.45, outgoing_length * 0.45))
+	if corner_radius <= 0.05:
+		return []
+	var start := current - incoming_dir * corner_radius
+	var end := current + outgoing_dir * corner_radius
+	var out: Array[Vector3] = [start]
+	for sample in range(1, samples + 1):
+		var t := float(sample) / float(samples + 1)
+		out.append(_quadratic_bezier(start, current, end, t))
+	out.append(end)
+	return out
+
+static func _quadratic_bezier(a: Vector3, control: Vector3, b: Vector3, t: float) -> Vector3:
+	var inv := 1.0 - t
+	return a * inv * inv + control * 2.0 * inv * t + b * t * t
 
 static func _road_edge_points(route_points: Array[Vector3], offset: float, closed_loop: bool) -> Dictionary:
 	var normals: Array[Vector3] = []

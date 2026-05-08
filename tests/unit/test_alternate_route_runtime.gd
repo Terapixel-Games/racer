@@ -53,6 +53,28 @@ func test_rail_overlap_filter_keeps_grade_separated_crossings() -> void:
 		"Rails at grade-separated crossings should be preserved"
 	)
 
+func test_rail_route_smoothing_rounds_flat_corners() -> void:
+	var route: Array[Vector3] = [
+		Vector3(0, 0, 0),
+		Vector3(16, 0, 0),
+		Vector3(16, 0, 16),
+		Vector3(0, 0, 16),
+	]
+	var smoothed := TrackRuntimeBuilder._smoothed_rail_route_points(route, true, 7.5, 4)
+	assert_true(smoothed.size() > route.size(), "Rail route smoothing should add curve samples around flat GridMap corners")
+	assert_true(not smoothed.has(Vector3(16, 0, 0)), "Rail route smoothing should replace hard corner center points with rounded arc samples")
+	assert_true(smoothed.has(Vector3(8.8, 0, 0)), "Rail route smoothing should start the corner arc before the hard turn")
+	assert_true(smoothed.has(Vector3(16, 0, 7.2)), "Rail route smoothing should end the corner arc after the hard turn")
+
+func test_rail_route_smoothing_preserves_elevation_changes() -> void:
+	var route: Array[Vector3] = [
+		Vector3(0, 0, 0),
+		Vector3(16, 4, 0),
+		Vector3(16, 4, 16),
+	]
+	var smoothed := TrackRuntimeBuilder._smoothed_rail_route_points(route, false, 7.5, 4)
+	assert_equal(smoothed, route, "Rail route smoothing should not round across ramp/elevation transitions")
+
 func test_runtime_uses_road_grid_from_editable_scene() -> void:
 	var definition := (TrackCatalog.get_definition("kitchen") as TrackDefinition).duplicate(true) as TrackDefinition
 	var packed := load(definition.dressing_scene_path) as PackedScene
