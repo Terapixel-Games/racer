@@ -5,6 +5,7 @@ const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
 const TrackMetadataExporter = preload("res://scripts/track/TrackMetadataExporter.gd")
 const TrackSceneAuthoringData = preload("res://scripts/track/TrackSceneAuthoringData.gd")
 const RoadGridMapAuthoring = preload("res://scripts/track/RoadGridMapAuthoring.gd")
+const RoadGridSpawn = preload("res://scripts/track/RoadGridSpawn.gd")
 const TrackGridRoadBuilder = preload("res://scripts/track/TrackGridRoadBuilder.gd")
 
 const MESH_LIBRARY_PATH := "res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres"
@@ -124,7 +125,6 @@ func _build_kitchen_grid_scene() -> Array[String]:
 	var root := packed.instantiate() as Node3D
 	if root == null:
 		return ["Kitchen scene root is not Node3D"]
-	var track := _get_or_create_track_node(root)
 	var existing := _find_node(root, "RoadGridMap")
 	if existing != null:
 		existing.get_parent().remove_child(existing)
@@ -137,9 +137,10 @@ func _build_kitchen_grid_scene() -> Array[String]:
 	grid.road_width_override = GRID_ROAD_WIDTH
 	var route := _kitchen_loop_cells()
 	grid.ordered_route_cells = route
-	grid.checkpoint_route_indices = [0, 8, 16, 24, 32, 40]
-	grid.item_route_indices = [4, 8, 12, 16, 20, 24, 28, 32, 36, 44]
-	grid.hazard_route_indices = [6, 14, 22, 26, 30, 34, 38, 42]
+	grid.checkpoint_route_indices = [0, 5, 10, 14, 19, 24]
+	grid.item_route_indices = []
+	grid.hazard_route_indices = []
+	grid.spawn_slots = _spawn_slots()
 	var skip_next := false
 	for i in range(route.size()):
 		if skip_next:
@@ -149,7 +150,7 @@ func _build_kitchen_grid_scene() -> Array[String]:
 		var tile := _visual_tile_for_route_index(route, i)
 		grid.set_cell_item(cell, tile, _orientation_for_route_index(route, i))
 		skip_next = tile == TrackGridRoadBuilder.TILE_STRAIGHT_LONG or tile == TrackGridRoadBuilder.TILE_START
-	track.add_child(grid)
+	root.add_child(grid)
 	grid.owner = root
 	var new_packed := PackedScene.new()
 	var pack_error := new_packed.pack(root)
@@ -195,15 +196,27 @@ func _export_kitchen_definition() -> Error:
 
 func _kitchen_loop_cells() -> Array[Vector3i]:
 	var cells: Array[Vector3i] = []
-	for x in range(-7, 8):
-		cells.append(Vector3i(x, 0, -5))
-	for z in range(-4, 6):
-		cells.append(Vector3i(7, 0, z))
-	for x in range(6, -8, -1):
-		cells.append(Vector3i(x, 0, 5))
-	for z in range(4, -5, -1):
-		cells.append(Vector3i(-7, 0, z))
+	for x in range(-4, 5):
+		cells.append(Vector3i(x, 0, -3))
+	for z in range(-2, 4):
+		cells.append(Vector3i(4, 0, z))
+	for x in range(3, -5, -1):
+		cells.append(Vector3i(x, 0, 3))
+	for z in range(2, -3, -1):
+		cells.append(Vector3i(-4, 0, z))
 	return cells
+
+func _spawn_slots() -> Array[RoadGridSpawn]:
+	var slots: Array[RoadGridSpawn] = []
+	for row in range(4):
+		for col in range(2):
+			var slot := RoadGridSpawn.new()
+			slot.route_index = 0
+			slot.lateral_offset = -2.75 if col == 0 else 2.75
+			slot.forward_offset = 6.0 + float(row) * 6.0
+			slot.y_offset = 0.8
+			slots.append(slot)
+	return slots
 
 func _tile_for_route_index(route: Array[Vector3i], index: int) -> int:
 	var previous := route[(index - 1 + route.size()) % route.size()]

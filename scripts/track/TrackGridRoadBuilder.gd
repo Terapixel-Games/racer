@@ -9,6 +9,7 @@ const TILE_CORNER := 1
 const TILE_START := 2
 const TILE_STRAIGHT_LONG := 3
 const TILE_CORNER_LARGE := 4
+const DEFAULT_MESH_LIBRARY_PATH := "res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres"
 
 static func race_layout_from_grid_layout(layout: Dictionary, closed_loop: bool) -> RaceLayout:
 	var race_layout := RaceLayout.new()
@@ -123,11 +124,13 @@ static func sockets_from_grid_layout(layout: Dictionary, route_points: Array[Vec
 	return sockets
 
 static func build_grid_road(layout: Dictionary, profile: RoadSegmentProfile = null) -> Node3D:
+	if _can_build_grid_map_node(layout):
+		return _build_grid_map_node(layout)
 	var resolved_profile := profile if profile != null else RoadSegmentProfile.default_profile()
 	var holder := Node3D.new()
 	holder.name = "GridRoad"
 	holder.set_meta("road_visual_style", "kenney_gridmap")
-	var material := resolved_profile.road_material()
+	var material := resolved_profile.road_material() if profile != null else null
 	for cell_data in layout.get("cells", []):
 		if not (cell_data is Dictionary):
 			continue
@@ -155,11 +158,55 @@ static func build_grid_road(layout: Dictionary, profile: RoadSegmentProfile = nu
 		holder.add_child(node)
 	return holder
 
+static func _can_build_grid_map_node(layout: Dictionary) -> bool:
+	var path := str(layout.get("mesh_library_path", ""))
+	if path.is_empty():
+		path = DEFAULT_MESH_LIBRARY_PATH
+	if not ResourceLoader.exists(path):
+		return false
+	for cell_data in layout.get("cells", []):
+		if not (cell_data is Dictionary):
+			continue
+		var cell := _vector3i_from_value((cell_data as Dictionary).get("cell", Vector3i.ZERO))
+		var expected := _cell_center(layout, cell)
+		var actual := _vector3_from_value((cell_data as Dictionary).get("position", expected), expected)
+		if expected.distance_to(actual) > 0.05:
+			return false
+	return true
+
+static func _build_grid_map_node(layout: Dictionary) -> GridMap:
+	var grid := GridMap.new()
+	grid.name = "GridRoad"
+	grid.set_meta("road_visual_style", "kenney_gridmap")
+	var path := str(layout.get("mesh_library_path", ""))
+	if path.is_empty():
+		path = DEFAULT_MESH_LIBRARY_PATH
+	grid.mesh_library = load(path) as MeshLibrary
+	grid.cell_size = _cell_size(layout)
+	grid.transform = Transform3D(
+		_basis_from_value(layout.get("basis", [])),
+		_vector3_from_value(layout.get("origin", Vector3.ZERO), Vector3.ZERO)
+	)
+	grid.collision_layer = 0
+	grid.collision_mask = 0
+	for cell_data in layout.get("cells", []):
+		if not (cell_data is Dictionary):
+			continue
+		var cell := _vector3i_from_value((cell_data as Dictionary).get("cell", Vector3i.ZERO))
+		var item := int((cell_data as Dictionary).get("item", TILE_STRAIGHT))
+		var orientation := int((cell_data as Dictionary).get("orientation", 0))
+		grid.set_cell_item(cell, item, orientation)
+	return grid
+
 static func _cell_center(layout: Dictionary, cell: Vector3i) -> Vector3:
 	var origin := _vector3_from_value(layout.get("origin", Vector3.ZERO), Vector3.ZERO)
 	var basis := _basis_from_value(layout.get("basis", []))
 	var size := _cell_size(layout)
-	var local := Vector3(float(cell.x) * size.x, float(cell.y) * size.y, float(cell.z) * size.z)
+	var local := Vector3(
+		(float(cell.x) + 0.5) * size.x,
+		(float(cell.y) + 0.5) * size.y,
+		(float(cell.z) + 0.5) * size.z
+	)
 	return origin + basis * local
 
 static func _cell_size(layout: Dictionary) -> Vector3:

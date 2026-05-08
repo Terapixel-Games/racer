@@ -24,7 +24,7 @@ func test_multiresolution_display_defaults() -> void:
 
 	assert_equal(int(cfg.get_value("display", "window/size/viewport_width", 0)), 1080, "Viewport width should default to 1080")
 	assert_equal(int(cfg.get_value("display", "window/size/viewport_height", 0)), 1920, "Viewport height should default to 1920")
-	assert_true(bool(cfg.get_value("display", "window/size/resizable", false)), "Window should be resizable")
+	assert_true(not bool(cfg.get_value("display", "window/size/resizable", false)), "Window should stay fixed-size for the portrait racer shell")
 	assert_equal(str(cfg.get_value("display", "window/stretch/mode", "")), "canvas_items", "Stretch mode should be canvas_items")
 	assert_equal(str(cfg.get_value("display", "window/stretch/aspect", "")), "expand", "Stretch aspect should be expand")
 

@@ -736,6 +736,7 @@ static func _add_dressing_scene(parent: Node3D, definition: TrackDefinition) -> 
 		return
 	instance.name = "EditableRoom"
 	_remove_saved_preview(instance)
+	_hide_runtime_authoring_nodes(instance)
 	if definition.id == "kitchen":
 		_make_kitchen_window_glass_transparent(instance)
 	_apply_ground_shader_to_editable_floor(instance, definition)
@@ -763,6 +764,13 @@ static func _remove_saved_preview(parent: Node) -> void:
 	if saved_preview != null:
 		parent.remove_child(saved_preview)
 		saved_preview.queue_free()
+
+static func _hide_runtime_authoring_nodes(parent: Node) -> void:
+	if parent == null:
+		return
+	var road_grid := parent.find_child("RoadGridMap", true, false) as Node3D
+	if road_grid != null:
+		road_grid.visible = false
 
 static func _disable_gameplay_collision(node: Node) -> void:
 	if node is CollisionShape3D:

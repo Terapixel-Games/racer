@@ -33,6 +33,7 @@ func to_grid_road_layout(default_road_width := 12.0) -> Dictionary:
 		"origin": _root_space_transform().origin,
 		"basis": _basis_to_array(_root_space_transform().basis),
 		"cell_size": cell_size,
+		"mesh_library_path": mesh_library.resource_path if mesh_library != null else "",
 		"road_width": road_width_override if road_width_override > 0.0 else default_road_width,
 		"cells": cells,
 		"ordered_route_cells": ordered_route_cells.duplicate(),

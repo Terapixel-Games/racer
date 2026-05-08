@@ -19,8 +19,8 @@ func test_grid_layout_generates_ordered_route_points() -> void:
 	}
 	var route := TrackGridRoadBuilder.route_points_from_grid_layout(layout, true)
 	assert_equal(route.size(), 4, "Grid route should follow authored cell order")
-	assert_equal(route[0], Vector3(10.0, 2.0, 20.0), "Grid route should start at the first authored cell center")
-	assert_equal(route[2], Vector3(26.0, 2.0, 36.0), "Grid route should scale cells into world-space route points")
+	assert_equal(route[0], Vector3(18.0, 4.0, 28.0), "Grid route should start at the first authored cell center")
+	assert_equal(route[2], Vector3(34.0, 4.0, 44.0), "Grid route should scale cells into world-space route points")
 	assert_equal(TrackGridRoadBuilder.checkpoint_indices_from_grid_layout(layout, route), [0, 1, 2], "Grid checkpoints should use authored route indices")
 
 func test_grid_layout_falls_back_to_cells_when_ordered_points_are_empty() -> void:
@@ -37,7 +37,7 @@ func test_grid_layout_falls_back_to_cells_when_ordered_points_are_empty() -> voi
 	}
 	var route := TrackGridRoadBuilder.route_points_from_grid_layout(layout, false)
 	assert_equal(route.size(), 3, "Grid route should fall back to ordered cells when exported point data is empty")
-	assert_equal(route[1], Vector3(26.0, 2.0, 20.0), "Cell fallback should still resolve world-space centers")
+	assert_equal(route[1], Vector3(34.0, 4.0, 28.0), "Cell fallback should still resolve world-space centers")
 
 func test_grid_layout_generates_spawns_and_sockets() -> void:
 	var layout := {
@@ -117,7 +117,7 @@ func test_grid_layout_builds_complete_race_layout() -> void:
 	assert_equal(race_layout.route_points.size(), 4, "Grid race layout should expose route points")
 	assert_equal(race_layout.checkpoint_indices, [0, 1, 2], "Grid race layout should expose checkpoint indices")
 	assert_equal(race_layout.spawn_points.size(), 8, "Grid race layout should expose a start grid")
-	assert_equal(race_layout.spawn_points[0], Vector4(2.0, 1.2, -1.5, 100.0), "Grid race layout should prefer authored spawn slots")
+	assert_equal(race_layout.spawn_points[0], Vector4(10.0, 3.2, 6.5, 100.0), "Grid race layout should prefer authored spawn slots")
 	assert_equal(race_layout.item_sockets.size(), 0, "MVP GridMap tracks should not expose item sockets")
 	assert_equal(race_layout.hazard_sockets.size(), 0, "MVP GridMap tracks should not expose hazard sockets")
 

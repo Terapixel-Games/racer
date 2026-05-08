@@ -19,6 +19,7 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(built_track != null, "Kitchen track scene should build runtime track")
 	assert_true(instance.get_node_or_null("BuiltTrack/Road") != null, "Kitchen track should include generated road")
 	assert_true(instance.get_node_or_null("BuiltTrack/GridRoad") != null, "Kitchen track should include Kenney Racing Kit grid road visuals")
+	assert_true(instance.get_node_or_null("BuiltTrack/GridRoad") is GridMap, "Kitchen visible road should be a runtime GridMap so Kenney tile materials and rotations are preserved")
 	assert_equal(_node_count_by_type(built_track, "WorldEnvironment"), 1, "Kitchen runtime should build exactly one WorldEnvironment")
 	var world_environment := instance.get_node_or_null("BuiltTrack/WorldEnvironment") as WorldEnvironment
 	assert_true(world_environment != null, "Kitchen track should include a world environment")
@@ -63,6 +64,7 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom") != null, "Kitchen track should include the directly editable room scene")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoadGridMap") != null, "Editable room scene should expose the authored RoadGridMap")
 	var road_grid_map := instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoadGridMap")
+	assert_true(road_grid_map is Node3D and not (road_grid_map as Node3D).visible, "Runtime dressing should hide the authoring RoadGridMap so only generated GridRoad is visible")
 	assert_equal((road_grid_map.get("spawn_slots") as Array).size() if road_grid_map != null else 0, 8, "Editable room RoadGridMap should author the full spawn grid")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/TrackAuthoringPreview") == null, "Kitchen editable room should not keep the legacy TrackAuthoringPreview")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoadSegments") == null, "Kitchen editable room should not keep legacy road segment authoring")

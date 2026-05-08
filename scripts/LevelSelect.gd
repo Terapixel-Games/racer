@@ -48,6 +48,9 @@ func get_back_target_for_test() -> String:
 func preview_has_visible_road_edges_for_test() -> bool:
 	return _has_visible_preview_road_edges(_preview_root)
 
+func preview_has_visible_rails_for_test() -> bool:
+	return _has_visible_named_node(_preview_root, "Rails")
+
 func _build_screen() -> void:
 	set_anchors_preset(Control.PRESET_FULL_RECT)
 	anchor_right = 1.0
@@ -293,12 +296,20 @@ func _has_visible_preview_road_edges(node: Node) -> bool:
 func _is_preview_road_edge_node(node: Node) -> bool:
 	var node_name := str(node.name).to_lower()
 	return (
-		node_name == "rails"
-		or node_name.ends_with("rails")
-		or node_name.begins_with("rail_")
-		or node_name == "trackbody"
+		node_name == "trackbody"
 		or node_name.ends_with("trackbody")
+		or node_name == "road"
 	)
+
+func _has_visible_named_node(node: Node, target_name: String) -> bool:
+	if node == null:
+		return false
+	if str(node.name) == target_name and node is Node3D and (node as Node3D).visible:
+		return true
+	for child in node.get_children():
+		if _has_visible_named_node(child, target_name):
+			return true
+	return false
 
 func _start_selected_track() -> void:
 	_apply_selected_track_metadata()

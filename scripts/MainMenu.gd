@@ -254,11 +254,9 @@ func _hide_preview_road_edges(node: Node) -> void:
 func _is_preview_road_edge_node(node: Node) -> bool:
 	var node_name := str(node.name).to_lower()
 	return (
-		node_name == "rails"
-		or node_name.ends_with("rails")
-		or node_name.begins_with("rail_")
-		or node_name == "trackbody"
+		node_name == "trackbody"
 		or node_name.ends_with("trackbody")
+		or node_name == "road"
 	)
 
 func _make_button(text: String, min_size: Vector2, primary: bool = true) -> Button:
