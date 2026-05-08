@@ -79,17 +79,18 @@ func test_road_collision_uses_layered_road_surfaces_without_support_boxes() -> v
 		assert_true(collision_body.physics_material_override.friction <= 0.1, "Road collision should stay slick enough to avoid snagging karts on high-contact seams")
 	road.queue_free()
 
-func test_layered_collision_mesh_offsets_backup_layers_downward() -> void:
+func test_layered_collision_mesh_offsets_shallow_skin_around_visible_surface() -> void:
 	var road := RoadMeshScript.new()
 	road.points = [Vector3(0, 3.0, 0), Vector3(0, 4.0, 12)]
 	road.width = 8.0
 	road.force_close = false
 	var source_mesh := road.call("_build_mesh") as Mesh
-	var collision_mesh := RoadMeshScript.build_layered_collision_mesh(source_mesh, 3, 0.16)
+	var collision_mesh := RoadMeshScript.build_layered_collision_mesh(source_mesh, 5, 0.08)
 	var source_vertices := source_mesh.surface_get_arrays(0)[Mesh.ARRAY_VERTEX] as PackedVector3Array
 	var collision_vertices := collision_mesh.surface_get_arrays(0)[Mesh.ARRAY_VERTEX] as PackedVector3Array
-	assert_true(absf(collision_vertices[source_vertices.size()].y - (source_vertices[0].y - 0.16)) <= 0.001, "Second collision layer should sit just below the visual road")
-	assert_true(absf(collision_vertices[source_vertices.size() * 2].y - (source_vertices[0].y - 0.32)) <= 0.001, "Third collision layer should sit below the second backup layer")
+	assert_true(absf(collision_vertices[0].y - (source_vertices[0].y + 0.16)) <= 0.001, "First collision layer should align with the raised Kenney GridMap road surface")
+	assert_true(absf(collision_vertices[source_vertices.size() * 2].y - source_vertices[0].y) <= 0.001, "Middle collision layer should stay on the route ribbon surface")
+	assert_true(absf(collision_vertices[source_vertices.size() * 4].y - (source_vertices[0].y - 0.16)) <= 0.001, "Final collision layer should stay shallow enough that racers cannot settle deep inside the track")
 	road.queue_free()
 
 func _unique_top_vertices(mesh: ArrayMesh, min_y: float) -> Array[Vector3]:

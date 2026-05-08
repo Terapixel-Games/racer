@@ -5,6 +5,7 @@ const LevelSelectScene = preload("res://scenes/LevelSelect.tscn")
 const RaceScene = preload("res://scenes/Race.tscn")
 const RacerRoster = preload("res://scripts/logic/RacerRoster.gd")
 const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
+const TrackProgressRules = preload("res://scripts/track/TrackProgressRules.gd")
 
 func test_character_select_continue_targets_level_select() -> void:
 	NakamaService.set_meta_value("selected_racer_id", RacerRoster.DEFAULT_RACER_ID)
@@ -144,6 +145,32 @@ func test_local_single_ai_moves_cars_from_start() -> void:
 		if car != null and car.global_transform.origin.distance_to(start_positions.get(str(rid), car.global_transform.origin)) > 0.08:
 			moved += 1
 	assert_true(moved >= 6, "Most CPU racers should move away from their start positions under physics input")
+	race.queue_free()
+
+func test_local_single_racers_stay_above_gridmap_surface_after_start_pileup() -> void:
+	var definition := TrackCatalog.get_definition("kitchen")
+	var race: Node = _make_local_race()
+	race.call("_set_local_phase", "racing")
+	var ai_ids: Array = race.get("ai_racer_ids")
+	var cars: Dictionary = race.get("cars")
+	for frame in range(300):
+		for rid in ai_ids:
+			var ai_car: CarController = cars.get(str(rid), null)
+			if ai_car != null:
+				race.call("_tick_ai_input", str(rid), 1.0 / 60.0)
+		for car in cars.values():
+			if car is CarController:
+				(car as CarController).call("_physics_process", 1.0 / 60.0)
+	for rid in cars.keys():
+		var car: CarController = cars.get(str(rid), null)
+		if car == null:
+			continue
+		var projection: Dictionary = TrackProgressRules.project_position(definition.route_points, car.global_transform.origin, definition.closed_loop)
+		var closest := projection.get("closest_point", car.global_transform.origin) as Vector3
+		assert_true(
+			car.global_transform.origin.y >= closest.y + 0.2,
+			"%s should stay above the GridMap road surface after the eight-racer start pileup. car_y=%.2f route_y=%.2f pos=%s" % [str(rid), car.global_transform.origin.y, closest.y, str(car.global_transform.origin)]
+		)
 	race.queue_free()
 
 func test_local_single_finished_ai_keeps_cruising_after_final_lap() -> void:

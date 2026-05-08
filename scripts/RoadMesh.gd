@@ -3,8 +3,9 @@ extends MeshInstance3D
 class_name RoadMesh
 
 const TrackWalls = preload("res://scripts/TrackWalls.gd")
-const ROAD_COLLISION_BACKUP_LAYERS := 12
-const ROAD_COLLISION_LAYER_SPACING := 0.25
+const ROAD_COLLISION_BACKUP_LAYERS := 5
+const ROAD_COLLISION_LAYER_SPACING := 0.08
+const ROAD_COLLISION_SURFACE_LIFT := 0.16
 
 @export var points: Array[Vector3] = []
 @export var width: float = 10.0
@@ -170,7 +171,7 @@ static func build_layered_collision_mesh(source_mesh: Mesh, layer_count: int, la
 	var vertices := PackedVector3Array()
 	var indices := PackedInt32Array()
 	for layer in range(count):
-		var offset := Vector3.DOWN * maxf(layer_spacing, 0.0) * float(layer)
+		var offset := Vector3.UP * (ROAD_COLLISION_SURFACE_LIFT - maxf(layer_spacing, 0.0) * float(layer))
 		var base := vertices.size()
 		for vertex in source_vertices:
 			vertices.append(vertex + offset)
