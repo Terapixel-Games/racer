@@ -263,6 +263,32 @@ func test_grid_boundary_walls_wrap_exposed_route_footprint() -> void:
 	assert_equal(walls.size(), 6, "Two adjacent GridMap road cells should expose only the outer perimeter edges")
 	assert_true(not _has_wall_at_x(walls, 16.0), "Boundary walls should not create an internal blocker between adjacent route cells")
 
+func test_grid_boundary_walls_fill_to_upper_neighbor_clearance() -> void:
+	var layout := {
+		"cell_size": Vector3(16.0, 4.0, 16.0),
+		"cells": [
+			{"cell": Vector3i(0, 0, 0), "item": 0, "orientation": 0, "position": Vector3(8.0, 0.0, 8.0)},
+			{"cell": Vector3i(1, 1, 0), "item": 0, "orientation": 0, "position": Vector3(24.0, 4.0, 8.0)},
+		],
+		"ordered_route_cells": [Vector3i(0, 0, 0), Vector3i(1, 1, 0)],
+	}
+	var walls := TrackGridRoadBuilder.boundary_wall_segments_from_grid_layout(layout, 5.0, 0.45)
+	var partial := _wall_near_x_with_height(walls, 16.0, 3.75)
+	assert_true(not partial.is_empty(), "A road tile one GridMap level above should create a partial containment wall instead of an escape gap")
+	assert_true(_wall_top_y(partial) <= 3.75 + 0.05, "Partial wall should stop below the upper road clearance")
+
+func test_grid_boundary_walls_keep_upper_containment_with_lower_neighbor() -> void:
+	var layout := {
+		"cell_size": Vector3(16.0, 4.0, 16.0),
+		"cells": [
+			{"cell": Vector3i(0, 0, 0), "item": 0, "orientation": 0, "position": Vector3(8.0, 0.0, 8.0)},
+			{"cell": Vector3i(1, 1, 0), "item": 0, "orientation": 0, "position": Vector3(24.0, 4.0, 8.0)},
+		],
+		"ordered_route_cells": [Vector3i(0, 0, 0), Vector3i(1, 1, 0)],
+	}
+	var walls := TrackGridRoadBuilder.boundary_wall_segments_from_grid_layout(layout, 3.0, 0.45)
+	assert_true(not _wall_near_x_with_height(walls, 16.0, 3.0).is_empty(), "A lower neighbor should not remove containment from the upper road edge")
+
 func test_grid_boundary_walls_cover_long_tile_footprint() -> void:
 	var layout := {
 		"cell_size": Vector3(16.0, 4.0, 16.0),
@@ -351,6 +377,20 @@ func _has_wall_reaching_z(walls: Array[Dictionary], z: float) -> bool:
 		if maxf(a.z, b.z) >= z - 0.2:
 			return true
 	return false
+
+func _wall_near_x_with_height(walls: Array[Dictionary], x: float, height: float) -> Dictionary:
+	for wall in walls:
+		var position: Vector3 = wall.get("position", Vector3.ZERO) as Vector3
+		var size: Vector3 = wall.get("size", Vector3.ZERO) as Vector3
+		if absf(position.x - x) <= 0.3 and absf(size.y - height) <= 0.1:
+			return wall
+	return {}
+
+func _wall_top_y(wall: Dictionary) -> float:
+	var position: Vector3 = wall.get("position", Vector3.ZERO) as Vector3
+	var basis: Basis = wall.get("basis", Basis.IDENTITY) as Basis
+	var size: Vector3 = wall.get("size", Vector3.ZERO) as Vector3
+	return position.y + absf(basis.y.normalized().y) * size.y * 0.5
 
 func _has_sloped_wall(walls: Array[Dictionary]) -> bool:
 	for wall in walls:

@@ -9292,7 +9292,7 @@
 	"track_id": "kitchen",
 	"track_source_id": "road_grid_map",
 	"version": "kitchen_v2_2026_04_29",
-	"wall_height": 1.6,
+	"wall_height": 3.0,
 	"wall_thickness": 0.45,
 	"win_condition_id": "checkpoint_laps"
 }
