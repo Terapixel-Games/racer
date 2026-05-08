@@ -191,14 +191,16 @@ func test_kenney_gridmap_long_tiles_keep_two_cell_footprint() -> void:
 func test_kenney_gridmap_ramp_road_surface_reaches_next_elevation() -> void:
 	var library := load(TrackGridRoadBuilder.DEFAULT_MESH_LIBRARY_PATH) as MeshLibrary
 	assert_true(library != null, "GridMap road MeshLibrary should load")
+	var straight_id := library.find_item_by_name("roadStraight")
+	var straight_bounds := _transformed_surface_aabb(library.get_item_mesh(straight_id), library.get_item_mesh_transform(straight_id), "road")
 	for item_name in ["roadRamp", "roadRampLong", "roadRampLongCurved"]:
 		var item_id := library.find_item_by_name(item_name)
 		assert_true(item_id >= 0, "GridMap road MeshLibrary should expose %s" % item_name)
 		if item_id < 0:
 			continue
 		var road_bounds := _transformed_surface_aabb(library.get_item_mesh(item_id), library.get_item_mesh_transform(item_id), "road")
-		assert_true(absf(road_bounds.position.y) <= 0.05, "%s road surface should start flush with flat road at the low end" % item_name)
-		assert_true(absf(road_bounds.size.y - 4.0) <= 0.05, "%s road surface should climb exactly one GridMap Y cell so it connects flush to elevated road" % item_name)
+		assert_true(absf(road_bounds.position.y - straight_bounds.position.y) <= 0.01, "%s road surface should start at the same height as flat road" % item_name)
+		assert_true(absf((road_bounds.position.y + road_bounds.size.y) - (straight_bounds.position.y + 4.0)) <= 0.01, "%s road surface should end flush with flat road one GridMap Y cell higher" % item_name)
 
 func test_road_grid_map_long_tiles_connect_across_two_cells() -> void:
 	var grid := RoadGridMapAuthoring.new()
