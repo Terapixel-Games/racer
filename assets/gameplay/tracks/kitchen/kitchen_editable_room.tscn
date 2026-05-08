@@ -1,25 +1,25 @@
-[gd_scene load_steps=38 format=3]
+[gd_scene load_steps=38 format=3 uid="uid://d3456a26kxrcj"]
 
-[ext_resource type="Texture2D" path="res://assets/source/generated/textures/toy_materials_2026-04-27/kitchen_tile_albedo.png" id="1_tile"]
-[ext_resource type="PackedScene" path="res://assets/source/meshy/kitchen/retro_cream_refrigerator.glb" id="2_fridge"]
-[ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/kitchenSink.glb" id="3_sink"]
-[ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/doorway.glb" id="5_51h51"]
-[ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/kitchenCabinetUpper.glb" id="5_upper"]
-[ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/hoodModern.glb" id="6_487os"]
-[ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/kitchenCabinetCornerInner.glb" id="7_corner"]
-[ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/kitchenStove.glb" id="8_stove"]
-[ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/table.glb" id="9_table"]
-[ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/pottedPlant.glb" id="10_plant"]
-[ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/kitchenCabinet.glb" id="11_j4p2m"]
-[ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/doorwayOpen.glb" id="12_x538f"]
-[ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/washer.glb" id="13_ft60m"]
-[ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/dryer.glb" id="14_452dl"]
-[ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/bookcaseOpen.glb" id="15_j8sh0"]
-[ext_resource type="Shader" path="res://assets/shaders/toon_water.gdshader" id="17_water_shader"]
-[ext_resource type="Script" path="res://scripts/effects/ApplianceRumbler.gd" id="18_rumbler"]
-[ext_resource type="Script" path="res://scripts/track/RoadGridSpawn.gd" id="20_eq2kr"]
-[ext_resource type="MeshLibrary" path="res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres" id="20_msb3l"]
-[ext_resource type="Script" path="res://scripts/track/RoadGridMapAuthoring.gd" id="21_uxd1m"]
+[ext_resource type="Texture2D" uid="uid://dyof4gx7wh6w7" path="res://assets/source/generated/textures/toy_materials_2026-04-27/kitchen_tile_albedo.png" id="1_tile"]
+[ext_resource type="PackedScene" uid="uid://bnh07515k0fhb" path="res://assets/source/meshy/kitchen/retro_cream_refrigerator.glb" id="2_fridge"]
+[ext_resource type="PackedScene" uid="uid://dqkahfrrclsnt" path="res://assets/source/kenney/furniture_kit/kitchenSink.glb" id="3_sink"]
+[ext_resource type="PackedScene" uid="uid://coudmtw10ipo6" path="res://assets/source/kenney/furniture_kit/doorway.glb" id="5_51h51"]
+[ext_resource type="PackedScene" uid="uid://d1avywib3w1sv" path="res://assets/source/kenney/furniture_kit/kitchenCabinetUpper.glb" id="5_upper"]
+[ext_resource type="PackedScene" uid="uid://cc6byao5hahbs" path="res://assets/source/kenney/furniture_kit/hoodModern.glb" id="6_487os"]
+[ext_resource type="PackedScene" uid="uid://70ktrra5kgk3" path="res://assets/source/kenney/furniture_kit/kitchenCabinetCornerInner.glb" id="7_corner"]
+[ext_resource type="PackedScene" uid="uid://ds3k6jrxlsrgb" path="res://assets/source/kenney/furniture_kit/kitchenStove.glb" id="8_stove"]
+[ext_resource type="PackedScene" uid="uid://ldgl4ss62g5k" path="res://assets/source/kenney/furniture_kit/table.glb" id="9_table"]
+[ext_resource type="PackedScene" uid="uid://dsfafjyriq40q" path="res://assets/source/kenney/furniture_kit/pottedPlant.glb" id="10_plant"]
+[ext_resource type="PackedScene" uid="uid://cx4qt2do6oh14" path="res://assets/source/kenney/furniture_kit/kitchenCabinet.glb" id="11_j4p2m"]
+[ext_resource type="PackedScene" uid="uid://dai6y5rj3kje3" path="res://assets/source/kenney/furniture_kit/doorwayOpen.glb" id="12_x538f"]
+[ext_resource type="PackedScene" uid="uid://es1gouc2q5qw" path="res://assets/source/kenney/furniture_kit/washer.glb" id="13_ft60m"]
+[ext_resource type="PackedScene" uid="uid://bjxkpgd14261g" path="res://assets/source/kenney/furniture_kit/dryer.glb" id="14_452dl"]
+[ext_resource type="PackedScene" uid="uid://d3umjcvyugjak" path="res://assets/source/kenney/furniture_kit/bookcaseOpen.glb" id="15_j8sh0"]
+[ext_resource type="Shader" uid="uid://ld6h4swupn0a" path="res://assets/shaders/toon_water.gdshader" id="17_water_shader"]
+[ext_resource type="Script" uid="uid://bwyyudn3ij34b" path="res://scripts/effects/ApplianceRumbler.gd" id="18_rumbler"]
+[ext_resource type="Script" uid="uid://6kdfep63chkc" path="res://scripts/track/RoadGridSpawn.gd" id="20_eq2kr"]
+[ext_resource type="MeshLibrary" uid="uid://cij7p2ixjkcke" path="res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres" id="20_msb3l"]
+[ext_resource type="Script" uid="uid://ciqqj1srodgqx" path="res://scripts/track/RoadGridMapAuthoring.gd" id="21_uxd1m"]
 
 [sub_resource type="StandardMaterial3D" id="Material_floor"]
 albedo_texture = ExtResource("1_tile")
@@ -214,27 +214,27 @@ mesh = SubResource("BoxMesh_unit")
 
 [node name="CounterRuns" type="Node3D" parent="Track"]
 
-[node name="table" type="Node3D" parent="Track/CounterRuns" instance=ExtResource("9_table")]
+[node name="table" parent="Track/CounterRuns" instance=ExtResource("9_table")]
 transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, 7.3503494, -9.231991, -19.905777)
 
 [node name="Appliances" type="Node3D" parent="Track"]
 
-[node name="retro_cream_refrigerator" type="Node3D" parent="Track/Appliances" instance=ExtResource("2_fridge")]
+[node name="retro_cream_refrigerator" parent="Track/Appliances" instance=ExtResource("2_fridge")]
 transform = Transform3D(-27.6, 0, -2.4128688e-06, 0, 27.6, 0, 2.4128688e-06, 0, -27.6, -42.479576, 16.004932, 86.73214)
 
-[node name="kitchenSink" type="Node3D" parent="Track/Appliances" instance=ExtResource("3_sink")]
+[node name="kitchenSink" parent="Track/Appliances" instance=ExtResource("3_sink")]
 transform = Transform3D(-50, 0, -7.54979e-06, 0, 50, 0, 7.54979e-06, 0, -50, -98.26446, -10.144182, 74.357216)
 
-[node name="kitchenSink2" type="Node3D" parent="Track/Appliances" instance=ExtResource("3_sink")]
+[node name="kitchenSink2" parent="Track/Appliances" instance=ExtResource("3_sink")]
 transform = Transform3D(-50, 0, -7.54979e-06, 0, 50, 0, 7.54979e-06, 0, -50, -77.3248, -10, 74.32816)
 
-[node name="kitchenStove" type="Node3D" parent="Track/Appliances" instance=ExtResource("8_stove")]
+[node name="kitchenStove" parent="Track/Appliances" instance=ExtResource("8_stove")]
 transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, -121.48029, -8.806137, -12.746695)
 
-[node name="hoodModern" type="Node3D" parent="Track/Appliances" instance=ExtResource("6_487os")]
+[node name="hoodModern" parent="Track/Appliances" instance=ExtResource("6_487os")]
 transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, -128.67912, 25.528194, -20.211254)
 
-[node name="doorway" type="Node3D" parent="Track/Appliances" instance=ExtResource("5_51h51")]
+[node name="doorway" parent="Track/Appliances" instance=ExtResource("5_51h51")]
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -17.953598, -9.231991, -93.70375)
 
 [node name="WaterSurfaces" type="Node3D" parent="Track"]
@@ -251,54 +251,54 @@ mesh = SubResource("PlaneMesh_water")
 
 [node name="UpperCabinets" type="Node3D" parent="Track"]
 
-[node name="BackUpperCabinetLeftB" type="Node3D" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
+[node name="BackUpperCabinetLeftB" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -24.99524, 23.5, 97.81024)
 
-[node name="BackUpperCabinetLeftC" type="Node3D" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
+[node name="BackUpperCabinetLeftC" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -4.4475403, 23.5, 97.81024)
 
-[node name="LeftUpperCabinetA" type="Node3D" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
+[node name="LeftUpperCabinetA" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
 transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, -133.17755, 23.5, -68.269035)
 
-[node name="LeftUpperCabinetB" type="Node3D" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
+[node name="LeftUpperCabinetB" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
 transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, -133.17755, 23.5, -42.269035)
 
-[node name="LeftUpperCabinetC" type="Node3D" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
+[node name="LeftUpperCabinetC" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
 transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, -133.17755, 23.5, 16.20774)
 
-[node name="LeftUpperCabinetD" type="Node3D" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
+[node name="LeftUpperCabinetD" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
 transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, -133.17755, 23.5, 44.20774)
 
-[node name="LeftUpperCabinetE" type="Node3D" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
+[node name="LeftUpperCabinetE" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
 transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, -133.17755, 23.5, 72.20774)
 
-[node name="RightUpperCabinetA" type="Node3D" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
+[node name="RightUpperCabinetA" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
 transform = Transform3D(-2.1855694e-06, 0, -50, 0, 50, 0, 50, 0, -2.1855694e-06, 132.97113, 23.5, -70.50758)
 
-[node name="RightUpperCabinetB" type="Node3D" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
+[node name="RightUpperCabinetB" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
 transform = Transform3D(-2.1855694e-06, 0, -50, 0, 50, 0, 50, 0, -2.1855694e-06, 132.97113, 23.5, -48.984486)
 
-[node name="RightUpperCabinetC" type="Node3D" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
+[node name="RightUpperCabinetC" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
 transform = Transform3D(-2.1855694e-06, 0, -50, 0, 50, 0, 50, 0, -2.1855694e-06, 132.97113, 23.5, -27.979786)
 
-[node name="FrontUpperCabinetLeftA" type="Node3D" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
+[node name="FrontUpperCabinetLeftA" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -92, 23.5, -88.24518)
 
-[node name="FrontUpperCabinetLeftB" type="Node3D" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
+[node name="FrontUpperCabinetLeftB" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -66, 23.5, -88.24518)
 
-[node name="FrontUpperCabinetRightA" type="Node3D" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
+[node name="FrontUpperCabinetRightA" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 76.89845, 23.5, -88.24518)
 
-[node name="FrontUpperCabinetRightB" type="Node3D" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
+[node name="FrontUpperCabinetRightB" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 98.32847, 23.5, -88.24518)
 
 [node name="HandPlacedProps" type="Node3D" parent="Track"]
 
-[node name="KitchenCabinetCornerInner" type="Node3D" parent="Track/HandPlacedProps" instance=ExtResource("7_corner")]
+[node name="KitchenCabinetCornerInner" parent="Track/HandPlacedProps" instance=ExtResource("7_corner")]
 transform = Transform3D(-3.0598e-07, 0, 7, 0, 7, 0, -7, 0, -3.0598e-07, -116, 2.1, 82)
 
-[node name="IslandPlanter" type="Node3D" parent="Track/HandPlacedProps" instance=ExtResource("10_plant")]
+[node name="IslandPlanter" parent="Track/HandPlacedProps" instance=ExtResource("10_plant")]
 transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 26, 7.33173, -52)
 
 [node name="Lighting" type="Node3D" parent="Track"]
@@ -318,113 +318,113 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9419613, 32.80315, -28)
 light_energy = 1.2
 omni_range = 95.0
 
-[node name="kitchenCabinet" type="Node3D" parent="Track" instance=ExtResource("11_j4p2m")]
+[node name="kitchenCabinet" parent="Track" instance=ExtResource("11_j4p2m")]
 transform = Transform3D(-2.1855694e-06, 0, -50, 0, 50, 0, 50, 0, -2.1855694e-06, 120.629, -10, -29.261532)
 
-[node name="kitchenCabinet3" type="Node3D" parent="Track" instance=ExtResource("11_j4p2m")]
+[node name="kitchenCabinet3" parent="Track" instance=ExtResource("11_j4p2m")]
 transform = Transform3D(-2.1855694e-06, 0, -50, 0, 50, 0, 50, 0, -2.1855694e-06, 120.629, -10, -72.29468)
 
-[node name="kitchenCabinet4" type="Node3D" parent="Track" instance=ExtResource("11_j4p2m")]
+[node name="kitchenCabinet4" parent="Track" instance=ExtResource("11_j4p2m")]
 transform = Transform3D(-2.1855694e-06, 0, -50, 0, 50, 0, 50, 0, -2.1855694e-06, 120.629, -10, -50.746677)
 
-[node name="kitchenCabinet7" type="Node3D" parent="Track" instance=ExtResource("11_j4p2m")]
+[node name="kitchenCabinet7" parent="Track" instance=ExtResource("11_j4p2m")]
 transform = Transform3D(50.000004, 0, 0, 0, 50, 0, 0, 0, 50.000004, 34.209557, -9.999998, -72.28179)
 
-[node name="kitchenCabinet8" type="Node3D" parent="Track" instance=ExtResource("11_j4p2m")]
+[node name="kitchenCabinet8" parent="Track" instance=ExtResource("11_j4p2m")]
 transform = Transform3D(50.000004, 0, 0, 0, 50, 0, 0, 0, 50.000004, 55.75659, -9.999998, -72.486)
 
-[node name="kitchenCabinetCornerInner" type="Node3D" parent="Track" instance=ExtResource("7_corner")]
+[node name="kitchenCabinetCornerInner" parent="Track" instance=ExtResource("7_corner")]
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 120.147385, -9.999999, -72.34253)
 
-[node name="kitchenCabinet9" type="Node3D" parent="Track" instance=ExtResource("11_j4p2m")]
+[node name="kitchenCabinet9" parent="Track" instance=ExtResource("11_j4p2m")]
 transform = Transform3D(49.999428, 0, 0.23736376, 0, 50.00001, 0, -0.23736376, 0, 49.999428, -77.72001, -10, -74.61334)
 
-[node name="kitchenCabinet10" type="Node3D" parent="Track" instance=ExtResource("11_j4p2m")]
+[node name="kitchenCabinet10" parent="Track" instance=ExtResource("11_j4p2m")]
 transform = Transform3D(49.999428, 0, 0.23736376, 0, 50.00001, 0, -0.23736376, 0, 49.999428, -56.17225, -10, -74.71562)
 
-[node name="kitchenCabinet11" type="Node3D" parent="Track" instance=ExtResource("11_j4p2m")]
+[node name="kitchenCabinet11" parent="Track" instance=ExtResource("11_j4p2m")]
 transform = Transform3D(49.999428, 0, 0.23736376, 0, 50.00001, 0, -0.23736376, 0, 49.999428, -120.75266, -10, -74.40904)
 
-[node name="kitchenCabinet12" type="Node3D" parent="Track" instance=ExtResource("11_j4p2m")]
+[node name="kitchenCabinet12" parent="Track" instance=ExtResource("11_j4p2m")]
 transform = Transform3D(49.999428, 0, 0.23736376, 0, 50.00001, 0, -0.23736376, 0, 49.999428, -99.20492, -10, -74.51134)
 
-[node name="kitchenCabinet13" type="Node3D" parent="Track" instance=ExtResource("11_j4p2m")]
+[node name="kitchenCabinet13" parent="Track" instance=ExtResource("11_j4p2m")]
 transform = Transform3D(-0.23736739, 0, 49.99943, 0, 50.000008, 0, -49.99943, 0, -0.23736739, -120.94163, -9.999998, -31.019432)
 
-[node name="kitchenCabinet14" type="Node3D" parent="Track" instance=ExtResource("11_j4p2m")]
+[node name="kitchenCabinet14" parent="Track" instance=ExtResource("11_j4p2m")]
 transform = Transform3D(-0.23736739, 0, 49.99943, 0, 50.000008, 0, -49.99943, 0, -0.23736739, -121.24813, -9.999998, -52.565254)
 
-[node name="kitchenCabinet15" type="Node3D" parent="Track" instance=ExtResource("11_j4p2m")]
+[node name="kitchenCabinet15" parent="Track" instance=ExtResource("11_j4p2m")]
 transform = Transform3D(-0.23736739, 0, 49.99943, 0, 50.000008, 0, -49.99943, 0, -0.23736739, -120.32952, -9.999998, 12.009354)
 
-[node name="kitchenCabinet16" type="Node3D" parent="Track" instance=ExtResource("11_j4p2m")]
+[node name="kitchenCabinet16" parent="Track" instance=ExtResource("11_j4p2m")]
 transform = Transform3D(-0.23736739, 0, 49.99943, 0, 50.000008, 0, -49.99943, 0, -0.23736739, -120.636024, -9.999998, 9.032623)
 
-[node name="kitchenCabinetCornerInner2" type="Node3D" parent="Track" instance=ExtResource("7_corner")]
+[node name="kitchenCabinetCornerInner2" parent="Track" instance=ExtResource("7_corner")]
 transform = Transform3D(-0.23736757, 0, 49.999428, 0, 50.00001, 0, -49.999428, 0, -0.23736757, -120.79824, -9.999999, -73.92721)
 
-[node name="kitchenCabinet17" type="Node3D" parent="Track" instance=ExtResource("11_j4p2m")]
+[node name="kitchenCabinet17" parent="Track" instance=ExtResource("11_j4p2m")]
 transform = Transform3D(0.013962105, 0, 49.99999, 0, 50.00001, 0, -49.99999, 0, 0.013962105, -120.16418, -10, 30.316612)
 
-[node name="kitchenCabinet19" type="Node3D" parent="Track" instance=ExtResource("11_j4p2m")]
+[node name="kitchenCabinet19" parent="Track" instance=ExtResource("11_j4p2m")]
 transform = Transform3D(0.013962105, 0, 49.99999, 0, 50.00001, 0, -49.99999, 0, 0.013962105, -120.176186, -10, 73.34975)
 
-[node name="kitchenCabinet20" type="Node3D" parent="Track" instance=ExtResource("11_j4p2m")]
+[node name="kitchenCabinet20" parent="Track" instance=ExtResource("11_j4p2m")]
 transform = Transform3D(0.013962105, 0, 49.99999, 0, 50.00001, 0, -49.99999, 0, 0.013962105, -120.17017, -10, 51.801765)
 
-[node name="kitchenCabinet22" type="Node3D" parent="Track" instance=ExtResource("11_j4p2m")]
+[node name="kitchenCabinet22" parent="Track" instance=ExtResource("11_j4p2m")]
 transform = Transform3D(-50, 0, 0.013960972, 0, 50.000008, 0, -0.013960972, 0, -50, -56.302216, -9.999998, 73.95501)
 
-[node name="kitchenCabinetCornerInner3" type="Node3D" parent="Track" instance=ExtResource("7_corner")]
+[node name="kitchenCabinetCornerInner3" parent="Track" instance=ExtResource("7_corner")]
 transform = Transform3D(-49.99999, 0, 0.013960987, 0, 50.00001, 0, -0.013960987, 0, -49.99999, -119.69459, -9.999999, 73.311615)
 
-[node name="kitchenCabinet25" type="Node3D" parent="Track" instance=ExtResource("11_j4p2m")]
+[node name="kitchenCabinet25" parent="Track" instance=ExtResource("11_j4p2m")]
 transform = Transform3D(-49.999996, 0, -4.3711384e-06, 0, 50.000008, 0, 4.3711384e-06, 0, -49.999996, 122.99071, -9.03031, 75.77942)
 
-[node name="kitchenCabinet27" type="Node3D" parent="Track" instance=ExtResource("11_j4p2m")]
+[node name="kitchenCabinet27" parent="Track" instance=ExtResource("11_j4p2m")]
 transform = Transform3D(-49.999996, 0, -4.3711384e-06, 0, 50.000008, 0, 4.3711384e-06, 0, -49.999996, 101.97043, -9.03031, 75.77942)
 
-[node name="kitchenCabinet28" type="Node3D" parent="Track" instance=ExtResource("11_j4p2m")]
+[node name="kitchenCabinet28" parent="Track" instance=ExtResource("11_j4p2m")]
 transform = Transform3D(-49.999996, 0, -4.3711384e-06, 0, 50.000008, 0, 4.3711384e-06, 0, -49.999996, 80.50219, -9.03031, 75.77942)
 
-[node name="kitchenCabinet29" type="Node3D" parent="Track" instance=ExtResource("11_j4p2m")]
+[node name="kitchenCabinet29" parent="Track" instance=ExtResource("11_j4p2m")]
 transform = Transform3D(-49.999996, 0, -4.3711384e-06, 0, 50.000008, 0, 4.3711384e-06, 0, -49.999996, 59.183388, -9.03031, 75.77942)
 
-[node name="kitchenCabinet31" type="Node3D" parent="Track" instance=ExtResource("11_j4p2m")]
+[node name="kitchenCabinet31" parent="Track" instance=ExtResource("11_j4p2m")]
 transform = Transform3D(-49.999996, 0, -4.3711384e-06, 0, 50.000008, 0, 4.3711384e-06, 0, -49.999996, 16.390713, -9.03031, 75.77942)
 
-[node name="kitchenCabinet32" type="Node3D" parent="Track" instance=ExtResource("11_j4p2m")]
+[node name="kitchenCabinet32" parent="Track" instance=ExtResource("11_j4p2m")]
 transform = Transform3D(-49.999996, 0, -4.3711384e-06, 0, 50.000008, 0, 4.3711384e-06, 0, -49.999996, -5.077526, -9.03031, 75.77942)
 
-[node name="kitchenCabinet26" type="Node3D" parent="Track" instance=ExtResource("11_j4p2m")]
+[node name="kitchenCabinet26" parent="Track" instance=ExtResource("11_j4p2m")]
 transform = Transform3D(-2.1855699e-06, 0, -50.00001, 0, 50.000004, 0, 50.00001, 0, -2.1855699e-06, 121.01565, -9.030308, 53.967945)
 
-[node name="kitchenCabinetCornerInner4" type="Node3D" parent="Track" instance=ExtResource("7_corner")]
+[node name="kitchenCabinetCornerInner4" parent="Track" instance=ExtResource("7_corner")]
 transform = Transform3D(-2.1855692e-06, 0, -49.999996, 0, 50.000008, 0, 49.999996, 0, -2.1855692e-06, 123.05371, -9.030309, 75.29956)
 
-[node name="doorwayOpen" type="Node3D" parent="Track" instance=ExtResource("12_x538f")]
+[node name="doorwayOpen" parent="Track" instance=ExtResource("12_x538f")]
 transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, 35.034954, -9.231991, 78.40431)
 
-[node name="washer" type="Node3D" parent="Track" instance=ExtResource("13_ft60m")]
+[node name="washer" parent="Track" instance=ExtResource("13_ft60m")]
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 77.47208, -9.231987, -74.33963)
 script = ExtResource("18_rumbler")
 
-[node name="dryer" type="Node3D" parent="Track" instance=ExtResource("14_452dl")]
+[node name="dryer" parent="Track" instance=ExtResource("14_452dl")]
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 98.25982, -9.231991, -73.46151)
 script = ExtResource("18_rumbler")
 
-[node name="bookcaseOpen" type="Node3D" parent="Track" instance=ExtResource("15_j8sh0")]
+[node name="bookcaseOpen" parent="Track" instance=ExtResource("15_j8sh0")]
 transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, 139.41138, -9.231991, 46.59275)
 
-[node name="bookcaseOpen2" type="Node3D" parent="Track" instance=ExtResource("15_j8sh0")]
+[node name="bookcaseOpen2" parent="Track" instance=ExtResource("15_j8sh0")]
 transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, 139.41138, -9.231991, 26.151482)
 
 [node name="RoadGridMap" type="GridMap" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 27.775, 0)
 mesh_library = ExtResource("20_msb3l")
 cell_size = Vector3(16, 4, 16)
 data = {
-"cells": PackedInt32Array(65532, 65533, 1, 65533, 65533, 1048576, 65534, 65533, 1048576, 65535, 65533, 1048576, 0, 65533, 1048576, 1, 65533, 1048576, 2, 65533, 1048576, 3, 65533, 1048576, 4, 65533, 1441793, 4, 65534, 0, 4, 65535, 0, 4, 0, 0, 4, 1, 0, 4, 2, 0, 4, 3, 655361, 3, 3, 1441792, 2, 3, 1441792, 1, 3, 1441792, 0, 3, 1441792, 65535, 3, 1441792, 65534, 3, 1441792, 65533, 3, 1441792, 65532, 3, 1048577, 65532, 2, 655360, 65532, 1, 655360, 65532, 0, 655360, 65532, 65535, 655360, 65532, 65534, 655360)
+"cells": PackedInt32Array(65532, 65533, 1, 65533, 65533, 1048576, 65534, 65533, 1048576, 65535, 65533, 1048576, 0, 65533, 1048576, 1, 65533, 1048576, 2, 65533, 1048576, 3, 65533, 1048576, 4, 65533, 1441793, 4, 65534, 0, 4, 65535, 0, 4, 0, 0, 4, 1, 0, 4, 2, 0, 4, 3, 655361, 3, 3, 1441792, 2, 3, 1441792, 1, 3, 1441792, 0, 3, 1441792, 65535, 3, 1441792, 65534, 3, 1441792, 65533, 3, 1441792, 65532, 3, 1048577, 65532, 2, 655360, 65532, 1, 655360, 65532, 0, 655360, 65532, 65535, 655360, 65532, 65534, 655360, 65520, 65534, 655361, 65520, 65531, 1441793, 65519, 65534, 1, 65519, 65531, 1048577, 65520, 65532, 0, 65520, 65533, 0, 65519, 65535, 0, 65519, 0, 0, 65519, 1, 0, 65519, 2, 0, 65519, 3, 0, 65519, 65530, 0, 65519, 65529, 0, 65519, 65528, 0, 65519, 65527, 0, 65519, 65526, 0, 65519, 65525, 1, 65520, 65525, 1441792, 65521, 65525, 1441792, 65522, 65525, 1441792, 65523, 65525, 1441792, 65524, 65525, 1441792, 65525, 65525, 1441792, 65526, 65525, 1441792, 65527, 65525, 1441792, 65528, 65525, 1441792, 65529, 65525, 1441792, 65530, 65525, 1441792, 65531, 65525, 1441792, 65532, 65525, 1441792, 65533, 65525, 1441792, 65534, 65525, 1441792, 65521, 9, 1441792, 65522, 9, 1441792, 65523, 9, 1441792, 65524, 9, 1441792, 65520, 8, 655360, 65520, 9, 1048577, 65519, 4, 1048577, 65520, 4, 1441793, 65520, 7, 655360, 65520, 6, 655360, 65520, 5, 655360)
 }
 script = ExtResource("21_uxd1m")
 ordered_route_cells = Array[Vector3i]([Vector3i(-4, 0, -3), Vector3i(-3, 0, -3), Vector3i(-2, 0, -3), Vector3i(-1, 0, -3), Vector3i(0, 0, -3), Vector3i(1, 0, -3), Vector3i(2, 0, -3), Vector3i(3, 0, -3), Vector3i(4, 0, -3), Vector3i(4, 0, -2), Vector3i(4, 0, -1), Vector3i(4, 0, 0), Vector3i(4, 0, 1), Vector3i(4, 0, 2), Vector3i(4, 0, 3), Vector3i(3, 0, 3), Vector3i(2, 0, 3), Vector3i(1, 0, 3), Vector3i(0, 0, 3), Vector3i(-1, 0, 3), Vector3i(-2, 0, 3), Vector3i(-3, 0, 3), Vector3i(-4, 0, 3), Vector3i(-4, 0, 2), Vector3i(-4, 0, 1), Vector3i(-4, 0, 0), Vector3i(-4, 0, -1), Vector3i(-4, 0, -2)])
