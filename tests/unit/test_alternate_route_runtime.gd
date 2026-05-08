@@ -89,6 +89,16 @@ func test_rail_edge_offsets_keep_full_width_on_ramps() -> void:
 	assert_true(is_equal_approx(absf((right[0] as Vector3).z), 8.5), "Ramp rail offset should use horizontal road width, not shrink because the segment climbs")
 	assert_true(is_equal_approx((left[1] as Vector3).y, 4.0), "Ramp rail edges should still follow vertical route elevation")
 
+func test_ramp_rail_visuals_stay_upright() -> void:
+	var holder := Node3D.new()
+	TrackRuntimeBuilder._add_rail_segment_pieces(holder, Vector3(0, 0, 0), Vector3(16, 4, 0), "L", 0, null)
+	var rail := holder.get_node_or_null("Rail_00_L_00") as Node3D
+	assert_true(rail != null, "Ramp rail generation should create a visual rail piece")
+	if rail != null:
+		var up := rail.transform.basis.y.normalized()
+		assert_true(up.distance_to(Vector3.UP) <= 0.01, "Ramp rail visuals should keep posts upright instead of tilting into the ramp surface")
+	holder.queue_free()
+
 func test_runtime_uses_road_grid_from_editable_scene() -> void:
 	var definition := (TrackCatalog.get_definition("kitchen") as TrackDefinition).duplicate(true) as TrackDefinition
 	var packed := load(definition.dressing_scene_path) as PackedScene
