@@ -15,7 +15,7 @@ const RailScene = preload("res://assets/source/kenney/racing_kit/rail.glb")
 
 const RAIL_SIDE_SCALE := 8.0
 const RAIL_SEGMENT_LENGTH := 10.0
-const RAIL_EDGE_OFFSET := -0.22
+const RAIL_EDGE_OFFSET := 0.0
 const RAIL_SEGMENT_GAP := 0.08
 const RAIL_Y_OFFSET := 0.12
 const RAIL_VISUAL_CENTER := Vector3(0.15, 0.07, -0.625)
