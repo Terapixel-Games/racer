@@ -68,9 +68,9 @@ func _add_mesh_item(library: MeshLibrary, id: int, item_name: String, scene_path
 	)
 	if item_name == "roadCornerSmall":
 		scale = Vector3(
-			GRID_ROAD_WIDTH / maxf(bounds.size.x, 0.001),
+			GRID_CELL_SIZE.x / maxf(bounds.size.x, 0.001),
 			1.0,
-			GRID_ROAD_WIDTH / maxf(bounds.size.z, 0.001)
+			GRID_CELL_SIZE.z / maxf(bounds.size.z, 0.001)
 		)
 	elif item_name == "roadCornerLarge":
 		scale = Vector3(
