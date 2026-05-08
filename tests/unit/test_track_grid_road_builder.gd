@@ -161,6 +161,21 @@ func test_kenney_gridmap_mesh_library_exposes_elevation_tiles() -> void:
 		assert_true(library.get_item_mesh_transform(item_id).basis.x.length() >= 16.0, "%s should match the 16-wide road footprint" % item_name)
 		assert_true(library.get_item_mesh_transform(item_id).basis.y.length() > 1.0, "%s should scale visibly on Y for elevated road authoring" % item_name)
 
+func test_kenney_gridmap_start_tile_matches_cell_footprint() -> void:
+	var library := load(TrackGridRoadBuilder.DEFAULT_MESH_LIBRARY_PATH) as MeshLibrary
+	assert_true(library != null, "GridMap road MeshLibrary should load")
+	var straight_id := library.find_item_by_name("roadStraight") if library != null else -1
+	var start_id := library.find_item_by_name("roadStart") if library != null else -1
+	assert_true(straight_id >= 0, "GridMap road MeshLibrary should expose roadStraight")
+	assert_true(start_id >= 0, "GridMap road MeshLibrary should expose roadStart")
+	if straight_id < 0 or start_id < 0:
+		return
+	var straight_transform := library.get_item_mesh_transform(straight_id)
+	var start_transform := library.get_item_mesh_transform(start_id)
+	assert_true(is_equal_approx(start_transform.basis.x.length(), straight_transform.basis.x.length()), "roadStart should match straight tile width so the start line stays centered on the GridMap cell")
+	assert_true(is_equal_approx(start_transform.basis.z.length(), straight_transform.basis.z.length()), "roadStart should match straight tile length so it does not shift into the next cell")
+	assert_true(start_transform.origin.distance_to(straight_transform.origin) <= 0.05, "roadStart should use the same cell-local origin as roadStraight")
+
 func test_grid_collision_mesh_uses_ramp_tile_geometry() -> void:
 	var layout := {
 		"mesh_library_path": TrackGridRoadBuilder.DEFAULT_MESH_LIBRARY_PATH,

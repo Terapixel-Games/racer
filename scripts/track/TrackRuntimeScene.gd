@@ -4,6 +4,7 @@ class_name TrackRuntimeScene
 
 const TrackDefinition = preload("res://scripts/track/TrackDefinition.gd")
 const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd")
+const TrackSceneAuthoringData = preload("res://scripts/track/TrackSceneAuthoringData.gd")
 
 @export var definition: TrackDefinition
 @export var rebuild_on_ready := true
@@ -21,7 +22,8 @@ func rebuild() -> Dictionary:
 	build_result = {}
 	if definition == null:
 		return build_result
-	var built := TrackRuntimeBuilder.build(definition)
+	var resolved_definition := TrackSceneAuthoringData.apply_to_definition(definition)
+	var built := TrackRuntimeBuilder.build(resolved_definition if resolved_definition != null else definition)
 	var node := built.get("node", null) as Node3D
 	if node != null:
 		node.name = "BuiltTrack"
