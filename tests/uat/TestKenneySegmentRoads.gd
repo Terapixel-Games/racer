@@ -29,7 +29,7 @@ func test_all_tracks_build_gridmap_roads_with_generated_collision() -> void:
 		assert_true(grid_road != null and (grid_road as Node3D).visible, "%s GridRoad visuals should be visible" % track_id)
 		assert_equal(_enabled_collision_objects(grid_road), 0, "%s GridRoad tile visuals should not own gameplay collision" % track_id)
 		assert_true(track_node.get_node_or_null("SegmentRoad") == null, "%s should not build legacy segment road visuals" % track_id)
-		assert_true(track_node.get_node_or_null("TrackBody") != null, "%s should keep generated track body support" % track_id)
+		assert_true(track_node.get_node_or_null("TrackBody") == null, "%s should not build broad legacy track body visuals" % track_id)
 		var road := track_node.get_node_or_null("Road") as MeshInstance3D
 		assert_true(road != null, "%s should keep generated road collision node" % track_id)
 		if road != null:

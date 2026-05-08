@@ -47,7 +47,6 @@ static func build(definition: TrackDefinition) -> Dictionary:
 	var spawns := _build_spawns(root, definition)
 	var waypoints := _build_waypoints(root, definition)
 	_build_checkpoints(root, definition)
-	_build_section_markers(root, definition)
 	_build_audio_zones(root, definition)
 	_build_dressing(root, definition)
 
@@ -244,11 +243,11 @@ static func _build_floor_tile_grid(root: Node3D, definition: TrackDefinition) ->
 		z += tile_size
 
 static func _build_track_body(root: Node3D, definition: TrackDefinition) -> void:
+	if definition.road_visual_style == "kenney_gridmap" and not definition.road_grid_layout.is_empty():
+		return
 	var body := MeshInstance3D.new()
 	body.name = "TrackBody"
 	body.mesh = TrackRibbonMesh.build_slab_mesh(definition.route_points, definition.road_width, definition.track_body_depth, definition.closed_loop)
-	if definition.road_visual_style == "kenney_gridmap" and not definition.road_grid_layout.is_empty():
-		body.visible = false
 	var material := StandardMaterial3D.new()
 	material.albedo_color = definition.track_body_color
 	material.roughness = 0.58
@@ -660,27 +659,6 @@ static func _build_audio_zones(root: Node3D, definition: TrackDefinition) -> voi
 		shape_node.shape = shape
 		area.add_child(shape_node)
 		holder.add_child(area)
-
-static func _build_section_markers(root: Node3D, definition: TrackDefinition) -> void:
-	if definition.id != "kitchen":
-		return
-	var holder := Node3D.new()
-	holder.name = "SectionMarkers"
-	root.add_child(holder)
-	_add_section_marker(holder, "StartFinishStraight", Vector3(-46, 3.65, -78))
-	_add_section_marker(holder, "StoveHairpin", Vector3(-100, 3.75, -24))
-	_add_section_marker(holder, "IslandSweeper", Vector3(22, 5.55, -38))
-	_add_section_marker(holder, "BackStraight", Vector3(112, 4.7, 18))
-	_add_section_marker(holder, "SinkChicane", Vector3(-8, 4.15, 74))
-	_add_section_marker(holder, "FridgeClimb", Vector3(122, 3.6, -18))
-	_add_section_marker(holder, "FridgeTopRun", Vector3(122, 3.6, 30))
-	_add_section_marker(holder, "FridgeCorner", Vector3(112, 3.6, 72))
-
-static func _add_section_marker(parent: Node3D, marker_name: String, position: Vector3) -> void:
-	var marker := Marker3D.new()
-	marker.name = marker_name
-	marker.transform.origin = position
-	parent.add_child(marker)
 
 static func _build_dressing(root: Node3D, definition: TrackDefinition) -> void:
 	var holder := Node3D.new()
