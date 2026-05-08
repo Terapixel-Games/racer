@@ -129,6 +129,7 @@ func test_kenney_gridmap_mesh_library_exposes_elevation_tiles() -> void:
 		assert_true(item_id >= 0, "GridMap road MeshLibrary should expose %s for elevated road authoring" % item_name)
 		assert_true(library.get_item_mesh(item_id) != null, "%s should have a paintable mesh" % item_name)
 		assert_true(library.get_item_mesh_transform(item_id).basis.x.length() >= 16.0, "%s should match the 16-wide road footprint" % item_name)
+		assert_true(library.get_item_mesh_transform(item_id).basis.y.length() > 1.0, "%s should scale visibly on Y for elevated road authoring" % item_name)
 
 func _spawn_slot_layouts(count: int) -> Array[Dictionary]:
 	var slots: Array[Dictionary] = []
