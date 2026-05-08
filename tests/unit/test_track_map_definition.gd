@@ -6,8 +6,6 @@ const TrackMapDefinition = preload("res://scripts/track/TrackMapDefinition.gd")
 const TrackSceneAuthoringData = preload("res://scripts/track/TrackSceneAuthoringData.gd")
 const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd")
 const TrackGridRoadBuilder = preload("res://scripts/track/TrackGridRoadBuilder.gd")
-const RoadGridMapAuthoring = preload("res://scripts/track/RoadGridMapAuthoring.gd")
-const TrackAuthoringPreview = preload("res://scripts/track/TrackAuthoringPreview.gd")
 
 func test_kitchen_map_definition_exposes_race_mode() -> void:
 	var map_definition := TrackCatalog.get_map_definition("kitchen")
@@ -44,13 +42,12 @@ func test_kitchen_race_mode_uses_grid_without_segments() -> void:
 	var authored_spawns := TrackGridRoadBuilder.spawn_points_from_grid_layout(definition.road_grid_layout, definition.route_points)
 	assert_equal(definition.spawn_points, authored_spawns, "Kitchen runtime spawn data should come from RoadGridMap spawn slots")
 
-func test_kitchen_route_mode_does_not_fall_back_to_grid_or_legacy_route_authoring() -> void:
+func test_non_grid_source_request_still_resolves_mvp_grid() -> void:
 	var definition := TrackDefinition.new()
 	definition.id = "kitchen_route_fixture"
 	definition.display_name = "Kitchen Route Fixture"
 	definition.laps = 1
 	definition.road_visual_style = "procedural"
-	definition.dressing_scene_path = "res://assets/gameplay/tracks/kitchen/kitchen_editable_room.tscn"
 	definition.route_points = [
 		Vector3(0, 0.5, 0),
 		Vector3(10, 0.5, 0),
@@ -67,44 +64,31 @@ func test_kitchen_route_mode_does_not_fall_back_to_grid_or_legacy_route_authorin
 		Vector4(6, 0.8, 0, 0),
 		Vector4(7, 0.8, 0, 0),
 	]
-	definition.item_sockets = [Vector4(0, 0.8, 0, 0)]
 	var authored := TrackSceneAuthoringData.apply_to_definition(definition, {"road_source": "route"})
-	assert_equal(str(authored.get_meta("resolved_race_layout_source", "")), "", "Kitchen route mode should not resolve legacy route authoring")
-	assert_true(authored.road_grid_layout.is_empty(), "Explicit route mode should ignore Kitchen RoadGridMap data")
-	assert_true(authored.road_segment_layout.is_empty(), "Kitchen should not keep segment layout data in route mode")
-	assert_equal(authored.route_points, definition.route_points, "Without legacy route markers, explicit route mode should leave supplied route points unchanged")
+	assert_equal(str(authored.get_meta("resolved_race_layout_source", "")), "road_grid_map", "MVP racing should ignore legacy source requests")
+	assert_true(not authored.road_grid_layout.is_empty(), "MVP racing should synthesize GridMap metadata for fixture tracks")
+	assert_true(authored.road_segment_layout.is_empty(), "MVP racing should not keep segment layout data")
+	assert_equal(authored.validate(), [], "Synthesized MVP GridMap definition should validate")
 
 func test_road_source_aliases_resolve_to_canonical_track_sources() -> void:
 	assert_equal(TrackSceneAuthoringData.canonical_road_source("grid"), "road_grid_map", "grid should remain a RoadGridMap alias")
 	assert_equal(TrackSceneAuthoringData.canonical_road_source("kenney_gridmap"), "road_grid_map", "Kenney grid visuals should resolve to RoadGridMap")
-	assert_equal(TrackSceneAuthoringData.canonical_road_source("route"), "track_authoring_preview", "route markers should resolve to legacy track authoring")
-	assert_equal(TrackSceneAuthoringData.canonical_road_source("segments"), "track_authoring_preview", "segment roads should resolve to legacy track authoring")
+	assert_equal(TrackSceneAuthoringData.canonical_road_source("route"), "auto", "Route markers should not resolve as an MVP track source")
+	assert_equal(TrackSceneAuthoringData.canonical_road_source("segments"), "auto", "Segment roads should not resolve as an MVP track source")
 
-func test_legacy_track_authoring_preview_resolves_track_source_rules() -> void:
+func test_non_kitchen_track_resolves_grid_source_rules() -> void:
 	var definition := TrackSceneAuthoringData.apply_to_definition(TrackCatalog.get_definition("garden"), {"road_source": "track_authoring_preview"})
-	assert_equal(str(definition.get_meta("resolved_track_source", "")), "track_authoring_preview", "Legacy tracks should resolve through TrackAuthoringPreview")
-	assert_equal(definition.track_source_id, "track_authoring_preview", "Legacy resolved track source should be canonical")
-	assert_equal(definition.progress_rule_id, "route_lap_progress", "Legacy source should own route lap progress rules")
-	assert_equal(definition.win_condition_id, "checkpoint_laps", "Legacy source should own checkpoint lap finish rules")
-	assert_equal(definition.validate(), [], "Legacy resolved track definition should validate")
-
-func test_mixed_track_sources_fail_validation() -> void:
-	var root := Node3D.new()
-	var grid := RoadGridMapAuthoring.new()
-	grid.name = "RoadGridMap"
-	grid.ordered_route_cells = [Vector3i(0, 0, 0), Vector3i(1, 0, 0), Vector3i(2, 0, 0)]
-	root.add_child(grid)
-	var preview := TrackAuthoringPreview.new()
-	preview.name = "TrackAuthoringPreview"
-	root.add_child(preview)
-	var errors := TrackSceneAuthoringData._source_exclusivity_errors(root)
-	assert_true(not errors.is_empty(), "Scenes should not enable RoadGridMap and TrackAuthoringPreview together")
-	root.queue_free()
+	assert_equal(str(definition.get_meta("resolved_track_source", "")), "road_grid_map", "Catalog tracks should resolve through GridMap")
+	assert_equal(definition.track_source_id, "road_grid_map", "Resolved track source should be canonical")
+	assert_equal(definition.progress_rule_id, "route_lap_progress", "GridMap source should own route lap progress rules")
+	assert_equal(definition.win_condition_id, "checkpoint_laps", "GridMap source should own checkpoint lap finish rules")
+	assert_equal(definition.validate(), [], "Resolved GridMap track definition should validate")
 
 func test_legacy_non_kitchen_tracks_still_load() -> void:
 	var definition := TrackCatalog.get_definition("garden")
-	assert_true(definition is TrackDefinition, "Legacy non-Kitchen tracks should still load through get_definition")
-	assert_equal(definition.id, "garden", "Legacy Garden id should be preserved")
+	assert_true(definition is TrackDefinition, "Non-Kitchen tracks should still load through get_definition")
+	assert_equal(definition.id, "garden", "Garden id should be preserved")
+	assert_equal(definition.track_source_id, "road_grid_map", "Garden should be converted to an MVP GridMap track")
 
 func test_grid_visuals_and_generated_collision_are_independent() -> void:
 	var definition := TrackCatalog.get_definition("kitchen")

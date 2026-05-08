@@ -118,8 +118,8 @@ func test_grid_layout_builds_complete_race_layout() -> void:
 	assert_equal(race_layout.checkpoint_indices, [0, 1, 2], "Grid race layout should expose checkpoint indices")
 	assert_equal(race_layout.spawn_points.size(), 8, "Grid race layout should expose a start grid")
 	assert_equal(race_layout.spawn_points[0], Vector4(2.0, 1.2, -1.5, 100.0), "Grid race layout should prefer authored spawn slots")
-	assert_equal(race_layout.item_sockets.size(), 1, "Grid race layout should expose item sockets")
-	assert_equal(race_layout.hazard_sockets.size(), 1, "Grid race layout should expose hazard sockets")
+	assert_equal(race_layout.item_sockets.size(), 0, "MVP GridMap tracks should not expose item sockets")
+	assert_equal(race_layout.hazard_sockets.size(), 0, "MVP GridMap tracks should not expose hazard sockets")
 
 func _spawn_slot_layouts(count: int) -> Array[Dictionary]:
 	var slots: Array[Dictionary] = []

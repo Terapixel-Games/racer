@@ -79,15 +79,19 @@ func validate() -> Array[String]:
 		errors.append("Track route length is too short.")
 	if road_visual_style.strip_edges().is_empty():
 		errors.append("Track road visual style is required.")
-	if road_visual_style == "kenney_segments" and road_segment_profile.strip_edges().is_empty():
-		errors.append("Track road segment profile is required for Kenney segment roads.")
+	if track_source_id.strip_edges().is_empty() and road_grid_layout.is_empty():
+		errors.append("Track must resolve a RoadGridMap source.")
+	if track_source_id.strip_edges() != "" and track_source_id != "road_grid_map":
+		errors.append("Track source must be road_grid_map for MVP racing.")
+	if road_visual_style != "kenney_gridmap":
+		errors.append("Track road visual style must be kenney_gridmap for MVP racing.")
+	if road_grid_layout.is_empty():
+		errors.append("Track must include RoadGridMap layout metadata.")
 	_validate_checkpoints(errors)
 	_validate_alternate_routes(errors)
 	if spawn_points.size() < 8:
 		errors.append("Track must include at least 8 spawn points.")
 	_validate_spawn_points(errors)
-	if item_sockets.is_empty():
-		errors.append("Track must include at least one item socket.")
 	if lap_gate_checkpoint_index < 0 or lap_gate_checkpoint_index >= checkpoint_indices.size():
 		errors.append("Track must include exactly one valid lap gate checkpoint index.")
 	if not dressing_scene_path.strip_edges().is_empty() and not ResourceLoader.exists(dressing_scene_path):

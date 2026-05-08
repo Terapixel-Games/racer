@@ -3,12 +3,11 @@ extends "res://tests/framework/TestCase.gd"
 const TrackDefinition = preload("res://scripts/track/TrackDefinition.gd")
 const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
 const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd")
-const TrackSegmentRoadBuilder = preload("res://scripts/track/TrackSegmentRoadBuilder.gd")
 const TrackGridRoadBuilder = preload("res://scripts/track/TrackGridRoadBuilder.gd")
 
 const TMP_SCENE_PATH := "res://tmp_scene_source_route.tscn"
 
-func test_runtime_builds_enabled_alternate_route_geometry() -> void:
+func test_runtime_ignores_alternate_routes_for_mvp_gridmap() -> void:
 	var definition := _branch_definition()
 	var built := TrackRuntimeBuilder.build(definition)
 	var track := built.get("node", null) as Node3D
@@ -24,12 +23,7 @@ func test_runtime_builds_enabled_alternate_route_geometry() -> void:
 		assert_true(rail_body.physics_material_override.friction <= 0.05, "Rail collision should stay slick instead of grabbing karts")
 	var rail_shape := _first_enabled_collision_shape(rails) as CapsuleShape3D
 	assert_true(rail_shape != null and rail_shape.radius <= 0.05, "Rail collision should use low world-space radius instead of inheriting visual scale")
-	assert_true(track.get_node_or_null("AlternateRoutes/InsideLaneRoad") != null, "Runtime should build alternate route road geometry")
-	assert_true(track.get_node_or_null("AlternateRoutes/InsideLaneRoad/CollisionBody/CollisionShape3D") != null, "Alternate route road should include collision")
-	var alternate_rails := track.get_node_or_null("AlternateRoutes/InsideLaneRails")
-	assert_true(alternate_rails != null, "Runtime should build alternate route rails")
-	assert_true(alternate_rails != null and alternate_rails.get_child_count() > 0, "Alternate route rails should instantiate rail pieces")
-	assert_true(_enabled_collision_objects(alternate_rails) > 0, "Alternate route rails should include collision")
+	assert_true(track.get_node_or_null("AlternateRoutes") == null, "MVP GridMap runtime should not build alternate route geometry")
 	assert_true(track.get_node_or_null("CheckpointSystem/Checkpoint01") != null, "Alternate routes should keep shared checkpoint system")
 	track.queue_free()
 
@@ -140,6 +134,9 @@ func _branch_definition() -> TrackDefinition:
 	definition.laps = 1
 	definition.closed_loop = true
 	definition.road_width = 10.0
+	definition.track_source_id = "road_grid_map"
+	definition.road_visual_style = "kenney_gridmap"
+	definition.road_grid_layout = {"ordered_route_cells": [Vector3i(0, 0, 0), Vector3i(1, 0, 0), Vector3i(1, 0, 1), Vector3i(0, 0, 1)]}
 	definition.route_points = [
 		Vector3(0, 0.5, 0),
 		Vector3(20, 0.5, 0),

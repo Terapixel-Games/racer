@@ -3,6 +3,7 @@ class_name TrackCatalog
 
 const TrackDefinition = preload("res://scripts/track/TrackDefinition.gd")
 const TrackMapDefinition = preload("res://scripts/track/TrackMapDefinition.gd")
+const TrackSceneAuthoringData = preload("res://scripts/track/TrackSceneAuthoringData.gd")
 
 const DEFAULT_TRACK_ID := "kitchen"
 const MANIFEST_PATH := "res://assets/gameplay/tracks/track_packages.json"
@@ -71,7 +72,7 @@ static func get_mode_definition(map_id: String = DEFAULT_TRACK_ID, mode_id: Stri
 	if map_definition != null:
 		var definition := map_definition.to_track_definition(mode_id)
 		if definition != null:
-			return definition
+			return TrackSceneAuthoringData.apply_to_definition(definition)
 	return _get_legacy_definition(map_id)
 
 static func get_package(track_id: String = DEFAULT_TRACK_ID) -> Dictionary:
@@ -101,16 +102,11 @@ static func _get_legacy_definition(track_id: String = DEFAULT_TRACK_ID) -> Track
 	var path := str(package.get("definition_path", ""))
 	if path.is_empty():
 		return null
-	return load(path) as TrackDefinition
+	var definition := load(path) as TrackDefinition
+	return TrackSceneAuthoringData.apply_to_definition(definition)
 
 static func get_metadata(track_id: String = DEFAULT_TRACK_ID) -> Dictionary:
 	var package := get_package(track_id)
-	var metadata_path := str(package.get("metadata_path", ""))
-	if not metadata_path.is_empty():
-		var from_json := _load_metadata_json(metadata_path)
-		if not from_json.is_empty():
-			_apply_package_fields(from_json, package)
-			return from_json
 	var definition := get_definition(track_id)
 	if definition == null:
 		return {}

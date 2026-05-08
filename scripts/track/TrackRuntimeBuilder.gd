@@ -6,12 +6,9 @@ const CheckpointSystemScript = preload("res://scripts/CheckpointSystem.gd")
 const FinishLineAreaScript = preload("res://scripts/FinishLineArea.gd")
 const RoadMeshScript = preload("res://scripts/RoadMesh.gd")
 const TrackDefinition = preload("res://scripts/track/TrackDefinition.gd")
-const TrackAuthoringPreview = preload("res://scripts/track/TrackAuthoringPreview.gd")
 const TrackRibbonMesh = preload("res://scripts/track/TrackRibbonMesh.gd")
 const TrackWalls = preload("res://scripts/TrackWalls.gd")
 const TrackSceneAuthoringData = preload("res://scripts/track/TrackSceneAuthoringData.gd")
-const RoadSegmentProfile = preload("res://scripts/track/RoadSegmentProfile.gd")
-const TrackSegmentRoadBuilder = preload("res://scripts/track/TrackSegmentRoadBuilder.gd")
 const TrackGridRoadBuilder = preload("res://scripts/track/TrackGridRoadBuilder.gd")
 const StageSky = preload("res://scripts/track/StageSky.gd")
 const RailScene = preload("res://assets/source/kenney/racing_kit/rail.glb")
@@ -46,16 +43,11 @@ static func build(definition: TrackDefinition) -> Dictionary:
 	_build_ground(root, definition)
 	_build_track_body(root, definition)
 	_build_road(root, definition)
-	_build_alternate_routes(root, definition)
 	_build_route_network_rails(root, definition)
 	var spawns := _build_spawns(root, definition)
 	var waypoints := _build_waypoints(root, definition)
 	_build_checkpoints(root, definition)
-	_build_sockets(root, "ItemSockets", definition.item_sockets)
-	_build_sockets(root, "HazardSockets", definition.hazard_sockets)
-	_build_shortcuts(root, definition)
 	_build_section_markers(root, definition)
-	_build_surface_segments(root, definition)
 	_build_audio_zones(root, definition)
 	_build_dressing(root, definition)
 
@@ -255,6 +247,8 @@ static func _build_track_body(root: Node3D, definition: TrackDefinition) -> void
 	var body := MeshInstance3D.new()
 	body.name = "TrackBody"
 	body.mesh = TrackRibbonMesh.build_slab_mesh(definition.route_points, definition.road_width, definition.track_body_depth, definition.closed_loop)
+	if definition.road_visual_style == "kenney_gridmap" and not definition.road_grid_layout.is_empty():
+		body.visible = false
 	var material := StandardMaterial3D.new()
 	material.albedo_color = definition.track_body_color
 	material.roughness = 0.58
@@ -264,16 +258,7 @@ static func _build_track_body(root: Node3D, definition: TrackDefinition) -> void
 
 static func _build_road(root: Node3D, definition: TrackDefinition) -> void:
 	if definition.road_visual_style == "kenney_gridmap" and not definition.road_grid_layout.is_empty():
-		root.add_child(TrackGridRoadBuilder.build_grid_road(definition.road_grid_layout, _segment_profile(definition)))
-	if definition.road_visual_style == "kenney_segments" and not definition.road_segment_layout.is_empty():
-		var segment_road := TrackSegmentRoadBuilder.build_segment_road(
-			definition.route_points,
-			definition.road_width,
-			definition.closed_loop,
-			definition.road_segment_layout,
-			_segment_profile(definition)
-		)
-		root.add_child(segment_road)
+		root.add_child(TrackGridRoadBuilder.build_grid_road(definition.road_grid_layout))
 	var road := MeshInstance3D.new()
 	road.name = "Road"
 	road.set_script(RoadMeshScript)
@@ -286,10 +271,7 @@ static func _build_road(root: Node3D, definition: TrackDefinition) -> void:
 		var texture := load(definition.road_texture_path)
 		if texture is Texture2D:
 			road.set("road_texture", texture)
-	if (
-		(definition.road_visual_style == "kenney_segments" and not definition.road_segment_layout.is_empty())
-		or (definition.road_visual_style == "kenney_gridmap" and not definition.road_grid_layout.is_empty())
-	):
+	if definition.road_visual_style == "kenney_gridmap" and not definition.road_grid_layout.is_empty():
 		road.visible = false
 
 	var collision_body := StaticBody3D.new()
@@ -300,61 +282,6 @@ static func _build_road(root: Node3D, definition: TrackDefinition) -> void:
 	road.add_child(collision_body)
 	root.add_child(road)
 
-static func _build_alternate_routes(root: Node3D, definition: TrackDefinition) -> void:
-	if definition.alternate_routes.is_empty():
-		return
-	var holder := Node3D.new()
-	holder.name = "AlternateRoutes"
-	root.add_child(holder)
-	for route in definition.alternate_routes:
-		if not bool(route.get("enabled", true)):
-			continue
-		var points := _vector3_array_from_value(route.get("points", []))
-		if points.size() < 2:
-			continue
-		var route_id := _safe_node_name(str(route.get("id", "alternate")))
-		var width := float(route.get("road_width", definition.road_width))
-		var body := MeshInstance3D.new()
-		body.name = "%sTrackBody" % route_id
-		body.mesh = TrackRibbonMesh.build_slab_mesh(points, width, definition.track_body_depth, false)
-		var body_material := StandardMaterial3D.new()
-		body_material.albedo_color = definition.track_body_color
-		body_material.roughness = 0.58
-		body_material.cull_mode = BaseMaterial3D.CULL_DISABLED
-		body.material_override = body_material
-		holder.add_child(body)
-
-		var road := MeshInstance3D.new()
-		road.name = "%sRoad" % route_id
-		road.set_script(RoadMeshScript)
-		road.set("points", points)
-		road.set("width", width)
-		road.set("force_close", false)
-		road.set("show_wall_preview", false)
-		road.set("generate_walls_runtime", false)
-		if not definition.road_texture_path.is_empty():
-			var texture := load(definition.road_texture_path)
-			if texture is Texture2D:
-				road.set("road_texture", texture)
-		if definition.road_visual_style == "kenney_segments":
-			var segment_road := TrackSegmentRoadBuilder.build_segment_road(points, width, false, [], _segment_profile(definition))
-			segment_road.name = "%sSegmentRoad" % route_id
-			holder.add_child(segment_road)
-			road.visible = false
-		var collision_body := StaticBody3D.new()
-		collision_body.name = "CollisionBody"
-		var collision_shape := CollisionShape3D.new()
-		collision_shape.name = "CollisionShape3D"
-		collision_body.add_child(collision_shape)
-		road.add_child(collision_body)
-		holder.add_child(road)
-
-static func _segment_profile(definition: TrackDefinition) -> RoadSegmentProfile:
-	var profile := RoadSegmentProfile.default_profile()
-	profile.id = definition.road_segment_profile
-	profile.material_style = definition.road_segment_material_style
-	return profile
-
 static func _build_route_network_rails(root: Node3D, definition: TrackDefinition) -> void:
 	var routes: Array[Dictionary] = [{
 		"key": "canonical",
@@ -364,24 +291,6 @@ static func _build_route_network_rails(root: Node3D, definition: TrackDefinition
 		"width": definition.road_width,
 		"closed_loop": definition.closed_loop,
 	}]
-	var alternate_holder := root.get_node_or_null("AlternateRoutes") as Node3D
-	for route in definition.alternate_routes:
-		if alternate_holder == null or not bool(route.get("enabled", true)):
-			continue
-		var points := _vector3_array_from_value(route.get("points", []))
-		if points.size() < 2:
-			continue
-		var route_id := _safe_node_name(str(route.get("id", "alternate")))
-		var width := float(route.get("road_width", definition.road_width))
-		routes.append({
-			"key": route_id,
-			"parent": alternate_holder,
-			"holder_name": "%sRails" % route_id,
-			"points": points,
-			"width": width,
-			"closed_loop": false,
-		})
-	var gaps := _rail_join_gaps(definition)
 	for route in routes:
 		_build_route_rails(
 			route["parent"] as Node3D,
@@ -392,7 +301,7 @@ static func _build_route_network_rails(root: Node3D, definition: TrackDefinition
 			definition.rail_texture_path,
 			definition.rail_texture_uv_scale,
 			routes,
-			gaps,
+			[],
 			str(route["key"])
 		)
 
@@ -440,40 +349,6 @@ static func _build_route_rails(
 	_add_rail_polyline_pieces(holder, edges.get("right", []), closed_loop, "R", rail_material, route_network, join_gaps, route_key)
 	if holder.get_child_count() == 0:
 		holder.queue_free()
-
-static func _rail_join_gaps(definition: TrackDefinition) -> Array[Dictionary]:
-	var gaps: Array[Dictionary] = []
-	for route in definition.alternate_routes:
-		if not bool(route.get("enabled", true)):
-			continue
-		var points := _vector3_array_from_value(route.get("points", []))
-		if points.size() < 2:
-			continue
-		var width := float(route.get("road_width", definition.road_width))
-		var radius := maxf(width, definition.road_width) * RAIL_JOIN_GAP_SCALE
-		_add_rail_join_gap(gaps, points.front(), radius)
-		_add_rail_join_gap(gaps, points.back(), radius)
-		var entry_checkpoint_index := int(route.get("entry_checkpoint_index", -1))
-		var exit_checkpoint_index := int(route.get("exit_checkpoint_index", -1))
-		_add_checkpoint_join_gap(gaps, definition, entry_checkpoint_index, radius)
-		_add_checkpoint_join_gap(gaps, definition, exit_checkpoint_index, radius)
-	return gaps
-
-static func _add_checkpoint_join_gap(gaps: Array[Dictionary], definition: TrackDefinition, checkpoint_index: int, radius: float) -> void:
-	if checkpoint_index < 0 or checkpoint_index >= definition.checkpoint_indices.size():
-		return
-	var route_index := definition.checkpoint_indices[checkpoint_index]
-	if route_index < 0 or route_index >= definition.route_points.size():
-		return
-	_add_rail_join_gap(gaps, definition.route_points[route_index], radius)
-
-static func _add_rail_join_gap(gaps: Array[Dictionary], position: Vector3, radius: float) -> void:
-	for gap in gaps:
-		var existing := gap.get("position", Vector3.ZERO) as Vector3
-		if existing.distance_to(position) <= radius * 0.35:
-			gap["radius"] = maxf(float(gap.get("radius", 0.0)), radius)
-			return
-	gaps.append({"position": position, "radius": radius})
 
 static func _rail_material(rail_texture_path: String, rail_texture_uv_scale: float) -> Material:
 	var material := StandardMaterial3D.new()
@@ -766,98 +641,6 @@ static func _build_checkpoints(root: Node3D, definition: TrackDefinition) -> voi
 	_add_area_shape(finish, Vector3(definition.road_width + 4.0, 3.0, 4.0))
 	holder.add_child(finish)
 
-static func _build_sockets(root: Node3D, holder_name: String, sockets: Array[Vector4]) -> void:
-	var holder := Node3D.new()
-	holder.name = holder_name
-	root.add_child(holder)
-	for i in range(sockets.size()):
-		var marker := Marker3D.new()
-		marker.name = "%s%02d" % [holder_name.trim_suffix("s"), i + 1]
-		marker.transform = _transform_from_socket(sockets[i])
-		holder.add_child(marker)
-
-static func _build_shortcuts(root: Node3D, definition: TrackDefinition) -> void:
-	var holder := Node3D.new()
-	holder.name = "ShortcutGates"
-	root.add_child(holder)
-	for gate in definition.shortcut_gates:
-		var id := str(gate.get("id", "shortcut"))
-		var entry := _point_from_gate_value(gate.get("entry", []))
-		var exit := _point_from_gate_value(gate.get("exit", []))
-		var width := float(gate.get("width", definition.road_width * 0.55))
-		var entry_marker := Marker3D.new()
-		entry_marker.name = "%s_Entry" % id
-		entry_marker.transform.origin = entry
-		holder.add_child(entry_marker)
-		var exit_marker := Marker3D.new()
-		exit_marker.name = "%s_Exit" % id
-		exit_marker.transform.origin = exit
-		holder.add_child(exit_marker)
-		var surface_enabled := bool(gate.get("surface_enabled", true))
-		if definition.id == "kitchen" and id == "table_jump" and surface_enabled:
-			_build_table_jump_shortcut(root, entry, exit, width)
-
-static func _build_table_jump_shortcut(root: Node3D, entry: Vector3, exit: Vector3, width: float) -> void:
-	var holder := Node3D.new()
-	holder.name = "ShortcutSurface"
-	root.add_child(holder)
-	var flat_direction := exit - entry
-	flat_direction.y = 0.0
-	if flat_direction.length_squared() <= 0.0001:
-		flat_direction = Vector3.FORWARD
-	flat_direction = flat_direction.normalized()
-	var usable_width: float = maxf(width, 12.0)
-	var approach_start := entry - flat_direction * 10.0 + Vector3.UP * 0.03
-	var approach_end := entry + flat_direction * 2.0 + Vector3.UP * 0.03
-	var midpoint := entry.lerp(exit, 0.5)
-	var apex := midpoint + Vector3.UP * 0.95
-	var ramp_entry := entry + Vector3.DOWN * 0.12
-	var landing_start := exit - flat_direction * 2.0 + Vector3.UP * 0.03
-	var landing_end := exit + flat_direction * 8.0 + Vector3.UP * 0.03
-	_add_shortcut_box(holder, "TableJumpApproach", approach_start.lerp(approach_end, 0.5), approach_start, approach_end, usable_width, 0.18, Color(0.7, 0.38, 0.28))
-	_add_shortcut_box(holder, "TableJumpRampUp", ramp_entry.lerp(apex, 0.5), ramp_entry, apex, usable_width, 0.32, Color(0.86, 0.32, 0.18))
-	_add_shortcut_box(holder, "TableJumpRampDown", apex.lerp(exit, 0.5), apex, exit, usable_width, 0.32, Color(0.86, 0.32, 0.18))
-	_add_shortcut_box(holder, "TableJumpDeck", apex, entry.lerp(exit, 0.42) + Vector3.UP * 0.95, entry.lerp(exit, 0.58) + Vector3.UP * 0.95, usable_width, 0.28, Color(0.95, 0.72, 0.28))
-	_add_shortcut_box(holder, "TableJumpLanding", landing_start.lerp(landing_end, 0.5), landing_start, landing_end, usable_width, 0.18, Color(0.7, 0.38, 0.28))
-
-static func _add_shortcut_box(parent: Node3D, node_name: String, origin: Vector3, a: Vector3, b: Vector3, width: float, thickness: float, color: Color) -> void:
-	var body := StaticBody3D.new()
-	body.name = node_name
-	var direction := b - a
-	var length: float = maxf(direction.length(), 0.1)
-	direction = direction.normalized()
-	var basis := Basis().looking_at(direction, Vector3.UP).orthonormalized()
-	body.transform = Transform3D(basis, origin)
-	var shape_node := CollisionShape3D.new()
-	var shape := BoxShape3D.new()
-	shape.size = Vector3(width, thickness, length)
-	shape_node.shape = shape
-	body.add_child(shape_node)
-	var mesh := MeshInstance3D.new()
-	var box := BoxMesh.new()
-	box.size = shape.size
-	mesh.mesh = box
-	var material := StandardMaterial3D.new()
-	material.albedo_color = color
-	material.roughness = 0.55
-	mesh.material_override = material
-	body.add_child(mesh)
-	parent.add_child(body)
-
-static func _build_surface_segments(root: Node3D, definition: TrackDefinition) -> void:
-	var holder := Node3D.new()
-	holder.name = "SurfaceSegments"
-	root.add_child(holder)
-	for segment in definition.surface_segments:
-		var marker := Marker3D.new()
-		marker.name = str(segment.get("id", "SurfaceSegment"))
-		marker.transform.origin = _vector3_from_value(segment.get("position", Vector3.ZERO), Vector3.ZERO)
-		marker.set_meta("start_route_index", int(segment.get("start_route_index", 0)))
-		marker.set_meta("end_route_index", int(segment.get("end_route_index", 0)))
-		marker.set_meta("surface_audio_id", str(segment.get("surface_audio_id", "")))
-		marker.set_meta("surface_material_id", str(segment.get("surface_material_id", "")))
-		holder.add_child(marker)
-
 static func _build_audio_zones(root: Node3D, definition: TrackDefinition) -> void:
 	var holder := Node3D.new()
 	holder.name = "AudioZones"
@@ -974,12 +757,6 @@ static func _add_dressing_scene(parent: Node3D, definition: TrackDefinition) -> 
 		push_error("Track dressing scene root must be Node3D: %s" % definition.dressing_scene_path)
 		return
 	instance.name = "EditableRoom"
-	var preview := _find_authoring_preview(instance)
-	if preview != null:
-		preview.preview_enabled = false
-		preview.live_update_in_editor = false
-		preview.show_dressing_preview = false
-	_remove_saved_preview(preview)
 	_remove_saved_preview(instance)
 	if definition.id == "kitchen":
 		_make_kitchen_window_glass_transparent(instance)
@@ -1001,15 +778,10 @@ static func _apply_ground_shader_to_editable_floor(instance: Node3D, definition:
 		return
 	floor_mesh.material_override = _ground_material(definition)
 
-static func _find_authoring_preview(instance: Node3D) -> TrackAuthoringPreview:
-	if instance is TrackAuthoringPreview:
-		return instance as TrackAuthoringPreview
-	return instance.get_node_or_null("TrackAuthoringPreview") as TrackAuthoringPreview
-
 static func _remove_saved_preview(parent: Node) -> void:
 	if parent == null:
 		return
-	var saved_preview := parent.get_node_or_null(TrackAuthoringPreview.PREVIEW_ROOT_NAME)
+	var saved_preview := parent.get_node_or_null("EditorTrackPreview")
 	if saved_preview != null:
 		parent.remove_child(saved_preview)
 		saved_preview.queue_free()
@@ -1186,13 +958,6 @@ static func _transform_from_socket(socket: Vector4) -> Transform3D:
 	var basis := Basis(Vector3.UP, deg_to_rad(socket.w))
 	return Transform3D(basis, position)
 
-static func _point_from_gate_value(value: Variant) -> Vector3:
-	if value is Vector3:
-		return value
-	if value is Array and value.size() >= 3:
-		return Vector3(float(value[0]), float(value[1]), float(value[2]))
-	return Vector3.ZERO
-
 static func _vector3_array_from_value(value: Variant) -> Array[Vector3]:
 	var points: Array[Vector3] = []
 	if not (value is Array):
@@ -1205,13 +970,3 @@ static func _vector3_array_from_value(value: Variant) -> Array[Vector3]:
 		elif item is Dictionary:
 			points.append(Vector3(float(item.get("x", 0.0)), float(item.get("y", 0.0)), float(item.get("z", 0.0))))
 	return points
-
-static func _safe_node_name(value: String) -> String:
-	var out := value.strip_edges()
-	if out.is_empty():
-		return "Alternate"
-	var parts := out.replace("-", "_").replace(" ", "_").split("_", false)
-	var name := ""
-	for part in parts:
-		name += str(part).capitalize().replace(" ", "")
-	return "Alternate" if name.is_empty() else name

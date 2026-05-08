@@ -12,8 +12,8 @@ func test_kitchen_definition_validates() -> void:
 	assert_true(not definition.road_grid_layout.is_empty(), "Kitchen should store authored RoadGridMap layout data")
 	assert_true(definition.route_points.size() >= (definition.road_grid_layout.get("ordered_route_cells", []) as Array).size(), "Kitchen route should be generated from authored grid cells")
 	assert_true(definition.checkpoint_indices.size() >= 3, "Kitchen checkpoints should be generated from segment tags")
-	assert_equal(definition.item_sockets.size(), 10, "Kitchen should expose 10 item sockets for the longer track")
-	assert_equal(definition.hazard_sockets.size(), 8, "Kitchen should expose 8 hazard sockets")
+	assert_equal(definition.item_sockets.size(), 0, "MVP Kitchen should not expose item sockets")
+	assert_equal(definition.hazard_sockets.size(), 0, "MVP Kitchen should not expose hazard sockets")
 	assert_true(_route_fits_ground_bounds(definition), "Kitchen route should stay within the authored ground bounds")
 	assert_equal(definition.reset_mode, "instant_pop", "Kitchen should use instant pop-back resets")
 	assert_true(definition.out_of_bounds_y < -10.0, "Kitchen out-of-bounds threshold should sit below the authored floor")
@@ -21,7 +21,7 @@ func test_kitchen_definition_validates() -> void:
 	assert_equal(definition.rail_texture_path, "res://assets/gameplay/materials/metal/toy_metal_albedo.png", "Kitchen rails should use the stage-specific toy metal material")
 	assert_equal(definition.rail_texture_uv_scale, 0.5, "Kitchen rails should use the stage-specific rail texture UV scale")
 	assert_equal(definition.dressing_scene_path, "res://assets/gameplay/tracks/kitchen/kitchen_editable_room.tscn", "Kitchen should load a directly editable room scene")
-	assert_equal(definition.shortcut_gates.size(), 1, "Kitchen should expose one table-jump shortcut")
+	assert_equal(definition.shortcut_gates.size(), 0, "MVP Kitchen should not expose shortcuts")
 	assert_true(definition.dressing_overrides.has("KitchenSink"), "Kitchen should expose an editable sink dressing override")
 	assert_true(definition.stage_props.size() >= 10, "Kitchen should export selectable stage props from the authoring scene")
 	assert_true(_has_stage_prop(definition, "KitchenSink"), "Kitchen should export the sink as a selectable stage prop")
@@ -30,7 +30,7 @@ func test_kitchen_definition_validates() -> void:
 	assert_equal(str(fridge_prop.get("kind", "")), "scene", "Kitchen fridge should use the imported Meshy refrigerator scene asset")
 	assert_equal(str(fridge_prop.get("asset_path", "")), "res://assets/source/meshy/kitchen/retro_cream_refrigerator.glb", "Kitchen fridge should point to the Meshy refrigerator GLB")
 	assert_true(not _has_any_stage_prop(definition, ["FrontCabinetBase", "BackCabinetBaseLeft", "BackCabinetBaseRight", "IslandCabinetBase", "LeftCabinetBaseFront", "LeftCabinetBaseBack", "RightCabinetBase"]), "Kitchen should not export below-track cabinet base slabs")
-	assert_equal(definition.surface_segments.size(), 3, "Kitchen should export surface audio segment assignments")
+	assert_equal(definition.surface_segments.size(), 0, "MVP Kitchen should not export surface audio segment assignments")
 	assert_equal(definition.audio_zones.size(), 4, "Kitchen should export authored audio zones")
 	assert_equal(str(definition.audio_ids.get("sink_splash", "")), "res://assets/source/audio/canva/tracks/kitchen/kitchen_sink_water.mp3", "Kitchen sink zone should use the supplied sink water audio")
 	assert_equal(str(definition.audio_ids.get("stove_sizzle", "")), "res://assets/source/audio/canva/tracks/kitchen/kitchen_oven_sizzle.mp3", "Kitchen stove zone should use the converted oven sizzle audio")
@@ -61,17 +61,9 @@ func test_validation_rejects_non_monotonic_checkpoints() -> void:
 	definition.checkpoint_indices = [0, 2, 1]
 	assert_true(_has_error(definition.validate(), "strictly increasing"), "Checkpoints should follow route order")
 
-func test_validation_accepts_rejoining_alternate_route() -> void:
+func test_validation_accepts_gridmap_mvp_route() -> void:
 	var definition := _base_definition()
-	definition.alternate_routes = [{
-		"id": "inside_lane",
-		"entry_checkpoint_index": 0,
-		"exit_checkpoint_index": 2,
-		"points": [Vector3(0, 0.5, 4), Vector3(12, 0.5, 10), Vector3(20, 0.5, 20)],
-		"road_width": 8.0,
-		"enabled": true,
-	}]
-	assert_equal(definition.validate(), [], "Rejoining alternate route should validate against shared checkpoints")
+	assert_equal(definition.validate(), [], "GridMap MVP route should validate")
 
 func test_validation_rejects_backtracking_alternate_route() -> void:
 	var definition := _base_definition()
@@ -90,6 +82,9 @@ func _base_definition() -> TrackDefinition:
 	definition.laps = 2
 	definition.closed_loop = true
 	definition.road_width = 12.0
+	definition.track_source_id = "road_grid_map"
+	definition.road_visual_style = "kenney_gridmap"
+	definition.road_grid_layout = {"ordered_route_cells": [Vector3i(0, 0, 0), Vector3i(1, 0, 0), Vector3i(1, 0, 1), Vector3i(0, 0, 1)]}
 	definition.route_points = [
 		Vector3(0, 0.5, 0),
 		Vector3(20, 0.5, 0),

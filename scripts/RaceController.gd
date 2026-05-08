@@ -194,6 +194,7 @@ const MOTION_BLUR_ENV_EFFECT_SUPPRESSION := 0.55
 const BOOST_SFX_PATH := "res://assets/source/audio/canva/driving/boost/boost_burst_canva_01.wav"
 const DRIFT_SFX_PATH := "res://assets/source/audio/canva/driving/drift/drift_release_canva_01.wav"
 const ITEM_PICKUP_SFX_PATH := "res://assets/source/audio/canva/items/pickup/item_pickup_canva_01.wav"
+const MVP_ITEMS_ENABLED := false
 const MOBILE_BASE_VIEWPORT := Vector2(1920.0, 1080.0)
 const MOBILE_TOUCH_SCALE := 1.5
 const MOBILE_SAFE_MARGIN := 28.0
@@ -208,6 +209,7 @@ func _ready() -> void:
 	mobile_controls.visible = OS.has_feature("mobile")
 	_setup_mobile_controls()
 	_ensure_input_actions()
+	_configure_mvp_item_controls()
 	if _is_local_arcade_race_mode():
 		_start_local_single_race()
 		return
@@ -428,7 +430,6 @@ func _tick_local_race(delta: float) -> void:
 	_handle_manual_return_to_track()
 	_handle_all_local_out_of_bounds()
 	if race_phase == PHASE_RACING:
-		_tick_local_item_slot(delta)
 		var local_state: Dictionary = racer_states.get(local_user_id, {})
 		if bool(local_state.get("finished", false)):
 			_set_local_phase(PHASE_PLAYER_FINISH_FOLLOW)
@@ -448,7 +449,7 @@ func _tick_local_input() -> void:
 	var state := _gather_input() if player_input_enabled else _empty_input()
 	car.controlled_locally = true
 	car.set_input(state)
-	if bool(state.get("item_use", false)):
+	if MVP_ITEMS_ENABLED and bool(state.get("item_use", false)):
 		_consume_local_item(car)
 
 func _tick_ai_input(rid: String, delta: float, allow_finished_cruise: bool = false) -> void:
@@ -1347,7 +1348,6 @@ func _physics_process(delta: float) -> void:
 	_update_local_track_return_point()
 	_handle_manual_return_to_track()
 	_handle_local_out_of_bounds()
-	_tick_local_item_slot(delta)
 	_update_ui()
 	_update_camera(delta)
 	_update_heat_distortion(delta)
@@ -1391,7 +1391,7 @@ func _send_input() -> void:
 			car.global_transform.origin.z,
 		]
 		state["rotation"] = [euler.x, euler.y, euler.z]
-		if bool(state.get("item_use", false)):
+		if MVP_ITEMS_ENABLED and bool(state.get("item_use", false)):
 			_consume_local_item(car)
 		if NakamaService.offline_mode:
 			racer_states[local_user_id] = {
@@ -1416,7 +1416,7 @@ func _gather_input() -> Dictionary:
 	var brake := Input.get_action_strength("brake")
 	var boost := Input.is_action_pressed("boost")
 	var drift := Input.is_action_pressed("drift")
-	var item_use := Input.is_action_just_pressed("use_item")
+	var item_use := MVP_ITEMS_ENABLED and Input.is_action_just_pressed("use_item")
 	return {"steer": steer, "throttle": throttle, "brake": brake, "drift": drift, "boost": boost, "item_use": item_use}
 
 func _input(event: InputEvent) -> void:
@@ -1773,11 +1773,12 @@ func _update_ui() -> void:
 			ui_drift_bar.value = clampf(drift_ratio * 100.0, 0.0, 100.0)
 	if ui_time:
 		ui_time.text = "TIME %s" % format_race_time(race_elapsed)
-	var display_item := local_item_slot if local_item_slot != "" else "--"
+	var display_item := local_item_slot if local_item_slot != "" else "OFF"
 	ui_item.text = "ITEM\n%s" % display_item.to_upper()
 	if local_item_slot != "" and local_item_slot != last_displayed_item_slot:
 		_pulse_control(ui_item, Vector2(1.08, 1.08), 0.16)
 	last_displayed_item_slot = local_item_slot
+	_update_return_button_state()
 	if local_single_race:
 		ui_net.text = "SOLO RACE"
 	else:
@@ -1981,7 +1982,8 @@ func _setup_mobile_controls() -> void:
 	_connect_button(brake_btn, "brake")
 	_connect_button(drift_btn, "drift")
 	_connect_button(boost_btn, "boost")
-	_connect_button(item_btn, "use_item")
+	if MVP_ITEMS_ENABLED:
+		_connect_button(item_btn, "use_item")
 	_connect_button(return_btn, "return_to_track")
 	steer_joystick_area.gui_input.connect(_on_steer_joystick_input)
 	_reset_steer_joystick.call_deferred()
@@ -2025,7 +2027,24 @@ func _layout_mobile_hud() -> void:
 	_set_control_rect(brake_btn, Vector2(0.0, right_height - brake_size.y), brake_size)
 	_set_control_rect(item_btn, Vector2(0.0, maxf(0.0, boost_size.y * 0.36)), item_size)
 	_set_control_rect(return_btn, Vector2(item_size.x + right_gap, maxf(0.0, boost_size.y * 0.44)), return_size)
+	_update_return_button_state()
 	_reset_steer_joystick()
+
+func _configure_mvp_item_controls() -> void:
+	local_item_slot = ""
+	item_roll_timer = 0.0
+	if ui_item != null:
+		ui_item.text = "ITEM\nOFF"
+		ui_item.modulate.a = 0.45
+	if item_btn != null:
+		item_btn.disabled = true
+		item_btn.modulate.a = 0.38
+
+func _update_return_button_state() -> void:
+	if return_btn == null:
+		return
+	return_btn.disabled = not local_car_off_course
+	return_btn.visible = OS.has_feature("mobile") and local_car_off_course
 
 func _set_full_rect(control: Control, rect_size: Vector2) -> void:
 	if control == null:

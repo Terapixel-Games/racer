@@ -21,8 +21,6 @@ static func race_layout_from_grid_layout(layout: Dictionary, closed_loop: bool) 
 		race_layout.checkpoint_indices = checkpoint_indices_from_grid_layout(layout, race_layout.route_points)
 		race_layout.lap_gate_checkpoint_index = 0
 		race_layout.spawn_points = spawn_points_from_grid_layout(layout, race_layout.route_points)
-		race_layout.item_sockets = sockets_from_grid_layout(layout, race_layout.route_points, "item_route_indices", 10)
-		race_layout.hazard_sockets = sockets_from_grid_layout(layout, race_layout.route_points, "hazard_route_indices", 8)
 	return race_layout
 
 static func route_points_from_grid_layout(layout: Dictionary, closed_loop: bool) -> Array[Vector3]:
