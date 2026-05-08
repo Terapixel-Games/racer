@@ -20,6 +20,7 @@ const BOUNDARY_WALL_MIN_HEIGHT := 0.75
 const BOUNDARY_WALL_SAME_SURFACE_TOLERANCE := 0.35
 const BOUNDARY_CONNECTED_EDGE_GUARD_LENGTH := 5.5
 const BOUNDARY_WALL_SKIRT_DEPTH := 3.0
+const BOUNDARY_WALL_INSET_DEPTH := 0.8
 
 static func race_layout_from_grid_layout(layout: Dictionary, closed_loop: bool) -> RaceLayout:
 	var race_layout := RaceLayout.new()
@@ -229,7 +230,8 @@ static func boundary_wall_segments_from_grid_layout(layout: Dictionary, wall_hei
 					segments.append(guard as Dictionary)
 				continue
 			var height := _boundary_wall_height_for_edge(edge, tile_data, footprint, wall_height, cell_size)
-			var segment := _boundary_wall_segment(a, b, outward, height, wall_thickness)
+			var inset_depth := 0.0 if _tile_is_ramp_like(tile_data) else BOUNDARY_WALL_INSET_DEPTH
+			var segment := _boundary_wall_segment(a, b, outward, height, wall_thickness, inset_depth)
 			if not segment.is_empty():
 				segments.append(segment)
 	return segments
@@ -379,7 +381,7 @@ static func _connected_edge_guard_segments(edge: Dictionary, tile_data: Dictiona
 		var world_b := origin + grid_basis * Vector3(local_b.x * cell_size.x, 0.0, local_b.z * cell_size.z)
 		world_a.y = _surface_y_for_grid_local_point(tile_data, local_a, cell_size)
 		world_b.y = _surface_y_for_grid_local_point(tile_data, local_b, cell_size)
-		var segment := _boundary_wall_segment(world_a, world_b, outward, wall_height, wall_thickness)
+		var segment := _boundary_wall_segment(world_a, world_b, outward, wall_height, wall_thickness, 0.0)
 		if not segment.is_empty():
 			out.append(segment)
 	return out
@@ -401,6 +403,9 @@ static func _connected_edge_needs_guard(tile_data: Dictionary, neighbor_data: Di
 	) * 0.5
 	return absf(current_avg - neighbor_avg) > BOUNDARY_WALL_SAME_SURFACE_TOLERANCE
 
+static func _tile_is_ramp_like(tile_data: Dictionary) -> bool:
+	return int(tile_data.get("item", TILE_STRAIGHT)) in [TILE_RAMP, TILE_RAMP_LONG, TILE_RAMP_LONG_CURVED]
+
 static func _surface_y_for_grid_local_point(tile_data: Dictionary, grid_point: Vector3, cell_size: Vector3) -> float:
 	var cell := _vector3i_from_value(tile_data.get("cell", Vector3i.ZERO))
 	var position := _vector3_from_value(tile_data.get("position", Vector3.ZERO), Vector3.ZERO)
@@ -419,7 +424,7 @@ static func _surface_y_for_grid_local_point(tile_data: Dictionary, grid_point: V
 	var progress := clampf((point_xz - start).dot(forward_vec) / maxf(length, 0.001), 0.0, 1.0)
 	return position.y + progress * cell_size.y
 
-static func _boundary_wall_segment(a: Vector3, b: Vector3, outward: Vector3, wall_height: float, wall_thickness: float) -> Dictionary:
+static func _boundary_wall_segment(a: Vector3, b: Vector3, outward: Vector3, wall_height: float, wall_thickness: float, inset_depth: float = 0.0) -> Dictionary:
 	if wall_height <= 0.0:
 		return {}
 	var segment := b - a
@@ -439,7 +444,7 @@ static func _boundary_wall_segment(a: Vector3, b: Vector3, outward: Vector3, wal
 	var thickness := maxf(wall_thickness, 0.05)
 	var basis := Basis(x_axis, y_axis, z_axis)
 	var shape_height := height + BOUNDARY_WALL_SKIRT_DEPTH
-	var position := a.lerp(b, 0.5) + y_axis * ((height - BOUNDARY_WALL_SKIRT_DEPTH) * 0.5) + z_axis * (thickness * 0.5)
+	var position := a.lerp(b, 0.5) + y_axis * ((height - BOUNDARY_WALL_SKIRT_DEPTH) * 0.5) + z_axis * (thickness * 0.5 - maxf(inset_depth, 0.0))
 	return {
 		"position": position,
 		"basis": basis,

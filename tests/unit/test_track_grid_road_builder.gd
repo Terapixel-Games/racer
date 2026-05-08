@@ -4,6 +4,7 @@ const TrackGridRoadBuilder = preload("res://scripts/track/TrackGridRoadBuilder.g
 const RoadGridMapAuthoring = preload("res://scripts/track/RoadGridMapAuthoring.gd")
 const RoadGridSpawn = preload("res://scripts/track/RoadGridSpawn.gd")
 const BOUNDARY_WALL_SKIRT_DEPTH := 3.0
+const BOUNDARY_WALL_INSET_DEPTH := 0.8
 
 func test_grid_layout_generates_ordered_route_points() -> void:
 	var layout := {
@@ -263,6 +264,7 @@ func test_grid_boundary_walls_wrap_exposed_route_footprint() -> void:
 	var walls := TrackGridRoadBuilder.boundary_wall_segments_from_grid_layout(layout, 1.6, 0.45)
 	assert_equal(walls.size(), 6, "Two adjacent GridMap road cells should expose only the outer perimeter edges")
 	assert_true(not _has_wall_at_x(walls, 16.0), "Boundary walls should not create an internal blocker between adjacent route cells")
+	assert_true(_all_walls_inset_to_block_edge_bumper(walls, Rect2(0.0, 0.0, 32.0, 16.0)), "Flat boundary walls should inset from the tile edge enough to block the raised bumper")
 
 func test_grid_boundary_walls_fill_to_upper_neighbor_clearance() -> void:
 	var layout := {
@@ -324,7 +326,7 @@ func test_grid_boundary_walls_follow_ramp_elevation() -> void:
 	var walls := TrackGridRoadBuilder.boundary_wall_segments_from_grid_layout(layout, 1.6, 0.45)
 	assert_true(_has_sloped_wall(walls), "Ramp boundary walls should preserve endpoint elevation instead of flattening")
 	assert_true(_walls_stay_near_ramp_height(walls, 10.0, 15.6), "Ramp walls should stay vertically local to the ramp surface")
-	assert_true(_all_walls_offset_outside_cell(walls, Rect2(0.0, 0.0, 16.0, 16.0)), "Ramp boundary wall thickness should sit outside the drivable cell, not on top of the track")
+	assert_true(_all_walls_offset_outside_cell(walls, Rect2(0.0, 0.0, 16.0, 16.0)), "Ramp boundary wall placement should stay outside the ramp driving surface")
 
 func test_grid_runtime_ignores_painted_cells_outside_route() -> void:
 	var layout := {
@@ -403,7 +405,7 @@ func _wall_near_x_with_height(walls: Array[Dictionary], x: float, height: float)
 		var position: Vector3 = wall.get("position", Vector3.ZERO) as Vector3
 		var size: Vector3 = wall.get("size", Vector3.ZERO) as Vector3
 		var effective_height := maxf(size.y - BOUNDARY_WALL_SKIRT_DEPTH, 0.0)
-		if absf(position.x - x) <= 0.3 and absf(effective_height - height) <= 0.1:
+		if absf(position.x - x) <= BOUNDARY_WALL_INSET_DEPTH + 0.35 and absf(effective_height - height) <= 0.1:
 			return wall
 	return {}
 
@@ -429,6 +431,21 @@ func _walls_stay_near_ramp_height(walls: Array[Dictionary], min_y: float, max_y:
 		if position.y - absf(half_y.y) < min_y - BOUNDARY_WALL_SKIRT_DEPTH - 0.1:
 			return false
 		if position.y + absf(half_y.y) > max_y + 0.1:
+			return false
+	return true
+
+func _all_walls_inset_to_block_edge_bumper(walls: Array[Dictionary], cell_rect: Rect2) -> bool:
+	for wall in walls:
+		var position: Vector3 = wall.get("position", Vector3.ZERO) as Vector3
+		if position.x < cell_rect.position.x - 0.1 or position.x > cell_rect.end.x + 0.1:
+			return false
+		if position.z < cell_rect.position.y - 0.1 or position.z > cell_rect.end.y + 0.1:
+			return false
+		var near_edge := minf(
+			minf(absf(position.x - cell_rect.position.x), absf(position.x - cell_rect.end.x)),
+			minf(absf(position.z - cell_rect.position.y), absf(position.z - cell_rect.end.y))
+		)
+		if near_edge < BOUNDARY_WALL_INSET_DEPTH * 0.4:
 			return false
 	return true
 
