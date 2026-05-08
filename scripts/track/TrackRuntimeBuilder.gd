@@ -419,14 +419,10 @@ static func _road_edge_points(route_points: Array[Vector3], offset: float, close
 	var normals: Array[Vector3] = []
 	var segment_count := route_points.size() - 1
 	for i in range(segment_count):
-		var direction := (route_points[i + 1] - route_points[i]).normalized()
-		if direction == Vector3.ZERO:
-			direction = Vector3.FORWARD
+		var direction := _horizontal_route_direction(route_points[i], route_points[i + 1])
 		normals.append(Vector3(direction.z, 0.0, -direction.x))
 	if closed_loop:
-		var direction := (route_points[0] - route_points[route_points.size() - 1]).normalized()
-		if direction == Vector3.ZERO:
-			direction = Vector3.FORWARD
+		var direction := _horizontal_route_direction(route_points[route_points.size() - 1], route_points[0])
 		normals.append(Vector3(direction.z, 0.0, -direction.x))
 
 	var left_points: Array[Vector3] = []
@@ -443,6 +439,13 @@ static func _road_edge_points(route_points: Array[Vector3], offset: float, close
 		right_points.append(_road_miter_point(route_points[i], previous_normal, next_normal, offset))
 		left_points.append(_road_miter_point(route_points[i], -previous_normal, -next_normal, offset))
 	return {"left": left_points, "right": right_points}
+
+static func _horizontal_route_direction(a: Vector3, b: Vector3) -> Vector3:
+	var direction := b - a
+	direction.y = 0.0
+	if direction.length_squared() <= 0.0001:
+		return Vector3.FORWARD
+	return direction.normalized()
 
 static func _road_miter_point(point: Vector3, previous_normal: Vector3, next_normal: Vector3, offset: float) -> Vector3:
 	var miter := previous_normal + next_normal

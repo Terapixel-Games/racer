@@ -75,6 +75,20 @@ func test_rail_route_smoothing_preserves_elevation_changes() -> void:
 	var smoothed := TrackRuntimeBuilder._smoothed_rail_route_points(route, false, 7.5, 4)
 	assert_equal(smoothed, route, "Rail route smoothing should not round across ramp/elevation transitions")
 
+func test_rail_edge_offsets_keep_full_width_on_ramps() -> void:
+	var route: Array[Vector3] = [
+		Vector3(0, 0, 0),
+		Vector3(16, 4, 0),
+	]
+	var edges := TrackRuntimeBuilder._road_edge_points(route, 8.5, false)
+	var left := edges.get("left", []) as Array
+	var right := edges.get("right", []) as Array
+	assert_equal(left.size(), 2, "Ramp rail edges should include both route points")
+	assert_equal(right.size(), 2, "Ramp rail edges should include both route points")
+	assert_true(is_equal_approx(absf((left[0] as Vector3).z), 8.5), "Ramp rail offset should use horizontal road width, not shrink because the segment climbs")
+	assert_true(is_equal_approx(absf((right[0] as Vector3).z), 8.5), "Ramp rail offset should use horizontal road width, not shrink because the segment climbs")
+	assert_true(is_equal_approx((left[1] as Vector3).y, 4.0), "Ramp rail edges should still follow vertical route elevation")
+
 func test_runtime_uses_road_grid_from_editable_scene() -> void:
 	var definition := (TrackCatalog.get_definition("kitchen") as TrackDefinition).duplicate(true) as TrackDefinition
 	var packed := load(definition.dressing_scene_path) as PackedScene
