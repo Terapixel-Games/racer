@@ -46,6 +46,12 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 			assert_true((road_shape_node.shape as ConcavePolygonShape3D).backface_collision, "Kitchen road collision should be visible to camera probes from underneath")
 	assert_true(instance.get_node_or_null("BuiltTrack/TrackBody") == null, "Kitchen grid mode should not build the broad legacy track body")
 	assert_true(instance.get_node_or_null("BuiltTrack/Rails") == null, "Kitchen should not build route-offset rails while GridMap edge rails are disabled")
+	var boundary_walls := instance.get_node_or_null("BuiltTrack/BoundaryWalls")
+	assert_true(boundary_walls != null, "Kitchen should build invisible GridMap boundary walls")
+	assert_true(boundary_walls is Node3D and not (boundary_walls as Node3D).visible, "Kitchen boundary walls should be hidden")
+	assert_true(_enabled_collision_objects(boundary_walls) > 0, "Kitchen boundary walls should include enabled kart collision")
+	assert_true(_node_count_by_type(boundary_walls, "MeshInstance3D") == 0, "Kitchen boundary walls should not render visible wall meshes")
+	assert_true(_collision_objects_use_channel(boundary_walls, 1, 2), "Kitchen boundary walls should use the kart gameplay collision channel")
 	assert_true(instance.get_node_or_null("BuiltTrack/Walls") == null, "Kitchen track should not auto-generate route walls while guard segments are being authored")
 	assert_true(instance.get_node_or_null("BuiltTrack/CheckpointSystem") != null, "Kitchen track should include checkpoint system")
 	assert_true(instance.get_node_or_null("BuiltTrack/SpawnPoints") != null, "Kitchen track should include spawn points")
@@ -93,8 +99,8 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/WaterSurfaces/SinkWater") != null, "Editable room scene should include authored sink water")
 	assert_true(_node_position(instance, "BuiltTrack/Dressing/EditableRoom/Track/WaterSurfaces/SinkWater").distance_to(_authored_kitchen_position("Track/WaterSurfaces/SinkWater")) <= 0.05, "Kitchen sink water should stay at the authored editable scene location")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/WaterSurfaces/WasherWater") != null, "Editable room scene should include authored washer water")
-	assert_true(_node_has_script(instance, "BuiltTrack/Dressing/EditableRoom/Track/washer"), "Editable room washer should run its in-place rumble script")
-	assert_true(_node_has_script(instance, "BuiltTrack/Dressing/EditableRoom/Track/dryer"), "Editable room dryer should run its in-place rumble script")
+	assert_true(_named_descendant_has_script(instance, "BuiltTrack/Dressing/EditableRoom/Track", "washer"), "Editable room washer should run its in-place rumble script")
+	assert_true(_named_descendant_has_script(instance, "BuiltTrack/Dressing/EditableRoom/Track", "dryer"), "Editable room dryer should run its in-place rumble script")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/UpperCabinets") != null, "Editable room scene should preserve authored upper cabinet grouping")
 	assert_equal(_enabled_collision_objects(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom")), 0, "Editable room dressing should not collide with the kart")
 	assert_equal(instance.get_node_or_null("BuiltTrack/Dressing").get_child_count(), 1, "Kitchen runtime dressing should only instantiate the editable room")
@@ -512,6 +518,13 @@ func _node_has_script(root: Node, path: NodePath) -> bool:
 	var node := root.get_node_or_null(path)
 	return node != null and node.get_script() != null
 
+func _named_descendant_has_script(root: Node, parent_path: NodePath, node_name: String) -> bool:
+	var parent := root.get_node_or_null(parent_path)
+	if parent == null:
+		return false
+	var node := parent.find_child(node_name, true, false)
+	return node != null and node.get_script() != null
+
 func _box_size_x(root: Node, path: NodePath) -> float:
 	var mesh_instance := root.get_node_or_null(path) as MeshInstance3D
 	if mesh_instance == null or not (mesh_instance.mesh is BoxMesh):
@@ -578,6 +591,18 @@ func _node_count_by_type(node: Node, type_name: String) -> int:
 	for child in node.get_children():
 		count += _node_count_by_type(child, type_name)
 	return count
+
+func _collision_objects_use_channel(node: Node, layer: int, mask: int) -> bool:
+	if node == null:
+		return false
+	if node is CollisionObject3D:
+		var collision_object := node as CollisionObject3D
+		if collision_object.collision_layer != layer or collision_object.collision_mask != mask:
+			return false
+	for child in node.get_children():
+		if not _collision_objects_use_channel(child, layer, mask):
+			return false
+	return true
 
 func _mesh_material_alpha(root: Node, path: NodePath) -> float:
 	var mesh := root.get_node_or_null(path) as MeshInstance3D

@@ -1179,6 +1179,7 @@ road_grid_layout = {
 "yaw_offset_degrees": 0.0
 }])
 }
+boundary_walls_enabled = true
 rails_enabled = false
 rail_texture_path = "res://assets/gameplay/materials/metal/toy_metal_albedo.png"
 rail_texture_uv_scale = 0.5

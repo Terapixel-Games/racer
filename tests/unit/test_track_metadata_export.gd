@@ -32,6 +32,7 @@ func test_kitchen_metadata_matches_server_shape() -> void:
 	assert_equal(str(metadata.get("reset_mode", "")), "instant_pop", "Metadata should include reset mode")
 	assert_true(float(metadata.get("out_of_bounds_y", 0.0)) < float(metadata.get("floor_visual_y", 0.0)), "Metadata should keep the Kitchen respawn threshold below the visible floor")
 	assert_true(float(metadata.get("floor_visual_y", 0.0)) <= -8.0, "Metadata should keep the visible floor far below the countertop")
+	assert_equal(bool(metadata.get("boundary_walls_enabled", false)), true, "Metadata should expose invisible boundary wall containment")
 	assert_equal(bool(metadata.get("rails_enabled", true)), false, "Metadata should expose that Kitchen generated rails are disabled")
 	assert_equal(str(metadata.get("rail_texture_path", "")), "res://assets/gameplay/materials/metal/toy_metal_albedo.png", "Metadata should include the stage rail texture")
 	assert_equal(float(metadata.get("rail_texture_uv_scale", 0.0)), 0.5, "Metadata should include the stage rail texture UV scale")

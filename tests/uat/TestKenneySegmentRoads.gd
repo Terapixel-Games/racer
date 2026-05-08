@@ -47,6 +47,12 @@ func test_all_tracks_build_gridmap_roads_with_generated_collision() -> void:
 		assert_true(track_node.get_node_or_null("SpawnPoints/Start08") != null, "%s should generate the full eight-car grid" % track_id)
 		assert_true(track_node.get_node_or_null("ItemSockets") == null, "%s should not include item sockets in MVP" % track_id)
 		assert_true(track_node.get_node_or_null("HazardSockets") == null, "%s should not include hazard sockets in MVP" % track_id)
+		var boundary_walls := track_node.get_node_or_null("BoundaryWalls")
+		if definition.boundary_walls_enabled:
+			assert_true(boundary_walls != null and _enabled_collision_objects(boundary_walls) > 0, "%s should include invisible boundary wall collision" % track_id)
+			assert_true(boundary_walls is Node3D and not (boundary_walls as Node3D).visible, "%s boundary walls should be hidden" % track_id)
+		else:
+			assert_true(boundary_walls == null, "%s should not build boundary walls when disabled" % track_id)
 		var rails := track_node.get_node_or_null("Rails")
 		if definition.rails_enabled:
 			assert_true(rails != null and _enabled_collision_objects(rails) > 0, "%s should include collidable route rails when rails are enabled" % track_id)

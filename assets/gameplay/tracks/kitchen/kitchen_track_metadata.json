@@ -7,6 +7,7 @@
 		"stove_sizzle": "res://assets/source/audio/canva/tracks/kitchen/kitchen_oven_sizzle.mp3",
 		"utensil_clink": "res://assets/source/audio/canva/tracks/kitchen/kitchen_utensil_clink_canva_01.wav"
 	},
+	"boundary_walls_enabled": true,
 	"audio_zones": [
 		{
 			"audio_id": "clatter",

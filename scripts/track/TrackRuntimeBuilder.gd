@@ -46,6 +46,8 @@ static func build(definition: TrackDefinition) -> Dictionary:
 	_build_ground(root, definition)
 	_build_track_body(root, definition)
 	_build_road(root, definition)
+	if definition.boundary_walls_enabled:
+		_build_boundary_walls(root, definition)
 	if definition.rails_enabled:
 		_build_route_network_rails(root, definition)
 	var spawns := _build_spawns(root, definition)
@@ -309,6 +311,43 @@ static func _build_route_network_rails(root: Node3D, definition: TrackDefinition
 			[],
 			str(route["key"])
 		)
+
+static func _build_boundary_walls(root: Node3D, definition: TrackDefinition) -> void:
+	if definition.road_visual_style != "kenney_gridmap" or definition.road_grid_layout.is_empty():
+		return
+	var wall_segments := TrackGridRoadBuilder.boundary_wall_segments_from_grid_layout(
+		definition.road_grid_layout,
+		definition.wall_height,
+		definition.wall_thickness
+	)
+	if wall_segments.is_empty():
+		return
+	var holder := Node3D.new()
+	holder.name = "BoundaryWalls"
+	holder.visible = false
+	root.add_child(holder)
+	var wall_phys_mat := PhysicsMaterial.new()
+	wall_phys_mat.friction = 0.05
+	wall_phys_mat.bounce = 0.05
+	wall_phys_mat.rough = false
+	for i in range(wall_segments.size()):
+		var segment := wall_segments[i] as Dictionary
+		var body := StaticBody3D.new()
+		body.name = "BoundaryWall_%03d" % i
+		body.collision_layer = 1
+		body.collision_mask = 2
+		body.physics_material_override = wall_phys_mat
+		var shape_node := CollisionShape3D.new()
+		shape_node.name = "CollisionShape3D"
+		var shape := BoxShape3D.new()
+		shape.size = segment.get("size", Vector3.ONE) as Vector3
+		shape_node.shape = shape
+		body.transform = Transform3D(
+			segment.get("basis", Basis.IDENTITY) as Basis,
+			segment.get("position", Vector3.ZERO) as Vector3
+		)
+		body.add_child(shape_node)
+		holder.add_child(body)
 
 static func _build_walls(root: Node3D, definition: TrackDefinition) -> void:
 	var holder := Node3D.new()

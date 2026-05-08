@@ -9,7 +9,12 @@ const TILE_CORNER := 1
 const TILE_START := 2
 const TILE_STRAIGHT_LONG := 3
 const TILE_CORNER_LARGE := 4
+const TILE_RAMP := 5
+const TILE_RAMP_LONG := 6
+const TILE_RAMP_LONG_CURVED := 7
+const TILE_BUMP := 8
 const DEFAULT_MESH_LIBRARY_PATH := "res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres"
+const BOUNDARY_WALL_JOIN_OVERLAP := 0.35
 
 static func race_layout_from_grid_layout(layout: Dictionary, closed_loop: bool) -> RaceLayout:
 	var race_layout := RaceLayout.new()
@@ -195,6 +200,124 @@ static func build_grid_collision_mesh(layout: Dictionary) -> ArrayMesh:
 	collision_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
 	return collision_mesh
 
+static func boundary_wall_segments_from_grid_layout(layout: Dictionary, wall_height: float, wall_thickness: float) -> Array[Dictionary]:
+	var footprint := _route_footprint_from_grid_layout(layout)
+	var segments: Array[Dictionary] = []
+	var cell_size := _cell_size(layout)
+	var grid_basis := _basis_from_value(layout.get("basis", []))
+	var origin := _vector3_from_value(layout.get("origin", Vector3.ZERO), Vector3.ZERO)
+	for key in footprint.keys():
+		var cell := key as Vector3i
+		var tile_data := footprint.get(cell, {}) as Dictionary
+		for edge in _cell_boundary_edges(cell, footprint):
+			var a_local := edge.get("a", Vector3.ZERO) as Vector3
+			var b_local := edge.get("b", Vector3.ZERO) as Vector3
+			var outward_local := edge.get("outward", Vector3.FORWARD) as Vector3
+			var a := origin + grid_basis * Vector3(a_local.x * cell_size.x, 0.0, a_local.z * cell_size.z)
+			var b := origin + grid_basis * Vector3(b_local.x * cell_size.x, 0.0, b_local.z * cell_size.z)
+			a.y = _surface_y_for_grid_local_point(tile_data, a_local, cell_size)
+			b.y = _surface_y_for_grid_local_point(tile_data, b_local, cell_size)
+			var outward := (grid_basis * outward_local).normalized()
+			var segment := _boundary_wall_segment(a, b, outward, wall_height, wall_thickness)
+			if not segment.is_empty():
+				segments.append(segment)
+	return segments
+
+static func _route_footprint_from_grid_layout(layout: Dictionary) -> Dictionary:
+	var route_cells := _route_cell_set(layout)
+	var footprint := {}
+	for cell_data in layout.get("cells", []):
+		if not (cell_data is Dictionary):
+			continue
+		var source := cell_data as Dictionary
+		var cell := _vector3i_from_value(source.get("cell", Vector3i.ZERO))
+		if not route_cells.is_empty() and not route_cells.has(cell):
+			continue
+		var item := int(source.get("item", TILE_STRAIGHT))
+		var basis := _orientation_basis(source)
+		var forward := _horizontal_direction_from_vector(basis.z)
+		var right := _horizontal_direction_from_vector(basis.x)
+		for footprint_cell in _footprint_cells_for_item(cell, item, forward, right):
+			footprint[footprint_cell] = source
+	return footprint
+
+static func _footprint_cells_for_item(cell: Vector3i, item: int, forward: Vector3i, right: Vector3i) -> Array[Vector3i]:
+	if forward == Vector3i.ZERO:
+		forward = Vector3i(0, 0, 1)
+	if right == Vector3i.ZERO:
+		right = Vector3i(1, 0, 0)
+	match item:
+		TILE_STRAIGHT_LONG, TILE_START, TILE_RAMP_LONG, TILE_RAMP_LONG_CURVED, TILE_BUMP:
+			return [cell, cell + forward]
+		TILE_CORNER_LARGE:
+			return [cell, cell + forward, cell + right, cell + forward + right]
+		_:
+			return [cell]
+
+static func _cell_boundary_edges(cell: Vector3i, footprint: Dictionary) -> Array[Dictionary]:
+	var edges: Array[Dictionary] = []
+	var x0 := float(cell.x)
+	var x1 := float(cell.x + 1)
+	var z0 := float(cell.z)
+	var z1 := float(cell.z + 1)
+	if not _has_footprint_neighbor(footprint, cell, Vector3i(-1, 0, 0)):
+		edges.append({"a": Vector3(x0, 0.0, z0), "b": Vector3(x0, 0.0, z1), "outward": Vector3.LEFT})
+	if not _has_footprint_neighbor(footprint, cell, Vector3i(1, 0, 0)):
+		edges.append({"a": Vector3(x1, 0.0, z1), "b": Vector3(x1, 0.0, z0), "outward": Vector3.RIGHT})
+	if not _has_footprint_neighbor(footprint, cell, Vector3i(0, 0, -1)):
+		edges.append({"a": Vector3(x1, 0.0, z0), "b": Vector3(x0, 0.0, z0), "outward": Vector3.FORWARD})
+	if not _has_footprint_neighbor(footprint, cell, Vector3i(0, 0, 1)):
+		edges.append({"a": Vector3(x0, 0.0, z1), "b": Vector3(x1, 0.0, z1), "outward": Vector3.BACK})
+	return edges
+
+static func _has_footprint_neighbor(footprint: Dictionary, cell: Vector3i, direction: Vector3i) -> bool:
+	for y_offset in [-1, 0, 1]:
+		if footprint.has(cell + direction + Vector3i(0, y_offset, 0)):
+			return true
+	return false
+
+static func _surface_y_for_grid_local_point(tile_data: Dictionary, grid_point: Vector3, cell_size: Vector3) -> float:
+	var cell := _vector3i_from_value(tile_data.get("cell", Vector3i.ZERO))
+	var position := _vector3_from_value(tile_data.get("position", Vector3.ZERO), Vector3.ZERO)
+	var item := int(tile_data.get("item", TILE_STRAIGHT))
+	var basis := _orientation_basis(tile_data)
+	var forward := _horizontal_direction_from_vector(basis.z)
+	if not [TILE_RAMP, TILE_RAMP_LONG, TILE_RAMP_LONG_CURVED].has(item) or forward == Vector3i.ZERO:
+		return position.y
+	var anchor_center := Vector3((float(cell.x) + 0.5) * cell_size.x, 0.0, (float(cell.z) + 0.5) * cell_size.z)
+	var point_xz := Vector3(grid_point.x * cell_size.x, 0.0, grid_point.z * cell_size.z)
+	var forward_vec := Vector3(float(forward.x), 0.0, float(forward.z)).normalized()
+	var length := cell_size.z
+	if item == TILE_RAMP_LONG or item == TILE_RAMP_LONG_CURVED:
+		length *= 2.0
+	var start := anchor_center - forward_vec * (cell_size.z * 0.5)
+	var progress := clampf((point_xz - start).dot(forward_vec) / maxf(length, 0.001), 0.0, 1.0)
+	return position.y + progress * cell_size.y
+
+static func _boundary_wall_segment(a: Vector3, b: Vector3, outward: Vector3, wall_height: float, wall_thickness: float) -> Dictionary:
+	var segment := b - a
+	var length := segment.length()
+	if length <= 0.05:
+		return {}
+	var x_axis := segment / length
+	var z_axis := outward
+	if z_axis.length_squared() <= 0.0001:
+		z_axis = Vector3.FORWARD
+	z_axis = (z_axis - x_axis * z_axis.dot(x_axis)).normalized()
+	var y_axis := z_axis.cross(x_axis).normalized()
+	if y_axis.dot(Vector3.UP) < 0.0:
+		y_axis = -y_axis
+		z_axis = -z_axis
+	var height := maxf(wall_height, 0.1)
+	var thickness := maxf(wall_thickness, 0.05)
+	var basis := Basis(x_axis, y_axis, z_axis)
+	var position := a.lerp(b, 0.5) + y_axis * (height * 0.5) + z_axis * (thickness * 0.5)
+	return {
+		"position": position,
+		"basis": basis,
+		"size": Vector3(length + BOUNDARY_WALL_JOIN_OVERLAP, height, thickness),
+	}
+
 static func _can_build_grid_map_node(layout: Dictionary) -> bool:
 	var path := str(layout.get("mesh_library_path", ""))
 	if path.is_empty():
@@ -298,6 +421,15 @@ static func _orientation_basis(cell_data: Dictionary) -> Basis:
 	var basis := grid.get_basis_with_orthogonal_index(orientation)
 	grid.free()
 	return basis
+
+static func _horizontal_direction_from_vector(vector: Vector3) -> Vector3i:
+	var x := int(roundf(vector.x))
+	var z := int(roundf(vector.z))
+	if abs(x) > abs(z):
+		return Vector3i(1 if x > 0 else -1, 0, 0)
+	if abs(z) > 0:
+		return Vector3i(0, 0, 1 if z > 0 else -1)
+	return Vector3i.ZERO
 
 static func _socket_from_route_index(route_points: Array[Vector3], index: int) -> Vector4:
 	var next := (index + 1) % route_points.size()
