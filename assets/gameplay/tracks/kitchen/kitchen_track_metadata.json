@@ -136,7 +136,7 @@
 	"item_sockets": [],
 	"lap_gate_checkpoint_index": 0,
 	"laps": 3,
-	"out_of_bounds_y": -13.0,
+	"out_of_bounds_y": -15.0,
 	"progress_rule_id": "route_lap_progress",
 	"rail_texture_path": "res://assets/gameplay/materials/metal/toy_metal_albedo.png",
 	"rail_texture_uv_scale": 0.5,
