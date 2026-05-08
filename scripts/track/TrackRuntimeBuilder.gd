@@ -27,6 +27,7 @@ const RAIL_JOIN_GAP_SCALE := 0.5
 const RAIL_CORRIDOR_HEIGHT_TOLERANCE := 1.8
 const RAIL_CURVE_SAMPLES := 5
 const RAIL_CURVE_RADIUS_SCALE := 0.48
+const GRIDMAP_HIDDEN_ROAD_COLLISION_SHOULDER := 2.0
 const PLAYGROUND_GRASS_BLADE_SHADER := "res://assets/gameplay/materials/grass/playground_grass_blades.gdshader"
 const PLAYGROUND_GRASS_BLADE_COUNT := 18000
 const PLAYGROUND_GRASS_FLOOR_CLEARANCE := 0.68
@@ -46,6 +47,8 @@ static func build(definition: TrackDefinition) -> Dictionary:
 	_build_ground(root, definition)
 	_build_track_body(root, definition)
 	_build_road(root, definition)
+	if definition.road_visual_style == "kenney_gridmap" and not definition.road_grid_layout.is_empty():
+		_build_grid_surface_collision(root, definition)
 	if definition.boundary_walls_enabled:
 		_build_boundary_walls(root, definition)
 	if definition.rails_enabled:
@@ -268,7 +271,10 @@ static func _build_road(root: Node3D, definition: TrackDefinition) -> void:
 	road.name = "Road"
 	road.set_script(RoadMeshScript)
 	road.set("points", definition.route_points)
-	road.set("width", definition.road_width)
+	var collision_width := definition.road_width
+	if definition.road_visual_style == "kenney_gridmap" and not definition.road_grid_layout.is_empty():
+		collision_width += GRIDMAP_HIDDEN_ROAD_COLLISION_SHOULDER
+	road.set("width", collision_width)
 	road.set("force_close", definition.closed_loop)
 	road.set("show_wall_preview", false)
 	road.set("generate_walls_runtime", false)
@@ -286,6 +292,28 @@ static func _build_road(root: Node3D, definition: TrackDefinition) -> void:
 	collision_body.add_child(collision_shape)
 	road.add_child(collision_body)
 	root.add_child(road)
+
+static func _build_grid_surface_collision(root: Node3D, definition: TrackDefinition) -> void:
+	var mesh := TrackGridRoadBuilder.build_grid_surface_collision_mesh(definition.road_grid_layout)
+	if mesh.get_surface_count() <= 0:
+		return
+	var body := StaticBody3D.new()
+	body.name = "GridRoadSurfaceCollision"
+	body.collision_layer = 1
+	body.collision_mask = 2
+	var physics_material := PhysicsMaterial.new()
+	physics_material.friction = 0.08
+	physics_material.bounce = 0.0
+	physics_material.rough = false
+	body.physics_material_override = physics_material
+	var shape_node := CollisionShape3D.new()
+	shape_node.name = "CollisionShape3D"
+	var shape := mesh.create_trimesh_shape()
+	if shape is ConcavePolygonShape3D:
+		(shape as ConcavePolygonShape3D).backface_collision = true
+	shape_node.shape = shape
+	body.add_child(shape_node)
+	root.add_child(body)
 
 static func _build_route_network_rails(root: Node3D, definition: TrackDefinition) -> void:
 	var routes: Array[Dictionary] = [{

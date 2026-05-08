@@ -167,9 +167,12 @@ func test_local_single_racers_stay_above_gridmap_surface_after_start_pileup() ->
 			continue
 		var projection: Dictionary = TrackProgressRules.project_position(definition.route_points, car.global_transform.origin, definition.closed_loop)
 		var closest := projection.get("closest_point", car.global_transform.origin) as Vector3
+		var collision_bottom_y := _car_collision_bottom_y(car)
+		var visible_bottom_y := car.global_transform.origin.y - 0.78
+		var lowest_visible_y: float = minf(collision_bottom_y, visible_bottom_y)
 		assert_true(
-			car.global_transform.origin.y >= closest.y + 0.2,
-			"%s should stay above the GridMap road surface after the eight-racer start pileup. car_y=%.2f route_y=%.2f pos=%s" % [str(rid), car.global_transform.origin.y, closest.y, str(car.global_transform.origin)]
+			lowest_visible_y >= closest.y - 0.05,
+			"%s should keep the kart body above the GridMap road surface after the eight-racer start pileup. bottom_y=%.2f car_y=%.2f route_y=%.2f pos=%s" % [str(rid), lowest_visible_y, car.global_transform.origin.y, closest.y, str(car.global_transform.origin)]
 		)
 	race.queue_free()
 
@@ -795,3 +798,11 @@ func _same_spawn_lane(actual_value: Variant, expected_value: Variant) -> bool:
 	var actual_yaw := actual.basis.get_euler().y
 	var expected_yaw := expected.basis.get_euler().y
 	return Vector2(actual.origin.x, actual.origin.z).distance_to(Vector2(expected.origin.x, expected.origin.z)) <= 0.01 and absf(angle_difference(actual_yaw, expected_yaw)) <= 0.01
+
+func _car_collision_bottom_y(car: CarController) -> float:
+	var shape_node := car.get_node_or_null("CollisionShape3D") as CollisionShape3D
+	if shape_node == null or not (shape_node.shape is BoxShape3D):
+		return car.global_transform.origin.y
+	var box := shape_node.shape as BoxShape3D
+	var bottom_local := shape_node.transform.origin.y - box.size.y * 0.5
+	return car.global_transform.origin.y + bottom_local

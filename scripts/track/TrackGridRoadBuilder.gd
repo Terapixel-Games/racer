@@ -21,6 +21,7 @@ const BOUNDARY_WALL_SAME_SURFACE_TOLERANCE := 0.35
 const BOUNDARY_CONNECTED_EDGE_GUARD_LENGTH := 5.5
 const BOUNDARY_WALL_SKIRT_DEPTH := 3.0
 const BOUNDARY_WALL_INSET_DEPTH := 0.8
+const GRID_SURFACE_COLLISION_LIFT := 0.16
 
 static func race_layout_from_grid_layout(layout: Dictionary, closed_loop: bool) -> RaceLayout:
 	var race_layout := RaceLayout.new()
@@ -37,16 +38,18 @@ static func race_layout_from_grid_layout(layout: Dictionary, closed_loop: bool) 
 
 static func route_points_from_grid_layout(layout: Dictionary, closed_loop: bool) -> Array[Vector3]:
 	var route: Array[Vector3] = []
+	var route_cells := _vector3i_array_from_value(layout.get("ordered_route_cells", []))
 	if layout.has("ordered_route_points"):
 		for point in layout.get("ordered_route_points", []):
 			route.append(_vector3_from_value(point, Vector3.ZERO))
 		if not route.is_empty():
+			route = _route_points_with_grid_surface_heights(layout, route, route_cells)
 			if closed_loop and route.size() > 2 and route.front().distance_to(route.back()) <= 0.05:
 				route.remove_at(route.size() - 1)
 			return route
-	var route_cells := _vector3i_array_from_value(layout.get("ordered_route_cells", []))
 	for cell in route_cells:
 		route.append(_cell_center(layout, cell))
+	route = _route_points_with_grid_surface_heights(layout, route, route_cells)
 	if closed_loop and route.size() > 2 and route.front().distance_to(route.back()) <= 0.05:
 		route.remove_at(route.size() - 1)
 	return route
@@ -206,6 +209,45 @@ static func build_grid_collision_mesh(layout: Dictionary) -> ArrayMesh:
 	collision_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
 	return collision_mesh
 
+static func build_grid_surface_collision_mesh(layout: Dictionary) -> ArrayMesh:
+	var footprint := _route_footprint_from_grid_layout(layout)
+	var vertices := PackedVector3Array()
+	var indices := PackedInt32Array()
+	if footprint.is_empty():
+		return ArrayMesh.new()
+	var cell_size := _cell_size(layout)
+	var grid_basis := _basis_from_value(layout.get("basis", []))
+	var origin := _vector3_from_value(layout.get("origin", Vector3.ZERO), Vector3.ZERO)
+	for key in footprint.keys():
+		var cell := key as Vector3i
+		var tile_data := footprint.get(cell, {}) as Dictionary
+		var x0 := float(cell.x)
+		var x1 := float(cell.x + 1)
+		var z0 := float(cell.z)
+		var z1 := float(cell.z + 1)
+		var local_points := [
+			Vector3(x0, 0.0, z0),
+			Vector3(x1, 0.0, z0),
+			Vector3(x0, 0.0, z1),
+			Vector3(x1, 0.0, z1),
+		]
+		var base := vertices.size()
+		for local_point in local_points:
+			var local := local_point as Vector3
+			var world := origin + grid_basis * Vector3(local.x * cell_size.x, 0.0, local.z * cell_size.z)
+			world.y = _surface_y_for_grid_local_point(tile_data, local, cell_size) + GRID_SURFACE_COLLISION_LIFT
+			vertices.append(world)
+		indices.append_array([base, base + 2, base + 1, base + 1, base + 2, base + 3])
+	var mesh := ArrayMesh.new()
+	if vertices.is_empty() or indices.is_empty():
+		return mesh
+	var arrays: Array = []
+	arrays.resize(Mesh.ARRAY_MAX)
+	arrays[Mesh.ARRAY_VERTEX] = vertices
+	arrays[Mesh.ARRAY_INDEX] = indices
+	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+	return mesh
+
 static func boundary_wall_segments_from_grid_layout(layout: Dictionary, wall_height: float, wall_thickness: float) -> Array[Dictionary]:
 	var footprint := _route_footprint_from_grid_layout(layout)
 	var route_connections := _route_connection_set(layout)
@@ -270,6 +312,26 @@ static func _route_connection_set(layout: Dictionary) -> Dictionary:
 			continue
 		connections[_edge_connection_key(current, next)] = true
 	return connections
+
+static func _route_points_with_grid_surface_heights(layout: Dictionary, route: Array[Vector3], route_cells: Array[Vector3i]) -> Array[Vector3]:
+	if route.is_empty() or route_cells.is_empty():
+		return route
+	var footprint := _route_footprint_from_grid_layout(layout)
+	if footprint.is_empty():
+		return route
+	var cell_size := _cell_size(layout)
+	var out := route.duplicate()
+	for i in range(mini(out.size(), route_cells.size())):
+		var cell := route_cells[i]
+		var tile_data: Dictionary = footprint.get(cell, {}) as Dictionary
+		if tile_data.is_empty():
+			continue
+		var local_point := Vector3(float(cell.x) + 0.5, 0.0, float(cell.z) + 0.5)
+		var surface_y := _surface_y_for_grid_local_point(tile_data, local_point, cell_size)
+		var point: Vector3 = out[i]
+		point.y = surface_y
+		out[i] = point
+	return out
 
 static func _footprint_cells_for_item(cell: Vector3i, item: int, forward: Vector3i, right: Vector3i) -> Array[Vector3i]:
 	if forward == Vector3i.ZERO:

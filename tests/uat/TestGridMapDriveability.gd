@@ -94,6 +94,21 @@ func test_gridmap_player_kart_stays_supported_through_ramp_sequences() -> void:
 			assert_true(bool(result.get("near_route", false)), "%s route index %d should keep the kart near the route while driving through a ramp sequence.%s" % [track_id, int((ramp_case as Dictionary).get("route_index", -1)), detail])
 		_teardown_fixture(fixture)
 
+func test_gridmap_player_kart_stays_supported_on_ramp_side_edges() -> void:
+	for track_id in _gridmap_track_ids_under_test():
+		var fixture := _build_track_runtime(track_id)
+		var definition = fixture["definition"]
+		var route_points: Array[Vector3] = definition.route_points
+		for route_index in [136, 137, 138, 139, 140]:
+			if route_index >= route_points.size():
+				continue
+			for side in [-1.0, 1.0]:
+				var result := _drive_ramp_side_support_case(fixture, route_points, route_index, side)
+				var detail := " bottom=%.2f route=%.2f pos=%s dist=%.2f" % [float(result.get("bottom_y", 0.0)), float(result.get("route_y", 0.0)), str(result.get("position", Vector3.ZERO)), float(result.get("route_distance", -1.0))]
+				assert_true(bool(result.get("above_surface", false)), "%s route index %d side %.0f should not let the kart body drop into the ramp-side GridMap surface.%s" % [track_id, route_index, side, detail])
+				assert_true(bool(result.get("near_route", false)), "%s route index %d side %.0f should stay near the ramp-side route corridor.%s" % [track_id, route_index, side, detail])
+		_teardown_fixture(fixture)
+
 func _gridmap_track_ids_under_test() -> Array[String]:
 	return ["kitchen"]
 
@@ -333,6 +348,35 @@ func _drive_ramp_sequence_case(fixture: Dictionary, ramp_case: Dictionary, route
 		"route_distance": route_distance,
 	}
 
+func _drive_ramp_side_support_case(fixture: Dictionary, route_points: Array[Vector3], route_index: int, side: float) -> Dictionary:
+	var definition = fixture["definition"]
+	var start := route_points[route_index]
+	var target := route_points[(route_index + 1) % route_points.size()]
+	var forward := _flat_direction(start, target)
+	var lateral := Vector3(forward.z, 0.0, -forward.x).normalized() * side
+	var drive_direction := (forward + lateral * 0.35).normalized()
+	var spawn := Transform3D(
+		Basis(Vector3.UP, atan2(drive_direction.x, drive_direction.z)),
+		start - forward * 7.0 + lateral * 5.8 + Vector3.UP * 2.0
+	)
+	var car := _spawn_probe_kart(fixture, spawn)
+	if car == null:
+		return {}
+	for frame in range(360):
+		_simulate_kart_toward(car, target + forward * 16.0 + lateral * 8.0, SIM_DELTA, 1.0)
+	var final_position := car.global_transform.origin
+	var route_distance := _nearest_route_distance(final_position, route_points)
+	var expected_floor := minf(start.y, target.y) - 1.0
+	var bottom_y := _car_collision_bottom_y(car)
+	return {
+		"above_surface": bottom_y >= expected_floor,
+		"near_route": route_distance <= float(definition.road_width) * 0.95,
+		"position": final_position,
+		"bottom_y": bottom_y,
+		"route_y": expected_floor,
+		"route_distance": route_distance,
+	}
+
 func _drive_outward_edge_case(fixture: Dictionary, edge_case: Dictionary) -> Dictionary:
 	var definition = fixture["definition"]
 	var cell_size := _cell_size(definition)
@@ -435,6 +479,13 @@ func _nearest_route_distance(position: Vector3, route_points: Array[Vector3]) ->
 			t = clampf((p2 - a2).dot(segment) / segment.length_squared(), 0.0, 1.0)
 		best = minf(best, p2.distance_to(a2 + segment * t))
 	return best
+
+func _car_collision_bottom_y(car: CarController) -> float:
+	var shape_node := car.get_node_or_null("CollisionShape3D") as CollisionShape3D
+	if shape_node == null or not (shape_node.shape is BoxShape3D):
+		return car.global_transform.origin.y
+	var box := shape_node.shape as BoxShape3D
+	return car.global_transform.origin.y + shape_node.transform.origin.y - box.size.y * 0.5
 
 func _flat_direction(from: Vector3, to: Vector3) -> Vector3:
 	var delta := to - from
