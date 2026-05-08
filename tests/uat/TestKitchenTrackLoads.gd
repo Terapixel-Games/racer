@@ -41,12 +41,19 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 			if world_environment.environment.sky != null:
 				assert_true(world_environment.environment.sky.sky_material is ShaderMaterial, "Kitchen sky should use the stage sky shader material")
 	assert_true(instance.get_node_or_null("BuiltTrack/SunLight") is DirectionalLight3D, "Kitchen runtime should include the stage directional light")
+	var road_collision_body := instance.get_node_or_null("BuiltTrack/Road/CollisionBody") as StaticBody3D
 	var road_shape_node := instance.get_node_or_null("BuiltTrack/Road/CollisionBody/CollisionShape3D") as CollisionShape3D
-	assert_true(road_shape_node != null, "Kitchen road should include collision shape")
+	var hidden_road := instance.get_node_or_null("BuiltTrack/Road")
+	assert_true(road_collision_body != null, "Kitchen hidden route road should include a backup collision body")
+	if road_collision_body != null:
+		assert_equal(road_collision_body.collision_layer, 1, "Kitchen hidden route backup collision should use the kart gameplay collision layer")
+		assert_equal(road_collision_body.collision_mask, 2, "Kitchen hidden route backup collision should use the kart gameplay collision mask")
+	assert_true(hidden_road != null and float(hidden_road.get("collision_surface_lift")) < 0.0, "Kitchen hidden route backup collision should sit below the GridMap surface so karts cannot float on it")
+	assert_true(road_shape_node != null and not road_shape_node.disabled, "Kitchen hidden route backup collision should stay enabled to catch GridMap seam holes")
 	if road_shape_node != null:
-		assert_true(road_shape_node.shape is ConcavePolygonShape3D, "Kitchen road should use generated mesh collision")
+		assert_true(road_shape_node.shape is ConcavePolygonShape3D, "Kitchen hidden route backup should use generated mesh collision")
 		if road_shape_node.shape is ConcavePolygonShape3D:
-			assert_true((road_shape_node.shape as ConcavePolygonShape3D).backface_collision, "Kitchen road collision should be visible to camera probes from underneath")
+			assert_true((road_shape_node.shape as ConcavePolygonShape3D).backface_collision, "Kitchen hidden route backup collision should catch karts from above and below")
 	assert_true(instance.get_node_or_null("BuiltTrack/TrackBody") == null, "Kitchen grid mode should not build the broad legacy track body")
 	assert_true(instance.get_node_or_null("BuiltTrack/Rails") == null, "Kitchen should not build route-offset rails while GridMap edge rails are disabled")
 	var boundary_walls := instance.get_node_or_null("BuiltTrack/BoundaryWalls")

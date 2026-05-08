@@ -27,7 +27,7 @@ const RAIL_JOIN_GAP_SCALE := 0.5
 const RAIL_CORRIDOR_HEIGHT_TOLERANCE := 1.8
 const RAIL_CURVE_SAMPLES := 5
 const RAIL_CURVE_RADIUS_SCALE := 0.48
-const GRIDMAP_HIDDEN_ROAD_COLLISION_SHOULDER := 2.0
+const GRIDMAP_HIDDEN_ROAD_BACKUP_COLLISION_LIFT := -0.25
 const PLAYGROUND_GRASS_BLADE_SHADER := "res://assets/gameplay/materials/grass/playground_grass_blades.gdshader"
 const PLAYGROUND_GRASS_BLADE_COUNT := 18000
 const PLAYGROUND_GRASS_FLOOR_CLEARANCE := 0.68
@@ -265,24 +265,25 @@ static func _build_track_body(root: Node3D, definition: TrackDefinition) -> void
 	root.add_child(body)
 
 static func _build_road(root: Node3D, definition: TrackDefinition) -> void:
-	if definition.road_visual_style == "kenney_gridmap" and not definition.road_grid_layout.is_empty():
+	var is_gridmap_track := definition.road_visual_style == "kenney_gridmap" and not definition.road_grid_layout.is_empty()
+	if is_gridmap_track:
 		root.add_child(TrackGridRoadBuilder.build_grid_road(definition.road_grid_layout))
 	var road := MeshInstance3D.new()
 	road.name = "Road"
 	road.set_script(RoadMeshScript)
 	road.set("points", definition.route_points)
-	var collision_width := definition.road_width
-	if definition.road_visual_style == "kenney_gridmap" and not definition.road_grid_layout.is_empty():
-		collision_width += GRIDMAP_HIDDEN_ROAD_COLLISION_SHOULDER
-	road.set("width", collision_width)
+	road.set("width", definition.road_width)
 	road.set("force_close", definition.closed_loop)
 	road.set("show_wall_preview", false)
 	road.set("generate_walls_runtime", false)
+	road.set("collision_enabled", true)
+	if is_gridmap_track:
+		road.set("collision_surface_lift", GRIDMAP_HIDDEN_ROAD_BACKUP_COLLISION_LIFT)
 	if not definition.road_texture_path.is_empty():
 		var texture := load(definition.road_texture_path)
 		if texture is Texture2D:
 			road.set("road_texture", texture)
-	if definition.road_visual_style == "kenney_gridmap" and not definition.road_grid_layout.is_empty():
+	if is_gridmap_track:
 		road.visible = false
 
 	var collision_body := StaticBody3D.new()

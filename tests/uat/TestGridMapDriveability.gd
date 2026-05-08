@@ -104,8 +104,10 @@ func test_gridmap_player_kart_stays_supported_on_ramp_side_edges() -> void:
 				continue
 			for side in [-1.0, 1.0]:
 				var result := _drive_ramp_side_support_case(fixture, route_points, route_index, side)
-				var detail := " bottom=%.2f route=%.2f pos=%s dist=%.2f" % [float(result.get("bottom_y", 0.0)), float(result.get("route_y", 0.0)), str(result.get("position", Vector3.ZERO)), float(result.get("route_distance", -1.0))]
+				var detail := " bottom=%.2f floor=%.2f ceiling=%.2f progress=%.2f pos=%s dist=%.2f" % [float(result.get("bottom_y", 0.0)), float(result.get("floor_y", 0.0)), float(result.get("ceiling_y", 0.0)), float(result.get("progress", 0.0)), str(result.get("position", Vector3.ZERO)), float(result.get("route_distance", -1.0))]
 				assert_true(bool(result.get("above_surface", false)), "%s route index %d side %.0f should not let the kart body drop into the ramp-side GridMap surface.%s" % [track_id, route_index, side, detail])
+				assert_true(bool(result.get("not_floating", false)), "%s route index %d side %.0f should not let the kart ride on an invisible raised collision ribbon above the GridMap surface.%s" % [track_id, route_index, side, detail])
+				assert_true(bool(result.get("advanced", false)), "%s route index %d side %.0f should keep moving across the ramp-side surface instead of getting stuck on overlapping collision.%s" % [track_id, route_index, side, detail])
 				assert_true(bool(result.get("near_route", false)), "%s route index %d side %.0f should stay near the ramp-side route corridor.%s" % [track_id, route_index, side, detail])
 		_teardown_fixture(fixture)
 
@@ -362,18 +364,25 @@ func _drive_ramp_side_support_case(fixture: Dictionary, route_points: Array[Vect
 	var car := _spawn_probe_kart(fixture, spawn)
 	if car == null:
 		return {}
+	var initial_progress := (car.global_transform.origin - start).dot(forward)
 	for frame in range(360):
 		_simulate_kart_toward(car, target + forward * 16.0 + lateral * 8.0, SIM_DELTA, 1.0)
 	var final_position := car.global_transform.origin
+	var final_progress := (final_position - start).dot(forward)
 	var route_distance := _nearest_route_distance(final_position, route_points)
 	var expected_floor := minf(start.y, target.y) - 1.0
+	var expected_ceiling := maxf(start.y, target.y) + 1.85
 	var bottom_y := _car_collision_bottom_y(car)
 	return {
 		"above_surface": bottom_y >= expected_floor,
+		"not_floating": bottom_y <= expected_ceiling,
+		"advanced": final_progress > initial_progress + 4.0,
 		"near_route": route_distance <= float(definition.road_width) * 0.95,
 		"position": final_position,
 		"bottom_y": bottom_y,
-		"route_y": expected_floor,
+		"floor_y": expected_floor,
+		"ceiling_y": expected_ceiling,
+		"progress": final_progress - initial_progress,
 		"route_distance": route_distance,
 	}
 

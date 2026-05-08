@@ -34,12 +34,15 @@ func test_all_tracks_build_gridmap_roads_with_generated_collision() -> void:
 		assert_true(road != null, "%s should keep generated road collision node" % track_id)
 		if road != null:
 			assert_true(not road.visible, "%s procedural road should be hidden behind GridMap visuals" % track_id)
+			assert_true(float(road.get("collision_surface_lift")) < 0.0, "%s hidden route road backup collision should sit below the GridMap surface" % track_id)
 		var collision_shape := track_node.get_node_or_null("Road/CollisionBody/CollisionShape3D") as CollisionShape3D
-		assert_true(collision_shape != null and collision_shape.shape is ConcavePolygonShape3D, "%s should keep generated slab road collision" % track_id)
+		assert_true(collision_shape != null and not collision_shape.disabled and collision_shape.shape is ConcavePolygonShape3D, "%s should keep a sunken hidden route backup collision for GridMap seam support" % track_id)
 		if collision_shape != null and collision_shape.shape is ConcavePolygonShape3D:
 			assert_true((collision_shape.shape as ConcavePolygonShape3D).backface_collision, "%s road collision should catch karts from above and below" % track_id)
 		var collision_body := track_node.get_node_or_null("Road/CollisionBody") as StaticBody3D
-		assert_true(collision_body != null and collision_body.collision_layer == 1 and collision_body.collision_mask == 2, "%s road collision should use the kart gameplay collision channel" % track_id)
+		assert_true(collision_body != null and collision_body.collision_layer == 1 and collision_body.collision_mask == 2, "%s hidden route backup collision should use the kart gameplay collision channel" % track_id)
+		var grid_surface_collision := track_node.get_node_or_null("GridRoadSurfaceCollision")
+		assert_true(grid_surface_collision != null and _enabled_collision_objects(grid_surface_collision) > 0, "%s should use GridMap surface collision for kart support" % track_id)
 		assert_true((built.get("waypoints", []) as Array).size() >= 3, "%s should expose gameplay waypoints" % track_id)
 		assert_true(track_node.get_node_or_null("Waypoints") != null, "%s should include generated waypoint nodes" % track_id)
 		assert_true(track_node.get_node_or_null("CheckpointSystem") != null, "%s should include checkpoints" % track_id)

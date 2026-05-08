@@ -21,6 +21,8 @@ const ROAD_COLLISION_SURFACE_LIFT := 0.16
 @export var shoulder_width: float = 0.3
 @export var force_close: bool = true
 @export var wall_side_multiplier: float = 1.0 # 1 = outward along frame right, -1 = flip sides
+@export var collision_enabled: bool = true
+@export var collision_surface_lift: float = ROAD_COLLISION_SURFACE_LIFT
 @export var collision_mesh_override: Mesh
 
 var _last_sig := ""
@@ -140,8 +142,8 @@ func _update_collision(mesh: Mesh) -> void:
 	var body := get_node_or_null("CollisionBody") as StaticBody3D
 	if body == null:
 		return
-	body.collision_layer = 1
-	body.collision_mask = 2
+	body.collision_layer = 1 if collision_enabled else 0
+	body.collision_mask = 2 if collision_enabled else 0
 	if body.physics_material_override == null:
 		var physics_material := PhysicsMaterial.new()
 		physics_material.friction = 0.08
@@ -151,15 +153,16 @@ func _update_collision(mesh: Mesh) -> void:
 	var shape_node := body.get_node_or_null("CollisionShape3D") as CollisionShape3D
 	if shape_node == null:
 		return
+	shape_node.disabled = not collision_enabled
 	var collision_source := collision_mesh_override if collision_mesh_override != null else mesh
-	var collision_mesh := build_layered_collision_mesh(collision_source, ROAD_COLLISION_BACKUP_LAYERS, ROAD_COLLISION_LAYER_SPACING)
+	var collision_mesh := build_layered_collision_mesh(collision_source, ROAD_COLLISION_BACKUP_LAYERS, ROAD_COLLISION_LAYER_SPACING, collision_surface_lift)
 	var shape := collision_mesh.create_trimesh_shape()
 	if shape:
 		if shape is ConcavePolygonShape3D:
 			(shape as ConcavePolygonShape3D).backface_collision = true
 		shape_node.shape = shape
 
-static func build_layered_collision_mesh(source_mesh: Mesh, layer_count: int, layer_spacing: float) -> ArrayMesh:
+static func build_layered_collision_mesh(source_mesh: Mesh, layer_count: int, layer_spacing: float, surface_lift: float = ROAD_COLLISION_SURFACE_LIFT) -> ArrayMesh:
 	if source_mesh == null or source_mesh.get_surface_count() <= 0:
 		return ArrayMesh.new()
 	var source_arrays := source_mesh.surface_get_arrays(0)
@@ -171,7 +174,7 @@ static func build_layered_collision_mesh(source_mesh: Mesh, layer_count: int, la
 	var vertices := PackedVector3Array()
 	var indices := PackedInt32Array()
 	for layer in range(count):
-		var offset := Vector3.UP * (ROAD_COLLISION_SURFACE_LIFT - maxf(layer_spacing, 0.0) * float(layer))
+		var offset := Vector3.UP * (surface_lift - maxf(layer_spacing, 0.0) * float(layer))
 		var base := vertices.size()
 		for vertex in source_vertices:
 			vertices.append(vertex + offset)
@@ -206,7 +209,9 @@ func _points_signature() -> String:
 	parts.append("%0.3f" % wall_thickness)
 	parts.append("%0.3f" % wall_height)
 	parts.append("%0.3f" % wall_side_multiplier)
+	parts.append("%0.3f" % collision_surface_lift)
 	parts.append(str(force_close))
+	parts.append(str(collision_enabled))
 	parts.append(str(show_left_wall))
 	parts.append(str(show_right_wall))
 	for p in points:
