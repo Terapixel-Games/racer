@@ -202,7 +202,7 @@
 					0,
 					-3
 				],
-				"item": 2,
+				"item": 0,
 				"orientation": 16,
 				"orientation_basis": [
 					[
@@ -229,11 +229,42 @@
 			},
 			{
 				"cell": [
+					-2,
+					0,
+					-3
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					-24.0,
+					14.25,
+					-40.0
+				]
+			},
+			{
+				"cell": [
 					-1,
 					0,
 					-3
 				],
-				"item": 3,
+				"item": 0,
 				"orientation": 16,
 				"orientation_basis": [
 					[
@@ -260,11 +291,42 @@
 			},
 			{
 				"cell": [
+					0,
+					0,
+					-3
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					8.0,
+					14.25,
+					-40.0
+				]
+			},
+			{
+				"cell": [
 					1,
 					0,
 					-3
 				],
-				"item": 3,
+				"item": 0,
 				"orientation": 16,
 				"orientation_basis": [
 					[
@@ -285,6 +347,37 @@
 				],
 				"position": [
 					24.0,
+					14.25,
+					-40.0
+				]
+			},
+			{
+				"cell": [
+					2,
+					0,
+					-3
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					40.0,
 					14.25,
 					-40.0
 				]
@@ -388,7 +481,7 @@
 					0,
 					-2
 				],
-				"item": 3,
+				"item": 0,
 				"orientation": 0,
 				"orientation_basis": [
 					[
@@ -417,9 +510,71 @@
 				"cell": [
 					-4,
 					0,
+					-1
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-56.0,
+					14.25,
+					-8.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					0,
+					-1
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					72.0,
+					14.25,
+					-8.0
+				]
+			},
+			{
+				"cell": [
+					-4,
+					0,
 					0
 				],
-				"item": 3,
+				"item": 0,
 				"orientation": 10,
 				"orientation_basis": [
 					[
@@ -450,7 +605,7 @@
 					0,
 					0
 				],
-				"item": 3,
+				"item": 0,
 				"orientation": 0,
 				"orientation_basis": [
 					[
@@ -479,9 +634,71 @@
 				"cell": [
 					-4,
 					0,
+					1
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-56.0,
+					14.25,
+					24.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					0,
+					1
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					72.0,
+					14.25,
+					24.0
+				]
+			},
+			{
+				"cell": [
+					-4,
+					0,
 					2
 				],
-				"item": 3,
+				"item": 0,
 				"orientation": 10,
 				"orientation_basis": [
 					[
@@ -601,11 +818,42 @@
 			},
 			{
 				"cell": [
+					-2,
+					0,
+					3
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					-24.0,
+					14.25,
+					56.0
+				]
+			},
+			{
+				"cell": [
 					-1,
 					0,
 					3
 				],
-				"item": 3,
+				"item": 0,
 				"orientation": 22,
 				"orientation_basis": [
 					[
@@ -632,11 +880,42 @@
 			},
 			{
 				"cell": [
+					0,
+					0,
+					3
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					8.0,
+					14.25,
+					56.0
+				]
+			},
+			{
+				"cell": [
 					1,
 					0,
 					3
 				],
-				"item": 3,
+				"item": 0,
 				"orientation": 22,
 				"orientation_basis": [
 					[
@@ -663,11 +942,42 @@
 			},
 			{
 				"cell": [
+					2,
+					0,
+					3
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					40.0,
+					14.25,
+					56.0
+				]
+			},
+			{
+				"cell": [
 					3,
 					0,
 					3
 				],
-				"item": 3,
+				"item": 0,
 				"orientation": 22,
 				"orientation_basis": [
 					[

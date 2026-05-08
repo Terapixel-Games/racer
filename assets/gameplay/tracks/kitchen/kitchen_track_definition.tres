@@ -29,22 +29,40 @@ road_grid_layout = {
 "position": Vector3(-56, 14.25, -40)
 }, {
 "cell": Vector3i(-3, 0, -3),
-"item": 2,
+"item": 0,
 "orientation": 16,
 "orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
 "position": Vector3(-40, 14.25, -40)
 }, {
+"cell": Vector3i(-2, 0, -3),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
+"position": Vector3(-24, 14.25, -40)
+}, {
 "cell": Vector3i(-1, 0, -3),
-"item": 3,
+"item": 0,
 "orientation": 16,
 "orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
 "position": Vector3(-8, 14.25, -40)
 }, {
+"cell": Vector3i(0, 0, -3),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
+"position": Vector3(8, 14.25, -40)
+}, {
 "cell": Vector3i(1, 0, -3),
-"item": 3,
+"item": 0,
 "orientation": 16,
 "orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
 "position": Vector3(24, 14.25, -40)
+}, {
+"cell": Vector3i(2, 0, -3),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
+"position": Vector3(40, 14.25, -40)
 }, {
 "cell": Vector3i(3, 0, -3),
 "item": 0,
@@ -65,25 +83,49 @@ road_grid_layout = {
 "position": Vector3(-56, 14.25, -24)
 }, {
 "cell": Vector3i(4, 0, -2),
-"item": 3,
+"item": 0,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
 "position": Vector3(72, 14.25, -24)
 }, {
+"cell": Vector3i(-4, 0, -1),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
+"position": Vector3(-56, 14.25, -8)
+}, {
+"cell": Vector3i(4, 0, -1),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(72, 14.25, -8)
+}, {
 "cell": Vector3i(-4, 0, 0),
-"item": 3,
+"item": 0,
 "orientation": 10,
 "orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
 "position": Vector3(-56, 14.25, 8)
 }, {
 "cell": Vector3i(4, 0, 0),
-"item": 3,
+"item": 0,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
 "position": Vector3(72, 14.25, 8)
 }, {
+"cell": Vector3i(-4, 0, 1),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
+"position": Vector3(-56, 14.25, 24)
+}, {
+"cell": Vector3i(4, 0, 1),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(72, 14.25, 24)
+}, {
 "cell": Vector3i(-4, 0, 2),
-"item": 3,
+"item": 0,
 "orientation": 10,
 "orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
 "position": Vector3(-56, 14.25, 40)
@@ -106,20 +148,38 @@ road_grid_layout = {
 "orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
 "position": Vector3(-40, 14.25, 56)
 }, {
+"cell": Vector3i(-2, 0, 3),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"position": Vector3(-24, 14.25, 56)
+}, {
 "cell": Vector3i(-1, 0, 3),
-"item": 3,
+"item": 0,
 "orientation": 22,
 "orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
 "position": Vector3(-8, 14.25, 56)
 }, {
+"cell": Vector3i(0, 0, 3),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"position": Vector3(8, 14.25, 56)
+}, {
 "cell": Vector3i(1, 0, 3),
-"item": 3,
+"item": 0,
 "orientation": 22,
 "orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
 "position": Vector3(24, 14.25, 56)
 }, {
+"cell": Vector3i(2, 0, 3),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"position": Vector3(40, 14.25, 56)
+}, {
 "cell": Vector3i(3, 0, 3),
-"item": 3,
+"item": 0,
 "orientation": 22,
 "orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
 "position": Vector3(56, 14.25, 56)

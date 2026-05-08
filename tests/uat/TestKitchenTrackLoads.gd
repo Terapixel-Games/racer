@@ -15,11 +15,13 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(packed is PackedScene, "Kitchen track scene should load")
 	var instance := (packed as PackedScene).instantiate()
 	scene_tree.root.add_child(instance)
+	var definition := TrackSceneAuthoringData.apply_to_definition(TrackCatalog.get_definition("kitchen"))
 	var built_track := instance.get_node_or_null("BuiltTrack")
 	assert_true(built_track != null, "Kitchen track scene should build runtime track")
 	assert_true(instance.get_node_or_null("BuiltTrack/Road") != null, "Kitchen track should include generated road")
 	assert_true(instance.get_node_or_null("BuiltTrack/GridRoad") != null, "Kitchen track should include Kenney Racing Kit grid road visuals")
 	assert_true(instance.get_node_or_null("BuiltTrack/GridRoad") is GridMap, "Kitchen visible road should be a runtime GridMap so Kenney tile materials and rotations are preserved")
+	assert_true(_grid_road_covers_route(instance.get_node_or_null("BuiltTrack/GridRoad") as GridMap, definition), "Kitchen GridRoad should have one visible tile for every route cell so textures stay aligned with rails")
 	assert_equal(_node_count_by_type(built_track, "WorldEnvironment"), 1, "Kitchen runtime should build exactly one WorldEnvironment")
 	var world_environment := instance.get_node_or_null("BuiltTrack/WorldEnvironment") as WorldEnvironment
 	assert_true(world_environment != null, "Kitchen track should include a world environment")
@@ -96,7 +98,6 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/KitchenSink") == null, "Kitchen runtime should not add hardcoded sink dressing")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/SpoonHazard") == null, "Kitchen runtime should not add hardcoded food hazards")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/FridgeTopSpeedStrip") == null, "Kitchen runtime should not add hardcoded route stripes")
-	var definition := TrackSceneAuthoringData.apply_to_definition(TrackCatalog.get_definition("kitchen"))
 	assert_true(_runtime_spawn_matches_socket(instance, "BuiltTrack/SpawnPoints/Start01", definition.spawn_points[0]), "Generated Start01 should match the first RoadGridMap-authored slot")
 	assert_true(_runtime_spawn_matches_socket(instance, "BuiltTrack/SpawnPoints/Start08", definition.spawn_points[7]), "Generated Start08 should match the eighth RoadGridMap-authored slot")
 	instance.queue_free()
@@ -387,6 +388,18 @@ func _runtime_spawn_matches_socket(root: Node, path: NodePath, socket: Vector4) 
 	var expected_yaw := socket.w
 	var actual_yaw := rad_to_deg(node.transform.basis.get_euler().y)
 	return node.transform.origin.distance_to(expected) <= 0.01 and absf(angle_difference(deg_to_rad(actual_yaw), deg_to_rad(expected_yaw))) <= 0.01
+
+func _grid_road_covers_route(grid: GridMap, definition) -> bool:
+	if grid == null or definition == null:
+		return false
+	var cells := (definition.road_grid_layout.get("ordered_route_cells", []) as Array)
+	if cells.is_empty():
+		return false
+	for value in cells:
+		var cell := value as Vector3i
+		if grid.get_cell_item(cell) < 0:
+			return false
+	return true
 
 func _authored_kitchen_position(path: NodePath) -> Vector3:
 	var packed := load("res://assets/gameplay/tracks/kitchen/kitchen_editable_room.tscn")

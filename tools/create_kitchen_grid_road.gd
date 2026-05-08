@@ -34,7 +34,9 @@ func _init() -> void:
 	quit()
 
 func _ensure_mesh_library() -> Error:
-	var library := MeshLibrary.new()
+	var library := load(MESH_LIBRARY_PATH) as MeshLibrary
+	if library == null:
+		library = MeshLibrary.new()
 	_add_mesh_item(library, TrackGridRoadBuilder.TILE_STRAIGHT, "roadStraight", "res://assets/source/kenney/racing_kit/roadStraight.glb")
 	_add_mesh_item(library, TrackGridRoadBuilder.TILE_CORNER, "roadCornerSmall", "res://assets/source/kenney/racing_kit/roadCornerSmall.glb")
 	_add_mesh_item(library, TrackGridRoadBuilder.TILE_START, "roadStart", "res://assets/source/kenney/racing_kit/roadStart.glb")
@@ -53,10 +55,12 @@ func _add_mesh_item(library: MeshLibrary, id: int, item_name: String, scene_path
 		push_error("Kenney road scene has no mesh: %s" % scene_path)
 		root.queue_free()
 		return
-	library.create_item(id)
+	if library.find_item_by_name(item_name) < 0:
+		library.create_item(id)
 	library.set_item_name(id, item_name)
-	library.set_item_mesh(id, mesh)
-	var bounds := _combined_bounds(root)
+	if library.get_item_mesh(id) == null:
+		library.set_item_mesh(id, mesh)
+	var bounds := mesh.get_aabb()
 	var scale := Vector3(
 		GRID_ROAD_WIDTH / maxf(bounds.size.x, 0.001),
 		1.0,
@@ -141,15 +145,10 @@ func _build_kitchen_grid_scene() -> Array[String]:
 	grid.item_route_indices = []
 	grid.hazard_route_indices = []
 	grid.spawn_slots = _spawn_slots()
-	var skip_next := false
 	for i in range(route.size()):
-		if skip_next:
-			skip_next = false
-			continue
 		var cell := route[i]
-		var tile := _visual_tile_for_route_index(route, i)
+		var tile := _tile_for_route_index(route, i)
 		grid.set_cell_item(cell, tile, _orientation_for_route_index(route, i))
-		skip_next = tile == TrackGridRoadBuilder.TILE_STRAIGHT_LONG or tile == TrackGridRoadBuilder.TILE_START
 	root.add_child(grid)
 	grid.owner = root
 	var new_packed := PackedScene.new()
@@ -225,27 +224,6 @@ func _tile_for_route_index(route: Array[Vector3i], index: int) -> int:
 	var incoming := current - previous
 	var outgoing := next - current
 	return TrackGridRoadBuilder.TILE_CORNER if incoming != outgoing else TrackGridRoadBuilder.TILE_STRAIGHT
-
-func _visual_tile_for_route_index(route: Array[Vector3i], index: int) -> int:
-	var route_tile := _tile_for_route_index(route, index)
-	if route_tile == TrackGridRoadBuilder.TILE_CORNER:
-		return TrackGridRoadBuilder.TILE_CORNER
-	if index == 1 and _can_place_long_straight(route, index):
-		return TrackGridRoadBuilder.TILE_START
-	if _can_place_long_straight(route, index):
-		return TrackGridRoadBuilder.TILE_STRAIGHT_LONG
-	return TrackGridRoadBuilder.TILE_STRAIGHT
-
-func _can_place_long_straight(route: Array[Vector3i], index: int) -> bool:
-	if _tile_for_route_index(route, index) != TrackGridRoadBuilder.TILE_STRAIGHT:
-		return false
-	var next_index := (index + 1) % route.size()
-	if _tile_for_route_index(route, next_index) != TrackGridRoadBuilder.TILE_STRAIGHT:
-		return false
-	var current := route[index]
-	var next := route[next_index]
-	var after := route[(index + 2) % route.size()]
-	return next - current == after - next
 
 func _orientation_for_route_index(route: Array[Vector3i], index: int) -> int:
 	if _tile_for_route_index(route, index) == TrackGridRoadBuilder.TILE_CORNER:
