@@ -172,6 +172,7 @@ func test_kenney_gridmap_start_tile_matches_cell_footprint() -> void:
 		return
 	var straight_transform := library.get_item_mesh_transform(straight_id)
 	var start_transform := library.get_item_mesh_transform(start_id)
+	assert_true(library.get_item_mesh(start_id) == library.get_item_mesh(straight_id), "roadStart should reuse the flat straight tile mesh so it does not place a bump in front of racers")
 	assert_true(is_equal_approx(start_transform.basis.x.length(), straight_transform.basis.x.length()), "roadStart should match straight tile width so the start line stays centered on the GridMap cell")
 	assert_true(is_equal_approx(start_transform.basis.z.length(), straight_transform.basis.z.length()), "roadStart should match straight tile length so it does not shift into the next cell")
 	assert_true(start_transform.origin.distance_to(straight_transform.origin) <= 0.05, "roadStart should use the same cell-local origin as roadStraight")
