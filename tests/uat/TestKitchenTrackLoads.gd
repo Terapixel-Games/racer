@@ -45,11 +45,7 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 		if road_shape_node.shape is ConcavePolygonShape3D:
 			assert_true((road_shape_node.shape as ConcavePolygonShape3D).backface_collision, "Kitchen road collision should be visible to camera probes from underneath")
 	assert_true(instance.get_node_or_null("BuiltTrack/TrackBody") == null, "Kitchen grid mode should not build the broad legacy track body")
-	assert_true(instance.get_node_or_null("BuiltTrack/Rails") != null, "Kitchen track should include generated route rails")
-	assert_true(_child_count(instance.get_node_or_null("BuiltTrack/Rails")) > 0, "Kitchen route rails should instantiate rail asset pieces")
-	assert_true(_enabled_collision_objects(instance.get_node_or_null("BuiltTrack/Rails")) > 0, "Kitchen generated rails should be collidable")
-	assert_equal(_first_material_texture_path(instance.get_node_or_null("BuiltTrack/Rails")), "res://assets/gameplay/materials/metal/toy_metal_albedo.png", "Kitchen generated rails should use the stage metal material")
-	assert_true(absf(_first_material_uv_scale(instance.get_node_or_null("BuiltTrack/Rails")) - 0.5) <= 0.01, "Kitchen generated rails should use the stage rail texture UV scale")
+	assert_true(instance.get_node_or_null("BuiltTrack/Rails") == null, "Kitchen should not build route-offset rails while GridMap edge rails are disabled")
 	assert_true(instance.get_node_or_null("BuiltTrack/Walls") == null, "Kitchen track should not auto-generate route walls while guard segments are being authored")
 	assert_true(instance.get_node_or_null("BuiltTrack/CheckpointSystem") != null, "Kitchen track should include checkpoint system")
 	assert_true(instance.get_node_or_null("BuiltTrack/SpawnPoints") != null, "Kitchen track should include spawn points")

@@ -46,7 +46,8 @@ static func build(definition: TrackDefinition) -> Dictionary:
 	_build_ground(root, definition)
 	_build_track_body(root, definition)
 	_build_road(root, definition)
-	_build_route_network_rails(root, definition)
+	if definition.rails_enabled:
+		_build_route_network_rails(root, definition)
 	var spawns := _build_spawns(root, definition)
 	var waypoints := _build_waypoints(root, definition)
 	_build_checkpoints(root, definition)

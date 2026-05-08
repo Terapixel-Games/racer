@@ -138,6 +138,7 @@
 	"laps": 3,
 	"out_of_bounds_y": -36.0,
 	"progress_rule_id": "route_lap_progress",
+	"rails_enabled": false,
 	"rail_texture_path": "res://assets/gameplay/materials/metal/toy_metal_albedo.png",
 	"rail_texture_uv_scale": 0.5,
 	"reset_mode": "instant_pop",

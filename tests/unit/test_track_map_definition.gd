@@ -105,7 +105,7 @@ func test_grid_visuals_and_generated_collision_are_independent() -> void:
 		assert_true((collision_shape.shape as ConcavePolygonShape3D).backface_collision, "Grid race collision should be backface-collidable")
 	assert_equal(_enabled_collision_objects(track_node.get_node_or_null("GridRoad")), 0, "Grid road visuals should remain collision-free")
 	assert_true(_enabled_collision_objects(track_node.get_node_or_null("Road")) > 0, "Generated road slab should own gameplay collision")
-	assert_true(track_node.get_node_or_null("Rails") != null and _enabled_collision_objects(track_node.get_node_or_null("Rails")) > 0, "Grid race should generate collidable route rails")
+	assert_true(track_node.get_node_or_null("Rails") == null, "Kitchen should not generate route-offset rails when rails are disabled")
 	assert_true(track_node.get_node_or_null("Waypoints") != null, "Grid race should generate route waypoint nodes")
 	assert_true(track_node.get_node_or_null("CheckpointSystem") != null, "Grid race should generate checkpoint nodes")
 	assert_true(track_node.get_node_or_null("SpawnPoints") != null, "Grid race should generate spawn nodes")

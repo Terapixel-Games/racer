@@ -30,6 +30,7 @@ const TrackSourceRules = preload("res://scripts/track/TrackSourceRules.gd")
 @export var road_segment_material_style := "toy_plastic"
 @export var road_segment_layout: Array[Dictionary] = []
 @export var road_grid_layout: Dictionary = {}
+@export var rails_enabled := true
 @export var rail_texture_path := ""
 @export var rail_texture_uv_scale := 1.0
 @export var track_body_depth := 0.38
@@ -136,6 +137,7 @@ func to_metadata() -> Dictionary:
 		"road_segment_material_style": road_segment_material_style,
 		"road_segment_layout": _road_segment_layout_to_json(road_segment_layout),
 		"road_grid_layout": _road_grid_layout_to_json(road_grid_layout),
+		"rails_enabled": rails_enabled,
 		"rail_texture_path": rail_texture_path,
 		"rail_texture_uv_scale": rail_texture_uv_scale,
 		"sky_preset_id": sky_preset_id,

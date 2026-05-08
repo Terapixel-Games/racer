@@ -48,7 +48,10 @@ func test_all_tracks_build_gridmap_roads_with_generated_collision() -> void:
 		assert_true(track_node.get_node_or_null("ItemSockets") == null, "%s should not include item sockets in MVP" % track_id)
 		assert_true(track_node.get_node_or_null("HazardSockets") == null, "%s should not include hazard sockets in MVP" % track_id)
 		var rails := track_node.get_node_or_null("Rails")
-		assert_true(rails != null and _enabled_collision_objects(rails) > 0, "%s should include collidable route rails" % track_id)
+		if definition.rails_enabled:
+			assert_true(rails != null and _enabled_collision_objects(rails) > 0, "%s should include collidable route rails when rails are enabled" % track_id)
+		else:
+			assert_true(rails == null, "%s should not build route rails when rails are disabled" % track_id)
 		track_node.queue_free()
 
 func _authoring_scene_has_road_grid(definition) -> bool:
