@@ -6,6 +6,7 @@ const TrackSceneAuthoringData = preload("res://scripts/track/TrackSceneAuthoring
 const RaceController = preload("res://scripts/RaceController.gd")
 const OutOfBoundsRules = preload("res://scripts/logic/OutOfBoundsRules.gd")
 const StagePropAuthoring = preload("res://scripts/track/StagePropAuthoring.gd")
+const TrackProgressRules = preload("res://scripts/track/TrackProgressRules.gd")
 const OUTDOOR_GRASS_SHADER := "res://assets/gameplay/materials/grass/playground_grass.gdshader"
 const OUTDOOR_GRASS_BLADE_SHADER := "res://assets/gameplay/materials/grass/playground_grass_blades.gdshader"
 const OUTDOOR_PLAYGROUND_FLOOR_TEXTURE := "res://assets/gameplay/materials/playground/outdoor_playground_floor_albedo.png"
@@ -22,6 +23,7 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/GridRoad") != null, "Kitchen track should include Kenney Racing Kit grid road visuals")
 	assert_true(instance.get_node_or_null("BuiltTrack/GridRoad") is GridMap, "Kitchen visible road should be a runtime GridMap so Kenney tile materials and rotations are preserved")
 	assert_true(_grid_road_covers_route(instance.get_node_or_null("BuiltTrack/GridRoad") as GridMap, definition), "Kitchen GridRoad should have one visible tile for every route cell so textures stay aligned with rails")
+	assert_true(_grid_road_only_uses_route_cells(instance.get_node_or_null("BuiltTrack/GridRoad") as GridMap, definition), "Kitchen GridRoad should hide painted cells outside the resolved route so rails stay aligned")
 	assert_equal(definition.road_width, 16.0, "Kitchen route collision and rails should match the 16x16 GridMap road footprint")
 	assert_true(_grid_road_straight_tile_spans_cell(instance.get_node_or_null("BuiltTrack/GridRoad") as GridMap), "Kitchen GridRoad straight tiles should span the full cell width")
 	assert_true(_grid_road_corner_orientations_match_route(instance.get_node_or_null("BuiltTrack/GridRoad") as GridMap, definition), "Kitchen GridRoad corner tiles should rotate to connect the previous and next route cells")
@@ -353,9 +355,11 @@ func test_manual_return_uses_last_road_center_point() -> void:
 	var definition := TrackCatalog.get_definition("kitchen")
 	var off_course_position := definition.route_points[3] + Vector3(18.0, 0.0, 0.0)
 	var reset_transform := RaceController.centered_track_return_transform(definition.route_points, off_course_position, definition.closed_loop)
+	var projection := TrackProgressRules.project_position(definition.route_points, off_course_position, definition.closed_loop)
+	var closest_point := projection.get("closest_point", definition.route_points[3]) as Vector3
 	var distance := _distance_to_route_xz(reset_transform.origin, definition.route_points, definition.closed_loop)
 	assert_true(distance <= 0.01, "Manual return transform should land on the route centerline")
-	assert_true(absf(reset_transform.origin.y - (definition.route_points[3].y + 1.0)) < 0.2, "Manual return transform should preserve the road height plus kart clearance")
+	assert_true(absf(reset_transform.origin.y - (closest_point.y + 1.0)) < 0.2, "Manual return transform should preserve the projected road height plus kart clearance")
 
 func _distance_to_route_xz(point: Vector3, route_points: Array[Vector3], closed_loop: bool) -> float:
 	var best := INF
@@ -430,6 +434,19 @@ func _grid_road_covers_route(grid: GridMap, definition) -> bool:
 			return false
 	return true
 
+func _grid_road_only_uses_route_cells(grid: GridMap, definition) -> bool:
+	if grid == null or definition == null:
+		return false
+	var route_cells := {}
+	for value in (definition.road_grid_layout.get("ordered_route_cells", []) as Array):
+		route_cells[value as Vector3i] = true
+	if route_cells.is_empty():
+		return false
+	for cell in grid.get_used_cells():
+		if not route_cells.has(cell):
+			return false
+	return true
+
 func _grid_road_corner_orientations_match_route(grid: GridMap, definition) -> bool:
 	if grid == null or definition == null:
 		return false
@@ -437,10 +454,10 @@ func _grid_road_corner_orientations_match_route(grid: GridMap, definition) -> bo
 	if cells.size() < 4:
 		return false
 	var expected := {
-		Vector3i(1, 0, 0): {Vector3i(0, 0, 1): 22},
-		Vector3i(0, 0, 1): {Vector3i(-1, 0, 0): 10},
-		Vector3i(-1, 0, 0): {Vector3i(0, 0, -1): 16},
-		Vector3i(0, 0, -1): {Vector3i(1, 0, 0): 0},
+		Vector3i(1, 0, 0): {Vector3i(0, 0, 1): 22, Vector3i(0, 0, -1): 10},
+		Vector3i(0, 0, 1): {Vector3i(-1, 0, 0): 10, Vector3i(1, 0, 0): 16},
+		Vector3i(-1, 0, 0): {Vector3i(0, 0, -1): 16, Vector3i(0, 0, 1): 0},
+		Vector3i(0, 0, -1): {Vector3i(1, 0, 0): 0, Vector3i(-1, 0, 0): 22},
 	}
 	var corner_count := 0
 	for i in range(cells.size()):
@@ -449,7 +466,11 @@ func _grid_road_corner_orientations_match_route(grid: GridMap, definition) -> bo
 		var next := cells[(i + 1) % cells.size()] as Vector3i
 		var incoming := current - previous
 		var outgoing := next - current
+		incoming.y = 0
+		outgoing.y = 0
 		if incoming == outgoing:
+			continue
+		if incoming == Vector3i.ZERO or outgoing == Vector3i.ZERO:
 			continue
 		corner_count += 1
 		if not expected.has(incoming):
@@ -459,7 +480,7 @@ func _grid_road_corner_orientations_match_route(grid: GridMap, definition) -> bo
 			return false
 		if grid.get_cell_item_orientation(current) != int(outgoing_map[outgoing]):
 			return false
-	return corner_count == 4
+	return corner_count >= 4
 
 func _grid_road_straight_tile_spans_cell(grid: GridMap) -> bool:
 	if grid == null or grid.mesh_library == null:

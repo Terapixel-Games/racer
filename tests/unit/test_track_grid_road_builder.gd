@@ -74,6 +74,36 @@ func test_road_grid_map_exports_spawn_slots() -> void:
 	assert_equal(float((slots[0] as Dictionary).get("lateral_offset", 0.0)), -1.25, "Spawn slot export should preserve lateral offset")
 	grid.free()
 
+func test_road_grid_map_generates_route_metadata_from_painted_loop() -> void:
+	var grid := RoadGridMapAuthoring.new()
+	_paint_square_loop(grid)
+	var result := grid.regenerate_route_metadata_from_painted_track(4)
+	assert_true(bool(result.get("success", false)), "Painted simple loops should regenerate route metadata")
+	assert_equal(grid.ordered_route_cells.size(), 4, "Generated route should include every painted loop cell")
+	assert_equal(grid.checkpoint_route_indices, [0, 1, 2, 3], "Generated checkpoints should spread across the loop")
+	assert_true(_route_cells_are_continuous_loop(grid.ordered_route_cells), "Generated route order should be a continuous closed loop")
+	grid.free()
+
+func test_road_grid_map_generates_elevated_route_metadata_from_painted_loop() -> void:
+	var grid := RoadGridMapAuthoring.new()
+	_paint_square_loop(grid, 1)
+	var result := grid.regenerate_route_metadata_from_painted_track(3)
+	assert_true(bool(result.get("success", false)), "Painted loops may climb one GridMap floor between adjacent route cells")
+	assert_equal(grid.ordered_route_cells.size(), 4, "Elevated generated route should include every painted loop cell")
+	assert_equal(grid.checkpoint_route_indices, [0, 1, 2], "Generated elevated checkpoints should spread across the loop")
+	assert_true(grid.ordered_route_cells.has(Vector3i(1, 1, 0)), "Generated route should preserve painted Y floors")
+	grid.free()
+
+func test_road_grid_map_ignores_stray_painted_cells_when_generating_route() -> void:
+	var grid := RoadGridMapAuthoring.new()
+	_paint_square_loop(grid)
+	grid.set_cell_item(Vector3i(8, 0, 8), 0, 0)
+	var result := grid.regenerate_route_metadata_from_painted_track()
+	assert_true(bool(result.get("success", false)), "Route generation should use the largest closed loop and ignore disconnected paint")
+	assert_equal(grid.ordered_route_cells.size(), 4, "Generated route should not include stray painted cells")
+	assert_true(not grid.ordered_route_cells.has(Vector3i(8, 0, 8)), "Generated route should ignore stray painted cells")
+	grid.free()
+
 func test_grid_layout_uses_authored_spawn_slots() -> void:
 	var route: Array[Vector3] = [Vector3.ZERO, Vector3(10.0, 0.0, 0.0), Vector3(20.0, 0.0, 0.0)]
 	var layout := {"road_width": 12.0, "spawn_slots": _spawn_slot_layouts(8)}
@@ -131,6 +161,41 @@ func test_kenney_gridmap_mesh_library_exposes_elevation_tiles() -> void:
 		assert_true(library.get_item_mesh_transform(item_id).basis.x.length() >= 16.0, "%s should match the 16-wide road footprint" % item_name)
 		assert_true(library.get_item_mesh_transform(item_id).basis.y.length() > 1.0, "%s should scale visibly on Y for elevated road authoring" % item_name)
 
+func test_grid_collision_mesh_uses_ramp_tile_geometry() -> void:
+	var layout := {
+		"mesh_library_path": TrackGridRoadBuilder.DEFAULT_MESH_LIBRARY_PATH,
+		"cell_size": Vector3(16.0, 4.0, 16.0),
+		"cells": [
+			{
+				"cell": Vector3i.ZERO,
+				"item": 5,
+				"orientation": 0,
+				"position": Vector3.ZERO,
+			},
+		],
+	}
+	var mesh := TrackGridRoadBuilder.build_grid_collision_mesh(layout)
+	assert_true(mesh.get_surface_count() > 0, "Grid collision mesh should include painted tile geometry")
+	assert_true(mesh.get_aabb().size.y > 3.5, "Ramp collision should preserve the ramp height instead of flattening to the route ribbon")
+
+func test_grid_runtime_ignores_painted_cells_outside_route() -> void:
+	var layout := {
+		"mesh_library_path": TrackGridRoadBuilder.DEFAULT_MESH_LIBRARY_PATH,
+		"cell_size": Vector3(16.0, 4.0, 16.0),
+		"cells": [
+			{"cell": Vector3i(0, 0, 0), "item": 0, "orientation": 0},
+			{"cell": Vector3i(1, 0, 0), "item": 0, "orientation": 0},
+			{"cell": Vector3i(9, 0, 9), "item": 0, "orientation": 0},
+		],
+		"ordered_route_cells": [Vector3i(0, 0, 0), Vector3i(1, 0, 0)],
+	}
+	var grid := TrackGridRoadBuilder.build_grid_road(layout) as GridMap
+	assert_true(grid != null, "Grid runtime should build a GridMap when MeshLibrary data is available")
+	assert_true(grid.get_cell_item(Vector3i(0, 0, 0)) >= 0, "Runtime GridRoad should include route cells")
+	assert_true(grid.get_cell_item(Vector3i(1, 0, 0)) >= 0, "Runtime GridRoad should include route cells")
+	assert_equal(grid.get_cell_item(Vector3i(9, 0, 9)), -1, "Runtime GridRoad should hide painted cells outside the resolved route")
+	grid.queue_free()
+
 func _spawn_slot_layouts(count: int) -> Array[Dictionary]:
 	var slots: Array[Dictionary] = []
 	for i in range(count):
@@ -142,3 +207,20 @@ func _spawn_slot_layouts(count: int) -> Array[Dictionary]:
 			"yaw_offset_degrees": 10.0 if i % 2 == 0 else -5.0,
 		})
 	return slots
+
+func _paint_square_loop(grid: GridMap, raised_y := 0) -> void:
+	grid.set_cell_item(Vector3i(0, 0, 0), 1, 0)
+	grid.set_cell_item(Vector3i(1, raised_y, 0), 1, 22)
+	grid.set_cell_item(Vector3i(1, raised_y, 1), 1, 10)
+	grid.set_cell_item(Vector3i(0, 0, 1), 1, 16)
+
+func _route_cells_are_continuous_loop(cells: Array[Vector3i]) -> bool:
+	for i in range(cells.size()):
+		var current := cells[i]
+		var next := cells[(i + 1) % cells.size()]
+		var delta := next - current
+		if abs(delta.x) + abs(delta.z) != 1:
+			return false
+		if abs(delta.y) > 1:
+			return false
+	return true

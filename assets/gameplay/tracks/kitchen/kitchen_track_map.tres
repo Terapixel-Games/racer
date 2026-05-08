@@ -30,5 +30,5 @@ sky_cloud_amount = 0.16
 sky_cloud_speed = 0.014
 sky_haze_amount = 0.1
 sky_light_energy = 2.45
-ground_size = Vector2(292, 190)
+ground_size = Vector2(560, 400)
 ground_texture_path = "res://assets/gameplay/materials/tile/kitchen_tile_albedo.png"

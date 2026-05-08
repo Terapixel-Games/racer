@@ -1,4 +1,4 @@
-[gd_resource type="MeshLibrary" load_steps=45 format=4]
+[gd_resource type="MeshLibrary" load_steps=45 format=4 uid="uid://bwycpki47anwh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ywid"]
 resource_name = "grass"

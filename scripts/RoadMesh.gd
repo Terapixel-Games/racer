@@ -20,6 +20,7 @@ const ROAD_COLLISION_LAYER_SPACING := 0.16
 @export var shoulder_width: float = 0.3
 @export var force_close: bool = true
 @export var wall_side_multiplier: float = 1.0 # 1 = outward along frame right, -1 = flip sides
+@export var collision_mesh_override: Mesh
 
 var _last_sig := ""
 
@@ -149,7 +150,8 @@ func _update_collision(mesh: Mesh) -> void:
 	var shape_node := body.get_node_or_null("CollisionShape3D") as CollisionShape3D
 	if shape_node == null:
 		return
-	var collision_mesh := build_layered_collision_mesh(mesh, ROAD_COLLISION_BACKUP_LAYERS, ROAD_COLLISION_LAYER_SPACING)
+	var collision_source := collision_mesh_override if collision_mesh_override != null else mesh
+	var collision_mesh := build_layered_collision_mesh(collision_source, ROAD_COLLISION_BACKUP_LAYERS, ROAD_COLLISION_LAYER_SPACING)
 	var shape := collision_mesh.create_trimesh_shape()
 	if shape:
 		if shape is ConcavePolygonShape3D:

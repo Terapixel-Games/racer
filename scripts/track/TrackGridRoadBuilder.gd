@@ -131,10 +131,13 @@ static func build_grid_road(layout: Dictionary, profile: RoadSegmentProfile = nu
 	holder.name = "GridRoad"
 	holder.set_meta("road_visual_style", "kenney_gridmap")
 	var material := resolved_profile.road_material() if profile != null else null
+	var route_cells := _route_cell_set(layout)
 	for cell_data in layout.get("cells", []):
 		if not (cell_data is Dictionary):
 			continue
 		var cell := _vector3i_from_value((cell_data as Dictionary).get("cell", Vector3i.ZERO))
+		if not route_cells.is_empty() and not route_cells.has(cell):
+			continue
 		var item := int((cell_data as Dictionary).get("item", TILE_STRAIGHT))
 		var segment_id := _segment_id_for_item(item)
 		var scene := load(resolved_profile.segment_path(segment_id)) as PackedScene
@@ -157,6 +160,40 @@ static func build_grid_road(layout: Dictionary, profile: RoadSegmentProfile = nu
 		_disable_gameplay_collision(node)
 		holder.add_child(node)
 	return holder
+
+static func build_grid_collision_mesh(layout: Dictionary) -> ArrayMesh:
+	var path := str(layout.get("mesh_library_path", ""))
+	if path.is_empty():
+		path = DEFAULT_MESH_LIBRARY_PATH
+	var library := load(path) as MeshLibrary
+	if library == null:
+		return ArrayMesh.new()
+	var vertices := PackedVector3Array()
+	var indices := PackedInt32Array()
+	var route_cells := _route_cell_set(layout)
+	for cell_data in layout.get("cells", []):
+		if not (cell_data is Dictionary):
+			continue
+		var fallback_cell := _vector3i_from_value((cell_data as Dictionary).get("cell", Vector3i.ZERO))
+		if not route_cells.is_empty() and not route_cells.has(fallback_cell):
+			continue
+		var item := int((cell_data as Dictionary).get("item", TILE_STRAIGHT))
+		var mesh := library.get_item_mesh(item)
+		if mesh == null:
+			continue
+		var item_transform := library.get_item_mesh_transform(item)
+		var orientation_basis := _orientation_basis(cell_data as Dictionary)
+		var position := _vector3_from_value((cell_data as Dictionary).get("position", _cell_center(layout, fallback_cell)), _cell_center(layout, fallback_cell))
+		_append_transformed_mesh(vertices, indices, mesh, Transform3D(orientation_basis, position) * item_transform)
+	var collision_mesh := ArrayMesh.new()
+	if vertices.is_empty() or indices.is_empty():
+		return collision_mesh
+	var arrays: Array = []
+	arrays.resize(Mesh.ARRAY_MAX)
+	arrays[Mesh.ARRAY_VERTEX] = vertices
+	arrays[Mesh.ARRAY_INDEX] = indices
+	collision_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+	return collision_mesh
 
 static func _can_build_grid_map_node(layout: Dictionary) -> bool:
 	var path := str(layout.get("mesh_library_path", ""))
@@ -189,14 +226,24 @@ static func _build_grid_map_node(layout: Dictionary) -> GridMap:
 	)
 	grid.collision_layer = 0
 	grid.collision_mask = 0
+	var route_cells := _route_cell_set(layout)
 	for cell_data in layout.get("cells", []):
 		if not (cell_data is Dictionary):
 			continue
 		var cell := _vector3i_from_value((cell_data as Dictionary).get("cell", Vector3i.ZERO))
+		if not route_cells.is_empty() and not route_cells.has(cell):
+			continue
 		var item := int((cell_data as Dictionary).get("item", TILE_STRAIGHT))
 		var orientation := int((cell_data as Dictionary).get("orientation", 0))
 		grid.set_cell_item(cell, item, orientation)
 	return grid
+
+static func _route_cell_set(layout: Dictionary) -> Dictionary:
+	var route_cells := _vector3i_array_from_value(layout.get("ordered_route_cells", []))
+	var out := {}
+	for cell in route_cells:
+		out[cell] = true
+	return out
 
 static func _cell_center(layout: Dictionary, cell: Vector3i) -> Vector3:
 	var origin := _vector3_from_value(layout.get("origin", Vector3.ZERO), Vector3.ZERO)
@@ -300,6 +347,23 @@ static func _combined_bounds(node: Node) -> AABB:
 			else:
 				out = out.expand(point)
 	return out
+
+static func _append_transformed_mesh(vertices: PackedVector3Array, indices: PackedInt32Array, mesh: Mesh, transform: Transform3D) -> void:
+	for surface_index in range(mesh.get_surface_count()):
+		var arrays := mesh.surface_get_arrays(surface_index)
+		var source_vertices := arrays[Mesh.ARRAY_VERTEX] as PackedVector3Array
+		if source_vertices.is_empty():
+			continue
+		var source_indices := arrays[Mesh.ARRAY_INDEX] as PackedInt32Array
+		var base := vertices.size()
+		for vertex in source_vertices:
+			vertices.append(transform * vertex)
+		if source_indices.is_empty():
+			for index in range(source_vertices.size()):
+				indices.append(base + index)
+		else:
+			for index in source_indices:
+				indices.append(base + index)
 
 static func _vector3i_array_from_value(value: Variant) -> Array[Vector3i]:
 	var out: Array[Vector3i] = []

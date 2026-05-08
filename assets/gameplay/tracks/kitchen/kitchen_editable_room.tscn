@@ -18,7 +18,7 @@
 [ext_resource type="Shader" uid="uid://ld6h4swupn0a" path="res://assets/shaders/toon_water.gdshader" id="17_water_shader"]
 [ext_resource type="Script" uid="uid://bwyyudn3ij34b" path="res://scripts/effects/ApplianceRumbler.gd" id="18_rumbler"]
 [ext_resource type="Script" uid="uid://6kdfep63chkc" path="res://scripts/track/RoadGridSpawn.gd" id="20_eq2kr"]
-[ext_resource type="MeshLibrary" uid="uid://cij7p2ixjkcke" path="res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres" id="20_msb3l"]
+[ext_resource type="MeshLibrary" uid="uid://bwycpki47anwh" path="res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres" id="20_msb3l"]
 [ext_resource type="Script" uid="uid://ciqqj1srodgqx" path="res://scripts/track/RoadGridMapAuthoring.gd" id="21_uxd1m"]
 
 [sub_resource type="StandardMaterial3D" id="Material_floor"]
@@ -63,41 +63,49 @@ size = Vector2(1, 1)
 
 [sub_resource type="Resource" id="Resource_eq2kr"]
 script = ExtResource("20_eq2kr")
+route_index = 111
 lateral_offset = -2.75
 forward_offset = 6.0
 
 [sub_resource type="Resource" id="Resource_msb3l"]
 script = ExtResource("20_eq2kr")
+route_index = 111
 lateral_offset = 2.75
 forward_offset = 6.0
 
 [sub_resource type="Resource" id="Resource_uxd1m"]
 script = ExtResource("20_eq2kr")
+route_index = 111
 lateral_offset = -2.75
 forward_offset = 12.0
 
 [sub_resource type="Resource" id="Resource_gfrtf"]
 script = ExtResource("20_eq2kr")
+route_index = 111
 lateral_offset = 2.75
 forward_offset = 12.0
 
 [sub_resource type="Resource" id="Resource_ewdsa"]
 script = ExtResource("20_eq2kr")
+route_index = 111
 lateral_offset = -2.75
 forward_offset = 18.0
 
 [sub_resource type="Resource" id="Resource_f7h7q"]
 script = ExtResource("20_eq2kr")
+route_index = 111
 lateral_offset = 2.75
 forward_offset = 18.0
 
 [sub_resource type="Resource" id="Resource_2b0ha"]
 script = ExtResource("20_eq2kr")
+route_index = 111
 lateral_offset = -2.75
 forward_offset = 24.0
 
 [sub_resource type="Resource" id="Resource_jqroe"]
 script = ExtResource("20_eq2kr")
+route_index = 111
 lateral_offset = 2.75
 forward_offset = 24.0
 
@@ -215,7 +223,7 @@ mesh = SubResource("BoxMesh_unit")
 [node name="CounterRuns" type="Node3D" parent="Track"]
 
 [node name="table" parent="Track/CounterRuns" instance=ExtResource("9_table")]
-transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, 7.3503494, -9.231991, -19.905777)
+transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, 25.68207, -9.231991, -19.905777)
 
 [node name="Appliances" type="Node3D" parent="Track"]
 
@@ -299,7 +307,7 @@ transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 98.32847, 23.5, -88.24518)
 transform = Transform3D(-3.0598e-07, 0, 7, 0, 7, 0, -7, 0, -3.0598e-07, -116, 2.1, 82)
 
 [node name="IslandPlanter" parent="Track/HandPlacedProps" instance=ExtResource("10_plant")]
-transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 26, 7.33173, -52)
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 150, 7.33173, -52)
 
 [node name="Lighting" type="Node3D" parent="Track"]
 
@@ -424,10 +432,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 27.775, 0)
 mesh_library = ExtResource("20_msb3l")
 cell_size = Vector3(16, 4, 16)
 data = {
-"cells": PackedInt32Array(65532, 65533, 1, 65533, 65533, 1048576, 65534, 65533, 1048576, 65535, 65533, 1048576, 0, 65533, 1048576, 1, 65533, 1048576, 2, 65533, 1048576, 3, 65533, 1048576, 4, 65533, 1441793, 4, 65534, 0, 4, 65535, 0, 4, 0, 0, 4, 1, 0, 4, 2, 0, 4, 3, 655361, 3, 3, 1441792, 2, 3, 1441792, 1, 3, 1441792, 0, 3, 1441792, 65535, 3, 1441792, 65534, 3, 1441792, 65533, 3, 1441792, 65532, 3, 1048577, 65532, 2, 655360, 65532, 1, 655360, 65532, 0, 655360, 65532, 65535, 655360, 65532, 65534, 655360, 65520, 65534, 655361, 65520, 65531, 1441793, 65519, 65534, 1, 65519, 65531, 1048577, 65520, 65532, 0, 65520, 65533, 0, 65519, 65535, 0, 65519, 0, 0, 65519, 1, 0, 65519, 2, 0, 65519, 3, 0, 65519, 65530, 0, 65519, 65529, 0, 65519, 65528, 0, 65519, 65527, 0, 65519, 65526, 0, 65519, 65525, 1, 65520, 65525, 1441792, 65521, 65525, 1441792, 65522, 65525, 1441792, 65523, 65525, 1441792, 65524, 65525, 1441792, 65525, 65525, 1441792, 65526, 65525, 1441792, 65527, 65525, 1441792, 65528, 65525, 1441792, 65529, 65525, 1441792, 65530, 65525, 1441792, 65531, 65525, 1441792, 65532, 65525, 1441792, 65533, 65525, 1441792, 65534, 65525, 1441792, 65521, 9, 1441792, 65522, 9, 1441792, 65523, 9, 1441792, 65524, 9, 1441792, 65520, 8, 655360, 65520, 9, 1048577, 65519, 4, 1048577, 65520, 4, 1441793, 65520, 7, 655360, 65520, 6, 655360, 65520, 5, 655360)
+"cells": PackedInt32Array(65520, 65534, 655361, 65520, 65531, 1441793, 65519, 65534, 1, 65519, 65531, 1048577, 65520, 65532, 0, 65520, 65533, 0, 65519, 65535, 0, 65519, 0, 0, 65519, 1, 0, 65519, 2, 0, 65519, 3, 0, 65519, 65530, 0, 65519, 65529, 0, 65519, 65528, 0, 65519, 65527, 0, 65519, 65526, 0, 65519, 65525, 1, 65520, 65525, 1441792, 65521, 65525, 1441792, 65522, 65525, 1441792, 65523, 65525, 1441792, 65524, 65525, 1441792, 65525, 65525, 1441792, 65526, 65525, 1441792, 65527, 65525, 1441792, 65528, 65525, 1441794, 65529, 65525, 1441792, 65530, 65525, 1441792, 65531, 65525, 1441792, 65532, 65525, 1441792, 65533, 65525, 1441792, 65521, 9, 1441792, 65522, 9, 1441792, 65523, 9, 1441792, 65524, 9, 1441792, 65520, 8, 655360, 65520, 9, 1048577, 65519, 4, 1048577, 65520, 4, 1441793, 65520, 7, 655360, 65520, 6, 655360, 65520, 5, 655360, 65517, 11, 1441792, 262136, 8, 1, 262137, 8, 1441792, 262138, 8, 1441792, 262139, 8, 1441792, 262140, 8, 1441792, 196600, 9, 5, 131064, 10, 5, 131064, 11, 655361, 131063, 11, 1048577, 65527, 10, 655365, 65527, 9, 1441793, 65526, 9, 1441792, 65525, 9, 1441792, 262141, 8, 1441793, 196605, 9, 5, 131069, 10, 5, 131069, 11, 1048577, 131070, 11, 655361, 65534, 10, 655365, 65534, 9, 1, 2, 8, 1, 2, 9, 655361, 5, 8, 1441793, 5, 9, 1048577, 4, 8, 1048576, 3, 8, 1048576, 1, 9, 1048576, 0, 9, 1048576, 65535, 9, 1048576, 6, 9, 1048576, 7, 9, 1048576, 8, 9, 1048576, 9, 9, 1048576, 10, 9, 1048576, 11, 9, 1048576, 12, 9, 1048576, 13, 9, 1048576, 14, 9, 1048576, 16, 8, 0, 16, 7, 0, 16, 6, 0, 16, 5, 0, 16, 4, 0, 15, 9, 1441792, 16, 9, 655361, 16, 3, 655360, 16, 2, 655360, 16, 1, 655360, 16, 0, 655360, 16, 65535, 655360, 16, 65534, 655360, 16, 65533, 655360, 16, 65532, 655360, 16, 65531, 655360, 16, 65530, 655360, 16, 65529, 655360, 16, 65528, 655360, 16, 65527, 1441793, -786424, 65527, 1441797, -720887, 65527, 1441797, -655350, 65527, 1441797, -589813, 65527, 1441797, -524276, 65527, 1441797, -458739, 65527, 1441797, -393202, 65527, 1441793, -393202, 65528, 655361, -393203, 65528, 1048581, -327668, 65528, 1048581, -65521, 65527, 1441797, -131058, 65527, 1441797, -196595, 65527, 1441797, -262132, 65527, 1441797, -262133, 65528, 1048577, -262133, 65527, 1, -786425, 65527, 1, -786425, 65528, 0, -786425, 65529, 0, -786425, 65530, 0, -786425, 65531, 0, -786425, 65532, 0, -786425, 65533, 0, -786425, 65534, 0, -786425, 65535, 0, -786425, 0, 0, -786425, 1, 0, -786425, 2, 0, -786425, 3, 0, -786425, 4, 0, -786425, 5, 0, -786425, 6, 655361, -786426, 6, 1, -786426, 7, 655361, -786427, 7, 1, -786427, 8, 655361, -786429, 8, 1048577, -786429, 7, 1441793, -786430, 7, 1048577, -786430, 6, 1441793, -786431, 6, 1048577, -786431, 5, 0, -786431, 4, 0, -786431, 3, 0, -786431, 2, 0, -786431, 1, 0, -786431, 0, 0, -786431, 65535, 1441793, -655359, 65534, 1441793, -786432, 65535, 1048581, -655361, 65535, 1048577, -655361, 65534, 1, -720896, 65534, 1441797, -524286, 0, 5, -655359, 65535, 655365, -589823, 0, 655365, -524287, 1, 1048577, -524286, 1, 655361, -458750, 65535, 5, -393214, 65534, 1441793, -393215, 65534, 1048581, -327680, 65534, 1, -327680, 65535, 655365, -262144, 0, 1048577, -262143, 0, 1441797, -196606, 0, 655361, -196606, 65535, 655360, -196606, 65534, 655360, -196606, 65533, 655360, -196606, 65532, 655360, -196606, 65531, 655360, -196606, 65530, 655360, -196606, 65529, 655360, -196606, 65528, 655360, -196606, 65527, 655360, -196606, 65526, 655360, -196606, 65525, 1441793, -2, 65525, 1048581, -1, 65525, 1048576, -131072, 65525, 1048581, -196607, 65525, 1048581, -786428, 8, 1441792)
 }
 script = ExtResource("21_uxd1m")
-ordered_route_cells = Array[Vector3i]([Vector3i(-4, 0, -3), Vector3i(-3, 0, -3), Vector3i(-2, 0, -3), Vector3i(-1, 0, -3), Vector3i(0, 0, -3), Vector3i(1, 0, -3), Vector3i(2, 0, -3), Vector3i(3, 0, -3), Vector3i(4, 0, -3), Vector3i(4, 0, -2), Vector3i(4, 0, -1), Vector3i(4, 0, 0), Vector3i(4, 0, 1), Vector3i(4, 0, 2), Vector3i(4, 0, 3), Vector3i(3, 0, 3), Vector3i(2, 0, 3), Vector3i(1, 0, 3), Vector3i(0, 0, 3), Vector3i(-1, 0, 3), Vector3i(-2, 0, 3), Vector3i(-3, 0, 3), Vector3i(-4, 0, 3), Vector3i(-4, 0, 2), Vector3i(-4, 0, 1), Vector3i(-4, 0, 0), Vector3i(-4, 0, -1), Vector3i(-4, 0, -2)])
-checkpoint_route_indices = Array[int]([0, 5, 10, 14, 19, 24])
+ordered_route_cells = Array[Vector3i]([Vector3i(7, -12, -9), Vector3i(8, -12, -9), Vector3i(9, -11, -9), Vector3i(10, -10, -9), Vector3i(11, -9, -9), Vector3i(12, -8, -9), Vector3i(13, -7, -9), Vector3i(14, -6, -9), Vector3i(14, -6, -8), Vector3i(13, -6, -8), Vector3i(12, -5, -8), Vector3i(11, -4, -8), Vector3i(11, -4, -9), Vector3i(12, -4, -9), Vector3i(13, -3, -9), Vector3i(14, -2, -9), Vector3i(15, -1, -9), Vector3i(16, 0, -9), Vector3i(16, 0, -8), Vector3i(16, 0, -7), Vector3i(16, 0, -6), Vector3i(16, 0, -5), Vector3i(16, 0, -4), Vector3i(16, 0, -3), Vector3i(16, 0, -2), Vector3i(16, 0, -1), Vector3i(16, 0, 0), Vector3i(16, 0, 1), Vector3i(16, 0, 2), Vector3i(16, 0, 3), Vector3i(16, 0, 4), Vector3i(16, 0, 5), Vector3i(16, 0, 6), Vector3i(16, 0, 7), Vector3i(16, 0, 8), Vector3i(16, 0, 9), Vector3i(15, 0, 9), Vector3i(14, 0, 9), Vector3i(13, 0, 9), Vector3i(12, 0, 9), Vector3i(11, 0, 9), Vector3i(10, 0, 9), Vector3i(9, 0, 9), Vector3i(8, 0, 9), Vector3i(7, 0, 9), Vector3i(6, 0, 9), Vector3i(5, 0, 9), Vector3i(5, 0, 8), Vector3i(4, 0, 8), Vector3i(3, 0, 8), Vector3i(2, 0, 8), Vector3i(2, 0, 9), Vector3i(1, 0, 9), Vector3i(0, 0, 9), Vector3i(-1, 0, 9), Vector3i(-2, 0, 9), Vector3i(-2, 0, 10), Vector3i(-2, 1, 11), Vector3i(-3, 1, 11), Vector3i(-3, 1, 10), Vector3i(-3, 2, 9), Vector3i(-3, 3, 8), Vector3i(-4, 3, 8), Vector3i(-5, 3, 8), Vector3i(-6, 3, 8), Vector3i(-7, 3, 8), Vector3i(-8, 3, 8), Vector3i(-8, 2, 9), Vector3i(-8, 1, 10), Vector3i(-8, 1, 11), Vector3i(-9, 1, 11), Vector3i(-9, 0, 10), Vector3i(-9, 0, 9), Vector3i(-10, 0, 9), Vector3i(-11, 0, 9), Vector3i(-12, 0, 9), Vector3i(-13, 0, 9), Vector3i(-14, 0, 9), Vector3i(-15, 0, 9), Vector3i(-16, 0, 9), Vector3i(-16, 0, 8), Vector3i(-16, 0, 7), Vector3i(-16, 0, 6), Vector3i(-16, 0, 5), Vector3i(-16, 0, 4), Vector3i(-17, 0, 4), Vector3i(-17, 0, 3), Vector3i(-17, 0, 2), Vector3i(-17, 0, 1), Vector3i(-17, 0, 0), Vector3i(-17, 0, -1), Vector3i(-17, 0, -2), Vector3i(-16, 0, -2), Vector3i(-16, 0, -3), Vector3i(-16, 0, -4), Vector3i(-16, 0, -5), Vector3i(-17, 0, -5), Vector3i(-17, 0, -6), Vector3i(-17, 0, -7), Vector3i(-17, 0, -8), Vector3i(-17, 0, -9), Vector3i(-17, 0, -10), Vector3i(-17, 0, -11), Vector3i(-16, 0, -11), Vector3i(-15, 0, -11), Vector3i(-14, 0, -11), Vector3i(-13, 0, -11), Vector3i(-12, 0, -11), Vector3i(-11, 0, -11), Vector3i(-10, 0, -11), Vector3i(-9, 0, -11), Vector3i(-8, 0, -11), Vector3i(-7, 0, -11), Vector3i(-6, 0, -11), Vector3i(-5, 0, -11), Vector3i(-4, 0, -11), Vector3i(-3, 0, -11), Vector3i(-2, -1, -11), Vector3i(-1, -1, -11), Vector3i(0, -2, -11), Vector3i(1, -3, -11), Vector3i(2, -3, -11), Vector3i(2, -3, -10), Vector3i(2, -3, -9), Vector3i(2, -3, -8), Vector3i(2, -3, -7), Vector3i(2, -3, -6), Vector3i(2, -3, -5), Vector3i(2, -3, -4), Vector3i(2, -3, -3), Vector3i(2, -3, -2), Vector3i(2, -3, -1), Vector3i(2, -3, 0), Vector3i(1, -4, 0), Vector3i(0, -4, 0), Vector3i(0, -5, -1), Vector3i(0, -5, -2), Vector3i(1, -6, -2), Vector3i(2, -6, -2), Vector3i(2, -7, -1), Vector3i(2, -8, 0), Vector3i(2, -8, 1), Vector3i(1, -8, 1), Vector3i(1, -9, 0), Vector3i(1, -10, -1), Vector3i(1, -10, -2), Vector3i(0, -11, -2), Vector3i(-1, -11, -2), Vector3i(-1, -11, -1), Vector3i(0, -12, -1), Vector3i(1, -12, -1), Vector3i(1, -12, 0), Vector3i(1, -12, 1), Vector3i(1, -12, 2), Vector3i(1, -12, 3), Vector3i(1, -12, 4), Vector3i(1, -12, 5), Vector3i(1, -12, 6), Vector3i(2, -12, 6), Vector3i(2, -12, 7), Vector3i(3, -12, 7), Vector3i(3, -12, 8), Vector3i(4, -12, 8), Vector3i(5, -12, 8), Vector3i(5, -12, 7), Vector3i(6, -12, 7), Vector3i(6, -12, 6), Vector3i(7, -12, 6), Vector3i(7, -12, 5), Vector3i(7, -12, 4), Vector3i(7, -12, 3), Vector3i(7, -12, 2), Vector3i(7, -12, 1), Vector3i(7, -12, 0), Vector3i(7, -12, -1), Vector3i(7, -12, -2), Vector3i(7, -12, -3), Vector3i(7, -12, -4), Vector3i(7, -12, -5), Vector3i(7, -12, -6), Vector3i(7, -12, -7), Vector3i(7, -12, -8)])
+checkpoint_route_indices = Array[int]([0, 30, 60, 91, 121, 151])
 spawn_slots = Array[ExtResource("20_eq2kr")]([SubResource("Resource_eq2kr"), SubResource("Resource_msb3l"), SubResource("Resource_uxd1m"), SubResource("Resource_gfrtf"), SubResource("Resource_ewdsa"), SubResource("Resource_f7h7q"), SubResource("Resource_2b0ha"), SubResource("Resource_jqroe")])
 road_width_override = 16.0
+metadata/_editor_floor_ = Vector3(0, -12, 0)
