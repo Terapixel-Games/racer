@@ -23,6 +23,7 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/GridRoad") is GridMap, "Kitchen visible road should be a runtime GridMap so Kenney tile materials and rotations are preserved")
 	assert_true(_grid_road_covers_route(instance.get_node_or_null("BuiltTrack/GridRoad") as GridMap, definition), "Kitchen GridRoad should have one visible tile for every route cell so textures stay aligned with rails")
 	assert_true(_grid_road_corner_orientations_match_route(instance.get_node_or_null("BuiltTrack/GridRoad") as GridMap, definition), "Kitchen GridRoad corner tiles should rotate to connect the previous and next route cells")
+	assert_true(_grid_road_corner_tile_width_matches_straight(instance.get_node_or_null("BuiltTrack/GridRoad") as GridMap), "Kitchen GridRoad corner tiles should use the same visual footprint as straight tiles")
 	assert_equal(_node_count_by_type(built_track, "WorldEnvironment"), 1, "Kitchen runtime should build exactly one WorldEnvironment")
 	var world_environment := instance.get_node_or_null("BuiltTrack/WorldEnvironment") as WorldEnvironment
 	assert_true(world_environment != null, "Kitchen track should include a world environment")
@@ -432,6 +433,16 @@ func _grid_road_corner_orientations_match_route(grid: GridMap, definition) -> bo
 		if grid.get_cell_item_orientation(current) != int(outgoing_map[outgoing]):
 			return false
 	return corner_count == 4
+
+func _grid_road_corner_tile_width_matches_straight(grid: GridMap) -> bool:
+	if grid == null or grid.mesh_library == null:
+		return false
+	var straight := grid.mesh_library.get_item_mesh_transform(0)
+	var corner := grid.mesh_library.get_item_mesh_transform(1)
+	var straight_width := straight.basis.x.length()
+	var corner_width := corner.basis.x.length()
+	var corner_depth := corner.basis.z.length()
+	return absf(corner_width - straight_width) <= 0.01 and absf(corner_depth - straight_width) <= 0.01
 
 func _authored_kitchen_position(path: NodePath) -> Vector3:
 	var packed := load("res://assets/gameplay/tracks/kitchen/kitchen_editable_room.tscn")
