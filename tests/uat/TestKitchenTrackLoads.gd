@@ -68,7 +68,7 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/KitchenCeiling") == null, "Kitchen runtime should not add old hardcoded ceiling geometry over authored room scale")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/FridgeLandmark") == null, "Kitchen runtime should not duplicate old hardcoded fridge geometry over authored room scale")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom") != null, "Kitchen track should include the directly editable room scene")
-	assert_true(_node_scale(instance, "BuiltTrack/Dressing/EditableRoom/Track").is_equal_approx(Vector3(1.5, 1.5, 1.5)), "Kitchen dressing should be scaled around the fixed 16-wide toy track")
+	assert_true(_node_scale(instance, "BuiltTrack/Dressing/EditableRoom/Track").is_equal_approx(Vector3(2.0, 2.0, 2.0)), "Kitchen dressing should be scaled around the fixed 16-wide toy track")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoadGridMap") != null, "Editable room scene should expose the authored RoadGridMap")
 	var road_grid_map := instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoadGridMap")
 	assert_true(road_grid_map is Node3D and not (road_grid_map as Node3D).visible, "Runtime dressing should hide the authoring RoadGridMap so only generated GridRoad is visible")
