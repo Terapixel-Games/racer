@@ -15,7 +15,8 @@ const RailScene = preload("res://assets/source/kenney/racing_kit/rail.glb")
 
 const RAIL_SIDE_SCALE := 8.0
 const RAIL_SEGMENT_LENGTH := 10.0
-const RAIL_EDGE_OFFSET := -1.31
+const KENNEY_ROAD_SIDE_EDGE_OFFSET := 6.69
+const RAIL_EDGE_OFFSET := KENNEY_ROAD_SIDE_EDGE_OFFSET - 8.0
 const RAIL_SEGMENT_GAP := 0.08
 const RAIL_Y_OFFSET := 0.12
 const RAIL_VISUAL_CENTER := Vector3(0.15, 0.07, -0.625)
@@ -347,7 +348,7 @@ static func _build_route_rails(
 	parent.add_child(holder)
 	var rail_material := _rail_material(rail_texture_path, rail_texture_uv_scale)
 	var edge_offset := road_width * 0.5 + RAIL_EDGE_OFFSET
-	var rail_route := _smoothed_rail_route_points(route_points, closed_loop, road_width * RAIL_CURVE_RADIUS_SCALE, RAIL_CURVE_SAMPLES)
+	var rail_route := _smoothed_rail_route_points(route_points, closed_loop, _rail_curve_radius(road_width), RAIL_CURVE_SAMPLES)
 	var edges := _road_edge_points(rail_route, edge_offset, closed_loop)
 	_add_rail_polyline_pieces(holder, edges.get("left", []), closed_loop, "L", rail_material, route_network, join_gaps, route_key)
 	_add_rail_polyline_pieces(holder, edges.get("right", []), closed_loop, "R", rail_material, route_network, join_gaps, route_key)
@@ -363,6 +364,9 @@ static func _rail_material(rail_texture_path: String, rail_texture_uv_scale: flo
 		if texture is Texture2D:
 			material.albedo_texture = texture
 	return material
+
+static func _rail_curve_radius(road_width: float) -> float:
+	return minf(road_width * RAIL_CURVE_RADIUS_SCALE, KENNEY_ROAD_SIDE_EDGE_OFFSET)
 
 static func _smoothed_rail_route_points(route_points: Array[Vector3], closed_loop: bool, radius: float, samples: int) -> Array[Vector3]:
 	if route_points.size() < 3 or radius <= 0.0 or samples <= 0:
