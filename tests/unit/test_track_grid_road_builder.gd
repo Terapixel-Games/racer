@@ -312,6 +312,7 @@ func test_grid_boundary_walls_follow_ramp_elevation() -> void:
 	var walls := TrackGridRoadBuilder.boundary_wall_segments_from_grid_layout(layout, 1.6, 0.45)
 	assert_true(_has_sloped_wall(walls), "Ramp boundary walls should preserve endpoint elevation instead of flattening")
 	assert_true(_walls_stay_near_ramp_height(walls, 10.0, 15.6), "Ramp walls should stay vertically local to the ramp surface")
+	assert_true(_all_walls_offset_outside_cell(walls, Rect2(0.0, 0.0, 16.0, 16.0)), "Ramp boundary wall thickness should sit outside the drivable cell, not on top of the track")
 
 func test_grid_runtime_ignores_painted_cells_outside_route() -> void:
 	var layout := {
@@ -408,6 +409,23 @@ func _walls_stay_near_ramp_height(walls: Array[Dictionary], min_y: float, max_y:
 		if position.y - absf(half_y.y) < min_y - 0.1:
 			return false
 		if position.y + absf(half_y.y) > max_y + 0.1:
+			return false
+	return true
+
+func _all_walls_offset_outside_cell(walls: Array[Dictionary], cell_rect: Rect2) -> bool:
+	for wall in walls:
+		var position: Vector3 = wall.get("position", Vector3.ZERO) as Vector3
+		var basis: Basis = wall.get("basis", Basis.IDENTITY) as Basis
+		var size: Vector3 = wall.get("size", Vector3.ZERO) as Vector3
+		var lateral_offset: Vector3 = basis.z.normalized() * (size.z * 0.5)
+		var edge_center: Vector3 = position - lateral_offset
+		if absf(edge_center.x - cell_rect.position.x) <= 0.1 and position.x > edge_center.x:
+			return false
+		if absf(edge_center.x - cell_rect.end.x) <= 0.1 and position.x < edge_center.x:
+			return false
+		if absf(edge_center.z - cell_rect.position.y) <= 0.1 and position.z > edge_center.z:
+			return false
+		if absf(edge_center.z - cell_rect.end.y) <= 0.1 and position.z < edge_center.z:
 			return false
 	return true
 

@@ -347,7 +347,7 @@ static func _boundary_wall_segment(a: Vector3, b: Vector3, outward: Vector3, wal
 	var y_axis := z_axis.cross(x_axis).normalized()
 	if y_axis.dot(Vector3.UP) < 0.0:
 		y_axis = -y_axis
-		z_axis = -z_axis
+		x_axis = -x_axis
 	var height := wall_height
 	var thickness := maxf(wall_thickness, 0.05)
 	var basis := Basis(x_axis, y_axis, z_axis)
