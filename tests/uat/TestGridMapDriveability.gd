@@ -80,6 +80,20 @@ func test_gridmap_player_kart_cannot_jump_off_ramp_edges() -> void:
 				assert_true(bool(result.get("above_bounds", false)), "%s route index %d side %.0f should not rely on below-world rescue after ramp launch.%s" % [track_id, int((ramp_case as Dictionary).get("route_index", -1)), side, detail])
 		_teardown_fixture(fixture)
 
+func test_gridmap_player_kart_stays_supported_through_ramp_sequences() -> void:
+	for track_id in _gridmap_track_ids_under_test():
+		var fixture := _build_track_runtime(track_id)
+		var definition = fixture["definition"]
+		var route_points: Array[Vector3] = definition.route_points
+		var cases := _ramp_launch_cases(definition, RAMP_LAUNCH_CASE_LIMIT)
+		assert_true(cases.size() > 0, "%s should expose ramp/elevation route cases for support coverage" % track_id)
+		for ramp_case in cases:
+			var result := _drive_ramp_sequence_case(fixture, ramp_case as Dictionary, route_points)
+			var detail := " final=%s min_y=%.2f expected=%.2f dist=%.2f" % [str(result.get("position", Vector3.ZERO)), float(result.get("min_y", 0.0)), float(result.get("expected_floor", 0.0)), float(result.get("route_distance", -1.0))]
+			assert_true(bool(result.get("supported", false)), "%s route index %d should keep the kart supported while driving through a ramp sequence.%s" % [track_id, int((ramp_case as Dictionary).get("route_index", -1)), detail])
+			assert_true(bool(result.get("near_route", false)), "%s route index %d should keep the kart near the route while driving through a ramp sequence.%s" % [track_id, int((ramp_case as Dictionary).get("route_index", -1)), detail])
+		_teardown_fixture(fixture)
+
 func _gridmap_track_ids_under_test() -> Array[String]:
 	return ["kitchen"]
 
@@ -276,6 +290,47 @@ func _drive_ramp_launch_case(fixture: Dictionary, ramp_case: Dictionary, route_p
 		"route_distance": route_distance,
 		"ramp_floor_y": ramp_floor_y,
 		"result": result,
+	}
+
+func _drive_ramp_sequence_case(fixture: Dictionary, ramp_case: Dictionary, route_points: Array[Vector3]) -> Dictionary:
+	var definition = fixture["definition"]
+	var route_index := int(ramp_case.get("route_index", 0))
+	var start_index := posmod(route_index - 2, route_points.size())
+	var end_index := posmod(route_index + 4, route_points.size())
+	var start := route_points[start_index]
+	var next := route_points[posmod(start_index + 1, route_points.size())]
+	var forward := _flat_direction(start, next)
+	var spawn := Transform3D(Basis(Vector3.UP, atan2(forward.x, forward.z)), start - forward * 4.0 + Vector3.UP * 2.0)
+	var car := _spawn_probe_kart(fixture, spawn)
+	if car == null:
+		return {}
+	var min_y := INF
+	var expected_floor := INF
+	var expected_index := start_index
+	while true:
+		expected_floor = minf(expected_floor, route_points[expected_index].y)
+		if expected_index == end_index:
+			break
+		expected_index = posmod(expected_index + 1, route_points.size())
+	expected_floor -= 2.0
+	var target_index := posmod(start_index + 1, route_points.size())
+	for frame in range(360):
+		var target := route_points[target_index]
+		if car.global_transform.origin.distance_to(target) < 6.0 and target_index != end_index:
+			target_index = posmod(target_index + 1, route_points.size())
+			target = route_points[target_index]
+		var target_forward := _flat_direction(route_points[posmod(target_index - 1, route_points.size())], target)
+		_simulate_kart_toward(car, target + target_forward * 8.0, SIM_DELTA, 1.0)
+		min_y = minf(min_y, car.global_transform.origin.y)
+	var final_position := car.global_transform.origin
+	var route_distance := _nearest_route_distance(final_position, route_points)
+	return {
+		"supported": min_y >= expected_floor,
+		"near_route": route_distance <= float(definition.road_width) * 0.95,
+		"position": final_position,
+		"min_y": min_y,
+		"expected_floor": expected_floor,
+		"route_distance": route_distance,
 	}
 
 func _drive_outward_edge_case(fixture: Dictionary, edge_case: Dictionary) -> Dictionary:
