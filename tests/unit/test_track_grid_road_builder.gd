@@ -121,6 +121,15 @@ func test_grid_layout_builds_complete_race_layout() -> void:
 	assert_equal(race_layout.item_sockets.size(), 0, "MVP GridMap tracks should not expose item sockets")
 	assert_equal(race_layout.hazard_sockets.size(), 0, "MVP GridMap tracks should not expose hazard sockets")
 
+func test_kenney_gridmap_mesh_library_exposes_elevation_tiles() -> void:
+	var library := load(TrackGridRoadBuilder.DEFAULT_MESH_LIBRARY_PATH) as MeshLibrary
+	assert_true(library != null, "GridMap road MeshLibrary should load")
+	for item_name in ["roadRamp", "roadRampLong", "roadRampLongCurved", "roadBump"]:
+		var item_id := library.find_item_by_name(item_name)
+		assert_true(item_id >= 0, "GridMap road MeshLibrary should expose %s for elevated road authoring" % item_name)
+		assert_true(library.get_item_mesh(item_id) != null, "%s should have a paintable mesh" % item_name)
+		assert_true(library.get_item_mesh_transform(item_id).basis.x.length() >= 16.0, "%s should match the 16-wide road footprint" % item_name)
+
 func _spawn_slot_layouts(count: int) -> Array[Dictionary]:
 	var slots: Array[Dictionary] = []
 	for i in range(count):
