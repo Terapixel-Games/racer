@@ -182,6 +182,7 @@ func test_kenney_gridmap_ramp_road_surface_reaches_next_elevation() -> void:
 		if item_id < 0:
 			continue
 		var road_bounds := _transformed_surface_aabb(library.get_item_mesh(item_id), library.get_item_mesh_transform(item_id), "road")
+		assert_true(absf(road_bounds.position.y) <= 0.05, "%s road surface should start flush with flat road at the low end" % item_name)
 		assert_true(absf(road_bounds.size.y - 4.0) <= 0.05, "%s road surface should climb exactly one GridMap Y cell so it connects flush to elevated road" % item_name)
 
 func test_road_grid_map_long_tiles_connect_across_two_cells() -> void:
