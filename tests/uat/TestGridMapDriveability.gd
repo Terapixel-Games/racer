@@ -317,7 +317,7 @@ func _drive_ramp_sequence_case(fixture: Dictionary, ramp_case: Dictionary, route
 	var start := route_points[start_index]
 	var next := route_points[posmod(start_index + 1, route_points.size())]
 	var forward := _flat_direction(start, next)
-	var spawn := Transform3D(Basis(Vector3.UP, atan2(forward.x, forward.z)), start - forward * 4.0 + Vector3.UP * 2.0)
+	var spawn := Transform3D(Basis(Vector3.UP, atan2(forward.x, forward.z)), start - forward * 4.0 + Vector3.UP * 1.0)
 	var car := _spawn_probe_kart(fixture, spawn)
 	if car == null:
 		return {}
@@ -333,11 +333,16 @@ func _drive_ramp_sequence_case(fixture: Dictionary, ramp_case: Dictionary, route
 	var target_index := posmod(start_index + 1, route_points.size())
 	for frame in range(360):
 		var target := route_points[target_index]
-		if car.global_transform.origin.distance_to(target) < 6.0 and target_index != end_index:
+		var segment_start := route_points[posmod(target_index - 1, route_points.size())]
+		var target_forward := _flat_direction(segment_start, target)
+		var segment_length := segment_start.distance_to(target)
+		var segment_progress := (car.global_transform.origin - segment_start).dot(target_forward)
+		if target_index != end_index and (car.global_transform.origin.distance_to(target) < 8.0 or segment_progress >= segment_length * 0.45):
 			target_index = posmod(target_index + 1, route_points.size())
 			target = route_points[target_index]
-		var target_forward := _flat_direction(route_points[posmod(target_index - 1, route_points.size())], target)
-		_simulate_kart_toward(car, target + target_forward * 8.0, SIM_DELTA, 1.0)
+			segment_start = route_points[posmod(target_index - 1, route_points.size())]
+			target_forward = _flat_direction(segment_start, target)
+		_simulate_kart_toward(car, target + target_forward * 6.0, SIM_DELTA, 0.55)
 		min_y = minf(min_y, car.global_transform.origin.y)
 	var final_position := car.global_transform.origin
 	var route_distance := _nearest_route_distance(final_position, route_points)

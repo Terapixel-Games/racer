@@ -3,9 +3,9 @@ extends MeshInstance3D
 class_name RoadMesh
 
 const TrackWalls = preload("res://scripts/TrackWalls.gd")
-const ROAD_COLLISION_BACKUP_LAYERS := 5
-const ROAD_COLLISION_LAYER_SPACING := 0.08
-const ROAD_COLLISION_SURFACE_LIFT := 0.16
+const ROAD_COLLISION_BACKUP_LAYERS := 3
+const ROAD_COLLISION_LAYER_SPACING := 0.16
+const ROAD_COLLISION_SURFACE_LIFT := 0.0
 
 @export var points: Array[Vector3] = []
 @export var width: float = 10.0

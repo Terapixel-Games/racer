@@ -18,10 +18,10 @@ const BOUNDARY_WALL_JOIN_OVERLAP := 0.35
 const BOUNDARY_WALL_UPPER_CLEARANCE := 0.25
 const BOUNDARY_WALL_MIN_HEIGHT := 0.75
 const BOUNDARY_WALL_SAME_SURFACE_TOLERANCE := 0.35
-const BOUNDARY_CONNECTED_EDGE_GUARD_LENGTH := 5.5
+const BOUNDARY_CONNECTED_EDGE_GUARD_LENGTH := 6.8
 const BOUNDARY_WALL_SKIRT_DEPTH := 3.0
 const BOUNDARY_WALL_INSET_DEPTH := 0.8
-const GRID_SURFACE_COLLISION_LIFT := 0.16
+const GRID_SUPPORT_COLLISION_SURFACE_OFFSET := -0.08
 
 static func race_layout_from_grid_layout(layout: Dictionary, closed_loop: bool) -> RaceLayout:
 	var race_layout := RaceLayout.new()
@@ -209,7 +209,22 @@ static func build_grid_collision_mesh(layout: Dictionary) -> ArrayMesh:
 	collision_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
 	return collision_mesh
 
-static func build_grid_surface_collision_mesh(layout: Dictionary) -> ArrayMesh:
+static func build_grid_combined_collision_mesh(layout: Dictionary) -> ArrayMesh:
+	var vertices := PackedVector3Array()
+	var indices := PackedInt32Array()
+	_append_mesh_surface(vertices, indices, build_grid_collision_mesh(layout))
+	_append_mesh_surface(vertices, indices, _build_grid_support_surface_collision_mesh(layout, GRID_SUPPORT_COLLISION_SURFACE_OFFSET))
+	var collision_mesh := ArrayMesh.new()
+	if vertices.is_empty() or indices.is_empty():
+		return collision_mesh
+	var arrays: Array = []
+	arrays.resize(Mesh.ARRAY_MAX)
+	arrays[Mesh.ARRAY_VERTEX] = vertices
+	arrays[Mesh.ARRAY_INDEX] = indices
+	collision_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+	return collision_mesh
+
+static func _build_grid_support_surface_collision_mesh(layout: Dictionary, surface_offset: float) -> ArrayMesh:
 	var footprint := _route_footprint_from_grid_layout(layout)
 	var vertices := PackedVector3Array()
 	var indices := PackedInt32Array()
@@ -235,7 +250,7 @@ static func build_grid_surface_collision_mesh(layout: Dictionary) -> ArrayMesh:
 		for local_point in local_points:
 			var local := local_point as Vector3
 			var world := origin + grid_basis * Vector3(local.x * cell_size.x, 0.0, local.z * cell_size.z)
-			world.y = _surface_y_for_grid_local_point(tile_data, local, cell_size) + GRID_SURFACE_COLLISION_LIFT
+			world.y = _surface_y_for_grid_local_point(tile_data, local, cell_size) + surface_offset
 			vertices.append(world)
 		indices.append_array([base, base + 2, base + 1, base + 1, base + 2, base + 3])
 	var mesh := ArrayMesh.new()
@@ -247,6 +262,20 @@ static func build_grid_surface_collision_mesh(layout: Dictionary) -> ArrayMesh:
 	arrays[Mesh.ARRAY_INDEX] = indices
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
 	return mesh
+
+static func _append_mesh_surface(vertices: PackedVector3Array, indices: PackedInt32Array, mesh: Mesh) -> void:
+	if mesh == null or mesh.get_surface_count() <= 0:
+		return
+	var arrays := mesh.surface_get_arrays(0)
+	var source_vertices := arrays[Mesh.ARRAY_VERTEX] as PackedVector3Array
+	var source_indices := arrays[Mesh.ARRAY_INDEX] as PackedInt32Array
+	if source_vertices.is_empty() or source_indices.is_empty():
+		return
+	var base := vertices.size()
+	for vertex in source_vertices:
+		vertices.append(vertex)
+	for index in source_indices:
+		indices.append(base + index)
 
 static func boundary_wall_segments_from_grid_layout(layout: Dictionary, wall_height: float, wall_thickness: float) -> Array[Dictionary]:
 	var footprint := _route_footprint_from_grid_layout(layout)
@@ -272,8 +301,7 @@ static func boundary_wall_segments_from_grid_layout(layout: Dictionary, wall_hei
 					segments.append(guard as Dictionary)
 				continue
 			var height := _boundary_wall_height_for_edge(edge, tile_data, footprint, wall_height, cell_size)
-			var inset_depth := 0.0 if _tile_is_ramp_like(tile_data) else BOUNDARY_WALL_INSET_DEPTH
-			var segment := _boundary_wall_segment(a, b, outward, height, wall_thickness, inset_depth)
+			var segment := _boundary_wall_segment(a, b, outward, height, wall_thickness, BOUNDARY_WALL_INSET_DEPTH)
 			if not segment.is_empty():
 				segments.append(segment)
 	return segments
