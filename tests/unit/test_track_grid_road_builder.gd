@@ -161,6 +161,21 @@ func test_kenney_gridmap_mesh_library_exposes_elevation_tiles() -> void:
 		assert_true(library.get_item_mesh_transform(item_id).basis.x.length() >= 16.0, "%s should match the 16-wide road footprint" % item_name)
 		assert_true(library.get_item_mesh_transform(item_id).basis.y.length() > 1.0, "%s should scale visibly on Y for elevated road authoring" % item_name)
 
+func test_kenney_gridmap_flat_tiles_keep_scaled_visual_thickness() -> void:
+	var library := load(TrackGridRoadBuilder.DEFAULT_MESH_LIBRARY_PATH) as MeshLibrary
+	assert_true(library != null, "GridMap road MeshLibrary should load")
+	for item_name in ["roadStraight", "roadCornerSmall", "roadStart", "roadStraightLong", "roadCornerLarge"]:
+		var item_id := library.find_item_by_name(item_name)
+		assert_true(item_id >= 0, "GridMap road MeshLibrary should expose %s" % item_name)
+		if item_id < 0:
+			continue
+		var transform := library.get_item_mesh_transform(item_id)
+		var road_bounds := _transformed_surface_aabb(library.get_item_mesh(item_id), transform, "road")
+		var full_bounds := _transformed_mesh_aabb(library.get_item_mesh(item_id), transform)
+		assert_true(transform.basis.y.length() >= 16.0, "%s should scale its Kenney-authored height with the 16-unit tile footprint" % item_name)
+		assert_true(absf(road_bounds.position.y) <= 0.01, "%s road surface should remain at driving height after vertical scaling" % item_name)
+		assert_true(full_bounds.size.y >= 0.3, "%s should keep visible tile thickness instead of becoming paper-thin" % item_name)
+
 func test_kenney_gridmap_long_tiles_keep_two_cell_footprint() -> void:
 	var library := load(TrackGridRoadBuilder.DEFAULT_MESH_LIBRARY_PATH) as MeshLibrary
 	assert_true(library != null, "GridMap road MeshLibrary should load")
