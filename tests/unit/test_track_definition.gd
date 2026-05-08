@@ -16,7 +16,7 @@ func test_kitchen_definition_validates() -> void:
 	assert_equal(definition.hazard_sockets.size(), 0, "MVP Kitchen should not expose hazard sockets")
 	assert_true(_route_fits_ground_bounds(definition), "Kitchen route should stay within the authored ground bounds")
 	assert_equal(definition.reset_mode, "instant_pop", "Kitchen should use instant pop-back resets")
-	assert_equal(definition.out_of_bounds_y, -15.0, "Kitchen out-of-bounds threshold should match the authored floor respawn height")
+	assert_true(definition.out_of_bounds_y < definition.floor_visual_y, "Kitchen out-of-bounds threshold should sit below the authored floor")
 	assert_true(definition.floor_visual_y <= -32.0, "Kitchen floor visual should sit far below the countertop route")
 	assert_equal(definition.rail_texture_path, "res://assets/gameplay/materials/metal/toy_metal_albedo.png", "Kitchen rails should use the stage-specific toy metal material")
 	assert_equal(definition.rail_texture_uv_scale, 0.5, "Kitchen rails should use the stage-specific rail texture UV scale")

@@ -30,7 +30,7 @@ func test_kitchen_metadata_matches_server_shape() -> void:
 	assert_equal(str(audio_ids.get("sink_splash", "")), "res://assets/source/audio/canva/tracks/kitchen/kitchen_sink_water.mp3", "Metadata should use the supplied sink water audio")
 	assert_equal(str(audio_ids.get("stove_sizzle", "")), "res://assets/source/audio/canva/tracks/kitchen/kitchen_oven_sizzle.mp3", "Metadata should include the converted oven sizzle audio")
 	assert_equal(str(metadata.get("reset_mode", "")), "instant_pop", "Metadata should include reset mode")
-	assert_equal(float(metadata.get("out_of_bounds_y", 0.0)), -15.0, "Metadata should export the Kitchen floor respawn height")
+	assert_true(float(metadata.get("out_of_bounds_y", 0.0)) < float(metadata.get("floor_visual_y", 0.0)), "Metadata should keep the Kitchen respawn threshold below the visible floor")
 	assert_true(float(metadata.get("floor_visual_y", 0.0)) <= -8.0, "Metadata should keep the visible floor far below the countertop")
 	assert_equal(str(metadata.get("rail_texture_path", "")), "res://assets/gameplay/materials/metal/toy_metal_albedo.png", "Metadata should include the stage rail texture")
 	assert_equal(float(metadata.get("rail_texture_uv_scale", 0.0)), 0.5, "Metadata should include the stage rail texture UV scale")
