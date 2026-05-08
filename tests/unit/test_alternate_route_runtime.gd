@@ -97,6 +97,9 @@ func test_ramp_rail_visuals_stay_upright() -> void:
 	if rail != null:
 		var up := rail.transform.basis.y.normalized()
 		assert_true(up.distance_to(Vector3.UP) <= 0.01, "Ramp rail visuals should keep posts upright instead of tilting into the ramp surface")
+		var along := rail.transform.basis.x.normalized()
+		assert_true(along.distance_to(Vector3.RIGHT) <= 0.01, "Ramp rail visuals should use an orthogonal horizontal length axis instead of shearing along the 3D ramp slope")
+		assert_true(absf(along.dot(up)) <= 0.01, "Ramp rail visual basis should stay orthogonal so rails do not bow on slopes")
 	holder.queue_free()
 
 func test_runtime_uses_road_grid_from_editable_scene() -> void:

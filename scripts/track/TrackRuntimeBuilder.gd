@@ -581,11 +581,11 @@ static func _add_rail_segment_pieces(parent: Node3D, a: Vector3, b: Vector3, sid
 	if segment_length <= RAIL_SEGMENT_GAP * 2.0 + 0.05 or flat_length <= 0.05:
 		return
 	var segment_dir := segment / segment_length
-	var usable_length := segment_length - RAIL_SEGMENT_GAP * 2.0
+	var flat_dir := flat / flat_length
+	var usable_length := flat_length - RAIL_SEGMENT_GAP * 2.0
 	var pieces: int = maxi(1, ceili(usable_length / RAIL_SEGMENT_LENGTH))
 	var piece_length: float = usable_length / float(pieces)
-	var rail_x := segment_dir
-	var flat_dir := flat / flat_length
+	var rail_x := flat_dir
 	var rail_z := Vector3(flat_dir.z, 0.0, -flat_dir.x).normalized()
 	if rail_z.length_squared() <= 0.0001:
 		rail_z = Vector3.FORWARD
@@ -593,7 +593,7 @@ static func _add_rail_segment_pieces(parent: Node3D, a: Vector3, b: Vector3, sid
 	var basis := Basis(rail_x, rail_y, rail_z).scaled(Vector3(piece_length, RAIL_SIDE_SCALE, RAIL_SIDE_SCALE))
 	for piece_index in range(pieces):
 		var distance_along := RAIL_SEGMENT_GAP + (float(piece_index) + 0.5) * piece_length
-		var t := distance_along / segment_length
+		var t := distance_along / flat_length
 		var visual_center := a.lerp(b, t) + Vector3.UP * RAIL_Y_OFFSET
 		var position := visual_center - basis * RAIL_VISUAL_CENTER
 		var rail: Node = RailScene.instantiate()
