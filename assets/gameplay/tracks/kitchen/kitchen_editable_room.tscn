@@ -104,6 +104,7 @@ forward_offset = 24.0
 [node name="KitchenEditableRoom" type="Node3D"]
 
 [node name="Track" type="Node3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
 [node name="floor" type="Node3D" parent="Track"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -32, 0)
@@ -298,7 +299,7 @@ transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 98.32847, 23.5, -88.24518)
 transform = Transform3D(-3.0598e-07, 0, 7, 0, 7, 0, -7, 0, -3.0598e-07, -116, 2.1, 82)
 
 [node name="IslandPlanter" type="Node3D" parent="Track/HandPlacedProps" instance=ExtResource("10_plant")]
-transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 0.8543563, 7.33173, -33.34636)
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 26, 7.33173, -52)
 
 [node name="Lighting" type="Node3D" parent="Track"]
 

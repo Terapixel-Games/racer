@@ -68,6 +68,7 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/KitchenCeiling") == null, "Kitchen runtime should not add old hardcoded ceiling geometry over authored room scale")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/FridgeLandmark") == null, "Kitchen runtime should not duplicate old hardcoded fridge geometry over authored room scale")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom") != null, "Kitchen track should include the directly editable room scene")
+	assert_true(_node_scale(instance, "BuiltTrack/Dressing/EditableRoom/Track").is_equal_approx(Vector3(1.5, 1.5, 1.5)), "Kitchen dressing should be scaled around the fixed 16-wide toy track")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoadGridMap") != null, "Editable room scene should expose the authored RoadGridMap")
 	var road_grid_map := instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoadGridMap")
 	assert_true(road_grid_map is Node3D and not (road_grid_map as Node3D).visible, "Runtime dressing should hide the authoring RoadGridMap so only generated GridRoad is visible")
@@ -89,6 +90,8 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/RoomShell/BackWallRightOfWindow") != null, "Kitchen window should keep editable wall trim on the right")
 	assert_true(_mesh_material_alpha(instance, "BuiltTrack/Dressing/EditableRoom/Track/RoomShell/WindowGlass") <= 0.15, "Kitchen window glass should be transparent enough for sky visibility")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/Appliances/kitchenSink") != null, "Editable room scene should preserve hand-placed kitchen props")
+	assert_true(_dressing_node_clears_route(instance, "BuiltTrack/Dressing/EditableRoom/Track/HandPlacedProps/IslandPlanter", definition, 16.0), "Kitchen island planter should sit outside the widened road and rail clearance")
+	assert_true(_scaled_node_footprint_width(instance, "BuiltTrack/Dressing/EditableRoom/Track/Appliances/kitchenStove") >= 48.0, "Kitchen stove should read as a broad appliance set piece beside the toy road")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/WaterSurfaces/SinkWater") != null, "Editable room scene should include authored sink water")
 	assert_true(_node_position(instance, "BuiltTrack/Dressing/EditableRoom/Track/WaterSurfaces/SinkWater").distance_to(_authored_kitchen_position("Track/WaterSurfaces/SinkWater")) <= 0.05, "Kitchen sink water should stay at the authored editable scene location")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/WaterSurfaces/WasherWater") != null, "Editable room scene should include authored washer water")
@@ -383,6 +386,28 @@ func _node_position(root: Node, path: NodePath) -> Vector3:
 	if node == null:
 		return Vector3.ZERO
 	return node.transform.origin
+
+func _node_scale(root: Node, path: NodePath) -> Vector3:
+	var node := root.get_node_or_null(path) as Node3D
+	if node == null:
+		return Vector3.ZERO
+	return node.transform.basis.get_scale()
+
+func _scaled_node_footprint_width(root: Node, path: NodePath) -> float:
+	var node := root.get_node_or_null(path) as Node3D
+	if node == null:
+		return 0.0
+	return maxf(node.global_transform.basis.x.length(), node.global_transform.basis.z.length())
+
+func _dressing_node_clears_route(root: Node, path: NodePath, definition, extra_clearance: float) -> bool:
+	var node := root.get_node_or_null(path) as Node3D
+	if node == null or definition == null:
+		return false
+	var route: Array[Vector3] = definition.route_points
+	if route.size() < 2:
+		return false
+	var clearance := float(definition.road_width) * 0.5 + extra_clearance
+	return _distance_to_route_xz(node.global_position, route, definition.closed_loop) > clearance
 
 func _runtime_spawn_matches_socket(root: Node, path: NodePath, socket: Vector4) -> bool:
 	var node := root.get_node_or_null(path) as Node3D
