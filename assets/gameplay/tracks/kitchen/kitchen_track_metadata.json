@@ -61,7 +61,7 @@
 			"zone_kind": "ambient"
 		}
 	],
-	"checkpoint_radius": 7.8,
+	"checkpoint_radius": 10.4,
 	"checkpoints": [
 		{
 			"index": 0,
@@ -1334,7 +1334,7 @@
 			12.25,
 			0.0
 		],
-		"road_width": 12.0,
+		"road_width": 16.0,
 		"spawn_slots": [
 			{
 				"forward_offset": 6.0,
@@ -1398,7 +1398,7 @@
 	"road_segment_material_style": "toy_plastic",
 	"road_segment_profile": "kenney_racing_kit",
 	"road_visual_style": "kenney_gridmap",
-	"road_width": 12.0,
+	"road_width": 16.0,
 	"route_length": 448.0,
 	"route_points": [
 		[

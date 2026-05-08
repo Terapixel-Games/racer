@@ -429,4 +429,4 @@ script = ExtResource("21_uxd1m")
 ordered_route_cells = Array[Vector3i]([Vector3i(-4, 0, -3), Vector3i(-3, 0, -3), Vector3i(-2, 0, -3), Vector3i(-1, 0, -3), Vector3i(0, 0, -3), Vector3i(1, 0, -3), Vector3i(2, 0, -3), Vector3i(3, 0, -3), Vector3i(4, 0, -3), Vector3i(4, 0, -2), Vector3i(4, 0, -1), Vector3i(4, 0, 0), Vector3i(4, 0, 1), Vector3i(4, 0, 2), Vector3i(4, 0, 3), Vector3i(3, 0, 3), Vector3i(2, 0, 3), Vector3i(1, 0, 3), Vector3i(0, 0, 3), Vector3i(-1, 0, 3), Vector3i(-2, 0, 3), Vector3i(-3, 0, 3), Vector3i(-4, 0, 3), Vector3i(-4, 0, 2), Vector3i(-4, 0, 1), Vector3i(-4, 0, 0), Vector3i(-4, 0, -1), Vector3i(-4, 0, -2)])
 checkpoint_route_indices = Array[int]([0, 5, 10, 14, 19, 24])
 spawn_slots = Array[ExtResource("20_eq2kr")]([SubResource("Resource_eq2kr"), SubResource("Resource_msb3l"), SubResource("Resource_uxd1m"), SubResource("Resource_gfrtf"), SubResource("Resource_ewdsa"), SubResource("Resource_f7h7q"), SubResource("Resource_2b0ha"), SubResource("Resource_jqroe")])
-road_width_override = 12.0
+road_width_override = 16.0

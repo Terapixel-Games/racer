@@ -22,6 +22,8 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/GridRoad") != null, "Kitchen track should include Kenney Racing Kit grid road visuals")
 	assert_true(instance.get_node_or_null("BuiltTrack/GridRoad") is GridMap, "Kitchen visible road should be a runtime GridMap so Kenney tile materials and rotations are preserved")
 	assert_true(_grid_road_covers_route(instance.get_node_or_null("BuiltTrack/GridRoad") as GridMap, definition), "Kitchen GridRoad should have one visible tile for every route cell so textures stay aligned with rails")
+	assert_equal(definition.road_width, 16.0, "Kitchen route collision and rails should match the 16x16 GridMap road footprint")
+	assert_true(_grid_road_straight_tile_spans_cell(instance.get_node_or_null("BuiltTrack/GridRoad") as GridMap), "Kitchen GridRoad straight tiles should span the full cell width")
 	assert_true(_grid_road_corner_orientations_match_route(instance.get_node_or_null("BuiltTrack/GridRoad") as GridMap, definition), "Kitchen GridRoad corner tiles should rotate to connect the previous and next route cells")
 	assert_true(_grid_road_corner_tile_spans_cell(instance.get_node_or_null("BuiltTrack/GridRoad") as GridMap), "Kitchen GridRoad corner tiles should span the full cell so they meet adjacent straight tiles")
 	assert_equal(_node_count_by_type(built_track, "WorldEnvironment"), 1, "Kitchen runtime should build exactly one WorldEnvironment")
@@ -433,6 +435,13 @@ func _grid_road_corner_orientations_match_route(grid: GridMap, definition) -> bo
 		if grid.get_cell_item_orientation(current) != int(outgoing_map[outgoing]):
 			return false
 	return corner_count == 4
+
+func _grid_road_straight_tile_spans_cell(grid: GridMap) -> bool:
+	if grid == null or grid.mesh_library == null:
+		return false
+	var straight := grid.mesh_library.get_item_mesh_transform(0)
+	var straight_width := straight.basis.x.length()
+	return absf(straight_width - grid.cell_size.x) <= 0.01
 
 func _grid_road_corner_tile_spans_cell(grid: GridMap) -> bool:
 	if grid == null or grid.mesh_library == null:

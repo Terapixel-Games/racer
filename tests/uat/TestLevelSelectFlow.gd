@@ -414,7 +414,7 @@ func test_local_progress_catches_up_when_checkpoint_trigger_is_missed() -> void:
 	var car: CarController = cars.get(local_id, null)
 	assert_true(car != null, "Local race should provide a local car for progress ticking")
 	if car != null:
-		car.global_transform = Transform3D(Basis.IDENTITY, Vector3(56, 1, 6))
+		car.global_transform = Transform3D(Basis.IDENTITY, Vector3(56, 1, 14))
 		race.call("_tick_local_racer_progress")
 		states = race.get("racer_states")
 		local_state = states.get(local_id, {})
@@ -446,7 +446,7 @@ func test_local_progress_does_not_catch_up_from_initial_projected_position() -> 
 	var car: CarController = cars.get(local_id, null)
 	assert_true(car != null, "Local race should provide a local car for progress ticking")
 	if car != null:
-		car.global_transform = Transform3D(Basis.IDENTITY, Vector3(56, 1, 6))
+		car.global_transform = Transform3D(Basis.IDENTITY, Vector3(56, 1, 14))
 		race.call("_tick_local_racer_progress")
 		states = race.get("racer_states")
 		local_state = states.get(local_id, {})

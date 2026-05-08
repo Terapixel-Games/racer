@@ -11,7 +11,7 @@ const TrackGridRoadBuilder = preload("res://scripts/track/TrackGridRoadBuilder.g
 const MESH_LIBRARY_PATH := "res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres"
 const KITCHEN_SCENE_PATH := "res://assets/gameplay/tracks/kitchen/kitchen_editable_room.tscn"
 const GRID_CELL_SIZE := Vector3(16.0, 4.0, 16.0)
-const GRID_ROAD_WIDTH := 12.0
+const GRID_ROAD_WIDTH := 16.0
 
 func _init() -> void:
 	var mesh_error := _ensure_mesh_library()

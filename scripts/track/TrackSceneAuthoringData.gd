@@ -63,6 +63,8 @@ static func _apply_race_layout(definition: TrackDefinition, race_layout: RaceLay
 	if not race_layout.road_visual_style.strip_edges().is_empty():
 		definition.road_visual_style = race_layout.road_visual_style
 	definition.road_grid_layout = race_layout.road_grid_layout.duplicate(true)
+	if definition.road_grid_layout.has("road_width"):
+		definition.road_width = float(definition.road_grid_layout.get("road_width", definition.road_width))
 	definition.road_segment_layout = race_layout.road_segment_layout.duplicate(true)
 	definition.route_points = race_layout.route_points.duplicate()
 	if race_layout.checkpoint_indices.size() >= 3 and _indices_strictly_increasing(race_layout.checkpoint_indices):
