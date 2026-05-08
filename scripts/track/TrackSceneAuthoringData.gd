@@ -74,7 +74,7 @@ static func _resolve_race_layout(definition: TrackDefinition, scene_root: Node3D
 			if grid_layout != null and grid_layout.is_valid():
 				return grid_layout
 			var segment_layout := _race_layout_from_segments(scene_root, definition)
-			if segment_layout != null and segment_layout.is_valid():
+			if segment_layout != null and segment_layout.is_valid() and _layout_supports_surface_segments(segment_layout, definition.surface_segments):
 				return segment_layout
 			return _race_layout_from_route_markers(scene_root, definition)
 
@@ -100,7 +100,7 @@ static func _race_layout_from_route_markers(scene_root: Node3D, definition: Trac
 	race_layout.source = "route"
 	race_layout.road_visual_style = definition.road_visual_style
 	race_layout.road_grid_layout = {}
-	race_layout.road_segment_layout = []
+	race_layout.road_segment_layout = definition.road_segment_layout.duplicate(true)
 	race_layout.route_points = route_points
 	var checkpoint_indices := _collect_checkpoint_indices(scene_root, route_points)
 	if checkpoint_indices.size() >= 3 and _indices_strictly_increasing(checkpoint_indices):
@@ -120,6 +120,18 @@ static func _race_layout_from_route_markers(scene_root: Node3D, definition: Trac
 	if race_layout.hazard_sockets.is_empty():
 		race_layout.hazard_sockets = definition.hazard_sockets.duplicate()
 	return race_layout
+
+static func _layout_supports_surface_segments(race_layout: RaceLayout, surface_segments: Array[Dictionary]) -> bool:
+	for segment in surface_segments:
+		if not bool(segment.get("enabled", true)):
+			continue
+		var start := int(segment.get("start_route_index", -1))
+		var end := int(segment.get("end_route_index", -1))
+		if start < 0 or end < 0:
+			continue
+		if start >= race_layout.route_points.size() or end >= race_layout.route_points.size():
+			return false
+	return true
 
 static func _apply_race_layout(definition: TrackDefinition, race_layout: RaceLayout) -> void:
 	if not race_layout.road_visual_style.strip_edges().is_empty():
