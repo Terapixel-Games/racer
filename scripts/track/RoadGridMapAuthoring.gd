@@ -223,9 +223,11 @@ func _route_neighbors_for_cells(cells: Array[Vector3i], cell_set: Dictionary) ->
 	var neighbors := {}
 	for cell in cells:
 		var cell_neighbors: Array[Vector3i] = []
-		for direction in _connection_directions_for_cell(cell):
+		for connection in _connection_offsets_for_cell(cell):
+			var direction := connection.get("direction", Vector3i.ZERO) as Vector3i
+			var distance := int(connection.get("distance", 1))
 			for y_offset in [-1, 0, 1]:
-				var candidate: Vector3i = cell + direction + Vector3i(0, y_offset, 0)
+				var candidate: Vector3i = cell + direction * distance + Vector3i(0, y_offset, 0)
 				if cell_set.has(candidate) and _cell_connects_toward(candidate, -direction):
 					cell_neighbors.append(candidate)
 					break
@@ -321,18 +323,32 @@ func _cell_set_from_array(cells: Array) -> Dictionary:
 	return cell_set
 
 func _connection_directions_for_cell(cell: Vector3i) -> Array[Vector3i]:
+	var directions: Array[Vector3i] = []
+	for connection in _connection_offsets_for_cell(cell):
+		var direction := connection.get("direction", Vector3i.ZERO) as Vector3i
+		if direction != Vector3i.ZERO and not directions.has(direction):
+			directions.append(direction)
+	return directions
+
+func _connection_offsets_for_cell(cell: Vector3i) -> Array[Dictionary]:
 	var item := get_cell_item(cell)
 	var orientation := get_cell_item_orientation(cell)
 	var basis := get_basis_with_orthogonal_index(orientation)
 	match item:
 		TILE_CORNER, TILE_CORNER_LARGE:
-			return _unique_horizontal_directions([basis.x, basis.z])
-		TILE_START, TILE_STRAIGHT_LONG, TILE_RAMP, TILE_RAMP_LONG, TILE_RAMP_LONG_CURVED, TILE_BUMP:
+			return _connections_for_directions(_unique_horizontal_directions([basis.x, basis.z]))
+		TILE_STRAIGHT_LONG, TILE_RAMP_LONG, TILE_RAMP_LONG_CURVED, TILE_BUMP:
+			var forward_long := _horizontal_direction_from_vector(basis.z)
+			return [
+				{"direction": forward_long, "distance": 2},
+				{"direction": -forward_long, "distance": 1},
+			]
+		TILE_START, TILE_RAMP:
 			var forward := _horizontal_direction_from_vector(basis.z)
-			return _opposite_directions(forward)
+			return _connections_for_directions(_opposite_directions(forward))
 		_:
 			var forward := _horizontal_direction_from_vector(basis.z)
-			return _opposite_directions(forward)
+			return _connections_for_directions(_opposite_directions(forward))
 
 func _cell_connects_toward(cell: Vector3i, direction: Vector3i) -> bool:
 	return _connection_directions_for_cell(cell).has(direction)
@@ -357,6 +373,12 @@ func _opposite_directions(direction: Vector3i) -> Array[Vector3i]:
 		directions.append(direction)
 		directions.append(-direction)
 	return directions
+
+func _connections_for_directions(directions: Array[Vector3i]) -> Array[Dictionary]:
+	var connections: Array[Dictionary] = []
+	for direction in directions:
+		connections.append({"direction": direction, "distance": 1})
+	return connections
 
 func _horizontal_direction_from_vector(vector: Vector3) -> Vector3i:
 	var x := int(roundf(vector.x))

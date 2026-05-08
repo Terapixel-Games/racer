@@ -158,10 +158,46 @@ func test_kenney_gridmap_mesh_library_exposes_elevation_tiles() -> void:
 		var item_id := library.find_item_by_name(item_name)
 		assert_true(item_id >= 0, "GridMap road MeshLibrary should expose %s for elevated road authoring" % item_name)
 		assert_true(library.get_item_mesh(item_id) != null, "%s should have a paintable mesh" % item_name)
-		var item_bounds := _transformed_mesh_aabb(library.get_item_mesh(item_id), library.get_item_mesh_transform(item_id))
-		assert_true(is_equal_approx(item_bounds.size.x, 16.0), "%s should match the 16-wide road footprint" % item_name)
-		assert_true(is_equal_approx(item_bounds.size.z, 16.0), "%s should fit one 16-long GridMap cell so ramps connect flush to neighboring road cells" % item_name)
+		assert_true(library.get_item_mesh_transform(item_id).basis.x.length() >= 16.0, "%s should match the 16-wide road footprint" % item_name)
 		assert_true(library.get_item_mesh_transform(item_id).basis.y.length() > 1.0, "%s should scale visibly on Y for elevated road authoring" % item_name)
+
+func test_kenney_gridmap_long_tiles_keep_two_cell_footprint() -> void:
+	var library := load(TrackGridRoadBuilder.DEFAULT_MESH_LIBRARY_PATH) as MeshLibrary
+	assert_true(library != null, "GridMap road MeshLibrary should load")
+	for item_name in ["roadRampLong", "roadRampLongCurved", "roadBump"]:
+		var item_id := library.find_item_by_name(item_name)
+		assert_true(item_id >= 0, "GridMap road MeshLibrary should expose %s" % item_name)
+		if item_id < 0:
+			continue
+		var item_bounds := _transformed_mesh_aabb(library.get_item_mesh(item_id), library.get_item_mesh_transform(item_id))
+		assert_true(is_equal_approx(item_bounds.size.x, 16.0), "%s should stay one lane wide" % item_name)
+		assert_true(is_equal_approx(item_bounds.size.z, 32.0), "%s should keep its authored 2x1 footprint instead of being compressed into one cell" % item_name)
+
+func test_kenney_gridmap_ramp_road_surface_reaches_next_elevation() -> void:
+	var library := load(TrackGridRoadBuilder.DEFAULT_MESH_LIBRARY_PATH) as MeshLibrary
+	assert_true(library != null, "GridMap road MeshLibrary should load")
+	for item_name in ["roadRamp", "roadRampLong", "roadRampLongCurved"]:
+		var item_id := library.find_item_by_name(item_name)
+		assert_true(item_id >= 0, "GridMap road MeshLibrary should expose %s" % item_name)
+		if item_id < 0:
+			continue
+		var road_bounds := _transformed_surface_aabb(library.get_item_mesh(item_id), library.get_item_mesh_transform(item_id), "road")
+		assert_true(absf(road_bounds.size.y - 4.0) <= 0.05, "%s road surface should climb exactly one GridMap Y cell so it connects flush to elevated road" % item_name)
+
+func test_road_grid_map_long_tiles_connect_across_two_cells() -> void:
+	var grid := RoadGridMapAuthoring.new()
+	grid.set_cell_item(Vector3i(0, 0, 0), 6, 16)
+	grid.set_cell_item(Vector3i(-1, 0, 0), 0, 16)
+	grid.set_cell_item(Vector3i(2, 0, 0), 0, 16)
+	var neighbors := grid._route_neighbors_for_cells([Vector3i(-1, 0, 0), Vector3i(0, 0, 0), Vector3i(2, 0, 0)], {
+		Vector3i(-1, 0, 0): true,
+		Vector3i(0, 0, 0): true,
+		Vector3i(2, 0, 0): true,
+	})
+	var long_neighbors: Array = neighbors.get(Vector3i(0, 0, 0), [])
+	assert_true(long_neighbors.has(Vector3i(-1, 0, 0)), "Long GridMap tiles should connect to the cell immediately behind their anchor")
+	assert_true(long_neighbors.has(Vector3i(2, 0, 0)), "Long GridMap tiles should connect two cells forward so 2x1 ramps meet the next road tile")
+	grid.free()
 
 func test_kenney_gridmap_start_tile_matches_cell_footprint() -> void:
 	var library := load(TrackGridRoadBuilder.DEFAULT_MESH_LIBRARY_PATH) as MeshLibrary
@@ -260,4 +296,23 @@ func _transformed_mesh_aabb(mesh: Mesh, transform: Transform3D) -> AABB:
 	var out := AABB(transform * points[0], Vector3.ZERO)
 	for i in range(1, points.size()):
 		out = out.expand(transform * points[i])
+	return out
+
+func _transformed_surface_aabb(mesh: Mesh, transform: Transform3D, surface_name: String) -> AABB:
+	if mesh == null:
+		return AABB()
+	var found := false
+	var out := AABB()
+	for surface_index in range(mesh.get_surface_count()):
+		if mesh.surface_get_name(surface_index) != surface_name:
+			continue
+		var arrays := mesh.surface_get_arrays(surface_index)
+		var vertices := arrays[Mesh.ARRAY_VERTEX] as PackedVector3Array
+		for vertex in vertices:
+			var point := transform * vertex
+			if not found:
+				out = AABB(point, Vector3.ZERO)
+				found = true
+			else:
+				out = out.expand(point)
 	return out
