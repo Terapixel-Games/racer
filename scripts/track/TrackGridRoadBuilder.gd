@@ -19,7 +19,11 @@ const BOUNDARY_WALL_UPPER_CLEARANCE := 0.25
 const BOUNDARY_WALL_MIN_HEIGHT := 0.75
 const BOUNDARY_WALL_SAME_SURFACE_TOLERANCE := 0.35
 const BOUNDARY_WALL_SKIRT_DEPTH := 3.0
-const GRID_SUPPORT_COLLISION_SURFACE_OFFSET := 0.0
+const GRID_SEAM_BRIDGE_HALF_DEPTH := 0.7
+const GRID_SEAM_BRIDGE_SIDE_INSET := 0.45
+const GRID_SEAM_BRIDGE_SURFACE_OFFSET := -0.03
+const GRID_RAMP_SUPPORT_SIDE_INSET := 0.9
+const GRID_RAMP_SUPPORT_SURFACE_OFFSET := -0.06
 
 static func race_layout_from_grid_layout(layout: Dictionary, closed_loop: bool) -> RaceLayout:
 	var race_layout := RaceLayout.new()
@@ -197,6 +201,8 @@ static func build_grid_collision_mesh(layout: Dictionary) -> ArrayMesh:
 		var orientation_basis := _orientation_basis(cell_data as Dictionary)
 		var position := _vector3_from_value((cell_data as Dictionary).get("position", _cell_center(layout, fallback_cell)), _cell_center(layout, fallback_cell))
 		_append_transformed_mesh(vertices, indices, mesh, Transform3D(orientation_basis, position) * item_transform)
+	_append_grid_ramp_support_surfaces(vertices, indices, layout)
+	_append_grid_connection_bridge_surfaces(vertices, indices, layout)
 	var collision_mesh := ArrayMesh.new()
 	if vertices.is_empty() or indices.is_empty():
 		return collision_mesh
@@ -207,73 +213,145 @@ static func build_grid_collision_mesh(layout: Dictionary) -> ArrayMesh:
 	collision_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
 	return collision_mesh
 
-static func build_grid_combined_collision_mesh(layout: Dictionary) -> ArrayMesh:
-	var vertices := PackedVector3Array()
-	var indices := PackedInt32Array()
-	_append_mesh_surface(vertices, indices, build_grid_collision_mesh(layout))
-	_append_mesh_surface(vertices, indices, _build_grid_support_surface_collision_mesh(layout, GRID_SUPPORT_COLLISION_SURFACE_OFFSET))
-	var collision_mesh := ArrayMesh.new()
-	if vertices.is_empty() or indices.is_empty():
-		return collision_mesh
-	var arrays: Array = []
-	arrays.resize(Mesh.ARRAY_MAX)
-	arrays[Mesh.ARRAY_VERTEX] = vertices
-	arrays[Mesh.ARRAY_INDEX] = indices
-	collision_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
-	return collision_mesh
-
-static func _build_grid_support_surface_collision_mesh(layout: Dictionary, surface_offset: float) -> ArrayMesh:
+static func _append_grid_ramp_support_surfaces(vertices: PackedVector3Array, indices: PackedInt32Array, layout: Dictionary) -> void:
+	var route_cells := _vector3i_array_from_value(layout.get("ordered_route_cells", []))
+	if route_cells.size() < 2:
+		return
 	var footprint := _route_footprint_from_grid_layout(layout)
-	var vertices := PackedVector3Array()
-	var indices := PackedInt32Array()
 	if footprint.is_empty():
-		return ArrayMesh.new()
+		return
 	var cell_size := _cell_size(layout)
 	var grid_basis := _basis_from_value(layout.get("basis", []))
 	var origin := _vector3_from_value(layout.get("origin", Vector3.ZERO), Vector3.ZERO)
-	for key in footprint.keys():
-		var cell := key as Vector3i
-		var tile_data := footprint.get(cell, {}) as Dictionary
-		var x0 := float(cell.x)
-		var x1 := float(cell.x + 1)
-		var z0 := float(cell.z)
-		var z1 := float(cell.z + 1)
-		var local_points := [
-			Vector3(x0, 0.0, z0),
-			Vector3(x1, 0.0, z0),
-			Vector3(x0, 0.0, z1),
-			Vector3(x1, 0.0, z1),
-		]
+	var inset_x := GRID_RAMP_SUPPORT_SIDE_INSET / maxf(cell_size.x, 0.001)
+	var inset_z := GRID_RAMP_SUPPORT_SIDE_INSET / maxf(cell_size.z, 0.001)
+	var supported_cells := {}
+	for i in range(route_cells.size()):
+		var previous := route_cells[(i - 1 + route_cells.size()) % route_cells.size()]
+		var current := route_cells[i]
+		var next := route_cells[(i + 1) % route_cells.size()]
+		var current_data: Dictionary = footprint.get(current, {}) as Dictionary
+		if current_data.is_empty():
+			continue
+		var previous_data: Dictionary = footprint.get(previous, {}) as Dictionary
+		var next_data: Dictionary = footprint.get(next, {}) as Dictionary
+		if not _cell_needs_ramp_support(previous, current, next, previous_data, current_data, next_data):
+			continue
+		if supported_cells.has(current):
+			continue
+		supported_cells[current] = true
+		var x0 := float(current.x) + inset_x
+		var x1 := float(current.x + 1) - inset_x
+		var z0 := float(current.z) + inset_z
+		var z1 := float(current.z + 1) - inset_z
+		_append_grid_surface_quad(
+			vertices,
+			indices,
+			origin,
+			grid_basis,
+			cell_size,
+			current_data,
+			[
+				Vector3(x0, 0.0, z0),
+				Vector3(x1, 0.0, z0),
+				Vector3(x0, 0.0, z1),
+				Vector3(x1, 0.0, z1),
+			],
+			GRID_RAMP_SUPPORT_SURFACE_OFFSET
+		)
+
+static func _cell_needs_ramp_support(previous: Vector3i, current: Vector3i, next: Vector3i, previous_data: Dictionary, current_data: Dictionary, next_data: Dictionary) -> bool:
+	if _tile_is_ramp_like(current_data):
+		return true
+	if not previous_data.is_empty() and (_tile_is_ramp_like(previous_data) or previous.y != current.y):
+		return true
+	if not next_data.is_empty() and (_tile_is_ramp_like(next_data) or next.y != current.y):
+		return true
+	return false
+
+static func _append_grid_connection_bridge_surfaces(vertices: PackedVector3Array, indices: PackedInt32Array, layout: Dictionary) -> void:
+	var route_cells := _vector3i_array_from_value(layout.get("ordered_route_cells", []))
+	if route_cells.size() < 2:
+		return
+	var footprint := _route_footprint_from_grid_layout(layout)
+	if footprint.is_empty():
+		return
+	var cell_size := _cell_size(layout)
+	var grid_basis := _basis_from_value(layout.get("basis", []))
+	var origin := _vector3_from_value(layout.get("origin", Vector3.ZERO), Vector3.ZERO)
+	var depth_x := GRID_SEAM_BRIDGE_HALF_DEPTH / maxf(cell_size.x, 0.001)
+	var depth_z := GRID_SEAM_BRIDGE_HALF_DEPTH / maxf(cell_size.z, 0.001)
+	var inset_x := GRID_SEAM_BRIDGE_SIDE_INSET / maxf(cell_size.x, 0.001)
+	var inset_z := GRID_SEAM_BRIDGE_SIDE_INSET / maxf(cell_size.z, 0.001)
+	var bridged_connections := {}
+	for i in range(route_cells.size()):
+		var current := route_cells[i]
+		var next := route_cells[(i + 1) % route_cells.size()]
+		var direction := next - current
+		if abs(direction.x) + abs(direction.z) != 1:
+			continue
+		if abs(direction.y) > 1:
+			continue
+		var connection_key := _edge_connection_key(current, next)
+		if bridged_connections.has(connection_key):
+			continue
+		bridged_connections[connection_key] = true
+		var current_data: Dictionary = footprint.get(current, {}) as Dictionary
+		var next_data: Dictionary = footprint.get(next, {}) as Dictionary
+		if current_data.is_empty() or next_data.is_empty():
+			continue
+		if not _connection_needs_collision_bridge(current, next, current_data, next_data):
+			continue
 		var base := vertices.size()
-		for local_point in local_points:
-			var local := local_point as Vector3
+		var local_points: Array[Vector3] = []
+		if direction.x != 0:
+			var seam_x := float(current.x + (1 if direction.x > 0 else 0))
+			var current_x := seam_x - float(direction.x) * depth_x
+			var next_x := seam_x + float(direction.x) * depth_x
+			var z0 := float(current.z) + inset_z
+			var z1 := float(current.z + 1) - inset_z
+			local_points = [
+				Vector3(current_x, 0.0, z0),
+				Vector3(next_x, 0.0, z0),
+				Vector3(current_x, 0.0, z1),
+				Vector3(next_x, 0.0, z1),
+			]
+		else:
+			var seam_z := float(current.z + (1 if direction.z > 0 else 0))
+			var current_z := seam_z - float(direction.z) * depth_z
+			var next_z := seam_z + float(direction.z) * depth_z
+			var x0 := float(current.x) + inset_x
+			var x1 := float(current.x + 1) - inset_x
+			local_points = [
+				Vector3(x0, 0.0, current_z),
+				Vector3(x0, 0.0, next_z),
+				Vector3(x1, 0.0, current_z),
+				Vector3(x1, 0.0, next_z),
+			]
+		for j in range(local_points.size()):
+			var local := local_points[j]
+			var source_data := current_data if j == 0 or j == 2 else next_data
 			var world := origin + grid_basis * Vector3(local.x * cell_size.x, 0.0, local.z * cell_size.z)
-			world.y = _surface_y_for_grid_local_point(tile_data, local, cell_size) + surface_offset
+			world.y = _surface_y_for_grid_local_point(source_data, local, cell_size) + GRID_SEAM_BRIDGE_SURFACE_OFFSET
 			vertices.append(world)
 		indices.append_array([base, base + 2, base + 1, base + 1, base + 2, base + 3])
-	var mesh := ArrayMesh.new()
-	if vertices.is_empty() or indices.is_empty():
-		return mesh
-	var arrays: Array = []
-	arrays.resize(Mesh.ARRAY_MAX)
-	arrays[Mesh.ARRAY_VERTEX] = vertices
-	arrays[Mesh.ARRAY_INDEX] = indices
-	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
-	return mesh
 
-static func _append_mesh_surface(vertices: PackedVector3Array, indices: PackedInt32Array, mesh: Mesh) -> void:
-	if mesh == null or mesh.get_surface_count() <= 0:
-		return
-	var arrays := mesh.surface_get_arrays(0)
-	var source_vertices := arrays[Mesh.ARRAY_VERTEX] as PackedVector3Array
-	var source_indices := arrays[Mesh.ARRAY_INDEX] as PackedInt32Array
-	if source_vertices.is_empty() or source_indices.is_empty():
-		return
+static func _append_grid_surface_quad(vertices: PackedVector3Array, indices: PackedInt32Array, origin: Vector3, grid_basis: Basis, cell_size: Vector3, tile_data: Dictionary, local_points: Array, surface_offset: float) -> void:
 	var base := vertices.size()
-	for vertex in source_vertices:
-		vertices.append(vertex)
-	for index in source_indices:
-		indices.append(base + index)
+	for local_value in local_points:
+		var local := local_value as Vector3
+		var world := origin + grid_basis * Vector3(local.x * cell_size.x, 0.0, local.z * cell_size.z)
+		world.y = _surface_y_for_grid_local_point(tile_data, local, cell_size) + surface_offset
+		vertices.append(world)
+	indices.append_array([base, base + 2, base + 1, base + 1, base + 2, base + 3])
+
+static func _connection_needs_collision_bridge(current: Vector3i, next: Vector3i, current_data: Dictionary, next_data: Dictionary) -> bool:
+	if current.y != next.y:
+		return true
+	return _tile_is_ramp_like(current_data) or _tile_is_ramp_like(next_data)
+
+static func _tile_is_ramp_like(tile_data: Dictionary) -> bool:
+	return int(tile_data.get("item", TILE_STRAIGHT)) in [TILE_RAMP, TILE_RAMP_LONG, TILE_RAMP_LONG_CURVED]
 
 static func boundary_wall_segments_from_grid_layout(layout: Dictionary, wall_height: float, wall_thickness: float) -> Array[Dictionary]:
 	var footprint := _route_footprint_from_grid_layout(layout)

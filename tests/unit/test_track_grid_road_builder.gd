@@ -251,6 +251,32 @@ func test_grid_collision_mesh_uses_ramp_tile_geometry() -> void:
 	assert_true(mesh.get_surface_count() > 0, "Grid collision mesh should include painted tile geometry")
 	assert_true(mesh.get_aabb().size.y > 3.5, "Ramp collision should preserve the ramp height instead of flattening to the route ribbon")
 
+func test_grid_collision_mesh_adds_narrow_ramp_connection_bridge() -> void:
+	var cells := [
+		{
+			"cell": Vector3i.ZERO,
+			"item": 5,
+			"orientation": 0,
+			"position": Vector3(8.0, 0.0, 8.0),
+		},
+		{
+			"cell": Vector3i(0, 1, 1),
+			"item": 0,
+			"orientation": 0,
+			"position": Vector3(8.0, 4.0, 24.0),
+		},
+	]
+	var disconnected_layout := {
+		"mesh_library_path": TrackGridRoadBuilder.DEFAULT_MESH_LIBRARY_PATH,
+		"cell_size": Vector3(16.0, 4.0, 16.0),
+		"cells": cells,
+	}
+	var connected_layout := disconnected_layout.duplicate(true)
+	connected_layout["ordered_route_cells"] = [Vector3i.ZERO, Vector3i(0, 1, 1)]
+	var disconnected_mesh := TrackGridRoadBuilder.build_grid_collision_mesh(disconnected_layout)
+	var connected_mesh := TrackGridRoadBuilder.build_grid_collision_mesh(connected_layout)
+	assert_equal(_mesh_vertex_count(connected_mesh), _mesh_vertex_count(disconnected_mesh) + 12, "Ramp-to-flat collision should add narrow ramp/seam support quads at the connection, not a broad all-track support slab")
+
 func test_grid_boundary_walls_wrap_exposed_route_footprint() -> void:
 	var layout := {
 		"cell_size": Vector3(16.0, 4.0, 16.0),
@@ -468,6 +494,13 @@ func _transformed_mesh_aabb(mesh: Mesh, transform: Transform3D) -> AABB:
 	for i in range(1, points.size()):
 		out = out.expand(transform * points[i])
 	return out
+
+func _mesh_vertex_count(mesh: Mesh) -> int:
+	if mesh == null or mesh.get_surface_count() <= 0:
+		return 0
+	var arrays := mesh.surface_get_arrays(0)
+	var vertices := arrays[Mesh.ARRAY_VERTEX] as PackedVector3Array
+	return vertices.size()
 
 func _transformed_surface_aabb(mesh: Mesh, transform: Transform3D, surface_name: String) -> AABB:
 	if mesh == null:

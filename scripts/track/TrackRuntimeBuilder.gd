@@ -275,7 +275,7 @@ static func _build_road(root: Node3D, definition: TrackDefinition) -> void:
 	road.set("generate_walls_runtime", false)
 	road.set("collision_enabled", true)
 	if is_gridmap_track:
-		road.set("collision_mesh_override", TrackGridRoadBuilder.build_grid_combined_collision_mesh(definition.road_grid_layout))
+		road.set("collision_mesh_override", TrackGridRoadBuilder.build_grid_collision_mesh(definition.road_grid_layout))
 	if not definition.road_texture_path.is_empty():
 		var texture := load(definition.road_texture_path)
 		if texture is Texture2D:

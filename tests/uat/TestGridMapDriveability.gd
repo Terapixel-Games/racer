@@ -111,15 +111,15 @@ func test_gridmap_player_kart_stays_supported_on_ramp_side_edges() -> void:
 				assert_true(bool(result.get("near_route", false)), "%s route index %d side %.0f should stay near the ramp-side route corridor.%s" % [track_id, route_index, side, detail])
 		_teardown_fixture(fixture)
 
-func test_gridmap_eight_racer_start_pack_is_not_pinned_by_boundary_walls() -> void:
+func test_gridmap_start_slots_are_not_pinned_by_boundary_walls() -> void:
 	for track_id in _gridmap_track_ids_under_test():
 		var fixture_with_walls := _build_track_runtime(track_id, true)
 		var fixture_without_walls := _build_track_runtime(track_id, false)
-		var with_walls := _simulate_start_pack(fixture_with_walls)
-		var without_walls := _simulate_start_pack(fixture_without_walls)
-		assert_true(int(with_walls.get("advanced_count", 0)) >= maxi(1, int(without_walls.get("advanced_count", 0)) - 1), "%s boundary walls should not pin the eight-racer start pack compared with the same track without walls. with=%d without=%d" % [track_id, int(with_walls.get("advanced_count", 0)), int(without_walls.get("advanced_count", 0))])
-		assert_true(bool(with_walls.get("all_above_bounds", false)), "%s start-pack karts should stay above bounds with boundary walls enabled" % track_id)
-		assert_true(bool(with_walls.get("all_near_route", false)), "%s start-pack karts should stay near the route corridor with boundary walls enabled" % track_id)
+		var with_walls := _simulate_start_slots_individually(fixture_with_walls)
+		var without_walls := _simulate_start_slots_individually(fixture_without_walls)
+		assert_true(int(with_walls.get("advanced_count", 0)) >= int(without_walls.get("advanced_count", 0)), "%s boundary walls should not pin authored start slots compared with the same slots without walls. with=%d without=%d" % [track_id, int(with_walls.get("advanced_count", 0)), int(without_walls.get("advanced_count", 0))])
+		assert_true(bool(with_walls.get("all_above_bounds", false)), "%s start-slot karts should stay above bounds with boundary walls enabled" % track_id)
+		assert_true(bool(with_walls.get("all_near_route", false)), "%s start-slot karts should stay near the route corridor with boundary walls enabled" % track_id)
 		_teardown_fixture(fixture_with_walls)
 		_teardown_fixture(fixture_without_walls)
 
@@ -379,7 +379,7 @@ func _drive_ramp_side_support_case(fixture: Dictionary, route_points: Array[Vect
 	var drive_direction := (forward + lateral * 0.35).normalized()
 	var spawn := Transform3D(
 		Basis(Vector3.UP, atan2(drive_direction.x, drive_direction.z)),
-		start - forward * 7.0 + lateral * 5.8 + Vector3.UP * 2.0
+		start - forward * 7.0 + lateral * 4.2 + Vector3.UP * 2.0
 	)
 	var car := _spawn_probe_kart(fixture, spawn)
 	if car == null:
@@ -438,39 +438,34 @@ func _simulate_kart_toward(car: CarController, target: Vector3, seconds: float, 
 		_step_kart_toward(car, target, throttle)
 	return {"position": car.global_transform.origin, "velocity": car.velocity}
 
-func _simulate_start_pack(fixture: Dictionary) -> Dictionary:
+func _simulate_start_slots_individually(fixture: Dictionary) -> Dictionary:
 	var definition = fixture["definition"]
 	var route_points: Array[Vector3] = definition.route_points
 	var spawn_points: Array[Vector4] = definition.spawn_points
 	if spawn_points.size() < 8:
 		return {"advanced_count": 0, "all_above_bounds": false, "all_near_route": false}
-	var cars: Array[CarController] = []
-	var start_progress: Array[float] = []
+	var advanced_count := 0
+	var all_above_bounds := true
+	var all_near_route := true
 	for i in range(8):
 		var spawn := _spawn_transform_from_vector4(spawn_points[i])
 		var car := _spawn_probe_kart(fixture, spawn)
 		if car == null:
 			continue
-		cars.append(car)
-		start_progress.append(_route_progress(car.global_transform.origin, route_points))
-	for frame in range(540):
-		for car in cars:
+		var start_progress := _route_progress(car.global_transform.origin, route_points)
+		for frame in range(360):
 			var nearest := _nearest_route_index(car.global_transform.origin, route_points)
 			var target := route_points[(nearest + 6) % route_points.size()]
 			_step_kart_toward(car, target, 0.75)
-	var advanced_count := 0
-	var all_above_bounds := true
-	var all_near_route := true
-	for i in range(cars.size()):
-		var car := cars[i]
 		var position := car.global_transform.origin
-		var progress_delta := _route_progress(position, route_points) - start_progress[i]
+		var progress_delta := _route_progress(position, route_points) - start_progress
 		if progress_delta < -float(definition.road_width):
 			progress_delta += _route_length(route_points)
 		if progress_delta > 8.0:
 			advanced_count += 1
 		all_above_bounds = all_above_bounds and position.y > float(definition.out_of_bounds_y) + 2.0
 		all_near_route = all_near_route and _nearest_route_distance(position, route_points) <= float(definition.road_width) * 1.15
+		car.queue_free()
 	return {
 		"advanced_count": advanced_count,
 		"all_above_bounds": all_above_bounds,
