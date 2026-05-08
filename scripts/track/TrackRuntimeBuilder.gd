@@ -585,11 +585,11 @@ static func _add_rail_segment_pieces(parent: Node3D, a: Vector3, b: Vector3, sid
 	var usable_length := flat_length - RAIL_SEGMENT_GAP * 2.0
 	var pieces: int = maxi(1, ceili(usable_length / RAIL_SEGMENT_LENGTH))
 	var piece_length: float = usable_length / float(pieces)
-	var rail_x := flat_dir
+	var rail_x := segment_dir
 	var rail_z := Vector3(flat_dir.z, 0.0, -flat_dir.x).normalized()
 	if rail_z.length_squared() <= 0.0001:
 		rail_z = Vector3.FORWARD
-	var rail_y := Vector3.UP
+	var rail_y := rail_z.cross(rail_x).normalized()
 	var basis := Basis(rail_x, rail_y, rail_z).scaled(Vector3(piece_length, RAIL_SIDE_SCALE, RAIL_SIDE_SCALE))
 	for piece_index in range(pieces):
 		var distance_along := RAIL_SEGMENT_GAP + (float(piece_index) + 0.5) * piece_length
