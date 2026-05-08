@@ -1,5 +1,15 @@
 {
 	"default_track_id": "kitchen",
+	"maps": {
+		"kitchen": {
+			"default_mode_id": "race",
+			"display_name": "Kitchen / Sir Clink",
+			"id": "kitchen",
+			"map_definition_path": "res://assets/gameplay/tracks/kitchen/kitchen_track_map.tres",
+			"map_scene_path": "res://assets/gameplay/tracks/kitchen/kitchen_editable_room.tscn",
+			"version": "kitchen_v2_2026_04_29"
+		}
+	},
 	"tracks": {
 		"attic": {
 			"definition_path": "res://assets/gameplay/tracks/attic/attic_track_definition.tres",

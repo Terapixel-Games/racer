@@ -1,10 +1,11 @@
-[gd_scene load_steps=22 format=3]
+[gd_scene load_steps=23 format=3]
 
 [ext_resource type="Script" path="res://scripts/track/TrackAuthoringPreview.gd" id="1_k3qvo"]
 [ext_resource type="Texture2D" path="res://assets/gameplay/materials/glam/glam_mirror_glitter_albedo.png" id="2_cl3wv"]
 [ext_resource type="Script" path="res://scripts/track/StagePropAuthoring.gd" id="3_3wur3"]
 [ext_resource type="Script" path="res://scripts/track/SurfaceSegmentAuthoring.gd" id="4_0v0jq"]
 [ext_resource type="Script" path="res://scripts/track/AudioZoneAuthoring.gd" id="5_kyp2h"]
+[ext_resource type="Script" path="res://scripts/track/RoadSegmentAuthoring.gd" id="6_cl3wv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hu34m"]
 albedo_color = Color(0.8, 0.42, 0.68, 1)
@@ -427,3 +428,188 @@ zone_id = "glam_closet_feature_zone"
 audio_id = "glam_closet_secondary"
 zone_kind = "oneshot"
 radius = 28.0
+
+[node name="RoadSegments" type="Node3D" parent="."]
+
+[node name="RoadSegment000" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.34582978, 0, 0.9382973, 0, 1, 0, -0.9382973, 0, -0.34582978, -101, 3.35, -64.5)
+script = ExtResource("6_cl3wv")
+segment_length = 14.920645
+role_tags = Array[String](["checkpoint", "start"])
+
+[node name="RoadSegment001" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.2101965, 0, 0.97765917, 0, 1, 0, -0.97765917, 0, -0.2101965, -86, 3.35, -68.8)
+script = ExtResource("6_cl3wv")
+segment_length = 16.365622
+role_tags = Array[String](["item"])
+
+[node name="RoadSegment002" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.09512223, 0, 0.9954656, 0, 1, 0, -0.9954656, 0, -0.09512223, -69, 3.35, -71.38)
+script = ExtResource("6_cl3wv")
+segment_length = 18.081991
+
+[node name="RoadSegment003" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.042960368, 0, 0.9990768, 0, 1, 0, -0.9990768, 0, 0.042960368, -50, 3.35, -71.81)
+script = ExtResource("6_cl3wv")
+segment_length = 20.018482
+role_tags = Array[String](["hazard"])
+
+[node name="RoadSegment004" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.1279397, 0, 0.99178195, 0, 1, 0, -0.99178195, 0, 0.1279397, -30, 3.35, -70.09)
+script = ExtResource("6_cl3wv")
+segment_length = 20.165722
+role_tags = Array[String](["item"])
+
+[node name="RoadSegment005" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.16951111, 0, 0.9855283, 0, 1, 0, -0.9855283, 0, 0.16951111, -10, 3.35, -67.08)
+script = ExtResource("6_cl3wv")
+segment_length = 20.293684
+
+[node name="RoadSegment006" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12, 3.35, -65.36)
+script = ExtResource("6_cl3wv")
+segment_length = 24.0
+role_tags = Array[String](["checkpoint"])
+
+[node name="RoadSegment007" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.071483314, 0, 0.99744177, 0, 1, 0, -0.99744177, 0, -0.071483314, 36, 3.35, -66.22)
+script = ExtResource("6_cl3wv")
+segment_length = 24.061554
+role_tags = Array[String](["item"])
+
+[node name="RoadSegment008" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.071483344, 0, 0.99744177, 0, 1, 0, -0.99744177, 0, 0.071483344, 60, 3.35, -66.22)
+script = ExtResource("6_cl3wv")
+segment_length = 24.061554
+role_tags = Array[String](["hazard"])
+
+[node name="RoadSegment009" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.2755675, 0, 0.9612817, 0, 1, 0, -0.9612817, 0, 0.2755675, 84, 3.35, -61.92)
+script = ExtResource("6_cl3wv")
+segment_length = 24.966665
+
+[node name="RoadSegment010" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.56680846, 0, 0.8238496, 0, 1, 0, -0.8238496, 0, 0.56680846, 106, 3.35, -51.6)
+script = ExtResource("6_cl3wv")
+segment_length = 24.276276
+role_tags = Array[String](["item"])
+
+[node name="RoadSegment011" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.84446925, 0, 0.53560406, 0, 1, 0, -0.53560406, 0, 0.84446925, 122, 3.35, -35.260002)
+script = ExtResource("6_cl3wv")
+segment_length = 22.404608
+
+[node name="RoadSegment012" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.98173404, 0, 0.19025853, 0, 1, 0, -0.19025853, 0, 0.98173404, 130, 3.35, -15.48)
+script = ExtResource("6_cl3wv")
+segment_length = 21.024023
+role_tags = Array[String](["checkpoint", "hazard"])
+
+[node name="RoadSegment013" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.9953381, 0, -0.09644749, 0, 1, 0, 0.09644749, 0, 0.9953381, 131, 3.35, 5.16)
+script = ExtResource("6_cl3wv")
+segment_length = 20.736673
+role_tags = Array[String](["item"])
+
+[node name="RoadSegment014" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.932411, 0, -0.36139962, 0, 1, 0, 0.36139962, 0, 0.932411, 126, 3.35, 25.8)
+script = ExtResource("6_cl3wv")
+segment_length = 22.13616
+
+[node name="RoadSegment015" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.69533163, 0, -0.718689, 0, 1, 0, 0.718689, 0, 0.69533163, 114, 3.35, 43.86)
+script = ExtResource("6_cl3wv")
+segment_length = 22.262758
+
+[node name="RoadSegment016" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.42468688, 0, -0.9053403, 0, 1, 0, 0.9053403, 0, 0.42468688, 95, 3.35, 56.76)
+script = ExtResource("6_cl3wv")
+segment_length = 24.300255
+role_tags = Array[String](["item"])
+
+[node name="RoadSegment017" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.21019688, 0, -0.9776591, 0, 1, 0, 0.9776591, 0, 0.21019688, 72, 4.05, 64.5)
+script = ExtResource("6_cl3wv")
+segment_length = 24.588324
+pitch_degrees = 3.2640495384380492
+role_tags = Array[String](["hazard"])
+
+[node name="RoadSegment018" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.13116443, 0, -0.9913606, 0, 1, 0, 0.9913606, 0, 0.13116443, 47, 4.75, 68.8)
+script = ExtResource("6_cl3wv")
+segment_length = 26.226582
+role_tags = Array[String](["checkpoint"])
+
+[node name="RoadSegment019" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 21, 4.05, 70.52)
+script = ExtResource("6_cl3wv")
+segment_length = 26.037666
+pitch_degrees = -3.082181034080234
+role_tags = Array[String](["item"])
+
+[node name="RoadSegment020" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.066009216, 0, -0.997819, 0, 1, 0, 0.997819, 0, -0.066009216, -5, 3.35, 69.66)
+script = ExtResource("6_cl3wv")
+segment_length = 26.05683
+
+[node name="RoadSegment021" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.13116476, 0, -0.9913606, 0, 1, 0, 0.9913606, 0, -0.13116476, -31, 3.35, 67.08)
+script = ExtResource("6_cl3wv")
+segment_length = 26.226582
+role_tags = Array[String](["hazard"])
+
+[node name="RoadSegment022" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.25581083, 0, -0.96672684, 0, 1, 0, 0.96672684, 0, -0.25581083, -57, 3.35, 61.92)
+script = ExtResource("6_cl3wv")
+segment_length = 26.894876
+role_tags = Array[String](["item"])
+
+[node name="RoadSegment023" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.44840497, 0, -0.89383054, 0, 1, 0, 0.89383054, 0, -0.44840497, -82, 3.35, 52.46)
+script = ExtResource("6_cl3wv")
+segment_length = 26.850729
+
+[node name="RoadSegment024" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.6520391, 0, -0.7581853, 0, 1, 0, 0.7581853, 0, -0.6520391, -104, 3.35, 37.84)
+script = ExtResource("6_cl3wv")
+segment_length = 26.378778
+role_tags = Array[String](["checkpoint"])
+
+[node name="RoadSegment025" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.8645071, 0, -0.50262064, 0, 1, 0, 0.50262064, 0, -0.8645071, -120, 3.35, 18.92)
+script = ExtResource("6_cl3wv")
+segment_length = 23.874874
+role_tags = Array[String](["item"])
+
+[node name="RoadSegment026" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.9843731, 0, -0.1760955, 0, 1, 0, 0.1760955, 0, -0.9843731, -128, 3.35, -2.58)
+script = ExtResource("6_cl3wv")
+segment_length = 22.714964
+role_tags = Array[String](["hazard"])
+
+[node name="RoadSegment027" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.98173404, 0, 0.19025852, 0, 1, 0, -0.19025852, 0, -0.98173404, -128, 3.35, -24.080002)
+script = ExtResource("6_cl3wv")
+segment_length = 21.024025
+
+[node name="RoadSegment028" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.8645071, 0, 0.50262064, 0, 1, 0, -0.50262064, 0, -0.8645071, -121, 3.35, -43)
+script = ExtResource("6_cl3wv")
+segment_length = 19.895725
+role_tags = Array[String](["checkpoint", "item"])
+
+[node name="RoadSegment029" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.58251905, 0, 0.81281704, 0, 1, 0, -0.81281704, 0, -0.58251905, -110, 3.35, -55.9)
+script = ExtResource("6_cl3wv")
+segment_length = 14.76347
+role_tags = Array[String](["hazard"])
+
+[node name="RoadSegment030" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.21019688, 0, -0.9776591, 0, 1, 0, 0.9776591, 0, 0.21019688, -108, 3.35, -59.34)
+script = ExtResource("6_cl3wv")
+segment_length = 8.182812
+
+[node name="RoadSegment031" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.6520391, 0, 0.7581853, 0, 1, 0, -0.7581853, 0, -0.6520391, -110, 3.35, -60.199997)
+script = ExtResource("6_cl3wv")
+segment_length = 5.275755

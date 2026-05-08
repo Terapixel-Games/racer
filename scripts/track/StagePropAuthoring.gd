@@ -36,7 +36,8 @@ const PREVIEW_NAME := "GeneratedPreview"
 var _preview_refresh_queued := false
 
 func _ready() -> void:
-	_rebuild_preview()
+	if Engine.is_editor_hint():
+		_rebuild_preview()
 
 func to_stage_prop() -> Dictionary:
 	return {
@@ -59,7 +60,7 @@ func _resolved_prop_id() -> String:
 	return str(name)
 
 func _rebuild_preview_deferred() -> void:
-	if _preview_refresh_queued or not is_inside_tree():
+	if not Engine.is_editor_hint() or _preview_refresh_queued or not is_inside_tree():
 		return
 	_preview_refresh_queued = true
 	call_deferred("_rebuild_preview")
@@ -67,7 +68,7 @@ func _rebuild_preview_deferred() -> void:
 func _rebuild_preview() -> void:
 	_preview_refresh_queued = false
 	_clear_preview()
-	if not preview_enabled:
+	if not Engine.is_editor_hint() or not preview_enabled:
 		return
 	var holder := Node3D.new()
 	holder.name = PREVIEW_NAME

@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfvoqbjvkjxor"
-path.s3tc="res://.godot/imported/kenney_roof.png-a913dee5df1099360c34f2c8402ea0bb.s3tc.ctex"
-path.etc2="res://.godot/imported/kenney_roof.png-a913dee5df1099360c34f2c8402ea0bb.etc2.ctex"
+uid="uid://c3wq3npcpyjy7"
+path.s3tc="res://.godot/imported/147660df-9eec-451e-9220-881176669332.png-094c5c574adf6c4f4f5c26f5854ebad1.s3tc.ctex"
+path.etc2="res://.godot/imported/147660df-9eec-451e-9220-881176669332.png-094c5c574adf6c4f4f5c26f5854ebad1.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/gameplay/tracks/attic/kenney/kenney_roof.png"
-dest_files=["res://.godot/imported/kenney_roof.png-a913dee5df1099360c34f2c8402ea0bb.s3tc.ctex", "res://.godot/imported/kenney_roof.png-a913dee5df1099360c34f2c8402ea0bb.etc2.ctex"]
+source_file="res://assets/gameplay/materials/attic/147660df-9eec-451e-9220-881176669332.png"
+dest_files=["res://.godot/imported/147660df-9eec-451e-9220-881176669332.png-094c5c574adf6c4f4f5c26f5854ebad1.s3tc.ctex", "res://.godot/imported/147660df-9eec-451e-9220-881176669332.png-094c5c574adf6c4f4f5c26f5854ebad1.etc2.ctex"]
 
 [params]
 

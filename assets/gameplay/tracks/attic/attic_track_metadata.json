@@ -33,8 +33,8 @@
 	"audio_ids": {
 		"attic_primary": "res://assets/source/audio/canva/tracks/attic/attic_creak_canva_01.mp3",
 		"attic_secondary": "res://assets/source/audio/canva/tracks/attic/attic_prank_squeak_canva_01.wav",
-		"music": "res://assets/source/audio/suno/tracks/attic/attic_loop_suno_01.mp3",
-		"attic_window_wind": "res://assets/source/audio/sfx/attic/wind_blowing.mp3"
+		"attic_window_wind": "res://assets/source/audio/sfx/attic/wind_blowing.mp3",
+		"music": "res://assets/source/audio/suno/tracks/attic/attic_loop_suno_01.mp3"
 	},
 	"audio_zones": [
 		{
@@ -104,10 +104,10 @@
 			"is_lap_gate": false,
 			"position": [
 				128.0,
-				5.34999990463257,
+				3.34999990463257,
 				-30.0
 			],
-			"route_index": 12
+			"route_index": 15
 		},
 		{
 			"index": 3,
@@ -117,7 +117,7 @@
 				3.34999990463257,
 				78.0
 			],
-			"route_index": 18
+			"route_index": 22
 		},
 		{
 			"index": 4,
@@ -127,7 +127,7 @@
 				3.34999990463257,
 				54.0
 			],
-			"route_index": 24
+			"route_index": 30
 		},
 		{
 			"index": 5,
@@ -137,152 +137,155 @@
 				3.34999990463257,
 				-40.0
 			],
-			"route_index": 28
+			"route_index": 34
 		}
 	],
 	"closed_loop": true,
 	"display_name": "Attic Mayhem",
 	"dressing_scene_path": "res://assets/gameplay/tracks/attic/attic_editable_room.tscn",
 	"floor_visual_y": -32.0,
+	"grass_zones": [],
+	"ground_shader_path": "",
+	"ground_texture_path": "res://assets/gameplay/materials/attic/attic_cardboard_wood_albedo.png",
 	"hazard_sockets": [
 		{
 			"position": [
-				-40.0,
-				4.04999971389771,
-				-83.0
+				-50.0,
+				4.15000009536743,
+				-83.5
 			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				72.0,
-				4.04999971389771,
-				-76.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				132.0,
-				4.04999971389771,
-				-6.0
-			],
-			"yaw_degrees": 0.0
+			"yaw_degrees": 87.1375961303711
 		},
 		{
 			"position": [
 				60.0,
-				4.04999971389771,
+				4.15000009536743,
+				-77.0
+			],
+			"yaw_degrees": 85.2363586425781
+		},
+		{
+			"position": [
+				130.0,
+				5.15000009536743,
+				-18.0
+			],
+			"yaw_degrees": 9.46232223510742
+		},
+		{
+			"position": [
+				72.0,
+				4.15000009536743,
+				75.0
+			],
+			"yaw_degrees": -75.963752746582
+		},
+		{
+			"position": [
+				-31.0,
+				4.75,
 				78.0
 			],
-			"yaw_degrees": 0.0
+			"yaw_degrees": -98.7461624145508
 		},
 		{
 			"position": [
-				-44.0,
-				5.24999952316284,
-				76.0
+				-128.0,
+				4.15000009536743,
+				-3.0
 			],
-			"yaw_degrees": 0.0
+			"yaw_degrees": -171.253829956055
 		},
 		{
 			"position": [
-				-130.0,
-				4.04999971389771,
-				-16.0
+				-110.0,
+				4.15000009536743,
+				-65.0
 			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				-104.0,
-				4.04999971389771,
-				-70.0
-			],
-			"yaw_degrees": 0.0
+			"yaw_degrees": 129.805572509766
 		}
 	],
 	"id": "attic",
 	"item_sockets": [
 		{
 			"position": [
-				-78.0,
-				4.04999971389771,
-				-82.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				-20.0,
-				4.04999971389771,
+				-86.0,
+				4.15000009536743,
 				-80.0
 			],
-			"yaw_degrees": 0.0
+			"yaw_degrees": 104.036247253418
 		},
 		{
 			"position": [
-				48.0,
-				4.04999971389771,
-				-78.0
+				-30.0,
+				4.15000009536743,
+				-81.5
 			],
-			"yaw_degrees": 0.0
+			"yaw_degrees": 81.4692306518555
 		},
 		{
 			"position": [
-				116.0,
-				7.24999952316284,
-				-52.0
+				36.0,
+				4.15000009536743,
+				-77.0
 			],
-			"yaw_degrees": 0.0
+			"yaw_degrees": 94.7636413574219
 		},
 		{
 			"position": [
-				130.0,
-				4.04999971389771,
-				18.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				84.0,
-				4.04999971389771,
-				72.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				8.0,
-				4.04999971389771,
-				82.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				-70.0,
-				4.04999971389771,
-				68.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				-126.0,
-				4.04999971389771,
-				10.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				-116.0,
-				4.04999971389771,
+				106.0,
+				6.75,
 				-60.0
 			],
-			"yaw_degrees": 0.0
+			"yaw_degrees": 51.3401908874512
+		},
+		{
+			"position": [
+				131.0,
+				4.15000009536743,
+				6.0
+			],
+			"yaw_degrees": -4.76364183425903
+		},
+		{
+			"position": [
+				95.0,
+				4.15000009536743,
+				66.0
+			],
+			"yaw_degrees": -61.3895378112793
+		},
+		{
+			"position": [
+				21.0,
+				4.15000009536743,
+				82.0
+			],
+			"yaw_degrees": -90.0
+		},
+		{
+			"position": [
+				-57.0,
+				4.75,
+				72.0
+			],
+			"yaw_degrees": -107.102729797363
+		},
+		{
+			"position": [
+				-120.0,
+				4.15000009536743,
+				22.0
+			],
+			"yaw_degrees": -153.434951782227
+		},
+		{
+			"position": [
+				-121.0,
+				4.15000009536743,
+				-50.0
+			],
+			"yaw_degrees": 153.434951782227
 		}
 	],
 	"lap_gate_checkpoint_index": 0,
@@ -291,8 +294,365 @@
 	"rail_texture_path": "res://assets/gameplay/materials/metal/toy_metal_albedo.png",
 	"rail_texture_uv_scale": 0.5,
 	"reset_mode": "instant_pop",
+	"road_segment_layout": [
+		{
+			"length": 15.231546,
+			"pitch_degrees": 0.0,
+			"position": [
+				-101.0,
+				3.34999990463257,
+				-75.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 113.198589756265
+		},
+		{
+			"length": 16.492422,
+			"pitch_degrees": 0.0,
+			"position": [
+				-86.0,
+				3.34999990463257,
+				-80.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 104.036246154529
+		},
+		{
+			"length": 18.110771,
+			"pitch_degrees": 0.0,
+			"position": [
+				-69.0,
+				3.34999990463257,
+				-83.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 96.3401939034342
+		},
+		{
+			"length": 20.024984,
+			"pitch_degrees": 0.0,
+			"position": [
+				-50.0,
+				3.34999990463257,
+				-83.5
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 87.1375931667309
+		},
+		{
+			"length": 20.22375,
+			"pitch_degrees": 0.0,
+			"position": [
+				-30.0,
+				3.34999990463257,
+				-81.5
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 81.4692328349156
+		},
+		{
+			"length": 20.396078,
+			"pitch_degrees": 0.0,
+			"position": [
+				-10.0,
+				3.34999990463257,
+				-78.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 78.6900698427725
+		},
+		{
+			"length": 24.0,
+			"pitch_degrees": 0.0,
+			"position": [
+				12.0,
+				3.34999990463257,
+				-76.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 90.0000025044782
+		},
+		{
+			"length": 24.083189,
+			"pitch_degrees": 0.0,
+			"position": [
+				36.0,
+				3.34999990463257,
+				-77.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 94.7636428090227
+		},
+		{
+			"length": 24.083189,
+			"pitch_degrees": 0.0,
+			"position": [
+				60.0,
+				3.34999990463257,
+				-77.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 85.2363553697445
+		},
+		{
+			"length": 25.377155,
+			"pitch_degrees": 4.52022753805568,
+			"position": [
+				84.0,
+				4.34999990463257,
+				-72.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 71.565048727047
+		},
+		{
+			"length": 25.640593,
+			"pitch_degrees": 2.68246712904634,
+			"position": [
+				106.0,
+				5.94999980926514,
+				-60.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 51.3401892361005
+		},
+		{
+			"length": 25.088642,
+			"pitch_degrees": -2.74152594147066,
+			"position": [
+				122.0,
+				5.94999980926514,
+				-41.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 28.6104603198895
+		},
+		{
+			"length": 24.41311,
+			"pitch_degrees": -4.69911931985952,
+			"position": [
+				130.0,
+				4.34999990463257,
+				-18.0
+			],
+			"segment_id": "ramp_long",
+			"yaw_degrees": 9.46232209498764
+		},
+		{
+			"length": 24.083189,
+			"pitch_degrees": 0.0,
+			"position": [
+				131.0,
+				3.34999990463257,
+				6.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -4.76364158520499
+		},
+		{
+			"length": 25.298222,
+			"pitch_degrees": 0.0,
+			"position": [
+				126.0,
+				3.34999990463257,
+				30.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -18.4349486547893
+		},
+		{
+			"length": 24.083189,
+			"pitch_degrees": 0.0,
+			"position": [
+				114.0,
+				3.34999990463257,
+				51.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -41.6335410292178
+		},
+		{
+			"length": 25.059929,
+			"pitch_degrees": 0.0,
+			"position": [
+				95.0,
+				3.34999990463257,
+				66.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -61.3895421845887
+		},
+		{
+			"length": 24.738634,
+			"pitch_degrees": 0.0,
+			"position": [
+				72.0,
+				3.34999990463257,
+				75.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -75.9637520242377
+		},
+		{
+			"length": 26.305893,
+			"pitch_degrees": 0.0,
+			"position": [
+				47.0,
+				3.34999990463257,
+				80.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -81.2538359892501
+		},
+		{
+			"length": 26.0,
+			"pitch_degrees": 0.0,
+			"position": [
+				21.0,
+				3.34999990463257,
+				82.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -90.0000025044782
+		},
+		{
+			"length": 26.076809,
+			"pitch_degrees": 0.0,
+			"position": [
+				-5.0,
+				3.34999990463257,
+				81.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -94.3987058016689
+		},
+		{
+			"length": 26.333248,
+			"pitch_degrees": 2.61185935896063,
+			"position": [
+				-31.0,
+				3.94999980926514,
+				78.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -98.7461621895171
+		},
+		{
+			"length": 27.229397,
+			"pitch_degrees": -2.5258436745781,
+			"position": [
+				-57.0,
+				3.94999980926514,
+				72.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -107.102727884298
+		},
+		{
+			"length": 27.784887,
+			"pitch_degrees": 0.0,
+			"position": [
+				-82.0,
+				3.34999990463257,
+				61.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -120.256435961503
+		},
+		{
+			"length": 28.284271,
+			"pitch_degrees": 0.0,
+			"position": [
+				-104.0,
+				3.34999990463257,
+				44.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -135.000000341623
+		},
+		{
+			"length": 26.832815,
+			"pitch_degrees": 0.0,
+			"position": [
+				-120.0,
+				3.34999990463257,
+				22.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -153.434954119054
+		},
+		{
+			"length": 26.305893,
+			"pitch_degrees": 0.0,
+			"position": [
+				-128.0,
+				3.34999990463257,
+				-3.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -171.253838493728
+		},
+		{
+			"length": 24.33105,
+			"pitch_degrees": 0.0,
+			"position": [
+				-128.0,
+				3.34999990463257,
+				-28.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 170.537665838496
+		},
+		{
+			"length": 22.36068,
+			"pitch_degrees": 0.0,
+			"position": [
+				-121.0,
+				3.34999990463257,
+				-50.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 153.434954119054
+		},
+		{
+			"length": 15.6205,
+			"pitch_degrees": 0.0,
+			"position": [
+				-110.0,
+				3.34999990463257,
+				-65.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 129.805573175936
+		},
+		{
+			"length": 8.246211,
+			"pitch_degrees": 0.0,
+			"position": [
+				-108.0,
+				3.34999990463257,
+				-69.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -75.9637520242377
+		},
+		{
+			"length": 5.656854,
+			"pitch_degrees": 0.0,
+			"position": [
+				-110.0,
+				3.34999990463257,
+				-70.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 135.000000341623
+		}
+	],
+	"road_segment_material_style": "toy_plastic",
+	"road_segment_profile": "kenney_racing_kit",
+	"road_visual_style": "kenney_segments",
 	"road_width": 15.0,
-	"route_length": 723.79710149765,
+	"route_length": 736.597100734711,
 	"route_points": [
 		[
 			-108.0,
@@ -345,19 +705,39 @@
 			-76.0
 		],
 		[
-			96.0,
+			72.0,
 			5.34999990463257,
+			-76.0
+		],
+		[
+			96.0,
+			3.34999990463257,
+			-68.0
+		],
+		[
+			96.0,
+			6.54999971389771,
 			-68.0
 		],
 		[
 			116.0,
-			6.54999971389771,
+			5.34999990463257,
 			-52.0
 		],
 		[
 			128.0,
-			5.34999990463257,
+			6.54999971389771,
 			-30.0
+		],
+		[
+			128.0,
+			3.34999990463257,
+			-30.0
+		],
+		[
+			132.0,
+			5.34999990463257,
+			-6.0
 		],
 		[
 			132.0,
@@ -405,9 +785,19 @@
 			80.0
 		],
 		[
-			-44.0,
+			-18.0,
 			4.54999971389771,
+			80.0
+		],
+		[
+			-44.0,
+			3.34999990463257,
 			76.0
+		],
+		[
+			-70.0,
+			4.54999971389771,
+			68.0
 		],
 		[
 			-70.0,
@@ -479,65 +869,65 @@
 	"spawn_points": [
 		{
 			"position": [
-				-107.212158203125,
+				-107.409118652344,
 				4.15000009536743,
-				-70.1617126464844
+				-70.6212844848633
 			],
 			"yaw_degrees": 113.198593139648
 		},
 		{
 			"position": [
-				-108.787841796875,
+				-108.590881347656,
 				4.15000009536743,
-				-73.8382873535156
+				-73.3787155151367
 			],
 			"yaw_degrees": 113.198593139648
 		},
 		{
 			"position": [
-				-102.616432189941,
+				-102.81339263916,
 				4.15000009536743,
-				-72.1313095092773
+				-72.5908813476563
 			],
 			"yaw_degrees": 113.198593139648
 		},
 		{
 			"position": [
-				-104.192115783691,
+				-103.995155334473,
 				4.15000009536743,
-				-75.8078842163086
+				-75.3483123779297
 			],
 			"yaw_degrees": 113.198593139648
 		},
 		{
 			"position": [
-				-98.0207061767578,
+				-98.2176666259766,
 				4.15000009536743,
-				-74.1009063720703
+				-74.5604782104492
 			],
 			"yaw_degrees": 113.198593139648
 		},
 		{
 			"position": [
-				-99.5963897705078,
+				-99.3994293212891,
 				4.15000009536743,
-				-77.7774810791016
+				-77.3179092407227
 			],
 			"yaw_degrees": 113.198593139648
 		},
 		{
 			"position": [
-				-93.4249801635742,
+				-93.621940612793,
 				4.15000009536743,
-				-76.0705032348633
+				-76.5300750732422
 			],
 			"yaw_degrees": 113.198593139648
 		},
 		{
 			"position": [
-				-95.0006637573242,
+				-94.8037033081055,
 				4.15000009536743,
-				-79.7470779418945
+				-79.2875061035156
 			],
 			"yaw_degrees": 113.198593139648
 		}
@@ -602,6 +992,186 @@
 				1.0
 			],
 			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "res://assets/gameplay/tracks/attic/props/industrial_object.glb",
+			"audio_material_id": "metal",
+			"box_color": [
+				0.75,
+				0.720000028610229,
+				0.639999985694885,
+				1.0
+			],
+			"box_size": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "attic_landmark",
+			"id": "IndustrialObjectMeshy",
+			"kind": "scene",
+			"position": [
+				-80.3456954956055,
+				56.2006530761719,
+				-0.868645668029785
+			],
+			"scale": [
+				8.99639987945557,
+				9.0,
+				8.99639987945557
+			],
+			"yaw_degrees": -36.0166511535645
+		},
+		{
+			"asset_path": "res://assets/gameplay/tracks/attic/props/industrial_object.glb",
+			"audio_material_id": "metal",
+			"box_color": [
+				0.75,
+				0.720000028610229,
+				0.639999985694885,
+				1.0
+			],
+			"box_size": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "attic_landmark",
+			"id": "IndustrialObjectMeshy",
+			"kind": "scene",
+			"position": [
+				39.6360168457031,
+				56.2006530761719,
+				-0.868645668029785
+			],
+			"scale": [
+				8.99639987945557,
+				9.0,
+				8.99639987945557
+			],
+			"yaw_degrees": -36.0166511535645
+		},
+		{
+			"asset_path": "uid://ckjdv8gqg00j0",
+			"audio_material_id": "wood",
+			"box_color": [
+				0.75,
+				0.720000028610229,
+				0.639999985694885,
+				1.0
+			],
+			"box_size": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "toy_setpiece",
+			"id": "JackInTheBoxSetpiece",
+			"kind": "scene",
+			"position": [
+				106.0,
+				1.60000193119049,
+				34.0
+			],
+			"scale": [
+				2.80000019073486,
+				2.79999995231628,
+				2.80000019073486
+			],
+			"yaw_degrees": -109.527984619141
+		},
+		{
+			"asset_path": "uid://8p6ngnse0snf",
+			"audio_material_id": "wood",
+			"box_color": [
+				0.75,
+				0.720000028610229,
+				0.639999985694885,
+				1.0
+			],
+			"box_size": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "attic_clutter",
+			"id": "KenneyCrateStackA",
+			"kind": "scene",
+			"position": [
+				118.0,
+				-5.0,
+				74.0
+			],
+			"scale": [
+				10.0000009536743,
+				10.0,
+				10.0000009536743
+			],
+			"yaw_degrees": -12.0000114440918
+		},
+		{
+			"asset_path": "res://assets/gameplay/tracks/attic/kenney/kenney_detail_crate.glb",
+			"audio_material_id": "wood",
+			"box_color": [
+				0.75,
+				0.720000028610229,
+				0.639999985694885,
+				1.0
+			],
+			"box_size": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "attic_clutter",
+			"id": "KenneyCrateStackB",
+			"kind": "scene",
+			"position": [
+				-92.0,
+				-5.0,
+				-30.0
+			],
+			"scale": [
+				12.0000009536743,
+				12.0,
+				12.0000009536743
+			],
+			"yaw_degrees": 24.0000286102295
+		},
+		{
+			"asset_path": "res://assets/gameplay/tracks/attic/props/old_chest.glb",
+			"audio_material_id": "wood",
+			"box_color": [
+				0.75,
+				0.720000028610229,
+				0.639999985694885,
+				1.0
+			],
+			"box_size": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "attic_landmark",
+			"id": "OldChestMeshy",
+			"kind": "scene",
+			"position": [
+				92.0,
+				-5.0,
+				54.0
+			],
+			"scale": [
+				14.9999990463257,
+				15.0,
+				14.9999990463257
+			],
+			"yaw_degrees": 17.9999904632568
 		},
 		{
 			"asset_path": "",
@@ -685,6 +1255,36 @@
 				0.0,
 				10.0,
 				-8.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "wood",
+			"box_color": [
+				0.550000011920929,
+				0.159999996423721,
+				0.119999997317791,
+				1.0
+			],
+			"box_size": [
+				18.0,
+				10.0,
+				10.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "toy_blocks",
+			"id": "WindowToyBlocks",
+			"kind": "box",
+			"position": [
+				128.0,
+				-6.5,
+				20.0
 			],
 			"scale": [
 				1.0,

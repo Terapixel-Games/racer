@@ -8,6 +8,8 @@ const TrackMetadataExporter = preload("res://scripts/track/TrackMetadataExporter
 const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd")
 const TrackRibbonMesh = preload("res://scripts/track/TrackRibbonMesh.gd")
 const TrackWalls = preload("res://scripts/TrackWalls.gd")
+const TrackSegmentRoadBuilder = preload("res://scripts/track/TrackSegmentRoadBuilder.gd")
+const RoadSegmentAuthoring = preload("res://scripts/track/RoadSegmentAuthoring.gd")
 const StagePropAuthoring = preload("res://scripts/track/StagePropAuthoring.gd")
 const SurfaceSegmentAuthoring = preload("res://scripts/track/SurfaceSegmentAuthoring.gd")
 const AudioZoneAuthoring = preload("res://scripts/track/AudioZoneAuthoring.gd")
@@ -131,6 +133,16 @@ const PREVIEW_ROOT_NAME := "EditorTrackPreview"
 		if value:
 			print_authoring_validation()
 		validate_authoring_now = false
+@export var sync_road_segments_from_route_now := false:
+	set(value):
+		if value:
+			sync_road_segments_from_route()
+		sync_road_segments_from_route_now = false
+@export var apply_road_segments_to_definition_now := false:
+	set(value):
+		if value:
+			apply_road_segments_to_definition()
+		apply_road_segments_to_definition_now = false
 
 var _last_preview_signature := ""
 
@@ -233,6 +245,21 @@ func validate_authoring() -> Array[String]:
 		return ["Track definition could not be loaded from %s." % track_definition_path]
 	return definition.validate()
 
+func sync_road_segments_from_route() -> Array[String]:
+	var route_points := _collect_marker_positions("RoutePoints")
+	if route_points.size() < 2:
+		return ["RoutePoints must include at least two markers before road segments can be generated."]
+	_replace_road_segments(route_points)
+	refresh_preview()
+	print("Track builder generated RoadSegments from RoutePoints")
+	return []
+
+func apply_road_segments_to_definition() -> Array[String]:
+	var errors := apply_markers_to_definition()
+	if errors.is_empty():
+		print("Track builder applied RoadSegments to %s" % track_definition_path)
+	return errors
+
 func print_authoring_validation() -> void:
 	var errors := validate_authoring()
 	if errors.is_empty():
@@ -273,6 +300,10 @@ func _add_track_body_preview(parent: Node3D, route_points: Array[Vector3]) -> vo
 	parent.add_child(body)
 
 func _add_road_preview(parent: Node3D, route_points: Array[Vector3]) -> void:
+	var segment_layout := _collect_road_segments()
+	var segment_preview := TrackSegmentRoadBuilder.build_segment_road(route_points, road_width, closed_loop, segment_layout)
+	segment_preview.name = "PreviewSegmentRoad"
+	parent.add_child(segment_preview)
 	var road := RoadMeshScript.new() as MeshInstance3D
 	road.name = "PreviewRoad"
 	road.set("points", route_points)
@@ -310,6 +341,9 @@ func _add_alternate_route_previews(parent: Node3D) -> void:
 		body.mesh = TrackRibbonMesh.build_slab_mesh(points, width, track_body_depth, false)
 		body.material_override = _material(Color(0.16, 0.55, 1.0, 0.22), true)
 		holder.add_child(body)
+		var segment_preview := TrackSegmentRoadBuilder.build_segment_road(points, width, false)
+		segment_preview.name = "%sSegmentRoad" % route_id
+		holder.add_child(segment_preview)
 		var road := RoadMeshScript.new() as MeshInstance3D
 		road.name = "%sRoad" % route_id
 		road.set("points", points)
@@ -531,12 +565,26 @@ func _definition_from_markers() -> TrackDefinition:
 	if source == null:
 		return null
 	var definition := source.duplicate(true) as TrackDefinition
-	definition.route_points = _collect_marker_positions("RoutePoints")
-	definition.spawn_points = _collect_socket_markers("SpawnPoints")
-	definition.checkpoint_indices = _collect_checkpoint_indices(definition.route_points)
-	definition.lap_gate_checkpoint_index = _collect_lap_gate_checkpoint_index()
-	definition.item_sockets = _collect_socket_markers("ItemSockets")
-	definition.hazard_sockets = _collect_socket_markers("HazardSockets")
+	var segment_layout := _collect_road_segments()
+	if not segment_layout.is_empty():
+		definition.road_segment_layout = segment_layout
+		var segment_route := TrackSegmentRoadBuilder.route_points_from_layout(segment_layout, closed_loop)
+		if segment_route.size() >= 3:
+			definition.route_points = segment_route
+			var segment_checkpoints := TrackSegmentRoadBuilder.checkpoint_indices_from_layout(segment_layout, definition.route_points, closed_loop)
+			if segment_checkpoints.size() >= 3:
+				definition.checkpoint_indices = segment_checkpoints
+				definition.lap_gate_checkpoint_index = 0
+			definition.spawn_points = TrackSegmentRoadBuilder.start_grid_from_layout(segment_layout, road_width)
+			definition.item_sockets = TrackSegmentRoadBuilder.sockets_from_layout(segment_layout, "item", 10, road_width)
+			definition.hazard_sockets = TrackSegmentRoadBuilder.sockets_from_layout(segment_layout, "hazard", 8, road_width)
+	else:
+		definition.route_points = _collect_marker_positions("RoutePoints")
+		definition.spawn_points = _collect_socket_markers("SpawnPoints")
+		definition.checkpoint_indices = _collect_checkpoint_indices(definition.route_points)
+		definition.lap_gate_checkpoint_index = _collect_lap_gate_checkpoint_index()
+		definition.item_sockets = _collect_socket_markers("ItemSockets")
+		definition.hazard_sockets = _collect_socket_markers("HazardSockets")
 	definition.shortcut_gates = _collect_shortcut_gates(definition.shortcut_gates)
 	definition.alternate_routes = _collect_alternate_routes(definition.alternate_routes)
 	definition.grass_zones = _collect_grass_zones()
@@ -546,6 +594,16 @@ func _definition_from_markers() -> TrackDefinition:
 		definition.surface_segments = _collect_surface_segments()
 		definition.audio_zones = _collect_audio_zones()
 	return definition
+
+func _collect_road_segments() -> Array[Dictionary]:
+	var segments: Array[Dictionary] = []
+	var holder := get_node_or_null("RoadSegments")
+	if holder == null:
+		return segments
+	for child in _sorted_node3d_children(holder):
+		if child.has_method("to_road_segment"):
+			segments.append(child.call("to_road_segment", road_width) as Dictionary)
+	return segments
 
 func _load_definition() -> TrackDefinition:
 	if track_definition_path.strip_edges().is_empty():
@@ -751,6 +809,51 @@ func _replace_alternate_routes(routes: Array[Dictionary]) -> void:
 			route_node.add_child(marker)
 			if Engine.is_editor_hint():
 				marker.owner = owner if owner != null else self
+
+func _replace_road_segments(route_points: Array[Vector3]) -> void:
+	var holder := _get_or_create_holder("RoadSegments")
+	for child in holder.get_children():
+		holder.remove_child(child)
+		child.queue_free()
+	var segment_count := route_points.size() if closed_loop else route_points.size() - 1
+	for i in range(segment_count):
+		var a := route_points[i]
+		var b := route_points[(i + 1) % route_points.size()]
+		var delta := b - a
+		if delta.length() <= 0.1:
+			continue
+		var segment := RoadSegmentAuthoring.new()
+		var local_delta := _root_direction_to_local(holder, delta)
+		segment.name = "RoadSegment%03d" % i
+		segment.segment_id = "ramp_long" if absf(delta.y / maxf(Vector2(delta.x, delta.z).length(), 0.001)) >= 0.08 else "straight_long"
+		segment.segment_length = delta.length()
+		segment.pitch_degrees = rad_to_deg(atan2(local_delta.y, Vector2(local_delta.x, local_delta.z).length()))
+		segment.position = _root_point_to_local(holder, a.lerp(b, 0.5))
+		segment.rotation_degrees.y = rad_to_deg(atan2(local_delta.x, local_delta.z))
+		if _route_index_is_checkpoint(i):
+			segment.role_tags.append("checkpoint")
+			if i == 0:
+				segment.role_tags.append("start")
+		holder.add_child(segment)
+		if Engine.is_editor_hint():
+			segment.owner = owner if owner != null else self
+
+func _root_point_to_local(holder: Node3D, point: Vector3) -> Vector3:
+	if holder == self:
+		return point
+	var parent_transform := _root_space_transform(holder)
+	return parent_transform.affine_inverse() * point
+
+func _root_direction_to_local(holder: Node3D, direction: Vector3) -> Vector3:
+	if holder == self:
+		return direction
+	var parent_transform := _root_space_transform(holder)
+	return parent_transform.basis.inverse() * direction
+
+func _route_index_is_checkpoint(route_index: int) -> bool:
+	var route_points := _collect_marker_positions("RoutePoints")
+	var indices := _collect_checkpoint_indices(route_points)
+	return indices.has(route_index)
 
 func _get_or_create_holder(holder_name: String) -> Node3D:
 	var holder := get_node_or_null(holder_name) as Node3D

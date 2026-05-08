@@ -1,11 +1,12 @@
-[gd_scene load_steps=26 format=3 uid="uid://itu1yapapa5j"]
+[gd_scene load_steps=34 format=3]
 
-[ext_resource type="Script" uid="uid://dlvn2xhwjpnou" path="res://scripts/track/TrackAuthoringPreview.gd" id="1_v46l3"]
-[ext_resource type="Script" uid="uid://doxmi6s12eqc5" path="res://scripts/track/StagePropAuthoring.gd" id="2_nuam5"]
-[ext_resource type="Script" uid="uid://o3okkegl41gl" path="res://scripts/track/SurfaceSegmentAuthoring.gd" id="3_72hx3"]
-[ext_resource type="Script" uid="uid://caggqafc2elyk" path="res://scripts/track/AudioZoneAuthoring.gd" id="4_3tyt2"]
-[ext_resource type="Script" uid="uid://capjso3b7axtk" path="res://scripts/track/GrassZoneAuthoring.gd" id="5_grass_zone"]
+[ext_resource type="Script" path="res://scripts/track/TrackAuthoringPreview.gd" id="1_v46l3"]
+[ext_resource type="Script" path="res://scripts/track/StagePropAuthoring.gd" id="2_nuam5"]
+[ext_resource type="Script" path="res://scripts/track/SurfaceSegmentAuthoring.gd" id="3_72hx3"]
+[ext_resource type="Script" path="res://scripts/track/AudioZoneAuthoring.gd" id="4_3tyt2"]
+[ext_resource type="Script" path="res://scripts/track/GrassZoneAuthoring.gd" id="5_grass_zone"]
 [ext_resource type="Shader" path="res://assets/gameplay/materials/grass/playground_grass.gdshader" id="6_grass_ground_shader"]
+[ext_resource type="Script" path="res://scripts/track/RoadSegmentAuthoring.gd" id="7_3tyt2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hc0tp"]
 albedo_color = Color(0.28, 0.32, 0.34, 1)
@@ -15,40 +16,35 @@ uv1_scale = Vector3(24, 24, 1)
 [sub_resource type="PlaneMesh" id="PlaneMesh_2e740"]
 size = Vector2(800, 800)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_nuam5"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_3tyt2"]
 resource_local_to_scene = true
 size = Vector3(800, 1, 200)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_72hx3"]
-resource_local_to_scene = true
-size = Vector3(315.64545, 1, 400)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_72hx3"]
+render_priority = 0
+shader = ExtResource("6_grass_ground_shader")
+shader_parameter/base_color = Color(0.18, 0.32, 0.1, 1)
+shader_parameter/bright_color = Color(0.38, 0.58, 0.18, 1)
+shader_parameter/dry_color = Color(0.5, 0.43, 0.24, 1)
+shader_parameter/soil_color = Color(0.12, 0.09, 0.05, 1)
+shader_parameter/use_floor_texture = false
+shader_parameter/floor_texture_scale = 12.0
+shader_parameter/patch_scale = 100.0
+shader_parameter/blade_scale = 1600.0
+shader_parameter/blade_strength = 0.18
+shader_parameter/wind_speed = 0.16
+shader_parameter/wind_strength = 0.025
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_3tyt2"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_hc0tp"]
 resource_local_to_scene = true
-size = Vector3(447.0161, 1, 177.25342)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_hc0tp"]
-resource_local_to_scene = true
-size = Vector3(639.6494, 1, 165.26746)
+size = Vector2(800, 200)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2e740"]
 resource_local_to_scene = true
-size = Vector3(639.6494, 1, 165.26746)
+size = Vector3(315.64545, 1, 400)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_back_corner_grass_5"]
-resource_local_to_scene = true
-size = Vector3(330, 1, 250)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_4du5g"]
-resource_local_to_scene = true
-size = Vector3(149.45215, 1, 311.5337)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_back_corner_grass_6"]
-resource_local_to_scene = true
-size = Vector3(968.8491, 1, 72.600586)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_grass_ground"]
-resource_local_to_scene = true
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3tyt2"]
+render_priority = 0
 shader = ExtResource("6_grass_ground_shader")
 shader_parameter/base_color = Color(0.18, 0.32, 0.1, 1)
 shader_parameter/bright_color = Color(0.38, 0.58, 0.18, 1)
@@ -57,40 +53,150 @@ shader_parameter/soil_color = Color(0.12, 0.09, 0.05, 1)
 shader_parameter/use_floor_texture = false
 shader_parameter/floor_texture_scale = 12.0
 shader_parameter/patch_scale = 50.0
-shader_parameter/blade_scale = 900.0
+shader_parameter/blade_scale = 800.0
 shader_parameter/blade_strength = 0.18
 shader_parameter/wind_speed = 0.16
 shader_parameter/wind_strength = 0.025
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_grass_ground_1"]
-resource_local_to_scene = true
-size = Vector2(800, 200)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_grass_ground_2"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_4du5g"]
 resource_local_to_scene = true
 size = Vector2(315.64545, 400)
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_grass_ground_3"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_40lle"]
+resource_local_to_scene = true
+size = Vector3(447.0161, 1, 177.25342)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hc0tp"]
+render_priority = 0
+shader = ExtResource("6_grass_ground_shader")
+shader_parameter/base_color = Color(0.18, 0.32, 0.1, 1)
+shader_parameter/bright_color = Color(0.38, 0.58, 0.18, 1)
+shader_parameter/dry_color = Color(0.5, 0.43, 0.24, 1)
+shader_parameter/soil_color = Color(0.12, 0.09, 0.05, 1)
+shader_parameter/use_floor_texture = false
+shader_parameter/floor_texture_scale = 12.0
+shader_parameter/patch_scale = 55.877014
+shader_parameter/blade_scale = 894.0322
+shader_parameter/blade_strength = 0.18
+shader_parameter/wind_speed = 0.16
+shader_parameter/wind_strength = 0.025
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_hr1ph"]
 resource_local_to_scene = true
 size = Vector2(447.0161, 177.25342)
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_grass_ground_4"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_73kc6"]
+resource_local_to_scene = true
+size = Vector3(639.6494, 1, 165.26746)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2e740"]
+render_priority = 0
+shader = ExtResource("6_grass_ground_shader")
+shader_parameter/base_color = Color(0.18, 0.32, 0.1, 1)
+shader_parameter/bright_color = Color(0.38, 0.58, 0.18, 1)
+shader_parameter/dry_color = Color(0.5, 0.43, 0.24, 1)
+shader_parameter/soil_color = Color(0.12, 0.09, 0.05, 1)
+shader_parameter/use_floor_texture = false
+shader_parameter/floor_texture_scale = 12.0
+shader_parameter/patch_scale = 79.95618
+shader_parameter/blade_scale = 1279.2988
+shader_parameter/blade_strength = 0.18
+shader_parameter/wind_speed = 0.16
+shader_parameter/wind_strength = 0.025
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_yfpuy"]
 resource_local_to_scene = true
 size = Vector2(639.6494, 165.26746)
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_grass_ground_7"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_7hdex"]
+resource_local_to_scene = true
+size = Vector3(639.6494, 1, 165.26746)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4du5g"]
+render_priority = 0
+shader = ExtResource("6_grass_ground_shader")
+shader_parameter/base_color = Color(0.18, 0.32, 0.1, 1)
+shader_parameter/bright_color = Color(0.38, 0.58, 0.18, 1)
+shader_parameter/dry_color = Color(0.5, 0.43, 0.24, 1)
+shader_parameter/soil_color = Color(0.12, 0.09, 0.05, 1)
+shader_parameter/use_floor_texture = false
+shader_parameter/floor_texture_scale = 12.0
+shader_parameter/patch_scale = 79.95618
+shader_parameter/blade_scale = 1279.2988
+shader_parameter/blade_strength = 0.18
+shader_parameter/wind_speed = 0.16
+shader_parameter/wind_strength = 0.025
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0e5r6"]
 resource_local_to_scene = true
 size = Vector2(639.6494, 165.26746)
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_grass_ground_5"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_4ktvn"]
+resource_local_to_scene = true
+size = Vector3(330, 1, 250)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_40lle"]
+render_priority = 0
+shader = ExtResource("6_grass_ground_shader")
+shader_parameter/base_color = Color(0.18, 0.32, 0.1, 1)
+shader_parameter/bright_color = Color(0.38, 0.58, 0.18, 1)
+shader_parameter/dry_color = Color(0.5, 0.43, 0.24, 1)
+shader_parameter/soil_color = Color(0.12, 0.09, 0.05, 1)
+shader_parameter/use_floor_texture = false
+shader_parameter/floor_texture_scale = 12.0
+shader_parameter/patch_scale = 41.25
+shader_parameter/blade_scale = 660.0
+shader_parameter/blade_strength = 0.18
+shader_parameter/wind_speed = 0.16
+shader_parameter/wind_strength = 0.025
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_mjnda"]
 resource_local_to_scene = true
 size = Vector2(330, 250)
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_grass_ground_8"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_mdx1i"]
+resource_local_to_scene = true
+size = Vector3(149.45215, 1, 311.5337)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hr1ph"]
+render_priority = 0
+shader = ExtResource("6_grass_ground_shader")
+shader_parameter/base_color = Color(0.18, 0.32, 0.1, 1)
+shader_parameter/bright_color = Color(0.38, 0.58, 0.18, 1)
+shader_parameter/dry_color = Color(0.5, 0.43, 0.24, 1)
+shader_parameter/soil_color = Color(0.12, 0.09, 0.05, 1)
+shader_parameter/use_floor_texture = false
+shader_parameter/floor_texture_scale = 12.0
+shader_parameter/patch_scale = 38.94171
+shader_parameter/blade_scale = 623.0674
+shader_parameter/blade_strength = 0.18
+shader_parameter/wind_speed = 0.16
+shader_parameter/wind_strength = 0.025
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_jw58s"]
 resource_local_to_scene = true
 size = Vector2(149.45215, 311.5337)
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_grass_ground_6"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_00iql"]
+resource_local_to_scene = true
+size = Vector3(968.8491, 1, 72.600586)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_73kc6"]
+render_priority = 0
+shader = ExtResource("6_grass_ground_shader")
+shader_parameter/base_color = Color(0.18, 0.32, 0.1, 1)
+shader_parameter/bright_color = Color(0.38, 0.58, 0.18, 1)
+shader_parameter/dry_color = Color(0.5, 0.43, 0.24, 1)
+shader_parameter/soil_color = Color(0.12, 0.09, 0.05, 1)
+shader_parameter/use_floor_texture = false
+shader_parameter/floor_texture_scale = 12.0
+shader_parameter/patch_scale = 121.10614
+shader_parameter/blade_scale = 1937.6982
+shader_parameter/blade_strength = 0.18
+shader_parameter/wind_speed = 0.16
+shader_parameter/wind_strength = 0.025
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ujml4"]
 resource_local_to_scene = true
 size = Vector2(968.8491, 72.600586)
 
@@ -1449,13 +1555,13 @@ density = 2.85
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GrassZones/BackCornerGrass"]
 transform = Transform3D(0.9999924, 0, 0, 0, 1, 0, 0, 0, 0.9999924, 0, 0, -94.85867)
-shape = SubResource("BoxShape3D_nuam5")
+shape = SubResource("BoxShape3D_3tyt2")
 
 [node name="GrassGround" type="MeshInstance3D" parent="GrassZones/BackCornerGrass"]
 transform = Transform3D(0.9999924, 0, 0, 0, 1, 0, 0, 0, 0.9999924, 0, 0.54, -94.85867)
+material_override = SubResource("ShaderMaterial_72hx3")
 cast_shadow = 0
-material_override = SubResource("ShaderMaterial_grass_ground")
-mesh = SubResource("PlaneMesh_grass_ground_1")
+mesh = SubResource("PlaneMesh_hc0tp")
 
 [node name="BackCornerGrass2" type="Area3D" parent="GrassZones"]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -17.229141, -8.268887, 297.38516)
@@ -1467,13 +1573,13 @@ size = Vector2(315.64545, 400)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GrassZones/BackCornerGrass2"]
 transform = Transform3D(0.99999017, 0, 0, 0, 1, 0, 0, 0, 0.99999017, 25.363537, 0, 0)
-shape = SubResource("BoxShape3D_72hx3")
+shape = SubResource("BoxShape3D_2e740")
 
 [node name="GrassGround" type="MeshInstance3D" parent="GrassZones/BackCornerGrass2"]
 transform = Transform3D(0.99999017, 0, 0, 0, 1, 0, 0, 0, 0.99999017, 25.363537, 0.54, 0)
+material_override = SubResource("ShaderMaterial_3tyt2")
 cast_shadow = 0
-material_override = SubResource("ShaderMaterial_grass_ground")
-mesh = SubResource("PlaneMesh_grass_ground_2")
+mesh = SubResource("PlaneMesh_4du5g")
 
 [node name="BackCornerGrass3" type="Area3D" parent="GrassZones"]
 transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, -300.2225, -9.425716, 40.10984)
@@ -1486,13 +1592,13 @@ density = 2.85
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GrassZones/BackCornerGrass3"]
 transform = Transform3D(0.99999446, 0, -8.881784e-14, 0, 1, 0, 8.881784e-14, 0, 0.99999446, 73.50788, 0, 61.37329)
-shape = SubResource("BoxShape3D_3tyt2")
+shape = SubResource("BoxShape3D_40lle")
 
 [node name="GrassGround" type="MeshInstance3D" parent="GrassZones/BackCornerGrass3"]
 transform = Transform3D(0.99999446, 0, -8.881784e-14, 0, 1, 0, 8.881784e-14, 0, 0.99999446, 73.50788, 0.54, 61.37329)
+material_override = SubResource("ShaderMaterial_hc0tp")
 cast_shadow = 0
-material_override = SubResource("ShaderMaterial_grass_ground")
-mesh = SubResource("PlaneMesh_grass_ground_3")
+mesh = SubResource("PlaneMesh_hr1ph")
 
 [node name="BackCornerGrass4" type="Area3D" parent="GrassZones"]
 transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, 320.82242, -8.049877, 20.818817)
@@ -1505,13 +1611,13 @@ density = 2.85
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GrassZones/BackCornerGrass4"]
 transform = Transform3D(0.9999949, 0, -8.1712415e-14, 0, 1, 0, 8.1712415e-14, 0, 0.9999949, -154.82439, 0, -72.42525)
-shape = SubResource("BoxShape3D_hc0tp")
+shape = SubResource("BoxShape3D_73kc6")
 
 [node name="GrassGround" type="MeshInstance3D" parent="GrassZones/BackCornerGrass4"]
 transform = Transform3D(0.9999949, 0, -8.1712415e-14, 0, 1, 0, 8.1712415e-14, 0, 0.9999949, -154.82439, 0.54, -72.42525)
+material_override = SubResource("ShaderMaterial_2e740")
 cast_shadow = 0
-material_override = SubResource("ShaderMaterial_grass_ground")
-mesh = SubResource("PlaneMesh_grass_ground_4")
+mesh = SubResource("PlaneMesh_yfpuy")
 
 [node name="BackCornerGrass7" type="Area3D" parent="GrassZones"]
 transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, 486.81686, -8.049877, -93.47775)
@@ -1524,13 +1630,13 @@ density = 2.85
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GrassZones/BackCornerGrass7"]
 transform = Transform3D(0.9999949, 0, -8.1712415e-14, 0, 1, 0, 8.1712415e-14, 0, 0.9999949, -154.82439, 0, -72.42525)
-shape = SubResource("BoxShape3D_2e740")
+shape = SubResource("BoxShape3D_7hdex")
 
 [node name="GrassGround" type="MeshInstance3D" parent="GrassZones/BackCornerGrass7"]
 transform = Transform3D(0.9999949, 0, -8.1712415e-14, 0, 1, 0, 8.1712415e-14, 0, 0.9999949, -154.82439, 0.54, -72.42525)
+material_override = SubResource("ShaderMaterial_4du5g")
 cast_shadow = 0
-material_override = SubResource("ShaderMaterial_grass_ground")
-mesh = SubResource("PlaneMesh_grass_ground_7")
+mesh = SubResource("PlaneMesh_0e5r6")
 
 [node name="BackCornerGrass5" type="Area3D" parent="GrassZones"]
 transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, -274.75424, -8.049877, 469.97058)
@@ -1543,13 +1649,13 @@ density = 2.85
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GrassZones/BackCornerGrass5"]
 transform = Transform3D(0.9999982, 0, -2.842171e-14, 0, 1, 0, 2.842171e-14, 0, 0.9999982, 0, 0, 0)
-shape = SubResource("BoxShape3D_back_corner_grass_5")
+shape = SubResource("BoxShape3D_4ktvn")
 
 [node name="GrassGround" type="MeshInstance3D" parent="GrassZones/BackCornerGrass5"]
 transform = Transform3D(0.9999982, 0, -2.842171e-14, 0, 1, 0, 2.842171e-14, 0, 0.9999982, 0, 0.54, 0)
+material_override = SubResource("ShaderMaterial_40lle")
 cast_shadow = 0
-material_override = SubResource("ShaderMaterial_grass_ground")
-mesh = SubResource("PlaneMesh_grass_ground_5")
+mesh = SubResource("PlaneMesh_mjnda")
 
 [node name="BackCornerGrass8" type="Area3D" parent="GrassZones"]
 transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, -23.74057, -8.049877, -273.91046)
@@ -1562,13 +1668,13 @@ density = 2.85
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GrassZones/BackCornerGrass8"]
 transform = Transform3D(0.9999936, 0, -1.030287e-13, 0, 1, 0, 1.030287e-13, 0, 0.9999936, -90.27362, 0, 30.766783)
-shape = SubResource("BoxShape3D_4du5g")
+shape = SubResource("BoxShape3D_mdx1i")
 
 [node name="GrassGround" type="MeshInstance3D" parent="GrassZones/BackCornerGrass8"]
 transform = Transform3D(0.9999936, 0, -1.030287e-13, 0, 1, 0, 1.030287e-13, 0, 0.9999936, -90.27362, 0.54, 30.766783)
+material_override = SubResource("ShaderMaterial_hr1ph")
 cast_shadow = 0
-material_override = SubResource("ShaderMaterial_grass_ground")
-mesh = SubResource("PlaneMesh_grass_ground_8")
+mesh = SubResource("PlaneMesh_jw58s")
 
 [node name="BackCornerGrass6" type="Area3D" parent="GrassZones"]
 transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, -274.75424, -8.049877, -274.15076)
@@ -1581,10 +1687,205 @@ density = 2.85
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GrassZones/BackCornerGrass6"]
 transform = Transform3D(0.99999034, 0, -1.5276669e-13, 0, 1, 0, 1.5276669e-13, 0, 0.99999034, -319.42255, 0, -88.6994)
-shape = SubResource("BoxShape3D_back_corner_grass_6")
+shape = SubResource("BoxShape3D_00iql")
 
 [node name="GrassGround" type="MeshInstance3D" parent="GrassZones/BackCornerGrass6"]
 transform = Transform3D(0.99999034, 0, -1.5276669e-13, 0, 1, 0, 1.5276669e-13, 0, 0.99999034, -319.42255, 0.54, -88.6994)
+material_override = SubResource("ShaderMaterial_73kc6")
 cast_shadow = 0
-material_override = SubResource("ShaderMaterial_grass_ground")
-mesh = SubResource("PlaneMesh_grass_ground_6")
+mesh = SubResource("PlaneMesh_ujml4")
+
+[node name="RoadSegments" type="Node3D" parent="."]
+
+[node name="RoadSegment000" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.12106384, 0, 0.9926447, 0, 1, 0, -0.9926447, 0, -0.12106384, -94.5278, -9.020988, -45.481606)
+script = ExtResource("7_3tyt2")
+segment_length = 13.709008
+pitch_degrees = -2.1154634365631217
+role_tags = Array[String](["item"])
+
+[node name="RoadSegment001" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.4974135, 0, 0.8675136, 0, 1, 0, -0.8675136, 0, 0.4974135, -70.88451, -8.739645, -36.652977)
+script = ExtResource("7_3tyt2")
+segment_length = 38.847168
+pitch_degrees = 1.5764759605360918
+role_tags = Array[String](["item", "hazard"])
+
+[node name="RoadSegment002" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.9305652, 0, 0.3661262, 0, 1, 0, -0.3661262, 0, 0.9305652, -50.813843, -7.2702045, -18.793636)
+script = ExtResource("7_3tyt2")
+segment_id = "ramp_long"
+segment_length = 17.725727
+pitch_degrees = 6.056244191125722
+
+[node name="RoadSegment003" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.99993634, 0, 0.011282679, 0, 1, 0, -0.011282679, 0, 0.99993634, -47.40042, -5.6492524, 5.945862)
+script = ExtResource("7_3tyt2")
+segment_length = 33.10665
+pitch_degrees = 2.3747017103350507
+
+[node name="RoadSegment004" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.6333972, 0, 0.77382684, 0, 1, 0, -0.77382684, 0, 0.6333972, -40.823524, -5.423608, 27.714535)
+script = ExtResource("7_3tyt2")
+segment_length = 16.5417
+pitch_degrees = -3.1898902803490206
+
+[node name="RoadSegment005" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.23687644, 0, 0.9715398, 0, 1, 0, -0.9715398, 0, 0.23687644, -25.396746, -1.3307161, 35.148388)
+script = ExtResource("7_3tyt2")
+segment_id = "ramp_long"
+segment_length = 20.711672
+pitch_degrees = 26.082675609114965
+
+[node name="RoadSegment006" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.5145577, 0, 0.85745573, 0, 1, 0, -0.85745573, 0, -0.5145577, -9.1407, 3.2224097, 33.01918)
+script = ExtResource("7_3tyt2")
+segment_length = 16.839483
+
+[node name="RoadSegment007" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.90061736, 0, 0.43461296, 0, 1, 0, -0.43461296, 0, -0.90061736, 23.759428, 3.2224097, -24.529274)
+script = ExtResource("7_3tyt2")
+segment_length = 118.17674
+role_tags = Array[String](["item"])
+
+[node name="RoadSegment008" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.070426844, 0, 0.99751693, 0, 1, 0, -0.99751693, 0, 0.070426844, 61.800003, 3.2224097, -76.87264)
+script = ExtResource("7_3tyt2")
+segment_length = 24.78154
+role_tags = Array[String](["checkpoint", "start", "hazard"])
+
+[node name="RoadSegment009" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.3079024, 0, 0.9514179, 0, 1, 0, -0.9514179, 0, 0.3079024, 86.520004, 4.12241, -72)
+script = ExtResource("7_3tyt2")
+segment_length = 26.04454
+pitch_degrees = 3.9630070901651187
+
+[node name="RoadSegment010" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.6134095, 0, 0.789765, 0, 1, 0, -0.789765, 0, 0.6134095, 109.18, 5.52241, -60)
+script = ExtResource("7_3tyt2")
+segment_length = 26.102879
+pitch_degrees = 2.1955358729715093
+role_tags = Array[String](["item"])
+
+[node name="RoadSegment011" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.87182957, 0, 0.4898094, 0, 1, 0, -0.4898094, 0, 0.87182957, 125.66, 4.62241, -41)
+script = ExtResource("7_3tyt2")
+segment_id = "ramp_long"
+segment_length = 25.38916
+pitch_degrees = -6.3316464569193744
+
+[node name="RoadSegment012" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.98558307, 0, 0.16919218, 0, 1, 0, -0.16919218, 0, 0.98558307, 133.9, 3.2224097, -18)
+script = ExtResource("7_3tyt2")
+segment_length = 24.351067
+role_tags = Array[String](["checkpoint", "hazard"])
+
+[node name="RoadSegment013" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.9963365, 0, -0.08551942, 0, 1, 0, 0.08551942, 0, 0.9963365, 134.93, 3.2224097, 6)
+script = ExtResource("7_3tyt2")
+segment_length = 24.088247
+role_tags = Array[String](["item"])
+
+[node name="RoadSegment014" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.9458078, 0, -0.32472694, 0, 1, 0, 0.32472694, 0, 0.9458078, 129.78, 3.2224097, 30)
+script = ExtResource("7_3tyt2")
+segment_length = 25.375135
+
+[node name="RoadSegment015" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.7375621, 0, -0.67527926, 0, 1, 0, 0.67527926, 0, 0.7375621, 117.42, 3.2224097, 51)
+script = ExtResource("7_3tyt2")
+segment_length = 24.404724
+
+[node name="RoadSegment016" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.46799517, 0, -0.883731, 0, 1, 0, 0.883731, 0, 0.46799517, 97.85, 3.2224097, 66)
+script = ExtResource("7_3tyt2")
+segment_length = 25.64129
+role_tags = Array[String](["item"])
+
+[node name="RoadSegment017" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.23586999, 0, -0.9717846, 0, 1, 0, 0.9717846, 0, 0.23586999, 74.159996, 3.2224097, 75)
+script = ExtResource("7_3tyt2")
+segment_length = 25.437733
+role_tags = Array[String](["hazard"])
+
+[node name="RoadSegment018" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.14772648, 0, -0.9890283, 0, 1, 0, 0.9890283, 0, 0.14772648, 48.41, 3.2224097, 80)
+script = ExtResource("7_3tyt2")
+segment_length = 27.077082
+role_tags = Array[String](["checkpoint"])
+
+[node name="RoadSegment019" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 21.630001, 3.2224097, 82)
+script = ExtResource("7_3tyt2")
+segment_length = 26.78
+role_tags = Array[String](["item"])
+
+[node name="RoadSegment020" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.074475214, 0, -0.99722284, 0, 1, 0, 0.99722284, 0, -0.074475214, -5.1500006, 3.2224097, 81)
+script = ExtResource("7_3tyt2")
+segment_length = 26.85458
+
+[node name="RoadSegment021" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.14772645, 0, -0.9890283, 0, 1, 0, 0.9890283, 0, -0.14772645, -31.93, 3.2224097, 78)
+script = ExtResource("7_3tyt2")
+segment_length = 27.077082
+role_tags = Array[String](["hazard"])
+
+[node name="RoadSegment022" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.28623164, 0, -0.95816046, 0, 1, 0, 0.95816046, 0, -0.28623164, -58.71, 3.2224097, 72)
+script = ExtResource("7_3tyt2")
+segment_length = 27.949389
+role_tags = Array[String](["item"])
+
+[node name="RoadSegment023" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.4927994, 0, -0.87014294, 0, 1, 0, 0.87014294, 0, -0.4927994, -84.46, 3.2224097, 61)
+script = ExtResource("7_3tyt2")
+segment_length = 28.409126
+
+[node name="RoadSegment024" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.69658095, 0, -0.7174782, 0, 1, 0, 0.7174782, 0, -0.69658095, -107.119995, 3.2224097, 44)
+script = ExtResource("7_3tyt2")
+segment_length = 28.711668
+role_tags = Array[String](["checkpoint"])
+
+[node name="RoadSegment025" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.8890293, 0, -0.45785025, 0, 1, 0, 0.45785025, 0, -0.8890293, -123.6, 3.2224097, 22)
+script = ExtResource("7_3tyt2")
+segment_length = 26.995733
+role_tags = Array[String](["item"])
+
+[node name="RoadSegment026" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.9876766, 0, -0.15650862, 0, 1, 0, 0.15650862, 0, -0.9876766, -131.84, 3.2224097, -3)
+script = ExtResource("7_3tyt2")
+segment_length = 26.324406
+role_tags = Array[String](["hazard"])
+
+[node name="RoadSegment027" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.9855832, 0, 0.16919151, 0, 1, 0, -0.16919151, 0, -0.9855832, -131.84, 3.2224097, -28)
+script = ExtResource("7_3tyt2")
+segment_length = 24.351065
+
+[node name="RoadSegment028" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.97234935, 0, 0.23353115, 0, 1, 0, -0.23353115, 0, -0.97234935, -127.913666, 3.2224097, -47.77082)
+script = ExtResource("7_3tyt2")
+segment_length = 15.983599
+role_tags = Array[String](["checkpoint"])
+
+[node name="RoadSegment029" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.89951473, 0, 0.43689042, 0, 1, 0, -0.43689042, 0, -0.89951473, -123.66357, 3.2224097, -60.449585)
+script = ExtResource("7_3tyt2")
+segment_length = 10.912424
+role_tags = Array[String](["item"])
+
+[node name="RoadSegment030" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(-0.40761262, 0, 0.91315496, 0, 1, 0, -0.91315496, 0, -0.40761262, -118.3199, 3.2224097, -66.678764)
+script = ExtResource("7_3tyt2")
+segment_length = 6.482799
+
+[node name="RoadSegment031" type="Node3D" parent="RoadSegments"]
+transform = Transform3D(0.8571015, 0, 0.51514757, 0, 1, 0, -0.51514757, 0, 0.8571015, -108.34363, -2.772778, -56.326168)
+script = ExtResource("7_3tyt2")
+segment_id = "ramp_long"
+segment_length = 29.762403
+pitch_degrees = -23.75771135053924
+role_tags = Array[String](["checkpoint", "hazard"])

@@ -18,6 +18,263 @@ ground_color = Color(0.24, 0.34, 0.14, 1)
 ground_texture_path = "res://assets/gameplay/materials/playground/outdoor_playground_floor_albedo.png"
 ground_shader_path = "res://assets/gameplay/materials/grass/playground_grass.gdshader"
 road_texture_path = "res://assets/gameplay/materials/plastic/glossy_plastic_albedo.png"
+road_segment_layout = Array[Dictionary]([{
+"length": 13.709008,
+"pitch_degrees": -2.1154634365631217,
+"position": Vector3(-94.5278, -9.020988, -45.481606),
+"road_width": 12.0,
+"roles": Array[String](["item"]),
+"segment_id": "straight_long",
+"yaw_degrees": 96.95350390976633
+}, {
+"length": 38.847168,
+"pitch_degrees": 1.5764759605360918,
+"position": Vector3(-70.88451, -8.739645, -36.652977),
+"road_width": 12.0,
+"roles": Array[String](["item", "hazard"]),
+"segment_id": "straight_long",
+"yaw_degrees": 60.17097496495587
+}, {
+"length": 17.725727,
+"pitch_degrees": 6.056244191125722,
+"position": Vector3(-50.813843, -7.2702045, -18.793636),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "ramp_long",
+"yaw_degrees": 21.476908297890624
+}, {
+"length": 33.10665,
+"pitch_degrees": 2.3747017103350507,
+"position": Vector3(-47.40042, -5.6492524, 5.945862),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": 0.6464635844808082
+}, {
+"length": 16.5417,
+"pitch_degrees": -3.189890280349021,
+"position": Vector3(-40.823524, -5.423608, 27.714535),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": 50.69879007680673
+}, {
+"length": 20.711672,
+"pitch_degrees": 26.082675609114965,
+"position": Vector3(-25.396746, -1.3307161, 35.148388),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "ramp_long",
+"yaw_degrees": 76.29774144446215
+}, {
+"length": 16.839483,
+"pitch_degrees": 0.0,
+"position": Vector3(-9.1407, 3.2224097, 33.01918),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": 120.96789578620839
+}, {
+"length": 118.17674,
+"pitch_degrees": 0.0,
+"position": Vector3(23.759428, 3.2224097, -24.529274),
+"road_width": 12.0,
+"roles": Array[String](["item"]),
+"segment_id": "straight_long",
+"yaw_degrees": 154.23933183722795
+}, {
+"length": 24.78154,
+"pitch_degrees": 0.0,
+"position": Vector3(61.800003, 3.2224097, -76.87264),
+"road_width": 12.0,
+"roles": Array[String](["checkpoint", "start", "hazard"]),
+"segment_id": "straight_long",
+"yaw_degrees": 85.96149606335722
+}, {
+"length": 26.04454,
+"pitch_degrees": 3.963007090165118,
+"position": Vector3(86.520004, 4.12241, -72),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": 72.06713593293459
+}, {
+"length": 26.102879,
+"pitch_degrees": 2.1955358729715093,
+"position": Vector3(109.18, 5.52241, -60),
+"road_width": 12.0,
+"roles": Array[String](["item"]),
+"segment_id": "straight_long",
+"yaw_degrees": 52.16355488016723
+}, {
+"length": 25.38916,
+"pitch_degrees": -6.3316464569193744,
+"position": Vector3(125.66, 4.62241, -41),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "ramp_long",
+"yaw_degrees": 29.32805365446937
+}, {
+"length": 24.351067,
+"pitch_degrees": 0.0,
+"position": Vector3(133.9, 3.2224097, -18),
+"road_width": 12.0,
+"roles": Array[String](["checkpoint", "hazard"]),
+"segment_id": "straight_long",
+"yaw_degrees": 9.740853794246174
+}, {
+"length": 24.088247,
+"pitch_degrees": 0.0,
+"position": Vector3(134.93, 3.2224097, 6),
+"road_width": 12.0,
+"roles": Array[String](["item"]),
+"segment_id": "straight_long",
+"yaw_degrees": -4.905893935048848
+}, {
+"length": 25.375135,
+"pitch_degrees": 0.0,
+"position": Vector3(129.78, 3.2224097, 30),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": -18.949033087954103
+}, {
+"length": 24.404724,
+"pitch_degrees": 0.0,
+"position": Vector3(117.42, 3.2224097, 51),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": -42.47583995766376
+}, {
+"length": 25.64129,
+"pitch_degrees": 0.0,
+"position": Vector3(97.85, 3.2224097, 66),
+"road_width": 12.0,
+"roles": Array[String](["item"]),
+"segment_id": "straight_long",
+"yaw_degrees": -62.095763254200484
+}, {
+"length": 25.437733,
+"pitch_degrees": 0.0,
+"position": Vector3(74.159996, 3.2224097, 75),
+"road_width": 12.0,
+"roles": Array[String](["hazard"]),
+"segment_id": "straight_long",
+"yaw_degrees": -76.35708895816039
+}, {
+"length": 27.077082,
+"pitch_degrees": 0.0,
+"position": Vector3(48.41, 3.2224097, 80),
+"road_width": 12.0,
+"roles": Array[String](["checkpoint"]),
+"segment_id": "straight_long",
+"yaw_degrees": -81.50480446011306
+}, {
+"length": 26.78,
+"pitch_degrees": 0.0,
+"position": Vector3(21.630001, 3.2224097, 82),
+"road_width": 12.0,
+"roles": Array[String](["item"]),
+"segment_id": "straight_long",
+"yaw_degrees": -90.00000250447816
+}, {
+"length": 26.85458,
+"pitch_degrees": 0.0,
+"position": Vector3(-5.1500006, 3.2224097, 81),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": -94.27107005664888
+}, {
+"length": 27.077082,
+"pitch_degrees": 0.0,
+"position": Vector3(-31.93, 3.2224097, 78),
+"road_width": 12.0,
+"roles": Array[String](["hazard"]),
+"segment_id": "straight_long",
+"yaw_degrees": -98.4951937186541
+}, {
+"length": 27.949389,
+"pitch_degrees": 0.0,
+"position": Vector3(-58.71, 3.2224097, 72),
+"road_width": 12.0,
+"roles": Array[String](["item"]),
+"segment_id": "straight_long",
+"yaw_degrees": -106.63248302032136
+}, {
+"length": 28.409126,
+"pitch_degrees": 0.0,
+"position": Vector3(-84.46, 3.2224097, 61),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": -119.5247451164764
+}, {
+"length": 28.711668,
+"pitch_degrees": 0.0,
+"position": Vector3(-107.119995, 3.2224097, 44),
+"road_width": 12.0,
+"roles": Array[String](["checkpoint"]),
+"segment_id": "straight_long",
+"yaw_degrees": -134.1533300921079
+}, {
+"length": 26.995733,
+"pitch_degrees": 0.0,
+"position": Vector3(-123.6, 3.2224097, 22),
+"road_width": 12.0,
+"roles": Array[String](["item"]),
+"segment_id": "straight_long",
+"yaw_degrees": -152.7515253907024
+}, {
+"length": 26.324406,
+"pitch_degrees": 0.0,
+"position": Vector3(-131.84, 3.2224097, -3),
+"road_width": 12.0,
+"roles": Array[String](["hazard"]),
+"segment_id": "straight_long",
+"yaw_degrees": -170.99569832423683
+}, {
+"length": 24.351065,
+"pitch_degrees": 0.0,
+"position": Vector3(-131.84, 3.2224097, -28),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": 170.259185365656
+}, {
+"length": 15.983599,
+"pitch_degrees": 0.0,
+"position": Vector3(-127.913666, 3.2224097, -47.77082),
+"road_width": 12.0,
+"roles": Array[String](["checkpoint"]),
+"segment_id": "straight_long",
+"yaw_degrees": 166.49494517065693
+}, {
+"length": 10.912424,
+"pitch_degrees": 0.0,
+"position": Vector3(-123.66357, 3.2224097, -60.449585),
+"road_width": 12.0,
+"roles": Array[String](["item"]),
+"segment_id": "straight_long",
+"yaw_degrees": 154.09435424190525
+}, {
+"length": 6.482799,
+"pitch_degrees": 0.0,
+"position": Vector3(-118.3199, 3.2224097, -66.678764),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": 114.05495204421176
+}, {
+"length": 29.762403,
+"pitch_degrees": -23.75771135053924,
+"position": Vector3(-108.34363, -2.772778, -56.326168),
+"road_width": 12.0,
+"roles": Array[String](["checkpoint", "hazard"]),
+"segment_id": "ramp_long",
+"yaw_degrees": 31.00732054871412
+}])
 rail_texture_path = "res://assets/gameplay/materials/metal/toy_metal_albedo.png"
 rail_texture_uv_scale = 0.5
 track_body_color = Color(0.09, 0.075, 0.065, 1)
@@ -29,11 +286,11 @@ sky_cloud_amount = 0.24
 sky_cloud_speed = 0.018
 sky_haze_amount = 0.12
 sky_light_energy = 2.55
-route_points = Array[Vector3]([Vector3(-111.24, 3.35, -72), Vector3(-96.82, 3.35, -78), Vector3(-80.34, 3.35, -82), Vector3(-61.8, 3.35, -84), Vector3(-41.2, 3.35, -83), Vector3(-20.6, 3.35, -80), Vector3(0, 3.35, -76), Vector3(24.72, 3.35, -76), Vector3(49.44, 3.35, -78), Vector3(74.16, 3.35, -76), Vector3(98.88, 5.15, -68), Vector3(119.48, 6.15, -52), Vector3(131.84, 3.35, -30), Vector3(135.96, 3.35, -6), Vector3(133.9, 3.35, 18), Vector3(125.66, 3.35, 42), Vector3(109.18, 3.35, 60), Vector3(86.52, 3.35, 72), Vector3(61.8, 3.35, 78), Vector3(35.02, 3.35, 82), Vector3(8.24, 3.35, 82), Vector3(-18.54, 3.35, 80), Vector3(-45.32, 3.35, 76), Vector3(-72.1, 3.35, 68), Vector3(-96.82, 3.35, 54), Vector3(-117.42, 3.35, 34), Vector3(-129.78, 3.35, 10), Vector3(-133.9, 3.35, -16), Vector3(-129.78, 3.35, -40), Vector3(-119.48, 3.35, -60), Vector3(-107.12, 3.35, -70), Vector3(-115.36, 3.35, -68)])
-checkpoint_indices = Array[int]([0, 6, 12, 18, 24, 28])
-spawn_points = Array[Vector4]([Vector4(-110.47168, 4.15, -70.153465, 112.59165), Vector4(-112.008316, 4.15, -73.846535, 112.59165), Vector4(-105.85535, 4.15, -72.07427, 112.59165), Vector4(-107.39198, 4.15, -75.76734, 112.59165), Vector4(-101.23902, 4.15, -73.99507, 112.59165), Vector4(-102.77566, 4.15, -77.68814, 112.59165), Vector4(-96.62269, 4.15, -75.91588, 112.59165), Vector4(-98.159325, 4.15, -79.60895, 112.59165)])
-item_sockets = Array[Vector4]([Vector4(-80.34, 4.0499997, -82, 0), Vector4(-20.6, 4.0499997, -80, 0), Vector4(49.44, 4.0499997, -78, 0), Vector4(119.48, 6.85, -52, 0), Vector4(133.9, 4.0499997, 18, 0), Vector4(86.52, 4.0499997, 72, 0), Vector4(8.24, 4.0499997, 82, 0), Vector4(-72.1, 4.0499997, 68, 0), Vector4(-129.78, 4.0499997, 10, 0), Vector4(-119.48, 4.0499997, -60, 0)])
-hazard_sockets = Array[Vector4]([Vector4(-41.2, 4.0499997, -83, 0), Vector4(74.16, 4.0499997, -76, 0), Vector4(135.96, 4.0499997, -6, 0), Vector4(61.8, 4.0499997, 78, 0), Vector4(-45.32, 4.0499997, 76, 0), Vector4(-133.9, 4.0499997, -16, 0), Vector4(-107.12, 4.0499997, -70, 0)])
+route_points = Array[Vector3]([Vector3(-101.327255, -9.274012, -44.65234), Vector3(-87.72835, -8.767965, -46.31087), Vector3(-87.72835, -8.205278, -46.310875), Vector3(-54.04066, -9.274012, -26.99508), Vector3(-54.040657, -6.3351307, -26.995079), Vector3(-47.58703, -8.205278, -10.592195), Vector3(-47.58703, -4.9633737, -10.5921955), Vector3(-47.213814, -6.335131, 22.48392), Vector3(-47.213814, -5.883842, 22.483917), Vector3(-34.433235, -4.9633737, 32.945152), Vector3(-34.433235, 3.2224097, 32.945152), Vector3(-16.360256, -5.883842, 37.351624), Vector3(-16.360256, 3.2224097, 37.351624), Vector3(-1.9211445, 3.2224097, 28.686737), Vector3(49.440002, 3.2224097, -77.745285), Vector3(74.16, 3.2224097, -76), Vector3(74.16, 5.02241, -76), Vector3(98.880005, 3.2224097, -68), Vector3(98.88, 6.02241, -68), Vector3(119.48, 5.02241, -52), Vector3(119.48001, 3.2224097, -52), Vector3(131.84, 6.02241, -30), Vector3(131.84, 3.2224097, -30), Vector3(135.95999, 3.2224097, -6), Vector3(133.9, 3.2224097, 18), Vector3(125.66, 3.2224097, 42), Vector3(109.17999, 3.2224097, 60), Vector3(86.52, 3.2224097, 72), Vector3(61.799995, 3.2224097, 78), Vector3(35.02, 3.2224097, 82), Vector3(8.240001, 3.2224097, 82), Vector3(-18.54, 3.2224097, 80), Vector3(-45.32, 3.2224097, 76), Vector3(-72.1, 3.2224097, 68), Vector3(-96.82, 3.2224097, 54), Vector3(-117.41999, 3.2224097, 34), Vector3(-129.78, 3.2224097, 10.000001), Vector3(-133.9, 3.2224097, -16), Vector3(-129.78, 3.2224097, -40), Vector3(-126.04733, 3.2224097, -55.54164), Vector3(-121.2798, 3.2224097, -65.35753), Vector3(-115.36, 3.2224097, -68), Vector3(-115.36, -8.767965, -68), Vector3(-101.327255, 3.2224097, -44.652336)])
+checkpoint_indices = Array[int]([14, 22, 28, 34, 38, 42])
+spawn_points = Array[Vector4]([Vector4(-101.14566, -8.474011, -43.163372, 96.95349), Vector4(-101.50885, -8.474011, -46.141308, 96.95349), Vector4(-96.182434, -8.474011, -43.76869, 96.95349), Vector4(-96.54562, -8.474011, -46.746624, 96.95349), Vector4(-91.219215, -8.474011, -44.37401, 96.95349), Vector4(-91.582405, -8.474011, -47.351944, 96.95349), Vector4(-86.25599, -8.474011, -44.979324, 96.95349), Vector4(-86.61918, -8.474011, -47.95726, 96.95349)])
+item_sockets = Array[Vector4]([Vector4(-94.5278, -8.220988, -45.481606, 96.95349), Vector4(-70.88451, -7.939645, -36.652977, 60.17097), Vector4(23.759428, 4.02241, -24.52927, 154.23933), Vector4(109.18, 6.32241, -60, 52.163555), Vector4(134.93, 4.02241, 6, -4.9058576), Vector4(97.85, 4.02241, 66, -62.095764), Vector4(21.630001, 4.02241, 82, -90), Vector4(-58.71, 4.02241, 72, -106.632484), Vector4(-123.6, 4.02241, 22, -152.75153), Vector4(-123.66357, 4.02241, -60.449585, 154.09436)])
+hazard_sockets = Array[Vector4]([Vector4(-70.88451, -7.939645, -36.652977, 60.17097), Vector4(61.800003, 4.02241, -76.87264, 85.961494), Vector4(133.9, 4.02241, -18, 9.740819), Vector4(74.159996, 4.02241, 75, -76.357086), Vector4(-31.93, 4.02241, 78, -98.49519), Vector4(-131.84, 4.02241, -3, -170.9957), Vector4(-108.34363, -1.9727776, -56.326168, 31.007309)])
 alternate_routes = Array[Dictionary]([{
 "enabled": true,
 "entry_checkpoint_index": 1,
@@ -43,164 +300,209 @@ alternate_routes = Array[Dictionary]([{
 "road_width": 12.0
 }])
 stage_props = Array[Dictionary]([{
-"asset_path": "",
-"audio_material_id": "plastic",
-"box_color": Color(0.95, 0.22, 0.16, 1),
-"box_size": Vector3(54, 2, 18),
-"collision_mode": "visual",
-"gameplay_tag": "ramp",
-"id": "SlideSpiral",
-"kind": "box",
-"position": Vector3(94, 2, -44),
-"scale": Vector3(1, 1, 1),
-"yaw_degrees": 0.0
-}, {
-"asset_path": "res://assets/gameplay/tracks/outdoor_playground/wooden_playground_set_meshy.tscn",
-"audio_material_id": "wood",
-"box_color": Color(0.58, 0.34, 0.16, 1),
-"box_size": Vector3(38, 22, 16),
-"collision_mode": "visual",
-"gameplay_tag": "playground_landmark",
-"id": "WoodenPlaygroundSet",
-"kind": "scene",
-"position": Vector3(-82, 15.1, 48),
-"scale": Vector3(24, 24, 24),
-"yaw_degrees": 0.0
-}, {
-"asset_path": "",
-"audio_material_id": "mulch",
-"box_color": Color(0.36, 0.16, 0.06, 1),
-"box_size": Vector3(42, 1, 18),
-"collision_mode": "visual",
-"gameplay_tag": "playground_landmark",
-"id": "SwingSafetyPad",
-"kind": "box",
-"position": Vector3(-82, -9, 48),
-"scale": Vector3(1, 1, 1),
-"yaw_degrees": 0.0
-}, {
-"asset_path": "res://assets/source/meshy/playground_props/rusty_seesaw.glb",
-"audio_material_id": "metal",
-"box_color": Color(0.48, 0.18, 0.08, 1),
-"box_size": Vector3(34, 13, 6),
-"collision_mode": "visual",
-"gameplay_tag": "playground_landmark",
-"id": "RustySeesaw",
-"kind": "scene",
-"position": Vector3(-116, 2.6, 34),
-"scale": Vector3(18, 18, 18),
-"yaw_degrees": -90.0
-}, {
-"asset_path": "res://assets/source/meshy/playground_props/rusty_playground_slide.glb",
-"audio_material_id": "metal",
-"box_color": Color(0.8, 0.32, 0.12, 1),
-"box_size": Vector3(30, 18, 6),
-"collision_mode": "visual",
-"gameplay_tag": "playground_landmark",
-"id": "RustyPlaygroundSlide",
-"kind": "scene",
-"position": Vector3(-46, 3.4, 58),
-"scale": Vector3(16, 16, 16),
-"yaw_degrees": 0.0
-}, {
-"asset_path": "res://assets/source/meshy/playground_props/weathered_green_chair.glb",
-"audio_material_id": "plastic",
-"box_color": Color(0.24, 0.46, 0.2, 1),
-"box_size": Vector3(10, 15, 11),
-"collision_mode": "visual",
-"gameplay_tag": "playground_landmark",
-"id": "WeatheredGreenChair",
-"kind": "scene",
-"position": Vector3(-111, 1.9, 67),
-"scale": Vector3(8, 8, 8),
-"yaw_degrees": 90.0
-}, {
 "asset_path": "res://assets/source/meshy/playground_props/house.glb",
 "audio_material_id": "wood",
-"box_color": Color(0.54, 0.36, 0.24, 1),
-"box_size": Vector3(30, 26, 25),
+"box_color": [0.54, 0.36, 0.24, 1.0],
+"box_size": [30.0, 26.0, 25.0],
 "collision_mode": "visual",
 "gameplay_tag": "playground_landmark",
 "id": "MeshyHouse",
 "kind": "scene",
-"position": Vector3(42, 8, 38),
-"scale": Vector3(18, 18, 18),
-"yaw_degrees": 180.0
-}, {
-"asset_path": "res://assets/source/kenney/survival_kit/fence_fortified.glb",
-"audio_material_id": "wood",
-"box_color": Color(0.42, 0.31, 0.22, 1),
-"box_size": Vector3(10, 11, 2),
-"collision_mode": "visual",
-"gameplay_tag": "playground_landmark",
-"id": "FortifiedFence",
-"kind": "scene",
-"position": Vector3(70, -10.5, 102),
-"scale": Vector3(20, 20, 20),
-"yaw_degrees": -90.0
+"position": [105.061485, 134.28403, 299.13434],
+"scale": [200.0, 200.0, 200.0],
+"yaw_degrees": 0.0
 }, {
 "asset_path": "",
 "audio_material_id": "metal",
-"box_color": Color(0.1, 0.44, 0.8, 1),
-"box_size": Vector3(72, 3, 18),
+"box_color": [0.1, 0.44, 0.8, 1.0],
+"box_size": [72.0, 3.0, 18.0],
 "collision_mode": "visual",
 "gameplay_tag": "playground_landmark",
 "id": "MonkeyBars",
 "kind": "box",
-"position": Vector3(8, 10, 66),
-"scale": Vector3(1, 1, 1),
+"position": [8.0, 10.0, 66.0],
+"scale": [1.0, 1.0, 1.0],
 "yaw_degrees": 0.0
 }, {
 "asset_path": "",
 "audio_material_id": "mulch",
-"box_color": Color(0.36, 0.16, 0.06, 1),
-"box_size": Vector3(76, 4, 26),
+"box_color": [0.36, 0.16, 0.06, 1.0],
+"box_size": [76.0, 4.0, 26.0],
 "collision_mode": "visual",
 "gameplay_tag": "slow_zone",
 "id": "MulchSlowZone",
 "kind": "box",
-"position": Vector3(-16, -10, -30),
-"scale": Vector3(1, 1, 1),
+"position": [-16.0, -10.0, -30.0],
+"scale": [1.0, 1.0, 1.0],
+"yaw_degrees": 0.0
+}, {
+"asset_path": "res://assets/source/meshy/playground_props/rusty_playground_slide.glb",
+"audio_material_id": "metal",
+"box_color": [0.8, 0.32, 0.12, 1.0],
+"box_size": [30.0, 18.0, 6.0],
+"collision_mode": "visual",
+"gameplay_tag": "playground_landmark",
+"id": "RustyPlaygroundSlide",
+"kind": "scene",
+"position": [-46.0, 3.4, 58.0],
+"scale": [16.0, 16.0, 16.0],
+"yaw_degrees": 0.0
+}, {
+"asset_path": "res://assets/source/meshy/playground_props/rusty_seesaw.glb",
+"audio_material_id": "metal",
+"box_color": [0.48, 0.18, 0.08, 1.0],
+"box_size": [34.0, 13.0, 6.0],
+"collision_mode": "visual",
+"gameplay_tag": "playground_landmark",
+"id": "RustySeesaw",
+"kind": "scene",
+"position": [-97.99078, -4.2750745, 7.1089478],
+"scale": [18.0, 18.0, 18.0],
+"yaw_degrees": 90.0
+}, {
+"asset_path": "",
+"audio_material_id": "plastic",
+"box_color": [0.95, 0.22, 0.16, 1.0],
+"box_size": [54.0, 2.0, 18.0],
+"collision_mode": "visual",
+"gameplay_tag": "ramp",
+"id": "SlideSpiral",
+"kind": "box",
+"position": [94.0, 2.0, -44.0],
+"scale": [1.0, 1.0, 1.0],
+"yaw_degrees": 0.0
+}, {
+"asset_path": "",
+"audio_material_id": "mulch",
+"box_color": [0.36, 0.16, 0.06, 1.0],
+"box_size": [42.0, 1.0, 18.0],
+"collision_mode": "visual",
+"gameplay_tag": "playground_landmark",
+"id": "SwingSafetyPad",
+"kind": "box",
+"position": [-82.0, -9.0, 48.0],
+"scale": [1.0, 1.0, 1.0],
+"yaw_degrees": 0.0
+}, {
+"asset_path": "res://assets/source/meshy/playground_props/weathered_green_chair.glb",
+"audio_material_id": "plastic",
+"box_color": [0.24, 0.46, 0.2, 1.0],
+"box_size": [10.0, 15.0, 11.0],
+"collision_mode": "visual",
+"gameplay_tag": "playground_landmark",
+"id": "WeatheredGreenChair",
+"kind": "scene",
+"position": [72.5573, -2.8262076, -13.292465],
+"scale": [8.0, 8.0, 8.0],
+"yaw_degrees": -90.0
+}, {
+"asset_path": "res://assets/gameplay/tracks/outdoor_playground/wooden_playground_set_meshy.tscn",
+"audio_material_id": "wood",
+"box_color": [0.58, 0.34, 0.16, 1.0],
+"box_size": [38.0, 22.0, 16.0],
+"collision_mode": "visual",
+"gameplay_tag": "playground_landmark",
+"id": "WoodenPlaygroundSet",
+"kind": "scene",
+"position": [-6.2514877, 14.71203, 17.875505],
+"scale": [50.0, 50.0, 50.0],
 "yaw_degrees": 0.0
 }])
 surface_segments = Array[Dictionary]([{
-"end_route_index": 10,
-"id": "outdoor_playground_start_surface",
-"position": Vector3(-30, 3.55, -70),
-"start_route_index": 0,
-"surface_audio_id": "outdoor_playground_primary",
-"surface_material_id": "asphalt"
-}, {
 "end_route_index": 20,
 "id": "outdoor_playground_feature_surface",
-"position": Vector3(70, 3.55, 50),
+"position": [70.0, 3.55, 50.0],
 "start_route_index": 11,
 "surface_audio_id": "outdoor_playground_secondary",
 "surface_material_id": "asphalt_feature"
 }, {
 "end_route_index": 31,
 "id": "outdoor_playground_return_surface",
-"position": Vector3(-80, 3.55, 10),
+"position": [-80.0, 3.55, 10.0],
 "start_route_index": 21,
+"surface_audio_id": "outdoor_playground_primary",
+"surface_material_id": "asphalt"
+}, {
+"end_route_index": 10,
+"id": "outdoor_playground_start_surface",
+"position": [-30.0, 3.55, -70.0],
+"start_route_index": 0,
 "surface_audio_id": "outdoor_playground_primary",
 "surface_material_id": "asphalt"
 }])
 audio_zones = Array[Dictionary]([{
-"audio_id": "music",
-"audio_path": "",
-"id": "outdoor_playground_music_zone",
-"position": Vector3(0, 0, 0),
-"radius": 120.0,
-"volume_db": -14.0,
-"zone_kind": "ambient"
-}, {
 "audio_id": "outdoor_playground_secondary",
 "audio_path": "",
 "id": "outdoor_playground_feature_zone",
-"position": Vector3(60, 4.35, 36),
+"position": [60.0, 4.35, 36.0],
 "radius": 28.0,
 "volume_db": -6.0,
 "zone_kind": "oneshot"
+}, {
+"audio_id": "music",
+"audio_path": "",
+"id": "outdoor_playground_music_zone",
+"position": [0.0, 0.0, 0.0],
+"radius": 120.0,
+"volume_db": -14.0,
+"zone_kind": "ambient"
+}])
+grass_zones = Array[Dictionary]([{
+"density": 2.85,
+"enabled": true,
+"id": "back_corner_grass",
+"position": [67.39053, -9.078542, -358.74655],
+"size": [799.9939, 199.99847],
+"yaw_degrees": 0.0
+}, {
+"density": 1.0,
+"enabled": true,
+"id": "back_corner_grass",
+"position": [8.134394, -8.268887, 297.38516],
+"size": [315.64233, 399.99606],
+"yaw_degrees": 0.0
+}, {
+"density": 2.85,
+"enabled": true,
+"id": "back_corn0er_grass",
+"position": [-238.84921, -9.425716, -33.398033],
+"size": [447.01364, 177.25244],
+"yaw_degrees": 89.99999999999491
+}, {
+"density": 2.85,
+"enabled": true,
+"id": "back_corner_grass",
+"position": [248.39719, -8.049877, 175.64319],
+"size": [639.6461, 165.2666],
+"yaw_degrees": 89.99999999999532
+}, {
+"density": 2.85,
+"enabled": true,
+"id": "back_corner_grass",
+"position": [-274.75424, -8.049877, 469.97058],
+"size": [329.99942, 249.99956],
+"yaw_degrees": 89.99999999999837
+}, {
+"density": 2.85,
+"enabled": true,
+"id": "back_corner_grass",
+"position": [-363.4536, -8.049877, 45.27176],
+"size": [968.8398, 72.599884],
+"yaw_degrees": 89.99999999999125
+}, {
+"density": 2.85,
+"enabled": true,
+"id": "back_corner_grass",
+"position": [414.39163, -8.049877, 61.34662],
+"size": [639.6461, 165.2666],
+"yaw_degrees": 89.99999999999532
+}, {
+"density": 2.85,
+"enabled": true,
+"id": "back_corner_grass",
+"position": [7.0262146, -8.049877, -183.63684],
+"size": [149.4512, 311.5317],
+"yaw_degrees": 89.9999999999941
 }])
 audio_ids = {
 "music": "res://assets/source/audio/suno/tracks/playground/playground_loop_suno_01.mp3",

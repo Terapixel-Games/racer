@@ -6,7 +6,7 @@ const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd"
 const TrackSegmentRoadBuilder = preload("res://scripts/track/TrackSegmentRoadBuilder.gd")
 const TrackGridRoadBuilder = preload("res://scripts/track/TrackGridRoadBuilder.gd")
 
-const TMP_SCENE_PATH := "user://tmp_scene_source_route.tscn"
+const TMP_SCENE_PATH := "res://tmp_scene_source_route.tscn"
 
 func test_runtime_builds_enabled_alternate_route_geometry() -> void:
 	var definition := _branch_definition()
@@ -65,7 +65,7 @@ func test_runtime_uses_road_grid_from_editable_scene() -> void:
 	assert_true(packed != null, "Kitchen editable scene should load")
 	var scene_root := packed.instantiate() as Node3D
 	scene_tree.root.add_child(scene_root)
-	var grid := scene_root.get_node_or_null("RoadGridMap") as Node3D
+	var grid := _find_authoring_node(scene_root, "RoadGridMap") as Node3D
 	assert_true(grid != null and grid.has_method("to_grid_road_layout"), "Editable scene should expose RoadGridMap")
 	if grid == null or not grid.has_method("to_grid_road_layout"):
 		scene_root.queue_free()
@@ -103,7 +103,7 @@ func test_runtime_uses_road_grid_when_holder_is_moved() -> void:
 	assert_true(packed != null, "Kitchen editable scene should load")
 	var scene_root := packed.instantiate() as Node3D
 	scene_tree.root.add_child(scene_root)
-	var grid := scene_root.get_node_or_null("RoadGridMap") as Node3D
+	var grid := _find_authoring_node(scene_root, "RoadGridMap") as Node3D
 	assert_true(grid != null and grid.has_method("to_grid_road_layout"), "Editable scene should expose a movable RoadGridMap")
 	if grid == null or not grid.has_method("to_grid_road_layout"):
 		scene_root.queue_free()
@@ -168,6 +168,16 @@ func _branch_definition() -> TrackDefinition:
 		"enabled": true,
 	}]
 	return definition
+
+func _find_authoring_node(root: Node, node_name: String) -> Node:
+	var direct := root.get_node_or_null(node_name)
+	if direct != null:
+		return direct
+	for parent_name in ["TrackAuthoringPreview", "Track"]:
+		var nested := root.get_node_or_null("%s/%s" % [parent_name, node_name])
+		if nested != null:
+			return nested
+	return root.find_child(node_name, true, false)
 
 func _enabled_collision_objects(node: Node) -> int:
 	if node == null:

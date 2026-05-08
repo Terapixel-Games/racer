@@ -17,6 +17,263 @@ ground_size = Vector2(292, 190)
 ground_color = Color(0.32, 0.43, 0.24, 1)
 ground_texture_path = "res://assets/gameplay/materials/garden/garden_dirt_mud_albedo.png"
 road_texture_path = "res://assets/gameplay/materials/plastic/glossy_plastic_albedo.png"
+road_segment_layout = Array[Dictionary]([{
+"length": 15.231546,
+"pitch_degrees": 0.0,
+"position": Vector3(-101, 3.35, -75),
+"road_width": 12.0,
+"roles": Array[String](["checkpoint", "start"]),
+"segment_id": "straight_long",
+"yaw_degrees": 113.19858975626474
+}, {
+"length": 16.492422,
+"pitch_degrees": 0.0,
+"position": Vector3(-86, 3.35, -80),
+"road_width": 12.0,
+"roles": Array[String](["item"]),
+"segment_id": "straight_long",
+"yaw_degrees": 104.03624615452947
+}, {
+"length": 18.110771,
+"pitch_degrees": 0.0,
+"position": Vector3(-69, 3.35, -83),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": 96.3401939034342
+}, {
+"length": 20.024984,
+"pitch_degrees": 0.0,
+"position": Vector3(-50, 3.35, -83.5),
+"road_width": 12.0,
+"roles": Array[String](["hazard"]),
+"segment_id": "straight_long",
+"yaw_degrees": 87.13759316673088
+}, {
+"length": 20.22375,
+"pitch_degrees": 0.0,
+"position": Vector3(-30, 3.35, -81.5),
+"road_width": 12.0,
+"roles": Array[String](["item"]),
+"segment_id": "straight_long",
+"yaw_degrees": 81.46923283491564
+}, {
+"length": 20.396078,
+"pitch_degrees": 0.0,
+"position": Vector3(-10, 3.35, -78),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": 78.69006984277247
+}, {
+"length": 24.0,
+"pitch_degrees": 0.0,
+"position": Vector3(12, 3.35, -76),
+"road_width": 12.0,
+"roles": Array[String](["checkpoint"]),
+"segment_id": "straight_long",
+"yaw_degrees": 90.00000250447816
+}, {
+"length": 24.083189,
+"pitch_degrees": 0.0,
+"position": Vector3(36, 3.35, -77),
+"road_width": 12.0,
+"roles": Array[String](["item"]),
+"segment_id": "straight_long",
+"yaw_degrees": 94.76364280902268
+}, {
+"length": 24.083189,
+"pitch_degrees": 0.0,
+"position": Vector3(60, 3.35, -77),
+"road_width": 12.0,
+"roles": Array[String](["hazard"]),
+"segment_id": "straight_long",
+"yaw_degrees": 85.23635536974447
+}, {
+"length": 25.298222,
+"pitch_degrees": 0.0,
+"position": Vector3(84, 3.35, -72),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": 71.56504872704696
+}, {
+"length": 25.612497,
+"pitch_degrees": 0.0,
+"position": Vector3(106, 3.35, -60),
+"road_width": 12.0,
+"roles": Array[String](["item"]),
+"segment_id": "straight_long",
+"yaw_degrees": 51.340189236100535
+}, {
+"length": 25.059929,
+"pitch_degrees": 0.0,
+"position": Vector3(122, 3.35, -41),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": 28.61046031988949
+}, {
+"length": 24.33105,
+"pitch_degrees": 0.0,
+"position": Vector3(130, 3.35, -18),
+"road_width": 12.0,
+"roles": Array[String](["checkpoint", "hazard"]),
+"segment_id": "straight_long",
+"yaw_degrees": 9.46232209498764
+}, {
+"length": 24.083189,
+"pitch_degrees": 0.0,
+"position": Vector3(131, 3.35, 6),
+"road_width": 12.0,
+"roles": Array[String](["item"]),
+"segment_id": "straight_long",
+"yaw_degrees": -4.763641585204993
+}, {
+"length": 25.298222,
+"pitch_degrees": 0.0,
+"position": Vector3(126, 3.35, 30),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": -18.434948654789338
+}, {
+"length": 28.42534,
+"pitch_degrees": 0.0,
+"position": Vector3(111, 3.35, 51),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": -50.710592643692515
+}, {
+"length": 21.931713,
+"pitch_degrees": 0.0,
+"position": Vector3(92, 3.35, 67.5),
+"road_width": 12.0,
+"roles": Array[String](["item"]),
+"segment_id": "straight_long",
+"yaw_degrees": -46.84760840386255
+}, {
+"length": 24.186773,
+"pitch_degrees": 0.0,
+"position": Vector3(72, 3.35, 76.5),
+"road_width": 12.0,
+"roles": Array[String](["hazard"]),
+"segment_id": "straight_long",
+"yaw_degrees": -82.87498138875264
+}, {
+"length": 26.305893,
+"pitch_degrees": 0.0,
+"position": Vector3(47, 3.35, 80),
+"road_width": 12.0,
+"roles": Array[String](["checkpoint"]),
+"segment_id": "straight_long",
+"yaw_degrees": -81.25383598925012
+}, {
+"length": 26.0,
+"pitch_degrees": 0.0,
+"position": Vector3(21, 3.35, 82),
+"road_width": 12.0,
+"roles": Array[String](["item"]),
+"segment_id": "straight_long",
+"yaw_degrees": -90.00000250447816
+}, {
+"length": 26.076809,
+"pitch_degrees": 0.0,
+"position": Vector3(-5, 3.35, 81),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": -94.39870580166891
+}, {
+"length": 26.305893,
+"pitch_degrees": 0.0,
+"position": Vector3(-31, 3.35, 78),
+"road_width": 12.0,
+"roles": Array[String](["hazard"]),
+"segment_id": "straight_long",
+"yaw_degrees": -98.74616218951705
+}, {
+"length": 27.202942,
+"pitch_degrees": 0.0,
+"position": Vector3(-57, 3.35, 72),
+"road_width": 12.0,
+"roles": Array[String](["item"]),
+"segment_id": "straight_long",
+"yaw_degrees": -107.10272788429839
+}, {
+"length": 27.81079,
+"pitch_degrees": 2.4730070821204424,
+"position": Vector3(-82, 3.9499998, 61),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": -120.25643596150319
+}, {
+"length": 28.309715,
+"pitch_degrees": -2.429396729303442,
+"position": Vector3(-104, 3.9499998, 44),
+"road_width": 12.0,
+"roles": Array[String](["checkpoint"]),
+"segment_id": "straight_long",
+"yaw_degrees": -135.00000034162267
+}, {
+"length": 26.832815,
+"pitch_degrees": 0.0,
+"position": Vector3(-120, 3.35, 22),
+"road_width": 12.0,
+"roles": Array[String](["item"]),
+"segment_id": "straight_long",
+"yaw_degrees": -153.43495411905388
+}, {
+"length": 26.305893,
+"pitch_degrees": 0.0,
+"position": Vector3(-128, 3.35, -3),
+"road_width": 12.0,
+"roles": Array[String](["hazard"]),
+"segment_id": "straight_long",
+"yaw_degrees": -171.2538384937283
+}, {
+"length": 24.33105,
+"pitch_degrees": 0.0,
+"position": Vector3(-128, 3.35, -28),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": 170.53766583849577
+}, {
+"length": 22.36068,
+"pitch_degrees": 0.0,
+"position": Vector3(-121, 3.35, -50),
+"road_width": 12.0,
+"roles": Array[String](["checkpoint", "item"]),
+"segment_id": "straight_long",
+"yaw_degrees": 153.43495411905388
+}, {
+"length": 15.6205,
+"pitch_degrees": 0.0,
+"position": Vector3(-110, 3.35, -65),
+"road_width": 12.0,
+"roles": Array[String](["hazard"]),
+"segment_id": "straight_long",
+"yaw_degrees": 129.80557317593627
+}, {
+"length": 8.246211,
+"pitch_degrees": 0.0,
+"position": Vector3(-108, 3.35, -69),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": -75.96375202423769
+}, {
+"length": 5.656854,
+"pitch_degrees": 0.0,
+"position": Vector3(-110, 3.35, -70),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": 135.00000034162267
+}])
 rail_texture_path = "res://assets/gameplay/materials/metal/toy_metal_albedo.png"
 rail_texture_uv_scale = 0.5
 track_body_color = Color(0.09, 0.075, 0.065, 1)
@@ -29,11 +286,11 @@ sky_cloud_amount = 0.34
 sky_cloud_speed = 0.014
 sky_haze_amount = 0.2
 sky_light_energy = 2.1
-route_points = Array[Vector3]([Vector3(-108, 3.35, -72), Vector3(-94, 3.35, -78), Vector3(-78, 3.35, -82), Vector3(-60, 3.35, -84), Vector3(-40, 3.35, -83), Vector3(-20, 3.35, -80), Vector3(0, 3.35, -76), Vector3(24, 3.35, -76), Vector3(48, 3.35, -78), Vector3(72, 3.35, -76), Vector3(96, 3.35, -68), Vector3(116, 3.35, -52), Vector3(128, 3.35, -30), Vector3(132, 3.35, -6), Vector3(130, 3.35, 18), Vector3(122, 3.35, 42), Vector3(100, 3.35, 60), Vector3(84, 3.35, 75), Vector3(60, 3.35, 78), Vector3(34, 3.35, 82), Vector3(8, 3.35, 82), Vector3(-18, 3.35, 80), Vector3(-44, 3.35, 76), Vector3(-70, 3.35, 68), Vector3(-94, 4.5499997, 54), Vector3(-114, 3.35, 34), Vector3(-126, 3.35, 10), Vector3(-130, 3.35, -16), Vector3(-126, 3.35, -40), Vector3(-116, 3.35, -60), Vector3(-104, 3.35, -70), Vector3(-112, 3.35, -68)])
-checkpoint_indices = Array[int]([0, 6, 12, 18, 24, 28])
-spawn_points = Array[Vector4]([Vector4(-107.21216, 4.15, -70.16171, 113.19859), Vector4(-108.78784, 4.15, -73.83829, 113.19859), Vector4(-102.61643, 4.15, -72.13131, 113.19859), Vector4(-104.192116, 4.15, -75.807884, 113.19859), Vector4(-98.020706, 4.15, -74.10091, 113.19859), Vector4(-99.59639, 4.15, -77.77748, 113.19859), Vector4(-93.42498, 4.15, -76.0705, 113.19859), Vector4(-95.00066, 4.15, -79.74708, 113.19859)])
-item_sockets = Array[Vector4]([Vector4(-78, 4.0499997, -82, 0), Vector4(-20, 4.0499997, -80, 0), Vector4(48, 4.0499997, -78, 0), Vector4(116, 4.0499997, -52, 0), Vector4(130, 4.0499997, 18, 0), Vector4(84, 4.0499997, 75, 0), Vector4(8, 4.0499997, 82, 0), Vector4(-70, 4.0499997, 68, 0), Vector4(-126, 4.0499997, 10, 0), Vector4(-116, 4.0499997, -60, 0)])
-hazard_sockets = Array[Vector4]([Vector4(-40, 4.0499997, -83, 0), Vector4(72, 4.0499997, -76, 0), Vector4(132, 4.0499997, -6, 0), Vector4(60, 4.0499997, 78, 0), Vector4(-44, 4.0499997, 76, 0), Vector4(-130, 4.0499997, -16, 0), Vector4(-104, 4.0499997, -70, 0)])
+route_points = Array[Vector3]([Vector3(-108, 3.35, -72), Vector3(-94, 3.35, -78), Vector3(-78, 3.35, -82), Vector3(-60, 3.35, -84), Vector3(-40, 3.35, -83), Vector3(-20, 3.35, -80), Vector3(0, 3.35, -76), Vector3(24, 3.35, -76), Vector3(48, 3.35, -78), Vector3(72, 3.35, -76), Vector3(96, 3.35, -68), Vector3(116, 3.35, -52), Vector3(128, 3.35, -30), Vector3(132, 3.35, -6), Vector3(130, 3.35, 18), Vector3(122, 3.35, 42), Vector3(100, 3.35, 60), Vector3(84, 3.35, 75), Vector3(60, 3.35, 78), Vector3(34, 3.35, 82), Vector3(8, 3.35, 82), Vector3(-18, 3.35, 80), Vector3(-44, 3.35, 76), Vector3(-70, 3.35, 68), Vector3(-70, 4.5499997, 68), Vector3(-94, 3.35, 54), Vector3(-114, 4.5499997, 34), Vector3(-114, 3.35, 34), Vector3(-126, 3.35, 10), Vector3(-130, 3.35, -16), Vector3(-126, 3.35, -40), Vector3(-116, 3.35, -60), Vector3(-104, 3.35, -70), Vector3(-112, 3.35, -68)])
+checkpoint_indices = Array[int]([0, 6, 12, 18, 25, 30])
+spawn_points = Array[Vector4]([Vector4(-107.40912, 4.15, -70.621284, 113.19859), Vector4(-108.59088, 4.15, -73.378716, 113.19859), Vector4(-102.81339, 4.15, -72.59088, 113.19859), Vector4(-103.995155, 4.15, -75.34831, 113.19859), Vector4(-98.21767, 4.15, -74.56048, 113.19859), Vector4(-99.39943, 4.15, -77.31791, 113.19859), Vector4(-93.62194, 4.15, -76.530075, 113.19859), Vector4(-94.8037, 4.15, -79.287506, 113.19859)])
+item_sockets = Array[Vector4]([Vector4(-86, 4.15, -80, 104.03625), Vector4(-30, 4.15, -81.5, 81.46923), Vector4(36, 4.15, -77, 94.76364), Vector4(106, 4.15, -60, 51.34019), Vector4(131, 4.15, 6, -4.763642), Vector4(92, 4.15, 67.5, -46.84761), Vector4(21, 4.15, 82, -90), Vector4(-57, 4.15, 72, -107.10273), Vector4(-120, 4.15, 22, -153.43495), Vector4(-121, 4.15, -50, 153.43495)])
+hazard_sockets = Array[Vector4]([Vector4(-50, 4.15, -83.5, 87.137596), Vector4(60, 4.15, -77, 85.23636), Vector4(130, 4.15, -18, 9.462322), Vector4(72, 4.15, 76.5, -82.874985), Vector4(-31, 4.15, 78, -98.74616), Vector4(-128, 4.15, -3, -171.25383), Vector4(-110, 4.15, -65, 129.80557)])
 alternate_routes = Array[Dictionary]([{
 "enabled": true,
 "entry_checkpoint_index": 1,
@@ -44,103 +301,103 @@ alternate_routes = Array[Dictionary]([{
 }])
 stage_props = Array[Dictionary]([{
 "asset_path": "",
-"audio_material_id": "metal",
-"box_color": Color(0.36, 0.58, 0.72, 1),
-"box_size": Vector3(28, 18, 24),
-"collision_mode": "visual",
-"gameplay_tag": "garden_landmark",
-"id": "WateringCan",
-"kind": "box",
-"position": Vector3(104, -5, -48),
-"scale": Vector3(1, 1, 1),
-"yaw_degrees": 0.0
-}, {
-"asset_path": "",
-"audio_material_id": "leaf",
-"box_color": Color(0.16, 0.52, 0.18, 1),
-"box_size": Vector3(50, 2, 20),
-"collision_mode": "visual",
-"gameplay_tag": "garden_landmark",
-"id": "LeafTunnel",
-"kind": "box",
-"position": Vector3(-70, 5, 54),
-"scale": Vector3(1, 1, 1),
-"yaw_degrees": 0.0
-}, {
-"asset_path": "",
 "audio_material_id": "ceramic",
-"box_color": Color(0.62, 0.28, 0.16, 1),
-"box_size": Vector3(18, 22, 18),
+"box_color": [0.62, 0.28, 0.16, 1.0],
+"box_size": [18.0, 22.0, 18.0],
 "collision_mode": "visual",
 "gameplay_tag": "garden_landmark",
 "id": "FlowerPotA",
 "kind": "box",
-"position": Vector3(-118, -3, -10),
-"scale": Vector3(1, 1, 1),
+"position": [-118.0, -3.0, -10.0],
+"scale": [1.0, 1.0, 1.0],
 "yaw_degrees": 0.0
 }, {
 "asset_path": "",
-"audio_material_id": "stone",
-"box_color": Color(0.42, 0.46, 0.42, 1),
-"box_size": Vector3(58, 5, 18),
+"audio_material_id": "leaf",
+"box_color": [0.16, 0.52, 0.18, 1.0],
+"box_size": [50.0, 2.0, 20.0],
 "collision_mode": "visual",
-"gameplay_tag": "shortcut_landmark",
-"id": "StoneShortcut",
+"gameplay_tag": "garden_landmark",
+"id": "LeafTunnel",
 "kind": "box",
-"position": Vector3(4, -7, 8),
-"scale": Vector3(1, 1, 1),
+"position": [-70.0, 5.0, 54.0],
+"scale": [1.0, 1.0, 1.0],
 "yaw_degrees": 0.0
 }, {
 "asset_path": "",
 "audio_material_id": "mud",
-"box_color": Color(0.24, 0.16, 0.08, 1),
-"box_size": Vector3(42, 4, 28),
+"box_color": [0.24, 0.16, 0.08, 1.0],
+"box_size": [42.0, 4.0, 28.0],
 "collision_mode": "visual",
 "gameplay_tag": "slow_zone",
 "id": "MudPatch",
 "kind": "box",
-"position": Vector3(66, -10, 28),
-"scale": Vector3(1, 1, 1),
+"position": [66.0, -10.0, 28.0],
+"scale": [1.0, 1.0, 1.0],
+"yaw_degrees": 0.0
+}, {
+"asset_path": "",
+"audio_material_id": "stone",
+"box_color": [0.42, 0.46, 0.42, 1.0],
+"box_size": [58.0, 5.0, 18.0],
+"collision_mode": "visual",
+"gameplay_tag": "shortcut_landmark",
+"id": "StoneShortcut",
+"kind": "box",
+"position": [4.0, -7.0, 8.0],
+"scale": [1.0, 1.0, 1.0],
+"yaw_degrees": 0.0
+}, {
+"asset_path": "",
+"audio_material_id": "metal",
+"box_color": [0.36, 0.58, 0.72, 1.0],
+"box_size": [28.0, 18.0, 24.0],
+"collision_mode": "visual",
+"gameplay_tag": "garden_landmark",
+"id": "WateringCan",
+"kind": "box",
+"position": [104.0, -5.0, -48.0],
+"scale": [1.0, 1.0, 1.0],
 "yaw_degrees": 0.0
 }])
 surface_segments = Array[Dictionary]([{
-"end_route_index": 10,
-"id": "garden_start_surface",
-"position": Vector3(-30, 3.55, -70),
-"start_route_index": 0,
-"surface_audio_id": "garden_primary",
-"surface_material_id": "dirt"
-}, {
 "end_route_index": 20,
 "id": "garden_feature_surface",
-"position": Vector3(70, 3.55, 50),
+"position": [70.0, 3.55, 50.0],
 "start_route_index": 11,
 "surface_audio_id": "garden_secondary",
 "surface_material_id": "dirt_feature"
 }, {
 "end_route_index": 31,
 "id": "garden_return_surface",
-"position": Vector3(-80, 3.55, 10),
+"position": [-80.0, 3.55, 10.0],
 "start_route_index": 21,
+"surface_audio_id": "garden_primary",
+"surface_material_id": "dirt"
+}, {
+"end_route_index": 10,
+"id": "garden_start_surface",
+"position": [-30.0, 3.55, -70.0],
+"start_route_index": 0,
 "surface_audio_id": "garden_primary",
 "surface_material_id": "dirt"
 }])
 audio_zones = Array[Dictionary]([{
-"audio_id": "music",
-"audio_path": "",
-"id": "garden_music_zone",
-"position": Vector3(0, 0, 0),
-"radius": 120.0,
-"volume_db": -14.0,
-"zone_kind": "ambient"
-}, {
 "audio_id": "garden_secondary",
 "audio_path": "",
 "id": "garden_feature_zone",
-"position": Vector3(60, 4.35, 36),
+"position": [60.0, 4.35, 36.0],
 "radius": 28.0,
 "volume_db": -6.0,
 "zone_kind": "oneshot"
+}, {
+"audio_id": "music",
+"audio_path": "",
+"id": "garden_music_zone",
+"position": [0.0, 0.0, 0.0],
+"radius": 120.0,
+"volume_db": -14.0,
+"zone_kind": "ambient"
 }])
 audio_ids = {
 "garden_primary": "res://assets/source/audio/canva/tracks/garden/garden_mud_splat_canva_01.wav",

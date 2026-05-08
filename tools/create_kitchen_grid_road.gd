@@ -124,9 +124,10 @@ func _build_kitchen_grid_scene() -> Array[String]:
 	var root := packed.instantiate() as Node3D
 	if root == null:
 		return ["Kitchen scene root is not Node3D"]
-	var existing := root.get_node_or_null("RoadGridMap")
+	var track := _get_or_create_track_node(root)
+	var existing := _find_node(root, "RoadGridMap")
 	if existing != null:
-		root.remove_child(existing)
+		existing.get_parent().remove_child(existing)
 		existing.queue_free()
 	var grid := RoadGridMapAuthoring.new()
 	grid.name = "RoadGridMap"
@@ -148,7 +149,7 @@ func _build_kitchen_grid_scene() -> Array[String]:
 		var tile := _visual_tile_for_route_index(route, i)
 		grid.set_cell_item(cell, tile, _orientation_for_route_index(route, i))
 		skip_next = tile == TrackGridRoadBuilder.TILE_STRAIGHT_LONG or tile == TrackGridRoadBuilder.TILE_START
-	root.add_child(grid)
+	track.add_child(grid)
 	grid.owner = root
 	var new_packed := PackedScene.new()
 	var pack_error := new_packed.pack(root)
@@ -160,6 +161,22 @@ func _build_kitchen_grid_scene() -> Array[String]:
 	if save_error != OK:
 		return ["Could not save Kitchen scene: %s" % save_error]
 	return []
+
+func _get_or_create_track_node(root: Node3D) -> Node3D:
+	var track := root.get_node_or_null("Track") as Node3D
+	if track != null:
+		return track
+	track = Node3D.new()
+	track.name = "Track"
+	root.add_child(track)
+	track.owner = root
+	return track
+
+func _find_node(root: Node, node_name: String) -> Node:
+	var direct := root.get_node_or_null(node_name)
+	if direct != null:
+		return direct
+	return root.find_child(node_name, true, false)
 
 func _export_kitchen_definition() -> Error:
 	var definition_path := TrackCatalog.get_definition_path("kitchen")

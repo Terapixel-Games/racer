@@ -83,7 +83,7 @@
 				3.34999990463257,
 				-76.0
 			],
-			"route_index": 6
+			"route_index": 10
 		},
 		{
 			"index": 2,
@@ -93,7 +93,7 @@
 				3.34999990463257,
 				-30.0
 			],
-			"route_index": 12
+			"route_index": 16
 		},
 		{
 			"index": 3,
@@ -103,7 +103,7 @@
 				3.34999990463257,
 				78.0
 			],
-			"route_index": 18
+			"route_index": 22
 		},
 		{
 			"index": 4,
@@ -113,7 +113,7 @@
 				3.34999990463257,
 				54.0
 			],
-			"route_index": 24
+			"route_index": 28
 		},
 		{
 			"index": 5,
@@ -123,152 +123,155 @@
 				3.34999990463257,
 				-40.0
 			],
-			"route_index": 28
+			"route_index": 32
 		}
 	],
 	"closed_loop": true,
 	"display_name": "Bedroom / Tuggs",
 	"dressing_scene_path": "res://assets/gameplay/tracks/bedroom/bedroom_editable_room.tscn",
 	"floor_visual_y": -32.0,
+	"grass_zones": [],
+	"ground_shader_path": "",
+	"ground_texture_path": "res://assets/gameplay/materials/fabric/plush_fabric_albedo.png",
 	"hazard_sockets": [
 		{
 			"position": [
-				-40.0,
-				5.54999971389771,
-				-83.0
+				-50.0,
+				6.19999980926514,
+				-83.5
 			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				72.0,
-				4.04999971389771,
-				-76.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				132.0,
-				4.04999971389771,
-				-6.0
-			],
-			"yaw_degrees": 0.0
+			"yaw_degrees": 87.1375961303711
 		},
 		{
 			"position": [
 				60.0,
-				4.04999971389771,
+				4.15000009536743,
+				-77.0
+			],
+			"yaw_degrees": 85.2363586425781
+		},
+		{
+			"position": [
+				130.0,
+				4.15000009536743,
+				-18.0
+			],
+			"yaw_degrees": 9.46232223510742
+		},
+		{
+			"position": [
+				72.0,
+				4.15000009536743,
+				75.0
+			],
+			"yaw_degrees": -75.963752746582
+		},
+		{
+			"position": [
+				-31.0,
+				4.15000009536743,
 				78.0
 			],
-			"yaw_degrees": 0.0
+			"yaw_degrees": -98.7461624145508
 		},
 		{
 			"position": [
-				-44.0,
-				4.04999971389771,
-				76.0
+				-128.0,
+				4.15000009536743,
+				-3.0
 			],
-			"yaw_degrees": 0.0
+			"yaw_degrees": -171.253829956055
 		},
 		{
 			"position": [
-				-130.0,
-				4.04999971389771,
-				-16.0
+				-110.0,
+				4.15000009536743,
+				-65.0
 			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				-104.0,
-				4.04999971389771,
-				-70.0
-			],
-			"yaw_degrees": 0.0
+			"yaw_degrees": 129.805572509766
 		}
 	],
 	"id": "bedroom",
 	"item_sockets": [
 		{
 			"position": [
-				-78.0,
-				5.54999971389771,
-				-82.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				-20.0,
-				4.04999971389771,
+				-86.0,
+				4.90000009536743,
 				-80.0
 			],
-			"yaw_degrees": 0.0
+			"yaw_degrees": 104.036247253418
 		},
 		{
 			"position": [
-				48.0,
-				4.04999971389771,
-				-78.0
+				-30.0,
+				4.90000009536743,
+				-81.5
 			],
-			"yaw_degrees": 0.0
+			"yaw_degrees": 81.4692306518555
 		},
 		{
 			"position": [
-				116.0,
-				4.04999971389771,
-				-52.0
+				36.0,
+				4.15000009536743,
+				-77.0
 			],
-			"yaw_degrees": 0.0
+			"yaw_degrees": 94.7636413574219
 		},
 		{
 			"position": [
-				130.0,
-				4.04999971389771,
-				18.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				84.0,
-				4.04999971389771,
-				72.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				8.0,
-				4.04999971389771,
-				82.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				-70.0,
-				4.04999971389771,
-				68.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				-126.0,
-				4.04999971389771,
-				10.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"position": [
-				-116.0,
-				4.04999971389771,
+				106.0,
+				4.15000009536743,
 				-60.0
 			],
-			"yaw_degrees": 0.0
+			"yaw_degrees": 51.3401908874512
+		},
+		{
+			"position": [
+				131.0,
+				4.15000009536743,
+				6.0
+			],
+			"yaw_degrees": -4.76364183425903
+		},
+		{
+			"position": [
+				95.0,
+				4.15000009536743,
+				66.0
+			],
+			"yaw_degrees": -61.3895378112793
+		},
+		{
+			"position": [
+				21.0,
+				4.15000009536743,
+				82.0
+			],
+			"yaw_degrees": -90.0
+		},
+		{
+			"position": [
+				-57.0,
+				4.15000009536743,
+				72.0
+			],
+			"yaw_degrees": -107.102729797363
+		},
+		{
+			"position": [
+				-120.0,
+				4.15000009536743,
+				24.5
+			],
+			"yaw_degrees": -157.520568847656
+		},
+		{
+			"position": [
+				-121.0,
+				4.15000009536743,
+				-50.0
+			],
+			"yaw_degrees": 153.434951782227
 		}
 	],
 	"lap_gate_checkpoint_index": 0,
@@ -277,8 +280,365 @@
 	"rail_texture_path": "res://assets/gameplay/materials/metal/toy_metal_albedo.png",
 	"rail_texture_uv_scale": 0.5,
 	"reset_mode": "instant_pop",
+	"road_segment_layout": [
+		{
+			"length": 15.231546,
+			"pitch_degrees": 0.0,
+			"position": [
+				-101.0,
+				3.34999990463257,
+				-75.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 113.198589756265
+		},
+		{
+			"length": 16.560495,
+			"pitch_degrees": 5.19680256525143,
+			"position": [
+				-86.0,
+				4.09999990463257,
+				-80.0
+			],
+			"segment_id": "ramp_long",
+			"yaw_degrees": 104.036246154529
+		},
+		{
+			"length": 18.144144,
+			"pitch_degrees": 3.47572291659962,
+			"position": [
+				-69.0,
+				5.39999961853027,
+				-83.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 96.3401939034342
+		},
+		{
+			"length": 20.055174,
+			"pitch_degrees": -3.14417596137618,
+			"position": [
+				-50.0,
+				5.39999961853027,
+				-83.5
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 87.1375931667309
+		},
+		{
+			"length": 20.2793,
+			"pitch_degrees": -4.24187366737425,
+			"position": [
+				-30.0,
+				4.09999990463257,
+				-81.5
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 81.4692328349156
+		},
+		{
+			"length": 20.396078,
+			"pitch_degrees": 0.0,
+			"position": [
+				-10.0,
+				3.34999990463257,
+				-78.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 78.6900698427725
+		},
+		{
+			"length": 24.0,
+			"pitch_degrees": 0.0,
+			"position": [
+				12.0,
+				3.34999990463257,
+				-76.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 90.0000025044782
+		},
+		{
+			"length": 24.083189,
+			"pitch_degrees": 0.0,
+			"position": [
+				36.0,
+				3.34999990463257,
+				-77.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 94.7636428090227
+		},
+		{
+			"length": 24.083189,
+			"pitch_degrees": 0.0,
+			"position": [
+				60.0,
+				3.34999990463257,
+				-77.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 85.2363553697445
+		},
+		{
+			"length": 25.298222,
+			"pitch_degrees": 0.0,
+			"position": [
+				84.0,
+				3.34999990463257,
+				-72.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 71.565048727047
+		},
+		{
+			"length": 25.612497,
+			"pitch_degrees": 0.0,
+			"position": [
+				106.0,
+				3.34999990463257,
+				-60.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 51.3401892361005
+		},
+		{
+			"length": 25.059929,
+			"pitch_degrees": 0.0,
+			"position": [
+				122.0,
+				3.34999990463257,
+				-41.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 28.6104603198895
+		},
+		{
+			"length": 24.33105,
+			"pitch_degrees": 0.0,
+			"position": [
+				130.0,
+				3.34999990463257,
+				-18.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 9.46232209498764
+		},
+		{
+			"length": 24.083189,
+			"pitch_degrees": 0.0,
+			"position": [
+				131.0,
+				3.34999990463257,
+				6.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -4.76364158520499
+		},
+		{
+			"length": 25.298222,
+			"pitch_degrees": 0.0,
+			"position": [
+				126.0,
+				3.34999990463257,
+				30.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -18.4349486547893
+		},
+		{
+			"length": 24.083189,
+			"pitch_degrees": 0.0,
+			"position": [
+				114.0,
+				3.34999990463257,
+				51.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -41.6335410292178
+		},
+		{
+			"length": 25.059929,
+			"pitch_degrees": 0.0,
+			"position": [
+				95.0,
+				3.34999990463257,
+				66.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -61.3895421845887
+		},
+		{
+			"length": 24.738634,
+			"pitch_degrees": 0.0,
+			"position": [
+				72.0,
+				3.34999990463257,
+				75.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -75.9637520242377
+		},
+		{
+			"length": 26.305893,
+			"pitch_degrees": 0.0,
+			"position": [
+				47.0,
+				3.34999990463257,
+				80.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -81.2538359892501
+		},
+		{
+			"length": 26.0,
+			"pitch_degrees": 0.0,
+			"position": [
+				21.0,
+				3.34999990463257,
+				82.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -90.0000025044782
+		},
+		{
+			"length": 26.076809,
+			"pitch_degrees": 0.0,
+			"position": [
+				-5.0,
+				3.34999990463257,
+				81.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -94.3987058016689
+		},
+		{
+			"length": 26.305893,
+			"pitch_degrees": 0.0,
+			"position": [
+				-31.0,
+				3.34999990463257,
+				78.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -98.7461621895171
+		},
+		{
+			"length": 27.202942,
+			"pitch_degrees": 0.0,
+			"position": [
+				-57.0,
+				3.34999990463257,
+				72.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -107.102727884298
+		},
+		{
+			"length": 27.784887,
+			"pitch_degrees": 0.0,
+			"position": [
+				-82.0,
+				3.34999990463257,
+				61.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -120.256435961503
+		},
+		{
+			"length": 25.0,
+			"pitch_degrees": 0.0,
+			"position": [
+				-104.0,
+				3.34999990463257,
+				46.5
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -126.869889568773
+		},
+		{
+			"length": 31.38471,
+			"pitch_degrees": 0.0,
+			"position": [
+				-120.0,
+				3.34999990463257,
+				24.5
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -157.52056837488
+		},
+		{
+			"length": 26.305893,
+			"pitch_degrees": 0.0,
+			"position": [
+				-128.0,
+				3.34999990463257,
+				-3.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -171.253838493728
+		},
+		{
+			"length": 24.33105,
+			"pitch_degrees": 0.0,
+			"position": [
+				-128.0,
+				3.34999990463257,
+				-28.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 170.537665838496
+		},
+		{
+			"length": 22.36068,
+			"pitch_degrees": 0.0,
+			"position": [
+				-121.0,
+				3.34999990463257,
+				-50.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 153.434954119054
+		},
+		{
+			"length": 15.6205,
+			"pitch_degrees": 0.0,
+			"position": [
+				-110.0,
+				3.34999990463257,
+				-65.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 129.805573175936
+		},
+		{
+			"length": 8.246211,
+			"pitch_degrees": 0.0,
+			"position": [
+				-108.0,
+				3.34999990463257,
+				-69.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": -75.9637520242377
+		},
+		{
+			"length": 5.656854,
+			"pitch_degrees": 0.0,
+			"position": [
+				-110.0,
+				3.34999990463257,
+				-70.0
+			],
+			"segment_id": "straight_long",
+			"yaw_degrees": 135.000000341623
+		}
+	],
+	"road_segment_material_style": "toy_plastic",
+	"road_segment_profile": "kenney_racing_kit",
+	"road_visual_style": "kenney_segments",
 	"road_width": 12.0,
-	"route_length": 724.980300426483,
+	"route_length": 733.180299758911,
 	"route_points": [
 		[
 			-108.0,
@@ -291,19 +651,39 @@
 			-78.0
 		],
 		[
-			-78.0,
+			-94.0,
 			4.84999990463257,
+			-78.0
+		],
+		[
+			-78.0,
+			3.34999990463257,
+			-82.0
+		],
+		[
+			-78.0,
+			5.94999933242798,
 			-82.0
 		],
 		[
 			-60.0,
-			5.94999980926514,
+			4.84999990463257,
 			-84.0
 		],
 		[
 			-40.0,
-			4.84999990463257,
+			5.94999980926514,
 			-83.0
+		],
+		[
+			-40.0,
+			3.34999990463257,
+			-83.0
+		],
+		[
+			-20.0,
+			4.84999990463257,
+			-80.0
 		],
 		[
 			-20.0,
@@ -413,7 +793,7 @@
 		[
 			-126.0,
 			3.34999990463257,
-			10.0
+			9.99999904632568
 		],
 		[
 			-130.0,
@@ -465,65 +845,65 @@
 	"spawn_points": [
 		{
 			"position": [
-				-107.212158203125,
+				-107.409118652344,
 				4.15000009536743,
-				-70.1617126464844
+				-70.6212844848633
 			],
 			"yaw_degrees": 113.198593139648
 		},
 		{
 			"position": [
-				-108.787841796875,
+				-108.590881347656,
 				4.15000009536743,
-				-73.8382873535156
+				-73.3787155151367
 			],
 			"yaw_degrees": 113.198593139648
 		},
 		{
 			"position": [
-				-102.616432189941,
+				-102.81339263916,
 				4.15000009536743,
-				-72.1313095092773
+				-72.5908813476563
 			],
 			"yaw_degrees": 113.198593139648
 		},
 		{
 			"position": [
-				-104.192115783691,
+				-103.995155334473,
 				4.15000009536743,
-				-75.8078842163086
+				-75.3483123779297
 			],
 			"yaw_degrees": 113.198593139648
 		},
 		{
 			"position": [
-				-98.0207061767578,
+				-98.2176666259766,
 				4.15000009536743,
-				-74.1009063720703
+				-74.5604782104492
 			],
 			"yaw_degrees": 113.198593139648
 		},
 		{
 			"position": [
-				-99.5963897705078,
+				-99.3994293212891,
 				4.15000009536743,
-				-77.7774810791016
+				-77.3179092407227
 			],
 			"yaw_degrees": 113.198593139648
 		},
 		{
 			"position": [
-				-93.4249801635742,
+				-93.621940612793,
 				4.15000009536743,
-				-76.0705032348633
+				-76.5300750732422
 			],
 			"yaw_degrees": 113.198593139648
 		},
 		{
 			"position": [
-				-95.0006637573242,
+				-94.8037033081055,
 				4.15000009536743,
-				-79.7470779418945
+				-79.2875061035156
 			],
 			"yaw_degrees": 113.198593139648
 		}

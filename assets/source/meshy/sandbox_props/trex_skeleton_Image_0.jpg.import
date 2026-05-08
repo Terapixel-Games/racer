@@ -2,18 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfvoqbjvkjxor"
-path.s3tc="res://.godot/imported/kenney_roof.png-a913dee5df1099360c34f2c8402ea0bb.s3tc.ctex"
-path.etc2="res://.godot/imported/kenney_roof.png-a913dee5df1099360c34f2c8402ea0bb.etc2.ctex"
+uid="uid://d36jwphnjk7x4"
+path.s3tc="res://.godot/imported/trex_skeleton_Image_0.jpg-3824ed3960e0315c833a111ae70ad2dd.s3tc.ctex"
+path.etc2="res://.godot/imported/trex_skeleton_Image_0.jpg-3824ed3960e0315c833a111ae70ad2dd.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "abe185789c3711dc10e74cd6059191a2"
+}
 
 [deps]
 
-source_file="res://assets/gameplay/tracks/attic/kenney/kenney_roof.png"
-dest_files=["res://.godot/imported/kenney_roof.png-a913dee5df1099360c34f2c8402ea0bb.s3tc.ctex", "res://.godot/imported/kenney_roof.png-a913dee5df1099360c34f2c8402ea0bb.etc2.ctex"]
+source_file="res://assets/source/meshy/sandbox_props/trex_skeleton_Image_0.jpg"
+dest_files=["res://.godot/imported/trex_skeleton_Image_0.jpg-3824ed3960e0315c833a111ae70ad2dd.s3tc.ctex", "res://.godot/imported/trex_skeleton_Image_0.jpg-3824ed3960e0315c833a111ae70ad2dd.etc2.ctex"]
 
 [params]
 

@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=2 format=3 uid="uid://ckjdv8gqg00j0"]
 
-[ext_resource type="Script" path="res://scripts/props/JackInTheBoxSetpiece.gd" id="1_jack"]
+[ext_resource type="Script" uid="uid://2otg3154cyrn" path="res://scripts/props/JackInTheBoxSetpiece.gd" id="1_jack"]
 
 [node name="JackInTheBoxSetpiece" type="Node3D"]
 script = ExtResource("1_jack")
+editor_preview_pose = 0
+editor_preview_amount = 1.0
+source_rotation_degrees = Vector3(0, 225, 0)
+box_base_source_position = Vector3(0, 2.5, -0.26)
+crank_source_position = Vector3(0.82, 1.125, 0.2)
+clown_source_position = Vector3(0, -1.39, 0)
+lid_closed_rotation_x = -87.69999999999999
+lid_open_rotation_x = 110.80000000000001
+crank_pivot_position = Vector3(-0.78, 1.355, -0.54)

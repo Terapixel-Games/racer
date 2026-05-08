@@ -17,6 +17,263 @@ ground_size = Vector2(292, 190)
 ground_color = Color(0.86, 0.72, 0.45, 1)
 ground_texture_path = "res://assets/gameplay/materials/sand/sandbox_sand_albedo.png"
 road_texture_path = "res://assets/gameplay/materials/plastic/glossy_plastic_albedo.png"
+road_segment_layout = Array[Dictionary]([{
+"length": 15.231546,
+"pitch_degrees": 0.0,
+"position": Vector3(-101, 3.35, -75),
+"road_width": 12.0,
+"roles": Array[String](["checkpoint", "start"]),
+"segment_id": "straight_long",
+"yaw_degrees": 113.19858975626474
+}, {
+"length": 16.492422,
+"pitch_degrees": 0.0,
+"position": Vector3(-86, 3.35, -80),
+"road_width": 12.0,
+"roles": Array[String](["item"]),
+"segment_id": "straight_long",
+"yaw_degrees": 104.03624615452947
+}, {
+"length": 18.110771,
+"pitch_degrees": 0.0,
+"position": Vector3(-69, 3.35, -83),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": 96.3401939034342
+}, {
+"length": 20.024984,
+"pitch_degrees": 0.0,
+"position": Vector3(-50, 3.35, -83.5),
+"road_width": 12.0,
+"roles": Array[String](["hazard"]),
+"segment_id": "straight_long",
+"yaw_degrees": 87.13759316673088
+}, {
+"length": 20.22375,
+"pitch_degrees": 0.0,
+"position": Vector3(-30, 3.35, -81.5),
+"road_width": 12.0,
+"roles": Array[String](["item"]),
+"segment_id": "straight_long",
+"yaw_degrees": 81.46923283491564
+}, {
+"length": 20.396078,
+"pitch_degrees": 0.0,
+"position": Vector3(-10, 3.35, -78),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": 78.69006984277247
+}, {
+"length": 24.067406,
+"pitch_degrees": 4.289153781617969,
+"position": Vector3(12, 4.25, -76),
+"road_width": 12.0,
+"roles": Array[String](["checkpoint"]),
+"segment_id": "straight_long",
+"yaw_degrees": 90.00000250447816
+}, {
+"length": 24.123848,
+"pitch_degrees": 3.3269637239384924,
+"position": Vector3(36, 5.85, -77),
+"road_width": 12.0,
+"roles": Array[String](["item"]),
+"segment_id": "straight_long",
+"yaw_degrees": 94.76364280902268
+}, {
+"length": 24.123848,
+"pitch_degrees": -3.3269637239384924,
+"position": Vector3(60, 5.85, -77),
+"road_width": 12.0,
+"roles": Array[String](["hazard"]),
+"segment_id": "straight_long",
+"yaw_degrees": 85.23635536974447
+}, {
+"length": 25.362177,
+"pitch_degrees": -4.069808007732604,
+"position": Vector3(84, 4.25, -72),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": 71.56504872704696
+}, {
+"length": 25.612497,
+"pitch_degrees": 0.0,
+"position": Vector3(106, 3.35, -60),
+"road_width": 12.0,
+"roles": Array[String](["item"]),
+"segment_id": "straight_long",
+"yaw_degrees": 51.340189236100535
+}, {
+"length": 25.059929,
+"pitch_degrees": 0.0,
+"position": Vector3(122, 3.35, -41),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": 28.61046031988949
+}, {
+"length": 24.33105,
+"pitch_degrees": 0.0,
+"position": Vector3(130, 3.35, -18),
+"road_width": 12.0,
+"roles": Array[String](["checkpoint", "hazard"]),
+"segment_id": "straight_long",
+"yaw_degrees": 9.46232209498764
+}, {
+"length": 24.083189,
+"pitch_degrees": 0.0,
+"position": Vector3(131, 3.35, 6),
+"road_width": 12.0,
+"roles": Array[String](["item"]),
+"segment_id": "straight_long",
+"yaw_degrees": -4.763641585204993
+}, {
+"length": 25.298222,
+"pitch_degrees": 0.0,
+"position": Vector3(126, 3.35, 30),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": -18.434948654789338
+}, {
+"length": 24.083189,
+"pitch_degrees": 0.0,
+"position": Vector3(114, 3.35, 51),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": -41.63354102921778
+}, {
+"length": 25.059929,
+"pitch_degrees": 0.0,
+"position": Vector3(95, 3.35, 66),
+"road_width": 12.0,
+"roles": Array[String](["item"]),
+"segment_id": "straight_long",
+"yaw_degrees": -61.38954218458868
+}, {
+"length": 24.738634,
+"pitch_degrees": 0.0,
+"position": Vector3(72, 3.35, 75),
+"road_width": 12.0,
+"roles": Array[String](["hazard"]),
+"segment_id": "straight_long",
+"yaw_degrees": -75.96375202423769
+}, {
+"length": 26.305893,
+"pitch_degrees": 0.0,
+"position": Vector3(47, 3.35, 80),
+"road_width": 12.0,
+"roles": Array[String](["checkpoint"]),
+"segment_id": "straight_long",
+"yaw_degrees": -81.25383598925012
+}, {
+"length": 26.0,
+"pitch_degrees": 0.0,
+"position": Vector3(21, 3.35, 82),
+"road_width": 12.0,
+"roles": Array[String](["item"]),
+"segment_id": "straight_long",
+"yaw_degrees": -90.00000250447816
+}, {
+"length": 26.089079,
+"pitch_degrees": -1.7572030765746796,
+"position": Vector3(-5, 2.9499998, 81),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": -94.39870580166891
+}, {
+"length": 26.306652,
+"pitch_degrees": -0.43560345484015434,
+"position": Vector3(-31, 2.4499998, 78),
+"road_width": 12.0,
+"roles": Array[String](["hazard"]),
+"segment_id": "straight_long",
+"yaw_degrees": -98.74616218951705
+}, {
+"length": 27.221315,
+"pitch_degrees": 2.105286690427104,
+"position": Vector3(-57, 2.85, 72),
+"road_width": 12.0,
+"roles": Array[String](["item"]),
+"segment_id": "straight_long",
+"yaw_degrees": -107.10272788429839
+}, {
+"length": 27.784887,
+"pitch_degrees": 0.0,
+"position": Vector3(-82, 3.35, 61),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": -120.25643596150319
+}, {
+"length": 28.284271,
+"pitch_degrees": 0.0,
+"position": Vector3(-104, 3.35, 44),
+"road_width": 12.0,
+"roles": Array[String](["checkpoint"]),
+"segment_id": "straight_long",
+"yaw_degrees": -135.00000034162267
+}, {
+"length": 26.832815,
+"pitch_degrees": 0.0,
+"position": Vector3(-120, 3.35, 22),
+"road_width": 12.0,
+"roles": Array[String](["item"]),
+"segment_id": "straight_long",
+"yaw_degrees": -153.43495411905388
+}, {
+"length": 26.305893,
+"pitch_degrees": 0.0,
+"position": Vector3(-128, 3.35, -3),
+"road_width": 12.0,
+"roles": Array[String](["hazard"]),
+"segment_id": "straight_long",
+"yaw_degrees": -171.2538384937283
+}, {
+"length": 24.33105,
+"pitch_degrees": 0.0,
+"position": Vector3(-128, 3.35, -28),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": 170.53766583849577
+}, {
+"length": 22.36068,
+"pitch_degrees": 0.0,
+"position": Vector3(-121, 3.35, -50),
+"road_width": 12.0,
+"roles": Array[String](["checkpoint", "item"]),
+"segment_id": "straight_long",
+"yaw_degrees": 153.43495411905388
+}, {
+"length": 15.6205,
+"pitch_degrees": 0.0,
+"position": Vector3(-110, 3.35, -65),
+"road_width": 12.0,
+"roles": Array[String](["hazard"]),
+"segment_id": "straight_long",
+"yaw_degrees": 129.80557317593627
+}, {
+"length": 8.246211,
+"pitch_degrees": 0.0,
+"position": Vector3(-108, 3.35, -69),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": -75.96375202423769
+}, {
+"length": 5.656854,
+"pitch_degrees": 0.0,
+"position": Vector3(-110, 3.35, -70),
+"road_width": 12.0,
+"roles": Array[String]([]),
+"segment_id": "straight_long",
+"yaw_degrees": 135.00000034162267
+}])
 rail_texture_path = "res://assets/gameplay/materials/metal/toy_metal_albedo.png"
 rail_texture_uv_scale = 0.5
 track_body_color = Color(0.09, 0.075, 0.065, 1)
@@ -29,11 +286,11 @@ sky_cloud_amount = 0.18
 sky_cloud_speed = 0.018
 sky_haze_amount = 0.24
 sky_light_energy = 2.8
-route_points = Array[Vector3]([Vector3(-108, 3.35, -72), Vector3(-94, 3.35, -78), Vector3(-78, 3.35, -82), Vector3(-60, 3.35, -84), Vector3(-40, 3.35, -83), Vector3(-20, 3.35, -80), Vector3(0, 3.35, -76), Vector3(24, 5.15, -76), Vector3(48, 6.5499997, -78), Vector3(72, 5.15, -76), Vector3(96, 3.35, -68), Vector3(116, 3.35, -52), Vector3(128, 3.35, -30), Vector3(132, 3.35, -6), Vector3(130, 3.35, 18), Vector3(122, 3.35, 42), Vector3(106, 3.35, 60), Vector3(84, 3.35, 72), Vector3(60, 3.35, 78), Vector3(34, 3.35, 82), Vector3(8, 3.35, 82), Vector3(-18, 2.55, 80), Vector3(-44, 2.35, 76), Vector3(-70, 3.35, 68), Vector3(-94, 3.35, 54), Vector3(-114, 3.35, 34), Vector3(-126, 3.35, 10), Vector3(-130, 3.35, -16), Vector3(-126, 3.35, -40), Vector3(-116, 3.35, -60), Vector3(-104, 3.35, -70), Vector3(-112, 3.35, -68)])
-checkpoint_indices = Array[int]([0, 6, 12, 18, 24, 28])
-spawn_points = Array[Vector4]([Vector4(-107.21216, 4.15, -70.16171, 113.19859), Vector4(-108.78784, 4.15, -73.83829, 113.19859), Vector4(-102.61643, 4.15, -72.13131, 113.19859), Vector4(-104.192116, 4.15, -75.807884, 113.19859), Vector4(-98.020706, 4.15, -74.10091, 113.19859), Vector4(-99.59639, 4.15, -77.77748, 113.19859), Vector4(-93.42498, 4.15, -76.0705, 113.19859), Vector4(-95.00066, 4.15, -79.74708, 113.19859)])
-item_sockets = Array[Vector4]([Vector4(-78, 4.0499997, -82, 0), Vector4(-20, 4.0499997, -80, 0), Vector4(48, 7.2499995, -78, 0), Vector4(116, 4.0499997, -52, 0), Vector4(130, 4.0499997, 18, 0), Vector4(84, 4.0499997, 72, 0), Vector4(8, 4.0499997, 82, 0), Vector4(-70, 4.0499997, 68, 0), Vector4(-126, 4.0499997, 10, 0), Vector4(-116, 4.0499997, -60, 0)])
-hazard_sockets = Array[Vector4]([Vector4(-40, 4.0499997, -83, 0), Vector4(72, 5.85, -76, 0), Vector4(132, 4.0499997, -6, 0), Vector4(60, 4.0499997, 78, 0), Vector4(-44, 3.05, 76, 0), Vector4(-130, 4.0499997, -16, 0), Vector4(-104, 4.0499997, -70, 0)])
+route_points = Array[Vector3]([Vector3(-108, 3.35, -72), Vector3(-94, 3.35, -78), Vector3(-78, 3.35, -82), Vector3(-60, 3.35, -84), Vector3(-40, 3.35, -83), Vector3(-20, 3.35, -80), Vector3(0, 3.35, -76), Vector3(0, 5.15, -76), Vector3(24, 3.35, -76), Vector3(24, 6.5499997, -76), Vector3(48, 5.15, -78), Vector3(72, 6.5499997, -76), Vector3(72, 3.35, -76), Vector3(96, 5.15, -68), Vector3(96, 3.35, -68), Vector3(116, 3.35, -52), Vector3(128, 3.35, -30), Vector3(132, 3.35, -6), Vector3(130, 3.35, 18), Vector3(122, 3.35, 42), Vector3(106, 3.35, 60), Vector3(84, 3.35, 72), Vector3(60, 3.35, 78), Vector3(34, 3.35, 82), Vector3(8, 3.35, 82), Vector3(8, 2.5499997, 82), Vector3(-18, 3.35, 80), Vector3(-18, 2.35, 80), Vector3(-44, 2.5499997, 76), Vector3(-44, 3.35, 76), Vector3(-70, 2.35, 68), Vector3(-70, 3.35, 68), Vector3(-94, 3.35, 54), Vector3(-114, 3.35, 34), Vector3(-126, 3.35, 10), Vector3(-130, 3.35, -16), Vector3(-126, 3.35, -40), Vector3(-116, 3.35, -60), Vector3(-104, 3.35, -70), Vector3(-112, 3.35, -68)])
+checkpoint_indices = Array[int]([0, 7, 16, 22, 32, 36])
+spawn_points = Array[Vector4]([Vector4(-107.40912, 4.15, -70.621284, 113.19859), Vector4(-108.59088, 4.15, -73.378716, 113.19859), Vector4(-102.81339, 4.15, -72.59088, 113.19859), Vector4(-103.995155, 4.15, -75.34831, 113.19859), Vector4(-98.21767, 4.15, -74.56048, 113.19859), Vector4(-99.39943, 4.15, -77.31791, 113.19859), Vector4(-93.62194, 4.15, -76.530075, 113.19859), Vector4(-94.8037, 4.15, -79.287506, 113.19859)])
+item_sockets = Array[Vector4]([Vector4(-86, 4.15, -80, 104.03625), Vector4(-30, 4.15, -81.5, 81.46923), Vector4(36, 6.65, -77, 94.76364), Vector4(106, 4.15, -60, 51.34019), Vector4(131, 4.15, 6, -4.763642), Vector4(95, 4.15, 66, -61.389538), Vector4(21, 4.15, 82, -90), Vector4(-57, 3.6499999, 72, -107.10273), Vector4(-120, 4.15, 22, -153.43495), Vector4(-121, 4.15, -50, 153.43495)])
+hazard_sockets = Array[Vector4]([Vector4(-50, 4.15, -83.5, 87.137596), Vector4(60, 6.65, -77, 85.23636), Vector4(130, 4.15, -18, 9.462322), Vector4(72, 4.15, 75, -75.96375), Vector4(-31, 3.2499998, 78, -98.74616), Vector4(-128, 4.15, -3, -171.25383), Vector4(-110, 4.15, -65, 129.80557)])
 alternate_routes = Array[Dictionary]([{
 "enabled": true,
 "entry_checkpoint_index": 1,

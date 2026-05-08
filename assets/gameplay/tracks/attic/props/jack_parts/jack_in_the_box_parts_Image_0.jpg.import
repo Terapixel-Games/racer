@@ -2,18 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfvoqbjvkjxor"
-path.s3tc="res://.godot/imported/kenney_roof.png-a913dee5df1099360c34f2c8402ea0bb.s3tc.ctex"
-path.etc2="res://.godot/imported/kenney_roof.png-a913dee5df1099360c34f2c8402ea0bb.etc2.ctex"
+uid="uid://4i6id2cl3qin"
+path.s3tc="res://.godot/imported/jack_in_the_box_parts_Image_0.jpg-64bd8bca313bacaaa89f21503d05fc15.s3tc.ctex"
+path.etc2="res://.godot/imported/jack_in_the_box_parts_Image_0.jpg-64bd8bca313bacaaa89f21503d05fc15.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "1e9541868bc6bda7e5e91a52f0787469"
+}
 
 [deps]
 
-source_file="res://assets/gameplay/tracks/attic/kenney/kenney_roof.png"
-dest_files=["res://.godot/imported/kenney_roof.png-a913dee5df1099360c34f2c8402ea0bb.s3tc.ctex", "res://.godot/imported/kenney_roof.png-a913dee5df1099360c34f2c8402ea0bb.etc2.ctex"]
+source_file="res://assets/gameplay/tracks/attic/props/jack_parts/jack_in_the_box_parts_Image_0.jpg"
+dest_files=["res://.godot/imported/jack_in_the_box_parts_Image_0.jpg-64bd8bca313bacaaa89f21503d05fc15.s3tc.ctex", "res://.godot/imported/jack_in_the_box_parts_Image_0.jpg-64bd8bca313bacaaa89f21503d05fc15.etc2.ctex"]
 
 [params]
 

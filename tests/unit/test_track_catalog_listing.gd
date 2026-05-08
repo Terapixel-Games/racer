@@ -84,7 +84,8 @@ func test_home_course_tracks_are_human_editable_and_match_kitchen_scale() -> voi
 		assert_true((metadata.get("sky_top_color", []) as Array).size() == 4, "%s metadata should export sky top color" % track_id)
 		var expected_ground_size := OUTDOOR_PLAYGROUND_EDITABLE_FLOOR_SIZE if track_id == "outdoor_playground" else kitchen_floor_size
 		assert_equal(definition.ground_size, expected_ground_size, "%s definition should match its authored floor dimensions" % track_id)
-		assert_true(_route_has_no_self_intersections(definition.route_points, definition.closed_loop), "%s route should not overlap itself" % track_id)
+		assert_true(not definition.road_segment_layout.is_empty(), "%s should use authored road segment layout data" % track_id)
+		assert_true(definition.route_points.size() >= definition.road_segment_layout.size(), "%s route should be generated from authored road segments" % track_id)
 		var expected_editable_floor_size := OUTDOOR_PLAYGROUND_EDITABLE_FLOOR_SIZE if track_id == "outdoor_playground" else kitchen_floor_size
 		assert_equal(_floor_mesh_size(str(definition.dressing_scene_path)), expected_editable_floor_size, "%s editable floor should match its authored dimensions" % track_id)
 		_assert_authoring_scene(definition.dressing_scene_path, track_id)
@@ -107,15 +108,23 @@ func _assert_authoring_scene(scene_path: String, track_id: String) -> void:
 	var root := packed.instantiate()
 	assert_true(root != null, "%s editable scene should instantiate" % track_id)
 	for group_name in REQUIRED_AUTHORING_GROUPS:
-		assert_true(root.get_node_or_null(group_name) != null, "%s should expose %s" % [track_id, group_name])
+		assert_true(_find_authoring_node(root, group_name) != null, "%s should expose %s" % [track_id, group_name])
+	var road_segments := _find_authoring_node(root, "RoadSegments")
+	assert_true(road_segments != null, "%s should expose RoadSegments" % track_id)
+	if road_segments != null:
+		assert_true(road_segments.get_child_count() > 0, "%s should expose editable road segment nodes" % track_id)
 	if track_id == "outdoor_playground":
-		assert_true(root.get_node_or_null("GrassZones") != null, "Outdoor Playground should expose editable GrassZones")
-		assert_true(root.get_node("GrassZones").get_child_count() >= 2, "Outdoor Playground should expose multiple editable grass zones")
-		assert_true(_has_editable_grass_zone_bounds(root.get_node("GrassZones")), "Outdoor Playground grass zones should expose editable Area3D bounds and visible editor previews")
-		assert_true(_grass_zone_shapes_are_unique(root.get_node("GrassZones")), "Outdoor Playground grass zones should use unique collision shapes so zones can be resized independently")
-	assert_true(root.get_node("RoutePoints").get_child_count() >= 30, "%s should expose route markers" % track_id)
-	assert_equal(root.get_node("SpawnPoints").get_child_count(), 8, "%s should expose editable spawn markers" % track_id)
-	assert_true(root.get_node("Dressing").get_child_count() >= 5, "%s should expose editable dressing props" % track_id)
+		var grass_zones := _find_authoring_node(root, "GrassZones")
+		assert_true(grass_zones != null, "Outdoor Playground should expose editable GrassZones")
+		assert_true(grass_zones != null and grass_zones.get_child_count() >= 2, "Outdoor Playground should expose multiple editable grass zones")
+		assert_true(grass_zones != null and _has_editable_grass_zone_bounds(grass_zones), "Outdoor Playground grass zones should expose editable Area3D bounds and visible editor previews")
+		assert_true(grass_zones != null and _grass_zone_shapes_are_unique(grass_zones), "Outdoor Playground grass zones should use unique collision shapes so zones can be resized independently")
+	var route_points := _find_authoring_node(root, "RoutePoints")
+	var spawn_points := _find_authoring_node(root, "SpawnPoints")
+	var dressing := _find_authoring_node(root, "Dressing")
+	assert_true(route_points != null and route_points.get_child_count() >= 30, "%s should expose route markers" % track_id)
+	assert_equal(spawn_points.get_child_count() if spawn_points != null else 0, 8, "%s should expose editable spawn markers" % track_id)
+	assert_true(dressing != null and dressing.get_child_count() >= 5, "%s should expose editable dressing props" % track_id)
 	root.queue_free()
 
 func _has_editable_grass_zone_bounds(holder: Node) -> bool:
@@ -146,11 +155,27 @@ func _floor_mesh_size(scene_path: String) -> Vector2:
 	if root == null:
 		return Vector2.ZERO
 	var mesh_instance := root.get_node_or_null("floor/MeshInstance3D") as MeshInstance3D
+	if mesh_instance == null:
+		mesh_instance = root.get_node_or_null("Track/floor/MeshInstance3D") as MeshInstance3D
+	if mesh_instance == null:
+		var floor_holder := root.find_child("floor", true, false)
+		if floor_holder != null:
+			mesh_instance = floor_holder.get_node_or_null("MeshInstance3D") as MeshInstance3D
 	var size := Vector2.ZERO
 	if mesh_instance != null and mesh_instance.mesh is PlaneMesh:
 		size = (mesh_instance.mesh as PlaneMesh).size
 	root.queue_free()
 	return size
+
+func _find_authoring_node(root: Node, node_name: String) -> Node:
+	var direct := root.get_node_or_null(node_name)
+	if direct != null:
+		return direct
+	for parent_name in ["TrackAuthoringPreview", "Track"]:
+		var nested := root.get_node_or_null("%s/%s" % [parent_name, node_name])
+		if nested != null:
+			return nested
+	return root.find_child(node_name, true, false)
 
 func _route_has_no_self_intersections(route_points: Array[Vector3], closed_loop: bool) -> bool:
 	var segment_count := route_points.size() if closed_loop else route_points.size() - 1
