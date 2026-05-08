@@ -272,8 +272,6 @@ static func _build_road(root: Node3D, definition: TrackDefinition) -> void:
 	road.set("force_close", definition.closed_loop)
 	road.set("show_wall_preview", false)
 	road.set("generate_walls_runtime", false)
-	if definition.road_visual_style == "kenney_gridmap" and not definition.road_grid_layout.is_empty():
-		road.set("collision_mesh_override", TrackGridRoadBuilder.build_grid_collision_mesh(definition.road_grid_layout))
 	if not definition.road_texture_path.is_empty():
 		var texture := load(definition.road_texture_path)
 		if texture is Texture2D:

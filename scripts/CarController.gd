@@ -18,7 +18,8 @@ const PORTRAIT_BADGE_PIXEL_SIZE := 0.0024
 @export var low_speed_turn_factor := 0.22
 @export var full_turn_speed := 20.0
 @export var reverse_max_speed := 12.0
-@export var ground_snap_distance := 0.85
+@export var ground_snap_distance := 6.0
+@export var ramp_adhesion_upward_velocity := 8.0
 @export var grounded_downforce := 18.0
 @export var boost_force := 70.0
 @export var boost_meter_max := 100.0
@@ -235,7 +236,7 @@ func _apply_input(delta: float) -> void:
 		velocity.y = -grounded_downforce
 	else:
 		velocity.y -= gravity * delta
-	if velocity.y <= 0.0:
+	if velocity.y <= ramp_adhesion_upward_velocity:
 		apply_floor_snap()
 
 func _lock_physics_upright() -> void:

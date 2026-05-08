@@ -8,6 +8,7 @@ const SIM_DELTA := 1.0 / 60.0
 const CONNECTION_CASE_LIMIT := 12
 const EDGE_CASE_LIMIT := 12
 const ROUTE_DRIVE_SAMPLE_LIMIT := 10
+const RAMP_LAUNCH_CASE_LIMIT := 8
 
 func test_gridmap_player_kart_crosses_connected_route_edges() -> void:
 	for track_id in _gridmap_track_ids_under_test():
@@ -61,6 +62,22 @@ func test_gridmap_player_kart_stays_on_track_during_sampled_route_drive() -> voi
 			var result := _drive_connection_case(fixture, seam_case, route_points)
 			assert_true(bool(result.get("above_bounds", false)), "%s sampled route index %d should stay above out-of-bounds" % [track_id, route_index])
 			assert_true(bool(result.get("near_route", false)), "%s sampled route index %d should stay inside the road corridor" % [track_id, route_index])
+		_teardown_fixture(fixture)
+
+func test_gridmap_player_kart_cannot_jump_off_ramp_edges() -> void:
+	for track_id in _gridmap_track_ids_under_test():
+		var fixture := _build_track_runtime(track_id)
+		var definition = fixture["definition"]
+		var route_points: Array[Vector3] = definition.route_points
+		var cases := _ramp_launch_cases(definition, RAMP_LAUNCH_CASE_LIMIT)
+		assert_true(cases.size() > 0, "%s should expose ramp/elevation route cases for airborne containment coverage" % track_id)
+		for ramp_case in cases:
+			for side in [-1.0, 1.0]:
+				var result := _drive_ramp_launch_case(fixture, ramp_case as Dictionary, route_points, side)
+				var detail := " final=%s dist=%.2f ramp_floor=%.2f" % [str(result.get("position", Vector3.ZERO)), float(result.get("route_distance", -1.0)), float(result.get("ramp_floor_y", 0.0))]
+				assert_true(bool(result.get("contained", false)), "%s route index %d cell %s item %d side %.0f should keep an airborne kart inside the GridMap road corridor.%s" % [track_id, int((ramp_case as Dictionary).get("route_index", -1)), str((ramp_case as Dictionary).get("cell", Vector3i.ZERO)), int((ramp_case as Dictionary).get("item", -1)), side, detail])
+				assert_true(bool(result.get("above_ramp_floor", false)), "%s route index %d side %.0f should not let an airborne kart drop to the stage/floor below the ramp.%s" % [track_id, int((ramp_case as Dictionary).get("route_index", -1)), side, detail])
+				assert_true(bool(result.get("above_bounds", false)), "%s route index %d side %.0f should not rely on below-world rescue after ramp launch.%s" % [track_id, int((ramp_case as Dictionary).get("route_index", -1)), side, detail])
 		_teardown_fixture(fixture)
 
 func _gridmap_track_ids_under_test() -> Array[String]:
@@ -121,6 +138,34 @@ func _connected_route_cases(definition, limit: int) -> Array[Dictionary]:
 			priority += 3
 		if _route_turns_at(route_cells, i):
 			priority += 2
+		route_case["priority"] = priority
+		cases.append(route_case)
+	cases.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
+		return int(a.get("priority", 0)) > int(b.get("priority", 0))
+	)
+	return cases.slice(0, mini(limit, cases.size()))
+
+func _ramp_launch_cases(definition, limit: int) -> Array[Dictionary]:
+	var cases: Array[Dictionary] = []
+	var route_cells := _route_cells(definition)
+	for i in range(route_cells.size()):
+		var next_index := (i + 1) % route_cells.size()
+		var current := route_cells[i]
+		var next := route_cells[next_index]
+		var route_case := _route_case(definition, i, next_index)
+		var item := int(route_case.get("item", -1))
+		var next_item := int(route_case.get("next_item", -1))
+		if not (item in [5, 6, 7] or next_item in [5, 6, 7] or current.y != next.y):
+			continue
+		var priority := 0
+		if current.y != next.y:
+			priority += 4
+		if item in [5, 6, 7]:
+			priority += 3
+		if next_item in [5, 6, 7]:
+			priority += 2
+		if _route_turns_at(route_cells, i):
+			priority += 1
 		route_case["priority"] = priority
 		cases.append(route_case)
 	cases.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
@@ -200,6 +245,36 @@ func _drive_diagonal_connection_case(fixture: Dictionary, seam_case: Dictionary,
 		"advanced": final_progress > initial_progress + 4.0,
 		"contained": _nearest_route_distance(final_position, route_points) <= float(definition.road_width) * 0.85,
 		"above_bounds": final_position.y > float(definition.out_of_bounds_y) + 2.0,
+		"result": result,
+	}
+
+func _drive_ramp_launch_case(fixture: Dictionary, ramp_case: Dictionary, route_points: Array[Vector3], side: float) -> Dictionary:
+	var definition = fixture["definition"]
+	var route_index := int(ramp_case.get("route_index", 0))
+	var next_index := int(ramp_case.get("next_index", (route_index + 1) % route_points.size()))
+	var start := route_points[route_index]
+	var target := route_points[next_index]
+	var forward := _flat_direction(start, target)
+	var lateral := Vector3(forward.z, 0.0, -forward.x).normalized() * side
+	var drive_direction := (forward + lateral * 0.65).normalized()
+	var yaw_direction := drive_direction
+	var spawn_position := start - forward * 5.0 + lateral * (float(definition.road_width) * 0.42) + Vector3.UP * 2.0
+	var spawn := Transform3D(Basis(Vector3.UP, atan2(yaw_direction.x, yaw_direction.z)), spawn_position)
+	var car := _spawn_probe_kart(fixture, spawn)
+	if car == null:
+		return {}
+	car.velocity = (forward * 36.0) + (lateral * 10.0)
+	var result := _simulate_kart_toward(car, target + forward * 18.0 + lateral * 16.0, 2.4, 1.0)
+	var final_position := car.global_transform.origin
+	var ramp_floor_y := minf(start.y, target.y) - 4.0
+	var route_distance := _nearest_route_distance(final_position, route_points)
+	return {
+		"contained": route_distance <= float(definition.road_width) * 0.95,
+		"above_ramp_floor": final_position.y >= ramp_floor_y,
+		"above_bounds": final_position.y > float(definition.out_of_bounds_y) + 2.0,
+		"position": final_position,
+		"route_distance": route_distance,
+		"ramp_floor_y": ramp_floor_y,
 		"result": result,
 	}
 
@@ -293,9 +368,17 @@ func _route_turns_at(route_cells: Array[Vector3i], index: int) -> bool:
 
 func _nearest_route_distance(position: Vector3, route_points: Array[Vector3]) -> float:
 	var best := INF
-	for point in route_points:
-		var flat_distance := Vector2(position.x - point.x, position.z - point.z).length()
-		best = minf(best, flat_distance)
+	for i in range(route_points.size()):
+		var a := route_points[i]
+		var b := route_points[(i + 1) % route_points.size()]
+		var a2 := Vector2(a.x, a.z)
+		var b2 := Vector2(b.x, b.z)
+		var p2 := Vector2(position.x, position.z)
+		var segment := b2 - a2
+		var t := 0.0
+		if segment.length_squared() > 0.001:
+			t = clampf((p2 - a2).dot(segment) / segment.length_squared(), 0.0, 1.0)
+		best = minf(best, p2.distance_to(a2 + segment * t))
 	return best
 
 func _flat_direction(from: Vector3, to: Vector3) -> Vector3:

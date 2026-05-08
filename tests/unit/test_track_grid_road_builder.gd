@@ -3,6 +3,7 @@ extends "res://tests/framework/TestCase.gd"
 const TrackGridRoadBuilder = preload("res://scripts/track/TrackGridRoadBuilder.gd")
 const RoadGridMapAuthoring = preload("res://scripts/track/RoadGridMapAuthoring.gd")
 const RoadGridSpawn = preload("res://scripts/track/RoadGridSpawn.gd")
+const BOUNDARY_WALL_SKIRT_DEPTH := 3.0
 
 func test_grid_layout_generates_ordered_route_points() -> void:
 	var layout := {
@@ -297,7 +298,8 @@ func test_grid_boundary_walls_do_not_block_connected_downhill_route_edge() -> vo
 		"ordered_route_cells": [Vector3i(0, 0, 0), Vector3i(1, -1, 0)],
 	}
 	var walls := TrackGridRoadBuilder.boundary_wall_segments_from_grid_layout(layout, 3.0, 0.45)
-	assert_true(_wall_near_x_with_height(walls, 16.0, 3.0).is_empty(), "Connected downhill route edges should stay open instead of building a wall across the driving line")
+	assert_true(not _wall_near_x_with_height(walls, 16.0, 3.0).is_empty(), "Connected downhill route edges should add side guards at ramp seams")
+	assert_true(not _has_wall_near_xz(walls, 16.0, 8.0), "Connected downhill route edges should keep the center driving line open")
 
 func test_grid_boundary_walls_cover_long_tile_footprint() -> void:
 	var layout := {
@@ -378,6 +380,13 @@ func _has_wall_at_x(walls: Array[Dictionary], x: float) -> bool:
 			return true
 	return false
 
+func _has_wall_near_xz(walls: Array[Dictionary], x: float, z: float) -> bool:
+	for wall in walls:
+		var position := wall.get("position", Vector3.ZERO) as Vector3
+		if absf(position.x - x) <= 0.4 and absf(position.z - z) <= 0.4:
+			return true
+	return false
+
 func _has_wall_reaching_z(walls: Array[Dictionary], z: float) -> bool:
 	for wall in walls:
 		var position := wall.get("position", Vector3.ZERO) as Vector3
@@ -393,7 +402,8 @@ func _wall_near_x_with_height(walls: Array[Dictionary], x: float, height: float)
 	for wall in walls:
 		var position: Vector3 = wall.get("position", Vector3.ZERO) as Vector3
 		var size: Vector3 = wall.get("size", Vector3.ZERO) as Vector3
-		if absf(position.x - x) <= 0.3 and absf(size.y - height) <= 0.1:
+		var effective_height := maxf(size.y - BOUNDARY_WALL_SKIRT_DEPTH, 0.0)
+		if absf(position.x - x) <= 0.3 and absf(effective_height - height) <= 0.1:
 			return wall
 	return {}
 
@@ -416,7 +426,7 @@ func _walls_stay_near_ramp_height(walls: Array[Dictionary], min_y: float, max_y:
 		var basis := wall.get("basis", Basis.IDENTITY) as Basis
 		var size := wall.get("size", Vector3.ZERO) as Vector3
 		var half_y := basis.y.normalized() * (size.y * 0.5)
-		if position.y - absf(half_y.y) < min_y - 0.1:
+		if position.y - absf(half_y.y) < min_y - BOUNDARY_WALL_SKIRT_DEPTH - 0.1:
 			return false
 		if position.y + absf(half_y.y) > max_y + 0.1:
 			return false

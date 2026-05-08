@@ -18,6 +18,8 @@ const BOUNDARY_WALL_JOIN_OVERLAP := 0.35
 const BOUNDARY_WALL_UPPER_CLEARANCE := 0.25
 const BOUNDARY_WALL_MIN_HEIGHT := 0.75
 const BOUNDARY_WALL_SAME_SURFACE_TOLERANCE := 0.35
+const BOUNDARY_CONNECTED_EDGE_GUARD_LENGTH := 5.5
+const BOUNDARY_WALL_SKIRT_DEPTH := 3.0
 
 static func race_layout_from_grid_layout(layout: Dictionary, closed_loop: bool) -> RaceLayout:
 	var race_layout := RaceLayout.new()
@@ -222,6 +224,10 @@ static func boundary_wall_segments_from_grid_layout(layout: Dictionary, wall_hei
 			a.y = _surface_y_for_grid_local_point(tile_data, a_local, cell_size)
 			b.y = _surface_y_for_grid_local_point(tile_data, b_local, cell_size)
 			var outward := (grid_basis * outward_local).normalized()
+			if bool(edge.get("connected_route_edge", false)):
+				for guard in _connected_edge_guard_segments(edge, tile_data, footprint, wall_height, wall_thickness, cell_size, grid_basis, origin):
+					segments.append(guard as Dictionary)
+				continue
 			var height := _boundary_wall_height_for_edge(edge, tile_data, footprint, wall_height, cell_size)
 			var segment := _boundary_wall_segment(a, b, outward, height, wall_thickness)
 			if not segment.is_empty():
@@ -343,6 +349,58 @@ static func _boundary_wall_height_for_edge(edge: Dictionary, tile_data: Dictiona
 		return partial_height
 	return minf(wall_height, partial_height)
 
+static func _connected_edge_guard_segments(edge: Dictionary, tile_data: Dictionary, footprint: Dictionary, wall_height: float, wall_thickness: float, cell_size: Vector3, grid_basis: Basis, origin: Vector3) -> Array[Dictionary]:
+	var neighbor_value: Variant = edge.get("neighbor_cell", null)
+	if neighbor_value == null:
+		return []
+	var neighbor_data: Dictionary = footprint.get(neighbor_value as Vector3i, {}) as Dictionary
+	if not _connected_edge_needs_guard(tile_data, neighbor_data, edge, cell_size):
+		return []
+	var a_local: Vector3 = edge.get("a", Vector3.ZERO) as Vector3
+	var b_local: Vector3 = edge.get("b", Vector3.ZERO) as Vector3
+	var edge_length_local := a_local.distance_to(b_local)
+	if edge_length_local <= 0.001:
+		return []
+	var guard_t := clampf(BOUNDARY_CONNECTED_EDGE_GUARD_LENGTH / maxf(edge_length_local * maxf(cell_size.x, cell_size.z), 0.001), 0.0, 0.45)
+	if guard_t <= 0.0:
+		return []
+	var outward_local: Vector3 = edge.get("outward", Vector3.FORWARD) as Vector3
+	var outward := (grid_basis * outward_local).normalized()
+	var guard_ranges := [
+		[a_local, a_local.lerp(b_local, guard_t)],
+		[b_local.lerp(a_local, guard_t), b_local],
+	]
+	var out: Array[Dictionary] = []
+	for value in guard_ranges:
+		var pair := value as Array
+		var local_a := pair[0] as Vector3
+		var local_b := pair[1] as Vector3
+		var world_a := origin + grid_basis * Vector3(local_a.x * cell_size.x, 0.0, local_a.z * cell_size.z)
+		var world_b := origin + grid_basis * Vector3(local_b.x * cell_size.x, 0.0, local_b.z * cell_size.z)
+		world_a.y = _surface_y_for_grid_local_point(tile_data, local_a, cell_size)
+		world_b.y = _surface_y_for_grid_local_point(tile_data, local_b, cell_size)
+		var segment := _boundary_wall_segment(world_a, world_b, outward, wall_height, wall_thickness)
+		if not segment.is_empty():
+			out.append(segment)
+	return out
+
+static func _connected_edge_needs_guard(tile_data: Dictionary, neighbor_data: Dictionary, edge: Dictionary, cell_size: Vector3) -> bool:
+	var item := int(tile_data.get("item", TILE_STRAIGHT))
+	var neighbor_item := int(neighbor_data.get("item", TILE_STRAIGHT))
+	if item in [TILE_RAMP, TILE_RAMP_LONG, TILE_RAMP_LONG_CURVED] or neighbor_item in [TILE_RAMP, TILE_RAMP_LONG, TILE_RAMP_LONG_CURVED]:
+		return true
+	var a_local: Vector3 = edge.get("a", Vector3.ZERO) as Vector3
+	var b_local: Vector3 = edge.get("b", Vector3.ZERO) as Vector3
+	var current_avg: float = (
+		_surface_y_for_grid_local_point(tile_data, a_local, cell_size)
+		+ _surface_y_for_grid_local_point(tile_data, b_local, cell_size)
+	) * 0.5
+	var neighbor_avg: float = (
+		_surface_y_for_grid_local_point(neighbor_data, a_local, cell_size)
+		+ _surface_y_for_grid_local_point(neighbor_data, b_local, cell_size)
+	) * 0.5
+	return absf(current_avg - neighbor_avg) > BOUNDARY_WALL_SAME_SURFACE_TOLERANCE
+
 static func _surface_y_for_grid_local_point(tile_data: Dictionary, grid_point: Vector3, cell_size: Vector3) -> float:
 	var cell := _vector3i_from_value(tile_data.get("cell", Vector3i.ZERO))
 	var position := _vector3_from_value(tile_data.get("position", Vector3.ZERO), Vector3.ZERO)
@@ -380,11 +438,12 @@ static func _boundary_wall_segment(a: Vector3, b: Vector3, outward: Vector3, wal
 	var height := wall_height
 	var thickness := maxf(wall_thickness, 0.05)
 	var basis := Basis(x_axis, y_axis, z_axis)
-	var position := a.lerp(b, 0.5) + y_axis * (height * 0.5) + z_axis * (thickness * 0.5)
+	var shape_height := height + BOUNDARY_WALL_SKIRT_DEPTH
+	var position := a.lerp(b, 0.5) + y_axis * ((height - BOUNDARY_WALL_SKIRT_DEPTH) * 0.5) + z_axis * (thickness * 0.5)
 	return {
 		"position": position,
 		"basis": basis,
-		"size": Vector3(length + BOUNDARY_WALL_JOIN_OVERLAP, height, thickness),
+		"size": Vector3(length + BOUNDARY_WALL_JOIN_OVERLAP, shape_height, thickness),
 	}
 
 static func _can_build_grid_map_node(layout: Dictionary) -> bool:

@@ -19,7 +19,7 @@ func test_kitchen_definition_validates() -> void:
 	assert_true(definition.out_of_bounds_y < definition.floor_visual_y, "Kitchen out-of-bounds threshold should sit below the authored floor")
 	assert_true(definition.floor_visual_y <= -32.0, "Kitchen floor visual should sit far below the countertop route")
 	assert_equal(definition.boundary_walls_enabled, true, "Kitchen should use invisible boundary walls for GridMap containment")
-	assert_equal(definition.wall_height, 3.0, "Kitchen invisible boundary walls should be tall enough to contain downhill kart motion")
+	assert_equal(definition.wall_height, 12.0, "Kitchen invisible boundary walls should be tall enough to contain airborne ramp exits")
 	assert_equal(definition.rails_enabled, false, "Kitchen should be able to disable generated rails while GridMap edge rails are being rebuilt")
 	assert_equal(definition.rail_texture_path, "res://assets/gameplay/materials/metal/toy_metal_albedo.png", "Kitchen rails should use the stage-specific toy metal material")
 	assert_equal(definition.rail_texture_uv_scale, 0.5, "Kitchen rails should use the stage-specific rail texture UV scale")
