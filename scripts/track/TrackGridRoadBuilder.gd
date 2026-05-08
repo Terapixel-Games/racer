@@ -205,6 +205,7 @@ static func build_grid_collision_mesh(layout: Dictionary) -> ArrayMesh:
 
 static func boundary_wall_segments_from_grid_layout(layout: Dictionary, wall_height: float, wall_thickness: float) -> Array[Dictionary]:
 	var footprint := _route_footprint_from_grid_layout(layout)
+	var route_connections := _route_connection_set(layout)
 	var segments: Array[Dictionary] = []
 	var cell_size := _cell_size(layout)
 	var grid_basis := _basis_from_value(layout.get("basis", []))
@@ -212,7 +213,7 @@ static func boundary_wall_segments_from_grid_layout(layout: Dictionary, wall_hei
 	for key in footprint.keys():
 		var cell := key as Vector3i
 		var tile_data := footprint.get(cell, {}) as Dictionary
-		for edge in _cell_boundary_edges(cell, footprint):
+		for edge in _cell_boundary_edges(cell, footprint, route_connections):
 			var a_local := edge.get("a", Vector3.ZERO) as Vector3
 			var b_local := edge.get("b", Vector3.ZERO) as Vector3
 			var outward_local := edge.get("outward", Vector3.FORWARD) as Vector3
@@ -245,6 +246,23 @@ static func _route_footprint_from_grid_layout(layout: Dictionary) -> Dictionary:
 			footprint[footprint_cell] = source
 	return footprint
 
+static func _route_connection_set(layout: Dictionary) -> Dictionary:
+	var connections := {}
+	var route_cells: Array[Vector3i] = []
+	for value in layout.get("ordered_route_cells", []):
+		route_cells.append(_vector3i_from_value(value))
+	if route_cells.size() < 2:
+		return connections
+	for i in range(route_cells.size()):
+		var current := route_cells[i]
+		var next := route_cells[(i + 1) % route_cells.size()]
+		if abs(current.x - next.x) + abs(current.z - next.z) != 1:
+			continue
+		if abs(current.y - next.y) > 1:
+			continue
+		connections[_edge_connection_key(current, next)] = true
+	return connections
+
 static func _footprint_cells_for_item(cell: Vector3i, item: int, forward: Vector3i, right: Vector3i) -> Array[Vector3i]:
 	if forward == Vector3i.ZERO:
 		forward = Vector3i(0, 0, 1)
@@ -258,19 +276,19 @@ static func _footprint_cells_for_item(cell: Vector3i, item: int, forward: Vector
 		_:
 			return [cell]
 
-static func _cell_boundary_edges(cell: Vector3i, footprint: Dictionary) -> Array[Dictionary]:
+static func _cell_boundary_edges(cell: Vector3i, footprint: Dictionary, route_connections: Dictionary = {}) -> Array[Dictionary]:
 	var edges: Array[Dictionary] = []
 	var x0 := float(cell.x)
 	var x1 := float(cell.x + 1)
 	var z0 := float(cell.z)
 	var z1 := float(cell.z + 1)
-	_append_boundary_edge(edges, footprint, cell, Vector3i(-1, 0, 0), Vector3(x0, 0.0, z0), Vector3(x0, 0.0, z1), Vector3.LEFT)
-	_append_boundary_edge(edges, footprint, cell, Vector3i(1, 0, 0), Vector3(x1, 0.0, z1), Vector3(x1, 0.0, z0), Vector3.RIGHT)
-	_append_boundary_edge(edges, footprint, cell, Vector3i(0, 0, -1), Vector3(x1, 0.0, z0), Vector3(x0, 0.0, z0), Vector3.FORWARD)
-	_append_boundary_edge(edges, footprint, cell, Vector3i(0, 0, 1), Vector3(x0, 0.0, z1), Vector3(x1, 0.0, z1), Vector3.BACK)
+	_append_boundary_edge(edges, footprint, route_connections, cell, Vector3i(-1, 0, 0), Vector3(x0, 0.0, z0), Vector3(x0, 0.0, z1), Vector3.LEFT)
+	_append_boundary_edge(edges, footprint, route_connections, cell, Vector3i(1, 0, 0), Vector3(x1, 0.0, z1), Vector3(x1, 0.0, z0), Vector3.RIGHT)
+	_append_boundary_edge(edges, footprint, route_connections, cell, Vector3i(0, 0, -1), Vector3(x1, 0.0, z0), Vector3(x0, 0.0, z0), Vector3.FORWARD)
+	_append_boundary_edge(edges, footprint, route_connections, cell, Vector3i(0, 0, 1), Vector3(x0, 0.0, z1), Vector3(x1, 0.0, z1), Vector3.BACK)
 	return edges
 
-static func _append_boundary_edge(edges: Array[Dictionary], footprint: Dictionary, cell: Vector3i, direction: Vector3i, a: Vector3, b: Vector3, outward: Vector3) -> void:
+static func _append_boundary_edge(edges: Array[Dictionary], footprint: Dictionary, route_connections: Dictionary, cell: Vector3i, direction: Vector3i, a: Vector3, b: Vector3, outward: Vector3) -> void:
 	var neighbor: Variant = _footprint_neighbor_for_edge(footprint, cell, direction)
 	edges.append({
 		"a": a,
@@ -278,6 +296,7 @@ static func _append_boundary_edge(edges: Array[Dictionary], footprint: Dictionar
 		"outward": outward,
 		"direction": direction,
 		"neighbor_cell": neighbor,
+		"connected_route_edge": neighbor != null and route_connections.has(_edge_connection_key(cell, neighbor as Vector3i)),
 	})
 
 static func _footprint_neighbor_for_edge(footprint: Dictionary, cell: Vector3i, direction: Vector3i) -> Variant:
@@ -287,7 +306,17 @@ static func _footprint_neighbor_for_edge(footprint: Dictionary, cell: Vector3i, 
 			return candidate
 	return null
 
+static func _edge_connection_key(a: Vector3i, b: Vector3i) -> String:
+	if _cell_sort_key(a) <= _cell_sort_key(b):
+		return "%s|%s" % [_cell_sort_key(a), _cell_sort_key(b)]
+	return "%s|%s" % [_cell_sort_key(b), _cell_sort_key(a)]
+
+static func _cell_sort_key(cell: Vector3i) -> String:
+	return "%d,%d,%d" % [cell.x, cell.y, cell.z]
+
 static func _boundary_wall_height_for_edge(edge: Dictionary, tile_data: Dictionary, footprint: Dictionary, wall_height: float, cell_size: Vector3) -> float:
+	if bool(edge.get("connected_route_edge", false)):
+		return 0.0
 	var neighbor_value: Variant = edge.get("neighbor_cell", null)
 	if neighbor_value == null:
 		return wall_height

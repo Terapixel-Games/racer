@@ -270,7 +270,6 @@ func test_grid_boundary_walls_fill_to_upper_neighbor_clearance() -> void:
 			{"cell": Vector3i(0, 0, 0), "item": 0, "orientation": 0, "position": Vector3(8.0, 0.0, 8.0)},
 			{"cell": Vector3i(1, 1, 0), "item": 0, "orientation": 0, "position": Vector3(24.0, 4.0, 8.0)},
 		],
-		"ordered_route_cells": [Vector3i(0, 0, 0), Vector3i(1, 1, 0)],
 	}
 	var walls := TrackGridRoadBuilder.boundary_wall_segments_from_grid_layout(layout, 5.0, 0.45)
 	var partial := _wall_near_x_with_height(walls, 16.0, 3.75)
@@ -284,10 +283,21 @@ func test_grid_boundary_walls_keep_upper_containment_with_lower_neighbor() -> vo
 			{"cell": Vector3i(0, 0, 0), "item": 0, "orientation": 0, "position": Vector3(8.0, 0.0, 8.0)},
 			{"cell": Vector3i(1, 1, 0), "item": 0, "orientation": 0, "position": Vector3(24.0, 4.0, 8.0)},
 		],
-		"ordered_route_cells": [Vector3i(0, 0, 0), Vector3i(1, 1, 0)],
 	}
 	var walls := TrackGridRoadBuilder.boundary_wall_segments_from_grid_layout(layout, 3.0, 0.45)
 	assert_true(not _wall_near_x_with_height(walls, 16.0, 3.0).is_empty(), "A lower neighbor should not remove containment from the upper road edge")
+
+func test_grid_boundary_walls_do_not_block_connected_downhill_route_edge() -> void:
+	var layout := {
+		"cell_size": Vector3(16.0, 4.0, 16.0),
+		"cells": [
+			{"cell": Vector3i(0, 0, 0), "item": 0, "orientation": 0, "position": Vector3(8.0, 4.0, 8.0)},
+			{"cell": Vector3i(1, -1, 0), "item": 5, "orientation": 16, "position": Vector3(24.0, 0.0, 8.0)},
+		],
+		"ordered_route_cells": [Vector3i(0, 0, 0), Vector3i(1, -1, 0)],
+	}
+	var walls := TrackGridRoadBuilder.boundary_wall_segments_from_grid_layout(layout, 3.0, 0.45)
+	assert_true(_wall_near_x_with_height(walls, 16.0, 3.0).is_empty(), "Connected downhill route edges should stay open instead of building a wall across the driving line")
 
 func test_grid_boundary_walls_cover_long_tile_footprint() -> void:
 	var layout := {
