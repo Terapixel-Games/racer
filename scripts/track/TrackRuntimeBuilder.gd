@@ -320,7 +320,7 @@ static func _build_boundary_walls(root: Node3D, definition: TrackDefinition) -> 
 	var wall_segments := TrackGridRoadBuilder.boundary_wall_segments_from_grid_layout(
 		definition.road_grid_layout,
 		definition.wall_height,
-		definition.wall_thickness
+		minf(definition.wall_thickness, 0.5)
 	)
 	if wall_segments.is_empty():
 		return
