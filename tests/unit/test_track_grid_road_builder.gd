@@ -158,7 +158,9 @@ func test_kenney_gridmap_mesh_library_exposes_elevation_tiles() -> void:
 		var item_id := library.find_item_by_name(item_name)
 		assert_true(item_id >= 0, "GridMap road MeshLibrary should expose %s for elevated road authoring" % item_name)
 		assert_true(library.get_item_mesh(item_id) != null, "%s should have a paintable mesh" % item_name)
-		assert_true(library.get_item_mesh_transform(item_id).basis.x.length() >= 16.0, "%s should match the 16-wide road footprint" % item_name)
+		var item_bounds := _transformed_mesh_aabb(library.get_item_mesh(item_id), library.get_item_mesh_transform(item_id))
+		assert_true(is_equal_approx(item_bounds.size.x, 16.0), "%s should match the 16-wide road footprint" % item_name)
+		assert_true(is_equal_approx(item_bounds.size.z, 16.0), "%s should fit one 16-long GridMap cell so ramps connect flush to neighboring road cells" % item_name)
 		assert_true(library.get_item_mesh_transform(item_id).basis.y.length() > 1.0, "%s should scale visibly on Y for elevated road authoring" % item_name)
 
 func test_kenney_gridmap_start_tile_matches_cell_footprint() -> void:
@@ -240,3 +242,22 @@ func _route_cells_are_continuous_loop(cells: Array[Vector3i]) -> bool:
 		if abs(delta.y) > 1:
 			return false
 	return true
+
+func _transformed_mesh_aabb(mesh: Mesh, transform: Transform3D) -> AABB:
+	if mesh == null:
+		return AABB()
+	var aabb := mesh.get_aabb()
+	var points := [
+		aabb.position,
+		aabb.position + Vector3(aabb.size.x, 0.0, 0.0),
+		aabb.position + Vector3(0.0, aabb.size.y, 0.0),
+		aabb.position + Vector3(0.0, 0.0, aabb.size.z),
+		aabb.position + Vector3(aabb.size.x, aabb.size.y, 0.0),
+		aabb.position + Vector3(aabb.size.x, 0.0, aabb.size.z),
+		aabb.position + Vector3(0.0, aabb.size.y, aabb.size.z),
+		aabb.position + aabb.size,
+	]
+	var out := AABB(transform * points[0], Vector3.ZERO)
+	for i in range(1, points.size()):
+		out = out.expand(transform * points[i])
+	return out
