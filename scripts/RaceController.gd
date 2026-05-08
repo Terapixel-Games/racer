@@ -5,6 +5,7 @@ const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
 const TrackProgressRules = preload("res://scripts/track/TrackProgressRules.gd")
 const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd")
 const TrackRuntimeScene = preload("res://scripts/track/TrackRuntimeScene.gd")
+const TrackSourceRules = preload("res://scripts/track/TrackSourceRules.gd")
 const ItemRules = preload("res://scripts/logic/ItemRules.gd")
 const OutOfBoundsRules = preload("res://scripts/logic/OutOfBoundsRules.gd")
 const RacerRoster = preload("res://scripts/logic/RacerRoster.gd")
@@ -60,6 +61,9 @@ var track_waypoints: Array = []
 var track_checkpoint_indices: Array[int] = []
 var track_lap_gate_checkpoint_index := 0
 var track_alternate_routes: Array[Dictionary] = []
+var track_source_id := ""
+var track_progress_rule_id := TrackSourceRules.PROGRESS_ROUTE_LAP
+var track_win_condition_id := TrackSourceRules.WIN_CHECKPOINT_LAPS
 var finish_announced: bool = false
 var track_out_of_bounds_y := -50.0
 var track_reset_mode := ""
@@ -598,7 +602,8 @@ func _tick_local_racer_progress() -> void:
 			var route_index := checkpoint_indices[expected_index]
 			var radius := maxf(track_road_width * 0.65, 4.0)
 			if TrackProgressRules.is_checkpoint_hit(_typed_waypoints(), route_index, car.global_transform.origin, radius) or _has_projected_past_checkpoint(current_route_distance, previous_route_distance, expected, int(info.get("lap", 1)), checkpoint_indices):
-				var result := TrackProgressRules.apply_checkpoint_pass(
+				var result := TrackSourceRules.apply_checkpoint_pass(
+					track_win_condition_id,
 					expected,
 					int(info.get("lap", 1)),
 					bool(info.get("lap_gate_passed", false)),
@@ -2278,7 +2283,7 @@ func _compute_progress(lap: int, checkpoint: int, pos: Vector3, checkpoint_total
 		var dist := pos.distance_to(next_pos)
 		base += max(0.0, 1000.0 - dist) * 0.0001
 	if finished:
-		base += clamped_total * 2
+		base += TrackSourceRules.finished_progress_bonus(track_progress_rule_id, clamped_total)
 	return base
 
 func _checkpoint_progress_value(lap: int, checkpoint: int, pos: Vector3, checkpoint_total: int, finished: bool) -> float:
@@ -2299,7 +2304,7 @@ func _checkpoint_progress_value(lap: int, checkpoint: int, pos: Vector3, checkpo
 		segment_ratio = clampf(float(projection.get("route_ratio", 0.0)) * float(clamped_total), 0.0, 0.999)
 	base += clampf(segment_ratio, 0.0, 0.999)
 	if finished:
-		base += clamped_total * 2
+		base += TrackSourceRules.finished_progress_bonus(track_progress_rule_id, clamped_total)
 	return base
 
 func _checkpoint_segment_ratio(pos: Vector3, checkpoint: int, checkpoint_total: int) -> float:
@@ -2425,6 +2430,9 @@ func _apply_track_reset_metadata(metadata: Variant) -> void:
 	track_road_width = float(data.get("road_width", track_road_width))
 	track_closed_loop = bool(data.get("closed_loop", track_closed_loop))
 	track_alternate_routes = _alternate_routes_from_metadata(data.get("alternate_routes", []))
+	track_source_id = str(data.get("track_source_id", track_source_id))
+	track_progress_rule_id = TrackSourceRules.canonical_progress_rule(str(data.get("progress_rule_id", track_progress_rule_id)))
+	track_win_condition_id = TrackSourceRules.canonical_win_condition(str(data.get("win_condition_id", track_win_condition_id)))
 	track_checkpoint_indices = _checkpoint_indices_from_metadata(data.get("checkpoints", []))
 	track_lap_gate_checkpoint_index = int(data.get("lap_gate_checkpoint_index", track_lap_gate_checkpoint_index))
 	track_audio_ids = data.get("audio_ids", {}) if data.get("audio_ids", {}) is Dictionary else {}

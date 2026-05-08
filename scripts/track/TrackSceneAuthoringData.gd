@@ -5,10 +5,13 @@ const TrackDefinition = preload("res://scripts/track/TrackDefinition.gd")
 const TrackSegmentRoadBuilder = preload("res://scripts/track/TrackSegmentRoadBuilder.gd")
 const TrackGridRoadBuilder = preload("res://scripts/track/TrackGridRoadBuilder.gd")
 const RaceLayout = preload("res://scripts/track/RaceLayout.gd")
+const TrackAuthoringPreview = preload("res://scripts/track/TrackAuthoringPreview.gd")
 
 const TRACK_NODE_NAME := "Track"
 const AUTHORING_PREVIEW_NODE_NAME := "TrackAuthoringPreview"
 const ROAD_SOURCE_AUTO := "auto"
+const ROAD_SOURCE_ROAD_GRID_MAP := "road_grid_map"
+const ROAD_SOURCE_TRACK_AUTHORING_PREVIEW := "track_authoring_preview"
 const ROAD_SOURCE_GRID := "grid"
 const ROAD_SOURCE_ROUTE := "route"
 const ROAD_SOURCE_SEGMENTS := "segments"
@@ -33,50 +36,44 @@ static func apply_to_definition(source: TrackDefinition, mode_config: Dictionary
 	return definition
 
 static func _apply_scene_markers(definition: TrackDefinition, scene_root: Node3D, road_source: String) -> void:
+	var exclusivity_errors := _source_exclusivity_errors(scene_root)
+	if not exclusivity_errors.is_empty():
+		definition.set_meta("track_source_validation_errors", exclusivity_errors)
+		for error in exclusivity_errors:
+			push_error(error)
 	var race_layout := _resolve_race_layout(definition, scene_root, road_source)
 	if race_layout != null and race_layout.is_valid():
 		_apply_race_layout(definition, race_layout)
-	var item_sockets := _collect_socket_markers(scene_root, "ItemSockets")
-	if race_layout == null and not item_sockets.is_empty():
-		definition.item_sockets = item_sockets
-	var hazard_sockets := _collect_socket_markers(scene_root, "HazardSockets")
-	if race_layout == null and not hazard_sockets.is_empty():
-		definition.hazard_sockets = hazard_sockets
 	var shortcut_gates := _collect_shortcut_gates(scene_root, definition.shortcut_gates)
-	if not shortcut_gates.is_empty():
+	if race_layout != null and race_layout.source == ROAD_SOURCE_TRACK_AUTHORING_PREVIEW and not shortcut_gates.is_empty():
 		definition.shortcut_gates = shortcut_gates
 	var alternate_routes := _collect_alternate_routes(scene_root, definition.alternate_routes)
-	if not alternate_routes.is_empty():
+	if race_layout != null and race_layout.source == ROAD_SOURCE_TRACK_AUTHORING_PREVIEW and not alternate_routes.is_empty():
 		definition.alternate_routes = alternate_routes
 	var stage_props := _collect_stage_props(scene_root)
 	if not stage_props.is_empty():
 		definition.stage_props = stage_props
 	var surface_segments := _collect_surface_segments(scene_root)
-	if not surface_segments.is_empty():
+	if race_layout == null and not surface_segments.is_empty():
 		definition.surface_segments = surface_segments
 	var audio_zones := _collect_audio_zones(scene_root)
-	if not audio_zones.is_empty():
+	if race_layout == null and not audio_zones.is_empty():
 		definition.audio_zones = audio_zones
 	var grass_zones := _collect_grass_zones(scene_root)
-	if not grass_zones.is_empty():
+	if race_layout == null and not grass_zones.is_empty():
 		definition.grass_zones = grass_zones
 
 static func _resolve_race_layout(definition: TrackDefinition, scene_root: Node3D, road_source: String) -> RaceLayout:
 	match road_source:
-		ROAD_SOURCE_GRID:
+		ROAD_SOURCE_ROAD_GRID_MAP:
 			return _race_layout_from_grid(scene_root, definition)
-		ROAD_SOURCE_ROUTE:
-			return _race_layout_from_route_markers(scene_root, definition)
-		ROAD_SOURCE_SEGMENTS:
-			return _race_layout_from_segments(scene_root, definition)
+		ROAD_SOURCE_TRACK_AUTHORING_PREVIEW:
+			return _race_layout_from_track_authoring_preview(scene_root, definition)
 		_:
 			var grid_layout := _race_layout_from_grid(scene_root, definition)
 			if grid_layout != null and grid_layout.is_valid():
 				return grid_layout
-			var segment_layout := _race_layout_from_segments(scene_root, definition)
-			if segment_layout != null and segment_layout.is_valid() and _layout_supports_surface_segments(segment_layout, definition.surface_segments):
-				return segment_layout
-			return _race_layout_from_route_markers(scene_root, definition)
+			return _race_layout_from_track_authoring_preview(scene_root, definition)
 
 static func _race_layout_from_grid(scene_root: Node3D, definition: TrackDefinition) -> RaceLayout:
 	var grid_layout := _collect_road_grid(scene_root, definition.road_width)
@@ -92,12 +89,23 @@ static func _race_layout_from_segments(scene_root: Node3D, definition: TrackDefi
 	var race_layout := TrackSegmentRoadBuilder.race_layout_from_segment_layout(segment_layout, definition.road_width, definition.closed_loop)
 	return race_layout if race_layout.is_valid() else null
 
+static func _race_layout_from_track_authoring_preview(scene_root: Node3D, definition: TrackDefinition) -> RaceLayout:
+	var segment_layout := _race_layout_from_segments(scene_root, definition)
+	if segment_layout != null and segment_layout.is_valid() and _layout_supports_surface_segments(segment_layout, definition.surface_segments):
+		_apply_track_authoring_metadata(segment_layout, scene_root, definition)
+		return segment_layout
+	var route_layout := _race_layout_from_route_markers(scene_root, definition)
+	if route_layout != null and route_layout.is_valid():
+		_apply_track_authoring_metadata(route_layout, scene_root, definition)
+		return route_layout
+	return null
+
 static func _race_layout_from_route_markers(scene_root: Node3D, definition: TrackDefinition) -> RaceLayout:
 	var route_points := _collect_marker_positions(scene_root, "RoutePoints")
 	if route_points.size() < 3:
 		return null
 	var race_layout := RaceLayout.new()
-	race_layout.source = "route"
+	race_layout.source = ROAD_SOURCE_TRACK_AUTHORING_PREVIEW
 	race_layout.road_visual_style = definition.road_visual_style
 	race_layout.road_grid_layout = {}
 	race_layout.road_segment_layout = definition.road_segment_layout.duplicate(true)
@@ -120,6 +128,19 @@ static func _race_layout_from_route_markers(scene_root: Node3D, definition: Trac
 	if race_layout.hazard_sockets.is_empty():
 		race_layout.hazard_sockets = definition.hazard_sockets.duplicate()
 	return race_layout
+
+static func _apply_track_authoring_metadata(race_layout: RaceLayout, scene_root: Node3D, definition: TrackDefinition) -> void:
+	var item_sockets := _collect_socket_markers(scene_root, "ItemSockets")
+	if not item_sockets.is_empty():
+		race_layout.item_sockets = item_sockets
+	var hazard_sockets := _collect_socket_markers(scene_root, "HazardSockets")
+	if not hazard_sockets.is_empty():
+		race_layout.hazard_sockets = hazard_sockets
+	race_layout.shortcut_gates = _collect_shortcut_gates(scene_root, definition.shortcut_gates)
+	race_layout.alternate_routes = _collect_alternate_routes(scene_root, definition.alternate_routes)
+	race_layout.surface_segments = _collect_surface_segments(scene_root)
+	race_layout.audio_zones = _collect_audio_zones(scene_root)
+	race_layout.grass_zones = _collect_grass_zones(scene_root)
 
 static func _layout_supports_surface_segments(race_layout: RaceLayout, surface_segments: Array[Dictionary]) -> bool:
 	for segment in surface_segments:
@@ -148,22 +169,60 @@ static func _apply_race_layout(definition: TrackDefinition, race_layout: RaceLay
 		definition.item_sockets = race_layout.item_sockets.duplicate()
 	if not race_layout.hazard_sockets.is_empty():
 		definition.hazard_sockets = race_layout.hazard_sockets.duplicate()
+	if not race_layout.shortcut_gates.is_empty():
+		definition.shortcut_gates = race_layout.shortcut_gates.duplicate(true)
+	if not race_layout.alternate_routes.is_empty():
+		definition.alternate_routes = race_layout.alternate_routes.duplicate(true)
+	if not race_layout.surface_segments.is_empty():
+		definition.surface_segments = race_layout.surface_segments.duplicate(true)
+	if not race_layout.audio_zones.is_empty():
+		definition.audio_zones = race_layout.audio_zones.duplicate(true)
+	if not race_layout.grass_zones.is_empty():
+		definition.grass_zones = race_layout.grass_zones.duplicate(true)
+	definition.track_source_id = race_layout.source
+	definition.progress_rule_id = race_layout.progress_rule_id
+	definition.win_condition_id = race_layout.win_condition_id
 	definition.set_meta("resolved_race_layout_source", race_layout.source)
+	definition.set_meta("resolved_track_source", race_layout.source)
+	definition.set_meta("progress_rule_id", race_layout.progress_rule_id)
+	definition.set_meta("win_condition_id", race_layout.win_condition_id)
 
 static func _road_source_for(definition: TrackDefinition, mode_config: Dictionary) -> String:
 	var source := str(mode_config.get("road_source", ""))
 	if source.strip_edges().is_empty() and definition.has_meta("road_source"):
 		source = str(definition.get_meta("road_source", ""))
-	source = source.strip_edges().to_lower()
+	return canonical_road_source(source)
+
+static func canonical_road_source(value: String) -> String:
+	var source := value.strip_edges().to_lower()
 	match source:
-		ROAD_SOURCE_GRID, "gridmap", "kenney_gridmap":
-			return ROAD_SOURCE_GRID
-		ROAD_SOURCE_ROUTE, "route_points", "dynamic", "procedural":
-			return ROAD_SOURCE_ROUTE
-		ROAD_SOURCE_SEGMENTS, "segment", "kenney_segments":
-			return ROAD_SOURCE_SEGMENTS
+		ROAD_SOURCE_ROAD_GRID_MAP, ROAD_SOURCE_GRID, "gridmap", "kenney_gridmap":
+			return ROAD_SOURCE_ROAD_GRID_MAP
+		ROAD_SOURCE_TRACK_AUTHORING_PREVIEW, ROAD_SOURCE_ROUTE, "route_points", "dynamic", "procedural", ROAD_SOURCE_SEGMENTS, "segment", "kenney_segments":
+			return ROAD_SOURCE_TRACK_AUTHORING_PREVIEW
 		_:
 			return ROAD_SOURCE_AUTO
+
+static func _source_exclusivity_errors(root: Node3D) -> Array[String]:
+	var errors: Array[String] = []
+	var has_grid := not _collect_road_grid(root, 12.0).is_empty()
+	var has_preview := _has_track_authoring_preview_source(root)
+	if has_grid and has_preview:
+		errors.append("Track source scene enables both RoadGridMap and TrackAuthoringPreview gameplay authoring.")
+	return errors
+
+static func _has_track_authoring_preview_source(root: Node) -> bool:
+	if root == null:
+		return false
+	if root is TrackAuthoringPreview:
+		return true
+	if root.get_node_or_null(AUTHORING_PREVIEW_NODE_NAME) != null:
+		return true
+	var road_segments := _find_authoring_holder(root, "RoadSegments")
+	if road_segments != null and road_segments.get_child_count() > 0:
+		return true
+	var route_points := _find_authoring_holder(root, "RoutePoints")
+	return route_points != null and _sorted_marker_children(route_points).size() >= 3
 
 static func _collect_road_grid(root: Node3D, road_width: float) -> Dictionary:
 	var grid := _find_authoring_holder(root, "RoadGridMap")

@@ -110,7 +110,7 @@ func test_grid_layout_builds_complete_race_layout() -> void:
 	}
 	var race_layout := TrackGridRoadBuilder.race_layout_from_grid_layout(layout, true)
 	assert_true(race_layout.is_valid(), "RoadGridMap should adapt into a valid race layout")
-	assert_equal(race_layout.source, "grid", "RoadGridMap race layout should identify grid as the gameplay source")
+	assert_equal(race_layout.source, "road_grid_map", "RoadGridMap race layout should identify the canonical gameplay source")
 	assert_equal(race_layout.road_visual_style, "kenney_gridmap", "Grid race layout should use GridMap road visuals")
 	assert_equal(race_layout.lap_gate_checkpoint_index, 0, "Grid race layout should use checkpoint zero as the lap gate")
 	assert_true(race_layout.road_segment_layout.is_empty(), "Grid race layout should not co-enable segment road authoring")

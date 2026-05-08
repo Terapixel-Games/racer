@@ -10,7 +10,7 @@ const MIN_SEGMENT_LENGTH := 2.0
 
 static func race_layout_from_segment_layout(segment_layout: Array[Dictionary], road_width: float, closed_loop: bool) -> RaceLayout:
 	var race_layout := RaceLayout.new()
-	race_layout.source = "segments"
+	race_layout.source = "track_authoring_preview"
 	race_layout.road_visual_style = "kenney_segments"
 	race_layout.road_grid_layout = {}
 	race_layout.road_segment_layout = segment_layout.duplicate(true)

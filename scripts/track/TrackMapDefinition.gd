@@ -2,6 +2,7 @@ extends Resource
 class_name TrackMapDefinition
 
 const TrackDefinition = preload("res://scripts/track/TrackDefinition.gd")
+const TrackSceneAuthoringData = preload("res://scripts/track/TrackSceneAuthoringData.gd")
 
 @export var id := ""
 @export var display_name := ""
@@ -71,7 +72,7 @@ func mode_summary(mode_id: String = "") -> Dictionary:
 		"map_id": id,
 		"display_name": str(config.get("display_name", display_name)),
 		"kind": str(config.get("kind", normalized)),
-		"road_source": str(config.get("road_source", "")),
+		"road_source": TrackSceneAuthoringData.canonical_road_source(str(config.get("road_source", ""))),
 		"definition_path": str(config.get("definition_path", "")),
 		"metadata_path": str(config.get("metadata_path", "")),
 		"scene_path": str(config.get("scene_path", map_scene_path)),
@@ -115,7 +116,7 @@ func _apply_mode_fields(definition: TrackDefinition, mode_id: String, mode_confi
 	definition.set_meta("track_map_id", id)
 	definition.set_meta("track_mode_id", mode_id)
 	definition.set_meta("track_mode_kind", str(mode_config.get("kind", mode_id)))
-	definition.set_meta("road_source", str(mode_config.get("road_source", "auto")))
+	definition.set_meta("road_source", TrackSceneAuthoringData.canonical_road_source(str(mode_config.get("road_source", "auto"))))
 	if mode_config.has("id"):
 		definition.id = str(mode_config.get("id", definition.id))
 	if mode_config.has("display_name"):

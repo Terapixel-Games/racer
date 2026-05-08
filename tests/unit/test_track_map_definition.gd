@@ -6,6 +6,8 @@ const TrackMapDefinition = preload("res://scripts/track/TrackMapDefinition.gd")
 const TrackSceneAuthoringData = preload("res://scripts/track/TrackSceneAuthoringData.gd")
 const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd")
 const TrackGridRoadBuilder = preload("res://scripts/track/TrackGridRoadBuilder.gd")
+const RoadGridMapAuthoring = preload("res://scripts/track/RoadGridMapAuthoring.gd")
+const TrackAuthoringPreview = preload("res://scripts/track/TrackAuthoringPreview.gd")
 
 func test_kitchen_map_definition_exposes_race_mode() -> void:
 	var map_definition := TrackCatalog.get_map_definition("kitchen")
@@ -16,7 +18,7 @@ func test_kitchen_map_definition_exposes_race_mode() -> void:
 	var modes := TrackCatalog.list_modes("kitchen")
 	assert_equal(modes.size(), 1, "Kitchen should expose one implemented mode in this pass")
 	assert_equal(str(modes[0].get("id", "")), "race", "Kitchen's implemented mode should be race")
-	assert_equal(str(modes[0].get("road_source", "")), "grid", "Kitchen race mode should use RoadGridMap as its source")
+	assert_equal(str(modes[0].get("road_source", "")), "road_grid_map", "Kitchen race mode should use RoadGridMap as its source")
 
 func test_legacy_kitchen_definition_adapter_returns_race_definition() -> void:
 	var definition := TrackCatalog.get_definition("kitchen")
@@ -24,13 +26,16 @@ func test_legacy_kitchen_definition_adapter_returns_race_definition() -> void:
 	assert_equal(definition.id, "kitchen", "Legacy adapter should preserve the Kitchen track id")
 	assert_equal(str(definition.get_meta("track_map_id", "")), "kitchen", "Adapted definition should remember its source map")
 	assert_equal(str(definition.get_meta("track_mode_id", "")), "race", "Adapted definition should remember its source mode")
-	assert_equal(str(definition.get_meta("road_source", "")), "grid", "Adapted Kitchen race should use grid road authoring")
+	assert_equal(str(definition.get_meta("road_source", "")), "road_grid_map", "Adapted Kitchen race should use grid road authoring")
 	assert_equal(definition.validate(), [], "Adapted Kitchen race definition should validate")
 
 func test_kitchen_race_mode_uses_grid_without_segments() -> void:
 	var definition := TrackSceneAuthoringData.apply_to_definition(TrackCatalog.get_definition("kitchen"))
 	assert_equal(definition.road_visual_style, "kenney_gridmap", "Kitchen race mode should build grid road visuals")
-	assert_equal(str(definition.get_meta("resolved_race_layout_source", "")), "grid", "Kitchen race mode should resolve RoadGridMap as the gameplay layout source")
+	assert_equal(str(definition.get_meta("resolved_race_layout_source", "")), "road_grid_map", "Kitchen race mode should resolve RoadGridMap as the gameplay layout source")
+	assert_equal(definition.track_source_id, "road_grid_map", "Kitchen resolved track source should be canonical")
+	assert_equal(definition.progress_rule_id, "route_lap_progress", "Kitchen source should own route lap progress rules")
+	assert_equal(definition.win_condition_id, "checkpoint_laps", "Kitchen source should own checkpoint lap finish rules")
 	assert_true(not definition.road_grid_layout.is_empty(), "Kitchen race mode should collect RoadGridMap data")
 	assert_true(definition.road_segment_layout.is_empty(), "Kitchen race mode should not co-enable segment road layout")
 	assert_true(definition.route_points.size() >= (definition.road_grid_layout.get("ordered_route_cells", []) as Array).size(), "Kitchen route should be generated from grid cells")
@@ -68,6 +73,33 @@ func test_kitchen_route_mode_does_not_fall_back_to_grid_or_legacy_route_authorin
 	assert_true(authored.road_grid_layout.is_empty(), "Explicit route mode should ignore Kitchen RoadGridMap data")
 	assert_true(authored.road_segment_layout.is_empty(), "Kitchen should not keep segment layout data in route mode")
 	assert_equal(authored.route_points, definition.route_points, "Without legacy route markers, explicit route mode should leave supplied route points unchanged")
+
+func test_road_source_aliases_resolve_to_canonical_track_sources() -> void:
+	assert_equal(TrackSceneAuthoringData.canonical_road_source("grid"), "road_grid_map", "grid should remain a RoadGridMap alias")
+	assert_equal(TrackSceneAuthoringData.canonical_road_source("kenney_gridmap"), "road_grid_map", "Kenney grid visuals should resolve to RoadGridMap")
+	assert_equal(TrackSceneAuthoringData.canonical_road_source("route"), "track_authoring_preview", "route markers should resolve to legacy track authoring")
+	assert_equal(TrackSceneAuthoringData.canonical_road_source("segments"), "track_authoring_preview", "segment roads should resolve to legacy track authoring")
+
+func test_legacy_track_authoring_preview_resolves_track_source_rules() -> void:
+	var definition := TrackSceneAuthoringData.apply_to_definition(TrackCatalog.get_definition("garden"), {"road_source": "track_authoring_preview"})
+	assert_equal(str(definition.get_meta("resolved_track_source", "")), "track_authoring_preview", "Legacy tracks should resolve through TrackAuthoringPreview")
+	assert_equal(definition.track_source_id, "track_authoring_preview", "Legacy resolved track source should be canonical")
+	assert_equal(definition.progress_rule_id, "route_lap_progress", "Legacy source should own route lap progress rules")
+	assert_equal(definition.win_condition_id, "checkpoint_laps", "Legacy source should own checkpoint lap finish rules")
+	assert_equal(definition.validate(), [], "Legacy resolved track definition should validate")
+
+func test_mixed_track_sources_fail_validation() -> void:
+	var root := Node3D.new()
+	var grid := RoadGridMapAuthoring.new()
+	grid.name = "RoadGridMap"
+	grid.ordered_route_cells = [Vector3i(0, 0, 0), Vector3i(1, 0, 0), Vector3i(2, 0, 0)]
+	root.add_child(grid)
+	var preview := TrackAuthoringPreview.new()
+	preview.name = "TrackAuthoringPreview"
+	root.add_child(preview)
+	var errors := TrackSceneAuthoringData._source_exclusivity_errors(root)
+	assert_true(not errors.is_empty(), "Scenes should not enable RoadGridMap and TrackAuthoringPreview together")
+	root.queue_free()
 
 func test_legacy_non_kitchen_tracks_still_load() -> void:
 	var definition := TrackCatalog.get_definition("garden")

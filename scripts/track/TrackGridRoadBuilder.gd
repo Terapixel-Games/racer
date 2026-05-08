@@ -12,7 +12,7 @@ const TILE_CORNER_LARGE := 4
 
 static func race_layout_from_grid_layout(layout: Dictionary, closed_loop: bool) -> RaceLayout:
 	var race_layout := RaceLayout.new()
-	race_layout.source = "grid"
+	race_layout.source = "road_grid_map"
 	race_layout.road_visual_style = "kenney_gridmap"
 	race_layout.road_grid_layout = layout.duplicate(true)
 	race_layout.road_segment_layout = []

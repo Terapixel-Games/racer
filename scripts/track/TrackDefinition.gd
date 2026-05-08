@@ -2,11 +2,15 @@ extends Resource
 class_name TrackDefinition
 
 const TrackProgressRules = preload("res://scripts/track/TrackProgressRules.gd")
+const TrackSourceRules = preload("res://scripts/track/TrackSourceRules.gd")
 
 @export var id := ""
 @export var display_name := ""
 @export var version := ""
 @export var laps := 2
+@export var track_source_id := ""
+@export var progress_rule_id := TrackSourceRules.PROGRESS_ROUTE_LAP
+@export var win_condition_id := TrackSourceRules.WIN_CHECKPOINT_LAPS
 @export var road_width := 12.0
 @export var wall_height := 1.6
 @export var wall_thickness := 0.45
@@ -56,6 +60,9 @@ const TrackProgressRules = preload("res://scripts/track/TrackProgressRules.gd")
 
 func validate() -> Array[String]:
 	var errors: Array[String] = []
+	if has_meta("track_source_validation_errors"):
+		for error in get_meta("track_source_validation_errors", []):
+			errors.append(str(error))
 	if id.strip_edges().is_empty():
 		errors.append("Track id is required.")
 	if display_name.strip_edges().is_empty():
@@ -108,6 +115,9 @@ func to_metadata() -> Dictionary:
 		"display_name": display_name,
 		"version": version,
 		"laps": laps,
+		"track_source_id": track_source_id,
+		"progress_rule_id": TrackSourceRules.canonical_progress_rule(progress_rule_id),
+		"win_condition_id": TrackSourceRules.canonical_win_condition(win_condition_id),
 		"road_width": road_width,
 		"wall_height": wall_height,
 		"wall_thickness": wall_thickness,

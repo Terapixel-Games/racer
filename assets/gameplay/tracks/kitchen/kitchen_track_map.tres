@@ -17,7 +17,7 @@ mode_configs = {
 "kind": "race",
 "laps": 3,
 "metadata_path": "res://assets/gameplay/tracks/kitchen/kitchen_track_metadata.json",
-"road_source": "grid",
+"road_source": "road_grid_map",
 "road_visual_style": "kenney_gridmap",
 "runtime_scene_path": "res://assets/gameplay/tracks/kitchen/kitchen_track.tscn"
 }

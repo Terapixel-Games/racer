@@ -11,6 +11,13 @@ var lap_gate_checkpoint_index := 0
 var spawn_points: Array[Vector4] = []
 var item_sockets: Array[Vector4] = []
 var hazard_sockets: Array[Vector4] = []
+var shortcut_gates: Array[Dictionary] = []
+var alternate_routes: Array[Dictionary] = []
+var surface_segments: Array[Dictionary] = []
+var audio_zones: Array[Dictionary] = []
+var grass_zones: Array[Dictionary] = []
+var progress_rule_id := "route_lap_progress"
+var win_condition_id := "checkpoint_laps"
 
 func is_valid() -> bool:
 	return route_points.size() >= 3
@@ -20,4 +27,3 @@ func has_grid() -> bool:
 
 func has_segments() -> bool:
 	return not road_segment_layout.is_empty()
-
