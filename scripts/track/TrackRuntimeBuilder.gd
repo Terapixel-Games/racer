@@ -974,15 +974,13 @@ static func _add_dressing_scene(parent: Node3D, definition: TrackDefinition) -> 
 		push_error("Track dressing scene root must be Node3D: %s" % definition.dressing_scene_path)
 		return
 	instance.name = "EditableRoom"
-	if instance is TrackAuthoringPreview:
-		var preview := instance as TrackAuthoringPreview
+	var preview := _find_authoring_preview(instance)
+	if preview != null:
 		preview.preview_enabled = false
 		preview.live_update_in_editor = false
 		preview.show_dressing_preview = false
-	var saved_preview := instance.get_node_or_null(TrackAuthoringPreview.PREVIEW_ROOT_NAME)
-	if saved_preview != null:
-		instance.remove_child(saved_preview)
-		saved_preview.queue_free()
+	_remove_saved_preview(preview)
+	_remove_saved_preview(instance)
 	if definition.id == "kitchen":
 		_make_kitchen_window_glass_transparent(instance)
 	_apply_ground_shader_to_editable_floor(instance, definition)
@@ -994,8 +992,27 @@ static func _apply_ground_shader_to_editable_floor(instance: Node3D, definition:
 		return
 	var floor_mesh := instance.get_node_or_null("floor/MeshInstance3D") as MeshInstance3D
 	if floor_mesh == null:
+		floor_mesh = instance.get_node_or_null("Track/floor/MeshInstance3D") as MeshInstance3D
+	if floor_mesh == null:
+		var floor_holder := instance.find_child("floor", true, false)
+		if floor_holder != null:
+			floor_mesh = floor_holder.get_node_or_null("MeshInstance3D") as MeshInstance3D
+	if floor_mesh == null:
 		return
 	floor_mesh.material_override = _ground_material(definition)
+
+static func _find_authoring_preview(instance: Node3D) -> TrackAuthoringPreview:
+	if instance is TrackAuthoringPreview:
+		return instance as TrackAuthoringPreview
+	return instance.get_node_or_null("TrackAuthoringPreview") as TrackAuthoringPreview
+
+static func _remove_saved_preview(parent: Node) -> void:
+	if parent == null:
+		return
+	var saved_preview := parent.get_node_or_null(TrackAuthoringPreview.PREVIEW_ROOT_NAME)
+	if saved_preview != null:
+		parent.remove_child(saved_preview)
+		saved_preview.queue_free()
 
 static func _disable_gameplay_collision(node: Node) -> void:
 	if node is CollisionShape3D:

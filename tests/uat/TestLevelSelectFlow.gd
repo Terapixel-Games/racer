@@ -4,6 +4,7 @@ const CharacterSelectScene = preload("res://scenes/CharacterSelect.tscn")
 const LevelSelectScene = preload("res://scenes/LevelSelect.tscn")
 const RaceScene = preload("res://scenes/Race.tscn")
 const RacerRoster = preload("res://scripts/logic/RacerRoster.gd")
+const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
 
 func test_character_select_continue_targets_level_select() -> void:
 	NakamaService.set_meta_value("selected_racer_id", RacerRoster.DEFAULT_RACER_ID)
@@ -42,6 +43,11 @@ func test_local_single_race_spawns_full_roster_and_blocks_input_during_intro() -
 	assert_true(bool(race.get("local_single_race")), "Race scene should branch into local single-race mode")
 	assert_equal((race.get("local_racer_ids") as Array).size(), 8, "Local single race should spawn the full roster")
 	assert_equal((race.get("ai_racer_ids") as Array).size(), 7, "Local single race should create seven CPU racers")
+	assert_equal((race.get("spawn_points") as Array).size(), 8, "Local single race should load the RoadGridMap-authored start grid")
+	var states: Dictionary = race.get("racer_states")
+	assert_true(_same_spawn_lane((states.get("local_player") as Dictionary).get("grid_transform", Transform3D.IDENTITY), (race.get("spawn_points") as Array)[0]), "Local player grid transform should use generated Start01")
+	var first_grid_ai := str((race.get("ai_racer_ids") as Array)[0])
+	assert_true(_same_spawn_lane((states.get(first_grid_ai) as Dictionary).get("grid_transform", Transform3D.IDENTITY), (race.get("spawn_points") as Array)[1]), "First CPU grid transform should use generated Start02")
 	assert_true(not bool(race.get("player_input_enabled")), "Stage intro should block player input")
 	var visual_ids: Dictionary = race.get("racer_visual_ids")
 	var unique_visuals := {}
@@ -555,36 +561,86 @@ func test_local_position_can_rank_player_last_before_first_checkpoint() -> void:
 	assert_equal(int(race.call("_local_position")), 8, "Local position should show 8th when seven racers are ahead before the first checkpoint")
 	race.queue_free()
 
-func test_close_position_changes_preserve_previous_order_until_gap_is_clear() -> void:
+func test_kitchen_grid_route_positions_drive_local_rank() -> void:
 	var race: Node = _make_local_race()
 	race.call("_set_local_phase", "racing")
+	var definition := TrackCatalog.get_definition("kitchen")
+	var route: Array[Vector3] = definition.route_points
+	assert_true(route.size() >= 12, "Kitchen RoadGridMap route should expose enough route points for rank tests")
+	if route.size() < 12:
+		race.queue_free()
+		return
 	var local_id := str(race.get("local_user_id"))
-	var ai_id := "ai_close_rival"
+	var ai_id := "ai_grid_leader"
+	race.set("track_waypoints", route)
+	race.set("track_checkpoint_indices", definition.checkpoint_indices)
+	race.set("track_checkpoint_total", definition.checkpoint_indices.size())
+	race.set("track_lap_gate_checkpoint_index", definition.lap_gate_checkpoint_index)
+	race.set("track_closed_loop", definition.closed_loop)
 	race.set("racer_states", {
 		local_id: {
 			"racer_id": "Dash",
 			"lap": 1,
 			"checkpoint": 0,
-			"pos": Vector3.ZERO,
+			"pos": route[2],
 			"finished": false,
 			"wasted": false,
-			"progress": 4.00,
 		},
 		ai_id: {
 			"racer_id": "Moko",
 			"lap": 1,
 			"checkpoint": 0,
-			"pos": Vector3.ZERO,
+			"pos": route[10],
 			"finished": false,
 			"wasted": false,
-			"progress": 3.95,
+		},
+	})
+	assert_equal(int(race.call("_local_position")), 2, "Kitchen RoadGridMap route position should rank the farther kart ahead")
+	race.queue_free()
+
+func test_close_position_changes_preserve_previous_order_until_gap_is_clear() -> void:
+	var race: Node = _make_local_race()
+	race.call("_set_local_phase", "racing")
+	var definition := TrackCatalog.get_definition("kitchen")
+	var route: Array[Vector3] = definition.route_points
+	assert_true(route.size() >= 3, "Kitchen RoadGridMap route should expose enough route points for hysteresis tests")
+	if route.size() < 3:
+		race.queue_free()
+		return
+	var local_id := str(race.get("local_user_id"))
+	var ai_id := "ai_close_rival"
+	var local_position := route[1].lerp(route[2], 0.20)
+	var ai_position := route[1].lerp(route[2], 0.18)
+	var small_overtake_position := route[1].lerp(route[2], 0.24)
+	race.set("track_waypoints", route)
+	race.set("track_checkpoint_indices", definition.checkpoint_indices)
+	race.set("track_checkpoint_total", definition.checkpoint_indices.size())
+	race.set("track_lap_gate_checkpoint_index", definition.lap_gate_checkpoint_index)
+	race.set("track_closed_loop", definition.closed_loop)
+	race.set("racer_states", {
+		local_id: {
+			"racer_id": "Dash",
+			"lap": 1,
+			"checkpoint": 1,
+			"pos": local_position,
+			"finished": false,
+			"wasted": false,
+		},
+		ai_id: {
+			"racer_id": "Moko",
+			"lap": 1,
+			"checkpoint": 1,
+			"pos": ai_position,
+			"finished": false,
+			"wasted": false,
 		},
 	})
 	race.call("_update_positions")
 	var states: Dictionary = race.get("racer_states")
 	var ai_state: Dictionary = states.get(ai_id, {})
-	ai_state["progress"] = 4.08
+	ai_state["pos"] = small_overtake_position
 	states[ai_id] = ai_state
+	race.set("racer_states", states)
 	var entries: Array = race.call("_sorted_position_entries")
 	assert_equal(str((entries[0] as Dictionary).get("id", "")), local_id, "Small progress noise should not reorder racers without a clear overtake")
 	race.queue_free()
@@ -702,3 +758,12 @@ func _make_local_tournament_race(round_index: int) -> Node:
 	var race := RaceScene.instantiate()
 	scene_tree.root.add_child(race)
 	return race
+
+func _same_spawn_lane(actual_value: Variant, expected_value: Variant) -> bool:
+	if not (actual_value is Transform3D) or not (expected_value is Transform3D):
+		return false
+	var actual := actual_value as Transform3D
+	var expected := expected_value as Transform3D
+	var actual_yaw := actual.basis.get_euler().y
+	var expected_yaw := expected.basis.get_euler().y
+	return Vector2(actual.origin.x, actual.origin.z).distance_to(Vector2(expected.origin.x, expected.origin.z)) <= 0.01 and absf(angle_difference(actual_yaw, expected_yaw)) <= 0.01

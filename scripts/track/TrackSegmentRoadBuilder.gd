@@ -2,10 +2,30 @@ extends RefCounted
 class_name TrackSegmentRoadBuilder
 
 const RoadSegmentProfile = preload("res://scripts/track/RoadSegmentProfile.gd")
+const RaceLayout = preload("res://scripts/track/RaceLayout.gd")
 
 const CORNER_ANGLE_THRESHOLD := deg_to_rad(18.0)
 const RAMP_SLOPE_THRESHOLD := 0.08
 const MIN_SEGMENT_LENGTH := 2.0
+
+static func race_layout_from_segment_layout(segment_layout: Array[Dictionary], road_width: float, closed_loop: bool) -> RaceLayout:
+	var race_layout := RaceLayout.new()
+	race_layout.source = "segments"
+	race_layout.road_visual_style = "kenney_segments"
+	race_layout.road_grid_layout = {}
+	race_layout.road_segment_layout = segment_layout.duplicate(true)
+	race_layout.route_points = route_points_from_layout(segment_layout, closed_loop)
+	if race_layout.route_points.size() >= 3:
+		race_layout.checkpoint_indices = checkpoint_indices_from_layout(segment_layout, race_layout.route_points, closed_loop)
+		race_layout.lap_gate_checkpoint_index = 0
+		race_layout.spawn_points = start_grid_from_layout(segment_layout, road_width)
+		var generated_items := sockets_from_layout(segment_layout, "item", 10, road_width)
+		if not generated_items.is_empty():
+			race_layout.item_sockets = generated_items
+		var generated_hazards := sockets_from_layout(segment_layout, "hazard", 8, road_width)
+		if not generated_hazards.is_empty():
+			race_layout.hazard_sockets = generated_hazards
+	return race_layout
 
 static func build_segment_road(
 	route_points: Array[Vector3],

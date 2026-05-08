@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="TrackMapDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/track/TrackMapDefinition.gd" id="1_map"]
+
+[resource]
+script = ExtResource("1_map")
+id = "kitchen"
+display_name = "Kitchen / Sir Clink"
+version = "kitchen_v2_2026_04_29"
+map_scene_path = "res://assets/gameplay/tracks/kitchen/kitchen_editable_room.tscn"
+default_mode_id = "race"
+mode_configs = {
+"race": {
+"definition_path": "res://assets/gameplay/tracks/kitchen/kitchen_track_definition.tres",
+"display_name": "Kitchen / Sir Clink",
+"id": "kitchen",
+"kind": "race",
+"laps": 3,
+"metadata_path": "res://assets/gameplay/tracks/kitchen/kitchen_track_metadata.json",
+"road_source": "grid",
+"road_visual_style": "kenney_gridmap",
+"runtime_scene_path": "res://assets/gameplay/tracks/kitchen/kitchen_track.tscn"
+}
+}
+sky_preset_id = "noon_clear"
+sky_weather = "clear"
+sky_top_color = Color(0.44, 0.72, 1, 1)
+sky_horizon_color = Color(0.78, 0.9, 1, 1)
+sky_cloud_amount = 0.16
+sky_cloud_speed = 0.014
+sky_haze_amount = 0.1
+sky_light_energy = 2.45
+ground_size = Vector2(292, 190)
+ground_texture_path = "res://assets/gameplay/materials/tile/kitchen_tile_albedo.png"

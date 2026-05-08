@@ -2,6 +2,7 @@ extends RefCounted
 class_name TrackGridRoadBuilder
 
 const RoadSegmentProfile = preload("res://scripts/track/RoadSegmentProfile.gd")
+const RaceLayout = preload("res://scripts/track/RaceLayout.gd")
 
 const TILE_STRAIGHT := 0
 const TILE_CORNER := 1
@@ -9,14 +10,30 @@ const TILE_START := 2
 const TILE_STRAIGHT_LONG := 3
 const TILE_CORNER_LARGE := 4
 
+static func race_layout_from_grid_layout(layout: Dictionary, closed_loop: bool) -> RaceLayout:
+	var race_layout := RaceLayout.new()
+	race_layout.source = "grid"
+	race_layout.road_visual_style = "kenney_gridmap"
+	race_layout.road_grid_layout = layout.duplicate(true)
+	race_layout.road_segment_layout = []
+	race_layout.route_points = route_points_from_grid_layout(layout, closed_loop)
+	if race_layout.route_points.size() >= 3:
+		race_layout.checkpoint_indices = checkpoint_indices_from_grid_layout(layout, race_layout.route_points)
+		race_layout.lap_gate_checkpoint_index = 0
+		race_layout.spawn_points = spawn_points_from_grid_layout(layout, race_layout.route_points)
+		race_layout.item_sockets = sockets_from_grid_layout(layout, race_layout.route_points, "item_route_indices", 10)
+		race_layout.hazard_sockets = sockets_from_grid_layout(layout, race_layout.route_points, "hazard_route_indices", 8)
+	return race_layout
+
 static func route_points_from_grid_layout(layout: Dictionary, closed_loop: bool) -> Array[Vector3]:
 	var route: Array[Vector3] = []
 	if layout.has("ordered_route_points"):
 		for point in layout.get("ordered_route_points", []):
 			route.append(_vector3_from_value(point, Vector3.ZERO))
-		if closed_loop and route.size() > 2 and route.front().distance_to(route.back()) <= 0.05:
-			route.remove_at(route.size() - 1)
-		return route
+		if not route.is_empty():
+			if closed_loop and route.size() > 2 and route.front().distance_to(route.back()) <= 0.05:
+				route.remove_at(route.size() - 1)
+			return route
 	var route_cells := _vector3i_array_from_value(layout.get("ordered_route_cells", []))
 	for cell in route_cells:
 		route.append(_cell_center(layout, cell))
@@ -34,6 +51,20 @@ static func checkpoint_indices_from_grid_layout(layout: Dictionary, route_points
 		out = [0, route_points.size() / 3, (route_points.size() * 2) / 3]
 	out.sort()
 	return out
+
+static func spawn_points_from_grid_layout(layout: Dictionary, route_points: Array[Vector3]) -> Array[Vector4]:
+	var authored_spawns: Array[Vector4] = []
+	for value in layout.get("spawn_slots", []):
+		if authored_spawns.size() >= 8:
+			break
+		if not (value is Dictionary):
+			continue
+		var spawn: Variant = _spawn_from_slot(route_points, value as Dictionary)
+		if spawn is Vector4:
+			authored_spawns.append(spawn as Vector4)
+	if authored_spawns.size() >= 8:
+		return authored_spawns
+	return start_grid_from_grid_layout(layout, route_points)
 
 static func start_grid_from_grid_layout(layout: Dictionary, route_points: Array[Vector3]) -> Array[Vector4]:
 	var road_width := float(layout.get("road_width", 12.0))
@@ -57,6 +88,29 @@ static func start_grid_from_grid_layout(layout: Dictionary, route_points: Array[
 			var position := origin + forward * forward_offset + right * lateral + Vector3.UP * 0.8
 			spawns.append(Vector4(position.x, position.y, position.z, yaw))
 	return spawns
+
+static func _spawn_from_slot(route_points: Array[Vector3], slot: Dictionary) -> Variant:
+	if route_points.size() < 2:
+		return null
+	var index := int(slot.get("route_index", -1))
+	if index < 0 or index >= route_points.size():
+		return null
+	var next := mini(index + 1, route_points.size() - 1)
+	var previous := maxi(index - 1, 0)
+	var forward := route_points[next] - route_points[index]
+	if index == route_points.size() - 1:
+		forward = route_points[index] - route_points[previous]
+	forward.y = 0.0
+	if forward.length_squared() <= 0.001:
+		return null
+	forward = forward.normalized()
+	var right := Vector3(forward.z, 0.0, -forward.x).normalized()
+	var position := route_points[index]
+	position += forward * float(slot.get("forward_offset", 0.0))
+	position += right * float(slot.get("lateral_offset", 0.0))
+	position += Vector3.UP * float(slot.get("y_offset", 0.8))
+	var yaw := rad_to_deg(atan2(forward.x, forward.z)) + float(slot.get("yaw_offset_degrees", 0.0))
+	return Vector4(position.x, position.y, position.z, yaw)
 
 static func sockets_from_grid_layout(layout: Dictionary, route_points: Array[Vector3], key: String, fallback_count: int) -> Array[Vector4]:
 	var sockets: Array[Vector4] = []

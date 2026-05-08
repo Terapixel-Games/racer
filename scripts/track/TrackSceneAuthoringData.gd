@@ -4,11 +4,20 @@ class_name TrackSceneAuthoringData
 const TrackDefinition = preload("res://scripts/track/TrackDefinition.gd")
 const TrackSegmentRoadBuilder = preload("res://scripts/track/TrackSegmentRoadBuilder.gd")
 const TrackGridRoadBuilder = preload("res://scripts/track/TrackGridRoadBuilder.gd")
+const RaceLayout = preload("res://scripts/track/RaceLayout.gd")
 
-static func apply_to_definition(source: TrackDefinition) -> TrackDefinition:
+const TRACK_NODE_NAME := "Track"
+const AUTHORING_PREVIEW_NODE_NAME := "TrackAuthoringPreview"
+const ROAD_SOURCE_AUTO := "auto"
+const ROAD_SOURCE_GRID := "grid"
+const ROAD_SOURCE_ROUTE := "route"
+const ROAD_SOURCE_SEGMENTS := "segments"
+
+static func apply_to_definition(source: TrackDefinition, mode_config: Dictionary = {}) -> TrackDefinition:
 	if source == null:
 		return null
 	var definition := source.duplicate(true) as TrackDefinition
+	var road_source := _road_source_for(definition, mode_config)
 	if definition.dressing_scene_path.strip_edges().is_empty():
 		return definition
 	var packed := load(definition.dressing_scene_path)
@@ -19,58 +28,19 @@ static func apply_to_definition(source: TrackDefinition) -> TrackDefinition:
 		if scene_root != null:
 			scene_root.queue_free()
 		return definition
-	_apply_scene_markers(definition, scene_root as Node3D)
+	_apply_scene_markers(definition, scene_root as Node3D, road_source)
 	scene_root.queue_free()
 	return definition
 
-static func _apply_scene_markers(definition: TrackDefinition, scene_root: Node3D) -> void:
-	var grid_layout := _collect_road_grid(scene_root, definition.road_width)
-	if not grid_layout.is_empty():
-		definition.road_visual_style = "kenney_gridmap"
-		definition.road_grid_layout = grid_layout
-		definition.road_segment_layout = []
-		var grid_route := TrackGridRoadBuilder.route_points_from_grid_layout(grid_layout, definition.closed_loop)
-		if grid_route.size() >= 3:
-			definition.route_points = grid_route
-			var grid_checkpoints := TrackGridRoadBuilder.checkpoint_indices_from_grid_layout(grid_layout, definition.route_points)
-			if grid_checkpoints.size() >= 3 and _indices_strictly_increasing(grid_checkpoints):
-				definition.checkpoint_indices = grid_checkpoints
-				definition.lap_gate_checkpoint_index = 0
-			definition.spawn_points = TrackGridRoadBuilder.start_grid_from_grid_layout(grid_layout, definition.route_points)
-			definition.item_sockets = TrackGridRoadBuilder.sockets_from_grid_layout(grid_layout, definition.route_points, "item_route_indices", 10)
-			definition.hazard_sockets = TrackGridRoadBuilder.sockets_from_grid_layout(grid_layout, definition.route_points, "hazard_route_indices", 8)
-	var segment_layout := _collect_road_segments(scene_root, definition.road_width)
-	if grid_layout.is_empty() and not segment_layout.is_empty():
-		definition.road_segment_layout = segment_layout
-		var segment_route := TrackSegmentRoadBuilder.route_points_from_layout(segment_layout, definition.closed_loop)
-		if segment_route.size() >= 3:
-			definition.route_points = segment_route
-			var segment_checkpoints := TrackSegmentRoadBuilder.checkpoint_indices_from_layout(segment_layout, definition.route_points, definition.closed_loop)
-			if segment_checkpoints.size() >= 3 and _indices_strictly_increasing(segment_checkpoints):
-				definition.checkpoint_indices = segment_checkpoints
-				definition.lap_gate_checkpoint_index = 0
-			definition.spawn_points = TrackSegmentRoadBuilder.start_grid_from_layout(segment_layout, definition.road_width)
-			var generated_items := TrackSegmentRoadBuilder.sockets_from_layout(segment_layout, "item", 10, definition.road_width)
-			if not generated_items.is_empty():
-				definition.item_sockets = generated_items
-			var generated_hazards := TrackSegmentRoadBuilder.sockets_from_layout(segment_layout, "hazard", 8, definition.road_width)
-			if not generated_hazards.is_empty():
-				definition.hazard_sockets = generated_hazards
-	var route_points := _collect_marker_positions(scene_root, "RoutePoints")
-	if route_points.size() >= 3:
-		if grid_layout.is_empty() and segment_layout.is_empty():
-			definition.route_points = route_points
-		var checkpoint_indices := _collect_checkpoint_indices(scene_root, route_points)
-		if grid_layout.is_empty() and segment_layout.is_empty() and checkpoint_indices.size() >= 3 and _indices_strictly_increasing(checkpoint_indices):
-			definition.checkpoint_indices = checkpoint_indices
-			definition.lap_gate_checkpoint_index = _collect_lap_gate_checkpoint_index(scene_root)
-		if grid_layout.is_empty() and segment_layout.is_empty() and not _spawn_points_on_route(definition.spawn_points, definition.route_points, definition.road_width, definition.closed_loop):
-			definition.spawn_points = _start_grid_from_route(definition.route_points, definition.road_width)
+static func _apply_scene_markers(definition: TrackDefinition, scene_root: Node3D, road_source: String) -> void:
+	var race_layout := _resolve_race_layout(definition, scene_root, road_source)
+	if race_layout != null and race_layout.is_valid():
+		_apply_race_layout(definition, race_layout)
 	var item_sockets := _collect_socket_markers(scene_root, "ItemSockets")
-	if grid_layout.is_empty() and segment_layout.is_empty() and not item_sockets.is_empty():
+	if race_layout == null and not item_sockets.is_empty():
 		definition.item_sockets = item_sockets
 	var hazard_sockets := _collect_socket_markers(scene_root, "HazardSockets")
-	if grid_layout.is_empty() and segment_layout.is_empty() and not hazard_sockets.is_empty():
+	if race_layout == null and not hazard_sockets.is_empty():
 		definition.hazard_sockets = hazard_sockets
 	var shortcut_gates := _collect_shortcut_gates(scene_root, definition.shortcut_gates)
 	if not shortcut_gates.is_empty():
@@ -91,8 +61,100 @@ static func _apply_scene_markers(definition: TrackDefinition, scene_root: Node3D
 	if not grass_zones.is_empty():
 		definition.grass_zones = grass_zones
 
+static func _resolve_race_layout(definition: TrackDefinition, scene_root: Node3D, road_source: String) -> RaceLayout:
+	match road_source:
+		ROAD_SOURCE_GRID:
+			return _race_layout_from_grid(scene_root, definition)
+		ROAD_SOURCE_ROUTE:
+			return _race_layout_from_route_markers(scene_root, definition)
+		ROAD_SOURCE_SEGMENTS:
+			return _race_layout_from_segments(scene_root, definition)
+		_:
+			var grid_layout := _race_layout_from_grid(scene_root, definition)
+			if grid_layout != null and grid_layout.is_valid():
+				return grid_layout
+			var segment_layout := _race_layout_from_segments(scene_root, definition)
+			if segment_layout != null and segment_layout.is_valid():
+				return segment_layout
+			return _race_layout_from_route_markers(scene_root, definition)
+
+static func _race_layout_from_grid(scene_root: Node3D, definition: TrackDefinition) -> RaceLayout:
+	var grid_layout := _collect_road_grid(scene_root, definition.road_width)
+	if grid_layout.is_empty():
+		return null
+	var race_layout := TrackGridRoadBuilder.race_layout_from_grid_layout(grid_layout, definition.closed_loop)
+	return race_layout if race_layout.is_valid() else null
+
+static func _race_layout_from_segments(scene_root: Node3D, definition: TrackDefinition) -> RaceLayout:
+	var segment_layout := _collect_road_segments(scene_root, definition.road_width)
+	if segment_layout.is_empty():
+		return null
+	var race_layout := TrackSegmentRoadBuilder.race_layout_from_segment_layout(segment_layout, definition.road_width, definition.closed_loop)
+	return race_layout if race_layout.is_valid() else null
+
+static func _race_layout_from_route_markers(scene_root: Node3D, definition: TrackDefinition) -> RaceLayout:
+	var route_points := _collect_marker_positions(scene_root, "RoutePoints")
+	if route_points.size() < 3:
+		return null
+	var race_layout := RaceLayout.new()
+	race_layout.source = "route"
+	race_layout.road_visual_style = definition.road_visual_style
+	race_layout.road_grid_layout = {}
+	race_layout.road_segment_layout = []
+	race_layout.route_points = route_points
+	var checkpoint_indices := _collect_checkpoint_indices(scene_root, route_points)
+	if checkpoint_indices.size() >= 3 and _indices_strictly_increasing(checkpoint_indices):
+		race_layout.checkpoint_indices = checkpoint_indices
+		race_layout.lap_gate_checkpoint_index = _collect_lap_gate_checkpoint_index(scene_root)
+	else:
+		race_layout.checkpoint_indices = definition.checkpoint_indices.duplicate()
+		race_layout.lap_gate_checkpoint_index = definition.lap_gate_checkpoint_index
+	if _spawn_points_on_route(definition.spawn_points, race_layout.route_points, definition.road_width, definition.closed_loop):
+		race_layout.spawn_points = definition.spawn_points.duplicate()
+	else:
+		race_layout.spawn_points = _start_grid_from_route(race_layout.route_points, definition.road_width)
+	race_layout.item_sockets = _collect_socket_markers(scene_root, "ItemSockets")
+	if race_layout.item_sockets.is_empty():
+		race_layout.item_sockets = definition.item_sockets.duplicate()
+	race_layout.hazard_sockets = _collect_socket_markers(scene_root, "HazardSockets")
+	if race_layout.hazard_sockets.is_empty():
+		race_layout.hazard_sockets = definition.hazard_sockets.duplicate()
+	return race_layout
+
+static func _apply_race_layout(definition: TrackDefinition, race_layout: RaceLayout) -> void:
+	if not race_layout.road_visual_style.strip_edges().is_empty():
+		definition.road_visual_style = race_layout.road_visual_style
+	definition.road_grid_layout = race_layout.road_grid_layout.duplicate(true)
+	definition.road_segment_layout = race_layout.road_segment_layout.duplicate(true)
+	definition.route_points = race_layout.route_points.duplicate()
+	if race_layout.checkpoint_indices.size() >= 3 and _indices_strictly_increasing(race_layout.checkpoint_indices):
+		definition.checkpoint_indices = race_layout.checkpoint_indices.duplicate()
+		definition.lap_gate_checkpoint_index = race_layout.lap_gate_checkpoint_index
+	if race_layout.spawn_points.size() >= 8:
+		definition.spawn_points = race_layout.spawn_points.duplicate()
+	if not race_layout.item_sockets.is_empty():
+		definition.item_sockets = race_layout.item_sockets.duplicate()
+	if not race_layout.hazard_sockets.is_empty():
+		definition.hazard_sockets = race_layout.hazard_sockets.duplicate()
+	definition.set_meta("resolved_race_layout_source", race_layout.source)
+
+static func _road_source_for(definition: TrackDefinition, mode_config: Dictionary) -> String:
+	var source := str(mode_config.get("road_source", ""))
+	if source.strip_edges().is_empty() and definition.has_meta("road_source"):
+		source = str(definition.get_meta("road_source", ""))
+	source = source.strip_edges().to_lower()
+	match source:
+		ROAD_SOURCE_GRID, "gridmap", "kenney_gridmap":
+			return ROAD_SOURCE_GRID
+		ROAD_SOURCE_ROUTE, "route_points", "dynamic", "procedural":
+			return ROAD_SOURCE_ROUTE
+		ROAD_SOURCE_SEGMENTS, "segment", "kenney_segments":
+			return ROAD_SOURCE_SEGMENTS
+		_:
+			return ROAD_SOURCE_AUTO
+
 static func _collect_road_grid(root: Node3D, road_width: float) -> Dictionary:
-	var grid := root.get_node_or_null("RoadGridMap")
+	var grid := _find_authoring_holder(root, "RoadGridMap")
 	if grid == null or not grid.has_method("to_grid_road_layout"):
 		return {}
 	var layout := grid.call("to_grid_road_layout", road_width) as Dictionary
@@ -102,7 +164,7 @@ static func _collect_road_grid(root: Node3D, road_width: float) -> Dictionary:
 
 static func _collect_road_segments(root: Node3D, road_width: float) -> Array[Dictionary]:
 	var segments: Array[Dictionary] = []
-	var holder := root.get_node_or_null("RoadSegments")
+	var holder := _find_authoring_holder(root, "RoadSegments")
 	if holder == null:
 		return segments
 	for child in _sorted_node3d_children(holder):
@@ -112,7 +174,7 @@ static func _collect_road_segments(root: Node3D, road_width: float) -> Array[Dic
 
 static func _collect_marker_positions(root: Node3D, holder_name: String) -> Array[Vector3]:
 	var out: Array[Vector3] = []
-	var holder := root.get_node_or_null(holder_name)
+	var holder := _find_authoring_holder(root, holder_name)
 	if holder == null:
 		return out
 	for marker in _sorted_marker_children(holder):
@@ -121,7 +183,7 @@ static func _collect_marker_positions(root: Node3D, holder_name: String) -> Arra
 
 static func _collect_socket_markers(root: Node3D, holder_name: String) -> Array[Vector4]:
 	var sockets: Array[Vector4] = []
-	var holder := root.get_node_or_null(holder_name)
+	var holder := _find_authoring_holder(root, holder_name)
 	if holder == null:
 		return sockets
 	for marker in _sorted_marker_children(holder):
@@ -132,7 +194,7 @@ static func _collect_socket_markers(root: Node3D, holder_name: String) -> Array[
 
 static func _collect_checkpoint_indices(root: Node3D, route_points: Array[Vector3]) -> Array[int]:
 	var indices: Array[int] = []
-	var holder := root.get_node_or_null("Checkpoints")
+	var holder := _find_authoring_holder(root, "Checkpoints")
 	if holder == null:
 		return indices
 	for marker in _sorted_marker_children(holder):
@@ -140,7 +202,7 @@ static func _collect_checkpoint_indices(root: Node3D, route_points: Array[Vector
 	return indices
 
 static func _collect_lap_gate_checkpoint_index(root: Node3D) -> int:
-	var holder := root.get_node_or_null("Checkpoints")
+	var holder := _find_authoring_holder(root, "Checkpoints")
 	if holder == null:
 		return 0
 	var checkpoints := _sorted_marker_children(holder)
@@ -150,7 +212,7 @@ static func _collect_lap_gate_checkpoint_index(root: Node3D) -> int:
 	return 0
 
 static func _collect_shortcut_gates(root: Node3D, existing_gates: Array[Dictionary]) -> Array[Dictionary]:
-	var holder := root.get_node_or_null("ShortcutGates")
+	var holder := _find_authoring_holder(root, "ShortcutGates")
 	if holder == null:
 		return []
 	var by_id := {}
@@ -182,7 +244,7 @@ static func _collect_shortcut_gates(root: Node3D, existing_gates: Array[Dictiona
 	return gates
 
 static func _collect_alternate_routes(root: Node3D, existing_routes: Array[Dictionary]) -> Array[Dictionary]:
-	var holder := root.get_node_or_null("AlternateRoutes")
+	var holder := _find_authoring_holder(root, "AlternateRoutes")
 	if holder == null:
 		return []
 	var routes: Array[Dictionary] = []
@@ -210,7 +272,7 @@ static func _find_by_id(items: Array[Dictionary], id: String) -> Dictionary:
 
 static func _collect_stage_props(root: Node) -> Array[Dictionary]:
 	var props: Array[Dictionary] = []
-	var holder := root.get_node_or_null("Dressing")
+	var holder := _find_authoring_holder(root, "Dressing")
 	if holder == null:
 		return props
 	for child in _sorted_node3d_children(holder):
@@ -220,7 +282,7 @@ static func _collect_stage_props(root: Node) -> Array[Dictionary]:
 
 static func _collect_surface_segments(root: Node) -> Array[Dictionary]:
 	var segments: Array[Dictionary] = []
-	var holder := root.get_node_or_null("SurfaceSegments")
+	var holder := _find_authoring_holder(root, "SurfaceSegments")
 	if holder == null:
 		return segments
 	for child in _sorted_marker_children(holder):
@@ -230,7 +292,7 @@ static func _collect_surface_segments(root: Node) -> Array[Dictionary]:
 
 static func _collect_audio_zones(root: Node) -> Array[Dictionary]:
 	var zones: Array[Dictionary] = []
-	var holder := root.get_node_or_null("AudioZones")
+	var holder := _find_authoring_holder(root, "AudioZones")
 	if holder == null:
 		return zones
 	for child in _sorted_marker_children(holder):
@@ -240,7 +302,7 @@ static func _collect_audio_zones(root: Node) -> Array[Dictionary]:
 
 static func _collect_grass_zones(root: Node) -> Array[Dictionary]:
 	var zones: Array[Dictionary] = []
-	var holder := root.get_node_or_null("GrassZones")
+	var holder := _find_authoring_holder(root, "GrassZones")
 	if holder == null:
 		return zones
 	for child in _sorted_node3d_children(holder):
@@ -335,6 +397,18 @@ static func _distance_to_segment_xz(point: Vector3, a3: Vector3, b3: Vector3) ->
 		return point_2d.distance_to(a)
 	var t := clampf((point_2d - a).dot(ab) / length_squared, 0.0, 1.0)
 	return point_2d.distance_to(a + ab * t)
+
+static func _find_authoring_holder(root: Node, holder_name: String) -> Node:
+	if root == null:
+		return null
+	var direct := root.get_node_or_null(holder_name)
+	if direct != null:
+		return direct
+	for parent_name in [AUTHORING_PREVIEW_NODE_NAME, TRACK_NODE_NAME]:
+		var nested := root.get_node_or_null("%s/%s" % [parent_name, holder_name])
+		if nested != null:
+			return nested
+	return root.find_child(holder_name, true, false)
 
 static func _sorted_marker_children(source: Node) -> Array[Node]:
 	var markers: Array[Node] = []

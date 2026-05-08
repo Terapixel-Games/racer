@@ -2,10 +2,12 @@ extends RefCounted
 class_name TrackCatalog
 
 const TrackDefinition = preload("res://scripts/track/TrackDefinition.gd")
+const TrackMapDefinition = preload("res://scripts/track/TrackMapDefinition.gd")
 
 const DEFAULT_TRACK_ID := "kitchen"
 const MANIFEST_PATH := "res://assets/gameplay/tracks/track_packages.json"
 const KITCHEN_DEFINITION_PATH := "res://assets/gameplay/tracks/kitchen/kitchen_track_definition.tres"
+const KITCHEN_MAP_PATH := "res://assets/gameplay/tracks/kitchen/kitchen_track_map.tres"
 const KITCHEN_SCENE_PATH := "res://assets/gameplay/tracks/kitchen/kitchen_track.tscn"
 const KITCHEN_METADATA_PATH := "res://assets/gameplay/tracks/kitchen/kitchen_track_metadata.json"
 
@@ -33,6 +35,45 @@ static func list_tracks() -> Array[Dictionary]:
 		summaries.append(_track_summary(DEFAULT_TRACK_ID, _fallback_kitchen_package()))
 	return summaries
 
+static func list_maps() -> Array[Dictionary]:
+	var maps := _map_packages()
+	var default_id := get_default_track_id()
+	var summaries: Array[Dictionary] = []
+	if maps.has(default_id):
+		summaries.append(_map_summary(default_id, maps[default_id]))
+	var ids := maps.keys()
+	ids.sort()
+	for id_value in ids:
+		var map_id := str(id_value)
+		if map_id == default_id:
+			continue
+		summaries.append(_map_summary(map_id, maps[id_value]))
+	return summaries
+
+static func list_modes(map_id: String) -> Array[Dictionary]:
+	var map_definition := get_map_definition(map_id)
+	if map_definition == null:
+		return []
+	var modes: Array[Dictionary] = []
+	for mode_id in map_definition.list_mode_ids():
+		modes.append(map_definition.mode_summary(mode_id))
+	return modes
+
+static func get_map_definition(map_id: String = DEFAULT_TRACK_ID) -> TrackMapDefinition:
+	var package := get_map_package(map_id)
+	var path := str(package.get("map_definition_path", package.get("definition_path", "")))
+	if path.is_empty():
+		return null
+	return load(path) as TrackMapDefinition
+
+static func get_mode_definition(map_id: String = DEFAULT_TRACK_ID, mode_id: String = "race") -> TrackDefinition:
+	var map_definition := get_map_definition(map_id)
+	if map_definition != null:
+		var definition := map_definition.to_track_definition(mode_id)
+		if definition != null:
+			return definition
+	return _get_legacy_definition(map_id)
+
 static func get_package(track_id: String = DEFAULT_TRACK_ID) -> Dictionary:
 	var normalized := _normalize_track_id(track_id)
 	var manifest := _load_manifest()
@@ -45,7 +86,17 @@ static func get_package(track_id: String = DEFAULT_TRACK_ID) -> Dictionary:
 		_:
 			return {}
 
+static func get_map_package(map_id: String = DEFAULT_TRACK_ID) -> Dictionary:
+	var normalized := _normalize_track_id(map_id)
+	var maps := _map_packages()
+	if maps.has(normalized):
+		return maps[normalized]
+	return {}
+
 static func get_definition(track_id: String = DEFAULT_TRACK_ID) -> TrackDefinition:
+	return get_mode_definition(track_id, "race")
+
+static func _get_legacy_definition(track_id: String = DEFAULT_TRACK_ID) -> TrackDefinition:
 	var package := get_package(track_id)
 	var path := str(package.get("definition_path", ""))
 	if path.is_empty():
@@ -82,6 +133,9 @@ static func get_track_version(track_id: String = DEFAULT_TRACK_ID) -> String:
 static func has_track(track_id: String) -> bool:
 	return not get_package(track_id).is_empty()
 
+static func has_map(map_id: String) -> bool:
+	return not get_map_package(map_id).is_empty()
+
 static func _normalize_track_id(track_id: String) -> String:
 	var normalized := track_id.strip_edges().to_lower()
 	return DEFAULT_TRACK_ID if normalized.is_empty() else normalized
@@ -115,6 +169,25 @@ static func _fallback_kitchen_package() -> Dictionary:
 		"metadata_path": KITCHEN_METADATA_PATH,
 	}
 
+static func _fallback_kitchen_map_package() -> Dictionary:
+	return {
+		"id": DEFAULT_TRACK_ID,
+		"display_name": "Kitchen / Sir Clink",
+		"version": "kitchen_v2_2026_04_29",
+		"map_definition_path": KITCHEN_MAP_PATH,
+		"map_scene_path": "res://assets/gameplay/tracks/kitchen/kitchen_editable_room.tscn",
+		"default_mode_id": "race",
+	}
+
+static func _map_packages() -> Dictionary:
+	var manifest := _load_manifest()
+	var maps: Dictionary = manifest.get("maps", {})
+	if maps.is_empty():
+		maps = {DEFAULT_TRACK_ID: _fallback_kitchen_map_package()}
+	elif not maps.has(DEFAULT_TRACK_ID):
+		maps[DEFAULT_TRACK_ID] = _fallback_kitchen_map_package()
+	return maps
+
 static func _track_summary(track_id: String, package_value: Variant) -> Dictionary:
 	var package: Dictionary = package_value if package_value is Dictionary else {}
 	var normalized := _normalize_track_id(str(package.get("id", track_id)))
@@ -126,6 +199,23 @@ static func _track_summary(track_id: String, package_value: Variant) -> Dictiona
 		"definition_path": str(package.get("definition_path", "")),
 		"metadata_path": str(package.get("metadata_path", "")),
 	}
+
+static func _map_summary(map_id: String, package_value: Variant) -> Dictionary:
+	var package: Dictionary = package_value if package_value is Dictionary else {}
+	var normalized := _normalize_track_id(str(package.get("id", map_id)))
+	var summary := {
+		"id": normalized,
+		"display_name": str(package.get("display_name", normalized.capitalize())),
+		"version": str(package.get("version", "")),
+		"map_definition_path": str(package.get("map_definition_path", "")),
+		"map_scene_path": str(package.get("map_scene_path", "")),
+		"default_mode_id": str(package.get("default_mode_id", "race")),
+	}
+	var map_definition := get_map_definition(normalized)
+	if map_definition != null:
+		summary.merge(map_definition.to_map_summary(), true)
+		summary["map_definition_path"] = str(package.get("map_definition_path", summary.get("map_definition_path", "")))
+	return summary
 
 static func _load_metadata_json(path: String) -> Dictionary:
 	if not FileAccess.file_exists(path):

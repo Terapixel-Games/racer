@@ -30,6 +30,18 @@ func test_race_distance_combines_lap_and_projected_route_distance() -> void:
 	assert_true(absf(float(distance.get("lap_distance", 0.0)) - 50.0) < 0.01, "Lap distance should come from route projection")
 	assert_true(absf(float(distance.get("total_distance", 0.0)) - 450.0) < 0.01, "Total race distance should include completed laps")
 
+func test_kitchen_grid_route_positions_order_racers_by_distance() -> void:
+	var definition := TrackCatalog.get_definition("kitchen")
+	var route: Array[Vector3] = definition.route_points
+	assert_true(route.size() >= 12, "Kitchen RoadGridMap route should expose enough points for rank projection")
+	if route.size() < 12:
+		return
+	var trailing := TrackProgressRules.race_distance(route, definition.alternate_routes, definition.checkpoint_indices, route[2], 1, definition.closed_loop)
+	var leading := TrackProgressRules.race_distance(route, definition.alternate_routes, definition.checkpoint_indices, route[10], 1, definition.closed_loop)
+	var trailing_progress := TrackProgressRules.progress_from_race_distance(1, definition.checkpoint_indices.size(), float(trailing.get("route_ratio", 0.0)))
+	var leading_progress := TrackProgressRules.progress_from_race_distance(1, definition.checkpoint_indices.size(), float(leading.get("route_ratio", 0.0)))
+	assert_true(leading_progress > trailing_progress, "Kitchen RoadGridMap route projection should rank farther karts ahead")
+
 func test_progress_from_race_distance_does_not_double_count_checkpoint_index() -> void:
 	var value := TrackProgressRules.progress_from_race_distance(1, 6, 0.25, false)
 	assert_true(absf(value - 1.5) < 0.01, "Continuous progress should be route ratio scaled by checkpoint count, not checkpoint plus route ratio")
@@ -65,6 +77,34 @@ func test_checkpoint_order_advances_and_finishes_after_lap_sequence() -> void:
 		lap = int(result.get("lap", 2))
 		lap_gate_passed = bool(result.get("lap_gate_passed", false))
 	assert_true(bool(result.get("finished", false)), "Race should finish after completing the final lap sequence")
+
+func test_kitchen_grid_checkpoint_sequence_tracks_laps_and_finish() -> void:
+	var definition := TrackCatalog.get_definition("kitchen")
+	var checkpoint_count := definition.checkpoint_indices.size()
+	assert_true(checkpoint_count >= 3, "Kitchen RoadGridMap route should expose race checkpoints")
+	var checkpoint := 0
+	var lap := 1
+	var lap_gate_passed := false
+	var result := {}
+	for completed_lap in range(1, definition.laps + 1):
+		for passed in range(checkpoint_count):
+			result = TrackProgressRules.apply_checkpoint_pass(
+				checkpoint,
+				lap,
+				lap_gate_passed,
+				passed,
+				checkpoint_count,
+				definition.lap_gate_checkpoint_index,
+				definition.laps
+			)
+			assert_true(bool(result.get("accepted", false)), "Kitchen checkpoint %d should advance in sequence" % passed)
+			checkpoint = int(result.get("checkpoint", checkpoint))
+			lap = int(result.get("lap", lap))
+			lap_gate_passed = bool(result.get("lap_gate_passed", lap_gate_passed))
+		if completed_lap < definition.laps:
+			assert_equal(lap, completed_lap + 1, "Kitchen lap should advance after the full checkpoint loop")
+			assert_true(not bool(result.get("finished", false)), "Kitchen should not finish before the final lap loop")
+	assert_true(bool(result.get("finished", false)), "Kitchen should finish after the final RoadGridMap checkpoint loop")
 
 func test_wrong_checkpoint_is_rejected() -> void:
 	var result := TrackProgressRules.apply_checkpoint_pass(1, 1, false, 3, 6, 0, 2)

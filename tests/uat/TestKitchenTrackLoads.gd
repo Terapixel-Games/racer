@@ -5,6 +5,7 @@ const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd"
 const TrackSceneAuthoringData = preload("res://scripts/track/TrackSceneAuthoringData.gd")
 const RaceController = preload("res://scripts/RaceController.gd")
 const OutOfBoundsRules = preload("res://scripts/logic/OutOfBoundsRules.gd")
+const StagePropAuthoring = preload("res://scripts/track/StagePropAuthoring.gd")
 const OUTDOOR_GRASS_SHADER := "res://assets/gameplay/materials/grass/playground_grass.gdshader"
 const OUTDOOR_GRASS_BLADE_SHADER := "res://assets/gameplay/materials/grass/playground_grass_blades.gdshader"
 const OUTDOOR_PLAYGROUND_FLOOR_TEXTURE := "res://assets/gameplay/materials/playground/outdoor_playground_floor_albedo.png"
@@ -17,6 +18,7 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	var built_track := instance.get_node_or_null("BuiltTrack")
 	assert_true(built_track != null, "Kitchen track scene should build runtime track")
 	assert_true(instance.get_node_or_null("BuiltTrack/Road") != null, "Kitchen track should include generated road")
+	assert_true(instance.get_node_or_null("BuiltTrack/GridRoad") != null, "Kitchen track should include Kenney Racing Kit grid road visuals")
 	assert_equal(_node_count_by_type(built_track, "WorldEnvironment"), 1, "Kitchen runtime should build exactly one WorldEnvironment")
 	var world_environment := instance.get_node_or_null("BuiltTrack/WorldEnvironment") as WorldEnvironment
 	assert_true(world_environment != null, "Kitchen track should include a world environment")
@@ -42,6 +44,8 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/Walls") == null, "Kitchen track should not auto-generate route walls while guard segments are being authored")
 	assert_true(instance.get_node_or_null("BuiltTrack/CheckpointSystem") != null, "Kitchen track should include checkpoint system")
 	assert_true(instance.get_node_or_null("BuiltTrack/SpawnPoints") != null, "Kitchen track should include spawn points")
+	assert_true(instance.get_node_or_null("BuiltTrack/SpawnPoints/Start01") != null, "Kitchen track should generate Start01 from RoadGridMap slots")
+	assert_true(instance.get_node_or_null("BuiltTrack/SpawnPoints/Start08") != null, "Kitchen track should generate Start08 from RoadGridMap slots")
 	assert_true(instance.get_node_or_null("BuiltTrack/ItemSockets") != null, "Kitchen track should include item sockets")
 	assert_true(instance.get_node_or_null("BuiltTrack/HazardSockets") != null, "Kitchen track should include hazard sockets")
 	assert_true(instance.get_node_or_null("BuiltTrack/ShortcutGates") != null, "Kitchen track should include shortcut gates")
@@ -58,26 +62,29 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/KitchenCeiling") == null, "Kitchen runtime should not add old hardcoded ceiling geometry over authored room scale")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/FridgeLandmark") == null, "Kitchen runtime should not duplicate old hardcoded fridge geometry over authored room scale")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom") != null, "Kitchen track should include the directly editable room scene")
-	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoutePoints/RoutePoint00") != null, "Editable room scene should expose editable route points")
-	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoutePoints/rail") == null, "Editable room route points should not contain generated rail instances")
-	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/SpawnPoints/Start01") != null, "Editable room scene should expose editable spawn points")
-	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Checkpoints/Checkpoint00_LapGate") != null, "Editable room scene should expose editable checkpoints")
-	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/ItemSockets/ItemSocket01") != null, "Editable room scene should expose editable item sockets")
-	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/floor") != null, "Editable room scene should include the authored floor")
-	assert_true(not (instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/floor") is CollisionObject3D), "Editable room floor should be visual-only so it cannot block the course")
-	assert_true(_node_position(instance, "BuiltTrack/Dressing/EditableRoom/floor").y <= -32.0, "Editable room floor should stay below the playable course")
-	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoomShell/BackWall") != null, "Editable room scene should include selectable room shell pieces")
-	assert_true(not _node_visible(instance, "BuiltTrack/Dressing/EditableRoom/RoomShell/BackWall"), "Kitchen back wall should be split around the window instead of blocking the view")
-	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoomShell/BackWallLeftOfWindow") != null, "Kitchen window should keep editable wall trim on the left")
-	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoomShell/BackWallRightOfWindow") != null, "Kitchen window should keep editable wall trim on the right")
-	assert_true(_mesh_material_alpha(instance, "BuiltTrack/Dressing/EditableRoom/RoomShell/WindowGlass") <= 0.15, "Kitchen window glass should be transparent enough for sky visibility")
-	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Appliances/kitchenSink") != null, "Editable room scene should preserve hand-placed kitchen props")
-	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/WaterSurfaces/SinkWater") != null, "Editable room scene should include authored sink water")
-	assert_true(_node_position(instance, "BuiltTrack/Dressing/EditableRoom/WaterSurfaces/SinkWater").distance_to(_authored_kitchen_position("WaterSurfaces/SinkWater")) <= 0.05, "Kitchen sink water should stay at the authored editable scene location")
-	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/WaterSurfaces/WasherWater") != null, "Editable room scene should include authored washer water")
-	assert_true(_node_has_script(instance, "BuiltTrack/Dressing/EditableRoom/washer"), "Editable room washer should run its in-place rumble script")
-	assert_true(_node_has_script(instance, "BuiltTrack/Dressing/EditableRoom/dryer"), "Editable room dryer should run its in-place rumble script")
-	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/UpperCabinets") != null, "Editable room scene should preserve authored upper cabinet grouping")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoadGridMap") != null, "Editable room scene should expose the authored RoadGridMap")
+	var road_grid_map := instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoadGridMap")
+	assert_equal((road_grid_map.get("spawn_slots") as Array).size() if road_grid_map != null else 0, 8, "Editable room RoadGridMap should author the full spawn grid")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/TrackAuthoringPreview") == null, "Kitchen editable room should not keep the legacy TrackAuthoringPreview")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoadSegments") == null, "Kitchen editable room should not keep legacy road segment authoring")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/SpawnPoints") == null, "Kitchen grid gameplay should not require legacy editable spawn markers")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/Checkpoints/Checkpoint00_LapGate") != null, "Editable room scene should expose editable checkpoints")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/ItemSockets/ItemSocket01") != null, "Editable room scene should expose editable item sockets")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/floor") != null, "Editable room scene should include the authored floor")
+	assert_true(not (instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/floor") is CollisionObject3D), "Editable room floor should be visual-only so it cannot block the course")
+	assert_true(_node_position(instance, "BuiltTrack/Dressing/EditableRoom/Track/floor").y <= -32.0, "Editable room floor should stay below the playable course")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/RoomShell/BackWall") != null, "Editable room scene should include selectable room shell pieces")
+	assert_true(not _node_visible(instance, "BuiltTrack/Dressing/EditableRoom/Track/RoomShell/BackWall"), "Kitchen back wall should be split around the window instead of blocking the view")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/RoomShell/BackWallLeftOfWindow") != null, "Kitchen window should keep editable wall trim on the left")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/RoomShell/BackWallRightOfWindow") != null, "Kitchen window should keep editable wall trim on the right")
+	assert_true(_mesh_material_alpha(instance, "BuiltTrack/Dressing/EditableRoom/Track/RoomShell/WindowGlass") <= 0.15, "Kitchen window glass should be transparent enough for sky visibility")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/Appliances/kitchenSink") != null, "Editable room scene should preserve hand-placed kitchen props")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/WaterSurfaces/SinkWater") != null, "Editable room scene should include authored sink water")
+	assert_true(_node_position(instance, "BuiltTrack/Dressing/EditableRoom/Track/WaterSurfaces/SinkWater").distance_to(_authored_kitchen_position("Track/WaterSurfaces/SinkWater")) <= 0.05, "Kitchen sink water should stay at the authored editable scene location")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/WaterSurfaces/WasherWater") != null, "Editable room scene should include authored washer water")
+	assert_true(_node_has_script(instance, "BuiltTrack/Dressing/EditableRoom/Track/washer"), "Editable room washer should run its in-place rumble script")
+	assert_true(_node_has_script(instance, "BuiltTrack/Dressing/EditableRoom/Track/dryer"), "Editable room dryer should run its in-place rumble script")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/UpperCabinets") != null, "Editable room scene should preserve authored upper cabinet grouping")
 	assert_equal(_enabled_collision_objects(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom")), 0, "Editable room dressing should not collide with the kart")
 	assert_equal(instance.get_node_or_null("BuiltTrack/Dressing").get_child_count(), 1, "Kitchen runtime dressing should only instantiate the editable room")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/StageProps") == null, "Kitchen runtime should not instantiate metadata stage props")
@@ -85,76 +92,9 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/KitchenSink") == null, "Kitchen runtime should not add hardcoded sink dressing")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/SpoonHazard") == null, "Kitchen runtime should not add hardcoded food hazards")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/FridgeTopSpeedStrip") == null, "Kitchen runtime should not add hardcoded route stripes")
-	instance.queue_free()
-
-func test_kitchen_authoring_scene_builds_editor_preview() -> void:
-	var packed := load("res://assets/gameplay/tracks/kitchen/kitchen_authoring.tscn")
-	assert_true(packed is PackedScene, "Kitchen authoring scene should load")
-	var instance := (packed as PackedScene).instantiate()
-	scene_tree.root.add_child(instance)
-	assert_true(instance.has_method("refresh_preview"), "Kitchen authoring root should expose preview refresh")
-	assert_true(instance.has_method("sync_markers_from_definition"), "Kitchen authoring root should expose marker sync")
-	assert_true(instance.has_method("apply_markers_to_definition"), "Kitchen authoring root should expose definition export")
-	assert_true(instance.has_method("export_metadata"), "Kitchen authoring root should expose metadata export")
-	assert_true(instance.has_method("validate_authoring"), "Kitchen authoring root should expose authoring validation")
-	var summary := instance.call("get_authoring_summary") as Dictionary
-	assert_equal(int(summary.get("route_points", 0)), 38, "Kitchen builder should report editable route points")
-	assert_equal(int(summary.get("spawn_points", 0)), 8, "Kitchen builder should report editable spawn points")
-	assert_equal(int(summary.get("checkpoints", 0)), 6, "Kitchen builder should report editable checkpoints")
-	assert_true(int(summary.get("dressing_props", 0)) >= 10, "Kitchen builder should report selectable editable dressing props")
-	assert_equal(int(summary.get("surface_segments", 0)), 3, "Kitchen builder should report editable surface segments")
-	assert_equal(int(summary.get("audio_zones", 0)), 4, "Kitchen builder should report editable audio zones")
-	assert_equal((instance.call("validate_authoring") as Array).size(), 0, "Kitchen authoring markers should validate against track rules")
-	instance.set("preview_enabled", true)
-	instance.call("refresh_preview")
-	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewCounterSurface") == null, "Authoring preview should not ghost the room surface")
-	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewTrackBody") != null, "Authoring preview should include the raised track body")
-	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewRoad") != null, "Authoring preview should include generated road")
-	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewRails") != null, "Authoring preview should include generated rails")
-	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewWalls") == null, "Authoring preview should keep auto wall preview off by default")
-	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewHeightGuides/RouteHeight00") == null, "Authoring preview should not ghost height guides")
-	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewHeightGuides/OverUnderGap04") == null, "Authoring preview should not show old over-under gap markers on the flattened room route")
-	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewMarkers/RoutePoints/RoutePoint00") == null, "Authoring preview should not ghost marker blocks")
-	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewMarkers/RoutePoints/RoutePoint00_Label") == null, "Authoring preview should keep position labels off by default so they do not block the scene")
-	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewMarkers/ItemSockets/ItemSocket01") == null, "Authoring preview should not ghost item socket markers")
-	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewMarkers/SurfaceSegments/CountertopMain") == null, "Authoring preview should not ghost surface segment markers")
-	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewMarkers/AudioZones/SinkSplashZone") == null, "Authoring preview should not ghost audio zone markers")
-	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewMarkers/AudioZones/StoveSizzleZone") == null, "Authoring preview should not ghost stove audio zone markers")
-	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewDressingLayout/Dressing/EditableRoom") == null, "Authoring preview should not ghost the editable room dressing layout")
-	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewDressingLayout/Dressing/KitchenSink") == null, "Authoring preview should not add legacy runtime dressing")
-	assert_true(instance.get_node_or_null("Dressing/KitchenSink") != null, "Authoring scene should include an editable KitchenSink dressing marker")
-	assert_true(instance.get_node_or_null("Dressing/KitchenSink").has_method("to_stage_prop"), "Kitchen sink should be a selectable stage prop authoring node")
-	assert_true(instance.get_node_or_null("Dressing/FridgeLandmark").has_method("to_stage_prop"), "Kitchen fridge should be a selectable stage prop authoring node")
-	assert_true(instance.get_node_or_null("SurfaceSegments/FridgeTop").has_method("to_surface_segment"), "Kitchen surface segments should export authoring data")
-	assert_true(instance.get_node_or_null("AudioZones/SinkSplashZone").has_method("to_audio_zone"), "Kitchen audio zones should export authoring data")
-	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewDressingLayout/DressingLabels/EditableRoom_Label") == null, "Authoring preview should keep dressing labels off by default")
-	instance.set("show_marker_labels", true)
-	instance.call("refresh_preview")
-	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewMarkers/RoutePoints/RoutePoint00_Label") == null, "Authoring preview should not label marker ghosts")
-	assert_true(instance.get_node_or_null("EditorTrackPreview/PreviewDressingLayout/DressingLabels/EditableRoom_Label") == null, "Authoring preview should not label dressing ghosts")
-	instance.queue_free()
-
-func test_kitchen_authoring_preview_follows_moved_route_holder() -> void:
-	var packed := load("res://assets/gameplay/tracks/kitchen/kitchen_authoring.tscn")
-	assert_true(packed is PackedScene, "Kitchen authoring scene should load")
-	var instance := (packed as PackedScene).instantiate()
-	scene_tree.root.add_child(instance)
-	var holder := instance.get_node_or_null("RoutePoints") as Node3D
-	var marker := instance.get_node_or_null("RoutePoints/RoutePoint00") as Marker3D
-	assert_true(holder != null and marker != null, "Kitchen authoring scene should expose route point markers")
-	if holder == null or marker == null:
-		instance.queue_free()
-		return
-	holder.position += Vector3(11.0, 0.0, -7.0)
-	var expected := (instance as Node3D).to_local(marker.global_position)
-	instance.set("preview_enabled", true)
-	instance.call("refresh_preview")
-	var road := instance.get_node_or_null("EditorTrackPreview/PreviewRoad")
-	assert_true(road != null, "Authoring preview should create road geometry")
-	var points := road.get("points") as Array
-	assert_true(points.size() > 0, "Preview road should expose generated points")
-	if points.size() > 0:
-		assert_true((points[0] as Vector3).distance_to(expected) < 0.01, "Preview road should include route holder transforms")
+	var definition := TrackSceneAuthoringData.apply_to_definition(TrackCatalog.get_definition("kitchen"))
+	assert_true(_runtime_spawn_matches_socket(instance, "BuiltTrack/SpawnPoints/Start01", definition.spawn_points[0]), "Generated Start01 should match the first RoadGridMap-authored slot")
+	assert_true(_runtime_spawn_matches_socket(instance, "BuiltTrack/SpawnPoints/Start08", definition.spawn_points[7]), "Generated Start08 should match the eighth RoadGridMap-authored slot")
 	instance.queue_free()
 
 func test_outdoor_playground_runtime_uses_grass_shader() -> void:
@@ -179,6 +119,8 @@ func test_outdoor_playground_runtime_uses_grass_shader() -> void:
 func test_attic_mayhem_authoring_scene_contains_redesign_assets() -> void:
 	assert_true(FileAccess.file_exists("res://assets/gameplay/tracks/attic/reference/attic_mayhem_reference.png"), "Attic Mayhem reference image should be copied into the repo")
 	assert_true(FileAccess.file_exists("res://assets/gameplay/tracks/attic/props/source/jack_in_the_box_source.glb"), "Jack-in-the-box source GLB should be retained for future cleanup")
+	assert_true(FileAccess.file_exists("res://assets/gameplay/tracks/attic/props/jack_parts/jack_in_the_box_parts.glb"), "Jack-in-the-box split runtime GLB should exist")
+	assert_true(FileAccess.get_file_as_bytes("res://assets/gameplay/tracks/attic/props/JackInTheBoxSetpiece.tscn").size() < 1000000, "Jack-in-the-box scene should stay lightweight and not embed GLB mesh payloads")
 	assert_true(FileAccess.file_exists("res://assets/gameplay/tracks/attic/props/old_chest.glb"), "Old chest GLB should be imported")
 	assert_true(FileAccess.file_exists("res://assets/gameplay/tracks/attic/props/industrial_object.glb"), "Industrial object GLB should be imported")
 	assert_true(FileAccess.file_exists("res://assets/source/audio/sfx/attic/wind_blowing.mp3"), "Attic wind audio should be imported")
@@ -220,6 +162,14 @@ func test_jack_in_the_box_setpiece_builds_animated_parts() -> void:
 	scene_tree.root.add_child(instance)
 	for node_path in ["BoxBase", "Lid", "Crank", "Spring", "SpringCoil", "ClownHead", "Eyes", "Mouth", "Hat", "LeftHand", "RightHand", "TriggerArea", "AnimationPlayer", "CrankAudio", "SpringAudio", "LaughAudio"]:
 		assert_true(instance.get_node_or_null(node_path) != null, "Jack-in-the-box setpiece should create %s" % node_path)
+	for node_path in ["BoxBase/SourcePart", "Lid/SourcePart", "Crank/SourcePart", "Spring/SourcePart", "ClownHead/SourcePart"]:
+		assert_true(instance.get_node_or_null(node_path) != null, "Jack-in-the-box should use a split Meshy source part at %s" % node_path)
+	assert_true(instance.get_node_or_null("Lid/HingedCover") == null, "Jack-in-the-box should not create placeholder lid geometry when split source parts are available")
+	assert_true(instance.get_node_or_null("Crank/CrankVisual") == null, "Jack-in-the-box should animate the split source crank instead of placeholder geometry")
+	assert_true(instance.get_node_or_null("ClownHead/Mesh") == null, "Split Meshy clown part should replace the old spherical clown head placeholder")
+	assert_true(not (instance.get_node_or_null("Spring") as Node3D).visible, "Spring should be hidden while the box is closed")
+	assert_true((instance.get_node_or_null("Lid/SourcePart") as Node3D).visible, "Split source lid part should drive the lid animation instead of placeholder geometry")
+	assert_true((instance.get_node_or_null("Crank/SourcePart") as Node3D).visible, "Split source crank should stay visible and rotate around the crank pivot")
 	var trigger_area := instance.get_node_or_null("TriggerArea") as Area3D
 	assert_true(trigger_area != null and trigger_area.get_node_or_null("CollisionShape3D") is CollisionShape3D, "Jack-in-the-box should expose an Area3D trigger shape")
 	assert_true(instance.has_method("trigger"), "Jack-in-the-box should expose a trigger method")
@@ -231,6 +181,56 @@ func test_jack_in_the_box_setpiece_builds_animated_parts() -> void:
 	assert_true((instance.get_node_or_null("CrankAudio") as AudioStreamPlayer3D).stream != null, "Jack crank stream should load")
 	assert_true((instance.get_node_or_null("SpringAudio") as AudioStreamPlayer3D).stream != null, "Jack spring stream should load")
 	assert_true((instance.get_node_or_null("LaughAudio") as AudioStreamPlayer3D).stream != null, "Jack laugh stream should load")
+	instance.queue_free()
+
+func test_stage_prop_authoring_does_not_build_heavy_preview_at_runtime() -> void:
+	var prop := StagePropAuthoring.new()
+	prop.prop_kind = "scene"
+	prop.asset_path = "res://assets/gameplay/tracks/attic/props/JackInTheBoxSetpiece.tscn"
+	prop.preview_enabled = true
+	scene_tree.root.add_child(prop)
+	assert_true(prop.get_node_or_null("GeneratedPreview") == null, "Authoring prop previews should be editor-only so level select does not synchronously load heavy GLBs")
+	prop.queue_free()
+
+func test_jack_in_the_box_exposes_editor_tuning_and_preview() -> void:
+	var packed := load("res://assets/gameplay/tracks/attic/props/JackInTheBoxSetpiece.tscn")
+	assert_true(packed is PackedScene, "Jack-in-the-box setpiece scene should load")
+	var instance := (packed as PackedScene).instantiate() as Node3D
+	scene_tree.root.add_child(instance)
+	instance.set("lid_hinge_position", Vector3(0.25, 2.1, 0.6))
+	instance.set("lid_source_position", Vector3(0.1, 0.2, -0.3))
+	instance.set("lid_closed_rotation_x", 135.0)
+	instance.set("crank_pivot_position", Vector3(-0.6, 1.5, 0.25))
+	instance.set("crank_source_position", Vector3(0.7, 0.9, -0.2))
+	instance.set("crank_preview_degrees", 45.0)
+	instance.call("_apply_editor_preview_pose")
+	var lid := instance.get_node_or_null("Lid") as Node3D
+	var crank := instance.get_node_or_null("Crank") as Node3D
+	var lid_source := instance.get_node_or_null("Lid/SourcePart") as Node3D
+	var crank_source := instance.get_node_or_null("Crank/SourcePart") as Node3D
+	assert_equal(lid.position, Vector3(0.25, 2.1, 0.6), "Editor tuning should move the lid hinge object")
+	assert_equal(lid_source.position, Vector3(0.1, 0.2, -0.3), "Editor tuning should move the visible split lid source object")
+	assert_equal(crank.position, Vector3(-0.6, 1.5, 0.25), "Editor tuning should move the crank pivot object")
+	assert_equal(crank_source.position, Vector3(0.7, 0.9, -0.2), "Editor tuning should move the visible split crank source object")
+	assert_true(absf(lid.rotation_degrees.x - 135.0) <= 0.01, "Editor closed preview should use the tuned lid rotation")
+	assert_true(absf(crank.rotation_degrees.x - 45.0) <= 0.01, "Editor closed preview should use the tuned crank preview rotation")
+	instance.set("editor_preview_pose", JackInTheBoxSetpiece.EditorPreviewPose.OPEN)
+	instance.call("_apply_editor_preview_pose")
+	assert_true((instance.get_node_or_null("ClownHead") as Node3D).visible, "Editor open preview should show the clown source object")
+	assert_true((instance.get_node_or_null("Spring") as Node3D).visible, "Editor open preview should show the spring source object")
+	instance.queue_free()
+
+func test_jack_in_the_box_shows_clown_source_part_during_pop() -> void:
+	var packed := load("res://assets/gameplay/tracks/attic/props/JackInTheBoxSetpiece.tscn")
+	assert_true(packed is PackedScene, "Jack-in-the-box setpiece scene should load")
+	var instance := (packed as PackedScene).instantiate() as Node3D
+	scene_tree.root.add_child(instance)
+	var clown_head := instance.get_node_or_null("ClownHead") as Node3D
+	assert_true(clown_head != null and clown_head.get_node_or_null("SourcePart") != null and not clown_head.visible, "Split clown part should start hidden inside the closed box")
+	instance.call("trigger")
+	for i in range(13):
+		instance.call("_process", 0.1)
+	assert_true(clown_head.visible, "Split clown part should become visible during the pop")
 	instance.queue_free()
 
 func test_jack_in_the_box_only_triggers_for_racers() -> void:
@@ -271,7 +271,7 @@ func test_jack_in_the_box_retriggers_after_cooldown() -> void:
 	instance.set("popped_open_seconds", 0.1)
 	instance.set("cooldown_seconds", 0.2)
 	instance.call("trigger")
-	for i in range(24):
+	for i in range(36):
 		instance.call("_process", 0.1)
 	assert_true(bool(instance.call("is_closed")), "Jack-in-the-box should close after its first pop")
 	instance.call("trigger")
@@ -374,6 +374,15 @@ func _node_position(root: Node, path: NodePath) -> Vector3:
 	if node == null:
 		return Vector3.ZERO
 	return node.transform.origin
+
+func _runtime_spawn_matches_socket(root: Node, path: NodePath, socket: Vector4) -> bool:
+	var node := root.get_node_or_null(path) as Node3D
+	if node == null:
+		return false
+	var expected := Vector3(socket.x, socket.y, socket.z)
+	var expected_yaw := socket.w
+	var actual_yaw := rad_to_deg(node.transform.basis.get_euler().y)
+	return node.transform.origin.distance_to(expected) <= 0.01 and absf(angle_difference(deg_to_rad(actual_yaw), deg_to_rad(expected_yaw))) <= 0.01
 
 func _authored_kitchen_position(path: NodePath) -> Vector3:
 	var packed := load("res://assets/gameplay/tracks/kitchen/kitchen_editable_room.tscn")

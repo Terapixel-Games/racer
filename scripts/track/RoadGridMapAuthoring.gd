@@ -6,6 +6,7 @@ class_name RoadGridMapAuthoring
 @export var checkpoint_route_indices: Array[int] = []
 @export var item_route_indices: Array[int] = []
 @export var hazard_route_indices: Array[int] = []
+@export var spawn_slots: Array[RoadGridSpawn] = []
 @export var road_width_override := 0.0
 
 func to_grid_road_layout(default_road_width := 12.0) -> Dictionary:
@@ -37,6 +38,7 @@ func to_grid_road_layout(default_road_width := 12.0) -> Dictionary:
 		"ordered_route_cells": ordered_route_cells.duplicate(),
 		"ordered_route_points": _ordered_route_points(),
 		"checkpoint_route_indices": checkpoint_route_indices.duplicate(),
+		"spawn_slots": _spawn_slot_layouts(),
 		"item_route_indices": item_route_indices.duplicate(),
 		"hazard_route_indices": hazard_route_indices.duplicate(),
 	}
@@ -47,6 +49,13 @@ func _ordered_route_points() -> Array[Vector3]:
 	for cell in ordered_route_cells:
 		points.append(root_transform * map_to_local(cell))
 	return points
+
+func _spawn_slot_layouts() -> Array[Dictionary]:
+	var slots: Array[Dictionary] = []
+	for slot in spawn_slots:
+		if slot != null:
+			slots.append(slot.to_layout_data())
+	return slots
 
 func _root_space_transform() -> Transform3D:
 	if is_inside_tree():
