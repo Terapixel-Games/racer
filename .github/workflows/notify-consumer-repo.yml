@@ -15,7 +15,7 @@ on:
       target_repo:
         description: "Target repo in owner/name format"
         required: false
-        default: "TeraPixelGames/terapixel.games"
+        default: "Terapixel-Games/terapixel.games"
       dispatch_event_type:
         description: "repository_dispatch event type"
         required: false
@@ -51,7 +51,7 @@ jobs:
 
           TARGET_REPO="$INPUT_TARGET_REPO"
           if [ -z "$TARGET_REPO" ]; then
-            TARGET_REPO="TeraPixelGames/terapixel.games"
+            TARGET_REPO="Terapixel-Games/terapixel.games"
           fi
           if [ -z "$TARGET_REPO" ]; then
             echo "Missing target repo (owner/name)."
