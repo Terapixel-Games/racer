@@ -12,8 +12,11 @@ const TrackSourceRules = preload("res://scripts/track/TrackSourceRules.gd")
 @export var progress_rule_id := TrackSourceRules.PROGRESS_ROUTE_LAP
 @export var win_condition_id := TrackSourceRules.WIN_CHECKPOINT_LAPS
 @export var road_width := 12.0
-@export var wall_height := 1.6
-@export var wall_thickness := 0.45
+@export var wall_height := 3.0
+@export var wall_thickness := 0.6
+@export var rails_enabled := false
+@export var boundary_walls_enabled := true
+@export var boundary_wall_debug_visible := false
 @export var closed_loop := true
 @export var out_of_bounds_y := -50.0
 @export var reset_mode := ""
@@ -125,6 +128,9 @@ func to_metadata() -> Dictionary:
 		"road_width": road_width,
 		"wall_height": wall_height,
 		"wall_thickness": wall_thickness,
+		"rails_enabled": rails_enabled,
+		"boundary_walls_enabled": boundary_walls_enabled,
+		"boundary_wall_debug_visible": boundary_wall_debug_visible,
 		"closed_loop": closed_loop,
 		"out_of_bounds_y": out_of_bounds_y,
 		"reset_mode": reset_mode,

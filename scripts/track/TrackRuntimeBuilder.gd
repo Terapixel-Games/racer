@@ -45,7 +45,9 @@ static func build(definition: TrackDefinition) -> Dictionary:
 	_build_ground(root, definition)
 	_build_track_body(root, definition)
 	_build_road(root, definition)
-	_build_route_network_rails(root, definition)
+	_build_boundary_walls(root, definition)
+	if definition.rails_enabled:
+		_build_route_network_rails(root, definition)
 	var spawns := _build_spawns(root, definition)
 	var waypoints := _build_waypoints(root, definition)
 	_build_checkpoints(root, definition)
@@ -307,6 +309,78 @@ static func _build_route_network_rails(root: Node3D, definition: TrackDefinition
 			[],
 			str(route["key"])
 		)
+
+static func _build_boundary_walls(root: Node3D, definition: TrackDefinition) -> void:
+	if not definition.boundary_walls_enabled:
+		return
+	if definition.road_visual_style != "kenney_gridmap" or definition.road_grid_layout.is_empty():
+		return
+	var segments := TrackGridRoadBuilder.boundary_wall_segments_from_grid_layout(
+		definition.road_grid_layout,
+		definition.wall_height,
+		definition.wall_thickness
+	)
+	if segments.is_empty():
+		return
+	var holder := Node3D.new()
+	holder.name = "BoundaryWalls"
+	root.add_child(holder)
+	var debug_material := _boundary_wall_debug_material() if definition.boundary_wall_debug_visible else null
+	for i in range(segments.size()):
+		_add_boundary_wall_segment(holder, segments[i] as Dictionary, i, debug_material)
+
+static func _add_boundary_wall_segment(parent: Node3D, segment: Dictionary, index: int, debug_material: Material) -> void:
+	var a := segment.get("a", Vector3.ZERO) as Vector3
+	var b := segment.get("b", Vector3.ZERO) as Vector3
+	var outward := segment.get("outward", Vector3.ZERO) as Vector3
+	var horizontal_a := Vector3(a.x, 0.0, a.z)
+	var horizontal_b := Vector3(b.x, 0.0, b.z)
+	var along := horizontal_b - horizontal_a
+	var length := along.length()
+	if length <= 0.001 or outward.length_squared() <= 0.001:
+		return
+	along = along / length
+	outward.y = 0.0
+	outward = outward.normalized()
+	var height := maxf(float(segment.get("height", 0.0)), 0.01)
+	var thickness := maxf(float(segment.get("thickness", TrackGridRoadBuilder.BOUNDARY_WALL_THICKNESS)), 0.01)
+	var edge_overlap := maxf(float(segment.get("edge_overlap", 0.0)), 0.0)
+	var join_overlap := maxf(float(segment.get("join_overlap", 0.0)), 0.0)
+	var bottom := float(segment.get("bottom", 0.0))
+	var mid := (a + b) * 0.5
+	mid.y = bottom + height * 0.5
+	mid += outward * (thickness * 0.5 - edge_overlap)
+	var body := StaticBody3D.new()
+	body.name = "BoundaryWall%04d" % index
+	body.collision_layer = 1
+	body.collision_mask = 2
+	body.set_meta("grid_cell", segment.get("cell", Vector3i.ZERO))
+	body.set_meta("grid_direction", segment.get("direction", Vector3i.ZERO))
+	body.set_meta("grid_item", int(segment.get("item", -1)))
+	body.transform = Transform3D(Basis(along, Vector3.UP, outward), mid)
+	var shape_node := CollisionShape3D.new()
+	shape_node.name = "CollisionShape3D"
+	var shape := BoxShape3D.new()
+	shape.size = Vector3(length + join_overlap, height, thickness)
+	shape_node.shape = shape
+	body.add_child(shape_node)
+	if debug_material != null:
+		var mesh_instance := MeshInstance3D.new()
+		mesh_instance.name = "DebugMesh"
+		var mesh := BoxMesh.new()
+		mesh.size = shape.size
+		mesh_instance.mesh = mesh
+		mesh_instance.material_override = debug_material
+		body.add_child(mesh_instance)
+	parent.add_child(body)
+
+static func _boundary_wall_debug_material() -> Material:
+	var material := StandardMaterial3D.new()
+	material.albedo_color = Color(0.1, 0.85, 1.0, 0.28)
+	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	material.cull_mode = BaseMaterial3D.CULL_DISABLED
+	return material
 
 static func _build_walls(root: Node3D, definition: TrackDefinition) -> void:
 	var holder := Node3D.new()

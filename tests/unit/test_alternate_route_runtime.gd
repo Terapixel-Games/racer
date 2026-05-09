@@ -12,17 +12,11 @@ func test_runtime_ignores_alternate_routes_for_mvp_gridmap() -> void:
 	var built := TrackRuntimeBuilder.build(definition)
 	var track := built.get("node", null) as Node3D
 	scene_tree.root.add_child(track)
-	var rails := track.get_node_or_null("Rails")
-	assert_true(rails != null, "Runtime should build canonical route rails")
-	assert_true(rails != null and rails.get_child_count() > 0, "Canonical route rails should instantiate rail pieces")
-	assert_true(_enabled_collision_objects(rails) > 0, "Canonical route rails should include collision")
-	assert_true(_first_collision_shape(rails) is CapsuleShape3D, "Canonical route rails should use rounded capsule collision so karts can roll off")
-	var rail_body := _first_collision_body(rails)
-	assert_true(rail_body != null and rail_body.physics_material_override != null, "Canonical route rails should use a slick physics material")
-	if rail_body != null and rail_body.physics_material_override != null:
-		assert_true(rail_body.physics_material_override.friction <= 0.05, "Rail collision should stay slick instead of grabbing karts")
-	var rail_shape := _first_enabled_collision_shape(rails) as CapsuleShape3D
-	assert_true(rail_shape != null and rail_shape.radius <= 0.05, "Rail collision should use low world-space radius instead of inheriting visual scale")
+	assert_true(track.get_node_or_null("Rails") == null, "Runtime should not build canonical route rails for GridMap MVP containment")
+	var boundary_walls := track.get_node_or_null("BoundaryWalls")
+	assert_true(boundary_walls != null, "Runtime should build GridMap boundary walls")
+	assert_true(_enabled_collision_objects(boundary_walls) > 0, "Boundary walls should include collision")
+	assert_true(_first_collision_shape(boundary_walls) is BoxShape3D, "Boundary walls should use simple box collision segments")
 	assert_true(track.get_node_or_null("AlternateRoutes") == null, "MVP GridMap runtime should not build alternate route geometry")
 	assert_true(track.get_node_or_null("CheckpointSystem/Checkpoint01") != null, "Alternate routes should keep shared checkpoint system")
 	track.queue_free()

@@ -19,12 +19,20 @@ static func apply_to_definition(source: TrackDefinition, mode_config: Dictionary
 	var definition := source.duplicate(true) as TrackDefinition
 	var road_source := _road_source_for(definition, mode_config)
 	if definition.dressing_scene_path.strip_edges().is_empty():
+		var explicit_layout := _race_layout_from_definition_grid(definition)
+		if explicit_layout != null and explicit_layout.is_valid():
+			_apply_race_layout(definition, explicit_layout)
+			return definition
 		var fallback_layout := TrackGridRoadBuilder.race_layout_from_grid_layout(_mvp_grid_layout_from_definition(definition), definition.closed_loop)
 		if fallback_layout != null and fallback_layout.is_valid():
 			_apply_race_layout(definition, fallback_layout)
 		return definition
 	var packed := load(definition.dressing_scene_path)
 	if not (packed is PackedScene):
+		var explicit_layout := _race_layout_from_definition_grid(definition)
+		if explicit_layout != null and explicit_layout.is_valid():
+			_apply_race_layout(definition, explicit_layout)
+			return definition
 		var fallback_layout := TrackGridRoadBuilder.race_layout_from_grid_layout(_mvp_grid_layout_from_definition(definition), definition.closed_loop)
 		if fallback_layout != null and fallback_layout.is_valid():
 			_apply_race_layout(definition, fallback_layout)
@@ -58,6 +66,19 @@ static func _race_layout_from_grid(scene_root: Node3D, definition: TrackDefiniti
 		return null
 	var race_layout := TrackGridRoadBuilder.race_layout_from_grid_layout(grid_layout, definition.closed_loop)
 	return race_layout if race_layout.is_valid() else null
+
+static func _race_layout_from_definition_grid(definition: TrackDefinition) -> RaceLayout:
+	if not _definition_has_complete_grid_layout(definition):
+		return null
+	var race_layout := TrackGridRoadBuilder.race_layout_from_grid_layout(definition.road_grid_layout, definition.closed_loop)
+	return race_layout if race_layout.is_valid() else null
+
+static func _definition_has_complete_grid_layout(definition: TrackDefinition) -> bool:
+	if definition == null or definition.road_grid_layout.is_empty():
+		return false
+	var cells := definition.road_grid_layout.get("cells", []) as Array
+	var route_cells := definition.road_grid_layout.get("ordered_route_cells", []) as Array
+	return cells.size() >= 3 and route_cells.size() >= 3
 
 static func _apply_race_layout(definition: TrackDefinition, race_layout: RaceLayout) -> void:
 	if not race_layout.road_visual_style.strip_edges().is_empty():

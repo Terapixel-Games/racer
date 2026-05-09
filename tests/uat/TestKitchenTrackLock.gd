@@ -8,7 +8,7 @@ const ROUTE_RAY_SAMPLE_INDICES := [0, 2, 17, 36, 57, 72, 96, 118, 136, 151, 170]
 const START_SUPPORT_MIN_Y_OFFSET := -1.5
 const START_SUPPORT_MAX_Y_OFFSET := 6.0
 
-func test_kitchen_runtime_uses_rail_era_collision_contract() -> void:
+func test_kitchen_runtime_uses_gridmap_wall_collision_contract() -> void:
 	var packed := load("res://assets/gameplay/tracks/kitchen/kitchen_track.tscn") as PackedScene
 	assert_true(packed != null, "Kitchen track scene should load")
 	if packed == null:
@@ -20,12 +20,14 @@ func test_kitchen_runtime_uses_rail_era_collision_contract() -> void:
 
 	var built_track := instance.get_node_or_null("BuiltTrack")
 	assert_true(built_track != null, "Kitchen should build the runtime track package")
-	assert_true(instance.get_node_or_null("BuiltTrack/BoundaryWalls") == null, "Kitchen should not build the reverted invisible boundary wall system")
 	assert_true(instance.get_node_or_null("BuiltTrack/TrackBody") == null, "Kitchen GridMap mode should not show the old broad track body")
 	assert_true(instance.get_node_or_null("BuiltTrack/GridRoad") is GridMap, "Kitchen visible road should be the generated GridMap road")
 	assert_equal(_enabled_collision_objects(instance.get_node_or_null("BuiltTrack/GridRoad")), 0, "GridRoad visuals should stay collision-free")
-	assert_true(instance.get_node_or_null("BuiltTrack/Rails") != null, "Kitchen should keep the pre-wall generated rails")
-	assert_true(_enabled_collision_objects(instance.get_node_or_null("BuiltTrack/Rails")) > 0, "Kitchen rails should remain collidable")
+	assert_true(instance.get_node_or_null("BuiltTrack/Rails") == null, "Kitchen should not build rail containment")
+	var boundary_walls := instance.get_node_or_null("BuiltTrack/BoundaryWalls")
+	assert_true(boundary_walls != null, "Kitchen should build invisible boundary wall containment")
+	assert_true(_enabled_collision_objects(boundary_walls) > 0, "Kitchen boundary walls should be collidable")
+	assert_equal(_mesh_instance_count(boundary_walls), 0, "Kitchen boundary walls should not render debug meshes in normal runtime")
 
 	var road_body := instance.get_node_or_null("BuiltTrack/Road/CollisionBody") as StaticBody3D
 	var road_shape := instance.get_node_or_null("BuiltTrack/Road/CollisionBody/CollisionShape3D") as CollisionShape3D
@@ -114,4 +116,12 @@ func _enabled_collision_objects(node: Node) -> int:
 			count += 1
 	for child in node.get_children():
 		count += _enabled_collision_objects(child)
+	return count
+
+func _mesh_instance_count(node: Node) -> int:
+	if node == null:
+		return 0
+	var count := 1 if node is MeshInstance3D else 0
+	for child in node.get_children():
+		count += _mesh_instance_count(child)
 	return count

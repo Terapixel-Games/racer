@@ -250,6 +250,48 @@ func test_grid_collision_mesh_uses_ramp_tile_geometry() -> void:
 	assert_true(mesh.get_surface_count() > 0, "Grid collision mesh should include painted tile geometry")
 	assert_true(mesh.get_aabb().size.y > 3.5, "Ramp collision should preserve the ramp height instead of flattening to the route ribbon")
 
+func test_grid_boundary_walls_skip_same_height_internal_edges() -> void:
+	var layout := _boundary_layout([
+		{"cell": Vector3i(0, 0, 0), "item": TrackGridRoadBuilder.TILE_STRAIGHT},
+		{"cell": Vector3i(1, 0, 0), "item": TrackGridRoadBuilder.TILE_STRAIGHT},
+	], [Vector3i(0, 0, 0), Vector3i(1, 0, 0)])
+	var segments := TrackGridRoadBuilder.boundary_wall_segments_from_grid_layout(layout, 3.0, 0.6)
+	assert_true(segments.size() > 0, "Exposed GridMap edges should generate boundary walls")
+	assert_true(not _has_wall_for_edge(segments, Vector3i(0, 0, 0), Vector3i.RIGHT), "Same-height connected route cells should not get an internal wall")
+	assert_true(not _has_wall_for_edge(segments, Vector3i(1, 0, 0), Vector3i.LEFT), "The opposite side of the same-height connection should also stay open")
+
+func test_grid_boundary_walls_generate_partial_wall_below_upper_neighbor() -> void:
+	var layout := _boundary_layout([
+		{"cell": Vector3i(0, 0, 0), "item": TrackGridRoadBuilder.TILE_STRAIGHT},
+		{"cell": Vector3i(1, 1, 0), "item": TrackGridRoadBuilder.TILE_STRAIGHT},
+	], [Vector3i(0, 0, 0), Vector3i(1, 1, 0)])
+	var segments := TrackGridRoadBuilder.boundary_wall_segments_from_grid_layout(layout, 3.0, 0.6)
+	var partial := _first_wall_for_edge(segments, Vector3i(0, 0, 0), Vector3i.RIGHT)
+	assert_true(not partial.is_empty(), "A vertically separated upper neighbor should not suppress lower-road containment")
+	if not partial.is_empty():
+		var bottom := float(partial.get("bottom", 0.0))
+		var height := float(partial.get("height", 0.0))
+		assert_true(bottom + height < 6.0, "Partial lower wall should stay below the upper road surface")
+
+func test_grid_boundary_walls_cover_long_tile_footprints() -> void:
+	var layout := _boundary_layout([
+		{"cell": Vector3i(0, 0, 0), "item": TrackGridRoadBuilder.TILE_RAMP_LONG},
+	], [Vector3i(0, 0, 0)])
+	var segments := TrackGridRoadBuilder.boundary_wall_segments_from_grid_layout(layout, 3.0, 0.6)
+	assert_true(_has_any_wall_for_cell(segments, Vector3i(0, 0, 1)), "Long and ramp-long tiles should generate walls across their inferred second footprint cell")
+
+func test_grid_boundary_walls_sample_ramp_elevation() -> void:
+	var layout := _boundary_layout([
+		{"cell": Vector3i(0, 0, 0), "item": TrackGridRoadBuilder.TILE_RAMP},
+	], [Vector3i(0, 0, 0)])
+	var segments := TrackGridRoadBuilder.boundary_wall_segments_from_grid_layout(layout, 3.0, 0.6)
+	var found_sloped_segment := false
+	for segment in segments:
+		if (segment as Dictionary).get("cell", Vector3i.ZERO) == Vector3i(0, 0, 0) and float((segment as Dictionary).get("height", 0.0)) > 3.2:
+			found_sloped_segment = true
+			break
+	assert_true(found_sloped_segment, "Ramp boundary walls should sample ramp endpoint heights instead of flattening to one elevation")
+
 func test_grid_runtime_ignores_painted_cells_outside_route() -> void:
 	var layout := {
 		"mesh_library_path": TrackGridRoadBuilder.DEFAULT_MESH_LIBRARY_PATH,
@@ -279,6 +321,46 @@ func _spawn_slot_layouts(count: int) -> Array[Dictionary]:
 			"yaw_offset_degrees": 10.0 if i % 2 == 0 else -5.0,
 		})
 	return slots
+
+func _boundary_layout(cells: Array, route_cells: Array[Vector3i]) -> Dictionary:
+	var out_cells: Array[Dictionary] = []
+	for value in cells:
+		var data := (value as Dictionary).duplicate(true)
+		var yaw := float(data.get("yaw", 0.0))
+		var basis := Basis(Vector3.UP, yaw)
+		data["orientation_basis"] = _basis_to_array(basis)
+		data["orientation"] = 0
+		out_cells.append(data)
+	return {
+		"cell_size": Vector3(16.0, 4.0, 16.0),
+		"basis": _basis_to_array(Basis.IDENTITY),
+		"road_width": 16.0,
+		"cells": out_cells,
+		"ordered_route_cells": route_cells,
+	}
+
+func _has_wall_for_edge(segments: Array, cell: Vector3i, direction: Vector3i) -> bool:
+	return not _first_wall_for_edge(segments, cell, direction).is_empty()
+
+func _first_wall_for_edge(segments: Array, cell: Vector3i, direction: Vector3i) -> Dictionary:
+	for segment in segments:
+		var data := segment as Dictionary
+		if data.get("cell", Vector3i.ZERO) == cell and data.get("direction", Vector3i.ZERO) == direction:
+			return data
+	return {}
+
+func _has_any_wall_for_cell(segments: Array, cell: Vector3i) -> bool:
+	for segment in segments:
+		if (segment as Dictionary).get("cell", Vector3i.ZERO) == cell:
+			return true
+	return false
+
+func _basis_to_array(basis: Basis) -> Array:
+	return [
+		[basis.x.x, basis.x.y, basis.x.z],
+		[basis.y.x, basis.y.y, basis.y.z],
+		[basis.z.x, basis.z.y, basis.z.z],
+	]
 
 func _paint_square_loop(grid: GridMap, raised_y := 0) -> void:
 	grid.set_cell_item(Vector3i(0, 0, 0), 1, 0)
