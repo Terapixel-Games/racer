@@ -7,7 +7,6 @@
 		"stove_sizzle": "res://assets/source/audio/canva/tracks/kitchen/kitchen_oven_sizzle.mp3",
 		"utensil_clink": "res://assets/source/audio/canva/tracks/kitchen/kitchen_utensil_clink_canva_01.wav"
 	},
-	"boundary_walls_enabled": true,
 	"audio_zones": [
 		{
 			"audio_id": "clatter",
@@ -139,7 +138,6 @@
 	"laps": 3,
 	"out_of_bounds_y": -36.0,
 	"progress_rule_id": "route_lap_progress",
-	"rails_enabled": false,
 	"rail_texture_path": "res://assets/gameplay/materials/metal/toy_metal_albedo.png",
 	"rail_texture_uv_scale": 0.5,
 	"reset_mode": "instant_pop",
@@ -9292,7 +9290,7 @@
 	"track_id": "kitchen",
 	"track_source_id": "road_grid_map",
 	"version": "kitchen_v2_2026_04_29",
-	"wall_height": 12.0,
-	"wall_thickness": 2.0,
+	"wall_height": 1.6,
+	"wall_thickness": 0.45,
 	"win_condition_id": "checkpoint_laps"
 }

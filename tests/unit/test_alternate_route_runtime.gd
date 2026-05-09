@@ -60,11 +60,11 @@ func test_rail_route_smoothing_rounds_flat_corners() -> void:
 		Vector3(16, 0, 16),
 		Vector3(0, 0, 16),
 	]
-	var smoothed := TrackRuntimeBuilder._smoothed_rail_route_points(route, true, TrackRuntimeBuilder._rail_curve_radius(16.0), 4)
+	var smoothed := TrackRuntimeBuilder._smoothed_rail_route_points(route, true, 7.5, 4)
 	assert_true(smoothed.size() > route.size(), "Rail route smoothing should add curve samples around flat GridMap corners")
 	assert_true(not smoothed.has(Vector3(16, 0, 0)), "Rail route smoothing should replace hard corner center points with rounded arc samples")
-	assert_true(_has_near_point(smoothed, Vector3(9.31, 0, 0)), "Rail route smoothing should start the corner arc at the visible Kenney road-side mesh edge")
-	assert_true(_has_near_point(smoothed, Vector3(16, 0, 6.69)), "Rail route smoothing should end the corner arc at the visible Kenney road-side mesh edge")
+	assert_true(smoothed.has(Vector3(8.8, 0, 0)), "Rail route smoothing should start the corner arc before the hard turn")
+	assert_true(smoothed.has(Vector3(16, 0, 7.2)), "Rail route smoothing should end the corner arc after the hard turn")
 
 func test_rail_route_smoothing_preserves_elevation_changes() -> void:
 	var route: Array[Vector3] = [
@@ -80,13 +80,13 @@ func test_rail_edge_offsets_keep_full_width_on_ramps() -> void:
 		Vector3(0, 0, 0),
 		Vector3(16, 4, 0),
 	]
-	var edges := TrackRuntimeBuilder._road_edge_points(route, 6.69, false)
+	var edges := TrackRuntimeBuilder._road_edge_points(route, 8.0, false)
 	var left := edges.get("left", []) as Array
 	var right := edges.get("right", []) as Array
 	assert_equal(left.size(), 2, "Ramp rail edges should include both route points")
 	assert_equal(right.size(), 2, "Ramp rail edges should include both route points")
-	assert_true(is_equal_approx(absf((left[0] as Vector3).z), 6.69), "Ramp rail offset should use the visible Kenney road-side mesh edge, not the full GridMap cell edge")
-	assert_true(is_equal_approx(absf((right[0] as Vector3).z), 6.69), "Ramp rail offset should use the visible Kenney road-side mesh edge, not the full GridMap cell edge")
+	assert_true(is_equal_approx(absf((left[0] as Vector3).z), 8.0), "Ramp rail offset should use the GridMap texture edge, not shrink because the segment climbs")
+	assert_true(is_equal_approx(absf((right[0] as Vector3).z), 8.0), "Ramp rail offset should use the GridMap texture edge, not shrink because the segment climbs")
 	assert_true(is_equal_approx((left[1] as Vector3).y, 4.0), "Ramp rail edges should still follow vertical route elevation")
 
 func test_ramp_rail_visuals_stay_upright() -> void:
@@ -237,12 +237,6 @@ func _enabled_collision_objects(node: Node) -> int:
 	for child in node.get_children():
 		count += _enabled_collision_objects(child)
 	return count
-
-func _has_near_point(points: Array[Vector3], expected: Vector3, tolerance := 0.01) -> bool:
-	for point in points:
-		if point.distance_to(expected) <= tolerance:
-			return true
-	return false
 
 func _first_collision_shape(node: Node) -> Shape3D:
 	if node == null:

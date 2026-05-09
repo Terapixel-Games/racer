@@ -1,8 +1,7 @@
 param(
 	[ValidateSet("all", "unit", "uat")]
 	[string]$Suite = "all",
-	[string]$GodotBin = "godot",
-	[string]$Filter = ""
+	[string]$GodotBin = "godot"
 )
 
 $ErrorActionPreference = "Stop"
@@ -35,11 +34,7 @@ function Run-Suite([string]$TargetSuite) {
 		if ($nativePreferenceWasPresent) {
 			$PSNativeCommandUseErrorActionPreference = $false
 		}
-		$testArgs = @("--headless", "--path", $ProjectRoot, "--script", "res://tests/framework/TestRunner.gd", "--", "--suite=$TargetSuite")
-		if ($Filter -ne "") {
-			$testArgs += "--filter=$Filter"
-		}
-		$output = & $ResolvedGodotBin @testArgs 2>&1
+		$output = & $ResolvedGodotBin --headless --path $ProjectRoot --script res://tests/framework/TestRunner.gd -- --suite=$TargetSuite 2>&1
 		$exitCode = if ($null -eq $LASTEXITCODE) { 0 } else { [int]$LASTEXITCODE }
 	}
 	finally {

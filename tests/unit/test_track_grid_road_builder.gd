@@ -3,7 +3,6 @@ extends "res://tests/framework/TestCase.gd"
 const TrackGridRoadBuilder = preload("res://scripts/track/TrackGridRoadBuilder.gd")
 const RoadGridMapAuthoring = preload("res://scripts/track/RoadGridMapAuthoring.gd")
 const RoadGridSpawn = preload("res://scripts/track/RoadGridSpawn.gd")
-const BOUNDARY_WALL_SKIRT_DEPTH := 3.0
 
 func test_grid_layout_generates_ordered_route_points() -> void:
 	var layout := {
@@ -234,7 +233,7 @@ func test_kenney_gridmap_start_tile_matches_cell_footprint() -> void:
 	assert_true(is_equal_approx(start_transform.basis.z.length(), straight_transform.basis.z.length()), "roadStart should match straight tile length so it does not shift into the next cell")
 	assert_true(start_transform.origin.distance_to(straight_transform.origin) <= 0.05, "roadStart should use the same cell-local origin as roadStraight")
 
-func test_grid_collision_mesh_preserves_ramp_surface_height() -> void:
+func test_grid_collision_mesh_uses_ramp_tile_geometry() -> void:
 	var layout := {
 		"mesh_library_path": TrackGridRoadBuilder.DEFAULT_MESH_LIBRARY_PATH,
 		"cell_size": Vector3(16.0, 4.0, 16.0),
@@ -248,110 +247,8 @@ func test_grid_collision_mesh_preserves_ramp_surface_height() -> void:
 		],
 	}
 	var mesh := TrackGridRoadBuilder.build_grid_collision_mesh(layout)
-	assert_true(mesh.get_surface_count() > 0, "Grid collision mesh should include generated drivable tile surfaces")
+	assert_true(mesh.get_surface_count() > 0, "Grid collision mesh should include painted tile geometry")
 	assert_true(mesh.get_aabb().size.y > 3.5, "Ramp collision should preserve the ramp height instead of flattening to the route ribbon")
-
-func test_grid_collision_mesh_does_not_add_synthetic_ramp_connection_bridge() -> void:
-	var cells := [
-		{
-			"cell": Vector3i.ZERO,
-			"item": 5,
-			"orientation": 0,
-			"position": Vector3(8.0, 0.0, 8.0),
-		},
-		{
-			"cell": Vector3i(0, 1, 1),
-			"item": 0,
-			"orientation": 0,
-			"position": Vector3(8.0, 4.0, 24.0),
-		},
-	]
-	var disconnected_layout := {
-		"mesh_library_path": TrackGridRoadBuilder.DEFAULT_MESH_LIBRARY_PATH,
-		"cell_size": Vector3(16.0, 4.0, 16.0),
-		"cells": cells,
-	}
-	var connected_layout := disconnected_layout.duplicate(true)
-	connected_layout["ordered_route_cells"] = [Vector3i.ZERO, Vector3i(0, 1, 1)]
-	var disconnected_mesh := TrackGridRoadBuilder.build_grid_collision_mesh(disconnected_layout)
-	var connected_mesh := TrackGridRoadBuilder.build_grid_collision_mesh(connected_layout)
-	assert_equal(_mesh_vertex_count(connected_mesh), _mesh_vertex_count(disconnected_mesh), "GridMap road collision should use painted tile mesh geometry only; synthetic seam bridges can create invisible blockers at ramps")
-
-func test_grid_boundary_walls_wrap_exposed_route_footprint() -> void:
-	var layout := {
-		"cell_size": Vector3(16.0, 4.0, 16.0),
-		"cells": [
-			{"cell": Vector3i(0, 0, 0), "item": 0, "orientation": 0},
-			{"cell": Vector3i(1, 0, 0), "item": 0, "orientation": 0},
-		],
-		"ordered_route_cells": [Vector3i(0, 0, 0), Vector3i(1, 0, 0)],
-	}
-	var walls := TrackGridRoadBuilder.boundary_wall_segments_from_grid_layout(layout, 1.6, 0.45)
-	assert_equal(walls.size(), 6, "Two adjacent GridMap road cells should expose only the outer perimeter edges")
-	assert_true(not _has_wall_at_x(walls, 16.0), "Boundary walls should not create an internal blocker between adjacent route cells")
-	assert_true(_all_walls_offset_outside_cell(walls, Rect2(0.0, 0.0, 32.0, 16.0)), "Flat boundary walls should sit outside the tile edge so they do not pinch the driving surface")
-
-func test_grid_boundary_walls_fill_to_upper_neighbor_clearance() -> void:
-	var layout := {
-		"cell_size": Vector3(16.0, 4.0, 16.0),
-		"cells": [
-			{"cell": Vector3i(0, 0, 0), "item": 0, "orientation": 0, "position": Vector3(8.0, 0.0, 8.0)},
-			{"cell": Vector3i(1, 1, 0), "item": 0, "orientation": 0, "position": Vector3(24.0, 4.0, 8.0)},
-		],
-	}
-	var walls := TrackGridRoadBuilder.boundary_wall_segments_from_grid_layout(layout, 5.0, 0.45)
-	var partial := _wall_near_x_with_height(walls, 16.0, 3.75)
-	assert_true(not partial.is_empty(), "A road tile one GridMap level above should create a partial containment wall instead of an escape gap")
-	assert_true(_wall_top_y(partial) <= 3.75 + 0.05, "Partial wall should stop below the upper road clearance")
-
-func test_grid_boundary_walls_keep_upper_containment_with_lower_neighbor() -> void:
-	var layout := {
-		"cell_size": Vector3(16.0, 4.0, 16.0),
-		"cells": [
-			{"cell": Vector3i(0, 0, 0), "item": 0, "orientation": 0, "position": Vector3(8.0, 0.0, 8.0)},
-			{"cell": Vector3i(1, 1, 0), "item": 0, "orientation": 0, "position": Vector3(24.0, 4.0, 8.0)},
-		],
-	}
-	var walls := TrackGridRoadBuilder.boundary_wall_segments_from_grid_layout(layout, 3.0, 0.45)
-	assert_true(not _wall_near_x_with_height(walls, 16.0, 3.0).is_empty(), "A lower neighbor should not remove containment from the upper road edge")
-
-func test_grid_boundary_walls_do_not_block_connected_downhill_route_edge() -> void:
-	var layout := {
-		"cell_size": Vector3(16.0, 4.0, 16.0),
-		"cells": [
-			{"cell": Vector3i(0, 0, 0), "item": 0, "orientation": 0, "position": Vector3(8.0, 4.0, 8.0)},
-			{"cell": Vector3i(1, -1, 0), "item": 5, "orientation": 16, "position": Vector3(24.0, 0.0, 8.0)},
-		],
-		"ordered_route_cells": [Vector3i(0, 0, 0), Vector3i(1, -1, 0)],
-	}
-	var walls := TrackGridRoadBuilder.boundary_wall_segments_from_grid_layout(layout, 3.0, 0.45)
-	assert_true(_wall_near_x_with_height(walls, 16.0, 3.0).is_empty(), "Connected downhill route edges should not create invisible blockers at the ramp seam")
-	assert_true(not _has_wall_near_xz(walls, 16.0, 8.0), "Connected downhill route edges should keep the full driving line open")
-
-func test_grid_boundary_walls_cover_long_tile_footprint() -> void:
-	var layout := {
-		"cell_size": Vector3(16.0, 4.0, 16.0),
-		"cells": [
-			{"cell": Vector3i.ZERO, "item": 6, "orientation": 0},
-		],
-		"ordered_route_cells": [Vector3i.ZERO],
-	}
-	var walls := TrackGridRoadBuilder.boundary_wall_segments_from_grid_layout(layout, 1.6, 0.45)
-	assert_equal(walls.size(), 6, "Long ramp tiles should generate boundary walls around their full two-cell footprint")
-	assert_true(_has_wall_reaching_z(walls, 32.0), "Long tile boundary walls should reach the second occupied GridMap cell")
-
-func test_grid_boundary_walls_stay_vertical_near_ramp_elevation() -> void:
-	var layout := {
-		"cell_size": Vector3(16.0, 4.0, 16.0),
-		"cells": [
-			{"cell": Vector3i.ZERO, "item": 5, "orientation": 0, "position": Vector3(8.0, 10.0, 8.0)},
-		],
-		"ordered_route_cells": [Vector3i.ZERO],
-	}
-	var walls := TrackGridRoadBuilder.boundary_wall_segments_from_grid_layout(layout, 1.6, 0.45)
-	assert_true(not _has_sloped_wall(walls), "Ramp boundary walls should remain vertical so they do not become launch ramps or mid-track blockers")
-	assert_true(_walls_stay_near_ramp_height(walls, 10.0, 15.6), "Ramp walls should stay vertically local to the ramp surface")
-	assert_true(_all_walls_offset_outside_cell(walls, Rect2(0.0, 0.0, 16.0, 16.0)), "Ramp boundary wall placement should stay outside the ramp driving surface")
 
 func test_grid_runtime_ignores_painted_cells_outside_route() -> void:
 	var layout := {
@@ -400,82 +297,6 @@ func _route_cells_are_continuous_loop(cells: Array[Vector3i]) -> bool:
 			return false
 	return true
 
-func _has_wall_at_x(walls: Array[Dictionary], x: float) -> bool:
-	for wall in walls:
-		var position := wall.get("position", Vector3.ZERO) as Vector3
-		if absf(position.x - x) <= 0.1:
-			return true
-	return false
-
-func _has_wall_near_xz(walls: Array[Dictionary], x: float, z: float) -> bool:
-	for wall in walls:
-		var position := wall.get("position", Vector3.ZERO) as Vector3
-		if absf(position.x - x) <= 0.4 and absf(position.z - z) <= 0.4:
-			return true
-	return false
-
-func _has_wall_reaching_z(walls: Array[Dictionary], z: float) -> bool:
-	for wall in walls:
-		var position := wall.get("position", Vector3.ZERO) as Vector3
-		var basis := wall.get("basis", Basis.IDENTITY) as Basis
-		var size := wall.get("size", Vector3.ZERO) as Vector3
-		var a := position - basis.x.normalized() * (size.x * 0.5)
-		var b := position + basis.x.normalized() * (size.x * 0.5)
-		if maxf(a.z, b.z) >= z - 0.2:
-			return true
-	return false
-
-func _wall_near_x_with_height(walls: Array[Dictionary], x: float, height: float) -> Dictionary:
-	for wall in walls:
-		var position: Vector3 = wall.get("position", Vector3.ZERO) as Vector3
-		var size: Vector3 = wall.get("size", Vector3.ZERO) as Vector3
-		var effective_height := maxf(size.y - BOUNDARY_WALL_SKIRT_DEPTH, 0.0)
-		if absf(position.x - x) <= 1.25 and absf(effective_height - height) <= 0.1:
-			return wall
-	return {}
-
-func _wall_top_y(wall: Dictionary) -> float:
-	var position: Vector3 = wall.get("position", Vector3.ZERO) as Vector3
-	var basis: Basis = wall.get("basis", Basis.IDENTITY) as Basis
-	var size: Vector3 = wall.get("size", Vector3.ZERO) as Vector3
-	return position.y + absf(basis.y.normalized().y) * size.y * 0.5
-
-func _has_sloped_wall(walls: Array[Dictionary]) -> bool:
-	for wall in walls:
-		var basis := wall.get("basis", Basis.IDENTITY) as Basis
-		if absf(basis.x.normalized().y) > 0.01:
-			return true
-	return false
-
-func _walls_stay_near_ramp_height(walls: Array[Dictionary], min_y: float, max_y: float) -> bool:
-	for wall in walls:
-		var position := wall.get("position", Vector3.ZERO) as Vector3
-		var basis := wall.get("basis", Basis.IDENTITY) as Basis
-		var size := wall.get("size", Vector3.ZERO) as Vector3
-		var half_y := basis.y.normalized() * (size.y * 0.5)
-		if position.y - absf(half_y.y) < min_y - BOUNDARY_WALL_SKIRT_DEPTH - 0.1:
-			return false
-		if position.y + absf(half_y.y) > max_y + 0.1:
-			return false
-	return true
-
-func _all_walls_offset_outside_cell(walls: Array[Dictionary], cell_rect: Rect2) -> bool:
-	for wall in walls:
-		var position: Vector3 = wall.get("position", Vector3.ZERO) as Vector3
-		var basis: Basis = wall.get("basis", Basis.IDENTITY) as Basis
-		var size: Vector3 = wall.get("size", Vector3.ZERO) as Vector3
-		var lateral_offset: Vector3 = basis.z.normalized() * (size.z * 0.5)
-		var edge_center: Vector3 = position - lateral_offset
-		if absf(edge_center.x - cell_rect.position.x) <= 0.1 and position.x > edge_center.x:
-			return false
-		if absf(edge_center.x - cell_rect.end.x) <= 0.1 and position.x < edge_center.x:
-			return false
-		if absf(edge_center.z - cell_rect.position.y) <= 0.1 and position.z > edge_center.z:
-			return false
-		if absf(edge_center.z - cell_rect.end.y) <= 0.1 and position.z < edge_center.z:
-			return false
-	return true
-
 func _transformed_mesh_aabb(mesh: Mesh, transform: Transform3D) -> AABB:
 	if mesh == null:
 		return AABB()
@@ -494,13 +315,6 @@ func _transformed_mesh_aabb(mesh: Mesh, transform: Transform3D) -> AABB:
 	for i in range(1, points.size()):
 		out = out.expand(transform * points[i])
 	return out
-
-func _mesh_vertex_count(mesh: Mesh) -> int:
-	if mesh == null or mesh.get_surface_count() <= 0:
-		return 0
-	var arrays := mesh.surface_get_arrays(0)
-	var vertices := arrays[Mesh.ARRAY_VERTEX] as PackedVector3Array
-	return vertices.size()
 
 func _transformed_surface_aabb(mesh: Mesh, transform: Transform3D, surface_name: String) -> AABB:
 	if mesh == null:

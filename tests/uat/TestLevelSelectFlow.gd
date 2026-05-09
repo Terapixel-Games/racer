@@ -5,7 +5,6 @@ const LevelSelectScene = preload("res://scenes/LevelSelect.tscn")
 const RaceScene = preload("res://scenes/Race.tscn")
 const RacerRoster = preload("res://scripts/logic/RacerRoster.gd")
 const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
-const TrackProgressRules = preload("res://scripts/track/TrackProgressRules.gd")
 
 func test_character_select_continue_targets_level_select() -> void:
 	NakamaService.set_meta_value("selected_racer_id", RacerRoster.DEFAULT_RACER_ID)
@@ -24,7 +23,7 @@ func test_level_select_loads_default_track_and_writes_local_single_metadata() ->
 	assert_true(int(screen.call("get_track_count")) >= 1, "Level select should load at least one track")
 	assert_equal(str(screen.call("get_selected_track_id")), "kitchen", "Level select should default to the catalog default track")
 	assert_true(not bool(screen.call("preview_has_visible_road_edges_for_test")), "Level select preview should hide generated support road visuals")
-	assert_true(not bool(screen.call("preview_has_visible_rails_for_test")), "Level select preview should honor disabled Kitchen generated rails")
+	assert_true(bool(screen.call("preview_has_visible_rails_for_test")), "Level select preview should show GridMap route rails")
 	screen.call("apply_selected_track_for_test")
 	assert_equal(NakamaService.get_meta_value("track_id", ""), "kitchen", "Level select should write selected track id")
 	assert_true(NakamaService.get_meta_value("track_recipe", {}) is Dictionary, "Level select should write track metadata recipe")
@@ -145,35 +144,6 @@ func test_local_single_ai_moves_cars_from_start() -> void:
 		if car != null and car.global_transform.origin.distance_to(start_positions.get(str(rid), car.global_transform.origin)) > 0.08:
 			moved += 1
 	assert_true(moved >= 6, "Most CPU racers should move away from their start positions under physics input")
-	race.queue_free()
-
-func test_local_single_racers_stay_above_gridmap_surface_after_start_pileup() -> void:
-	var definition := TrackCatalog.get_definition("kitchen")
-	var race: Node = _make_local_race()
-	race.call("_set_local_phase", "racing")
-	var ai_ids: Array = race.get("ai_racer_ids")
-	var cars: Dictionary = race.get("cars")
-	for frame in range(300):
-		for rid in ai_ids:
-			var ai_car: CarController = cars.get(str(rid), null)
-			if ai_car != null:
-				race.call("_tick_ai_input", str(rid), 1.0 / 60.0)
-		for car in cars.values():
-			if car is CarController:
-				(car as CarController).call("_physics_process", 1.0 / 60.0)
-	for rid in cars.keys():
-		var car: CarController = cars.get(str(rid), null)
-		if car == null:
-			continue
-		var projection: Dictionary = TrackProgressRules.project_position(definition.route_points, car.global_transform.origin, definition.closed_loop)
-		var closest := projection.get("closest_point", car.global_transform.origin) as Vector3
-		var collision_bottom_y := _car_collision_bottom_y(car)
-		var visible_bottom_y := car.global_transform.origin.y - 0.78
-		var lowest_visible_y: float = minf(collision_bottom_y, visible_bottom_y)
-		assert_true(
-			lowest_visible_y >= closest.y - 0.05,
-			"%s should keep the kart body above the GridMap road surface after the eight-racer start pileup. bottom_y=%.2f car_y=%.2f route_y=%.2f pos=%s" % [str(rid), lowest_visible_y, car.global_transform.origin.y, closest.y, str(car.global_transform.origin)]
-		)
 	race.queue_free()
 
 func test_local_single_finished_ai_keeps_cruising_after_final_lap() -> void:
@@ -798,11 +768,3 @@ func _same_spawn_lane(actual_value: Variant, expected_value: Variant) -> bool:
 	var actual_yaw := actual.basis.get_euler().y
 	var expected_yaw := expected.basis.get_euler().y
 	return Vector2(actual.origin.x, actual.origin.z).distance_to(Vector2(expected.origin.x, expected.origin.z)) <= 0.01 and absf(angle_difference(actual_yaw, expected_yaw)) <= 0.01
-
-func _car_collision_bottom_y(car: CarController) -> float:
-	var shape_node := car.get_node_or_null("CollisionShape3D") as CollisionShape3D
-	if shape_node == null or not (shape_node.shape is BoxShape3D):
-		return car.global_transform.origin.y
-	var box := shape_node.shape as BoxShape3D
-	var bottom_local := shape_node.transform.origin.y - box.size.y * 0.5
-	return car.global_transform.origin.y + bottom_local

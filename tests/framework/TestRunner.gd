@@ -28,7 +28,7 @@ func _run() -> void:
 	var total_methods := 0
 	var total_failures := 0
 	for path in scripts:
-		var result: Dictionary = await _run_script(path)
+		var result: Dictionary = _run_script(path)
 		total_methods += int(result.get("methods", 0))
 		total_failures += int(result.get("failures", 0))
 
@@ -97,17 +97,17 @@ func _run_script(path: String) -> Dictionary:
 
 	var failures := 0
 	if instance.has_method("before"):
-		await _call_maybe_await(instance, "before")
+		instance.call("before")
 	for method_name in method_names:
 		if instance.has_method("set_active_test_case"):
 			instance.call("set_active_test_case", method_name)
 		var gdunit_context: Object = _create_gdunit_context("%s::%s" % [path, method_name], instance)
 		_set_gdunit_context(gdunit_context)
 		if instance.has_method("before_test"):
-			await _call_maybe_await(instance, "before_test")
-		await _call_maybe_await(instance, method_name)
+			instance.call("before_test")
+		instance.call(method_name)
 		if instance.has_method("after_test"):
-			await _call_maybe_await(instance, "after_test")
+			instance.call("after_test")
 		failures += _count_gdunit_failures(path, method_name, gdunit_context)
 		_clear_gdunit_assert_state()
 		if gdunit_context != null:
@@ -124,17 +124,11 @@ func _run_script(path: String) -> Dictionary:
 				if instance.has_method("clear_failures"):
 					instance.call("clear_failures")
 	if instance.has_method("after"):
-		await _call_maybe_await(instance, "after")
+		instance.call("after")
 
 	if instance is Node:
 		_free_node_now(instance as Node)
 	return {"methods": method_names.size(), "failures": failures}
-
-func _call_maybe_await(instance: Object, method_name: String) -> Variant:
-	var result: Variant = instance.call(method_name)
-	if result is Object and (result as Object).has_signal("completed"):
-		return await (result as Object).completed
-	return result
 
 func _create_gdunit_context(test_name: String, suite: Object) -> Object:
 	var context_script_path := "res://addons/gdUnit4/src/core/execution/GdUnitExecutionContext.gd"

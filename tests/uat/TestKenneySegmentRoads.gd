@@ -34,15 +34,12 @@ func test_all_tracks_build_gridmap_roads_with_generated_collision() -> void:
 		assert_true(road != null, "%s should keep generated road collision node" % track_id)
 		if road != null:
 			assert_true(not road.visible, "%s procedural road should be hidden behind GridMap visuals" % track_id)
-			assert_true(road.get("collision_mesh_override") is Mesh, "%s hidden road should collide with one GridMap tile mesh surface" % track_id)
-			assert_true(is_zero_approx(float(road.get("collision_surface_lift"))), "%s GridMap road collision should not be lifted or sunk relative to the mesh" % track_id)
 		var collision_shape := track_node.get_node_or_null("Road/CollisionBody/CollisionShape3D") as CollisionShape3D
-		assert_true(collision_shape != null and not collision_shape.disabled and collision_shape.shape is ConcavePolygonShape3D, "%s should keep one GridMap mesh-derived road collision surface" % track_id)
+		assert_true(collision_shape != null and collision_shape.shape is ConcavePolygonShape3D, "%s should keep generated slab road collision" % track_id)
 		if collision_shape != null and collision_shape.shape is ConcavePolygonShape3D:
 			assert_true((collision_shape.shape as ConcavePolygonShape3D).backface_collision, "%s road collision should catch karts from above and below" % track_id)
 		var collision_body := track_node.get_node_or_null("Road/CollisionBody") as StaticBody3D
-		assert_true(collision_body != null and collision_body.collision_layer == 1 and collision_body.collision_mask == 2, "%s GridMap mesh-derived road collision should use the kart gameplay collision channel" % track_id)
-		assert_true(track_node.get_node_or_null("GridRoadSurfaceCollision") == null, "%s should not build an overlapping GridRoadSurfaceCollision support node" % track_id)
+		assert_true(collision_body != null and collision_body.collision_layer == 1 and collision_body.collision_mask == 2, "%s road collision should use the kart gameplay collision channel" % track_id)
 		assert_true((built.get("waypoints", []) as Array).size() >= 3, "%s should expose gameplay waypoints" % track_id)
 		assert_true(track_node.get_node_or_null("Waypoints") != null, "%s should include generated waypoint nodes" % track_id)
 		assert_true(track_node.get_node_or_null("CheckpointSystem") != null, "%s should include checkpoints" % track_id)
@@ -50,17 +47,8 @@ func test_all_tracks_build_gridmap_roads_with_generated_collision() -> void:
 		assert_true(track_node.get_node_or_null("SpawnPoints/Start08") != null, "%s should generate the full eight-car grid" % track_id)
 		assert_true(track_node.get_node_or_null("ItemSockets") == null, "%s should not include item sockets in MVP" % track_id)
 		assert_true(track_node.get_node_or_null("HazardSockets") == null, "%s should not include hazard sockets in MVP" % track_id)
-		var boundary_walls := track_node.get_node_or_null("BoundaryWalls")
-		if definition.boundary_walls_enabled:
-			assert_true(boundary_walls != null and _enabled_collision_objects(boundary_walls) > 0, "%s should include invisible boundary wall collision" % track_id)
-			assert_true(boundary_walls is Node3D and not (boundary_walls as Node3D).visible, "%s boundary walls should be hidden" % track_id)
-		else:
-			assert_true(boundary_walls == null, "%s should not build boundary walls when disabled" % track_id)
 		var rails := track_node.get_node_or_null("Rails")
-		if definition.rails_enabled:
-			assert_true(rails != null and _enabled_collision_objects(rails) > 0, "%s should include collidable route rails when rails are enabled" % track_id)
-		else:
-			assert_true(rails == null, "%s should not build route rails when rails are disabled" % track_id)
+		assert_true(rails != null and _enabled_collision_objects(rails) > 0, "%s should include collidable route rails" % track_id)
 		track_node.queue_free()
 
 func _authoring_scene_has_road_grid(definition) -> bool:

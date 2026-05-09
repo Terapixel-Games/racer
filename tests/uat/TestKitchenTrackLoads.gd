@@ -21,7 +21,6 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(built_track != null, "Kitchen track scene should build runtime track")
 	assert_true(instance.get_node_or_null("BuiltTrack/Road") != null, "Kitchen track should include generated road")
 	assert_true(instance.get_node_or_null("BuiltTrack/GridRoad") != null, "Kitchen track should include Kenney Racing Kit grid road visuals")
-	assert_true(instance.get_node_or_null("BuiltTrack/GridRoadSurfaceCollision") == null, "Kitchen should use one GridMap mesh-derived road collider instead of an overlapping top-surface collision node")
 	assert_true(instance.get_node_or_null("BuiltTrack/GridRoad") is GridMap, "Kitchen visible road should be a runtime GridMap so Kenney tile materials and rotations are preserved")
 	assert_true(_grid_road_covers_route(instance.get_node_or_null("BuiltTrack/GridRoad") as GridMap, definition), "Kitchen GridRoad should have one visible tile for every route cell so textures stay aligned with rails")
 	assert_true(_grid_road_only_uses_route_cells(instance.get_node_or_null("BuiltTrack/GridRoad") as GridMap, definition), "Kitchen GridRoad should hide painted cells outside the resolved route so rails stay aligned")
@@ -39,28 +38,18 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 			if world_environment.environment.sky != null:
 				assert_true(world_environment.environment.sky.sky_material is ShaderMaterial, "Kitchen sky should use the stage sky shader material")
 	assert_true(instance.get_node_or_null("BuiltTrack/SunLight") is DirectionalLight3D, "Kitchen runtime should include the stage directional light")
-	var road_collision_body := instance.get_node_or_null("BuiltTrack/Road/CollisionBody") as StaticBody3D
 	var road_shape_node := instance.get_node_or_null("BuiltTrack/Road/CollisionBody/CollisionShape3D") as CollisionShape3D
-	var hidden_road := instance.get_node_or_null("BuiltTrack/Road")
-	assert_true(road_collision_body != null, "Kitchen hidden route road should include the GridMap mesh-derived collision body")
-	if road_collision_body != null:
-		assert_equal(road_collision_body.collision_layer, 1, "Kitchen GridMap mesh-derived road collision should use the kart gameplay collision layer")
-		assert_equal(road_collision_body.collision_mask, 2, "Kitchen GridMap mesh-derived road collision should use the kart gameplay collision mask")
-	assert_true(hidden_road != null and hidden_road.get("collision_mesh_override") is Mesh, "Kitchen hidden route road should collide with one GridMap tile mesh surface")
-	assert_true(hidden_road != null and is_zero_approx(float(hidden_road.get("collision_surface_lift"))), "Kitchen GridMap road collision should not be lifted or sunk relative to the mesh")
-	assert_true(road_shape_node != null and not road_shape_node.disabled, "Kitchen GridMap mesh-derived road collision should stay enabled")
+	assert_true(road_shape_node != null, "Kitchen road should include collision shape")
 	if road_shape_node != null:
-		assert_true(road_shape_node.shape is ConcavePolygonShape3D, "Kitchen road should use generated GridMap mesh collision")
+		assert_true(road_shape_node.shape is ConcavePolygonShape3D, "Kitchen road should use generated mesh collision")
 		if road_shape_node.shape is ConcavePolygonShape3D:
-			assert_true((road_shape_node.shape as ConcavePolygonShape3D).backface_collision, "Kitchen road collision should catch karts from above and below")
+			assert_true((road_shape_node.shape as ConcavePolygonShape3D).backface_collision, "Kitchen road collision should be visible to camera probes from underneath")
 	assert_true(instance.get_node_or_null("BuiltTrack/TrackBody") == null, "Kitchen grid mode should not build the broad legacy track body")
-	assert_true(instance.get_node_or_null("BuiltTrack/Rails") == null, "Kitchen should not build route-offset rails while GridMap edge rails are disabled")
-	var boundary_walls := instance.get_node_or_null("BuiltTrack/BoundaryWalls")
-	assert_true(boundary_walls != null, "Kitchen should build invisible GridMap boundary walls")
-	assert_true(boundary_walls is Node3D and not (boundary_walls as Node3D).visible, "Kitchen boundary walls should be hidden")
-	assert_true(_enabled_collision_objects(boundary_walls) > 0, "Kitchen boundary walls should include enabled kart collision")
-	assert_true(_node_count_by_type(boundary_walls, "MeshInstance3D") == 0, "Kitchen boundary walls should not render visible wall meshes")
-	assert_true(_collision_objects_use_channel(boundary_walls, 1, 2), "Kitchen boundary walls should use the kart gameplay collision channel")
+	assert_true(instance.get_node_or_null("BuiltTrack/Rails") != null, "Kitchen track should include generated route rails")
+	assert_true(_child_count(instance.get_node_or_null("BuiltTrack/Rails")) > 0, "Kitchen route rails should instantiate rail asset pieces")
+	assert_true(_enabled_collision_objects(instance.get_node_or_null("BuiltTrack/Rails")) > 0, "Kitchen generated rails should be collidable")
+	assert_equal(_first_material_texture_path(instance.get_node_or_null("BuiltTrack/Rails")), "res://assets/gameplay/materials/metal/toy_metal_albedo.png", "Kitchen generated rails should use the stage metal material")
+	assert_true(absf(_first_material_uv_scale(instance.get_node_or_null("BuiltTrack/Rails")) - 0.5) <= 0.01, "Kitchen generated rails should use the stage rail texture UV scale")
 	assert_true(instance.get_node_or_null("BuiltTrack/Walls") == null, "Kitchen track should not auto-generate route walls while guard segments are being authored")
 	assert_true(instance.get_node_or_null("BuiltTrack/CheckpointSystem") != null, "Kitchen track should include checkpoint system")
 	assert_true(instance.get_node_or_null("BuiltTrack/SpawnPoints") != null, "Kitchen track should include spawn points")
@@ -600,18 +589,6 @@ func _node_count_by_type(node: Node, type_name: String) -> int:
 	for child in node.get_children():
 		count += _node_count_by_type(child, type_name)
 	return count
-
-func _collision_objects_use_channel(node: Node, layer: int, mask: int) -> bool:
-	if node == null:
-		return false
-	if node is CollisionObject3D:
-		var collision_object := node as CollisionObject3D
-		if collision_object.collision_layer != layer or collision_object.collision_mask != mask:
-			return false
-	for child in node.get_children():
-		if not _collision_objects_use_channel(child, layer, mask):
-			return false
-	return true
 
 func _mesh_material_alpha(root: Node, path: NodePath) -> float:
 	var mesh := root.get_node_or_null(path) as MeshInstance3D

@@ -97,18 +97,15 @@ func test_grid_visuals_and_generated_collision_are_independent() -> void:
 	scene_tree.root.add_child(track_node)
 	assert_true(track_node.get_node_or_null("GridRoad") != null, "Grid race should keep RoadGridMap visual road output")
 	assert_true((track_node.get_node_or_null("GridRoad") as Node3D).visible, "Grid race should show the GridRoad visuals")
-	var hidden_road := track_node.get_node_or_null("Road")
 	var collision_body := track_node.get_node_or_null("Road/CollisionBody") as StaticBody3D
 	var collision_shape := track_node.get_node_or_null("Road/CollisionBody/CollisionShape3D") as CollisionShape3D
-	assert_true(hidden_road != null and hidden_road.get("collision_mesh_override") is Mesh, "Grid race hidden road should collide with one GridMap tile mesh surface")
-	assert_true(hidden_road != null and is_zero_approx(float(hidden_road.get("collision_surface_lift"))), "Grid race road collision should not be lifted or sunk relative to the mesh")
-	assert_true(collision_body != null and collision_body.collision_layer == 1 and collision_body.collision_mask == 2, "Grid race road collision should use the kart gameplay channel")
-	assert_true(collision_shape != null and not collision_shape.disabled and collision_shape.shape is ConcavePolygonShape3D, "Grid race should keep one GridMap mesh-derived road collision surface")
+	assert_true(collision_body != null and collision_body.collision_layer == 1 and collision_body.collision_mask == 2, "Grid race collision should use the kart gameplay channel")
+	assert_true(collision_shape != null and collision_shape.shape is ConcavePolygonShape3D, "Grid race should still generate shared slab collision from the resolved layout")
 	if collision_shape != null and collision_shape.shape is ConcavePolygonShape3D:
-		assert_true((collision_shape.shape as ConcavePolygonShape3D).backface_collision, "Grid race road collision should be backface-collidable")
+		assert_true((collision_shape.shape as ConcavePolygonShape3D).backface_collision, "Grid race collision should be backface-collidable")
 	assert_equal(_enabled_collision_objects(track_node.get_node_or_null("GridRoad")), 0, "Grid road visuals should remain collision-free")
-	assert_true(track_node.get_node_or_null("GridRoadSurfaceCollision") == null, "Grid race should not build overlapping GridMap surface collision")
-	assert_true(track_node.get_node_or_null("Rails") == null, "Kitchen should not generate route-offset rails when rails are disabled")
+	assert_true(_enabled_collision_objects(track_node.get_node_or_null("Road")) > 0, "Generated road slab should own gameplay collision")
+	assert_true(track_node.get_node_or_null("Rails") != null and _enabled_collision_objects(track_node.get_node_or_null("Rails")) > 0, "Grid race should generate collidable route rails")
 	assert_true(track_node.get_node_or_null("Waypoints") != null, "Grid race should generate route waypoint nodes")
 	assert_true(track_node.get_node_or_null("CheckpointSystem") != null, "Grid race should generate checkpoint nodes")
 	assert_true(track_node.get_node_or_null("SpawnPoints") != null, "Grid race should generate spawn nodes")

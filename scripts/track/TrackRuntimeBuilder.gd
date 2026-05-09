@@ -15,8 +15,7 @@ const RailScene = preload("res://assets/source/kenney/racing_kit/rail.glb")
 
 const RAIL_SIDE_SCALE := 8.0
 const RAIL_SEGMENT_LENGTH := 10.0
-const KENNEY_ROAD_SIDE_EDGE_OFFSET := 6.69
-const RAIL_EDGE_OFFSET := KENNEY_ROAD_SIDE_EDGE_OFFSET - 8.0
+const RAIL_EDGE_OFFSET := 0.0
 const RAIL_SEGMENT_GAP := 0.08
 const RAIL_Y_OFFSET := 0.12
 const RAIL_VISUAL_CENTER := Vector3(0.15, 0.07, -0.625)
@@ -46,10 +45,7 @@ static func build(definition: TrackDefinition) -> Dictionary:
 	_build_ground(root, definition)
 	_build_track_body(root, definition)
 	_build_road(root, definition)
-	if definition.boundary_walls_enabled:
-		_build_boundary_walls(root, definition)
-	if definition.rails_enabled:
-		_build_route_network_rails(root, definition)
+	_build_route_network_rails(root, definition)
 	var spawns := _build_spawns(root, definition)
 	var waypoints := _build_waypoints(root, definition)
 	_build_checkpoints(root, definition)
@@ -262,8 +258,7 @@ static func _build_track_body(root: Node3D, definition: TrackDefinition) -> void
 	root.add_child(body)
 
 static func _build_road(root: Node3D, definition: TrackDefinition) -> void:
-	var is_gridmap_track := definition.road_visual_style == "kenney_gridmap" and not definition.road_grid_layout.is_empty()
-	if is_gridmap_track:
+	if definition.road_visual_style == "kenney_gridmap" and not definition.road_grid_layout.is_empty():
 		root.add_child(TrackGridRoadBuilder.build_grid_road(definition.road_grid_layout))
 	var road := MeshInstance3D.new()
 	road.name = "Road"
@@ -273,14 +268,13 @@ static func _build_road(root: Node3D, definition: TrackDefinition) -> void:
 	road.set("force_close", definition.closed_loop)
 	road.set("show_wall_preview", false)
 	road.set("generate_walls_runtime", false)
-	road.set("collision_enabled", true)
-	if is_gridmap_track:
+	if definition.road_visual_style == "kenney_gridmap" and not definition.road_grid_layout.is_empty():
 		road.set("collision_mesh_override", TrackGridRoadBuilder.build_grid_collision_mesh(definition.road_grid_layout))
 	if not definition.road_texture_path.is_empty():
 		var texture := load(definition.road_texture_path)
 		if texture is Texture2D:
 			road.set("road_texture", texture)
-	if is_gridmap_track:
+	if definition.road_visual_style == "kenney_gridmap" and not definition.road_grid_layout.is_empty():
 		road.visible = false
 
 	var collision_body := StaticBody3D.new()
@@ -313,43 +307,6 @@ static func _build_route_network_rails(root: Node3D, definition: TrackDefinition
 			[],
 			str(route["key"])
 		)
-
-static func _build_boundary_walls(root: Node3D, definition: TrackDefinition) -> void:
-	if definition.road_visual_style != "kenney_gridmap" or definition.road_grid_layout.is_empty():
-		return
-	var wall_segments := TrackGridRoadBuilder.boundary_wall_segments_from_grid_layout(
-		definition.road_grid_layout,
-		definition.wall_height,
-		minf(definition.wall_thickness, 0.5)
-	)
-	if wall_segments.is_empty():
-		return
-	var holder := Node3D.new()
-	holder.name = "BoundaryWalls"
-	holder.visible = false
-	root.add_child(holder)
-	var wall_phys_mat := PhysicsMaterial.new()
-	wall_phys_mat.friction = 0.05
-	wall_phys_mat.bounce = 0.05
-	wall_phys_mat.rough = false
-	for i in range(wall_segments.size()):
-		var segment := wall_segments[i] as Dictionary
-		var body := StaticBody3D.new()
-		body.name = "BoundaryWall_%03d" % i
-		body.collision_layer = 1
-		body.collision_mask = 2
-		body.physics_material_override = wall_phys_mat
-		var shape_node := CollisionShape3D.new()
-		shape_node.name = "CollisionShape3D"
-		var shape := BoxShape3D.new()
-		shape.size = segment.get("size", Vector3.ONE) as Vector3
-		shape_node.shape = shape
-		body.transform = Transform3D(
-			segment.get("basis", Basis.IDENTITY) as Basis,
-			segment.get("position", Vector3.ZERO) as Vector3
-		)
-		body.add_child(shape_node)
-		holder.add_child(body)
 
 static func _build_walls(root: Node3D, definition: TrackDefinition) -> void:
 	var holder := Node3D.new()
@@ -390,7 +347,7 @@ static func _build_route_rails(
 	parent.add_child(holder)
 	var rail_material := _rail_material(rail_texture_path, rail_texture_uv_scale)
 	var edge_offset := road_width * 0.5 + RAIL_EDGE_OFFSET
-	var rail_route := _smoothed_rail_route_points(route_points, closed_loop, _rail_curve_radius(road_width), RAIL_CURVE_SAMPLES)
+	var rail_route := _smoothed_rail_route_points(route_points, closed_loop, road_width * RAIL_CURVE_RADIUS_SCALE, RAIL_CURVE_SAMPLES)
 	var edges := _road_edge_points(rail_route, edge_offset, closed_loop)
 	_add_rail_polyline_pieces(holder, edges.get("left", []), closed_loop, "L", rail_material, route_network, join_gaps, route_key)
 	_add_rail_polyline_pieces(holder, edges.get("right", []), closed_loop, "R", rail_material, route_network, join_gaps, route_key)
@@ -406,9 +363,6 @@ static func _rail_material(rail_texture_path: String, rail_texture_uv_scale: flo
 		if texture is Texture2D:
 			material.albedo_texture = texture
 	return material
-
-static func _rail_curve_radius(road_width: float) -> float:
-	return minf(road_width * RAIL_CURVE_RADIUS_SCALE, KENNEY_ROAD_SIDE_EDGE_OFFSET)
 
 static func _smoothed_rail_route_points(route_points: Array[Vector3], closed_loop: bool, radius: float, samples: int) -> Array[Vector3]:
 	if route_points.size() < 3 or radius <= 0.0 or samples <= 0:

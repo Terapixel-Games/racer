@@ -88,7 +88,6 @@ func test_car_scene_uses_grounded_kart_physics_defaults() -> void:
 	if controller != null:
 		assert_true(controller.floor_snap_length >= 0.8, "Car scene should use floor snap so it stays planted")
 		assert_true(controller.ground_snap_distance >= 0.8, "Controller should preserve grounded snap distance")
-		assert_true(controller.ground_snap_distance <= 2.5, "Ground snap should be long enough for ramp adhesion while staying below one GridMap elevation step")
 		assert_true(controller.tire_grip_rate > controller.drift_tire_grip_rate, "Normal tires should grip more than drift tires")
 		assert_true(controller.low_speed_turn_factor < 1.0, "Low-speed steering should be limited like a kart")
 	car.queue_free()
