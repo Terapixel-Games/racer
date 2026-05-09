@@ -15,6 +15,7 @@ reset_mode = "instant_pop"
 floor_visual_y = -1.1
 runtime_scene_path = "res://assets/gameplay/tracks/sandbox/sandbox_track.tscn"
 dressing_scene_path = "res://assets/gameplay/tracks/sandbox/sandbox_editable_room.tscn"
+preview_dressing_scene_path = "res://assets/gameplay/tracks/shared/backyard_optimized/backyard_preview_shell.tscn"
 ground_size = Vector2(900, 720)
 ground_color = Color(0.82, 0.66, 0.42, 1)
 ground_texture_path = "res://assets/gameplay/materials/sand/sandbox_sand_albedo.png"

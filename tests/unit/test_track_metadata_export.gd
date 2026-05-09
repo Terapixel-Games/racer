@@ -39,6 +39,7 @@ func test_kitchen_metadata_matches_server_shape() -> void:
 	assert_equal(float(metadata.get("sky_cloud_amount", -1.0)), 0.16, "Metadata should include Kitchen sky cloud amount")
 	assert_equal((metadata.get("sky_top_color", []) as Array).size(), 4, "Metadata should export Kitchen sky top color")
 	assert_equal(str(metadata.get("dressing_scene_path", "")), "res://assets/gameplay/tracks/kitchen/kitchen_editable_room.tscn", "Metadata should expose the editable dressing scene")
+	assert_equal(str(metadata.get("preview_dressing_scene_path", "")), "", "Kitchen should not export a stage-select preview dressing scene")
 	assert_true(float(metadata.get("route_length", 0.0)) >= 440.0, "Metadata should include the compact MVP GridMap loop length")
 
 func test_stage_sky_falls_back_without_definition_fields() -> void:

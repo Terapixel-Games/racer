@@ -15,6 +15,7 @@ reset_mode = "instant_pop"
 floor_visual_y = -1.1
 runtime_scene_path = "res://assets/gameplay/tracks/outdoor_playground/outdoor_playground_track.tscn"
 dressing_scene_path = "res://assets/gameplay/tracks/outdoor_playground/outdoor_playground_editable_room.tscn"
+preview_dressing_scene_path = "res://assets/gameplay/tracks/shared/backyard_optimized/backyard_preview_shell.tscn"
 ground_size = Vector2(900, 720)
 ground_color = Color(0.22, 0.38, 0.18, 1)
 ground_texture_path = "res://assets/gameplay/materials/playground/outdoor_playground_floor_albedo.png"

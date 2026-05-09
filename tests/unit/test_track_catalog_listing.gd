@@ -44,6 +44,12 @@ const KITCHEN_DEFINITION_GROUND_SIZE := Vector2(560.0, 400.0)
 const KITCHEN_EDITABLE_FLOOR_SIZE := Vector2(292.0, 190.0)
 const OUTDOOR_GRASS_SHADER := "res://assets/gameplay/materials/grass/playground_grass.gdshader"
 const OUTDOOR_PLAYGROUND_FLOOR_TEXTURE := "res://assets/gameplay/materials/playground/outdoor_playground_floor_albedo.png"
+const BACKYARD_PREVIEW_SHELL := "res://assets/gameplay/tracks/shared/backyard_optimized/backyard_preview_shell.tscn"
+const OLD_BACKYARD_RESOURCE_MARKERS := [
+	"wooden_playground_set_static.glb",
+	"wooden_playground_set_swing.glb",
+	"trex_skeleton.glb",
+]
 
 func test_list_tracks_returns_default_first_summary() -> void:
 	var tracks := TrackCatalog.list_tracks()
@@ -165,12 +171,37 @@ func _assert_gridmap_contract(definition: TrackDefinition, track_id: String) -> 
 	if track_id == "outdoor_playground":
 		assert_equal(definition.ground_texture_path, OUTDOOR_PLAYGROUND_FLOOR_TEXTURE, "Outdoor Playground should use the authored floor texture")
 	assert_equal(definition.ground_size, _expected_definition_ground_size(track_id), "%s definition should match its runtime ground dimensions" % track_id)
+	if BACKYARD_TRACK_IDS.has(track_id):
+		assert_equal(definition.preview_dressing_scene_path, BACKYARD_PREVIEW_SHELL, "%s should use the optimized backyard preview dressing" % track_id)
+	else:
+		assert_equal(definition.preview_dressing_scene_path, "", "%s should not require preview-only dressing" % track_id)
 	var metadata: Dictionary = definition.to_metadata()
 	assert_equal(str(metadata.get("track_source_id", "")), "road_grid_map", "%s metadata should export GridMap source" % track_id)
 	assert_equal(str(metadata.get("progress_rule_id", "")), "route_lap_progress", "%s metadata should export route progress rules" % track_id)
 	assert_equal(str(metadata.get("win_condition_id", "")), "checkpoint_laps", "%s metadata should export checkpoint lap rules" % track_id)
 	assert_equal(bool(metadata.get("boundary_walls_enabled", false)), true, "%s metadata should export boundary wall containment" % track_id)
 	assert_equal(bool(metadata.get("rails_enabled", true)), false, "%s metadata should export disabled rails" % track_id)
+	assert_equal(str(metadata.get("preview_dressing_scene_path", "")), definition.preview_dressing_scene_path, "%s metadata should export preview dressing path" % track_id)
+
+func test_backyard_scenes_do_not_reference_old_meshy_landmarks() -> void:
+	for track_id in BACKYARD_TRACK_IDS:
+		var definition := TrackCatalog.get_definition(track_id)
+		assert_true(definition != null, "%s definition should load" % track_id)
+		if definition == null:
+			continue
+		_assert_scene_text_excludes_old_backyard_resources(definition.dressing_scene_path)
+		_assert_scene_text_excludes_old_backyard_resources(definition.preview_dressing_scene_path)
+
+func _assert_scene_text_excludes_old_backyard_resources(path: String) -> void:
+	assert_true(ResourceLoader.exists(path), "%s should exist" % path)
+	var file := FileAccess.open(path, FileAccess.READ)
+	assert_true(file != null, "%s should be readable" % path)
+	if file == null:
+		return
+	var text := file.get_as_text()
+	file.close()
+	for marker in OLD_BACKYARD_RESOURCE_MARKERS:
+		assert_true(not text.contains(marker), "%s should not reference old heavy resource %s" % [path, marker])
 
 func _find_authoring_road_grid(root: Node) -> Node:
 	var direct := root.get_node_or_null("RoadGridMap")

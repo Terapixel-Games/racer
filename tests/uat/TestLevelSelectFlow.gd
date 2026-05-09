@@ -31,6 +31,14 @@ func test_level_select_loads_default_track_and_writes_local_single_metadata() ->
 	assert_equal(NakamaService.get_meta_value("race_mode", ""), "local_single", "Level select should configure local single-race mode")
 	screen.queue_free()
 
+func test_level_select_uses_optimized_backyard_preview_dressing() -> void:
+	var screen := LevelSelectScene.instantiate()
+	scene_tree.root.add_child(screen)
+	assert_true(bool(screen.call("select_track_for_test", "outdoor_playground")), "Level select should expose the Dash backyard track")
+	assert_true(bool(screen.call("preview_has_backyard_dressing_for_test")), "Backyard stage preview should show optimized dressed landmarks")
+	assert_true(not bool(screen.call("preview_has_visible_road_edges_for_test")), "Dressed backyard preview should still hide support road visuals")
+	screen.queue_free()
+
 func test_level_select_back_target_returns_to_character_select_for_single_flow() -> void:
 	NakamaService.set_meta_value("nav_flow_mode", "single_race")
 	var screen := LevelSelectScene.instantiate()

@@ -23,6 +23,7 @@ const TrackSourceRules = preload("res://scripts/track/TrackSourceRules.gd")
 @export var floor_visual_y := 0.0
 @export var runtime_scene_path := ""
 @export_file("*.tscn") var dressing_scene_path := ""
+@export_file("*.tscn") var preview_dressing_scene_path := ""
 @export var ground_size := Vector2(160.0, 140.0)
 @export var ground_color := Color(0.82, 0.86, 0.88)
 @export var ground_texture_path := ""
@@ -99,6 +100,8 @@ func validate() -> Array[String]:
 		errors.append("Track must include exactly one valid lap gate checkpoint index.")
 	if not dressing_scene_path.strip_edges().is_empty() and not ResourceLoader.exists(dressing_scene_path):
 		errors.append("Track dressing scene path does not exist: %s" % dressing_scene_path)
+	if not preview_dressing_scene_path.strip_edges().is_empty() and not ResourceLoader.exists(preview_dressing_scene_path):
+		errors.append("Track preview dressing scene path does not exist: %s" % preview_dressing_scene_path)
 	_validate_stage_props(errors)
 	_validate_surface_segments(errors)
 	_validate_audio_zones(errors)
@@ -170,6 +173,7 @@ func to_metadata() -> Dictionary:
 		"audio_ids": audio_ids,
 		"runtime_scene_path": runtime_scene_path,
 		"dressing_scene_path": dressing_scene_path,
+		"preview_dressing_scene_path": preview_dressing_scene_path,
 	}
 
 func _validate_checkpoints(errors: Array[String]) -> void:

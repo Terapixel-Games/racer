@@ -53,6 +53,14 @@ func get_selected_track_id() -> String:
 func apply_selected_track_for_test() -> void:
 	_apply_selected_track_metadata()
 
+func select_track_for_test(track_id: String) -> bool:
+	for i in range(_tracks.size()):
+		if str((_tracks[i] as Dictionary).get("id", "")) == track_id:
+			_track_index = i
+			_show_selected_track(false)
+			return true
+	return false
+
 func get_back_target_for_test() -> String:
 	return "res://scenes/CharacterSelect.tscn"
 
@@ -61,6 +69,13 @@ func preview_has_visible_road_edges_for_test() -> bool:
 
 func preview_has_visible_rails_for_test() -> bool:
 	return _has_visible_named_node(_preview_root, "Rails")
+
+func preview_has_backyard_dressing_for_test() -> bool:
+	return (
+		_has_visible_named_node(_preview_root, "PlaygroundSet")
+		and _has_visible_named_node(_preview_root, "SwingSet")
+		and _has_visible_named_node(_preview_root, "SandboxFossil")
+	)
 
 func _build_screen() -> void:
 	set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -257,7 +272,7 @@ func _attach_preview_build(track_id: String, built: Dictionary) -> void:
 func _build_lightweight_preview(definition) -> Dictionary:
 	var preview_definition = definition.duplicate(true)
 	preview_definition.id = "%s_preview" % definition.id
-	preview_definition.dressing_scene_path = ""
+	preview_definition.dressing_scene_path = str(definition.preview_dressing_scene_path)
 	var empty_stage_props: Array[Dictionary] = []
 	preview_definition.stage_props = empty_stage_props
 	return TrackRuntimeBuilder.build(preview_definition)

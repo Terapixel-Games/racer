@@ -17,6 +17,13 @@ const OUT_OF_BOUNDS_Y := -28.0
 const ROAD_TEXTURE := "res://assets/gameplay/materials/plastic/glossy_plastic_albedo.png"
 const GRID_LIBRARY := TrackGridRoadBuilder.DEFAULT_MESH_LIBRARY_PATH
 const BACKYARD_SHELL_PATH := "res://assets/gameplay/tracks/shared/backyard/backyard_shell.tscn"
+const BACKYARD_PREVIEW_SHELL_PATH := "res://assets/gameplay/tracks/shared/backyard_optimized/backyard_preview_shell.tscn"
+const BACKYARD_ATLAS_PATH := "res://assets/gameplay/tracks/shared/backyard_optimized/backyard_atlas.png"
+const BACKYARD_ATLAS_MATERIAL_PATH := "res://assets/gameplay/tracks/shared/backyard_optimized/backyard_atlas_material.tres"
+const BACKYARD_PLAYGROUND_PATH := "res://assets/gameplay/tracks/shared/backyard_optimized/playground_structure_low.glb"
+const BACKYARD_SWING_PATH := "res://assets/gameplay/tracks/shared/backyard_optimized/swing_set_low.glb"
+const BACKYARD_FOSSIL_PATH := "res://assets/gameplay/tracks/shared/backyard_optimized/sandbox_fossil_low.glb"
+const BACKYARD_GARDEN_PATH := "res://assets/gameplay/tracks/shared/backyard_optimized/garden_log_bush_low.glb"
 
 const INDOOR_FLOOR_SIZE := Vector2(360.0, 240.0)
 const BACKYARD_FLOOR_SIZE := Vector2(900.0, 720.0)
@@ -141,7 +148,9 @@ const COURSES := [
 ]
 
 func _initialize() -> void:
+	_save_backyard_atlas_material()
 	_save_backyard_shell()
+	_save_backyard_preview_shell()
 	var manifest := _load_manifest()
 	if not manifest.has("tracks"):
 		manifest["tracks"] = {}
@@ -195,6 +204,8 @@ func _make_definition(course: Dictionary, layout: Dictionary, route_points: Arra
 	definition.floor_visual_y = FLOOR_Y
 	definition.runtime_scene_path = _runtime_scene_path(course)
 	definition.dressing_scene_path = _editable_scene_path(course)
+	if bool(course.get("backyard", false)):
+		definition.preview_dressing_scene_path = BACKYARD_PREVIEW_SHELL_PATH
 	definition.ground_size = course["floor_size"]
 	definition.ground_color = course["ground_color"]
 	definition.ground_texture_path = str(course.get("ground_texture", ""))
@@ -264,16 +275,48 @@ func _save_backyard_shell() -> void:
 	_add_box(root, "SandboxBase", Vector3(40, -0.85, 205), Vector3(300, 1.2, 230), Color(0.76, 0.61, 0.38))
 	_add_box(root, "GardenBed", Vector3(210, -0.8, -95), Vector3(300, 1.0, 220), Color(0.24, 0.34, 0.16))
 	_add_box(root, "PlaygroundMulch", Vector3(-230, -0.75, -150), Vector3(300, 1.0, 220), Color(0.36, 0.18, 0.08))
-	_add_scene_instance(root, "res://assets/source/meshy/playground_wooden_set/wooden_playground_set_static.glb", Vector3(-310, 0, -248), 18.0, Vector3(16, 16, 16), "PlaygroundSet")
-	_add_scene_instance(root, "res://assets/source/meshy/playground_wooden_set/wooden_playground_set_swing.glb", Vector3(-124, 0, -210), -12.0, Vector3(14, 14, 14), "SwingSet")
-	_add_scene_instance(root, "res://assets/source/meshy/sandbox_props/trex_skeleton.glb", Vector3(-72, 0, 260), -18.0, Vector3(18, 18, 18), "SandboxFossil")
-	_add_scene_instance(root, "res://assets/source/kenney/nature_kit/log_large.glb", Vector3(322, 0, -170), 24.0, Vector3(18, 18, 18), "GardenLog")
-	_add_scene_instance(root, "res://assets/source/kenney/nature_kit/plant_bushLarge.glb", Vector3(336, 0, -30), 0.0, Vector3(20, 20, 20), "GardenBushLarge")
+	_add_optimized_scene_instance(root, BACKYARD_PLAYGROUND_PATH, Vector3(-310, 0, -248), 18.0, Vector3(16, 16, 16), "PlaygroundSet")
+	_add_optimized_scene_instance(root, BACKYARD_SWING_PATH, Vector3(-124, 0, -210), -12.0, Vector3(14, 14, 14), "SwingSet")
+	_add_optimized_scene_instance(root, BACKYARD_FOSSIL_PATH, Vector3(-72, 0, 260), -18.0, Vector3(18, 18, 18), "SandboxFossil")
+	_add_optimized_scene_instance(root, BACKYARD_GARDEN_PATH, Vector3(322, 0, -98), 24.0, Vector3(22, 22, 22), "GardenLogBush")
 	_set_owner_recursive(root, root)
 	var packed := PackedScene.new()
 	packed.pack(root)
 	ResourceSaver.save(packed, BACKYARD_SHELL_PATH)
 	root.free()
+
+func _save_backyard_preview_shell() -> void:
+	var path := ProjectSettings.globalize_path(BACKYARD_PREVIEW_SHELL_PATH.get_base_dir())
+	DirAccess.make_dir_recursive_absolute(path)
+	var root := Node3D.new()
+	root.name = "BackyardPreviewShell"
+	_add_box(root, "BackFence", Vector3(0, 13, 365), Vector3(920, 26, 8), Color(0.55, 0.37, 0.18))
+	_add_box(root, "LeftFence", Vector3(-460, 13, 0), Vector3(8, 26, 720), Color(0.48, 0.32, 0.16))
+	_add_box(root, "RightFence", Vector3(460, 13, 0), Vector3(8, 26, 720), Color(0.48, 0.32, 0.16))
+	_add_box(root, "SandboxBase", Vector3(40, -0.82, 205), Vector3(300, 0.8, 230), Color(0.76, 0.61, 0.38))
+	_add_box(root, "GardenBed", Vector3(210, -0.78, -95), Vector3(300, 0.7, 220), Color(0.24, 0.34, 0.16))
+	_add_box(root, "PlaygroundMulch", Vector3(-230, -0.74, -150), Vector3(300, 0.7, 220), Color(0.36, 0.18, 0.08))
+	_add_optimized_scene_instance(root, BACKYARD_PLAYGROUND_PATH, Vector3(-310, 0, -248), 18.0, Vector3(16, 16, 16), "PlaygroundSet")
+	_add_optimized_scene_instance(root, BACKYARD_SWING_PATH, Vector3(-124, 0, -210), -12.0, Vector3(14, 14, 14), "SwingSet")
+	_add_optimized_scene_instance(root, BACKYARD_FOSSIL_PATH, Vector3(-72, 0, 260), -18.0, Vector3(18, 18, 18), "SandboxFossil")
+	_add_optimized_scene_instance(root, BACKYARD_GARDEN_PATH, Vector3(322, 0, -98), 24.0, Vector3(22, 22, 22), "GardenLogBush")
+	_set_owner_recursive(root, root)
+	var packed := PackedScene.new()
+	packed.pack(root)
+	ResourceSaver.save(packed, BACKYARD_PREVIEW_SHELL_PATH)
+	root.free()
+
+func _save_backyard_atlas_material() -> void:
+	var path := ProjectSettings.globalize_path(BACKYARD_ATLAS_MATERIAL_PATH.get_base_dir())
+	DirAccess.make_dir_recursive_absolute(path)
+	var material := StandardMaterial3D.new()
+	material.resource_name = "BackyardAtlasMaterial"
+	material.roughness = 0.78
+	material.metallic = 0.0
+	var texture := load(BACKYARD_ATLAS_PATH) as Texture2D
+	if texture != null:
+		material.albedo_texture = texture
+	ResourceSaver.save(material, BACKYARD_ATLAS_MATERIAL_PATH)
 
 func _add_backyard_shell_instance(root: Node3D) -> void:
 	var packed := load(BACKYARD_SHELL_PATH) as PackedScene
@@ -550,6 +593,20 @@ func _add_scene_instance(parent: Node3D, path: String, position: Vector3, yaw_de
 	instance.name = node_name
 	instance.transform = Transform3D(Basis(Vector3.UP, deg_to_rad(yaw_degrees)).scaled(scale), position)
 	parent.add_child(instance)
+
+func _add_optimized_scene_instance(parent: Node3D, path: String, position: Vector3, yaw_degrees: float, scale: Vector3, node_name: String) -> void:
+	_add_scene_instance(parent, path, position, yaw_degrees, scale, node_name)
+	var instance := parent.get_node_or_null(NodePath(node_name))
+	if instance != null:
+		_apply_material_override_recursive(instance, load(BACKYARD_ATLAS_MATERIAL_PATH) as Material)
+
+func _apply_material_override_recursive(node: Node, material: Material) -> void:
+	if material == null:
+		return
+	if node is MeshInstance3D:
+		(node as MeshInstance3D).material_override = material
+	for child in node.get_children():
+		_apply_material_override_recursive(child, material)
 
 func _apply_sky_preset(definition: TrackDefinition, preset_id: String) -> void:
 	var preset := _sky_preset(preset_id)
