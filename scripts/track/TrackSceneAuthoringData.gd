@@ -15,15 +15,18 @@ static func apply_to_definition(source: TrackDefinition, mode_config: Dictionary
 		return null
 	var definition := source.duplicate(true) as TrackDefinition
 	var road_source := _road_source_for(definition, mode_config)
+	var explicit_layout := _race_layout_from_definition_grid(definition)
+	if _should_use_definition_grid(definition, road_source, explicit_layout):
+		_apply_race_layout(definition, explicit_layout)
+		definition.set_meta("definition_grid_dressing_scene_path", definition.dressing_scene_path)
+		return definition
 	if definition.dressing_scene_path.strip_edges().is_empty():
-		var explicit_layout := _race_layout_from_definition_grid(definition)
 		if explicit_layout != null and explicit_layout.is_valid():
 			_apply_race_layout(definition, explicit_layout)
 			return definition
 		return definition
 	var packed := load(definition.dressing_scene_path)
 	if not (packed is PackedScene):
-		var explicit_layout := _race_layout_from_definition_grid(definition)
 		if explicit_layout != null and explicit_layout.is_valid():
 			_apply_race_layout(definition, explicit_layout)
 			return definition
@@ -70,6 +73,19 @@ static func _definition_has_complete_grid_layout(definition: TrackDefinition) ->
 	var cells := definition.road_grid_layout.get("cells", []) as Array
 	var route_cells := definition.road_grid_layout.get("ordered_route_cells", []) as Array
 	return cells.size() >= 3 and route_cells.size() >= 3
+
+static func _should_use_definition_grid(definition: TrackDefinition, road_source: String, race_layout: RaceLayout) -> bool:
+	if definition == null or race_layout == null or not race_layout.is_valid():
+		return false
+	if road_source != ROAD_SOURCE_AUTO and road_source != ROAD_SOURCE_ROAD_GRID_MAP:
+		return false
+	if not _definition_has_complete_grid_layout(definition):
+		return false
+	if definition.has_meta("definition_grid_dressing_scene_path"):
+		var resolved_scene_path := str(definition.get_meta("definition_grid_dressing_scene_path", ""))
+		if resolved_scene_path != definition.dressing_scene_path:
+			return false
+	return definition.track_source_id == ROAD_SOURCE_ROAD_GRID_MAP or definition.road_visual_style == "kenney_gridmap"
 
 static func _apply_race_layout(definition: TrackDefinition, race_layout: RaceLayout) -> void:
 	if not race_layout.road_visual_style.strip_edges().is_empty():
