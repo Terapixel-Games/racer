@@ -1,7 +1,45 @@
 #!/bin/sh
 set -eu
 
-required_vars="DB_USER DB_PASSWORD DB_HOST DB_PORT DB_NAME GAME_ID NAKAMA_SERVER_KEY NAKAMA_SESSION_ENCRYPTION_KEY NAKAMA_SESSION_REFRESH_ENCRYPTION_KEY NAKAMA_RUNTIME_HTTP_KEY"
+strip_db_scheme() {
+  value="$1"
+  value="${value#postgres://}"
+  value="${value#postgresql://}"
+  printf '%s' "$value"
+}
+
+resolve_db_address() {
+  if [ -n "${DB_ADDRESS:-}" ]; then
+    strip_db_scheme "${DB_ADDRESS}"
+    return
+  fi
+
+  if [ -n "${DATABASE_URL:-}" ]; then
+    strip_db_scheme "${DATABASE_URL}"
+    return
+  fi
+
+  if [ -z "${DB_USER:-}" ] || [ -z "${DB_PASSWORD:-}" ] || [ -z "${DB_HOST:-}" ] || [ -z "${DB_NAME:-}" ]; then
+    echo "Missing database config. Set DB_ADDRESS (preferred), DATABASE_URL, or DB_USER/DB_PASSWORD/DB_HOST/DB_NAME."
+    exit 1
+  fi
+
+  db_port="${DB_PORT:-5432}"
+  db_address="${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${db_port}/${DB_NAME}"
+  db_params="${DB_PARAMS:-}"
+  db_sslmode="${DB_SSLMODE:-}"
+
+  if [ -n "$db_params" ]; then
+    db_params="${db_params#\?}"
+    db_address="${db_address}?${db_params}"
+  elif [ -n "$db_sslmode" ]; then
+    db_address="${db_address}?sslmode=${db_sslmode}"
+  fi
+
+  printf '%s' "$db_address"
+}
+
+required_vars="GAME_ID NAKAMA_SERVER_KEY NAKAMA_SESSION_ENCRYPTION_KEY NAKAMA_SESSION_REFRESH_ENCRYPTION_KEY NAKAMA_RUNTIME_HTTP_KEY"
 for var_name in $required_vars; do
   eval "value=\${$var_name:-}"
   if [ -z "$value" ]; then
@@ -19,7 +57,7 @@ if [ -z "${PORT:-}" ]; then
   PORT=7350
 fi
 
-DB_ADDRESS="${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}"
+DB_ADDRESS="$(resolve_db_address)"
 LEADERBOARD_ID_VALUE="${LEADERBOARD_ID:-${GAME_ID}_high_scores}"
 NAKAMA_SOCKET_PORT="${NAKAMA_SOCKET_PORT:-7354}"
 NAKAMA_CONSOLE_PORT="${NAKAMA_CONSOLE_PORT:-7355}"
