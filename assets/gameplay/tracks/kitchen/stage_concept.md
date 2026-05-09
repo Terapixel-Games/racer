@@ -73,4 +73,3 @@ The best shortcuts should feel "legal but risky": narrow court-approved routes t
 - Use simple collision boxes/ramps for counters, rails, and bridge edges.
 - Ensure all shortcut entries are readable before the turn, not hidden behind dressing.
 - Budget shiny materials carefully for mobile renderer performance.
-
