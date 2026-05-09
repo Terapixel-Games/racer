@@ -11,6 +11,7 @@ const KITCHEN_DEFINITION_PATH := "res://assets/gameplay/tracks/kitchen/kitchen_t
 const KITCHEN_MAP_PATH := "res://assets/gameplay/tracks/kitchen/kitchen_track_map.tres"
 const KITCHEN_SCENE_PATH := "res://assets/gameplay/tracks/kitchen/kitchen_track.tscn"
 const KITCHEN_METADATA_PATH := "res://assets/gameplay/tracks/kitchen/kitchen_track_metadata.json"
+const WEB_PACKAGED_TRACK_IDS := [DEFAULT_TRACK_ID]
 
 static var _manifest_cache: Dictionary = {}
 
@@ -23,13 +24,15 @@ static func list_tracks() -> Array[Dictionary]:
 	var tracks: Dictionary = manifest.get("tracks", {})
 	var default_id := str(manifest.get("default_track_id", DEFAULT_TRACK_ID))
 	var summaries: Array[Dictionary] = []
-	if tracks.has(default_id):
+	if tracks.has(default_id) and _is_track_packaged_for_runtime(default_id):
 		summaries.append(_track_summary(default_id, tracks[default_id]))
 	var ids := tracks.keys()
 	ids.sort()
 	for id_value in ids:
 		var track_id := str(id_value)
 		if track_id == default_id:
+			continue
+		if not _is_track_packaged_for_runtime(track_id):
 			continue
 		summaries.append(_track_summary(track_id, tracks[id_value]))
 	if summaries.is_empty():
@@ -40,13 +43,15 @@ static func list_maps() -> Array[Dictionary]:
 	var maps := _map_packages()
 	var default_id := get_default_track_id()
 	var summaries: Array[Dictionary] = []
-	if maps.has(default_id):
+	if maps.has(default_id) and _is_track_packaged_for_runtime(default_id):
 		summaries.append(_map_summary(default_id, maps[default_id]))
 	var ids := maps.keys()
 	ids.sort()
 	for id_value in ids:
 		var map_id := str(id_value)
 		if map_id == default_id:
+			continue
+		if not _is_track_packaged_for_runtime(map_id):
 			continue
 		summaries.append(_map_summary(map_id, maps[id_value]))
 	return summaries
@@ -79,6 +84,8 @@ static func get_package(track_id: String = DEFAULT_TRACK_ID) -> Dictionary:
 	var normalized := _normalize_track_id(track_id)
 	var manifest := _load_manifest()
 	var tracks: Dictionary = manifest.get("tracks", {})
+	if not _is_track_packaged_for_runtime(normalized):
+		return {}
 	if tracks.has(normalized):
 		return tracks[normalized]
 	match normalized:
@@ -89,6 +96,8 @@ static func get_package(track_id: String = DEFAULT_TRACK_ID) -> Dictionary:
 
 static func get_map_package(map_id: String = DEFAULT_TRACK_ID) -> Dictionary:
 	var normalized := _normalize_track_id(map_id)
+	if not _is_track_packaged_for_runtime(normalized):
+		return {}
 	var maps := _map_packages()
 	if maps.has(normalized):
 		return maps[normalized]
@@ -135,6 +144,11 @@ static func has_map(map_id: String) -> bool:
 static func _normalize_track_id(track_id: String) -> String:
 	var normalized := track_id.strip_edges().to_lower()
 	return DEFAULT_TRACK_ID if normalized.is_empty() else normalized
+
+static func _is_track_packaged_for_runtime(track_id: String) -> bool:
+	if not OS.has_feature("web"):
+		return true
+	return WEB_PACKAGED_TRACK_IDS.has(_normalize_track_id(track_id))
 
 static func _load_manifest() -> Dictionary:
 	if not _manifest_cache.is_empty():
