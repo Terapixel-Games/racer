@@ -25,7 +25,6 @@ StreakManager="*res://addons/arcade_core/StreakManager.gd"
 AudioManager="*res://addons/arcade_core/AudioManager.gd"
 Fx="*res://addons/arcade_core/Fx.gd"
 AdManager="*res://addons/arcade_core/AdManager.gd"
-_mcp_game_helper="*res://addons/godot_ai/runtime/game_helper.gd"
 
 [display]
 

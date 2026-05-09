@@ -11,7 +11,7 @@ const TrackWalls = preload("res://scripts/TrackWalls.gd")
 const TrackSceneAuthoringData = preload("res://scripts/track/TrackSceneAuthoringData.gd")
 const TrackGridRoadBuilder = preload("res://scripts/track/TrackGridRoadBuilder.gd")
 const StageSky = preload("res://scripts/track/StageSky.gd")
-const RailScene = preload("res://assets/source/kenney/racing_kit/rail.glb")
+const RAIL_SCENE_PATH := "res://assets/source/kenney/racing_kit/rail.glb"
 
 const RAIL_SIDE_SCALE := 8.0
 const RAIL_SEGMENT_LENGTH := 10.0
@@ -648,6 +648,9 @@ static func _project_point_to_segment_xz(point: Vector3, a: Vector3, b: Vector3)
 	return a.lerp(b, t)
 
 static func _add_rail_segment_pieces(parent: Node3D, a: Vector3, b: Vector3, side_name: String, segment_index: int, rail_material: Material) -> void:
+	var rail_scene := load(RAIL_SCENE_PATH) as PackedScene
+	if rail_scene == null:
+		return
 	var segment := b - a
 	var flat := Vector3(segment.x, 0.0, segment.z)
 	var flat_length := flat.length()
@@ -670,7 +673,7 @@ static func _add_rail_segment_pieces(parent: Node3D, a: Vector3, b: Vector3, sid
 		var t := distance_along / flat_length
 		var visual_center := a.lerp(b, t) + Vector3.UP * RAIL_Y_OFFSET
 		var position := visual_center - basis * RAIL_VISUAL_CENTER
-		var rail: Node = RailScene.instantiate()
+		var rail: Node = rail_scene.instantiate()
 		if not (rail is Node3D):
 			if rail != null:
 				rail.queue_free()
