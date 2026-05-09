@@ -2,7 +2,6 @@ extends Control
 
 const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
 const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd")
-const TrackRuntimeScene = preload("res://scripts/track/TrackRuntimeScene.gd")
 const NavigationFlow = preload("res://scripts/logic/NavigationFlow.gd")
 
 const PREVIEW_CAMERA_ROUTE_SPEED := 0.035
@@ -14,6 +13,8 @@ var _preview_root: Node3D
 var _camera: Camera3D
 var _route_points: Array[Vector3] = []
 var _preview_time := 0.0
+var _preview_cache: Dictionary = {}
+var _threaded_scene_requests: Dictionary = {}
 
 var _title_label: Label
 var _track_name_label: Label
@@ -24,8 +25,18 @@ var _next_button: Button
 
 func _ready() -> void:
 	_tracks = TrackCatalog.list_tracks()
+	_request_all_scene_preloads()
 	_build_screen()
 	_show_selected_track(false)
+
+func _exit_tree() -> void:
+	for build in _preview_cache.values():
+		if not (build is Dictionary):
+			continue
+		var node := (build as Dictionary).get("node", null) as Node
+		if node != null and is_instance_valid(node):
+			node.queue_free()
+	_preview_cache.clear()
 
 func _process(delta: float) -> void:
 	_preview_time += delta
@@ -203,51 +214,57 @@ func _show_selected_track(animated: bool) -> void:
 		_select_button.disabled = true
 		return
 	var selected := _tracks[_track_index]
+	var track_id := str(selected.get("id", ""))
 	_track_name_label.text = str(selected.get("display_name", selected.get("id", "Track")))
 	_meta_label.text = "Track %d/%d  /  %s" % [_track_index + 1, _tracks.size(), str(selected.get("version", "prototype"))]
 	_prev_button.disabled = _tracks.size() <= 1
 	_next_button.disabled = _tracks.size() <= 1
 	_select_button.disabled = false
-	_rebuild_preview(str(selected.get("id", "")))
+	_rebuild_preview(track_id)
+	_request_scene_preload(track_id)
+	_request_neighbor_scene_preloads()
 	if animated:
 		_track_name_label.modulate.a = 0.0
 		var tween := create_tween()
 		tween.tween_property(_track_name_label, "modulate:a", 1.0, 0.18)
 
 func _rebuild_preview(track_id: String) -> void:
-	for child in _preview_root.get_children():
-		child.queue_free()
+	_detach_preview_children()
 	_route_points.clear()
+	if _preview_cache.has(track_id):
+		_attach_preview_build(track_id, _preview_cache[track_id] as Dictionary)
+		return
 	var definition = TrackCatalog.get_definition(track_id)
 	if definition == null:
 		return
-	var built := _instantiate_track_package(track_id, definition)
+	var built := _build_lightweight_preview(definition)
+	_preview_cache[track_id] = built
+	_attach_preview_build(track_id, built)
+
+func _attach_preview_build(track_id: String, built: Dictionary) -> void:
 	var node := built.get("node", null) as Node
 	if node != null:
+		if node.get_parent() != null:
+			node.get_parent().remove_child(node)
 		_preview_root.add_child(node)
 		_hide_preview_road_edges(node)
-	for point in built.get("waypoints", definition.route_points):
+	for point in built.get("waypoints", []):
 		if point is Vector3:
 			_route_points.append(point)
 	_preview_time = 0.0
 	_update_preview_camera(true)
 
-func _instantiate_track_package(track_id: String, definition) -> Dictionary:
-	var scene_path := TrackCatalog.get_scene_path(track_id)
-	if not scene_path.is_empty():
-		var packed := load(scene_path)
-		if packed is PackedScene:
-			var scene_root: Node = (packed as PackedScene).instantiate()
-			if scene_root is TrackRuntimeScene:
-				(scene_root as TrackRuntimeScene).definition = definition
-				(scene_root as TrackRuntimeScene).rebuild_on_ready = false
-				var package_build = (scene_root as TrackRuntimeScene).rebuild()
-				if package_build is Dictionary:
-					package_build["node"] = scene_root
-					return package_build
-			elif scene_root != null:
-				return {"node": scene_root, "waypoints": definition.route_points}
-	return TrackRuntimeBuilder.build(definition)
+func _build_lightweight_preview(definition) -> Dictionary:
+	var preview_definition = definition.duplicate(true)
+	preview_definition.id = "%s_preview" % definition.id
+	preview_definition.dressing_scene_path = ""
+	var empty_stage_props: Array[Dictionary] = []
+	preview_definition.stage_props = empty_stage_props
+	return TrackRuntimeBuilder.build(preview_definition)
+
+func _detach_preview_children() -> void:
+	for child in _preview_root.get_children():
+		_preview_root.remove_child(child)
 
 func _update_preview_camera(snap: bool = false) -> void:
 	if _camera == null:
@@ -320,9 +337,33 @@ func _apply_selected_track_metadata() -> void:
 	if track_id.is_empty():
 		return
 	NakamaService.set_meta_value("track_id", track_id)
-	NakamaService.set_meta_value("track_recipe", TrackCatalog.get_metadata(track_id))
+	NakamaService.set_meta_value("track_recipe", {"track_id": track_id, "id": track_id})
+	NakamaService.set_meta_value("prepared_track_package", {})
+	_request_scene_preload(track_id)
 	NakamaService.set_meta_value("race_match_id", "local-single-race")
 	NakamaService.set_meta_value("race_mode", "local_single")
+
+func _request_neighbor_scene_preloads() -> void:
+	if _tracks.size() <= 1:
+		return
+	for offset in [-1, 1]:
+		var index := posmod(_track_index + offset, _tracks.size())
+		_request_scene_preload(str((_tracks[index] as Dictionary).get("id", "")))
+
+func _request_all_scene_preloads() -> void:
+	for track in _tracks:
+		if track is Dictionary:
+			_request_scene_preload(str((track as Dictionary).get("id", "")))
+
+func _request_scene_preload(track_id: String) -> void:
+	if track_id.is_empty() or _threaded_scene_requests.has(track_id):
+		return
+	var scene_path := TrackCatalog.get_scene_path(track_id)
+	if scene_path.is_empty():
+		return
+	var err := ResourceLoader.load_threaded_request(scene_path)
+	if err == OK or err == ERR_BUSY:
+		_threaded_scene_requests[track_id] = scene_path
 
 func _go_back() -> void:
 	if NavigationFlow.get_nav_flow_mode(NakamaService) == NavigationFlow.FLOW_SINGLE_RACE:

@@ -1291,7 +1291,7 @@ func _spawn_track() -> void:
 func _instantiate_track_package(track_id: String, definition) -> Dictionary:
 	var scene_path := TrackCatalog.get_scene_path(track_id)
 	if not scene_path.is_empty():
-		var packed := load(scene_path)
+		var packed := _load_track_scene(scene_path)
 		if packed is PackedScene:
 			var scene_root: Node = packed.instantiate()
 			if scene_root != null:
@@ -1303,6 +1303,14 @@ func _instantiate_track_package(track_id: String, definition) -> Dictionary:
 						package_build["node"] = scene_root
 						return package_build
 	return TrackRuntimeBuilder.build(definition)
+
+func _load_track_scene(scene_path: String) -> Resource:
+	var threaded_status := ResourceLoader.load_threaded_get_status(scene_path)
+	if threaded_status == ResourceLoader.THREAD_LOAD_LOADED:
+		var threaded_resource := ResourceLoader.load_threaded_get(scene_path)
+		if threaded_resource != null:
+			return threaded_resource
+	return load(scene_path)
 
 func _setup_checkpoints() -> void:
 	if checkpoint_system and checkpoint_system.has_signal("checkpoint_valid"):
