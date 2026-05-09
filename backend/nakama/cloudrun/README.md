@@ -13,10 +13,9 @@ PROJECT_ID="<gcp-project>"
 CLOUDRUN_SERVICE="racer-nakama"
 IMAGE_URI="us-central1-docker.pkg.dev/${PROJECT_ID}/nakama/${CLOUDRUN_SERVICE}:$(git rev-parse --short HEAD)"
 
-gcloud builds submit backend/nakama \
-  --project "${PROJECT_ID}" \
-  --tag "${IMAGE_URI}" \
-  --file backend/nakama/Dockerfile.render
+gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
+docker build -f backend/nakama/Dockerfile.render -t "${IMAGE_URI}" backend/nakama
+docker push "${IMAGE_URI}"
 ```
 
 ## Required Secret Manager secrets
@@ -27,7 +26,7 @@ gcloud builds submit backend/nakama \
 - `nakama-session-refresh-encryption-key`
 - `nakama-runtime-http-key`
 - `nakama-console-password`
-- `platform-internal-key`
+- `tpx-platform-internal-key`
 - `tpx-magic-link-notify-secret`
 
 ## Render and apply service
@@ -56,4 +55,4 @@ gcloud run services replace /tmp/${CLOUDRUN_SERVICE}.yaml \
   --region "us-central1"
 ```
 
-Render workflows are retained as manual fallback only.
+Cloud Run is the deploy target for this backend.

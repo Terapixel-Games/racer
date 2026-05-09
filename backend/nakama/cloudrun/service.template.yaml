@@ -56,7 +56,7 @@ spec:
             - name: PLATFORM_INTERNAL_KEY
               valueFrom:
                 secretKeyRef:
-                  name: platform-internal-key
+                  name: tpx-platform-internal-key
                   key: latest
             - name: TPX_MAGIC_LINK_NOTIFY_SECRET
               valueFrom:
