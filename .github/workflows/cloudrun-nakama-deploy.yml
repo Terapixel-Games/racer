@@ -99,10 +99,10 @@ jobs:
           fi
           image_uri="${image_base}:${GITHUB_SHA::12}"
 
+          cp backend/nakama/Dockerfile.render backend/nakama/Dockerfile
           gcloud builds submit backend/nakama \
             --project "${GCP_PROJECT_ID}" \
-            --tag "${image_uri}" \
-            --file backend/nakama/Dockerfile.render
+            --tag "${image_uri}"
 
           rendered="/tmp/${CLOUDRUN_SERVICE}-service.yaml"
           sed \
