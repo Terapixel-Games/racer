@@ -6,17 +6,12 @@ const NavigationFlow = preload("res://scripts/logic/NavigationFlow.gd")
 
 const PREVIEW_CAMERA_ROUTE_SPEED := 0.035
 const PREVIEW_CAMERA_BLEND := 0.055
-const PREVIEW_CAMERA_FOV_ROUTE := 64.0
-const PREVIEW_CAMERA_FOV_OVERVIEW := 58.0
 
 var _tracks: Array[Dictionary] = []
 var _track_index := 0
 var _preview_root: Node3D
 var _camera: Camera3D
 var _route_points: Array[Vector3] = []
-var _preview_camera_mode := "route"
-var _preview_camera_eye := Vector3.ZERO
-var _preview_camera_target := Vector3.ZERO
 var _preview_time := 0.0
 var _preview_cache: Dictionary = {}
 var _threaded_scene_requests: Dictionary = {}
@@ -82,9 +77,6 @@ func preview_has_backyard_dressing_for_test() -> bool:
 		and _has_visible_named_node(_preview_root, "SandboxFossil")
 	)
 
-func preview_camera_mode_for_test() -> String:
-	return _preview_camera_mode
-
 func _build_screen() -> void:
 	set_anchors_preset(Control.PRESET_FULL_RECT)
 	anchor_right = 1.0
@@ -116,7 +108,7 @@ func _build_screen() -> void:
 	_camera = Camera3D.new()
 	_camera.name = "PreviewCamera"
 	_camera.current = true
-	_camera.fov = PREVIEW_CAMERA_FOV_ROUTE
+	_camera.fov = 64.0
 	viewport.add_child(_camera)
 
 	var light := DirectionalLight3D.new()
@@ -254,7 +246,6 @@ func _show_selected_track(animated: bool) -> void:
 func _rebuild_preview(track_id: String) -> void:
 	_detach_preview_children()
 	_route_points.clear()
-	_preview_camera_mode = "route"
 	if _preview_cache.has(track_id):
 		_attach_preview_build(track_id, _preview_cache[track_id] as Dictionary)
 		return
@@ -266,9 +257,6 @@ func _rebuild_preview(track_id: String) -> void:
 	_attach_preview_build(track_id, built)
 
 func _attach_preview_build(track_id: String, built: Dictionary) -> void:
-	_preview_camera_mode = str(built.get("camera_mode", "route"))
-	_preview_camera_eye = built.get("camera_eye", Vector3.ZERO) as Vector3
-	_preview_camera_target = built.get("camera_target", Vector3.ZERO) as Vector3
 	var node := built.get("node", null) as Node
 	if node != null:
 		if node.get_parent() != null:
@@ -284,40 +272,10 @@ func _attach_preview_build(track_id: String, built: Dictionary) -> void:
 func _build_lightweight_preview(definition) -> Dictionary:
 	var preview_definition = definition.duplicate(true)
 	preview_definition.id = "%s_preview" % definition.id
-	preview_definition.dressing_scene_path = str(definition.preview_dressing_scene_path)
+	preview_definition.dressing_scene_path = str(definition.dressing_scene_path)
 	var empty_stage_props: Array[Dictionary] = []
 	preview_definition.stage_props = empty_stage_props
-	var built := TrackRuntimeBuilder.build(preview_definition)
-	if not str(definition.preview_dressing_scene_path).is_empty():
-		var overview := _backyard_camera_overview(str(definition.id))
-		built["camera_mode"] = "backyard_overview"
-		built["camera_eye"] = overview["eye"]
-		built["camera_target"] = overview["target"]
-	else:
-		built["camera_mode"] = "route"
-	return built
-
-func _backyard_camera_overview(track_id: String) -> Dictionary:
-	match track_id:
-		"outdoor_playground":
-			return {
-				"eye": Vector3(-430, 118, -410),
-				"target": Vector3(-235, 13, -205),
-			}
-		"garden":
-			return {
-				"eye": Vector3(30, 116, -360),
-				"target": Vector3(205, 12, -115),
-			}
-		"sandbox":
-			return {
-				"eye": Vector3(-190, 118, 20),
-				"target": Vector3(35, 12, 220),
-			}
-	return {
-		"eye": Vector3(0, 132, -430),
-		"target": Vector3.ZERO,
-	}
+	return TrackRuntimeBuilder.build(preview_definition)
 
 func _detach_preview_children() -> void:
 	for child in _preview_root.get_children():
@@ -326,15 +284,6 @@ func _detach_preview_children() -> void:
 func _update_preview_camera(snap: bool = false) -> void:
 	if _camera == null:
 		return
-	if _preview_camera_mode == "backyard_overview":
-		_camera.fov = PREVIEW_CAMERA_FOV_OVERVIEW
-		if snap:
-			_camera.global_transform.origin = _preview_camera_eye
-		else:
-			_camera.global_transform.origin = _camera.global_transform.origin.lerp(_preview_camera_eye, PREVIEW_CAMERA_BLEND)
-		_camera.look_at(_preview_camera_target, Vector3.UP)
-		return
-	_camera.fov = PREVIEW_CAMERA_FOV_ROUTE
 	var count := _route_points.size()
 	if count < 2:
 		_camera.global_transform.origin = Vector3(0, 48, -72)
