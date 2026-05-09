@@ -234,7 +234,7 @@ func test_kenney_gridmap_start_tile_matches_cell_footprint() -> void:
 	assert_true(is_equal_approx(start_transform.basis.z.length(), straight_transform.basis.z.length()), "roadStart should match straight tile length so it does not shift into the next cell")
 	assert_true(start_transform.origin.distance_to(straight_transform.origin) <= 0.05, "roadStart should use the same cell-local origin as roadStraight")
 
-func test_grid_collision_mesh_uses_ramp_tile_geometry() -> void:
+func test_grid_collision_mesh_preserves_ramp_surface_height() -> void:
 	var layout := {
 		"mesh_library_path": TrackGridRoadBuilder.DEFAULT_MESH_LIBRARY_PATH,
 		"cell_size": Vector3(16.0, 4.0, 16.0),
@@ -248,10 +248,10 @@ func test_grid_collision_mesh_uses_ramp_tile_geometry() -> void:
 		],
 	}
 	var mesh := TrackGridRoadBuilder.build_grid_collision_mesh(layout)
-	assert_true(mesh.get_surface_count() > 0, "Grid collision mesh should include painted tile geometry")
+	assert_true(mesh.get_surface_count() > 0, "Grid collision mesh should include generated drivable tile surfaces")
 	assert_true(mesh.get_aabb().size.y > 3.5, "Ramp collision should preserve the ramp height instead of flattening to the route ribbon")
 
-func test_grid_collision_mesh_adds_narrow_ramp_connection_bridge() -> void:
+func test_grid_collision_mesh_does_not_add_synthetic_ramp_connection_bridge() -> void:
 	var cells := [
 		{
 			"cell": Vector3i.ZERO,
@@ -275,7 +275,7 @@ func test_grid_collision_mesh_adds_narrow_ramp_connection_bridge() -> void:
 	connected_layout["ordered_route_cells"] = [Vector3i.ZERO, Vector3i(0, 1, 1)]
 	var disconnected_mesh := TrackGridRoadBuilder.build_grid_collision_mesh(disconnected_layout)
 	var connected_mesh := TrackGridRoadBuilder.build_grid_collision_mesh(connected_layout)
-	assert_equal(_mesh_vertex_count(connected_mesh), _mesh_vertex_count(disconnected_mesh) + 12, "Ramp-to-flat collision should add narrow ramp/seam support quads at the connection, not a broad all-track support slab")
+	assert_equal(_mesh_vertex_count(connected_mesh), _mesh_vertex_count(disconnected_mesh), "GridMap road collision should use painted tile mesh geometry only; synthetic seam bridges can create invisible blockers at ramps")
 
 func test_grid_boundary_walls_wrap_exposed_route_footprint() -> void:
 	var layout := {
@@ -340,7 +340,7 @@ func test_grid_boundary_walls_cover_long_tile_footprint() -> void:
 	assert_equal(walls.size(), 6, "Long ramp tiles should generate boundary walls around their full two-cell footprint")
 	assert_true(_has_wall_reaching_z(walls, 32.0), "Long tile boundary walls should reach the second occupied GridMap cell")
 
-func test_grid_boundary_walls_follow_ramp_elevation() -> void:
+func test_grid_boundary_walls_stay_vertical_near_ramp_elevation() -> void:
 	var layout := {
 		"cell_size": Vector3(16.0, 4.0, 16.0),
 		"cells": [
@@ -349,7 +349,7 @@ func test_grid_boundary_walls_follow_ramp_elevation() -> void:
 		"ordered_route_cells": [Vector3i.ZERO],
 	}
 	var walls := TrackGridRoadBuilder.boundary_wall_segments_from_grid_layout(layout, 1.6, 0.45)
-	assert_true(_has_sloped_wall(walls), "Ramp boundary walls should preserve endpoint elevation instead of flattening")
+	assert_true(not _has_sloped_wall(walls), "Ramp boundary walls should remain vertical so they do not become launch ramps or mid-track blockers")
 	assert_true(_walls_stay_near_ramp_height(walls, 10.0, 15.6), "Ramp walls should stay vertically local to the ramp surface")
 	assert_true(_all_walls_offset_outside_cell(walls, Rect2(0.0, 0.0, 16.0, 16.0)), "Ramp boundary wall placement should stay outside the ramp driving surface")
 
