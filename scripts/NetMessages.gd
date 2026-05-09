@@ -3,9 +3,16 @@ class_name NetMessages
 
 const OP_LOBBY_STATE := 1
 const OP_LOBBY_RACE_START := 2
+const OP_LOBBY_ERROR := 3
 const OP_RACE_INPUT := 10
 const OP_RACE_SNAPSHOT := 11
 const OP_RACE_RESET := 12
 const OP_RACE_WASTED := 13
 const OP_RACE_FINISH := 14
 const OP_RACE_MATCH_END := 15
+const OP_RACE_PLAYER_FINISHED := 16
+const OP_RACE_COMPLETE := 17
+const OP_TOURNAMENT_STANDINGS := 18
+const OP_TOURNAMENT_COMPLETE := 19
+
+const SCHEMA_VERSION := 1

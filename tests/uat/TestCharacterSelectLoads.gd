@@ -42,6 +42,7 @@ func test_character_select_flow_actions_route_from_nav_mode() -> void:
 	assert_equal(screen.call("prepare_local_flow_for_test"), "res://scenes/LevelSelect.tscn", "Single local should route to level select")
 	assert_equal(screen.call("prepare_multiplayer_flow_for_test"), "res://scenes/Lobby.tscn", "Single multiplayer should route to lobby")
 	assert_equal(NakamaService.get_meta_value("race_flow", ""), "single_multiplayer", "Single multiplayer should write race flow")
+	assert_equal(NakamaService.get_meta_value("race_mode", ""), "online_single", "Single multiplayer should write online single mode")
 	screen.queue_free()
 	NakamaService.set_meta_value("nav_flow_mode", "")
 
@@ -53,6 +54,17 @@ func test_character_select_tournament_local_writes_tournament_state() -> void:
 	assert_equal(screen.call("prepare_local_flow_for_test"), "res://scenes/Race.tscn", "Tournament local should route to race")
 	assert_equal(NakamaService.get_meta_value("race_mode", ""), "local_tournament", "Tournament local should write race mode")
 	assert_true((NakamaService.get_meta_value("tournament_track_ids", []) as Array).size() >= 1, "Tournament local should select tracks")
+	screen.queue_free()
+	NakamaService.set_meta_value("nav_flow_mode", "")
+
+func test_character_select_tournament_multiplayer_writes_online_state() -> void:
+	_reset_selected_racer()
+	NakamaService.set_meta_value("nav_flow_mode", "tournament")
+	var screen := CharacterSelectScene.instantiate()
+	scene_tree.root.add_child(screen)
+	assert_equal(screen.call("prepare_multiplayer_flow_for_test"), "res://scenes/Lobby.tscn", "Tournament multiplayer should route to lobby")
+	assert_equal(NakamaService.get_meta_value("race_mode", ""), "online_tournament", "Tournament multiplayer should write online tournament mode")
+	assert_equal(NakamaService.get_meta_value("online_mode", ""), "tournament", "Tournament multiplayer should write tournament online mode")
 	screen.queue_free()
 	NakamaService.set_meta_value("nav_flow_mode", "")
 

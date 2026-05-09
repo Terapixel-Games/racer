@@ -13,6 +13,28 @@ var MAGIC_LINK_TOKEN_MAX_LENGTH = 512;
 var SYSTEM_USER_ID = "00000000-0000-0000-0000-000000000000";
 var DEFAULT_MAGIC_LINK_NOTIFY_MAX_SKEW_SECONDS = 600;
 var MAX_MAGIC_LINK_NOTIFY_REPLAY_ENTRIES = 2048;
+var ONLINE_SCHEMA_VERSION = 1;
+var ONLINE_MODE_SINGLE_RACE = "single_race";
+var ONLINE_MODE_TOURNAMENT = "tournament";
+var ONLINE_PHASE_LOBBY = "lobby";
+var ONLINE_PHASE_RACING = "racing";
+var ONLINE_PHASE_COMPLETE = "complete";
+var ONLINE_MAX_RACERS = 8;
+var ONLINE_LOBBY_COUNTDOWN_SECONDS = 20;
+var ONLINE_TOURNAMENT_ROUND_COUNT = 4;
+var ONLINE_POINTS_BY_PLACE = [15, 12, 10, 8, 6, 4, 2, 1];
+var ONLINE_TRACKS = [
+  { id: "kitchen", displayName: "Kitchen / Sir Clink", version: "kitchen_v2_2026_04_29" },
+  { id: "attic", displayName: "Attic Mayhem", version: "attic_gridmap_v1_2026_05_09" },
+  { id: "bedroom", displayName: "Bedroom / Tuggs", version: "bedroom_gridmap_v1_2026_05_09" },
+  { id: "garden", displayName: "Garden / Moko", version: "garden_gridmap_v1_2026_05_09" },
+  { id: "glam_closet", displayName: "Glam Closet / Velva", version: "glam_closet_gridmap_v1_2026_05_09" },
+  { id: "outdoor_playground", displayName: "Outdoor Playground / Dash", version: "outdoor_playground_gridmap_v1_2026_05_09" },
+  { id: "playroom", displayName: "Playroom / Slammo", version: "playroom_gridmap_v1_2026_05_09" },
+  { id: "sandbox", displayName: "Sandbox / Rexx", version: "sandbox_gridmap_v1_2026_05_09" },
+];
+var ONLINE_SESSIONS = {};
+var ONLINE_ROOM_INDEX = {};
 
 var MODULE_CONFIG = {
   gameId: "",
@@ -46,6 +68,26 @@ function InitModule(ctx, logger, nk, initializer) {
   initializer.registerRpc("tpx_account_username_status", rpcAccountUsernameStatus);
   initializer.registerRpc("tpx_account_update_username", rpcAccountUpdateUsername);
   initializer.registerRpc("tpx_client_event_track", rpcClientEventTrack);
+  initializer.registerRpc("racer_online_join_or_create", rpcRacerOnlineJoinOrCreate);
+  initializer.registerRpc("racer_online_session_state", rpcRacerOnlineSessionState);
+  initializer.registerMatch("racer_online_lobby", {
+    matchInit: racerLobbyMatchInit,
+    matchJoinAttempt: racerMatchJoinAttempt,
+    matchJoin: racerLobbyMatchJoin,
+    matchLeave: racerLobbyMatchLeave,
+    matchLoop: racerLobbyMatchLoop,
+    matchTerminate: racerMatchTerminate,
+    matchSignal: racerMatchSignal,
+  });
+  initializer.registerMatch("racer_online_race", {
+    matchInit: racerRaceMatchInit,
+    matchJoinAttempt: racerMatchJoinAttempt,
+    matchJoin: racerRaceMatchJoin,
+    matchLeave: racerRaceMatchLeave,
+    matchLoop: racerRaceMatchLoop,
+    matchTerminate: racerMatchTerminate,
+    matchSignal: racerMatchSignal,
+  });
   logger.info("ArcadeCore Nakama template module loaded for game=%s", MODULE_CONFIG.gameId);
 }
 
@@ -486,6 +528,628 @@ function rpcClientEventTrack(ctx, logger, nk, payload) {
     accepted: true,
     event_name: eventName
   });
+}
+
+function rpcRacerOnlineJoinOrCreate(ctx, logger, nk, payload) {
+  assertAuthenticated(ctx);
+  var data = parsePayload(payload);
+  var mode = normalizeOnlineMode(data.mode || data.race_mode || ONLINE_MODE_SINGLE_RACE);
+  var roomCode = normalizeOnlineRoomCode(data.room_code || data.roomCode || "");
+  var session = null;
+  if (roomCode) {
+    var existingId = ONLINE_ROOM_INDEX[roomCode];
+    if (!existingId || !ONLINE_SESSIONS[existingId]) {
+      throw new Error("room code was not found");
+    }
+    session = ONLINE_SESSIONS[existingId];
+    if (session.phase !== ONLINE_PHASE_LOBBY) {
+      throw new Error("race already started");
+    }
+    if (session.mode !== mode) {
+      throw new Error("room mode mismatch");
+    }
+  } else {
+    session = findOpenOnlineSession(mode);
+    if (!session) {
+      session = createOnlineSession(ctx, nk, mode, data);
+    }
+  }
+  var selectedRacerId = sanitizeOnlineId(data.selected_racer_id || data.racer_id || "Racer", "Racer");
+  upsertOnlinePlayer(session, ctx.userId, selectedRacerId, data.racer_display_name || selectedRacerId, false);
+  if (!session.lobbyMatchId) {
+    session.lobbyMatchId = nk.matchCreate("racer_online_lobby", { session_id: session.sessionId });
+  }
+  return JSON.stringify(buildOnlineSessionPayload(session));
+}
+
+function rpcRacerOnlineSessionState(ctx, logger, nk, payload) {
+  assertAuthenticated(ctx);
+  var data = parsePayload(payload);
+  var sessionId = String(data.session_id || data.sessionId || "").trim();
+  var roomCode = normalizeOnlineRoomCode(data.room_code || data.roomCode || "");
+  var session = sessionId ? ONLINE_SESSIONS[sessionId] : null;
+  if (!session && roomCode) {
+    session = ONLINE_SESSIONS[ONLINE_ROOM_INDEX[roomCode]];
+  }
+  if (!session) {
+    throw new Error("online session was not found");
+  }
+  return JSON.stringify(buildOnlineSessionPayload(session));
+}
+
+function createOnlineSession(ctx, nk, mode, data) {
+  var sessionId = newOnlineSessionId();
+  var roomCode = newOnlineRoomCode();
+  var requestedTrackId = sanitizeTrackId(data.track_id || data.trackId || "");
+  var trackIds = selectOnlineTrackIds(mode, requestedTrackId);
+  var session = {
+    sessionId: sessionId,
+    roomCode: roomCode,
+    mode: mode,
+    phase: ONLINE_PHASE_LOBBY,
+    hostUserId: String(ctx.userId || ""),
+    lobbyMatchId: "",
+    raceMatchId: "",
+    players: {},
+    playerOrder: [],
+    trackIds: trackIds,
+    roundIndex: 0,
+    points: {},
+    results: [],
+    countdown: ONLINE_LOBBY_COUNTDOWN_SECONDS,
+    startedAtTick: 0,
+    completedAtTick: 0,
+    tournamentComplete: false,
+  };
+  ONLINE_SESSIONS[sessionId] = session;
+  ONLINE_ROOM_INDEX[roomCode] = sessionId;
+  return session;
+}
+
+function buildOnlineSessionPayload(session) {
+  var trackId = currentOnlineTrackId(session);
+  return {
+    schema_version: ONLINE_SCHEMA_VERSION,
+    session_id: session.sessionId,
+    room_code: session.roomCode,
+    mode: session.mode,
+    phase: session.phase,
+    match_id: session.lobbyMatchId || "",
+    race_match_id: session.raceMatchId || "",
+    round_index: session.roundIndex,
+    track_id: trackId,
+    track_ids: session.trackIds.slice(0),
+    track: onlineTrackMetadata(trackId),
+    players: onlinePlayerList(session),
+    countdown: session.countdown,
+    points: copyPlainObject(session.points),
+    standings: sortedOnlineStandings(session.points),
+    results: session.results.slice(0),
+  };
+}
+
+function racerLobbyMatchInit(ctx, logger, nk, params) {
+  var sessionId = String((params && (params.session_id || params.sessionId)) || "").trim();
+  var session = ONLINE_SESSIONS[sessionId];
+  return {
+    state: { session_id: sessionId },
+    tickRate: 1,
+    label: session ? "racer:" + session.roomCode + ":" + session.mode : "racer:missing",
+  };
+}
+
+function racerRaceMatchInit(ctx, logger, nk, params) {
+  var sessionId = String((params && (params.session_id || params.sessionId)) || "").trim();
+  var session = ONLINE_SESSIONS[sessionId];
+  return {
+    state: { session_id: sessionId },
+    tickRate: 15,
+    label: session ? "racer-race:" + session.roomCode + ":" + currentOnlineTrackId(session) : "racer-race:missing",
+  };
+}
+
+function racerMatchJoinAttempt(ctx, logger, nk, dispatcher, tick, state, presence, metadata) {
+  var session = ONLINE_SESSIONS[String(state.session_id || "")];
+  return { state: state, accept: !!session };
+}
+
+function racerLobbyMatchJoin(ctx, logger, nk, dispatcher, tick, state, presences) {
+  var session = ONLINE_SESSIONS[String(state.session_id || "")];
+  if (!session) {
+    return { state: state };
+  }
+  broadcastLobbyState(dispatcher, session);
+  return { state: state };
+}
+
+function racerLobbyMatchLeave(ctx, logger, nk, dispatcher, tick, state, presences) {
+  var session = ONLINE_SESSIONS[String(state.session_id || "")];
+  if (!session) {
+    return { state: state };
+  }
+  for (var i = 0; i < presences.length; i++) {
+    var userId = String(presences[i].userId || "");
+    if (session.players[userId]) {
+      session.players[userId].connected = false;
+    }
+  }
+  broadcastLobbyState(dispatcher, session);
+  return { state: state };
+}
+
+function racerLobbyMatchLoop(ctx, logger, nk, dispatcher, tick, state, messages) {
+  var session = ONLINE_SESSIONS[String(state.session_id || "")];
+  if (!session) {
+    return { state: state };
+  }
+  if (session.phase !== ONLINE_PHASE_LOBBY) {
+    return { state: state };
+  }
+  var humanCount = onlineHumanPlayerCount(session);
+  if (humanCount > 0) {
+    session.countdown = Math.max(0, Number(session.countdown || ONLINE_LOBBY_COUNTDOWN_SECONDS) - 1);
+  }
+  if (session.countdown <= 0) {
+    ensureOnlineCpuFill(session);
+    session.phase = ONLINE_PHASE_RACING;
+    session.raceMatchId = nk.matchCreate("racer_online_race", { session_id: session.sessionId });
+    broadcastLobbyRaceStart(dispatcher, session);
+    return { state: state };
+  }
+  broadcastLobbyState(dispatcher, session);
+  return { state: state };
+}
+
+function racerRaceMatchJoin(ctx, logger, nk, dispatcher, tick, state, presences) {
+  var session = ONLINE_SESSIONS[String(state.session_id || "")];
+  if (!session) {
+    return { state: state };
+  }
+  for (var i = 0; i < presences.length; i++) {
+    var userId = String(presences[i].userId || "");
+    if (session.players[userId]) {
+      session.players[userId].connected = true;
+    }
+  }
+  broadcastRaceSnapshot(dispatcher, session);
+  return { state: state };
+}
+
+function racerRaceMatchLeave(ctx, logger, nk, dispatcher, tick, state, presences) {
+  var session = ONLINE_SESSIONS[String(state.session_id || "")];
+  if (!session) {
+    return { state: state };
+  }
+  for (var i = 0; i < presences.length; i++) {
+    var userId = String(presences[i].userId || "");
+    if (session.players[userId]) {
+      session.players[userId].connected = false;
+    }
+  }
+  broadcastRaceSnapshot(dispatcher, session);
+  return { state: state };
+}
+
+function racerRaceMatchLoop(ctx, logger, nk, dispatcher, tick, state, messages) {
+  var session = ONLINE_SESSIONS[String(state.session_id || "")];
+  if (!session) {
+    return { state: state };
+  }
+  for (var i = 0; i < messages.length; i++) {
+    handleOnlineRaceMessage(session, messages[i], tick);
+  }
+  if (session.phase === ONLINE_PHASE_RACING && onlineRaceIsComplete(session)) {
+    finalizeOnlineRace(session, tick);
+    broadcastRaceComplete(dispatcher, session);
+  } else {
+    broadcastRaceSnapshot(dispatcher, session);
+  }
+  return { state: state };
+}
+
+function racerMatchTerminate(ctx, logger, nk, dispatcher, tick, state, graceSeconds) {
+  return { state: state };
+}
+
+function racerMatchSignal(ctx, logger, nk, dispatcher, tick, state, data) {
+  return { state: state, data: data };
+}
+
+function handleOnlineRaceMessage(session, message, tick) {
+  if (!message || Number(message.opCode || 0) !== 10) {
+    return;
+  }
+  var sender = message.sender || {};
+  var userId = String(sender.userId || "");
+  var player = session.players[userId];
+  if (!player || player.isCpu) {
+    return;
+  }
+  var payload = parsePayload(message.data || "{}");
+  var input = payload.input && typeof payload.input === "object" ? payload.input : payload;
+  var previous = player.race || {};
+  var incoming = {
+    pos: numericArray(input.position, 3, previous.pos || [0, 1, 0]),
+    rot: numericArray(input.rotation, 3, previous.rot || [0, 0, 0]),
+    lap: Math.max(1, toInt(input.lap, previous.lap || 1)),
+    checkpoint: Math.max(0, toInt(input.checkpoint, previous.checkpoint || 0)),
+    checkpoints: Math.max(1, toInt(input.checkpoints, previous.checkpoints || 1)),
+    progress: Math.max(0, Number(input.progress || previous.progress || 0)),
+    finished: !!input.finished,
+    wasted: !!input.wasted,
+    finish_time: Number(input.finish_time || previous.finish_time || -1),
+    updated_at_tick: tick,
+  };
+  if (!acceptOnlineProgress(previous, incoming)) {
+    return;
+  }
+  if (incoming.lap > 2 || incoming.finished) {
+    incoming.finished = true;
+    incoming.finish_time = previous.finish_time >= 0 ? previous.finish_time : Math.max(0, tick - Number(session.startedAtTick || tick));
+  }
+  player.race = incoming;
+}
+
+function finalizeOnlineRace(session, tick) {
+  session.phase = ONLINE_PHASE_COMPLETE;
+  session.completedAtTick = tick;
+  session.results = onlineResultList(session);
+  session.tournamentComplete = false;
+  if (session.mode === ONLINE_MODE_TOURNAMENT) {
+    session.points = awardOnlinePoints(session.results, session.points);
+    if (session.roundIndex + 1 >= session.trackIds.length) {
+      session.tournamentComplete = true;
+    } else {
+      session.roundIndex += 1;
+      session.phase = ONLINE_PHASE_LOBBY;
+      session.countdown = ONLINE_LOBBY_COUNTDOWN_SECONDS;
+      session.raceMatchId = "";
+      resetOnlineRaceStates(session);
+    }
+  }
+}
+
+function onlineRaceIsComplete(session) {
+  var humans = onlinePlayerList(session).filter(function (p) { return !p.is_cpu; });
+  if (humans.length <= 0) {
+    return false;
+  }
+  for (var i = 0; i < humans.length; i++) {
+    var player = session.players[humans[i].id];
+    if (!player || !player.race || (!player.race.finished && !player.race.wasted)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function broadcastLobbyState(dispatcher, session) {
+  dispatcher.broadcastMessage(1, JSON.stringify(buildOnlineSessionPayload(session)), null, null, true);
+}
+
+function broadcastLobbyRaceStart(dispatcher, session) {
+  var payload = buildOnlineSessionPayload(session);
+  dispatcher.broadcastMessage(2, JSON.stringify(payload), null, null, true);
+}
+
+function broadcastRaceSnapshot(dispatcher, session) {
+  var payload = buildOnlineSessionPayload(session);
+  payload.checkpoints = maxRaceCheckpointCount(session);
+  payload.racers = onlineRacerSnapshot(session);
+  dispatcher.broadcastMessage(11, JSON.stringify(payload), null, null, false);
+}
+
+function broadcastRaceComplete(dispatcher, session) {
+  var payload = buildOnlineSessionPayload(session);
+  payload.checkpoints = maxRaceCheckpointCount(session);
+  payload.racers = onlineRacerSnapshot(session);
+  payload.results = session.results;
+  var op = session.mode === ONLINE_MODE_TOURNAMENT && session.tournamentComplete ? 19 : 17;
+  dispatcher.broadcastMessage(op, JSON.stringify(payload), null, null, true);
+}
+
+function findOpenOnlineSession(mode) {
+  var keys = Object.keys(ONLINE_SESSIONS);
+  for (var i = 0; i < keys.length; i++) {
+    var session = ONLINE_SESSIONS[keys[i]];
+    if (session && session.mode === mode && session.phase === ONLINE_PHASE_LOBBY && onlineHumanPlayerCount(session) < ONLINE_MAX_RACERS) {
+      return session;
+    }
+  }
+  return null;
+}
+
+function upsertOnlinePlayer(session, userId, racerId, displayName, isCpu) {
+  var id = String(userId || "").trim();
+  if (!id) {
+    return;
+  }
+  if (!session.players[id]) {
+    session.playerOrder.push(id);
+  }
+  session.players[id] = {
+    id: id,
+    userId: id,
+    racerId: sanitizeOnlineId(racerId, "Racer"),
+    displayName: sanitizeOnlineDisplayName(displayName || racerId || "Racer"),
+    isCpu: !!isCpu,
+    connected: true,
+    race: session.players[id] && session.players[id].race ? session.players[id].race : defaultOnlineRaceState(),
+  };
+}
+
+function ensureOnlineCpuFill(session) {
+  var roster = ["Dash", "Rexx", "Tuggs", "Moko", "Velva", "Slammo", "Sir Clink", "Racer"];
+  var index = 0;
+  while (session.playerOrder.length < ONLINE_MAX_RACERS) {
+    var id = "cpu_" + String(index + 1);
+    upsertOnlinePlayer(session, id, roster[index % roster.length], roster[index % roster.length], true);
+    index++;
+  }
+}
+
+function defaultOnlineRaceState() {
+  return {
+    pos: [0, 1, 0],
+    rot: [0, 0, 0],
+    lap: 1,
+    checkpoint: 0,
+    checkpoints: 1,
+    progress: 0,
+    finished: false,
+    wasted: false,
+    finish_time: -1,
+    updated_at_tick: 0,
+  };
+}
+
+function resetOnlineRaceStates(session) {
+  var ids = session.playerOrder || [];
+  for (var i = 0; i < ids.length; i++) {
+    if (session.players[ids[i]]) {
+      session.players[ids[i]].race = defaultOnlineRaceState();
+    }
+  }
+}
+
+function onlinePlayerList(session) {
+  var out = [];
+  for (var i = 0; i < session.playerOrder.length; i++) {
+    var player = session.players[session.playerOrder[i]];
+    if (!player) {
+      continue;
+    }
+    out.push({
+      id: player.id,
+      user_id: player.userId,
+      name: player.displayName,
+      racer_id: player.racerId,
+      is_cpu: !!player.isCpu,
+      connected: !!player.connected,
+    });
+  }
+  return out;
+}
+
+function onlineRacerSnapshot(session) {
+  var out = [];
+  for (var i = 0; i < session.playerOrder.length; i++) {
+    var player = session.players[session.playerOrder[i]];
+    if (!player) {
+      continue;
+    }
+    var race = player.race || defaultOnlineRaceState();
+    out.push({
+      id: player.id,
+      user_id: player.userId,
+      racer_id: player.racerId,
+      is_cpu: !!player.isCpu,
+      pos: race.pos || [0, 1, 0],
+      rot: race.rot || [0, 0, 0],
+      lap: toInt(race.lap, 1),
+      checkpoint: toInt(race.checkpoint, 0),
+      checkpoints: toInt(race.checkpoints, 1),
+      progress: Number(race.progress || 0),
+      finished: !!race.finished,
+      wasted: !!race.wasted,
+      finish_time: Number(race.finish_time || -1),
+    });
+  }
+  return out;
+}
+
+function onlineResultList(session) {
+  var results = onlineRacerSnapshot(session);
+  results.sort(function (a, b) {
+    if (!!a.finished !== !!b.finished) {
+      return a.finished ? -1 : 1;
+    }
+    if (!!a.wasted !== !!b.wasted) {
+      return a.wasted ? 1 : -1;
+    }
+    if (a.finished && b.finished && Number(a.finish_time) !== Number(b.finish_time)) {
+      return Number(a.finish_time) - Number(b.finish_time);
+    }
+    if (Number(a.progress) === Number(b.progress)) {
+      return String(a.id).localeCompare(String(b.id));
+    }
+    return Number(b.progress) - Number(a.progress);
+  });
+  return results;
+}
+
+function awardOnlinePoints(results, existingPoints) {
+  var points = copyPlainObject(existingPoints || {});
+  for (var i = 0; i < results.length; i++) {
+    var racerId = sanitizeOnlineId(results[i].racer_id || results[i].id || "", "");
+    if (!racerId) {
+      continue;
+    }
+    points[racerId] = toInt(points[racerId], 0) + (ONLINE_POINTS_BY_PLACE[i] || 0);
+  }
+  return points;
+}
+
+function sortedOnlineStandings(points) {
+  var out = [];
+  var keys = Object.keys(points || {});
+  for (var i = 0; i < keys.length; i++) {
+    out.push({ racer_id: keys[i], points: toInt(points[keys[i]], 0) });
+  }
+  out.sort(function (a, b) {
+    if (a.points === b.points) {
+      return String(a.racer_id).localeCompare(String(b.racer_id));
+    }
+    return b.points - a.points;
+  });
+  return out;
+}
+
+function normalizeOnlineMode(mode) {
+  var text = String(mode || "").trim().toLowerCase();
+  if (text === "online_tournament" || text === ONLINE_MODE_TOURNAMENT) {
+    return ONLINE_MODE_TOURNAMENT;
+  }
+  return ONLINE_MODE_SINGLE_RACE;
+}
+
+function normalizeOnlineRoomCode(code) {
+  return String(code || "").trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
+}
+
+function selectOnlineTrackIds(mode, requestedTrackId) {
+  var ids = [];
+  for (var i = 0; i < ONLINE_TRACKS.length; i++) {
+    ids.push(ONLINE_TRACKS[i].id);
+  }
+  var requested = sanitizeTrackId(requestedTrackId || "");
+  if (requested && ids.indexOf(requested) >= 0) {
+    ids.splice(ids.indexOf(requested), 1);
+    ids.unshift(requested);
+  }
+  if (normalizeOnlineMode(mode) === ONLINE_MODE_SINGLE_RACE) {
+    return [ids[0]];
+  }
+  return ids.slice(0, Math.min(ONLINE_TOURNAMENT_ROUND_COUNT, ids.length));
+}
+
+function currentOnlineTrackId(session) {
+  if (!session || !session.trackIds || session.trackIds.length <= 0) {
+    return ONLINE_TRACKS[0].id;
+  }
+  var index = Math.max(0, Math.min(toInt(session.roundIndex, 0), session.trackIds.length - 1));
+  return session.trackIds[index];
+}
+
+function onlineTrackMetadata(trackId) {
+  var id = sanitizeTrackId(trackId || "") || ONLINE_TRACKS[0].id;
+  for (var i = 0; i < ONLINE_TRACKS.length; i++) {
+    if (ONLINE_TRACKS[i].id === id) {
+      return {
+        id: ONLINE_TRACKS[i].id,
+        track_id: ONLINE_TRACKS[i].id,
+        display_name: ONLINE_TRACKS[i].displayName,
+        version: ONLINE_TRACKS[i].version,
+      };
+    }
+  }
+  return onlineTrackMetadata(ONLINE_TRACKS[0].id);
+}
+
+function sanitizeTrackId(value) {
+  var id = String(value || "").trim().toLowerCase().replace(/[^a-z0-9_]/g, "");
+  for (var i = 0; i < ONLINE_TRACKS.length; i++) {
+    if (ONLINE_TRACKS[i].id === id) {
+      return id;
+    }
+  }
+  return "";
+}
+
+function sanitizeOnlineId(value, fallback) {
+  var text = String(value || "").trim();
+  if (!text) {
+    text = String(fallback || "");
+  }
+  text = text.replace(/[^A-Za-z0-9 _-]/g, "").trim();
+  if (text.length > 32) {
+    text = text.substring(0, 32);
+  }
+  return text || String(fallback || "");
+}
+
+function sanitizeOnlineDisplayName(value) {
+  var text = sanitizeOnlineId(value, "Racer");
+  return text || "Racer";
+}
+
+function acceptOnlineProgress(previous, incoming) {
+  if (previous && previous.finished) {
+    return false;
+  }
+  if (incoming.finished) {
+    return true;
+  }
+  return Number(incoming.progress || 0) + 0.001 >= Number((previous && previous.progress) || 0);
+}
+
+function maxRaceCheckpointCount(session) {
+  var max = 1;
+  var racers = onlineRacerSnapshot(session);
+  for (var i = 0; i < racers.length; i++) {
+    max = Math.max(max, toInt(racers[i].checkpoints, 1));
+  }
+  return max;
+}
+
+function onlineHumanPlayerCount(session) {
+  var count = 0;
+  var players = onlinePlayerList(session);
+  for (var i = 0; i < players.length; i++) {
+    if (!players[i].is_cpu) {
+      count++;
+    }
+  }
+  return count;
+}
+
+function newOnlineSessionId() {
+  return "ors_" + Date.now().toString(36) + "_" + Math.floor(Math.random() * 0xFFFFFF).toString(36);
+}
+
+function newOnlineRoomCode() {
+  var alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  for (var attempt = 0; attempt < 20; attempt++) {
+    var code = "";
+    for (var i = 0; i < 6; i++) {
+      code += alphabet[Math.floor(Math.random() * alphabet.length)];
+    }
+    if (!ONLINE_ROOM_INDEX[code]) {
+      return code;
+    }
+  }
+  return "R" + Math.floor(Date.now() % 100000).toString().padStart(5, "0");
+}
+
+function numericArray(value, size, fallback) {
+  var out = [];
+  var source = Array.isArray(value) ? value : fallback || [];
+  for (var i = 0; i < size; i++) {
+    out.push(Number(source[i] || 0));
+  }
+  return out;
+}
+
+function copyPlainObject(value) {
+  var out = {};
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return out;
+  }
+  var keys = Object.keys(value);
+  for (var i = 0; i < keys.length; i++) {
+    out[keys[i]] = value[keys[i]];
+  }
+  return out;
 }
 
 function exchangePlatformSession(ctx, nk) {
@@ -1191,6 +1855,21 @@ function secureEquals(left, right) {
     mismatch |= charA ^ charB;
   }
   return mismatch === 0;
+}
+
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = {
+    normalizeOnlineMode: normalizeOnlineMode,
+    normalizeOnlineRoomCode: normalizeOnlineRoomCode,
+    selectOnlineTrackIds: selectOnlineTrackIds,
+    awardOnlinePoints: awardOnlinePoints,
+    sortedOnlineStandings: sortedOnlineStandings,
+    acceptOnlineProgress: acceptOnlineProgress,
+    onlineTrackMetadata: onlineTrackMetadata,
+    ONLINE_MODE_SINGLE_RACE: ONLINE_MODE_SINGLE_RACE,
+    ONLINE_MODE_TOURNAMENT: ONLINE_MODE_TOURNAMENT,
+    ONLINE_POINTS_BY_PLACE: ONLINE_POINTS_BY_PLACE,
+  };
 }
 
 function validateMagicLinkNotifyReplay(nk, data) {

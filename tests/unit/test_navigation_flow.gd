@@ -43,3 +43,16 @@ func test_placeholder_ending_resolves_win_and_loss() -> void:
 	var loss_scene := NavigationFlow.resolve_placeholder_ending(NakamaService)
 	assert_equal(loss_scene, NavigationFlow.LOSS_PLACEHOLDER_SCENE, "Player not leading tournament should resolve loss placeholder")
 	assert_equal(NakamaService.get_meta_value("placeholder_ending_type", ""), "loss", "Loss placeholder type should be stored")
+
+func test_single_multiplayer_writes_online_metadata() -> void:
+	NavigationFlow.prepare_single_multiplayer(NakamaService)
+	assert_equal(NakamaService.get_meta_value("race_flow", ""), NavigationFlow.RACE_FLOW_SINGLE_MULTIPLAYER, "Single multiplayer should preserve race flow")
+	assert_equal(NakamaService.get_meta_value("race_mode", ""), NavigationFlow.RACE_MODE_ONLINE_SINGLE, "Single multiplayer should use online race mode")
+	assert_equal(NakamaService.get_meta_value("online_mode", ""), "single_race", "Single multiplayer should use single online mode")
+	assert_equal(NakamaService.get_meta_value("race_match_id", "stale"), "", "Single multiplayer should clear stale race match ids")
+
+func test_tournament_multiplayer_writes_online_metadata() -> void:
+	NavigationFlow.prepare_tournament_multiplayer(NakamaService)
+	assert_equal(NakamaService.get_meta_value("race_flow", ""), NavigationFlow.RACE_FLOW_TOURNAMENT_MULTIPLAYER, "Tournament multiplayer should preserve race flow")
+	assert_equal(NakamaService.get_meta_value("race_mode", ""), NavigationFlow.RACE_MODE_ONLINE_TOURNAMENT, "Tournament multiplayer should use online tournament race mode")
+	assert_equal(NakamaService.get_meta_value("online_mode", ""), "tournament", "Tournament multiplayer should use tournament online mode")

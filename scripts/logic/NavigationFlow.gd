@@ -3,6 +3,7 @@ class_name NavigationFlow
 
 const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
 const RacerRoster = preload("res://scripts/logic/RacerRoster.gd")
+const OnlineRaceRules = preload("res://scripts/logic/OnlineRaceRules.gd")
 
 const KEY_NAV_FLOW_MODE := "nav_flow_mode"
 const KEY_RACE_FLOW := "race_flow"
@@ -25,6 +26,8 @@ const RACE_FLOW_SINGLE_MULTIPLAYER := "single_multiplayer"
 const RACE_FLOW_TOURNAMENT_MULTIPLAYER := "tournament_multiplayer"
 const RACE_MODE_LOCAL_SINGLE := "local_single"
 const RACE_MODE_LOCAL_TOURNAMENT := "local_tournament"
+const RACE_MODE_ONLINE_SINGLE := OnlineRaceRules.RACE_MODE_ONLINE_SINGLE
+const RACE_MODE_ONLINE_TOURNAMENT := OnlineRaceRules.RACE_MODE_ONLINE_TOURNAMENT
 const LOCAL_SINGLE_MATCH_ID := "local-single-race"
 const LOCAL_TOURNAMENT_MATCH_ID := "local-tournament-race"
 
@@ -44,9 +47,15 @@ static func get_nav_flow_mode(service: Node) -> String:
 
 static func prepare_single_multiplayer(service: Node) -> void:
 	_set_meta(service, KEY_RACE_FLOW, RACE_FLOW_SINGLE_MULTIPLAYER)
+	_set_meta(service, KEY_RACE_MODE, RACE_MODE_ONLINE_SINGLE)
+	_set_meta(service, "online_mode", OnlineRaceRules.MODE_SINGLE_RACE)
+	_set_meta(service, KEY_RACE_MATCH_ID, "")
 
 static func prepare_tournament_multiplayer(service: Node) -> void:
 	_set_meta(service, KEY_RACE_FLOW, RACE_FLOW_TOURNAMENT_MULTIPLAYER)
+	_set_meta(service, KEY_RACE_MODE, RACE_MODE_ONLINE_TOURNAMENT)
+	_set_meta(service, "online_mode", OnlineRaceRules.MODE_TOURNAMENT)
+	_set_meta(service, KEY_RACE_MATCH_ID, "")
 
 static func prepare_local_single_track(service: Node, track_id: String) -> void:
 	_set_meta(service, KEY_TRACK_ID, track_id)

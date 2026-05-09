@@ -1,6 +1,7 @@
 extends Node
 
 const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
+const OnlineRaceRules = preload("res://scripts/logic/OnlineRaceRules.gd")
 
 const RETRY_ATTEMPTS := 3
 const RETRY_DELAY := 1.5
@@ -141,21 +142,31 @@ func _enter_offline_mode(reason: String) -> void:
 
 func _offline_rpc(name: String, payload: Dictionary) -> Dictionary:
 	match name:
-		"lobby_join_or_create":
-			var track := _offline_track_recipe()
+		"racer_online_join_or_create":
+			var mode := OnlineRaceRules.normalize_mode(str(payload.get("mode", OnlineRaceRules.MODE_SINGLE_RACE)))
+			var track_ids := OnlineRaceRules.select_track_ids(TrackCatalog.list_tracks(), mode, str(payload.get("track_id", "")))
+			var track_id := track_ids[0] if not track_ids.is_empty() else TrackCatalog.get_default_track_id()
+			var track := _offline_track_recipe(track_id)
 			var selected_racer := str(payload.get("selected_racer_id", "Racer"))
+			var race_mode := OnlineRaceRules.race_mode_for_online_mode(mode)
 			return {
 				"match_id": "offline-lobby",
 				"race_match_id": "offline-race",
+				"session_id": "offline-session",
 				"room_code": "LOCAL",
+				"mode": mode,
+				"round_index": 0,
+				"track_ids": track_ids,
 				"players": [{"name": selected_racer, "racer_id": selected_racer}],
-				"track": track
+				"track": track,
+				"race_mode": race_mode
 			}
 		_:
 			return {}
 
-func _offline_track_recipe() -> Dictionary:
-	return TrackCatalog.get_metadata(TrackCatalog.get_default_track_id())
+func _offline_track_recipe(track_id: String = "") -> Dictionary:
+	var resolved := track_id if TrackCatalog.has_track(track_id) else TrackCatalog.get_default_track_id()
+	return TrackCatalog.get_metadata(resolved)
 
 func _should_force_offline() -> bool:
 	if not Config.LOCAL_FALLBACK_ENABLED:

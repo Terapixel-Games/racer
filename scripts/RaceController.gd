@@ -10,6 +10,7 @@ const ItemRules = preload("res://scripts/logic/ItemRules.gd")
 const OutOfBoundsRules = preload("res://scripts/logic/OutOfBoundsRules.gd")
 const RacerRoster = preload("res://scripts/logic/RacerRoster.gd")
 const NavigationFlow = preload("res://scripts/logic/NavigationFlow.gd")
+const OnlineRaceRules = preload("res://scripts/logic/OnlineRaceRules.gd")
 
 @onready var ui_speed: Label = %SpeedLabel
 @onready var ui_speed_bar: ProgressBar = get_node_or_null("%SpeedBar") as ProgressBar
@@ -86,6 +87,8 @@ const CAMERA_OCCLUSION_CLEARANCE := 0.7
 const CAMERA_OCCLUSION_MIN_DISTANCE := 1.1
 const RACE_MODE_LOCAL_SINGLE := "local_single"
 const RACE_MODE_LOCAL_TOURNAMENT := "local_tournament"
+const RACE_MODE_ONLINE_SINGLE := OnlineRaceRules.RACE_MODE_ONLINE_SINGLE
+const RACE_MODE_ONLINE_TOURNAMENT := OnlineRaceRules.RACE_MODE_ONLINE_TOURNAMENT
 const LOCAL_SINGLE_MATCH_ID := "local-single-race"
 const LOCAL_TOURNAMENT_MATCH_ID := "local-tournament-race"
 const PHASE_INTRO := "intro"
@@ -225,9 +228,9 @@ func _ready() -> void:
 		_start_local_single_race()
 		return
 	_connect_socket()
-	await NakamaService.join_match(match_id)
 	_spawn_track()
 	_setup_checkpoints()
+	await NakamaService.join_match(match_id, _race_join_metadata())
 
 func _exit_tree() -> void:
 	_stop_race_audio()
@@ -1165,6 +1168,16 @@ func _connect_socket() -> void:
 	if not NakamaService.socket.received_match_state.is_connected(_on_match_state):
 		NakamaService.socket.received_match_state.connect(_on_match_state)
 
+func _race_join_metadata() -> Dictionary:
+	return {
+		"schema_version": NetMessages.SCHEMA_VERSION,
+		"session_id": str(NakamaService.get_meta_value("online_session_id", "")),
+		"mode": str(NakamaService.get_meta_value("online_mode", OnlineRaceRules.MODE_SINGLE_RACE)),
+		"selected_racer_id": str(NakamaService.get_meta_value("selected_racer_id", RacerRoster.DEFAULT_RACER_ID)),
+		"track_id": str(NakamaService.get_meta_value("track_id", "")),
+		"round_index": int(NakamaService.get_meta_value("tournament_round_index", 0)),
+	}
+
 func _setup_audio_players() -> void:
 	_ensure_audio_bus("Music")
 	_ensure_audio_bus("SFX")
@@ -1293,7 +1306,11 @@ func _instantiate_track_package(track_id: String, definition) -> Dictionary:
 
 func _setup_checkpoints() -> void:
 	if checkpoint_system and checkpoint_system.has_signal("checkpoint_valid"):
-		checkpoint_system.connect("checkpoint_valid", Callable(self, "_on_checkpoint_valid"))
+		if not checkpoint_system.is_connected("checkpoint_valid", Callable(self, "_on_checkpoint_valid")):
+			checkpoint_system.connect("checkpoint_valid", Callable(self, "_on_checkpoint_valid"))
+	if checkpoint_system and checkpoint_system.has_signal("finish_line_crossed"):
+		if not checkpoint_system.is_connected("finish_line_crossed", Callable(self, "_on_finish_line_crossed")):
+			checkpoint_system.connect("finish_line_crossed", Callable(self, "_on_finish_line_crossed"))
 	_cache_checkpoint_points()
 	if track_checkpoint_total <= 0 and checkpoint_system:
 		track_checkpoint_total = checkpoint_system.checkpoint_count
@@ -1377,6 +1394,14 @@ func _on_match_state(match_state: NakamaRTAPI.MatchData) -> void:
 			_handle_finish(payload)
 		NetMessages.OP_RACE_MATCH_END:
 			_handle_match_end(payload)
+		NetMessages.OP_RACE_PLAYER_FINISHED:
+			_handle_finish(payload)
+		NetMessages.OP_RACE_COMPLETE:
+			_handle_match_end(payload)
+		NetMessages.OP_TOURNAMENT_STANDINGS:
+			_handle_tournament_standings(payload)
+		NetMessages.OP_TOURNAMENT_COMPLETE:
+			_handle_tournament_complete(payload)
 
 func _send_input() -> void:
 	var state := _gather_input()
@@ -1391,6 +1416,18 @@ func _send_input() -> void:
 			car.global_transform.origin.z,
 		]
 		state["rotation"] = [euler.x, euler.y, euler.z]
+		var local_state: Dictionary = racer_states.get(local_user_id, {})
+		var checkpoint_total := _get_checkpoint_total()
+		var lap := int(lap_map.get(local_user_id, int(local_state.get("lap", 1))))
+		var checkpoint := int(local_state.get("checkpoint", 0))
+		var progress := _compute_progress(lap, checkpoint, car.global_transform.origin, checkpoint_total, false, -1.0)
+		state["schema_version"] = NetMessages.SCHEMA_VERSION
+		state["session_id"] = str(NakamaService.get_meta_value("online_session_id", ""))
+		state["track_id"] = track_source_id if not track_source_id.is_empty() else str(NakamaService.get_meta_value("track_id", ""))
+		state["lap"] = lap
+		state["checkpoint"] = checkpoint
+		state["checkpoints"] = checkpoint_total
+		state["progress"] = progress
 		if MVP_ITEMS_ENABLED and bool(state.get("item_use", false)):
 			_consume_local_item(car)
 		if NakamaService.offline_mode:
@@ -1446,6 +1483,12 @@ func _input(event: InputEvent) -> void:
 
 func _apply_snapshot(data:Dictionary) -> void:
 	race_started = true
+	if data.has("track_id"):
+		var incoming_track := str(data.get("track_id", ""))
+		if not incoming_track.is_empty():
+			NakamaService.set_meta_value("track_id", incoming_track)
+	if data.has("round_index"):
+		NakamaService.set_meta_value("tournament_round_index", int(data.get("round_index", 0)))
 	var snapshot_checkpoints: int = int(data.get("checkpoints", 0))
 	if snapshot_checkpoints > 0:
 		track_checkpoint_total = snapshot_checkpoints
@@ -1470,7 +1513,11 @@ func _apply_snapshot(data:Dictionary) -> void:
 		var wasted: bool = racer.get("wasted", false)
 		var server_progress: float = float(racer.get("progress", -1.0))
 		var finish_time: float = float(racer.get("finish_time", -1.0))
+		var racer_visual_id := RacerRoster.normalize_id(str(racer.get("racer_id", racer_visual_ids.get(rid, rid))))
+		racer_visual_ids[rid] = racer_visual_id
 		racer_states[rid] = {
+			"id": rid,
+			"racer_id": racer_visual_id,
 			"lap": lap_map[rid],
 			"checkpoint": checkpoint,
 			"finished": finished,
@@ -1749,14 +1796,69 @@ func _handle_finish(data:Dictionary) -> void:
 
 func _handle_match_end(data:Dictionary) -> void:
 	NakamaService.set_meta_value("race_results", data.get("results", []))
+	if data.has("points"):
+		NakamaService.set_meta_value("tournament_points", data.get("points", {}))
+	if data.has("standings"):
+		NakamaService.set_meta_value("tournament_standings", data.get("standings", []))
+	if data.has("round_index"):
+		NakamaService.set_meta_value("tournament_round_index", int(data.get("round_index", 0)))
 	_stop_race_audio()
 	get_tree().change_scene_to_file("res://scenes/PostRace.tscn")
+
+func _handle_tournament_standings(data: Dictionary) -> void:
+	if data.has("points"):
+		NakamaService.set_meta_value("tournament_points", data.get("points", {}))
+	if data.has("standings"):
+		NakamaService.set_meta_value("tournament_standings", data.get("standings", []))
+
+func _handle_tournament_complete(data: Dictionary) -> void:
+	_handle_tournament_standings(data)
+	_handle_match_end(data)
 
 func _on_checkpoint_valid(body:Node, checkpoint_index:int, transform:Transform3D) -> void:
 	if body is CarController and cars.get(local_user_id, null) == body:
 		# Client-side hint; authoritative validation handled server-side
 		local_respawn_transform = transform
 		has_local_respawn_transform = true
+		if not local_single_race:
+			var info: Dictionary = racer_states.get(local_user_id, {
+				"id": local_user_id,
+				"racer_id": str(NakamaService.get_meta_value("selected_racer_id", RacerRoster.DEFAULT_RACER_ID)),
+				"lap": int(lap_map.get(local_user_id, 1)),
+				"checkpoint": 0,
+				"finished": false,
+				"wasted": false,
+				"pos": (body as CarController).global_transform.origin,
+				"progress": 0.0,
+				"finish_time": -1.0,
+			})
+			var next_checkpoint := 0
+			if checkpoint_system != null and checkpoint_system.get("rules") != null:
+				var rules = checkpoint_system.get("rules")
+				if rules != null and rules.has_method("next_expected_checkpoint_index"):
+					next_checkpoint = int(rules.call("next_expected_checkpoint_index"))
+			else:
+				next_checkpoint = posmod(checkpoint_index + 1, max(_get_checkpoint_total(), 1))
+			info["checkpoint"] = next_checkpoint
+			info["lap"] = int(lap_map.get(local_user_id, 1))
+			info["pos"] = (body as CarController).global_transform.origin
+			racer_states[local_user_id] = info
+
+func _on_finish_line_crossed(body: Node) -> void:
+	if local_single_race:
+		return
+	if not (body is CarController) or cars.get(local_user_id, null) != body:
+		return
+	var lap := int(lap_map.get(local_user_id, 1))
+	if checkpoint_system != null and checkpoint_system.get("rules") != null:
+		var rules = checkpoint_system.get("rules")
+		if rules != null and rules.get("lap") != null:
+			lap = int(rules.get("lap")) + 1
+	lap_map[local_user_id] = lap
+	var info: Dictionary = racer_states.get(local_user_id, {})
+	info["lap"] = lap
+	info["checkpoint"] = 0
+	racer_states[local_user_id] = info
 
 func _update_ui() -> void:
 	var car : CarController = cars.get(local_user_id, null)

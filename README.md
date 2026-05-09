@@ -10,12 +10,11 @@ Arcade Ridge Racer-like multiplayer prototype powered by Nakama. Default backend
 - Two instances: start two editor play sessions to join the same lobby and verify countdown reset (<10s -> resets to 10).
 
 ## Multiplayer flow
-- MainMenu -> Play connects to Nakama and opens Lobby.
-- Lobby RPC `lobby_join_or_create` returns a room code and match id; clients join the lobby match.
-- Countdown auto-starts when at least one human is present; a new joiner under 10s resets the timer to 10s.
-- Race scene joins the provided race match id, spawns cars (AI fill to 8), streams inputs (20 Hz) and receives snapshots (15 Hz).
-- Wasted: falling behind triggers a wasted message; Wasted screen offers return to lobby.
-- Finish: when all non-wasted racers finish 2 laps, PostRace shows results and can loop back to Lobby or Menu.
+- MainMenu -> Single Race or Tournament -> Character Select -> Multiplayer opens the Nakama lobby path.
+- Lobby RPC `racer_online_join_or_create` creates or joins a fresh online session with a room code, session id, lobby match id, mode, selected track ids, and current standings.
+- Single race uses one validated track from `assets/gameplay/tracks/track_packages.json`; tournament uses the same lobby group across four unique tracks.
+- Race scene joins the returned race match id, drives locally, and sends pose/progress input. Nakama owns session phase, finish ordering, tournament points, and canonical snapshots.
+- The v1 authority model is hybrid validated: clients simulate cars, while Nakama rejects invalid session state/backward progress and broadcasts race completion/results.
 
 ## Tests (GDUnit4)
 - Tests live under `tests/`.
@@ -28,22 +27,25 @@ Arcade Ridge Racer-like multiplayer prototype powered by Nakama. Default backend
 - Pure logic under `scripts/logic/` keeps tests scene-free.
 
 ## Nakama server runtime modules
-- Lua modules live in `nakama/modules/`:
-  - `main.lua` RPC registration (`lobby_join_or_create`)
-  - `lobby.lua` lobby match handler with countdown/reset rules
-  - `race_match.lua` race handler with AI fill, progress, wasted, snapshots
-  - `room_code.lua` generator
+- Active runtime modules live in `backend/nakama/modules/index.js`.
+- Online race RPCs:
+  - `racer_online_join_or_create`
+  - `racer_online_session_state`
+- Online match handlers:
+  - `racer_online_lobby`
+  - `racer_online_race`
+- Legacy Lua modules under `nakama/modules/` are not the active online race path.
 
 ### Local dev (Docker)
-- `cd nakama`
+- `cd backend/nakama`
 - `docker-compose up --build`
 - Modules auto-mounted into `/nakama/data/modules`.
 - Point client to localhost by setting `Config.override_host = "127.0.0.1"` in the Godot editor or at runtime.
 
 ### Render deployment notes
-- Ensure Nakama image copies modules into `/nakama/data/modules`:
+- Ensure Nakama image copies `backend/nakama/modules` into `/nakama/data/modules`:
   ```dockerfile
-  COPY nakama/modules /nakama/data/modules
+  COPY backend/nakama/modules /nakama/data/modules
   ENTRYPOINT ["/bin/sh","-ecx","/nakama/nakama migrate up --database.address $DATABASE && exec /nakama/nakama --runtime.path /nakama/data/modules --logger.level INFO"]
   ```
 - Rebuild and redeploy the Render service so the Lua modules are packaged.
