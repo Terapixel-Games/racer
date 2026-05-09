@@ -220,6 +220,107 @@ transform = Transform3D(3.7556505, 0, 0, 0, 15.035066, 0, 0, 0, 0.6, -122.45666,
 material_override = SubResource("Material_dark")
 mesh = SubResource("BoxMesh_unit")
 
+[node name="kitchenCabinet" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-2.1855694e-06, 0, -50, 0, 50, 0, 50, 0, -2.1855694e-06, 120.629, -10, -29.261532)
+
+[node name="kitchenCabinet3" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-2.1855694e-06, 0, -50, 0, 50, 0, 50, 0, -2.1855694e-06, 120.629, -10, -72.29468)
+
+[node name="kitchenCabinet4" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-2.1855694e-06, 0, -50, 0, 50, 0, 50, 0, -2.1855694e-06, 120.629, -10, -50.746677)
+
+[node name="kitchenCabinet7" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(50.000004, 0, 0, 0, 50, 0, 0, 0, 50.000004, 34.209557, -9.999998, -72.28179)
+
+[node name="kitchenCabinet8" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(50.000004, 0, 0, 0, 50, 0, 0, 0, 50.000004, 55.75659, -9.999998, -72.486)
+
+[node name="kitchenCabinetCornerInner" parent="Track/RoomShell" instance=ExtResource("7_corner")]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 120.147385, -9.999999, -72.34253)
+
+[node name="kitchenCabinet9" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(49.999428, 0, 0.23736376, 0, 50.00001, 0, -0.23736376, 0, 49.999428, -77.72001, -10, -74.61334)
+
+[node name="kitchenCabinet10" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(49.999428, 0, 0.23736376, 0, 50.00001, 0, -0.23736376, 0, 49.999428, -56.17225, -10, -74.71562)
+
+[node name="kitchenCabinet11" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(49.999428, 0, 0.23736376, 0, 50.00001, 0, -0.23736376, 0, 49.999428, -120.75266, -10, -74.40904)
+
+[node name="kitchenCabinet12" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(49.999428, 0, 0.23736376, 0, 50.00001, 0, -0.23736376, 0, 49.999428, -99.20492, -10, -74.51134)
+
+[node name="kitchenCabinet13" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-0.23736739, 0, 49.99943, 0, 50.000008, 0, -49.99943, 0, -0.23736739, -120.94163, -9.999998, -31.019432)
+
+[node name="kitchenCabinet14" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-0.23736739, 0, 49.99943, 0, 50.000008, 0, -49.99943, 0, -0.23736739, -121.24813, -9.999998, -52.565254)
+
+[node name="kitchenCabinet15" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-0.23736739, 0, 49.99943, 0, 50.000008, 0, -49.99943, 0, -0.23736739, -120.32952, -9.999998, 12.009354)
+
+[node name="kitchenCabinet16" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-0.23736739, 0, 49.99943, 0, 50.000008, 0, -49.99943, 0, -0.23736739, -120.636024, -9.999998, 9.032623)
+
+[node name="kitchenCabinetCornerInner2" parent="Track/RoomShell" instance=ExtResource("7_corner")]
+transform = Transform3D(-0.23736757, 0, 49.999428, 0, 50.00001, 0, -49.999428, 0, -0.23736757, -120.79824, -9.999999, -73.92721)
+
+[node name="kitchenCabinet17" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(0.013962105, 0, 49.99999, 0, 50.00001, 0, -49.99999, 0, 0.013962105, -120.16418, -10, 30.316612)
+
+[node name="kitchenCabinet19" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(0.013962105, 0, 49.99999, 0, 50.00001, 0, -49.99999, 0, 0.013962105, -120.176186, -10, 73.34975)
+
+[node name="kitchenCabinet20" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(0.013962105, 0, 49.99999, 0, 50.00001, 0, -49.99999, 0, 0.013962105, -120.17017, -10, 51.801765)
+
+[node name="kitchenCabinet22" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-50, 0, 0.013960972, 0, 50.000008, 0, -0.013960972, 0, -50, -56.302216, -9.999998, 73.95501)
+
+[node name="kitchenCabinetCornerInner3" parent="Track/RoomShell" instance=ExtResource("7_corner")]
+transform = Transform3D(-49.99999, 0, 0.013960987, 0, 50.00001, 0, -0.013960987, 0, -49.99999, -119.69459, -9.999999, 73.311615)
+
+[node name="kitchenCabinet25" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-49.999996, 0, -4.3711384e-06, 0, 50.000008, 0, 4.3711384e-06, 0, -49.999996, 122.99071, -9.03031, 75.77942)
+
+[node name="kitchenCabinet27" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-49.999996, 0, -4.3711384e-06, 0, 50.000008, 0, 4.3711384e-06, 0, -49.999996, 101.97043, -9.03031, 75.77942)
+
+[node name="kitchenCabinet28" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-49.999996, 0, -4.3711384e-06, 0, 50.000008, 0, 4.3711384e-06, 0, -49.999996, 80.50219, -9.03031, 75.77942)
+
+[node name="kitchenCabinet29" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-49.999996, 0, -4.3711384e-06, 0, 50.000008, 0, 4.3711384e-06, 0, -49.999996, 59.183388, -9.03031, 75.77942)
+
+[node name="kitchenCabinet31" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-49.999996, 0, -4.3711384e-06, 0, 50.000008, 0, 4.3711384e-06, 0, -49.999996, 16.390713, -9.03031, 75.77942)
+
+[node name="kitchenCabinet32" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-49.999996, 0, -4.3711384e-06, 0, 50.000008, 0, 4.3711384e-06, 0, -49.999996, -5.077526, -9.03031, 75.77942)
+
+[node name="kitchenCabinet26" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-2.1855699e-06, 0, -50.00001, 0, 50.000004, 0, 50.00001, 0, -2.1855699e-06, 121.01565, -9.030308, 53.967945)
+
+[node name="kitchenCabinetCornerInner4" parent="Track/RoomShell" instance=ExtResource("7_corner")]
+transform = Transform3D(-2.1855692e-06, 0, -49.999996, 0, 50.000008, 0, 49.999996, 0, -2.1855692e-06, 123.05371, -9.030309, 75.29956)
+
+[node name="doorwayOpen" parent="Track/RoomShell" instance=ExtResource("12_x538f")]
+transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, 35.034954, -9.231991, 78.40431)
+
+[node name="washer" parent="Track/RoomShell" instance=ExtResource("13_ft60m")]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 77.47208, -9.231987, -74.33963)
+script = ExtResource("18_rumbler")
+
+[node name="dryer" parent="Track/RoomShell" instance=ExtResource("14_452dl")]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 98.25982, -9.231991, -73.46151)
+script = ExtResource("18_rumbler")
+
+[node name="bookcaseOpen" parent="Track/RoomShell" instance=ExtResource("15_j8sh0")]
+transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, 139.41138, -9.231991, 46.59275)
+
+[node name="bookcaseOpen2" parent="Track/RoomShell" instance=ExtResource("15_j8sh0")]
+transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, 139.41138, -9.231991, 26.151482)
+
 [node name="CounterRuns" type="Node3D" parent="Track"]
 
 [node name="table" parent="Track/CounterRuns" instance=ExtResource("9_table")]
@@ -326,113 +427,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9419613, 32.80315, -28)
 light_energy = 1.2
 omni_range = 95.0
 
-[node name="kitchenCabinet" parent="Track" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(-2.1855694e-06, 0, -50, 0, 50, 0, 50, 0, -2.1855694e-06, 120.629, -10, -29.261532)
-
-[node name="kitchenCabinet3" parent="Track" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(-2.1855694e-06, 0, -50, 0, 50, 0, 50, 0, -2.1855694e-06, 120.629, -10, -72.29468)
-
-[node name="kitchenCabinet4" parent="Track" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(-2.1855694e-06, 0, -50, 0, 50, 0, 50, 0, -2.1855694e-06, 120.629, -10, -50.746677)
-
-[node name="kitchenCabinet7" parent="Track" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(50.000004, 0, 0, 0, 50, 0, 0, 0, 50.000004, 34.209557, -9.999998, -72.28179)
-
-[node name="kitchenCabinet8" parent="Track" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(50.000004, 0, 0, 0, 50, 0, 0, 0, 50.000004, 55.75659, -9.999998, -72.486)
-
-[node name="kitchenCabinetCornerInner" parent="Track" instance=ExtResource("7_corner")]
-transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 120.147385, -9.999999, -72.34253)
-
-[node name="kitchenCabinet9" parent="Track" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(49.999428, 0, 0.23736376, 0, 50.00001, 0, -0.23736376, 0, 49.999428, -77.72001, -10, -74.61334)
-
-[node name="kitchenCabinet10" parent="Track" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(49.999428, 0, 0.23736376, 0, 50.00001, 0, -0.23736376, 0, 49.999428, -56.17225, -10, -74.71562)
-
-[node name="kitchenCabinet11" parent="Track" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(49.999428, 0, 0.23736376, 0, 50.00001, 0, -0.23736376, 0, 49.999428, -120.75266, -10, -74.40904)
-
-[node name="kitchenCabinet12" parent="Track" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(49.999428, 0, 0.23736376, 0, 50.00001, 0, -0.23736376, 0, 49.999428, -99.20492, -10, -74.51134)
-
-[node name="kitchenCabinet13" parent="Track" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(-0.23736739, 0, 49.99943, 0, 50.000008, 0, -49.99943, 0, -0.23736739, -120.94163, -9.999998, -31.019432)
-
-[node name="kitchenCabinet14" parent="Track" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(-0.23736739, 0, 49.99943, 0, 50.000008, 0, -49.99943, 0, -0.23736739, -121.24813, -9.999998, -52.565254)
-
-[node name="kitchenCabinet15" parent="Track" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(-0.23736739, 0, 49.99943, 0, 50.000008, 0, -49.99943, 0, -0.23736739, -120.32952, -9.999998, 12.009354)
-
-[node name="kitchenCabinet16" parent="Track" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(-0.23736739, 0, 49.99943, 0, 50.000008, 0, -49.99943, 0, -0.23736739, -120.636024, -9.999998, 9.032623)
-
-[node name="kitchenCabinetCornerInner2" parent="Track" instance=ExtResource("7_corner")]
-transform = Transform3D(-0.23736757, 0, 49.999428, 0, 50.00001, 0, -49.999428, 0, -0.23736757, -120.79824, -9.999999, -73.92721)
-
-[node name="kitchenCabinet17" parent="Track" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(0.013962105, 0, 49.99999, 0, 50.00001, 0, -49.99999, 0, 0.013962105, -120.16418, -10, 30.316612)
-
-[node name="kitchenCabinet19" parent="Track" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(0.013962105, 0, 49.99999, 0, 50.00001, 0, -49.99999, 0, 0.013962105, -120.176186, -10, 73.34975)
-
-[node name="kitchenCabinet20" parent="Track" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(0.013962105, 0, 49.99999, 0, 50.00001, 0, -49.99999, 0, 0.013962105, -120.17017, -10, 51.801765)
-
-[node name="kitchenCabinet22" parent="Track" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(-50, 0, 0.013960972, 0, 50.000008, 0, -0.013960972, 0, -50, -56.302216, -9.999998, 73.95501)
-
-[node name="kitchenCabinetCornerInner3" parent="Track" instance=ExtResource("7_corner")]
-transform = Transform3D(-49.99999, 0, 0.013960987, 0, 50.00001, 0, -0.013960987, 0, -49.99999, -119.69459, -9.999999, 73.311615)
-
-[node name="kitchenCabinet25" parent="Track" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(-49.999996, 0, -4.3711384e-06, 0, 50.000008, 0, 4.3711384e-06, 0, -49.999996, 122.99071, -9.03031, 75.77942)
-
-[node name="kitchenCabinet27" parent="Track" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(-49.999996, 0, -4.3711384e-06, 0, 50.000008, 0, 4.3711384e-06, 0, -49.999996, 101.97043, -9.03031, 75.77942)
-
-[node name="kitchenCabinet28" parent="Track" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(-49.999996, 0, -4.3711384e-06, 0, 50.000008, 0, 4.3711384e-06, 0, -49.999996, 80.50219, -9.03031, 75.77942)
-
-[node name="kitchenCabinet29" parent="Track" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(-49.999996, 0, -4.3711384e-06, 0, 50.000008, 0, 4.3711384e-06, 0, -49.999996, 59.183388, -9.03031, 75.77942)
-
-[node name="kitchenCabinet31" parent="Track" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(-49.999996, 0, -4.3711384e-06, 0, 50.000008, 0, 4.3711384e-06, 0, -49.999996, 16.390713, -9.03031, 75.77942)
-
-[node name="kitchenCabinet32" parent="Track" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(-49.999996, 0, -4.3711384e-06, 0, 50.000008, 0, 4.3711384e-06, 0, -49.999996, -5.077526, -9.03031, 75.77942)
-
-[node name="kitchenCabinet26" parent="Track" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(-2.1855699e-06, 0, -50.00001, 0, 50.000004, 0, 50.00001, 0, -2.1855699e-06, 121.01565, -9.030308, 53.967945)
-
-[node name="kitchenCabinetCornerInner4" parent="Track" instance=ExtResource("7_corner")]
-transform = Transform3D(-2.1855692e-06, 0, -49.999996, 0, 50.000008, 0, 49.999996, 0, -2.1855692e-06, 123.05371, -9.030309, 75.29956)
-
-[node name="doorwayOpen" parent="Track" instance=ExtResource("12_x538f")]
-transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, 35.034954, -9.231991, 78.40431)
-
-[node name="washer" parent="Track" instance=ExtResource("13_ft60m")]
-transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 77.47208, -9.231987, -74.33963)
-script = ExtResource("18_rumbler")
-
-[node name="dryer" parent="Track" instance=ExtResource("14_452dl")]
-transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 98.25982, -9.231991, -73.46151)
-script = ExtResource("18_rumbler")
-
-[node name="bookcaseOpen" parent="Track" instance=ExtResource("15_j8sh0")]
-transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, 139.41138, -9.231991, 46.59275)
-
-[node name="bookcaseOpen2" parent="Track" instance=ExtResource("15_j8sh0")]
-transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, 139.41138, -9.231991, 26.151482)
-
 [node name="RoadGridMap" type="GridMap" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 27.775, 0)
 mesh_library = ExtResource("20_msb3l")
 cell_size = Vector3(16, 4, 16)
 data = {
-"cells": PackedInt32Array(65520, 65534, 655361, 65520, 65531, 1441793, 65519, 65534, 1, 65519, 65531, 1048577, 65520, 65532, 0, 65520, 65533, 0, 65519, 65535, 0, 65519, 0, 0, 65519, 1, 0, 65519, 2, 0, 65519, 3, 0, 65519, 65530, 0, 65519, 65529, 0, 65519, 65528, 0, 65519, 65527, 0, 65519, 65526, 0, 65519, 65525, 1, 65520, 65525, 1441792, 65521, 65525, 1441792, 65522, 65525, 1441792, 65523, 65525, 1441792, 65524, 65525, 1441792, 65525, 65525, 1441792, 65526, 65525, 1441792, 65527, 65525, 1441792, 65528, 65525, 1441794, 65529, 65525, 1441792, 65530, 65525, 1441792, 65531, 65525, 1441792, 65532, 65525, 1441792, 65533, 65525, 1441792, 65521, 9, 1441792, 65522, 9, 1441792, 65523, 9, 1441792, 65524, 9, 1441792, 65520, 8, 655360, 65520, 9, 1048577, 65519, 4, 1048577, 65520, 4, 1441793, 65520, 7, 655360, 65520, 6, 655360, 65520, 5, 655360, 65517, 11, 1441792, 262136, 8, 1, 262137, 8, 1441792, 262138, 8, 1441792, 262139, 8, 1441792, 262140, 8, 1441792, 196600, 9, 5, 131064, 10, 5, 131064, 11, 655361, 131063, 11, 1048577, 65527, 10, 655365, 65527, 9, 1441793, 65526, 9, 1441792, 65525, 9, 1441792, 262141, 8, 1441793, 196605, 9, 5, 131069, 10, 5, 131069, 11, 1048577, 131070, 11, 655361, 65534, 10, 655365, 65534, 9, 1, 2, 8, 1, 2, 9, 655361, 5, 8, 1441793, 5, 9, 1048577, 4, 8, 1048576, 3, 8, 1048576, 1, 9, 1048576, 0, 9, 1048576, 65535, 9, 1048576, 6, 9, 1048576, 7, 9, 1048576, 8, 9, 1048576, 9, 9, 1048576, 10, 9, 1048576, 11, 9, 1048576, 12, 9, 1048576, 13, 9, 1048576, 14, 9, 1048576, 16, 8, 0, 16, 7, 0, 16, 6, 0, 16, 5, 0, 16, 4, 0, 15, 9, 1441792, 16, 9, 655361, 16, 3, 655360, 16, 2, 655360, 16, 1, 655360, 16, 0, 655360, 16, 65535, 655360, 16, 65534, 655360, 16, 65533, 655360, 16, 65532, 655360, 16, 65531, 655360, 16, 65530, 655360, 16, 65529, 655360, 16, 65528, 655360, 16, 65527, 1441793, -786424, 65527, 1441797, -720887, 65527, 1441797, -655350, 65527, 1441797, -589813, 65527, 1441797, -524276, 65527, 1441797, -458739, 65527, 1441797, -393202, 65527, 1441793, -393202, 65528, 655361, -393203, 65528, 1048581, -327668, 65528, 1048581, -65521, 65527, 1441797, -131058, 65527, 1441797, -196595, 65527, 1441797, -262132, 65527, 1441797, -262133, 65528, 1048577, -262133, 65527, 1, -786425, 65527, 1, -786425, 65528, 0, -786425, 65529, 0, -786425, 65530, 0, -786425, 65531, 0, -786425, 65532, 0, -786425, 65533, 0, -786425, 65534, 0, -786425, 65535, 0, -786425, 0, 0, -786425, 1, 0, -786425, 2, 0, -786425, 3, 0, -786425, 4, 0, -786425, 5, 0, -786425, 6, 655361, -786426, 6, 1, -786426, 7, 655361, -786427, 7, 1, -786427, 8, 655361, -786429, 8, 1048577, -786429, 7, 1441793, -786430, 7, 1048577, -786430, 6, 1441793, -786431, 6, 1048577, -786431, 5, 0, -786431, 4, 0, -786431, 3, 0, -786431, 2, 0, -786431, 1, 0, -786431, 0, 0, -786431, 65535, 1441793, -655359, 65534, 1441793, -786432, 65535, 1048581, -655361, 65535, 1048577, -655361, 65534, 1, -720896, 65534, 1441797, -524286, 0, 5, -655359, 65535, 655365, -589823, 0, 655365, -524287, 1, 1048577, -524286, 1, 655361, -458750, 65535, 5, -393214, 65534, 1441793, -393215, 65534, 1048581, -327680, 65534, 1, -327680, 65535, 655365, -262144, 0, 1048577, -262143, 0, 1441797, -196606, 0, 655361, -196606, 65535, 655360, -196606, 65534, 655360, -196606, 65533, 655360, -196606, 65532, 655360, -196606, 65531, 655360, -196606, 65530, 655360, -196606, 65529, 655360, -196606, 65528, 655360, -196606, 65527, 655360, -196606, 65526, 655360, -196606, 65525, 1441793, -2, 65525, 1048581, -1, 65525, 1048576, -131072, 65525, 1048581, -196607, 65525, 1048581, -786428, 8, 1441792)
+"cells": PackedInt32Array(65520, 65534, 655361, 65520, 65531, 1441793, 65519, 65534, 1, 65519, 65531, 1048577, 65520, 65532, 0, 65520, 65533, 0, 65519, 65535, 0, 65519, 0, 0, 65519, 1, 0, 65519, 2, 0, 65519, 3, 0, 65519, 65530, 0, 65519, 65529, 0, 65519, 65528, 0, 65519, 65527, 0, 65519, 65526, 0, 65519, 65525, 1, 65520, 65525, 1441792, 65521, 65525, 1441792, 65522, 65525, 1441792, 65523, 65525, 1441792, 65524, 65525, 1441792, 65525, 65525, 1441792, 65526, 65525, 1441792, 65527, 65525, 1441792, 65528, 65525, 1441794, 65529, 65525, 1441792, 65530, 65525, 1441792, 65531, 65525, 1441792, 65532, 65525, 1441792, 65533, 65525, 1441792, 65521, 9, 1441792, 65522, 9, 1441792, 65523, 9, 1441792, 65524, 9, 1441792, 65520, 8, 655360, 65520, 9, 1048577, 65519, 4, 1048577, 65520, 4, 1441793, 65520, 7, 655360, 65520, 6, 655360, 65520, 5, 655360, 65517, 11, 1441792, 262136, 8, 1, 262137, 8, 1441792, 262138, 8, 1441792, 262139, 8, 1441792, 262140, 8, 1441792, 196600, 9, 5, 131064, 10, 5, 131064, 11, 655361, 131063, 11, 1048577, 65527, 10, 655365, 65527, 9, 1441793, 65526, 9, 1441792, 65525, 9, 1441792, 262141, 8, 1441793, 196605, 9, 5, 131069, 10, 5, 131069, 11, 1048577, 131070, 11, 655361, 65534, 10, 655365, 65534, 9, 1, 2, 8, 1, 2, 9, 655361, 5, 8, 1441793, 5, 9, 1048577, 4, 8, 1048576, 3, 8, 1048576, 1, 9, 1048576, 0, 9, 1048576, 65535, 9, 1048576, 6, 9, 1048576, 7, 9, 1048576, 8, 9, 1048576, 9, 9, 1048576, 10, 9, 1048576, 11, 9, 1048576, 12, 9, 1048576, 13, 9, 1048576, 14, 9, 1048576, 16, 8, 0, 16, 7, 0, 16, 6, 0, 16, 5, 0, 16, 4, 0, 15, 9, 1441792, 16, 9, 655361, 16, 3, 655360, 16, 2, 655360, 16, 1, 655360, 16, 0, 655360, 16, 65535, 655360, 16, 65534, 655360, 16, 65533, 655360, 16, 65532, 655360, 16, 65531, 655360, 16, 65530, 655360, 16, 65529, 655360, 16, 65528, 655360, 16, 65527, 1441793, -786424, 65527, 1441797, -720887, 65527, 1441797, -655350, 65527, 1441797, -589813, 65527, 1441797, -524276, 65527, 1441797, -458739, 65527, 1441797, -393202, 65527, 1441793, -393202, 65528, 655361, -393203, 65528, 1048581, -327668, 65528, 1048581, -65521, 65527, 1441797, -131058, 65527, 1441797, -196595, 65527, 1441797, -262132, 65527, 1441797, -262133, 65528, 1048577, -262133, 65527, 1, -786425, 65527, 1, -786425, 65528, 0, -786425, 65529, 0, -786425, 65530, 0, -786425, 65531, 0, -786425, 65532, 0, -786425, 65533, 0, -786425, 65534, 0, -786425, 65535, 0, -786425, 0, 0, -786425, 1, 0, -786425, 2, 0, -786425, 3, 0, -786425, 4, 0, -786425, 5, 0, -786425, 6, 655361, -786426, 6, 1, -786426, 7, 655361, -786427, 7, 1, -786427, 8, 655361, -786429, 8, 1048577, -786429, 7, 1441793, -786430, 7, 1048577, -786430, 6, 1441793, -786431, 6, 1048577, -786431, 5, 0, -786431, 4, 0, -786431, 2, 0, -786431, 1, 0, -786431, 0, 0, -786431, 65535, 1441793, -655359, 65534, 1441793, -786432, 65535, 1048581, -655361, 65535, 1048577, -655361, 65534, 1, -720896, 65534, 1441797, -524286, 0, 5, -655359, 65535, 655365, -589823, 0, 655365, -524287, 1, 1048577, -524286, 1, 655361, -458750, 65535, 5, -393214, 65534, 1441793, -393215, 65534, 1048581, -327680, 65534, 1, -327680, 65535, 655365, -262144, 0, 1048577, -262143, 0, 1441797, -196606, 0, 655361, -196606, 65535, 655360, -196606, 65534, 655360, -196606, 65533, 655360, -196606, 65532, 655360, -196606, 65531, 655360, -196606, 65530, 655360, -196606, 65529, 655360, -196606, 65528, 655360, -196606, 65527, 655360, -196606, 65526, 655360, -196606, 65525, 1441793, -2, 65525, 1048581, -1, 65525, 1048576, -131072, 65525, 1048581, -196607, 65525, 1048581, -786428, 8, 1441792, -786431, 3, 655360, -720900, 7, 655360)
 }
 script = ExtResource("21_uxd1m")
 ordered_route_cells = Array[Vector3i]([Vector3i(7, -12, -9), Vector3i(8, -12, -9), Vector3i(9, -11, -9), Vector3i(10, -10, -9), Vector3i(11, -9, -9), Vector3i(12, -8, -9), Vector3i(13, -7, -9), Vector3i(14, -6, -9), Vector3i(14, -6, -8), Vector3i(13, -6, -8), Vector3i(12, -5, -8), Vector3i(11, -4, -8), Vector3i(11, -4, -9), Vector3i(12, -4, -9), Vector3i(13, -3, -9), Vector3i(14, -2, -9), Vector3i(15, -1, -9), Vector3i(16, 0, -9), Vector3i(16, 0, -8), Vector3i(16, 0, -7), Vector3i(16, 0, -6), Vector3i(16, 0, -5), Vector3i(16, 0, -4), Vector3i(16, 0, -3), Vector3i(16, 0, -2), Vector3i(16, 0, -1), Vector3i(16, 0, 0), Vector3i(16, 0, 1), Vector3i(16, 0, 2), Vector3i(16, 0, 3), Vector3i(16, 0, 4), Vector3i(16, 0, 5), Vector3i(16, 0, 6), Vector3i(16, 0, 7), Vector3i(16, 0, 8), Vector3i(16, 0, 9), Vector3i(15, 0, 9), Vector3i(14, 0, 9), Vector3i(13, 0, 9), Vector3i(12, 0, 9), Vector3i(11, 0, 9), Vector3i(10, 0, 9), Vector3i(9, 0, 9), Vector3i(8, 0, 9), Vector3i(7, 0, 9), Vector3i(6, 0, 9), Vector3i(5, 0, 9), Vector3i(5, 0, 8), Vector3i(4, 0, 8), Vector3i(3, 0, 8), Vector3i(2, 0, 8), Vector3i(2, 0, 9), Vector3i(1, 0, 9), Vector3i(0, 0, 9), Vector3i(-1, 0, 9), Vector3i(-2, 0, 9), Vector3i(-2, 0, 10), Vector3i(-2, 1, 11), Vector3i(-3, 1, 11), Vector3i(-3, 1, 10), Vector3i(-3, 2, 9), Vector3i(-3, 3, 8), Vector3i(-4, 3, 8), Vector3i(-5, 3, 8), Vector3i(-6, 3, 8), Vector3i(-7, 3, 8), Vector3i(-8, 3, 8), Vector3i(-8, 2, 9), Vector3i(-8, 1, 10), Vector3i(-8, 1, 11), Vector3i(-9, 1, 11), Vector3i(-9, 0, 10), Vector3i(-9, 0, 9), Vector3i(-10, 0, 9), Vector3i(-11, 0, 9), Vector3i(-12, 0, 9), Vector3i(-13, 0, 9), Vector3i(-14, 0, 9), Vector3i(-15, 0, 9), Vector3i(-16, 0, 9), Vector3i(-16, 0, 8), Vector3i(-16, 0, 7), Vector3i(-16, 0, 6), Vector3i(-16, 0, 5), Vector3i(-16, 0, 4), Vector3i(-17, 0, 4), Vector3i(-17, 0, 3), Vector3i(-17, 0, 2), Vector3i(-17, 0, 1), Vector3i(-17, 0, 0), Vector3i(-17, 0, -1), Vector3i(-17, 0, -2), Vector3i(-16, 0, -2), Vector3i(-16, 0, -3), Vector3i(-16, 0, -4), Vector3i(-16, 0, -5), Vector3i(-17, 0, -5), Vector3i(-17, 0, -6), Vector3i(-17, 0, -7), Vector3i(-17, 0, -8), Vector3i(-17, 0, -9), Vector3i(-17, 0, -10), Vector3i(-17, 0, -11), Vector3i(-16, 0, -11), Vector3i(-15, 0, -11), Vector3i(-14, 0, -11), Vector3i(-13, 0, -11), Vector3i(-12, 0, -11), Vector3i(-11, 0, -11), Vector3i(-10, 0, -11), Vector3i(-9, 0, -11), Vector3i(-8, 0, -11), Vector3i(-7, 0, -11), Vector3i(-6, 0, -11), Vector3i(-5, 0, -11), Vector3i(-4, 0, -11), Vector3i(-3, 0, -11), Vector3i(-2, -1, -11), Vector3i(-1, -1, -11), Vector3i(0, -2, -11), Vector3i(1, -3, -11), Vector3i(2, -3, -11), Vector3i(2, -3, -10), Vector3i(2, -3, -9), Vector3i(2, -3, -8), Vector3i(2, -3, -7), Vector3i(2, -3, -6), Vector3i(2, -3, -5), Vector3i(2, -3, -4), Vector3i(2, -3, -3), Vector3i(2, -3, -2), Vector3i(2, -3, -1), Vector3i(2, -3, 0), Vector3i(1, -4, 0), Vector3i(0, -4, 0), Vector3i(0, -5, -1), Vector3i(0, -5, -2), Vector3i(1, -6, -2), Vector3i(2, -6, -2), Vector3i(2, -7, -1), Vector3i(2, -8, 0), Vector3i(2, -8, 1), Vector3i(1, -8, 1), Vector3i(1, -9, 0), Vector3i(1, -10, -1), Vector3i(1, -10, -2), Vector3i(0, -11, -2), Vector3i(-1, -11, -2), Vector3i(-1, -11, -1), Vector3i(0, -12, -1), Vector3i(1, -12, -1), Vector3i(1, -12, 0), Vector3i(1, -12, 1), Vector3i(1, -12, 2), Vector3i(1, -12, 3), Vector3i(1, -12, 4), Vector3i(1, -12, 5), Vector3i(1, -12, 6), Vector3i(2, -12, 6), Vector3i(2, -12, 7), Vector3i(3, -12, 7), Vector3i(3, -12, 8), Vector3i(4, -12, 8), Vector3i(5, -12, 8), Vector3i(5, -12, 7), Vector3i(6, -12, 7), Vector3i(6, -12, 6), Vector3i(7, -12, 6), Vector3i(7, -12, 5), Vector3i(7, -12, 4), Vector3i(7, -12, 3), Vector3i(7, -12, 2), Vector3i(7, -12, 1), Vector3i(7, -12, 0), Vector3i(7, -12, -1), Vector3i(7, -12, -2), Vector3i(7, -12, -3), Vector3i(7, -12, -4), Vector3i(7, -12, -5), Vector3i(7, -12, -6), Vector3i(7, -12, -7), Vector3i(7, -12, -8)])
