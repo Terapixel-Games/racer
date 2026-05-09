@@ -6,277 +6,322 @@
 script = ExtResource("1_rwtoc")
 id = "glam_closet"
 display_name = "Glam Closet / Velva"
-version = "glam_closet_v1_2026_05_01"
+version = "glam_closet_gridmap_v1_2026_05_09"
 laps = 3
-out_of_bounds_y = -11.0
+track_source_id = "road_grid_map"
+road_width = 16.0
+out_of_bounds_y = -28.0
 reset_mode = "instant_pop"
-floor_visual_y = -32.0
+floor_visual_y = -1.1
 runtime_scene_path = "res://assets/gameplay/tracks/glam_closet/glam_closet_track.tscn"
 dressing_scene_path = "res://assets/gameplay/tracks/glam_closet/glam_closet_editable_room.tscn"
-ground_size = Vector2(292, 190)
-ground_color = Color(0.8, 0.42, 0.68, 1)
+ground_size = Vector2(360, 240)
+ground_color = Color(0.74, 0.42, 0.63, 1)
 ground_texture_path = "res://assets/gameplay/materials/glam/glam_mirror_glitter_albedo.png"
 road_texture_path = "res://assets/gameplay/materials/plastic/glossy_plastic_albedo.png"
-road_segment_layout = Array[Dictionary]([{
-"length": 14.920645,
-"pitch_degrees": 0.0,
-"position": Vector3(-101, 3.35, -64.5),
-"road_width": 12.0,
-"roles": Array[String](["checkpoint", "start"]),
-"segment_id": "straight_long",
-"yaw_degrees": 110.23245716578164
+road_visual_style = "kenney_gridmap"
+road_grid_layout = {
+"basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"cell_size": Vector3(16, 4, 16),
+"cells": Array[Dictionary]([{
+"cell": Vector3i(-5, 0, -4),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-80, 0, -64)
 }, {
-"length": 16.365622,
-"pitch_degrees": 0.0,
-"position": Vector3(-86, 3.35, -68.8),
-"road_width": 12.0,
-"roles": Array[String](["item"]),
-"segment_id": "straight_long",
-"yaw_degrees": 102.13386771595167
+"cell": Vector3i(-4, 0, -4),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-64, 0, -64)
 }, {
-"length": 18.081991,
-"pitch_degrees": 0.0,
-"position": Vector3(-69, 3.35, -71.38),
-"road_width": 12.0,
-"roles": Array[String]([]),
-"segment_id": "straight_long",
-"yaw_degrees": 95.45835500988302
+"cell": Vector3i(-3, 0, -4),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-48, 0, -64)
 }, {
-"length": 20.018482,
-"pitch_degrees": 0.0,
-"position": Vector3(-50, 3.35, -71.81),
-"road_width": 12.0,
-"roles": Array[String](["hazard"]),
-"segment_id": "straight_long",
-"yaw_degrees": 87.53779444076945
+"cell": Vector3i(-2, 0, -4),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-32, 0, -64)
 }, {
-"length": 20.165722,
-"pitch_degrees": 0.0,
-"position": Vector3(-30, 3.35, -70.09),
-"road_width": 12.0,
-"roles": Array[String](["item"]),
-"segment_id": "straight_long",
-"yaw_degrees": 82.64944854235883
+"cell": Vector3i(-1, 0, -4),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-16, 0, -64)
 }, {
-"length": 20.293684,
-"pitch_degrees": 0.0,
-"position": Vector3(-10, 3.35, -67.08),
-"road_width": 12.0,
-"roles": Array[String]([]),
-"segment_id": "straight_long",
-"yaw_degrees": 80.24060474663541
+"cell": Vector3i(0, 0, -4),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(0, 0, -64)
 }, {
-"length": 24.0,
-"pitch_degrees": 0.0,
-"position": Vector3(12, 3.35, -65.36),
-"road_width": 12.0,
-"roles": Array[String](["checkpoint"]),
-"segment_id": "straight_long",
-"yaw_degrees": 90.00000250447816
+"cell": Vector3i(1, 0, -4),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(16, 0, -64)
 }, {
-"length": 24.061554,
-"pitch_degrees": 0.0,
-"position": Vector3(36, 3.35, -66.22),
-"road_width": 12.0,
-"roles": Array[String](["item"]),
-"segment_id": "straight_long",
-"yaw_degrees": 94.09918834618551
+"cell": Vector3i(2, 0, -4),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(32, 0, -64)
 }, {
-"length": 24.061554,
-"pitch_degrees": 0.0,
-"position": Vector3(60, 3.35, -66.22),
-"road_width": 12.0,
-"roles": Array[String](["hazard"]),
-"segment_id": "straight_long",
-"yaw_degrees": 85.90080983258166
+"cell": Vector3i(3, 0, -4),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(48, 0, -64)
 }, {
-"length": 24.966665,
-"pitch_degrees": 0.0,
-"position": Vector3(84, 3.35, -61.92),
-"road_width": 12.0,
-"roles": Array[String]([]),
-"segment_id": "straight_long",
-"yaw_degrees": 74.00416392117187
+"cell": Vector3i(4, 0, -4),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(64, 0, -64)
 }, {
-"length": 24.276276,
-"pitch_degrees": 0.0,
-"position": Vector3(106, 3.35, -51.6),
-"road_width": 12.0,
-"roles": Array[String](["item"]),
-"segment_id": "straight_long",
-"yaw_degrees": 55.47203021222971
+"cell": Vector3i(5, 0, -4),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(80, 0, -64)
 }, {
-"length": 22.404608,
-"pitch_degrees": 0.0,
-"position": Vector3(122, 3.35, -35.260002),
-"road_width": 12.0,
-"roles": Array[String]([]),
-"segment_id": "straight_long",
-"yaw_degrees": 32.38488774203565
+"cell": Vector3i(6, 0, -4),
+"item": 1,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(96, 0, -64)
 }, {
-"length": 21.024023,
-"pitch_degrees": 0.0,
-"position": Vector3(130, 3.35, -15.48),
-"road_width": 12.0,
-"roles": Array[String](["checkpoint", "hazard"]),
-"segment_id": "straight_long",
-"yaw_degrees": 10.967871665429579
+"cell": Vector3i(6, 0, -3),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(96, 0, -48)
 }, {
-"length": 20.736673,
-"pitch_degrees": 0.0,
-"position": Vector3(131, 3.35, 5.16),
-"road_width": 12.0,
-"roles": Array[String](["item"]),
-"segment_id": "straight_long",
-"yaw_degrees": -5.534637607584263
+"cell": Vector3i(6, 0, -2),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(96, 0, -32)
 }, {
-"length": 22.13616,
-"pitch_degrees": 0.0,
-"position": Vector3(126, 3.35, 25.8),
-"road_width": 12.0,
-"roles": Array[String]([]),
-"segment_id": "straight_long",
-"yaw_degrees": -21.186176173227153
+"cell": Vector3i(6, 0, -1),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(96, 0, -16)
 }, {
-"length": 22.262758,
-"pitch_degrees": 0.0,
-"position": Vector3(114, 3.35, 43.86),
-"road_width": 12.0,
-"roles": Array[String]([]),
-"segment_id": "straight_long",
-"yaw_degrees": -45.94635128250103
+"cell": Vector3i(6, 0, 0),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(96, 0, 0)
 }, {
-"length": 24.300255,
-"pitch_degrees": 0.0,
-"position": Vector3(95, 3.35, 56.76),
-"road_width": 12.0,
-"roles": Array[String](["item"]),
-"segment_id": "straight_long",
-"yaw_degrees": -64.86915473649499
+"cell": Vector3i(6, 0, 1),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(96, 0, 16)
 }, {
-"length": 24.588324,
-"pitch_degrees": 3.2640495384380492,
-"position": Vector3(72, 4.05, 64.5),
-"road_width": 12.0,
-"roles": Array[String](["hazard"]),
-"segment_id": "straight_long",
-"yaw_degrees": -77.86610997224798
+"cell": Vector3i(6, 0, 2),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(96, 0, 32)
 }, {
-"length": 26.226582,
-"pitch_degrees": 0.0,
-"position": Vector3(47, 4.75, 68.8),
-"road_width": 12.0,
-"roles": Array[String](["checkpoint"]),
-"segment_id": "straight_long",
-"yaw_degrees": -82.4631141516117
+"cell": Vector3i(6, 0, 3),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(96, 0, 48)
 }, {
-"length": 26.037666,
-"pitch_degrees": -3.082181034080234,
-"position": Vector3(21, 4.05, 70.52),
-"road_width": 12.0,
-"roles": Array[String](["item"]),
-"segment_id": "straight_long",
-"yaw_degrees": -90.00000250447816
+"cell": Vector3i(6, 0, 4),
+"item": 1,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(96, 0, 64)
 }, {
-"length": 26.05683,
-"pitch_degrees": 0.0,
-"position": Vector3(-5, 3.35, 69.66),
-"road_width": 12.0,
-"roles": Array[String]([]),
-"segment_id": "straight_long",
-"yaw_degrees": -93.78480156887899
+"cell": Vector3i(5, 0, 4),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(80, 0, 64)
 }, {
-"length": 26.226582,
-"pitch_degrees": 0.0,
-"position": Vector3(-31, 3.35, 67.08),
-"road_width": 12.0,
-"roles": Array[String](["hazard"]),
-"segment_id": "straight_long",
-"yaw_degrees": -97.53690451772297
+"cell": Vector3i(4, 0, 4),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(64, 0, 64)
 }, {
-"length": 26.894876,
-"pitch_degrees": 0.0,
-"position": Vector3(-57, 3.35, 61.92),
-"road_width": 12.0,
-"roles": Array[String](["item"]),
-"segment_id": "straight_long",
-"yaw_degrees": -104.8216359468109
+"cell": Vector3i(3, 0, 4),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(48, 0, 64)
 }, {
-"length": 26.850729,
-"pitch_degrees": 0.0,
-"position": Vector3(-82, 3.35, 52.46),
-"road_width": 12.0,
-"roles": Array[String]([]),
-"segment_id": "straight_long",
-"yaw_degrees": -116.64139441873385
+"cell": Vector3i(2, 0, 4),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(32, 0, 64)
 }, {
-"length": 26.378778,
-"pitch_degrees": 0.0,
-"position": Vector3(-104, 3.35, 37.84),
-"road_width": 12.0,
-"roles": Array[String](["checkpoint"]),
-"segment_id": "straight_long",
-"yaw_degrees": -130.69551950403226
+"cell": Vector3i(1, 0, 4),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(16, 0, 64)
 }, {
-"length": 23.874874,
-"pitch_degrees": 0.0,
-"position": Vector3(-120, 3.35, 18.92),
-"road_width": 12.0,
-"roles": Array[String](["item"]),
-"segment_id": "straight_long",
-"yaw_degrees": -149.82646955788778
+"cell": Vector3i(0, 0, 4),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(0, 0, 64)
 }, {
-"length": 22.714964,
-"pitch_degrees": 0.0,
-"position": Vector3(-128, 3.35, -2.58),
-"road_width": 12.0,
-"roles": Array[String](["hazard"]),
-"segment_id": "straight_long",
-"yaw_degrees": -169.8575839028376
+"cell": Vector3i(-1, 0, 4),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-16, 0, 64)
 }, {
-"length": 21.024025,
-"pitch_degrees": 0.0,
-"position": Vector3(-128, 3.35, -24.080002),
-"road_width": 12.0,
-"roles": Array[String]([]),
-"segment_id": "straight_long",
-"yaw_degrees": 169.03212822088489
+"cell": Vector3i(-2, 0, 4),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-32, 0, 64)
 }, {
-"length": 19.895725,
-"pitch_degrees": 0.0,
-"position": Vector3(-121, 3.35, -43),
-"road_width": 12.0,
-"roles": Array[String](["checkpoint", "item"]),
-"segment_id": "straight_long",
-"yaw_degrees": 149.82646955788778
+"cell": Vector3i(-3, 0, 4),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-48, 0, 64)
 }, {
-"length": 14.76347,
-"pitch_degrees": 0.0,
-"position": Vector3(-110, 3.35, -55.9),
-"road_width": 12.0,
-"roles": Array[String](["hazard"]),
-"segment_id": "straight_long",
-"yaw_degrees": 125.62791529085465
+"cell": Vector3i(-4, 0, 4),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-64, 0, 64)
 }, {
-"length": 8.182812,
-"pitch_degrees": 0.0,
-"position": Vector3(-108, 3.35, -59.34),
-"road_width": 12.0,
-"roles": Array[String]([]),
-"segment_id": "straight_long",
-"yaw_degrees": -77.86610997224798
+"cell": Vector3i(-5, 0, 4),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-80, 0, 64)
 }, {
-"length": 5.275755,
-"pitch_degrees": 0.0,
-"position": Vector3(-110, 3.35, -60.199997),
-"road_width": 12.0,
-"roles": Array[String]([]),
-"segment_id": "straight_long",
-"yaw_degrees": 130.69551950403226
+"cell": Vector3i(-6, 0, 4),
+"item": 1,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-96, 0, 64)
+}, {
+"cell": Vector3i(-6, 0, 3),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(-96, 0, 48)
+}, {
+"cell": Vector3i(-6, 0, 2),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(-96, 0, 32)
+}, {
+"cell": Vector3i(-6, 0, 1),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(-96, 0, 16)
+}, {
+"cell": Vector3i(-6, 0, 0),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(-96, 0, 0)
+}, {
+"cell": Vector3i(-6, 0, -1),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(-96, 0, -16)
+}, {
+"cell": Vector3i(-6, 0, -2),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(-96, 0, -32)
+}, {
+"cell": Vector3i(-6, 0, -3),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(-96, 0, -48)
+}, {
+"cell": Vector3i(-6, 0, -4),
+"item": 1,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-96, 0, -64)
+}]),
+"checkpoint_route_indices": Array[int]([0, 7, 13, 20, 27, 33]),
+"hazard_route_indices": [],
+"item_route_indices": [],
+"mesh_library_path": "res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres",
+"ordered_route_cells": Array[Vector3i]([Vector3i(-5, 0, -4), Vector3i(-4, 0, -4), Vector3i(-3, 0, -4), Vector3i(-2, 0, -4), Vector3i(-1, 0, -4), Vector3i(0, 0, -4), Vector3i(1, 0, -4), Vector3i(2, 0, -4), Vector3i(3, 0, -4), Vector3i(4, 0, -4), Vector3i(5, 0, -4), Vector3i(6, 0, -4), Vector3i(6, 0, -3), Vector3i(6, 0, -2), Vector3i(6, 0, -1), Vector3i(6, 0, 0), Vector3i(6, 0, 1), Vector3i(6, 0, 2), Vector3i(6, 0, 3), Vector3i(6, 0, 4), Vector3i(5, 0, 4), Vector3i(4, 0, 4), Vector3i(3, 0, 4), Vector3i(2, 0, 4), Vector3i(1, 0, 4), Vector3i(0, 0, 4), Vector3i(-1, 0, 4), Vector3i(-2, 0, 4), Vector3i(-3, 0, 4), Vector3i(-4, 0, 4), Vector3i(-5, 0, 4), Vector3i(-6, 0, 4), Vector3i(-6, 0, 3), Vector3i(-6, 0, 2), Vector3i(-6, 0, 1), Vector3i(-6, 0, 0), Vector3i(-6, 0, -1), Vector3i(-6, 0, -2), Vector3i(-6, 0, -3), Vector3i(-6, 0, -4)]),
+"ordered_route_points": Array[Vector3]([Vector3(-80, 0, -64), Vector3(-64, 0, -64), Vector3(-48, 0, -64), Vector3(-32, 0, -64), Vector3(-16, 0, -64), Vector3(0, 0, -64), Vector3(16, 0, -64), Vector3(32, 0, -64), Vector3(48, 0, -64), Vector3(64, 0, -64), Vector3(80, 0, -64), Vector3(96, 0, -64), Vector3(96, 0, -48), Vector3(96, 0, -32), Vector3(96, 0, -16), Vector3(96, 0, 0), Vector3(96, 0, 16), Vector3(96, 0, 32), Vector3(96, 0, 48), Vector3(96, 0, 64), Vector3(80, 0, 64), Vector3(64, 0, 64), Vector3(48, 0, 64), Vector3(32, 0, 64), Vector3(16, 0, 64), Vector3(0, 0, 64), Vector3(-16, 0, 64), Vector3(-32, 0, 64), Vector3(-48, 0, 64), Vector3(-64, 0, 64), Vector3(-80, 0, 64), Vector3(-96, 0, 64), Vector3(-96, 0, 48), Vector3(-96, 0, 32), Vector3(-96, 0, 16), Vector3(-96, 0, 0), Vector3(-96, 0, -16), Vector3(-96, 0, -32), Vector3(-96, 0, -48), Vector3(-96, 0, -64)]),
+"origin": Vector3(-8, -2, -8),
+"road_width": 16.0,
+"spawn_slots": Array[Dictionary]([{
+"forward_offset": 5.0,
+"lateral_offset": -2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 5.0,
+"lateral_offset": 2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 10.25,
+"lateral_offset": -2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 10.25,
+"lateral_offset": 2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 15.5,
+"lateral_offset": -2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 15.5,
+"lateral_offset": 2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 20.75,
+"lateral_offset": -2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 20.75,
+"lateral_offset": 2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
 }])
-rail_texture_path = "res://assets/gameplay/materials/metal/toy_metal_albedo.png"
-rail_texture_uv_scale = 0.5
-track_body_color = Color(0.09, 0.075, 0.065, 1)
+}
 sky_preset_id = "night_city_glow"
 sky_time_of_day = 0.82
 sky_weather = "city_night"
@@ -286,102 +331,9 @@ sky_cloud_amount = 0.22
 sky_cloud_speed = 0.012
 sky_haze_amount = 0.32
 sky_light_energy = 1.05
-route_points = Array[Vector3]([Vector3(-108, 3.35, -61.92), Vector3(-94, 3.35, -67.08), Vector3(-78, 3.35, -70.520004), Vector3(-60, 3.35, -72.24), Vector3(-40, 3.35, -71.38), Vector3(-20, 3.35, -68.799995), Vector3(0, 3.35, -65.36), Vector3(24, 3.35, -65.36), Vector3(48, 3.35, -67.08), Vector3(72, 3.35, -65.36), Vector3(96, 3.35, -58.479996), Vector3(116, 3.35, -44.72), Vector3(128, 3.35, -25.800001), Vector3(132, 3.35, -5.16), Vector3(130, 3.35, 15.4800005), Vector3(122, 3.35, 36.12), Vector3(106, 3.35, 51.600002), Vector3(84, 3.35, 61.92), Vector3(84, 4.7500005, 61.92), Vector3(60, 3.3500001, 67.08), Vector3(60, 4.75, 67.08), Vector3(34, 4.75, 70.520004), Vector3(34, 3.3500001, 70.52), Vector3(7.999999, 4.7500005, 70.52), Vector3(8, 3.35, 70.52), Vector3(-18, 3.35, 68.80001), Vector3(-44, 3.35, 65.36), Vector3(-70, 3.35, 58.479996), Vector3(-94, 3.35, 46.44), Vector3(-114, 3.35, 29.240002), Vector3(-126, 3.35, 8.600001), Vector3(-130, 3.35, -13.759999), Vector3(-126, 3.35, -34.4), Vector3(-116, 3.35, -51.6), Vector3(-104, 3.35, -60.200005), Vector3(-112, 3.35, -58.48)])
-checkpoint_indices = Array[int]([0, 6, 12, 20, 28, 32])
-spawn_points = Array[Vector4]([Vector4(-107.481255, 4.15, -60.51255, 110.23246), Vector4(-108.518745, 4.15, -63.327446, 110.23246), Vector4(-102.78977, 4.15, -62.2417, 110.23246), Vector4(-103.82726, 4.15, -65.056595, 110.23246), Vector4(-98.09828, 4.15, -63.970848, 110.23246), Vector4(-99.13577, 4.15, -66.78574, 110.23246), Vector4(-93.40679, 4.15, -65.7, 110.23246), Vector4(-94.44428, 4.15, -68.51489, 110.23246)])
-item_sockets = Array[Vector4]([Vector4(-86, 4.15, -68.8, 102.13389), Vector4(-30, 4.15, -70.09, 82.64944), Vector4(36, 4.15, -66.22, 94.09919), Vector4(106, 4.15, -51.6, 55.47204), Vector4(131, 4.15, 5.16, -5.534637), Vector4(95, 4.15, 56.76, -64.869156), Vector4(21, 4.8500004, 70.52, -90), Vector4(-57, 4.15, 61.92, -104.82165), Vector4(-120, 4.15, 18.92, -149.82648), Vector4(-121, 4.15, -43, 149.82648)])
-hazard_sockets = Array[Vector4]([Vector4(-50, 4.15, -71.81, 87.537796), Vector4(60, 4.15, -66.22, 85.90081), Vector4(130, 4.15, -15.48, 10.967873), Vector4(72, 4.8500004, 64.5, -77.86611), Vector4(-31, 4.15, 67.08, -97.5369), Vector4(-128, 4.15, -2.58, -169.85759), Vector4(-110, 4.15, -55.9, 125.62792)])
-alternate_routes = Array[Dictionary]([{
-"enabled": true,
-"entry_checkpoint_index": 1,
-"exit_checkpoint_index": 3,
-"id": "glam_closet_branch",
-"points": Array[Vector3]([Vector3(0, 3.55, -76), Vector3(18, 4.35, -32), Vector3(36, 4.35, 20), Vector3(60, 3.75, 78)]),
-"road_width": 12.0
-}])
-stage_props = Array[Dictionary]([{
-"asset_path": "",
-"audio_material_id": "plastic",
-"box_color": [0.24, 0.12, 0.22, 1.0],
-"box_size": [54.0, 6.0, 24.0],
-"collision_mode": "visual",
-"gameplay_tag": "glam_landmark",
-"id": "MakeupPalette",
-"kind": "box",
-"position": [-24.0, -8.0, -64.0],
-"scale": [1.0, 1.0, 1.0],
-"yaw_degrees": 0.0
-}, {
-"asset_path": "",
-"audio_material_id": "glass",
-"box_color": [0.72, 0.9, 0.96, 1.0],
-"box_size": [18.0, 22.0, 18.0],
-"collision_mode": "visual",
-"gameplay_tag": "glam_landmark",
-"id": "PerfumeBottle",
-"kind": "box",
-"position": [98.0, -3.0, -46.0],
-"scale": [1.0, 1.0, 1.0],
-"yaw_degrees": 0.0
-}, {
-"asset_path": "",
-"audio_material_id": "fabric",
-"box_color": [0.9, 0.24, 0.62, 1.0],
-"box_size": [86.0, 1.0, 16.0],
-"collision_mode": "visual",
-"gameplay_tag": "shortcut_landmark",
-"id": "ScarfBridge",
-"kind": "box",
-"position": [4.0, 3.8, 12.0],
-"scale": [1.0, 1.0, 1.0],
-"yaw_degrees": 0.0
-}, {
-"asset_path": "",
-"audio_material_id": "wood",
-"box_color": [0.18, 0.12, 0.1, 1.0],
-"box_size": [26.0, 18.0, 54.0],
-"collision_mode": "visual",
-"gameplay_tag": "glam_landmark",
-"id": "ShoeRack",
-"kind": "box",
-"position": [112.0, -5.0, 46.0],
-"scale": [1.0, 1.0, 1.0],
-"yaw_degrees": 0.0
-}, {
-"asset_path": "",
-"audio_material_id": "glass",
-"box_color": [0.86, 0.88, 0.94, 1.0],
-"box_size": [12.0, 34.0, 48.0],
-"collision_mode": "visual",
-"gameplay_tag": "glam_landmark",
-"id": "VanityMirror",
-"kind": "box",
-"position": [-118.0, 6.0, 18.0],
-"scale": [1.0, 1.0, 1.0],
-"yaw_degrees": 0.0
-}])
-surface_segments = Array[Dictionary]([{
-"end_route_index": 20,
-"id": "glam_closet_feature_surface",
-"position": [70.0, 3.55, 50.0],
-"start_route_index": 11,
-"surface_audio_id": "glam_closet_secondary",
-"surface_material_id": "gloss_feature"
-}, {
-"end_route_index": 31,
-"id": "glam_closet_return_surface",
-"position": [-80.0, 3.55, 10.0],
-"start_route_index": 21,
-"surface_audio_id": "glam_closet_primary",
-"surface_material_id": "gloss"
-}, {
-"end_route_index": 10,
-"id": "glam_closet_start_surface",
-"position": [-30.0, 3.55, -70.0],
-"start_route_index": 0,
-"surface_audio_id": "glam_closet_primary",
-"surface_material_id": "gloss"
-}])
+route_points = Array[Vector3]([Vector3(-80, 0, -64), Vector3(-64, 0, -64), Vector3(-48, 0, -64), Vector3(-32, 0, -64), Vector3(-16, 0, -64), Vector3(0, 0, -64), Vector3(16, 0, -64), Vector3(32, 0, -64), Vector3(48, 0, -64), Vector3(64, 0, -64), Vector3(80, 0, -64), Vector3(96, 0, -64), Vector3(96, 0, -48), Vector3(96, 0, -32), Vector3(96, 0, -16), Vector3(96, 0, 0), Vector3(96, 0, 16), Vector3(96, 0, 32), Vector3(96, 0, 48), Vector3(96, 0, 64), Vector3(80, 0, 64), Vector3(64, 0, 64), Vector3(48, 0, 64), Vector3(32, 0, 64), Vector3(16, 0, 64), Vector3(0, 0, 64), Vector3(-16, 0, 64), Vector3(-32, 0, 64), Vector3(-48, 0, 64), Vector3(-64, 0, 64), Vector3(-80, 0, 64), Vector3(-96, 0, 64), Vector3(-96, 0, 48), Vector3(-96, 0, 32), Vector3(-96, 0, 16), Vector3(-96, 0, 0), Vector3(-96, 0, -16), Vector3(-96, 0, -32), Vector3(-96, 0, -48), Vector3(-96, 0, -64)])
+checkpoint_indices = Array[int]([0, 7, 13, 20, 27, 33])
+spawn_points = Array[Vector4]([Vector4(-75, 0.8, -61.25, 90), Vector4(-75, 0.8, -66.75, 90), Vector4(-69.75, 0.8, -61.25, 90), Vector4(-69.75, 0.8, -66.75, 90), Vector4(-64.5, 0.8, -61.25, 90), Vector4(-64.5, 0.8, -66.75, 90), Vector4(-59.25, 0.8, -61.25, 90), Vector4(-59.25, 0.8, -66.75, 90)])
 audio_zones = Array[Dictionary]([{
 "audio_id": "glam_closet_secondary",
 "audio_path": "",

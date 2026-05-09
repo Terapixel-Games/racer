@@ -4,6 +4,9 @@ const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd"
 const TrackGridRoadBuilder = preload("res://scripts/track/TrackGridRoadBuilder.gd")
 const LAB_SCENE := "res://tests/scenarios/GridMapBoundaryWallLab.tscn"
 const CAR_SCENE := "res://scenes/Car.tscn"
+const TEST_PROBE_ACCELERATION := 180.0
+const TEST_PROBE_MAX_SPEED := 96.0
+const TEST_PROBE_STEER_SPEED := 5.5
 
 func test_wall_lab_builds_invisible_boundary_walls_without_rails() -> void:
 	var context := _build_wall_lab_runtime(false)
@@ -49,7 +52,7 @@ func test_wall_lab_player_kart_crosses_valid_gridmap_connections() -> void:
 		var car := _spawn_probe_kart(transform)
 		await _settle_physics(12)
 		var start := car.global_position
-		await _simulate_kart(car, 90, {"throttle": 1.0, "brake": 0.0, "steer": 0.0, "drift": false, "boost": false, "item_use": false}, transform.basis.z * 12.0)
+		await _simulate_kart(car, 58, {"throttle": 1.0, "brake": 0.0, "steer": 0.0, "drift": false, "boost": false, "item_use": false}, transform.basis.z * 12.0)
 		await _settle_physics()
 		var traveled := Vector2(car.global_position.x - start.x, car.global_position.z - start.z).length()
 		assert_true(traveled > 5.0, "Probe kart should cross route seam %d without an invisible blocker" % route_index)
@@ -76,7 +79,7 @@ func test_wall_lab_player_kart_cannot_escape_exposed_edges_at_angles_and_speeds(
 				var car := _spawn_probe_kart(transform)
 				await _settle_physics(10)
 				var direction := transform.basis.z.normalized()
-				await _simulate_kart(car, 75, {"throttle": 1.0, "brake": 0.0, "steer": 0.0, "drift": false, "boost": false, "item_use": false}, direction * speed)
+				await _simulate_kart(car, 48, {"throttle": 1.0, "brake": 0.0, "steer": 0.0, "drift": false, "boost": false, "item_use": false}, direction * speed)
 				await _settle_physics()
 				var signed_distance := _signed_edge_distance(car.global_position, segment)
 				assert_true(signed_distance <= 1.4, "Boundary wall should contain kart at case %d angle %.1f speed %.1f" % [case_index, angle, speed])
@@ -97,7 +100,7 @@ func test_wall_lab_walls_do_not_block_grade_separated_routes() -> void:
 		var car := _spawn_probe_kart(transform)
 		await _settle_physics(12)
 		var start := car.global_position
-		await _simulate_kart(car, 100, {"throttle": 1.0, "brake": 0.0, "steer": 0.0, "drift": false, "boost": false, "item_use": false}, transform.basis.z * 14.0)
+		await _simulate_kart(car, 64, {"throttle": 1.0, "brake": 0.0, "steer": 0.0, "drift": false, "boost": false, "item_use": false}, transform.basis.z * 14.0)
 		await _settle_physics()
 		var traveled := Vector2(car.global_position.x - start.x, car.global_position.z - start.z).length()
 		assert_true(traveled > 5.0, "Grade-separated route index %d should remain open for valid driving" % route_index)
@@ -124,6 +127,9 @@ func _spawn_probe_kart(transform: Transform3D) -> CharacterBody3D:
 	var car := packed.instantiate() as CharacterBody3D
 	car.set("controlled_locally", true)
 	car.set("visual_animation_enabled", false)
+	car.set("acceleration", TEST_PROBE_ACCELERATION)
+	car.set("max_speed", TEST_PROBE_MAX_SPEED)
+	car.set("steer_speed", TEST_PROBE_STEER_SPEED)
 	car.global_transform = transform
 	scene_tree.root.add_child(car)
 	return car

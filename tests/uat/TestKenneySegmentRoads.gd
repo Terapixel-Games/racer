@@ -15,9 +15,9 @@ func test_all_tracks_build_gridmap_roads_with_generated_collision() -> void:
 		assert_equal(definition.track_source_id, "road_grid_map", "%s should resolve as a GridMap track" % track_id)
 		assert_true(not definition.road_grid_layout.is_empty(), "%s should use GridMap data" % track_id)
 		assert_true(definition.road_segment_layout.is_empty(), "%s should not use legacy segment layout data" % track_id)
-		if track_id == "kitchen":
-			assert_true(_authoring_scene_has_road_grid(definition), "Kitchen authoring scene should include RoadGridMap")
-			assert_true(_authoring_scene_has_grid_spawns(definition), "Kitchen authoring scene should keep spawn slots on RoadGridMap")
+		assert_true(_authoring_scene_has_road_grid(definition), "%s authoring scene should include RoadGridMap" % track_id)
+		assert_true(_authoring_scene_has_grid_spawns(definition), "%s authoring scene should keep spawn slots on RoadGridMap" % track_id)
+		assert_true(_authoring_scene_has_no_legacy_gameplay_nodes(definition), "%s authoring scene should not keep legacy gameplay marker groups" % track_id)
 		var built := TrackRuntimeBuilder.build(definition)
 		var track_node := built.get("node", null) as Node3D
 		assert_true(track_node != null, "%s runtime track should build" % track_id)
@@ -86,11 +86,28 @@ func _find_authoring_node(root: Node, node_name: String) -> Node:
 	var direct := root.get_node_or_null(node_name)
 	if direct != null:
 		return direct
-	for parent_name in ["TrackAuthoringPreview", "Track"]:
+	for parent_name in ["Track"]:
 		var nested := root.get_node_or_null("%s/%s" % [parent_name, node_name])
 		if nested != null:
 			return nested
-	return root.find_child(node_name, true, false)
+	return null
+
+func _authoring_scene_has_no_legacy_gameplay_nodes(definition) -> bool:
+	var path := str(definition.dressing_scene_path)
+	if path.is_empty():
+		return false
+	var packed := load(path) as PackedScene
+	if packed == null:
+		return false
+	var root := packed.instantiate()
+	if root == null:
+		return false
+	for node_name in ["TrackAuthoringPreview", "RoutePoints", "RoadSegments", "SpawnPoints", "Checkpoints", "ItemSockets", "HazardSockets"]:
+		if root.find_child(node_name, true, false) != null:
+			root.queue_free()
+			return false
+	root.queue_free()
+	return true
 
 func _enabled_collision_objects(node: Node) -> int:
 	if node == null:

@@ -178,13 +178,36 @@ func _branch_definition() -> TrackDefinition:
 	definition.road_width = 10.0
 	definition.track_source_id = "road_grid_map"
 	definition.road_visual_style = "kenney_gridmap"
-	definition.road_grid_layout = {"ordered_route_cells": [Vector3i(0, 0, 0), Vector3i(1, 0, 0), Vector3i(1, 0, 1), Vector3i(0, 0, 1)]}
+	var route_cells: Array[Vector3i] = [Vector3i(0, 0, 0), Vector3i(1, 0, 0), Vector3i(1, 0, 1), Vector3i(0, 0, 1)]
 	definition.route_points = [
 		Vector3(0, 0.5, 0),
 		Vector3(20, 0.5, 0),
 		Vector3(20, 0.5, 20),
 		Vector3(0, 0.5, 20),
 	]
+	var cells: Array[Dictionary] = []
+	for i in range(route_cells.size()):
+		cells.append({
+			"cell": route_cells[i],
+			"item": TrackGridRoadBuilder.TILE_STRAIGHT,
+			"orientation": 0,
+			"orientation_basis": _basis_to_array(Basis.IDENTITY),
+			"position": definition.route_points[i],
+		})
+	definition.road_grid_layout = {
+		"mesh_library_path": TrackGridRoadBuilder.DEFAULT_MESH_LIBRARY_PATH,
+		"origin": Vector3(-10.0, -1.5, -10.0),
+		"basis": _basis_to_array(Basis.IDENTITY),
+		"cell_size": Vector3(20.0, 4.0, 20.0),
+		"road_width": definition.road_width,
+		"cells": cells,
+		"ordered_route_cells": route_cells,
+		"ordered_route_points": definition.route_points.duplicate(),
+		"checkpoint_route_indices": [0, 1, 2],
+		"spawn_slots": [],
+		"item_route_indices": [],
+		"hazard_route_indices": [],
+	}
 	definition.checkpoint_indices = [0, 1, 2]
 	definition.lap_gate_checkpoint_index = 0
 	definition.spawn_points = [
@@ -197,7 +220,7 @@ func _branch_definition() -> TrackDefinition:
 		Vector4(4, 1.0, -5, 0),
 		Vector4(6, 1.0, -5, 0),
 	]
-	definition.item_sockets = [Vector4(4, 1.0, 4, 0)]
+	definition.item_sockets = []
 	definition.alternate_routes = [{
 		"id": "inside_lane",
 		"entry_checkpoint_index": 0,
@@ -207,6 +230,13 @@ func _branch_definition() -> TrackDefinition:
 		"enabled": true,
 	}]
 	return definition
+
+func _basis_to_array(basis: Basis) -> Array:
+	return [
+		[basis.x.x, basis.x.y, basis.x.z],
+		[basis.y.x, basis.y.y, basis.y.z],
+		[basis.z.x, basis.z.y, basis.z.z],
+	]
 
 func _find_authoring_node(root: Node, node_name: String) -> Node:
 	var direct := root.get_node_or_null(node_name)

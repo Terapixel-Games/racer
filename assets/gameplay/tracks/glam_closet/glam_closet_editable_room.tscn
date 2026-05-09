@@ -1,615 +1,337 @@
-[gd_scene load_steps=23 format=3]
+[gd_scene load_steps=40 format=4]
 
-[ext_resource type="Script" path="res://scripts/track/TrackAuthoringPreview.gd" id="1_k3qvo"]
-[ext_resource type="Texture2D" path="res://assets/gameplay/materials/glam/glam_mirror_glitter_albedo.png" id="2_cl3wv"]
-[ext_resource type="Script" path="res://scripts/track/StagePropAuthoring.gd" id="3_3wur3"]
-[ext_resource type="Script" path="res://scripts/track/SurfaceSegmentAuthoring.gd" id="4_0v0jq"]
-[ext_resource type="Script" path="res://scripts/track/AudioZoneAuthoring.gd" id="5_kyp2h"]
-[ext_resource type="Script" path="res://scripts/track/RoadSegmentAuthoring.gd" id="6_cl3wv"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hu34m"]
-albedo_color = Color(0.8, 0.42, 0.68, 1)
-albedo_texture = ExtResource("2_cl3wv")
-roughness = 0.78
-uv1_scale = Vector3(24, 24, 1)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_71l4c"]
-size = Vector2(292, 190)
+[ext_resource type="Texture2D" path="res://assets/gameplay/materials/glam/glam_mirror_glitter_albedo.png" id="1_cl3wv"]
+[ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/bathroomMirror.glb" id="2_3wur3"]
+[ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/chairCushion.glb" id="3_0v0jq"]
+[ext_resource type="MeshLibrary" path="res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres" id="4_kyp2h"]
+[ext_resource type="Script" path="res://scripts/track/RoadGridMapAuthoring.gd" id="5_hu34m"]
+[ext_resource type="Script" path="res://scripts/track/RoadGridSpawn.gd" id="6_71l4c"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d5fxb"]
+albedo_color = Color(0.74, 0.42, 0.63, 1)
+albedo_texture = ExtResource("1_cl3wv")
+roughness = 0.82
+uv1_scale = Vector3(22, 22, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_iw404"]
+size = Vector2(360, 240)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6kqv2"]
 albedo_color = Color(0.72, 0.48, 0.66, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_iw404"]
-size = Vector3(292, 58, 2)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6kqv2"]
-albedo_color = Color(0.66240007, 0.4416, 0.6072, 1)
-roughness = 0.72
-
 [sub_resource type="BoxMesh" id="BoxMesh_o6tue"]
-size = Vector3(2, 58, 190)
+size = Vector3(372, 62, 8)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gx8ns"]
 albedo_color = Color(0.66240007, 0.4416, 0.6072, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_mvp87"]
-size = Vector3(2, 58, 190)
+size = Vector3(8, 62, 248)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nksgf"]
-albedo_color = Color(0.6984, 0.4656, 0.6402, 1)
+albedo_color = Color(0.66240007, 0.4416, 0.6072, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_d4ubw"]
-size = Vector3(96, 58, 2)
+size = Vector3(8, 62, 248)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p1isx"]
-albedo_color = Color(0.6984, 0.4656, 0.6402, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_cql7c"]
-size = Vector3(96, 58, 2)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_olb0j"]
-albedo_color = Color(0.6984, 0.4656, 0.6402, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_5k0t4"]
-size = Vector3(96, 10, 2)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bcjt0"]
 albedo_color = Color(0.74240005, 0.5216, 0.6872, 1)
 roughness = 0.72
 
+[sub_resource type="BoxMesh" id="BoxMesh_cql7c"]
+size = Vector3(376, 2, 256)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k7jaf"]
+resource_name = "wood"
+albedo_color = Color(0.9529211, 0.79866743, 0.6600249, 1)
+emission_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_307r0"]
+resource_name = "metal"
+albedo_color = Color(0.8759255, 0.917687, 0.9258912, 1)
+emission_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_42kqb"]
+resource_name = "glass"
+transparency = 4
+albedo_color = Color(0.8532437, 0.9199412, 0.8904402, 0.5)
+emission_enabled = true
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_x1oaw"]
+_surfaces = [{
+"aabb": AABB(0, 4.443999e-15, -0.0488, 0.30133998, 0.43462503, 0.0244),
+"format": 34359742465,
+"index_count": 144,
+"index_data": PackedByteArray("AAABAAIAAgADAAAAAQAAAAQABAAAAAMABQACAAEAAwACAAUABQABAAYABAAGAAEABQAHAAMABAADAAcACAAFAAYABwAFAAgABgAEAAkACgAGAAkABgAKAAgACQAEAAsACAAKAAwADAANAAgACAANAA4ADgANAAwADgAHAAgADwAMAAoADAAPAA4ACgAJAA8AEAAOAA8ADwAJABAABwAOABAACQARABAABwAQABEACQASABEACwASAAkAEwARABIAEgAUABMAFAASAAsACwAVABQAFgAVAAsAFwARABMAEQAXAAcAEwAYABcAGQAXABgAFwAZAAcAGAAaABkACwAbABYAGgAWABsAGwAZABoAGQAbAAcABAAbAAsABAAHABsA"),
+"name": "wood",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 28,
+"vertex_data": PackedByteArray("cBi6PSyH3j6C4se8cBi6PSyH3j6C4ke9QYZXPiyH3j6C4ke9QYZXPiyH3j6C4se8bhJDKEy00D6C4se8PEmaPky00D6C4ke9bhLDJ0y00D6C4ke9PEmaPky00D6C4se8PEmaPvvoACiC4ke9bhJDKECDEj2C4se8AAAAAPvoACiC4ke9il8YPfExwz6C4se8RpRWKKgcoCeC4se8PEmaPqgcoCeC4se8PEmaPgrXozyC4se8RpRWKArXozyC4se8PEmaPkCDEj2C4se8TD2HPkCDEj2C4se8il8YPUCDEj2C4se8TD2HPkCDEj3i6RW9il8YPUCDEj3i6RW9il8YPfExwz7i6RW9PJnFPcM2zD7i6RW9TD2HPvExwz6C4se8TD2HPvExwz7i6RW928VRPsM2zD6C4se828VRPsM2zD7i6RW9PJnFPcM2zD6C4se8")
+}, {
+"aabb": AABB(0.03720049, 0.0357697, -0.0366, 0.22693905, 0.3630856, 1e-05),
+"format": 34896613377,
+"index_count": 12,
+"index_data": PackedByteArray("AAABAAIAAgADAAAAAwAEAAAAAwAFAAQA"),
+"name": "metal",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 6,
+"vertex_data": PackedByteArray("//+T8wAAAAD//wAAAAAAAAAAAAAAAAAAAACT8wAAAAAfvf//AAAAAN9C//8AAAAA")
+}, {
+"aabb": AABB(1.0828671e-14, 0.02, -0.0244, 0.30133998, 0.015769701, 0.120000005),
+"format": 34896613377,
+"index_count": 60,
+"index_data": PackedByteArray("AAABAAIAAQAAAAIAAwAEAAAABAAFAAAAAAABAAUAAQAAAAUAAwAAAAYAAgAGAAAABgACAAAABgAHAAMACAAFAAEABQAIAAEAAQACAAgAAgABAAgACQAHAAYABwAJAAYAAgAGAAkABgACAAkACAAJAAIACQAIAAIA"),
+"name": "glass",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 10,
+"vertex_data": PackedByteArray("////////AAD//wAA//8AAAAAAAD//wAAmh///wAAAABk4P//AAAAAP////8AAAAAAAD/////AAAAAP//AAAAAP//AAAAAAAAAAAAAAAAAAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ifigf"]
+resource_name = "bathroomMirror_Mesh bathroomMirror"
+_surfaces = [{
+"aabb": AABB(0, 4.443999e-15, -0.0488, 0.30133998, 0.43462503, 0.0244),
+"attribute_data": PackedByteArray("vvRkQIBCIT2+9GRAsNdrv9uUBEGw12u/25QEQYBCIT0K0j3BsNdrvwAAAACw12u/AAAEq4BCIT0K0j3BgEIhPeJwuD/sBtG+2Ot1P+wG0b7Y63U/xCZgweJwuD/EJmDBXqOAq6LFcMG8RkWrAACAPwrSPcEAAIA/CtI9waLFcMG+9GTAyOOAwduUBMHI44DB4nC4P2qk48DicLg/PrqVwNjrdT8+upXA2Ot1P2qk48AZCwHBiMPhvsYbc8CIw+G+xhtzwIBCIT0ZCwHBgEIhPQrSPUGixXDBCtI9QewG0b4ZYyZB7AbRvhljJkHEJmDBGQsBQVg/a8HGG3NAWD9rwbWSUCuixXDB25QEQcjjgMG+9GRAyOOAwY93uz/EJmDBtZJQK+wG0b6Pd7s/7AbRvml9ZStos1k+CtI9QWizWT5pfWUrAACAPwrSPUEAAIA/2Ov1PwAAgD/Y63U/AACAP9jrdT9os1k+2Ot1P6LFcMHY6/U/osVwwdjrdT/sBtG+2Ot1vy6KZMDY6/W/LopkwNjr9b/KsenA2Ot1v8qx6cCPd7s/gEIhPY93uz+Iw+G+GWMmQYjD4b4ZYyZBgEIhPdjrdb/EJmDB2Ot1v+wG0b7icLi/7AbRvuJwuL/EJmDB2Ov1v6LFcMHY63W/osVwwdjrdb/sBtG+2Ov1vwAAgD/Y63W/aLNZPtjrdb8AAIA/2Ot1P7s4gkDY6/U/uziCQNjr9T9vpflA2Ot1P2+l+UDicLi/SDDWQOJwuL8bRohA2Ot1vxtGiEDY63W/SDDWQA=="),
+"format": 34359742487,
+"index_count": 144,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwADwAQAAwADwARABAAEgATABQAFAAVABIAFgAXABgAGAAZABYAGgAbABwAHAAdABoAHQAeABoAHgAfABoAIAAaAB8AIAAhABoAIAAiACEAIAAfACMAJAAgACMAJAAcABsAIwAlACQAJAAlABwAJgAkABsAGwAnACYAKAAmACcAJwApACgAKgArACwALAAtACoALQAuACoALQAsAC8AMAAxADIAMgAzADAANAA1ADYANgA3ADQAOAA5ADoAOgA7ADgAPAA9AD4APwA8AD4APwA+AEAAQABBAD8AQgBDAEQARABFAEIARgBHAEgASABJAEYA"),
+"material": SubResource("StandardMaterial3D_k7jaf"),
+"name": "wood",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 74,
+"vertex_data": PackedByteArray("cBi6PSyH3j6C4se8cBi6PSyH3j6C4ke9QYZXPiyH3j6C4ke9QYZXPiyH3j6C4se8PEmaPvvoACiC4ke9AAAAAPvoACiC4ke9RpRWKKgcoCeC4se8PEmaPqgcoCeC4se8il8YPUCDEj3i6RW9il8YPUCDEj2C4se8il8YPfExwz6C4se8il8YPfExwz7i6RW9bhLDJ0y00D6C4ke9AAAAAPvoACiC4ke9PEmaPvvoACiC4ke9PEmaPky00D6C4ke9cBi6PSyH3j6C4ke9QYZXPiyH3j6C4ke9PJnFPcM2zD7i6RW9il8YPfExwz7i6RW9il8YPfExwz6C4se8PJnFPcM2zD6C4se828VRPsM2zD7i6RW9PJnFPcM2zD7i6RW9PJnFPcM2zD6C4se828VRPsM2zD6C4se8PEmaPky00D6C4se8PEmaPkCDEj2C4se8TD2HPkCDEj2C4se8TD2HPvExwz6C4se828VRPsM2zD6C4se8PJnFPcM2zD6C4se8bhJDKEy00D6C4se8QYZXPiyH3j6C4se8cBi6PSyH3j6C4se8il8YPfExwz6C4se8bhJDKECDEj2C4se8il8YPUCDEj2C4se8RpRWKArXozyC4se8PEmaPgrXozyC4se8RpRWKKgcoCeC4se8PEmaPqgcoCeC4se8PEmaPvvoACiC4ke9PEmaPqgcoCeC4se8PEmaPgrXozyC4se8PEmaPky00D6C4se8PEmaPky00D6C4ke9PEmaPkCDEj2C4se8bhJDKEy00D6C4se8bhLDJ0y00D6C4ke9cBi6PSyH3j6C4ke9cBi6PSyH3j6C4se8il8YPUCDEj2C4se8il8YPUCDEj3i6RW9TD2HPkCDEj3i6RW9TD2HPkCDEj2C4se8TD2HPvExwz6C4se8TD2HPkCDEj2C4se8TD2HPkCDEj3i6RW9TD2HPvExwz7i6RW9bhLDJ0y00D6C4ke9bhJDKEy00D6C4se8bhJDKECDEj2C4se8AAAAAPvoACiC4ke9RpRWKArXozyC4se8RpRWKKgcoCeC4se8QYZXPiyH3j6C4se8QYZXPiyH3j6C4ke9PEmaPky00D6C4ke9PEmaPky00D6C4se8TD2HPvExwz7i6RW928VRPsM2zD7i6RW928VRPsM2zD6C4se8TD2HPvExwz6C4se8v2++777vH8i/b77vvu8fyD+Qvu++79+3P5C+777v37f/fwAAAAD/v/9/AAAAAP+//38AAAAA/7//fwAAAAD/v////3//////////f/////////9//////////3///////////wAA/7//////AAD/v/////8AAP+//////wAA/7//////AAD/v/////8AAP+/P5BAEP////9RnVEd/////1GdUR3/////P5BAEP////+/b0AQQBAfyD+QQBBAEN+3P5BAEEAQ37e/b0AQQBAfyP9//3////+//3//f////7//f/9/////v/9//3////+//3//f////7//f/9/////v/9//3////+//3//f////7//f/9/////v/9//3////+//3//f////7//f/9/////v/9//3////+//3//f////7//f/9/////v/9//3////+/////f/////////9//////////3//////////f/////////9//////////3////+/rWKt4v9//7+tYq3i/3//v79vvu//f/+/v2++7/9//7//f///////v/9///////+//3///////7//f///////vwAA/3//f/+/AAD/f/9//78AAP9//3//vwAA/3//f/+/AAD/f/9//78AAP9//3//vwAA/3//f/+/AAD/f/9//78AAP9//3//vwAA/3//f/+/P5C+7/////8/kL7v/////1GdreL/////UZ2t4v////+tYlEd/3//v79vQBD/f/+/v29AEP9//7+tYlEd/3//vw==")
+}, {
+"aabb": AABB(0.03720049, 0.0357697, -0.0366, 0.22693905, 0.3630856, 1e-05),
+"attribute_data": PackedByteArray("//8JBv//cXwGknF8BpIJBkTjAADArgAA"),
+"format": 34896613399,
+"index_count": 12,
+"index_data": PackedByteArray("AAABAAIAAgADAAAAAwAEAAAAAwAFAAQA"),
+"material": SubResource("StandardMaterial3D_307r0"),
+"name": "metal",
+"primitive": 3,
+"uv_scale": Vector4(20.798388, 29.40593, 0, 0),
+"vertex_count": 6,
+"vertex_data": PackedByteArray("//+T8wAAAID//wAAAAAAgAAAAAAAAACAAACT8wAAAIAfvf//AAAAgN9C//8AAACA/3////9/////f////3////9/////f///")
+}, {
+"aabb": AABB(1.0828671e-14, 0.02, -0.0244, 0.30133998, 0.015769701, 0.120000005),
+"attribute_data": PackedByteArray("//8Hdf//tYX/f7WF/38Hdf//tYX//wd1/3+1hf9/B3VkV7WFZFcHdVyKB3VcirWFZFcHdWRXtYVcigd1XIq1hf9/////fw6BzI8Ogf////8x8A6B//8OgZqoB3WaqLWFonW1haJ1B3WaqLWFmqgHdaJ1tYWidQd1AAAOgf9/DoH/f///AAD///9/DoEAAA6B/3///wAA//8="),
+"format": 34896613399,
+"index_count": 60,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABwAGAAUACAAJAAoACgALAAgADAANAA4ADwAOAA0AEAARABIAEgATABAAEgAUABMAFAAVABMAFgAXABgAGAAZABYAGgAbABwAHQAcABsAHgAfACAAIAAhAB4AIgAjACQAJQAkACMA"),
+"material": SubResource("StandardMaterial3D_42kqb"),
+"name": "glass",
+"primitive": 3,
+"uv_scale": Vector4(23.727558, 9.527559, 0, 0),
+"vertex_count": 38,
+"vertex_data": PackedByteArray("////////AID//wAA//8AgAAAAAD//wCAAAD/////AID//wAA//8AAP///////wAAAAAAAP//AAAAAP////8AAP//AAD///+//////////7//////AAD/v///AAAAAP+/////////AAD//wAA//8AAP////8AAAAA//8AAAAAAAAAAP//////vwAA//8AAP+/mh///wAA/7//////////v2Tg//8AAP+//////wAA/78AAP//////vwAAAAD///+/AAAAAAAA/78AAP//AAD/vwAAAAD//wAAAAD/////AAAAAAAAAAAAAAAA//8AAAAA//8AAAAA//8AAAAAAAD//wAAAAD///////8AAP////8AAAAAAAAAAP//AAAAAAAAAAAAAP//AAD//wAA//8AAP9/////f////3////9///////9/////f////3////9//38AAP9/AAD/fwAA/38AAP8//3//P/9//z//f/8//3////9/////f////3////9/////f////3//f////3////9/////f////7//f/+//3//v/9//7//f/9//z//f/8//3//P/9//z//f/+//3//v/9//7//f/+/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_x1oaw")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_olb0j"]
+albedo_color = Color(1, 0.76, 0.92, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_5k0t4"]
+size = Vector3(14, 10, 14)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bcjt0"]
+albedo_color = Color(0.72, 0.88, 1, 1)
+roughness = 0.72
+
 [sub_resource type="BoxMesh" id="BoxMesh_e2aqq"]
-size = Vector3(292, 1, 190)
+size = Vector3(14, 10, 14)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x4ed2"]
+albedo_color = Color(0.18, 0.12, 0.1, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_0d15c"]
+size = Vector3(34, 18, 34)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vfn2q"]
+resource_name = "wood"
+albedo_color = Color(0.9529211, 0.79866743, 0.6600249, 1)
+emission_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g3huf"]
+resource_name = "carpet"
+albedo_color = Color(0.97469443, 0.6399444, 0.62021106, 1)
+emission_enabled = true
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_owc45"]
+_surfaces = [{
+"aabb": AABB(0, 0, -0.2, 0.2, 0.46, 0.2),
+"format": 34896613377,
+"index_count": 552,
+"index_data": PackedByteArray("AAABAAIAAgABAAMABAABAAAABQABAAQABQADAAEAAgAGAAAAAAAGAAcACAAGAAIABgAIAAcAAwAJAAIABwAJAAMAAgAJAAoAAwALAAcACwADAAUABwALAAAADAAAAAsAAAAMAAQADAALAA0ABQANAAsADgAMAA0ADwANAAUADQAQAA4AEAANABEADwARAA0ADgAQABIAEgAQABEADAAOABMABAAMABMAEgAFAAQAEQAPABMAFAAPAAUABQASABQAEgARABUAFQAUABIABAAWABIAEgAWAA4AFgAEABcAEwAXAAQAGAAOABYAGAATAA4AGQAWABcAGQAYABYAEwAYABEAFwAaABkAGwAaABcAGQAaABsAFwATABsAGwAcABkAGQAcAB0AHQAcABsAGAAZAB0AEQAYAB4AHgAYAB0AEQAeAB8AIAAeAB0AHwAhABEAFQARACEAFAAVACEAIQAfACIAIQAjABQAIgAjACEAFAAjACIAIgAPABQAHwAkACIADwAiACUAEwAPACUAJgAiACQAIgAmACUAJQAnABMAEwAnABsAGwAnAB0AJwAlACgAJwAoAB0AKQAoACUAKAAqAB0AKwApACUAKwAsACkAJgAtACUAKwAuACwAJgAvAC0AMAArACUALwAmADEAMQAmACQAJAAyADEAMQAyADMAMwAyACQAMQA0AC8AMwA0ADEAJAA1ADMAJAA2ADUANAAzADcANwAvADQAMwA1ADgAOAA3ADMANQA5ADgANQAvADkANgA6ADUALwA1ADoAOgA2ADAANgA7ADAANwA8AC8APAA5AC8ABwA8ADcAOQA8AAcANwAJAAcACQA3AAoANwA4AAoACgA4ADkAPQA5AAcAOQA9AAoACAA9AAcAPQAIADoACgA9ADoAOgAtAC8ALQA6AAgACgA6AD4AMAA+ADoAPgA/AAoAPwA+ADAALQAIAEAAQAAKAD8APwAtAEAACgBAAAIAAgBAAAgAJQAtAD8APwBBACUAJQBBADAAMABBAD8AOwBCADAAQgArADAAQgA7AEMARAArAEIAQgBFAEQAKwBEAEYARABFAEcARwBFAEIARwBGAEQAKwBGAC4AQwBIAEIASABHAEIASABDAEkASgBGAEcARgBKAC4ASQAuAEgASABLAEcASwBIAC4ARwBMAEoATABHAEsATQBJAEMAQwAsAE0ALABOAE0ALAAuAE4ASQBPAC4ATwBOAC4AUABPAEkATgBPAFAAUQBJAE0ASQBRAFAAUgBNAE4ATQBSAFEAUABTAE4ATgBTAFIAUQBSAEsAVABQAFEASwBUAFEAUwBQACoAUgBTACoAVAAqAFAAUgAqAFUAVQBLAFIALgBUAEsASwBVACAAVAAuAEoAKgBUAB0AVABKAB0AIABWAEsAHQBWACAAVgBMAEsASgBXAB0AVgBYAEwASgBMAFgAWABWAB0AWABXAEoAHQBXAFgA"),
+"name": "wood",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 89,
+"vertex_data": PackedByteArray("Zib0JjJzAABmJtMbMnMAAJjZ0xsycwAAZibTG8yMAABmJtMbMzMAAGYm0xvLzAAAmNn0JjJzAACY2fQmzIwAAJjZ9CYzMwAAmNnTG8yMAAAy89MbMzMAAGYm9CbMjAAAZib0JjMzAABmJvQmy8wAAMwM9CYzMwAAMjO8acvMAADMDPQmy8wAAAAAvGnLzAAAzAzTG8vMAAAyM7xpMzMAADIzAADLzAAAAAAAAMvMAADMDNMbMzMAADIz0xszMwAAAAC8aTMzAAAAAAAAMzMAADIzAAAzMwAAMjMAAAAAAAAAAAAAAAAAAAAA//8AAAAAAABuejMzAAAAAG56//8AAAAAkIUzMwAAAAAAAP//AAAyM7xp//8AADIzAAD//wAA//9uev//AADLzLxpAAAAAMvMvGn//wAAMjO8aQAAAAAyM256AAAAAMvMbnoAAAAAMjOQhQAAAAD/////AAAAAMvMkIUAAAAAy8y8aTMzAADLzArZAAAAAMvMvGnLzAAA//8AAAAAAADLzAAA//8AAP//AAD//wAA//8AAMvMAADLzAAAy8wAAP//vGnLzAAA//9uejMzAACY2dMby8wAADLz0xvLzAAAMvP0JsvMAAD//7xpMzMAAP//kIUzMwAAmNn0JsvMAAAy8/QmMzMAAP//AAAzMwAAy8wAADMzAACY2dMbMzMAAMvMAAAAAAAA/////zMzAADLzJCFMzMAAMvM//8AAAAAy8z//zMzAADLzEzvAAAAAMvMTO8zMwAAy8wK2TMzAADLzG66ZiYAADIzTO8AAAAAMjMK2TMzAAAyM0zvMzMAAMvMK6RmJgAAy8wrpMwMAADLzG66zAwAADIzbrrMDAAAMjNuumYmAAAyMyukZiYAADIzK6TMDAAAMjMK2QAAAAAyM5CFMzMAAAAA//8zMwAAMjP//wAAAAAyM///MzMAAA==")
+}, {
+"aabb": AABB(0, 0.21999998, -0.2, 0.2, 0.020000026, 0.2),
+"format": 34896613377,
+"index_count": 42,
+"index_data": PackedByteArray("AAABAAIAAgABAAMAAwABAAAAAwAEAAIAAgAFAAAAAAAGAAMABwAGAAAAAAAIAAcACQAIAAAABQAKAAAACgAJAAAACwAJAAoADAALAAoACgANAAwA"),
+"name": "carpet",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 14,
+"vertex_data": PackedByteArray("////////AAAAAP////8AAAAA//8zMwAAAAAAAP//AAAAAAAAMzMAADIz//8zMwAA//8AAP//AAD//wAAMzMAAP////8zMwAAy8z//zMzAAAyM///AAAAAMvM//8AAAAAy8wAAAAAAAAyMwAAAAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_1gll8"]
+resource_name = "chairCushion_Mesh chairCushion"
+_surfaces = [{
+"aabb": AABB(0, 0, -0.2, 0.2, 0.46, 0.2),
+"attribute_data": PackedByteArray("zGzccsxswHgzE8B4MxPccmYGW1gzE1tYMxMUZzMTsntmBrJ7MxP4bMxs+GzMbBRnzGyye8xsW1iZebJ7mXlbWAAAsnuZGbJ7mRl6hwAAeodl5stAZeadFMvsmDD//8tAy+zQJJj5mDD//50UmPnQJGZmhU//f4VP/396h2ZmeofL7Nxyy+zAeDKTwHgyk9xyZmbQJGZmmDCZGZgwmRnQJGZmeodmZoVP/396h/9/r0aZGa9GmRmFTwAAAACZGXqHAAB6h5kZy0CZGQAAAABbWJkZW1iZGbJ7AACye5kZeoeZGZNMZmZ6h2ZmsntmZltYZmaTTP9/snv/f1tYZeZpVZmZaVWZmYVPZeaFT/9/AAD/f3qHZmZ6h2ZmhU9mZq9GZmbLQJkZhU9mZp0UmRmvRmZm1QhmZgAAmRmdFJkZ1QiZGXqHAAB6hwAAAACZGQAAmRnLQP//r0b//3qHZeZ6h2XmhU+ZmYVP/3+vRv9/eoeZmXqHZeaYMJmZmDCZmdAkZebQJJkZhU9mZoVPZmZpVZkZaVVmZpNM/3+TTP9/W1hmZltYZmaye/9/snv/f3qHZmZ6h///eodl5nqHZebAeGXmhU///4VPmRmdFJkZy0AzE9AkAACdFDMTmDBmBtAkAADLQGYGmDAAAIVPmRmFT5kZeocAAHqHAACTTJkZk0yZGVtYAABbWJj5snvL7LJ7y+z4bJj5W1jL7FtYy+wUZzKTFGcyk/hsMpNbWDKTsntlhltYZYaye///AAD//8tAZebLQGXmnRRl5tUIZeYAAJmZnRSZmdUI/38AAJmZAAD/f8tAmZnLQJmZW1j/f1tY/3+TTJmZk0z//1tYZeZbWGXmk0z//5NMZeZbWJmZW1iZmZNMZeaTTAAAAACZGQAAmRnVCAAA1Qj//9UIZebVCGXmAAD//wAAmRmTTGZmk0xmZltYmRlbWJmZeof/f3qH/3+FT5mZhU+ZGdxymTnccpk5wHiZGcB4mRnccmZm3HJmZsB4mRnAeGZG3HJmZtxyZmbAeGZGwHiZmcB4mZnccpi53HKYucB4/396h2ZmeoeZecB4/3+FT8xswHiZedxyZmaFT8xs3HJl5sB4ZcbAeGXG3HJl5txymZmFT5mZwHgyk8B4MpPccmWG3HJlhsB4/3+FT/9/eoeZmXqHZebAeJmZwHiZmdxyZebccpkZeocAAHqHMxPAeJkZhU9mBsB4MxPccgAAhU9mBtxy//96h2Xmeodl5oVPZeavRpmZhU9l5stAZeYAAP//AAD/f69GmZl6h/9/eof//3qHZeZ6h5j5wHj//4VPy+zAeJj53HJl5oVPy+zccg=="),
+"format": 34896613399,
+"index_count": 552,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABwAIAAQACQAHAAQABgAJAAQACgAJAAYABgALAAoADAAKAAsADAALAA0ADgAMAA0ADQAPAA4AEAARABIAEgATABAAFAAVABYAFgAXABQAGAAWABUAFgAZABcAFQAaABgAGQAbABcAGgAbABgAGgAXABsAHAAdAB4AHgAfABwAIAAhACIAIgAjACAAJAAlACYAJgAnACQAKAApACoAKwAqACkAKQAsACsAKQAtACwALAAtAC4ALQAvAC4ALwAwAC4AMQAsAC4ALgAyADEAMwA0ADUANQA2ADMANwA1ADQANwA0ADgAOQA3ADgAOgA5ADgAOwA6ADgAOAA8ADsAPQA6ADsAOwA+AD0APwBAAEEAQQBCAD8AQwBEAEUARQBGAEMARgBHAEMARwBIAEMARgBJAEcASABKAEMASwBHAEkASgBMAEMATABNAEMASgBOAEwATwBMAE4ASQBQAFEAUQBSAEkAUgBLAEkAUgBPAE4AUgBTAE8AUgBUAEsAUgBOAFQAVQBWAFcAVwBYAFUAWABZAFUAWgBVAFkAWwBaAFkAWQBcAFsAXQBeAF8AXwBgAF0AYQBiAGMAYwBkAGEAZQBmAGcAZwBoAGUAaQBqAGsAawBsAGkAbQBuAG8AbwBwAG0AcABxAG0AcgBzAHQAdAB1AHIAdgB0AHMAdAB3AHUAcwB4AHYAdwB5AHUAeAB5AHYAeAB1AHkAegB7AHwAfAB9AHoAfgB/AIAAgACBAH4AggCDAIQAhQCCAIQAhgCFAIQAhwCGAIQAiACHAIQAhACJAIgAigCIAIkAigCJAIsAjACKAIsAiwCNAIwAjgCPAJAAkACRAI4AkQCSAI4AkgCTAI4AkQCUAJIAlQCSAJQAlgCVAJQAlgCXAJUAmACWAJQAlACZAJgAmgCbAJwAnACdAJoAngCfAKAAoAChAJ4AogCjAKQApAClAKIApgCnAKgAqACpAKYAqgCrAKwArACtAKoArgCvALAAsACxAK4AsgCzALQAtAC1ALIAtgC3ALgAuAC5ALYAugC7ALwAvAC9ALoAvgC/AMAAwADBAL4AwgDDAMQAxADFAMIAxgDHAMgAyADJAMYAygDIAMcAyADLAMkAxwDMAMoAywDNAMkAzADNAMoAzADJAM0AzgDPANAA0ADRAM4A0gDTANQA1ADVANIA1QDWANIA1wDUANMA2ADSANYA2ADWANcA2QDYANcA2QDXANMA0wDaANkA2wDcAN0A3QDeANsA3wDgAOEA4QDiAN8A4wDhAOAA4QDkAOIA4ADlAOMA5ADmAOIA5QDmAOMA5QDiAOYA5wDoAOkA6QDqAOcA6gDpAOsA6gDsAOcA7ADtAOcA7QDuAOcA7wDqAOsA7wDrAPAA8ADxAO8A8gDzAPQA9AD1APIA9gD0APMA9AD3APUA8wD4APYA9wD5APUA+AD5APYA+AD1APkA"),
+"material": SubResource("StandardMaterial3D_vfn2q"),
+"name": "wood",
+"primitive": 3,
+"uv_scale": Vector4(15.748032, 34.220474, 0, 0),
+"vertex_count": 250,
+"vertex_data": PackedByteArray("Zib0JjJz//9mJtMbMnP//5jZ0xsyc///mNn0JjJz//8y89MbMzP//5jZ0xszM///mNnTGzJz//+Y2dMby8z//zLz0xvLzP//mNnTG8yM//9mJtMbzIz//2Ym0xsyc///ZibTG8vM//9mJtMbMzP//8wM0xvLzP//zAzTGzMz/////wAAy8z//8vMAADLzP//y8wAAP///////wAA/////zIzkIUzM/+/MjMK2TMz/78yMyukZib/vzIzkIUAAP+/MjNuumYm/78yMyukzAz/vzIzCtkAAP+/MjNuuswM/7/LzLxpy8z/v8vMvGn///+/y8wAAP///7/LzAAAy8z/v5jZ9CbMjACAmNnTG8yMAIBmJtMbzIwAgGYm9CbMjACAMjNuuswM//8yMyukzAz//8vMK6TMDP//y8xuuswM//8AAAAAy8z/vwAAvGnLzP+/AAAAAP///78AAG56////vwAAbnozM/+/AAC8aTMz/78AAP//AAD/vwAAAAAzM/+/AAAAAAAA/78AAJCFMzP/vwAA//8zM/+///+8aTMz///LzLxpMzP//8vMvGnLzP////+8acvM///LzLxp/////8vMvGkAAP//MjO8af////8yM7xpy8z//zIzvGkzM///MjO8aQAA//8AALxpy8z//wAAvGkzM///y8xuumYm/78yM266Zib/vzIzbrrMDP+/y8xuuswM/78AAP//AAD//wAAAAAAAP//MjMAAAAA//8yM7xpAAD//zIzbnoAAP//MjOQhQAA///LzLxpAAD//zIzCtkAAP//y8xuegAA//8yM0zvAAD//zIz//8AAP//y8wK2QAA///LzEzvAAD//8vMAAAAAP////8AAAAA////////AAD//8vM//8AAP//y8yQhQAA/////256//8AgP//AAD//wCAy8wAAP//AIDLzLxp//8AgDIzvGn//wCAAABuev//AIAAAAAA//8AgDIzAAD//wCAy8wrpGYmAIAyMyukZiYAgDIzbrpmJgCAy8xuumYmAIDLzCukzAz//zIzK6TMDP//MjMrpGYm///LzCukZib//zIzAAAAAP//AAAAAAAA//8AAAAAMzP//zIzAAAzM///MjMAAMvM//8AAAAAy8z//wAAAAD/////MjMAAP////8yMwAAAAD/vzIzAAAzM/+/MjPTGzMz/78yM7xpMzP/vzIzvGkAAP+/y8wK2TMz/7/LzJCFMzP/v8vMbrpmJv+/y8wK2QAA/7/LzCukZib/v8vMbrrMDP+/y8yQhQAA/7/LzCukzAz/v8vMvGkAAP+/y8y8aTMz/7/LzAAAMzP/v8vMAAAAAP+///8AAAAA///LzAAAAAD//8vMAAAzM/////8AADMz//8y8/Qmy8z/v5jZ9CbLzP+/mNn0JsyM/78y8/QmMzP/v5jZ9CYzM/+/mNn0JjJz/79mJvQmMnP/v2Ym9CbMjP+/Zib0JjMz/79mJvQmy8z/v8wM9CYzM/+/zAz0JsvM/7//////MzMAgP//kIUzMwCAy8yQhTMzAIDLzArZMzMAgMvMTO8zMwCAy8z//zMzAIAyMwrZMzMAgDIzTO8zMwCAAAD//zMzAIAyM///MzMAgAAAkIUzMwCAMjOQhTMzAIAyM///MzP/vwAA//8zM/+/AAD//wAA/78yM///AAD/v/////8zM/+/y8z//zMz/7/LzP//AAD/v/////8AAP+/y8xM7zMz/78yM0zvMzP/vzIzTO8AAP+/y8xM7wAA/7/LzP//AAD/v8vM//8zM/+/y8xM7zMz/7/LzEzvAAD/vzIzTO8AAP+/MjNM7zMz/78yM///MzP/vzIz//8AAP+/y8wK2QAA//8yMwrZAAD//zIzCtkzM///y8wK2TMz//8yMwAAy8z/vzIzAAD///+/MjO8af///78yM7xpy8z/v5jZ9CYzM/+/mNn0JjJz/7+Y2dMbMnP/v5jZ0xszM/+/zAz0JjMz/7/MDPQmy8z/v8wM0xvLzP+/zAzTGzMz/7+Y2fQmzIz/v5jZ9CbLzP+/mNnTG8vM/7+Y2dMbzIz/v2Ym0xvLzP+/Zib0JsvM/79mJvQmzIz/v2Ym0xvMjP+/AAAAAMvM//8yMwAAy8z//8wM0xvLzP//AAC8acvM//9mJtMby8z//8wM9CbLzP//MjO8acvM//9mJvQmy8z//2Ym0xszM/+/ZibTGzJz/79mJvQmMnP/v2Ym9CYzM/+/MjO8aTMzAIAyM9MbMzMAgGYm0xszMwCAZib0JjMzAIDMDPQmMzMAgMwM0xszMwCAAAC8aTMzAIAAAAAAMzMAgDIzAAAzMwCAMvPTGzMz/78y89Mby8z/vzLz9CbLzP+/MvP0JjMz/7/LzAAAy8z/////AADLzP//mNnTG8vM///LzLxpy8z//zLz0xvLzP//mNn0JsvM/////7xpy8z//zLz9CbLzP////8AAAAA/7///wAAMzP/v///vGkzM/+///9uejMz/7///7xpy8z/v///kIUzM/+//////zMz/7//////AAD/v///bnr///+///8AAMvM/7///wAA////v///AAAzMwCAy8wAADMzAIAy89MbMzMAgP//vGkzMwCAmNnTGzMzAIAy8/QmMzMAgMvMvGkzMwCAmNn0JjMzAID/f////3////9/////f////3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z//f/8//3//P/9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/3////9/////f////3////9/////f////3////9/////f////3////9/////f////3////9/////f////3/+//9//v//f/7//3////9/////f////3/+//9/////f/8//3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z////9/////f////3////9//3////9/////f////3////9//v//f/7//3/+//9//v//f/7//3////9/////f/7//3////9/////f////3/+//9/////f/7//3////9/////f////3////9/////f////3////9/////f////3////9/////f////3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z//f/8//38AAP9/AAD/fwAA/38AAP9/AAD/f////3////9//v//f////3/+//9//v//f////3/+//9/////f////3////9/////f/8//3//P/9//z//f/8/////f////3////9/////f////3////9/////f////3////9/////f////3////9//3////9/////f////3////9/////f////3////9/////f////3////9/////f///////f////3////9/////f////3////9/////f////3////9/////f////3////9//3////9/////f////3////9/AAD/fwAA/38AAP9/AAD/f/8//3//P/9//z//f/8//38AAP9/AAD/fwAA/38AAP9/////f////3////9/////f////3////9/////f////3////9/////f////3////9/AAD/fwAA/38AAP9/AAD/f////3////9//v//f////3////9//v//f////3////9/AAD/fwAA/38AAP9/AAD/f////3////9/////f////3////9/////f////3////9/////fwAA/38AAP9/AAD/fwAA/3////9/////f/7//3////9/////f/7//3////9/////fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/////f////3////9/////f////3////9/////f///")
+}, {
+"aabb": AABB(0, 0.21999998, -0.2, 0.2, 0.020000026, 0.2),
+"attribute_data": PackedByteArray("//8lj/9/JY//f7cvmZm3L5mZ2xdl5rcv//+3L2Xm2xdmZgAAZmbtC5kZ7QuZGQAAmRkAAP9/AAD/f+0LmRntC///AAD//+0L/3/tC/9/AABl5u0L/3/tC/9/AABl5gAA"),
+"format": 34896613399,
+"index_count": 42,
+"index_data": PackedByteArray("AAABAAIAAgADAAAAAwAEAAAABAAFAAAABQAGAAAABwAFAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAAFAAVABYAFgAXABQA"),
+"material": SubResource("StandardMaterial3D_g3huf"),
+"name": "carpet",
+"primitive": 3,
+"uv_scale": Vector4(15.748032, 16.897638, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("/////////78AAP//////vwAA//8zM/+/MjP//zMz/78yM///AAD/v8vM//8zM/+//////zMz/7/LzP//AAD/vzIz//8AAP//MjMAAAAA///LzAAAAAD//8vM//8AAP//AAD//zMz/78AAP//////vwAAAAD///+/AAAAADMz/7////////8AgP//AAD//wCAAAAAAP//AIAAAP////8AgP//AAAzM/+///8AAP///7//////////v/////8zM/+/////f////3////9/////f////3////9/////f////3//f////3////9/////f////3////9/////f////3////9/////f////3////9/////fwAA/38AAP9/AAD/fwAA")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_owc45")
+
+[sub_resource type="Resource" id="Resource_v2rjq"]
+script = ExtResource("6_71l4c")
+lateral_offset = -2.75
+forward_offset = 5.0
+
+[sub_resource type="Resource" id="Resource_75sgl"]
+script = ExtResource("6_71l4c")
+lateral_offset = 2.75
+forward_offset = 5.0
+
+[sub_resource type="Resource" id="Resource_a2sm4"]
+script = ExtResource("6_71l4c")
+lateral_offset = -2.75
+forward_offset = 10.25
+
+[sub_resource type="Resource" id="Resource_b41d0"]
+script = ExtResource("6_71l4c")
+lateral_offset = 2.75
+forward_offset = 10.25
+
+[sub_resource type="Resource" id="Resource_a8m14"]
+script = ExtResource("6_71l4c")
+lateral_offset = -2.75
+forward_offset = 15.5
+
+[sub_resource type="Resource" id="Resource_cnbhh"]
+script = ExtResource("6_71l4c")
+lateral_offset = 2.75
+forward_offset = 15.5
+
+[sub_resource type="Resource" id="Resource_lee7y"]
+script = ExtResource("6_71l4c")
+lateral_offset = -2.75
+forward_offset = 20.75
+
+[sub_resource type="Resource" id="Resource_pjrm6"]
+script = ExtResource("6_71l4c")
+lateral_offset = 2.75
+forward_offset = 20.75
 
 [node name="GlamClosetEditableRoom" type="Node3D"]
-script = ExtResource("1_k3qvo")
-ground_size = Vector2(292, 190)
-ground_y = -11.0
-road_y_offset = 0.0
-track_definition_path = "res://assets/gameplay/tracks/glam_closet/glam_closet_track_definition.tres"
-metadata_output_path = "res://assets/gameplay/tracks/glam_closet/glam_closet_track_metadata.json"
-road_preview_alpha = 0.84
-wall_preview_alpha = 0.27
 
 [node name="floor" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -32, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.648705, 0)
-material_override = SubResource("StandardMaterial3D_hu34m")
-mesh = SubResource("PlaneMesh_71l4c")
+material_override = SubResource("StandardMaterial3D_d5fxb")
+mesh = SubResource("PlaneMesh_iw404")
 
 [node name="RoomShell" type="Node3D" parent="."]
 
 [node name="BackWall" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21, 98)
-material_override = SubResource("StandardMaterial3D_d5fxb")
-mesh = SubResource("BoxMesh_iw404")
-
-[node name="LeftWall" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -146, 21, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30, 124)
 material_override = SubResource("StandardMaterial3D_6kqv2")
 mesh = SubResource("BoxMesh_o6tue")
 
-[node name="RightWall" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146, 21, 0)
+[node name="LeftWall" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -184, 30, 0)
 material_override = SubResource("StandardMaterial3D_gx8ns")
 mesh = SubResource("BoxMesh_mvp87")
 
-[node name="FrontWallLeft" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96, 21, -98)
+[node name="RightWall" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 184, 30, 0)
 material_override = SubResource("StandardMaterial3D_nksgf")
 mesh = SubResource("BoxMesh_d4ubw")
 
-[node name="FrontWallRight" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96, 21, -98)
+[node name="Ceiling" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 62, 0)
 material_override = SubResource("StandardMaterial3D_p1isx")
 mesh = SubResource("BoxMesh_cql7c")
 
-[node name="DoorHeader" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 45, -98)
+[node name="Dressing" type="Node3D" parent="."]
+
+[node name="VanityMirror" type="Node3D" parent="Dressing" instance=ExtResource("2_3wur3")]
+transform = Transform3D(-8.742278e-07, 0, 20, 0, 20, 0, -20, 0, -8.742278e-07, -142, 20, 0)
+
+[node name="bathroomMirror(Clone)" type="MeshInstance3D" parent="Dressing/VanityMirror"]
+mesh = SubResource("ArrayMesh_ifigf")
+skeleton = NodePath("")
+
+[node name="RunwayLightA" type="MeshInstance3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 5, -92)
 material_override = SubResource("StandardMaterial3D_olb0j")
 mesh = SubResource("BoxMesh_5k0t4")
 
-[node name="Ceiling" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 55, 0)
+[node name="RunwayLightB" type="MeshInstance3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 5, -92)
 material_override = SubResource("StandardMaterial3D_bcjt0")
 mesh = SubResource("BoxMesh_e2aqq")
 
-[node name="RoutePoints" type="Node3D" parent="."]
-
-[node name="RoutePoint00" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108, 3.35, -61.92)
-
-[node name="RoutePoint01" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 3.35, -67.08)
-
-[node name="RoutePoint02" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78, 3.35, -70.52)
-
-[node name="RoutePoint03" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 3.35, -72.24)
-
-[node name="RoutePoint04" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 3.35, -71.38)
-
-[node name="RoutePoint05" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 3.35, -68.8)
-
-[node name="RoutePoint06" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.35, -65.36)
-
-[node name="RoutePoint07" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 3.35, -65.36)
-
-[node name="RoutePoint08" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 3.35, -67.08)
-
-[node name="RoutePoint09" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 3.35, -65.36)
-
-[node name="RoutePoint10" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96, 3.35, -58.48)
-
-[node name="RoutePoint11" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 116, 3.35, -44.72)
-
-[node name="RoutePoint12" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, 3.35, -25.8)
-
-[node name="RoutePoint13" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 132, 3.35, -5.16)
-
-[node name="RoutePoint14" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 130, 3.35, 15.48)
-
-[node name="RoutePoint15" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 122, 3.35, 36.12)
-
-[node name="RoutePoint16" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 106, 3.35, 51.6)
-
-[node name="RoutePoint17" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84, 3.35, 61.92)
-
-[node name="RoutePoint18" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 4.75, 67.08)
-
-[node name="RoutePoint19" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 4.75, 70.52)
-
-[node name="RoutePoint20" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 3.35, 70.52)
-
-[node name="RoutePoint21" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 3.35, 68.8)
-
-[node name="RoutePoint22" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 3.35, 65.36)
-
-[node name="RoutePoint23" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 3.35, 58.48)
-
-[node name="RoutePoint24" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 3.35, 46.44)
-
-[node name="RoutePoint25" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -114, 3.35, 29.24)
-
-[node name="RoutePoint26" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126, 3.35, 8.6)
-
-[node name="RoutePoint27" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -130, 3.35, -13.76)
-
-[node name="RoutePoint28" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126, 3.35, -34.4)
-
-[node name="RoutePoint29" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116, 3.35, -51.6)
-
-[node name="RoutePoint30" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104, 3.35, -60.2)
-
-[node name="RoutePoint31" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112, 3.35, -58.48)
-
-[node name="Checkpoints" type="Node3D" parent="."]
-
-[node name="Checkpoint00_LapGate" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108, 3.35, -61.92)
-
-[node name="Checkpoint01" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.35, -65.36)
-
-[node name="Checkpoint02" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, 3.35, -25.8)
-
-[node name="Checkpoint03" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 4.75, 67.08)
-
-[node name="Checkpoint04" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 3.35, 46.44)
-
-[node name="Checkpoint05" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126, 3.35, -34.4)
-
-[node name="SpawnPoints" type="Node3D" parent="."]
-
-[node name="Start01" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.34582978, 0, 0.9382973, 0, 1, 0, -0.9382973, 0, -0.34582978, -107.30834, 4.15, -60.043404)
-
-[node name="Start02" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.34582978, 0, 0.9382973, 0, 1, 0, -0.9382973, 0, -0.34582978, -108.69166, 4.15, -63.796593)
-
-[node name="Start03" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.34582978, 0, 0.9382973, 0, 1, 0, -0.9382973, 0, -0.34582978, -102.61686, 4.15, -61.772552)
-
-[node name="Start04" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.34582978, 0, 0.9382973, 0, 1, 0, -0.9382973, 0, -0.34582978, -104.000175, 4.15, -65.52574)
-
-[node name="Start05" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.34582978, 0, 0.9382973, 0, 1, 0, -0.9382973, 0, -0.34582978, -97.92537, 4.15, -63.5017)
-
-[node name="Start06" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.34582978, 0, 0.9382973, 0, 1, 0, -0.9382973, 0, -0.34582978, -99.308685, 4.15, -67.25489)
-
-[node name="Start07" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.34582978, 0, 0.9382973, 0, 1, 0, -0.9382973, 0, -0.34582978, -93.23388, 4.15, -65.23085)
-
-[node name="Start08" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.34582978, 0, 0.9382973, 0, 1, 0, -0.9382973, 0, -0.34582978, -94.617195, 4.15, -68.98404)
-
-[node name="ItemSockets" type="Node3D" parent="."]
-
-[node name="ItemSocket01" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78, 4.0499997, -70.52)
-
-[node name="ItemSocket02" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 4.0499997, -68.8)
-
-[node name="ItemSocket03" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 4.0499997, -67.08)
-
-[node name="ItemSocket04" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 116, 4.0499997, -44.72)
-
-[node name="ItemSocket05" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 130, 4.0499997, 15.48)
-
-[node name="ItemSocket06" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84, 4.0499997, 61.92)
-
-[node name="ItemSocket07" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 4.0499997, 70.52)
-
-[node name="ItemSocket08" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 4.0499997, 58.48)
-
-[node name="ItemSocket09" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126, 4.0499997, 8.6)
-
-[node name="ItemSocket10" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116, 4.0499997, -51.6)
-
-[node name="HazardSockets" type="Node3D" parent="."]
-
-[node name="HazardSocket01" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 4.0499997, -71.38)
-
-[node name="HazardSocket02" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 4.0499997, -65.36)
-
-[node name="HazardSocket03" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 132, 4.0499997, -5.16)
-
-[node name="HazardSocket04" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 5.45, 67.08)
-
-[node name="HazardSocket05" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 4.0499997, 65.36)
-
-[node name="HazardSocket06" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -130, 4.0499997, -13.76)
-
-[node name="HazardSocket07" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104, 4.0499997, -60.2)
-
-[node name="AlternateRoutes" type="Node3D" parent="."]
-
-[node name="glam_closet_branch" type="Node3D" parent="AlternateRoutes"]
-
-[node name="Point00" type="Marker3D" parent="AlternateRoutes/glam_closet_branch"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.55, -76)
-
-[node name="Point01" type="Marker3D" parent="AlternateRoutes/glam_closet_branch"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 4.35, -32)
-
-[node name="Point02" type="Marker3D" parent="AlternateRoutes/glam_closet_branch"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 4.35, 20)
-
-[node name="Point03" type="Marker3D" parent="AlternateRoutes/glam_closet_branch"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 3.75, 78)
-
-[node name="ShortcutGates" type="Node3D" parent="."]
-
-[node name="Dressing" type="Node3D" parent="."]
-
-[node name="VanityMirror" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -118, 6, 18)
-script = ExtResource("3_3wur3")
-prop_id = "VanityMirror"
-box_size = Vector3(12, 34, 48)
-box_color = Color(0.86, 0.88, 0.94, 1)
-audio_material_id = "glass"
-gameplay_tag = "glam_landmark"
-
-[node name="PerfumeBottle" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 98, -3, -46)
-script = ExtResource("3_3wur3")
-prop_id = "PerfumeBottle"
-box_size = Vector3(18, 22, 18)
-box_color = Color(0.72, 0.9, 0.96, 1)
-audio_material_id = "glass"
-gameplay_tag = "glam_landmark"
-
-[node name="ShoeRack" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 112, -5, 46)
-script = ExtResource("3_3wur3")
-prop_id = "ShoeRack"
-box_size = Vector3(26, 18, 54)
-box_color = Color(0.18, 0.12, 0.1, 1)
-audio_material_id = "wood"
-gameplay_tag = "glam_landmark"
-
-[node name="ScarfBridge" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3.8, 12)
-script = ExtResource("3_3wur3")
-prop_id = "ScarfBridge"
-box_size = Vector3(86, 1, 16)
-box_color = Color(0.9, 0.24, 0.62, 1)
-audio_material_id = "fabric"
-gameplay_tag = "shortcut_landmark"
-
-[node name="MakeupPalette" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, -8, -64)
-script = ExtResource("3_3wur3")
-prop_id = "MakeupPalette"
-box_size = Vector3(54, 6, 24)
-box_color = Color(0.24, 0.12, 0.22, 1)
-audio_material_id = "plastic"
-gameplay_tag = "glam_landmark"
-
-[node name="SurfaceSegments" type="Node3D" parent="."]
-
-[node name="glam_closet_start_surface" type="Marker3D" parent="SurfaceSegments"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 3.55, -70)
-script = ExtResource("4_0v0jq")
-segment_id = "glam_closet_start_surface"
-end_route_index = 10
-surface_audio_id = "glam_closet_primary"
-surface_material_id = "gloss"
-
-[node name="glam_closet_feature_surface" type="Marker3D" parent="SurfaceSegments"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70, 3.55, 50)
-script = ExtResource("4_0v0jq")
-segment_id = "glam_closet_feature_surface"
-start_route_index = 11
-end_route_index = 20
-surface_audio_id = "glam_closet_secondary"
-surface_material_id = "gloss_feature"
-
-[node name="glam_closet_return_surface" type="Marker3D" parent="SurfaceSegments"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 3.55, 10)
-script = ExtResource("4_0v0jq")
-segment_id = "glam_closet_return_surface"
-start_route_index = 21
-end_route_index = 31
-surface_audio_id = "glam_closet_primary"
-surface_material_id = "gloss"
-
-[node name="AudioZones" type="Node3D" parent="."]
-
-[node name="glam_closet_music_zone" type="Marker3D" parent="AudioZones"]
-script = ExtResource("5_kyp2h")
-zone_id = "glam_closet_music_zone"
-audio_id = "music"
-radius = 120.0
-volume_db = -14.0
-
-[node name="glam_closet_feature_zone" type="Marker3D" parent="AudioZones"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 4.35, 36)
-script = ExtResource("5_kyp2h")
-zone_id = "glam_closet_feature_zone"
-audio_id = "glam_closet_secondary"
-zone_kind = "oneshot"
-radius = 28.0
-
-[node name="RoadSegments" type="Node3D" parent="."]
-
-[node name="RoadSegment000" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(-0.34582978, 0, 0.9382973, 0, 1, 0, -0.9382973, 0, -0.34582978, -101, 3.35, -64.5)
-script = ExtResource("6_cl3wv")
-segment_length = 14.920645
-role_tags = Array[String](["checkpoint", "start"])
-
-[node name="RoadSegment001" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(-0.2101965, 0, 0.97765917, 0, 1, 0, -0.97765917, 0, -0.2101965, -86, 3.35, -68.8)
-script = ExtResource("6_cl3wv")
-segment_length = 16.365622
-role_tags = Array[String](["item"])
-
-[node name="RoadSegment002" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(-0.09512223, 0, 0.9954656, 0, 1, 0, -0.9954656, 0, -0.09512223, -69, 3.35, -71.38)
-script = ExtResource("6_cl3wv")
-segment_length = 18.081991
-
-[node name="RoadSegment003" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(0.042960368, 0, 0.9990768, 0, 1, 0, -0.9990768, 0, 0.042960368, -50, 3.35, -71.81)
-script = ExtResource("6_cl3wv")
-segment_length = 20.018482
-role_tags = Array[String](["hazard"])
-
-[node name="RoadSegment004" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(0.1279397, 0, 0.99178195, 0, 1, 0, -0.99178195, 0, 0.1279397, -30, 3.35, -70.09)
-script = ExtResource("6_cl3wv")
-segment_length = 20.165722
-role_tags = Array[String](["item"])
-
-[node name="RoadSegment005" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(0.16951111, 0, 0.9855283, 0, 1, 0, -0.9855283, 0, 0.16951111, -10, 3.35, -67.08)
-script = ExtResource("6_cl3wv")
-segment_length = 20.293684
-
-[node name="RoadSegment006" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12, 3.35, -65.36)
-script = ExtResource("6_cl3wv")
-segment_length = 24.0
-role_tags = Array[String](["checkpoint"])
-
-[node name="RoadSegment007" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(-0.071483314, 0, 0.99744177, 0, 1, 0, -0.99744177, 0, -0.071483314, 36, 3.35, -66.22)
-script = ExtResource("6_cl3wv")
-segment_length = 24.061554
-role_tags = Array[String](["item"])
-
-[node name="RoadSegment008" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(0.071483344, 0, 0.99744177, 0, 1, 0, -0.99744177, 0, 0.071483344, 60, 3.35, -66.22)
-script = ExtResource("6_cl3wv")
-segment_length = 24.061554
-role_tags = Array[String](["hazard"])
-
-[node name="RoadSegment009" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(0.2755675, 0, 0.9612817, 0, 1, 0, -0.9612817, 0, 0.2755675, 84, 3.35, -61.92)
-script = ExtResource("6_cl3wv")
-segment_length = 24.966665
-
-[node name="RoadSegment010" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(0.56680846, 0, 0.8238496, 0, 1, 0, -0.8238496, 0, 0.56680846, 106, 3.35, -51.6)
-script = ExtResource("6_cl3wv")
-segment_length = 24.276276
-role_tags = Array[String](["item"])
-
-[node name="RoadSegment011" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(0.84446925, 0, 0.53560406, 0, 1, 0, -0.53560406, 0, 0.84446925, 122, 3.35, -35.260002)
-script = ExtResource("6_cl3wv")
-segment_length = 22.404608
-
-[node name="RoadSegment012" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(0.98173404, 0, 0.19025853, 0, 1, 0, -0.19025853, 0, 0.98173404, 130, 3.35, -15.48)
-script = ExtResource("6_cl3wv")
-segment_length = 21.024023
-role_tags = Array[String](["checkpoint", "hazard"])
-
-[node name="RoadSegment013" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(0.9953381, 0, -0.09644749, 0, 1, 0, 0.09644749, 0, 0.9953381, 131, 3.35, 5.16)
-script = ExtResource("6_cl3wv")
-segment_length = 20.736673
-role_tags = Array[String](["item"])
-
-[node name="RoadSegment014" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(0.932411, 0, -0.36139962, 0, 1, 0, 0.36139962, 0, 0.932411, 126, 3.35, 25.8)
-script = ExtResource("6_cl3wv")
-segment_length = 22.13616
-
-[node name="RoadSegment015" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(0.69533163, 0, -0.718689, 0, 1, 0, 0.718689, 0, 0.69533163, 114, 3.35, 43.86)
-script = ExtResource("6_cl3wv")
-segment_length = 22.262758
-
-[node name="RoadSegment016" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(0.42468688, 0, -0.9053403, 0, 1, 0, 0.9053403, 0, 0.42468688, 95, 3.35, 56.76)
-script = ExtResource("6_cl3wv")
-segment_length = 24.300255
-role_tags = Array[String](["item"])
-
-[node name="RoadSegment017" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(0.21019688, 0, -0.9776591, 0, 1, 0, 0.9776591, 0, 0.21019688, 72, 4.05, 64.5)
-script = ExtResource("6_cl3wv")
-segment_length = 24.588324
-pitch_degrees = 3.2640495384380492
-role_tags = Array[String](["hazard"])
-
-[node name="RoadSegment018" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(0.13116443, 0, -0.9913606, 0, 1, 0, 0.9913606, 0, 0.13116443, 47, 4.75, 68.8)
-script = ExtResource("6_cl3wv")
-segment_length = 26.226582
-role_tags = Array[String](["checkpoint"])
-
-[node name="RoadSegment019" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 21, 4.05, 70.52)
-script = ExtResource("6_cl3wv")
-segment_length = 26.037666
-pitch_degrees = -3.082181034080234
-role_tags = Array[String](["item"])
-
-[node name="RoadSegment020" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(-0.066009216, 0, -0.997819, 0, 1, 0, 0.997819, 0, -0.066009216, -5, 3.35, 69.66)
-script = ExtResource("6_cl3wv")
-segment_length = 26.05683
-
-[node name="RoadSegment021" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(-0.13116476, 0, -0.9913606, 0, 1, 0, 0.9913606, 0, -0.13116476, -31, 3.35, 67.08)
-script = ExtResource("6_cl3wv")
-segment_length = 26.226582
-role_tags = Array[String](["hazard"])
-
-[node name="RoadSegment022" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(-0.25581083, 0, -0.96672684, 0, 1, 0, 0.96672684, 0, -0.25581083, -57, 3.35, 61.92)
-script = ExtResource("6_cl3wv")
-segment_length = 26.894876
-role_tags = Array[String](["item"])
-
-[node name="RoadSegment023" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(-0.44840497, 0, -0.89383054, 0, 1, 0, 0.89383054, 0, -0.44840497, -82, 3.35, 52.46)
-script = ExtResource("6_cl3wv")
-segment_length = 26.850729
-
-[node name="RoadSegment024" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(-0.6520391, 0, -0.7581853, 0, 1, 0, 0.7581853, 0, -0.6520391, -104, 3.35, 37.84)
-script = ExtResource("6_cl3wv")
-segment_length = 26.378778
-role_tags = Array[String](["checkpoint"])
-
-[node name="RoadSegment025" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(-0.8645071, 0, -0.50262064, 0, 1, 0, 0.50262064, 0, -0.8645071, -120, 3.35, 18.92)
-script = ExtResource("6_cl3wv")
-segment_length = 23.874874
-role_tags = Array[String](["item"])
-
-[node name="RoadSegment026" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(-0.9843731, 0, -0.1760955, 0, 1, 0, 0.1760955, 0, -0.9843731, -128, 3.35, -2.58)
-script = ExtResource("6_cl3wv")
-segment_length = 22.714964
-role_tags = Array[String](["hazard"])
-
-[node name="RoadSegment027" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(-0.98173404, 0, 0.19025852, 0, 1, 0, -0.19025852, 0, -0.98173404, -128, 3.35, -24.080002)
-script = ExtResource("6_cl3wv")
-segment_length = 21.024025
-
-[node name="RoadSegment028" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(-0.8645071, 0, 0.50262064, 0, 1, 0, -0.50262064, 0, -0.8645071, -121, 3.35, -43)
-script = ExtResource("6_cl3wv")
-segment_length = 19.895725
-role_tags = Array[String](["checkpoint", "item"])
-
-[node name="RoadSegment029" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(-0.58251905, 0, 0.81281704, 0, 1, 0, -0.81281704, 0, -0.58251905, -110, 3.35, -55.9)
-script = ExtResource("6_cl3wv")
-segment_length = 14.76347
-role_tags = Array[String](["hazard"])
-
-[node name="RoadSegment030" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(0.21019688, 0, -0.9776591, 0, 1, 0, 0.9776591, 0, 0.21019688, -108, 3.35, -59.34)
-script = ExtResource("6_cl3wv")
-segment_length = 8.182812
-
-[node name="RoadSegment031" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(-0.6520391, 0, 0.7581853, 0, 1, 0, -0.7581853, 0, -0.6520391, -110, 3.35, -60.199997)
-script = ExtResource("6_cl3wv")
-segment_length = 5.275755
+[node name="ShoePedestal" type="MeshInstance3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 126, 9, 52)
+material_override = SubResource("StandardMaterial3D_x4ed2")
+mesh = SubResource("BoxMesh_0d15c")
+
+[node name="VanityChair" type="Node3D" parent="Dressing" instance=ExtResource("3_0v0jq")]
+transform = Transform3D(15.035082, 0, 5.472322, 0, 16, 0, -5.472322, 0, 15.035082, -104, 0, 76)
+
+[node name="chairCushion(Clone)" type="MeshInstance3D" parent="Dressing/VanityChair"]
+mesh = SubResource("ArrayMesh_1gll8")
+skeleton = NodePath("")
+
+[node name="RoadGridMap" type="GridMap" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, -2, -8)
+mesh_library = ExtResource("4_kyp2h")
+cell_size = Vector3(16, 4, 16)
+data = {
+"cells": PackedInt32Array(65531, 65532, 1048576, 65532, 65532, 1048576, 65533, 65532, 1048576, 65534, 65532, 1048576, 65535, 65532, 1048576, 0, 65532, 1048576, 1, 65532, 1048576, 2, 65532, 1048576, 3, 65532, 1048576, 4, 65532, 1048576, 5, 65532, 1048576, 6, 65532, 1441793, 6, 65533, 0, 6, 65534, 0, 6, 65535, 0, 6, 0, 0, 6, 1, 0, 6, 2, 0, 6, 3, 0, 6, 4, 655361, 5, 4, 1441792, 4, 4, 1441792, 3, 4, 1441792, 2, 4, 1441792, 1, 4, 1441792, 0, 4, 1441792, 65535, 4, 1441792, 65534, 4, 1441792, 65533, 4, 1441792, 65532, 4, 1441792, 65531, 4, 1441792, 65530, 4, 1048577, 65530, 3, 655360, 65530, 2, 655360, 65530, 1, 655360, 65530, 0, 655360, 65530, 65535, 655360, 65530, 65534, 655360, 65530, 65533, 655360, 65530, 65532, 1)
+}
+script = ExtResource("5_hu34m")
+ordered_route_cells = Array[Vector3i]([Vector3i(-5, 0, -4), Vector3i(-4, 0, -4), Vector3i(-3, 0, -4), Vector3i(-2, 0, -4), Vector3i(-1, 0, -4), Vector3i(0, 0, -4), Vector3i(1, 0, -4), Vector3i(2, 0, -4), Vector3i(3, 0, -4), Vector3i(4, 0, -4), Vector3i(5, 0, -4), Vector3i(6, 0, -4), Vector3i(6, 0, -3), Vector3i(6, 0, -2), Vector3i(6, 0, -1), Vector3i(6, 0, 0), Vector3i(6, 0, 1), Vector3i(6, 0, 2), Vector3i(6, 0, 3), Vector3i(6, 0, 4), Vector3i(5, 0, 4), Vector3i(4, 0, 4), Vector3i(3, 0, 4), Vector3i(2, 0, 4), Vector3i(1, 0, 4), Vector3i(0, 0, 4), Vector3i(-1, 0, 4), Vector3i(-2, 0, 4), Vector3i(-3, 0, 4), Vector3i(-4, 0, 4), Vector3i(-5, 0, 4), Vector3i(-6, 0, 4), Vector3i(-6, 0, 3), Vector3i(-6, 0, 2), Vector3i(-6, 0, 1), Vector3i(-6, 0, 0), Vector3i(-6, 0, -1), Vector3i(-6, 0, -2), Vector3i(-6, 0, -3), Vector3i(-6, 0, -4)])
+checkpoint_route_indices = Array[int]([0, 7, 13, 20, 27, 33])
+spawn_slots = Array[ExtResource("6_71l4c")]([SubResource("Resource_v2rjq"), SubResource("Resource_75sgl"), SubResource("Resource_a2sm4"), SubResource("Resource_b41d0"), SubResource("Resource_a8m14"), SubResource("Resource_cnbhh"), SubResource("Resource_lee7y"), SubResource("Resource_pjrm6")])
+road_width_override = 16.0

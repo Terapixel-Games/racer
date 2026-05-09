@@ -1,855 +1,303 @@
-[gd_scene load_steps=41 format=3 uid="uid://b8l7gvmjgu67h"]
+[gd_scene load_steps=38 format=4]
 
-[ext_resource type="Script" uid="uid://dlvn2xhwjpnou" path="res://scripts/track/TrackAuthoringPreview.gd" id="1_g7m3g"]
-[ext_resource type="Texture2D" uid="uid://00xrdbjyq0ql" path="res://assets/gameplay/materials/attic/attic_cardboard_wood_albedo.png" id="2_tw6u0"]
-[ext_resource type="Script" uid="uid://doxmi6s12eqc5" path="res://scripts/track/StagePropAuthoring.gd" id="3_ay1ow"]
-[ext_resource type="Script" uid="uid://o3okkegl41gl" path="res://scripts/track/SurfaceSegmentAuthoring.gd" id="4_ksclq"]
-[ext_resource type="Script" uid="uid://caggqafc2elyk" path="res://scripts/track/AudioZoneAuthoring.gd" id="5_c3enl"]
-[ext_resource type="Texture2D" path="res://assets/gameplay/tracks/attic/textures/window_storm_backdrop.png" id="6_c3enl"]
-[ext_resource type="Shader" uid="uid://coib5lrjnljbr" path="res://assets/shaders/attic_window_glass.gdshader" id="6_glass"]
-[ext_resource type="Texture2D" uid="uid://vhsoehfpmduo" path="res://assets/gameplay/tracks/attic/kenney/kenney_planks.png" id="8_planks"]
-[ext_resource type="Texture2D" uid="uid://dfvoqbjvkjxor" path="res://assets/gameplay/tracks/attic/kenney/kenney_roof.png" id="9_roof"]
-[ext_resource type="Script" uid="uid://bgd1wifvcickd" path="res://scripts/track/RoadSegmentAuthoring.gd" id="10_ci6am"]
+[ext_resource type="Texture2D" path="res://assets/gameplay/materials/attic/attic_cardboard_wood_albedo.png" id="1_g7m3g"]
+[ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/books.glb" id="2_tw6u0"]
+[ext_resource type="MeshLibrary" path="res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres" id="3_ay1ow"]
+[ext_resource type="Script" path="res://scripts/track/RoadGridMapAuthoring.gd" id="4_ksclq"]
+[ext_resource type="Script" path="res://scripts/track/RoadGridSpawn.gd" id="5_c3enl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ci6am"]
+albedo_color = Color(0.45, 0.35, 0.25, 1)
+albedo_texture = ExtResource("1_g7m3g")
+roughness = 0.82
+uv1_scale = Vector3(22, 22, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_js7c1"]
+size = Vector2(360, 240)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yx44e"]
-albedo_color = Color(0.42, 0.32, 0.24, 1)
+albedo_color = Color(0.42, 0.33, 0.24, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_iv4vf"]
-size = Vector3(292, 58, 2)
+size = Vector3(372, 62, 8)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kg0m8"]
-albedo_color = Color(0.38639998, 0.2944, 0.2208, 1)
+albedo_color = Color(0.38639998, 0.3036, 0.2208, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_tv4r8"]
-size = Vector3(2, 58, 190)
+size = Vector3(8, 62, 248)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1cvrh"]
+albedo_color = Color(0.38639998, 0.3036, 0.2208, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_50xf8"]
+size = Vector3(8, 62, 248)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f0c0w"]
+albedo_color = Color(0.4664, 0.3836, 0.3008, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_nmqdk"]
+size = Vector3(376, 2, 256)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g8e2k"]
+albedo_color = Color(0.58, 0.42, 0.24, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_wvso1"]
+size = Vector3(42, 26, 34)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j3f6d"]
-albedo_color = Color(0.4074, 0.3104, 0.2328, 1)
+albedo_color = Color(0.24, 0.14, 0.08, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_u6hxo"]
-size = Vector3(96, 10, 2)
+size = Vector3(56, 20, 28)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_attic_roof_planks"]
-albedo_color = Color(0.18, 0.12, 0.075, 1)
-albedo_texture = ExtResource("9_roof")
-roughness = 0.76
-uv1_scale = Vector3(18, 18, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n1k7c"]
+albedo_color = Color(0.82, 0.8, 0.72, 1)
+roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_0xbxm"]
-size = Vector3(292, 1.4, 154)
+size = Vector3(28, 44, 18)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_attic_wall_planks"]
-albedo_color = Color(0.32, 0.22, 0.14, 1)
-albedo_texture = ExtResource("8_planks")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j7xk4"]
+albedo_color = Color(0.28, 0.16, 0.08, 1)
 roughness = 0.72
-uv1_scale = Vector3(14, 14, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_attic_full_end_closure"]
-size = Vector3(296, 88, 2)
+[sub_resource type="BoxMesh" id="BoxMesh_01cjk"]
+size = Vector3(270, 8, 10)
 
-[sub_resource type="BoxMesh" id="BoxMesh_attic_full_side_closure"]
-size = Vector3(2, 96.11, 196)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rwfix"]
+resource_name = "carpetDarker"
+albedo_color = Color(0.8024569, 0.5818867, 0.57046205, 1)
+emission_enabled = true
 
-[sub_resource type="BoxMesh" id="BoxMesh_attic_window_upper_closure"]
-size = Vector3(2, 38, 64)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ummc"]
+resource_name = "carpetWhite"
+albedo_color = Color(0.987835, 1, 1, 1)
+emission_enabled = true
 
-[sub_resource type="BoxMesh" id="BoxMesh_c3enl"]
-size = Vector3(1, 80, 140)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0v0qc"]
+resource_name = "plant"
+albedo_color = Color(0.46369117, 0.91664594, 0.78325206, 1)
+emission_enabled = true
 
-[sub_resource type="BoxMesh" id="BoxMesh_attic_end_gable"]
-size = Vector3(292, 34, 2)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ukmjd"]
+resource_name = "metal"
+albedo_color = Color(0.8759255, 0.917687, 0.9258912, 1)
+emission_enabled = true
 
-[sub_resource type="BoxMesh" id="BoxMesh_50xf8"]
-size = Vector3(2, 34, 190)
+[sub_resource type="ArrayMesh" id="ArrayMesh_o8wjs"]
+_surfaces = [{
+"aabb": AABB(0, 0, -0.0945, 0.15044759, 0.10390226, 0.0945),
+"format": 34896613377,
+"index_count": 111,
+"index_data": PackedByteArray("AAABAAIAAgABAAMAAwABAAAAAgAEAAAAAwAFAAIABAACAAUAAAAGAAMABQAHAAQAAAAEAAcABwAFAAMABwAGAAAAAwAGAAcACAAJAAoACwAJAAgADAANAAoACgANAAgADQAOAAgADgAPAAgADwAQAAgAEQASAAsACAARAAsAEwARAAgACAAUABMAFAAVABMAFgATABUAFQAXABYAFQAUABgAGAAUAAgAGQAVABgACAAaABgAGAAbABkAHAAaAAgAGAAaABwAHAAbABgAGQAbABwAEAAcAAgAHAAQABkA"),
+"name": "carpetDarker",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 29,
+"vertex_data": PackedByteArray("MlPw8N3dAACZKf//3d0AAJkp//8AAAAAAAAPD93dAAAyU/DwAAAAAAAADw8AAAAAmSkAAN3dAACZKQAAAAAAAP//AAAAAAAAelQAAAAAAAB6VAAA7e4AAHpUWvgAAAAAW38AAO3uAABbfwAAzMwAADyqAADMzAAAPKoAAO3uAAAd1QAA7e4AAFt/T9kAAAAAW39a+AAAAAA8qk/ZAAAAAP//1OgAAAAAHdXU6AAAAAA8qlr4AAAAAB3VWvgAAAAA///U6P//AAAd1dTo7e4AAP//AAD//wAAHdXU6P//AAAd1QAA//8AAA==")
+}, {
+"aabb": AABB(0.074847594, 0, -0.0945, 0.025200002, 0.0882, 0.0756),
+"format": 34896613377,
+"index_count": 12,
+"index_data": PackedByteArray("AAABAAIAAgADAAAAAAADAAQABAAFAAAA"),
+"name": "carpetWhite",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 6,
+"vertex_data": PackedByteArray("////////AAD//wAA//8AAAAAAAD//wAAAAD/////AAAAAP//AAAAAP////8AAAAA")
+}, {
+"aabb": AABB(0.100047596, 0, -0.0945, 0.025199987, 0.1008, 0.088199995),
+"format": 34896613377,
+"index_count": 33,
+"index_data": PackedByteArray("AAABAAIAAwACAAEAAgAEAAAAAgAFAAQAAQAAAAYABgAHAAEACAAAAAQAAAAIAAYABAAJAAgACgAGAAgACAAJAAoA"),
+"name": "plant",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 11,
+"vertex_data": PackedByteArray("AAD/////AAAAAAAA//8AAAAA/99s2wAAAAAAAGzbAAAAAP//AAAAAAAA/98AAAAA////7///AAD//wAA//8AAP///////wAA/////wAAAAD////vAAAAAA==")
+}, {
+"aabb": AABB(0.04964759, 0, -0.0945, 0.025200006, 0.1008, 0.088199995),
+"format": 34896613377,
+"index_count": 30,
+"index_data": PackedByteArray("AAABAAIAAgADAAAAAgABAAQAAgAFAAMABQAGAAMABwAFAAIABAAIAAcAAgAJAAcABwAJAAQABAAJAAIA"),
+"name": "metal",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 10,
+"vertex_data": PackedByteArray("//8AAGzbAAD//wAA//8AAP///////wAA////32zbAAAAAAAA//8AAP////8AAAAA////3wAAAAAAAP//AAAAAAAAAAAAAAAAAAD/////AAA=")
+}]
+blend_shape_mode = 0
 
-[sub_resource type="BoxMesh" id="BoxMesh_attic_right_rear"]
-size = Vector3(2, 40.94, 36)
+[sub_resource type="ArrayMesh" id="ArrayMesh_s8oj0"]
+resource_name = "books_Mesh books"
+_surfaces = [{
+"aabb": AABB(0, 0, -0.0945, 0.15044759, 0.10390226, 0.0945),
+"attribute_data": PackedByteArray("t4pMzbeKo6Vl0KOlZdBMzQAAPxPCVT8TwlUOnlFADp5RQDqK4So6iuEqDp5wFQ6ecBX5pwAA+af/f1qeMmv5p2ZWEQ4ya3MEo3o/E/9/PxP/f/mno3r5p5kvTM2ZL6OlR3WjpUd1TM2YqREOzJT5p/9/Wp7MlHMEZdD5p/9/+af/fz8TZdA/E///+aeO6vmnjuoOno7qPxP//z8TmS8AAEd1AABHdaSemS+knsJVVAnCVfmnAAD5p1FAKR1RQFQJ4SopHQAAPxNwFT8T4SpUCXAVVAn//z8T///5p47q+aeO6j8TZdCknreKpJ63igAAZdAAAA=="),
+"format": 34896613399,
+"index_count": 111,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABwAIAAYABgAIAAQACAAJAAQACQAKAAQACgALAAQACwAMAAQADAANAAQADgAPABAAEAARAA4AEgATABQAFAAVABIAFgAXABgAGAAZABYAGgAbABwAHAAdABoAHgAfACAAIAAhAB4AIgAjACQAJAAlACIAJQAmACIAJwAoACkAKQAqACcAKwAsAC0ALQAuACsALgAvACsAMAAuAC0ALQAxADAAMQAyADAAMwAwADIAMgA0ADMANQA2ADcANwA4ADUAOQA6ADsAOwA8ADkA"),
+"material": SubResource("StandardMaterial3D_rwfix"),
+"name": "carpetDarker",
+"primitive": 3,
+"uv_scale": Vector4(11.846267, 6.4038906, 0, 0),
+"vertex_count": 61,
+"vertex_data": PackedByteArray("MlPw8N3d0s+ZKf//3d3Sz5kp//8AANLPMlPw8AAA0s///wAAAAD//3pUAAAAAP//elQAAO3u//9bfwAA7e7//1t/AADMzP//PKoAAMzM//88qgAA7e7//x3VAADt7v//HdUAAP///////wAA/////wAADw8AAP//mSkAAAAA//8yU/DwAAD//5kp//8AAP//HdXU6O3u/78d1dTo////vx3VAAD///+/HdUAAO3u/7+ZKQAAAADSzwAADw8AANLPAAAPD93d0s+ZKQAA3d3SzzJT8PDd3QCAmSkAAN3dAIAAAA8P3d0AgJkp///d3QCA//8AAAAA/7///wAA////v///1Oj///+////U6AAA/7///9To////vx3V1Oj///+/HdXU6O3u/78d1dToAAD/v///1OgAAP+/mSn//wAAmsCZKf//3d2awAAADw/d3ZrAAAAPDwAAmsB6VFr4AAD//3pUAAAAAP////8AAAAA//9bf0/ZAAD//1t/WvgAAP//PKpP2QAA/////9ToAAD//x3V1OgAAP//PKpa+AAA//8d1Vr4AAD/////1Oj//wCA//8AAP//AIAd1QAA//8AgB3V1Oj//wCAmSkAAAAAmsCZKQAA3d2awDJT8PDd3ZrAMlPw8AAAmsAGzgMnBs4DJwbOAycGzgMn/3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z//f/8//3//P/9/////f////3////9/////f////3////9/////f///+DH72Pgx+9j4MfvY+DH72P9/////f////3////9/////fwAA/38AAP9/AAD/fwAA////f////3////9/////f////3+kjLXmpIy15qSMteakjLXm/3////9/////f////3////9/////f////3/+//9/////f////3////9/////f////3////9///9ac0kZWnNJGVpzSRlac0kZ")
+}, {
+"aabb": AABB(0.074847594, 0, -0.0945, 0.025200002, 0.0882, 0.0756),
+"attribute_data": PackedByteArray("//+rC///DK/B3wyvwd+rC///CYzB3wmMwd8AAP//AAA="),
+"format": 34896613399,
+"index_count": 12,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQA"),
+"material": SubResource("StandardMaterial3D_0ummc"),
+"name": "carpetWhite",
+"primitive": 3,
+"uv_scale": Vector4(7.8777633, 5.4409447, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("////////AID//wAA//8AgAAAAAD//wCAAAD/////AID/////////vwAA//////+/AAD//wAA/7//////AAD/v/9/////f////3////9///////9/////f////3////9/")
+}, {
+"aabb": AABB(0.100047596, 0, -0.0945, 0.025199987, 0.1008, 0.088199995),
+"attribute_data": PackedByteArray("j3kAAI95HauubGMVrmwdq2wfAABsH2MV//+xCv//Has+5h2rPuYAAP//AAD//2ygPuZsoD7msQr//7EKkuCxCm+GsQpvhgAAkuAAAA=="),
+"format": 34896613399,
+"index_count": 33,
+"index_data": PackedByteArray("AAABAAIAAwACAAEAAgAEAAAAAgAFAAQABgAHAAgACAAJAAYACQAKAAYACwAMAA0ADQAOAAsADwAQABEAEQASAA8A"),
+"material": SubResource("StandardMaterial3D_0v0qc"),
+"name": "plant",
+"primitive": 3,
+"uv_scale": Vector4(9.862015, 5.937008, 0, 0),
+"vertex_count": 19,
+"vertex_data": PackedByteArray("AAD//////78AAAAA////vwAA/99s2/+/AAAAAGzb/78AAP//AAD/vwAA/98AAP+/////7///AID//wAA//8AgAAAAAD//wCAAAD/////AID///////8AgP////////+/AAD//////78AAP//AAD/v/////8AAP+/////7wAA/7/////v////v/////////+//////wAA/7//f////3////9/////f////3////9/////f////3////9/////f////3///////3////9/////f////3//fwAA/38AAP9/AAD/fwAA")
+}, {
+"aabb": AABB(0.04964759, 0, -0.0945, 0.025200006, 0.1008, 0.088199995),
+"attribute_data": PackedByteArray("mZkdq4iIHauIiAAAmZljFf//AAD//2MVAAAAAHd3AAB3dx2rAAAdq2DlAABg5R2rPsMdqz7DAABg5WygPsNsoD7DsQpg5bEK"),
+"format": 34896613399,
+"index_count": 30,
+"index_data": PackedByteArray("AAABAAIAAgADAAAAAgAEAAMABAAFAAMABgAHAAgACAAJAAYACgALAAwADAANAAoADgAPABAAEAARAA4A"),
+"material": SubResource("StandardMaterial3D_ukmjd"),
+"name": "metal",
+"primitive": 3,
+"uv_scale": Vector4(7.4409447, 5.937008, 0, 0),
+"vertex_count": 18,
+"vertex_data": PackedByteArray("//8AAGzb/7///wAA////v/////////+/////32zb/7//////AAD/v////98AAP+/AAD//wAA/78AAP//////vwAAAAD///+/AAAAAAAA/7////////8AgP//AAD//wCAAAAAAP//AIAAAP////8AgP////////+/AAD//////78AAP//AAD/v/////8AAP+//38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/3////9/////f////3////9/////f////3////9///////9/////f////3////9/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_o8wjs")
 
-[sub_resource type="BoxMesh" id="BoxMesh_attic_window_below"]
-size = Vector3(2, 24.185, 80)
+[sub_resource type="Resource" id="Resource_rwysa"]
+script = ExtResource("5_c3enl")
+lateral_offset = -2.75
+forward_offset = 5.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_attic_dark_trim"]
-albedo_color = Color(0.16, 0.09, 0.045, 1)
-albedo_texture = ExtResource("8_planks")
-roughness = 0.78
-uv1_scale = Vector3(8, 8, 1)
+[sub_resource type="Resource" id="Resource_7bayy"]
+script = ExtResource("5_c3enl")
+lateral_offset = 2.75
+forward_offset = 5.0
 
-[sub_resource type="BoxMesh" id="BoxMesh_attic_ridge"]
-size = Vector3(292, 3.2, 4)
+[sub_resource type="Resource" id="Resource_7ded0"]
+script = ExtResource("5_c3enl")
+lateral_offset = -2.75
+forward_offset = 10.25
 
-[sub_resource type="BoxMesh" id="BoxMesh_attic_rafter"]
-size = Vector3(3, 3, 118)
+[sub_resource type="Resource" id="Resource_aye2y"]
+script = ExtResource("5_c3enl")
+lateral_offset = 2.75
+forward_offset = 10.25
 
-[sub_resource type="BoxMesh" id="BoxMesh_attic_frame_h"]
-size = Vector3(2.9, 2.4, 44)
+[sub_resource type="Resource" id="Resource_xp5kx"]
+script = ExtResource("5_c3enl")
+lateral_offset = -2.75
+forward_offset = 15.5
 
-[sub_resource type="BoxMesh" id="BoxMesh_attic_frame_v"]
-size = Vector3(2.9, 19, 2.4)
+[sub_resource type="Resource" id="Resource_ym315"]
+script = ExtResource("5_c3enl")
+lateral_offset = 2.75
+forward_offset = 15.5
 
-[sub_resource type="BoxMesh" id="BoxMesh_attic_cross_v"]
-size = Vector3(1.8, 18, 1.1)
+[sub_resource type="Resource" id="Resource_eaf84"]
+script = ExtResource("5_c3enl")
+lateral_offset = -2.75
+forward_offset = 20.75
 
-[sub_resource type="BoxMesh" id="BoxMesh_attic_cross_h"]
-size = Vector3(1.8, 1.1, 41)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_attic_glass"]
-render_priority = 0
-shader = ExtResource("6_glass")
-shader_parameter/glass_tint = Color(0.45, 0.72, 1, 0.28)
-shader_parameter/edge_tint = Color(0.82, 0.96, 1, 0.46)
-shader_parameter/grime_strength = 0.32
-shader_parameter/fresnel_power = 3.2
-
-[sub_resource type="BoxMesh" id="BoxMesh_attic_glass"]
-size = Vector3(0.2, 17, 41)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_storm_backdrop"]
-cull_mode = 2
-shading_mode = 0
-albedo_texture = ExtResource("6_c3enl")
-uv1_scale = Vector3(2.885, 2.16, 2.885)
-uv1_offset = Vector3(101.015, 0.975, 0)
-
-[sub_resource type="BoxMesh" id="BoxMesh_attic_backdrop"]
-size = Vector3(0.2, 30, 58)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ci6am"]
-albedo_color = Color(0.48, 0.38, 0.28, 1)
-albedo_texture = ExtResource("2_tw6u0")
-roughness = 0.78
-uv1_scale = Vector3(2, 2, 0.084)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_js7c1"]
-size = Vector2(292, 190)
+[sub_resource type="Resource" id="Resource_braye"]
+script = ExtResource("5_c3enl")
+lateral_offset = 2.75
+forward_offset = 20.75
 
 [node name="AtticEditableRoom" type="Node3D"]
-script = ExtResource("1_g7m3g")
-preview_enabled = true
-ground_size = Vector2(292, 190)
-ground_y = -11.0
-road_y_offset = 0.0
-track_definition_path = "res://assets/gameplay/tracks/attic/attic_track_definition.tres"
-metadata_output_path = "res://assets/gameplay/tracks/attic/attic_track_metadata.json"
-road_preview_alpha = 0.84
-wall_preview_alpha = 0.27
+
+[node name="floor" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
+material_override = SubResource("StandardMaterial3D_ci6am")
+mesh = SubResource("PlaneMesh_js7c1")
 
 [node name="RoomShell" type="Node3D" parent="."]
 
 [node name="BackWall" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21, 98)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30, 124)
 material_override = SubResource("StandardMaterial3D_yx44e")
 mesh = SubResource("BoxMesh_iv4vf")
 
 [node name="LeftWall" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -146, 21, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -184, 30, 0)
 material_override = SubResource("StandardMaterial3D_kg0m8")
 mesh = SubResource("BoxMesh_tv4r8")
 
-[node name="DoorHeader" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 45, -98)
-material_override = SubResource("StandardMaterial3D_j3f6d")
-mesh = SubResource("BoxMesh_u6hxo")
+[node name="RightWall" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 184, 30, 0)
+material_override = SubResource("StandardMaterial3D_1cvrh")
+mesh = SubResource("BoxMesh_50xf8")
 
 [node name="Ceiling" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 0.777146, -0.62932, 0, 0.62932, 0.777146, 0, 48, 42)
-material_override = SubResource("StandardMaterial3D_attic_roof_planks")
-mesh = SubResource("BoxMesh_0xbxm")
-
-[node name="Ceiling2" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 0.777146, 0.62932, 0, -0.62932, 0.777146, 0, 48, -42)
-material_override = SubResource("StandardMaterial3D_attic_roof_planks")
-mesh = SubResource("BoxMesh_0xbxm")
-
-[node name="BackWallClosure" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24, 99.5)
-material_override = SubResource("StandardMaterial3D_attic_wall_planks")
-mesh = SubResource("BoxMesh_attic_full_end_closure")
-
-[node name="FrontWallClosure" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24, -99.5)
-material_override = SubResource("StandardMaterial3D_attic_wall_planks")
-mesh = SubResource("BoxMesh_attic_full_end_closure")
-
-[node name="LeftWallClosure" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -147.5, 22.735195, 0)
-material_override = SubResource("StandardMaterial3D_attic_wall_planks")
-mesh = SubResource("BoxMesh_attic_full_side_closure")
-
-[node name="RightWindowUpperClosure" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145, 48.349274, 50.381042)
-material_override = SubResource("StandardMaterial3D_attic_wall_planks")
-mesh = SubResource("BoxMesh_attic_window_upper_closure")
-
-[node name="RightWindowUpperClosure2" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145, 26.815, -50.949)
-material_override = SubResource("StandardMaterial3D_attic_wall_planks")
-mesh = SubResource("BoxMesh_c3enl")
-
-[node name="BackUpperGableWall" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 98)
-material_override = SubResource("StandardMaterial3D_attic_wall_planks")
-mesh = SubResource("BoxMesh_attic_end_gable")
-
-[node name="FrontUpperGableWall" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, -98)
-material_override = SubResource("StandardMaterial3D_attic_wall_planks")
-mesh = SubResource("BoxMesh_attic_end_gable")
-
-[node name="LeftUpperEaveWall" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -146, 50, 0)
-material_override = SubResource("StandardMaterial3D_attic_wall_planks")
-mesh = SubResource("BoxMesh_50xf8")
-
-[node name="RightUpperEaveWall" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146, 50, 0)
-material_override = SubResource("StandardMaterial3D_attic_wall_planks")
-mesh = SubResource("BoxMesh_50xf8")
-
-[node name="RightWallFrontClosure" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145, 26.815, -50.949)
-material_override = SubResource("StandardMaterial3D_attic_wall_planks")
-mesh = SubResource("BoxMesh_c3enl")
-
-[node name="RightWallRearRun" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145, 33.565, 82.262)
-material_override = SubResource("StandardMaterial3D_attic_wall_planks")
-mesh = SubResource("BoxMesh_attic_right_rear")
-
-[node name="RightWallRearClosure" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145, 33.565, 82.262)
-material_override = SubResource("StandardMaterial3D_attic_wall_planks")
-mesh = SubResource("BoxMesh_attic_right_rear")
-
-[node name="RightWallBelowWindow" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145, 2.270841, 59.417217)
-material_override = SubResource("StandardMaterial3D_attic_wall_planks")
-mesh = SubResource("BoxMesh_attic_window_below")
-
-[node name="RightWindowLowerClosure" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145, 2.270841, 59.417217)
-material_override = SubResource("StandardMaterial3D_attic_wall_planks")
-mesh = SubResource("BoxMesh_attic_window_below")
-
-[node name="AtticRidgeBeam" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 67, 0)
-material_override = SubResource("StandardMaterial3D_attic_dark_trim")
-mesh = SubResource("BoxMesh_attic_ridge")
-
-[node name="RafterLeft01" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 0.777146, -0.62932, 0, 0.62932, 0.777146, -120, 49, 38)
-material_override = SubResource("StandardMaterial3D_attic_dark_trim")
-mesh = SubResource("BoxMesh_attic_rafter")
-
-[node name="RafterLeft02" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 0.777146, -0.62932, 0, 0.62932, 0.777146, -80, 49, 38)
-material_override = SubResource("StandardMaterial3D_attic_dark_trim")
-mesh = SubResource("BoxMesh_attic_rafter")
-
-[node name="RafterLeft03" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 0.777146, -0.62932, 0, 0.62932, 0.777146, -40, 49, 38)
-material_override = SubResource("StandardMaterial3D_attic_dark_trim")
-mesh = SubResource("BoxMesh_attic_rafter")
-
-[node name="RafterLeft04" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 0.777146, -0.62932, 0, 0.62932, 0.777146, 0, 49, 38)
-material_override = SubResource("StandardMaterial3D_attic_dark_trim")
-mesh = SubResource("BoxMesh_attic_rafter")
-
-[node name="RafterLeft05" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 0.777146, -0.62932, 0, 0.62932, 0.777146, 40, 49, 38)
-material_override = SubResource("StandardMaterial3D_attic_dark_trim")
-mesh = SubResource("BoxMesh_attic_rafter")
-
-[node name="RafterLeft06" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 0.777146, -0.62932, 0, 0.62932, 0.777146, 80, 49, 38)
-material_override = SubResource("StandardMaterial3D_attic_dark_trim")
-mesh = SubResource("BoxMesh_attic_rafter")
-
-[node name="RafterLeft07" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 0.777146, -0.62932, 0, 0.62932, 0.777146, 120, 49, 38)
-material_override = SubResource("StandardMaterial3D_attic_dark_trim")
-mesh = SubResource("BoxMesh_attic_rafter")
-
-[node name="RafterRight01" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 0.777146, 0.62932, 0, -0.62932, 0.777146, -120, 49, -38)
-material_override = SubResource("StandardMaterial3D_attic_dark_trim")
-mesh = SubResource("BoxMesh_attic_rafter")
-
-[node name="RafterRight02" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 0.777146, 0.62932, 0, -0.62932, 0.777146, -80, 49, -38)
-material_override = SubResource("StandardMaterial3D_attic_dark_trim")
-mesh = SubResource("BoxMesh_attic_rafter")
-
-[node name="RafterRight03" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 0.777146, 0.62932, 0, -0.62932, 0.777146, -40, 49, -38)
-material_override = SubResource("StandardMaterial3D_attic_dark_trim")
-mesh = SubResource("BoxMesh_attic_rafter")
-
-[node name="RafterRight04" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 0.777146, 0.62932, 0, -0.62932, 0.777146, 0, 49, -38)
-material_override = SubResource("StandardMaterial3D_attic_dark_trim")
-mesh = SubResource("BoxMesh_attic_rafter")
-
-[node name="RafterRight05" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 0.777146, 0.62932, 0, -0.62932, 0.777146, 40, 49, -38)
-material_override = SubResource("StandardMaterial3D_attic_dark_trim")
-mesh = SubResource("BoxMesh_attic_rafter")
-
-[node name="RafterRight06" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 0.777146, 0.62932, 0, -0.62932, 0.777146, 80, 49, -38)
-material_override = SubResource("StandardMaterial3D_attic_dark_trim")
-mesh = SubResource("BoxMesh_attic_rafter")
-
-[node name="RafterRight07" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 0.777146, 0.62932, 0, -0.62932, 0.777146, 120, 49, -38)
-material_override = SubResource("StandardMaterial3D_attic_dark_trim")
-mesh = SubResource("BoxMesh_attic_rafter")
-
-[node name="AtticWindowFrameTop" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145.13031, 30, 42)
-material_override = SubResource("StandardMaterial3D_attic_dark_trim")
-mesh = SubResource("BoxMesh_attic_frame_h")
-
-[node name="AtticWindowFrameBottom" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145.13031, 14, 42)
-material_override = SubResource("StandardMaterial3D_attic_dark_trim")
-mesh = SubResource("BoxMesh_attic_frame_h")
-
-[node name="AtticWindowFrameFront" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145.13031, 22, 20)
-material_override = SubResource("StandardMaterial3D_attic_dark_trim")
-mesh = SubResource("BoxMesh_attic_frame_v")
-
-[node name="AtticWindowFrameRear" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145.13031, 22, 64)
-material_override = SubResource("StandardMaterial3D_attic_dark_trim")
-mesh = SubResource("BoxMesh_attic_frame_v")
-
-[node name="AtticWindowCrossbarVertical" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 144.78032, 22, 42)
-material_override = SubResource("StandardMaterial3D_attic_dark_trim")
-mesh = SubResource("BoxMesh_attic_cross_v")
-
-[node name="AtticWindowCrossbarHorizontal" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 144.7649, 22, 42)
-material_override = SubResource("StandardMaterial3D_attic_dark_trim")
-mesh = SubResource("BoxMesh_attic_cross_h")
-
-[node name="AtticWindowGlass" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146.26709, 22, 42)
-material_override = SubResource("ShaderMaterial_attic_glass")
-mesh = SubResource("BoxMesh_attic_glass")
-
-[node name="AtticWindowGlass2" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145.57208, 74.64594, 0.3950882)
-material_override = SubResource("ShaderMaterial_attic_glass")
-mesh = SubResource("BoxMesh_attic_glass")
-
-[node name="AtticWindowGlass3" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -145.25859, 79.0915, -3.145752)
-material_override = SubResource("ShaderMaterial_attic_glass")
-mesh = SubResource("BoxMesh_attic_glass")
-
-[node name="AtticWindowStormBackdrop" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(0.5258385, 0, 0, 0, 1.09829, 0, 0, 0, 1.3358493, 149.22122, 17.476334, 43.707306)
-material_override = SubResource("StandardMaterial3D_storm_backdrop")
-mesh = SubResource("BoxMesh_attic_backdrop")
-
-[node name="AtticWindowStormBackdrop2" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(0.5258385, 0, 0, 0, 1.09829, 0, 0, 0, 1.3358493, 151.61736, 65.56967, 14.751217)
-material_override = SubResource("StandardMaterial3D_storm_backdrop")
-mesh = SubResource("BoxMesh_attic_backdrop")
-
-[node name="AtticWindowStormBackdrop3" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(0.5258385, 0, 0, 0, 1.09829, 0, 0, 0, 1.3358493, -152.8368, 81.27369, -10.674522)
-material_override = SubResource("StandardMaterial3D_storm_backdrop")
-mesh = SubResource("BoxMesh_attic_backdrop")
-
-[node name="AtticMoonLight" type="SpotLight3D" parent="RoomShell"]
-transform = Transform3D(0.6893173, -0.14689928, 0.70940983, -0.088824555, 0.95470077, 0.28400105, -0.71899366, -0.25877985, 0.64504355, 147.85602, 27.672674, 61.309)
-light_color = Color(0.55, 0.72, 1, 1)
-light_energy = 5.5
-spot_range = 95.0
-spot_angle = 42.0
-
-[node name="Light1" type="Node3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -82.26079, 48.074833, -1.0315738)
-
-[node name="AtticLight1" type="SpotLight3D" parent="RoomShell/Light1"]
-transform = Transform3D(-4.371139e-08, -1, -4.371139e-08, 0, -4.371139e-08, 1, -1, 4.371139e-08, 1.9106855e-15, 1.9084473, -2.4752388, 0)
-light_color = Color(0.8930177, 0.7457654, 1.540184e-06, 1)
-light_energy = 5.5
-spot_range = 69.812
-spot_angle = 42.0
-
-[node name="OmniLight3D" type="OmniLight3D" parent="RoomShell/Light1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.54797363, -1.1582794, -0.7496486)
-light_color = Color(1, 1, 0, 1)
-light_energy = 12.753
-light_indirect_energy = 2.186
-light_volumetric_fog_energy = 8.013
-light_specular = 2.179
-omni_range = 12.599
-omni_attenuation = 1.494
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="RoomShell/Light1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.928108, -1.1582794, 0.6765146)
-light_color = Color(1, 1, 0, 1)
-light_energy = 12.753
-light_indirect_energy = 2.186
-light_volumetric_fog_energy = 8.013
-light_specular = 2.179
-omni_range = 12.599
-omni_attenuation = 1.494
-
-[node name="Light2" type="Node3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.74235, 48.074833, -1.0315738)
-
-[node name="AtticLight1" type="SpotLight3D" parent="RoomShell/Light2"]
-transform = Transform3D(-4.371139e-08, -1, -4.371139e-08, 0, -4.371139e-08, 1, -1, 4.371139e-08, 1.9106855e-15, 1.9084473, -2.4752388, 0)
-light_color = Color(0.8930177, 0.7457654, 1.540184e-06, 1)
-light_energy = 5.5
-spot_range = 69.812
-spot_angle = 42.0
-
-[node name="OmniLight3D" type="OmniLight3D" parent="RoomShell/Light2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.54797363, -1.1582794, -0.7496486)
-light_color = Color(1, 1, 0, 1)
-light_energy = 12.753
-light_indirect_energy = 2.186
-light_volumetric_fog_energy = 8.013
-light_specular = 2.179
-omni_range = 12.599
-omni_attenuation = 1.494
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="RoomShell/Light2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.928108, -1.1582794, 0.6765146)
-light_color = Color(1, 1, 0, 1)
-light_energy = 12.753
-light_indirect_energy = 2.186
-light_volumetric_fog_energy = 8.013
-light_specular = 2.179
-omni_range = 12.599
-omni_attenuation = 1.494
-
-[node name="RoutePoints" type="Node3D" parent="."]
-
-[node name="RoutePoint00" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108, 3.35, -72)
-
-[node name="RoutePoint01" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 3.35, -78)
-
-[node name="RoutePoint02" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78, 3.35, -82)
-
-[node name="RoutePoint03" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 3.35, -84)
-
-[node name="RoutePoint04" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 3.35, -83)
-
-[node name="RoutePoint05" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 3.35, -80)
-
-[node name="RoutePoint06" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.35, -76)
-
-[node name="RoutePoint07" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 3.35, -76)
-
-[node name="RoutePoint08" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 3.35, -78)
-
-[node name="RoutePoint09" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 3.35, -76)
-
-[node name="RoutePoint10" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 5.35, -76)
-
-[node name="RoutePoint11" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96, 3.35, -68)
-
-[node name="RoutePoint12" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96, 6.55, -68)
-
-[node name="RoutePoint13" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 116, 5.35, -52)
-
-[node name="RoutePoint14" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, 6.55, -30)
-
-[node name="RoutePoint15" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, 3.35, -30)
-
-[node name="RoutePoint16" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 132, 5.35, -6)
-
-[node name="RoutePoint17" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 132, 3.35, -6)
-
-[node name="RoutePoint18" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 130, 3.35, 18)
-
-[node name="RoutePoint19" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 122, 3.35, 42)
-
-[node name="RoutePoint20" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 106, 3.35, 60)
-
-[node name="RoutePoint21" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84, 3.35, 72)
-
-[node name="RoutePoint22" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 3.35, 78)
-
-[node name="RoutePoint23" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 3.35, 82)
-
-[node name="RoutePoint24" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 3.35, 82)
-
-[node name="RoutePoint25" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 3.35, 80)
-
-[node name="RoutePoint26" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 4.55, 80)
-
-[node name="RoutePoint27" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 3.35, 76)
-
-[node name="RoutePoint28" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 4.55, 68)
-
-[node name="RoutePoint29" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 3.35, 68)
-
-[node name="RoutePoint30" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 3.35, 54)
-
-[node name="RoutePoint31" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -114, 3.35, 34)
-
-[node name="RoutePoint32" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126, 3.35, 10)
-
-[node name="RoutePoint33" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -130, 3.35, -16)
-
-[node name="RoutePoint34" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126, 3.35, -40)
-
-[node name="RoutePoint35" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116, 3.35, -60)
-
-[node name="RoutePoint36" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104, 3.35, -70)
-
-[node name="RoutePoint37" type="Marker3D" parent="RoutePoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112, 3.35, -68)
-
-[node name="Checkpoints" type="Node3D" parent="."]
-
-[node name="Checkpoint00_LapGate" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108, 3.35, -72)
-
-[node name="Checkpoint01" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.35, -76)
-
-[node name="Checkpoint02" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, 5.35, -30)
-
-[node name="Checkpoint03" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 3.35, 78)
-
-[node name="Checkpoint04" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 3.35, 54)
-
-[node name="Checkpoint05" type="Marker3D" parent="Checkpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126, 3.35, -40)
-
-[node name="SpawnPoints" type="Node3D" parent="."]
-
-[node name="Start01" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.3939193, 0, 0.91914505, 0, 1, 0, -0.91914505, 0, -0.3939193, -107.21216, 4.15, -70.16171)
-
-[node name="Start02" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.3939193, 0, 0.91914505, 0, 1, 0, -0.91914505, 0, -0.3939193, -108.78784, 4.15, -73.83829)
-
-[node name="Start03" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.3939193, 0, 0.91914505, 0, 1, 0, -0.91914505, 0, -0.3939193, -102.61643, 4.15, -72.13131)
-
-[node name="Start04" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.3939193, 0, 0.91914505, 0, 1, 0, -0.91914505, 0, -0.3939193, -104.192116, 4.15, -75.807884)
-
-[node name="Start05" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.3939193, 0, 0.91914505, 0, 1, 0, -0.91914505, 0, -0.3939193, -98.020706, 4.15, -74.10091)
-
-[node name="Start06" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.3939193, 0, 0.91914505, 0, 1, 0, -0.91914505, 0, -0.3939193, -99.59639, 4.15, -77.77748)
-
-[node name="Start07" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.3939193, 0, 0.91914505, 0, 1, 0, -0.91914505, 0, -0.3939193, -93.42498, 4.15, -76.0705)
-
-[node name="Start08" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(-0.3939193, 0, 0.91914505, 0, 1, 0, -0.91914505, 0, -0.3939193, -95.00066, 4.15, -79.74708)
-
-[node name="ItemSockets" type="Node3D" parent="."]
-
-[node name="ItemSocket01" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78, 4.0499997, -82)
-
-[node name="ItemSocket02" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 4.0499997, -80)
-
-[node name="ItemSocket03" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 4.0499997, -78)
-
-[node name="ItemSocket04" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 116, 7.2499995, -52)
-
-[node name="ItemSocket05" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 130, 4.0499997, 18)
-
-[node name="ItemSocket06" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84, 4.0499997, 72)
-
-[node name="ItemSocket07" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 4.0499997, 82)
-
-[node name="ItemSocket08" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 4.0499997, 68)
-
-[node name="ItemSocket09" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126, 4.0499997, 10)
-
-[node name="ItemSocket10" type="Marker3D" parent="ItemSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116, 4.0499997, -60)
-
-[node name="HazardSockets" type="Node3D" parent="."]
-
-[node name="HazardSocket01" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 4.0499997, -83)
-
-[node name="HazardSocket02" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 4.0499997, -76)
-
-[node name="HazardSocket03" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 132, 4.0499997, -6)
-
-[node name="HazardSocket04" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 4.0499997, 78)
-
-[node name="HazardSocket05" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 5.2499995, 76)
-
-[node name="HazardSocket06" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -130, 4.0499997, -16)
-
-[node name="HazardSocket07" type="Marker3D" parent="HazardSockets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104, 4.0499997, -70)
-
-[node name="AlternateRoutes" type="Node3D" parent="."]
-
-[node name="ShortcutGates" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 62, 0)
+material_override = SubResource("StandardMaterial3D_f0c0w")
+mesh = SubResource("BoxMesh_nmqdk")
 
 [node name="Dressing" type="Node3D" parent="."]
 
-[node name="BoxMazeA" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104, -4, -28)
-script = ExtResource("3_ay1ow")
-prop_id = "BoxMazeA"
-box_size = Vector3(28, 20, 28)
-box_color = Color(0.58, 0.42, 0.24, 1)
-audio_material_id = "cardboard"
-gameplay_tag = "attic_landmark"
+[node name="CardboardBoxStackA" type="MeshInstance3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -125, 13, -42)
+material_override = SubResource("StandardMaterial3D_g8e2k")
+mesh = SubResource("BoxMesh_wvso1")
 
-[node name="BoxMazeB" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86, -4, 34)
-script = ExtResource("3_ay1ow")
-prop_id = "BoxMazeB"
-box_size = Vector3(34, 24, 26)
-box_color = Color(0.5, 0.36, 0.2, 1)
-audio_material_id = "cardboard"
-gameplay_tag = "attic_landmark"
+[node name="OldTrunk" type="MeshInstance3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 102, 10, 64)
+material_override = SubResource("StandardMaterial3D_j3f6d")
+mesh = SubResource("BoxMesh_u6hxo")
 
-[node name="OldTrunk" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -5, 62)
-script = ExtResource("3_ay1ow")
-prop_id = "OldTrunk"
-box_size = Vector3(46, 18, 24)
-box_color = Color(0.24, 0.14, 0.08, 1)
-audio_material_id = "wood"
-gameplay_tag = "attic_landmark"
+[node name="SheetGhost" type="MeshInstance3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 118, 22, -56)
+material_override = SubResource("StandardMaterial3D_n1k7c")
+mesh = SubResource("BoxMesh_0xbxm")
 
-[node name="RafterBranch" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -8)
-script = ExtResource("3_ay1ow")
-prop_id = "RafterBranch"
-box_size = Vector3(112, 2.2, 12)
-box_color = Color(0.34, 0.2, 0.1, 1)
-audio_material_id = "wood"
-gameplay_tag = "ramp"
+[node name="RafterBeam" type="MeshInstance3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 44, 0)
+material_override = SubResource("StandardMaterial3D_j7xk4")
+mesh = SubResource("BoxMesh_01cjk")
 
-[node name="PullCord" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 15, -48)
-script = ExtResource("3_ay1ow")
-prop_id = "PullCord"
-box_size = Vector3(1, 30, 1)
-box_color = Color(0.9, 0.82, 0.62, 1)
-audio_material_id = "fabric"
-gameplay_tag = "attic_landmark"
+[node name="BookPile" type="Node3D" parent="Dressing" instance=ExtResource("2_tw6u0")]
+transform = Transform3D(11.737772, 0, -2.4949403, 0, 12, 0, 2.4949403, 0, 11.737772, -58, 0, 78)
 
-[node name="JackInTheBoxSetpiece" type="Node3D" parent="Dressing"]
-transform = Transform3D(-0.9359486, 0, -2.6389394, 0, 2.8, 0, 2.6389394, 0, -0.9359486, 106, 1.6000019, 34)
-script = ExtResource("3_ay1ow")
-prop_kind = "scene"
-prop_id = "JackInTheBoxSetpiece"
-asset_path = "uid://ckjdv8gqg00j0"
-audio_material_id = "wood"
-gameplay_tag = "toy_setpiece"
+[node name="books(Clone)" type="MeshInstance3D" parent="Dressing/BookPile"]
+mesh = SubResource("ArrayMesh_s8oj0")
+skeleton = NodePath("")
 
-[node name="OldChestMeshy" type="Node3D" parent="Dressing"]
-transform = Transform3D(14.265848, 0, 4.635253, 0, 15, 0, -4.635253, 0, 14.265848, 92, -5, 54)
-script = ExtResource("3_ay1ow")
-prop_kind = "scene"
-prop_id = "OldChestMeshy"
-asset_path = "res://assets/gameplay/tracks/attic/props/old_chest.glb"
-audio_material_id = "wood"
-gameplay_tag = "attic_landmark"
-
-[node name="IndustrialObjectMeshy" type="Node3D" parent="Dressing"]
-transform = Transform3D(7.2767024, 0, -5.290067, 0, 9, 0, 5.290067, 0, 7.2767024, -80.345695, 56.200653, -0.86864567)
-script = ExtResource("3_ay1ow")
-prop_kind = "scene"
-prop_id = "IndustrialObjectMeshy"
-asset_path = "res://assets/gameplay/tracks/attic/props/industrial_object.glb"
-audio_material_id = "metal"
-gameplay_tag = "attic_landmark"
-
-[node name="IndustrialObjectMeshy2" type="Node3D" parent="Dressing"]
-transform = Transform3D(7.2767024, 0, -5.290067, 0, 9, 0, 5.290067, 0, 7.2767024, 39.636017, 56.200653, -0.86864567)
-script = ExtResource("3_ay1ow")
-prop_kind = "scene"
-prop_id = "IndustrialObjectMeshy"
-asset_path = "res://assets/gameplay/tracks/attic/props/industrial_object.glb"
-audio_material_id = "metal"
-gameplay_tag = "attic_landmark"
-
-[node name="KenneyCrateStackA" type="Node3D" parent="Dressing"]
-transform = Transform3D(9.781476, 0, -2.0791192, 0, 10, 0, 2.0791192, 0, 9.781476, 118, -5, 74)
-script = ExtResource("3_ay1ow")
-prop_kind = "scene"
-prop_id = "KenneyCrateStackA"
-asset_path = "uid://8p6ngnse0snf"
-audio_material_id = "wood"
-gameplay_tag = "attic_clutter"
-
-[node name="KenneyCrateStackB" type="Node3D" parent="Dressing"]
-transform = Transform3D(10.9625435, 0, 4.880845, 0, 12, 0, -4.880845, 0, 10.9625435, -92, -5, -30)
-script = ExtResource("3_ay1ow")
-prop_kind = "scene"
-prop_id = "KenneyCrateStackB"
-asset_path = "res://assets/gameplay/tracks/attic/kenney/kenney_detail_crate.glb"
-audio_material_id = "wood"
-gameplay_tag = "attic_clutter"
-
-[node name="WindowToyBlocks" type="Node3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, -6.5, 20)
-script = ExtResource("3_ay1ow")
-prop_id = "WindowToyBlocks"
-box_size = Vector3(18, 10, 10)
-box_color = Color(0.55, 0.16, 0.12, 1)
-audio_material_id = "wood"
-gameplay_tag = "toy_blocks"
-
-[node name="SurfaceSegments" type="Node3D" parent="."]
-
-[node name="attic_start_surface" type="Marker3D" parent="SurfaceSegments"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 3.55, -70)
+[node name="RoadGridMap" type="GridMap" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, -2, -8)
+mesh_library = ExtResource("3_ay1ow")
+cell_size = Vector3(16, 4, 16)
+data = {
+"cells": PackedInt32Array(65531, 65532, 1048576, 65532, 65532, 1048576, 65533, 65532, 1048576, 65534, 65532, 1048576, 65535, 65532, 1048576, 0, 65532, 1048576, 1, 65532, 1048576, 2, 65532, 1048576, 3, 65532, 1048576, 4, 65532, 1048576, 5, 65532, 1048576, 6, 65532, 1441793, 6, 65533, 0, 6, 65534, 0, 6, 65535, 0, 6, 0, 0, 6, 1, 0, 6, 2, 0, 6, 3, 0, 6, 4, 655361, 5, 4, 1441792, 4, 4, 1441792, 3, 4, 1441792, 2, 4, 1441792, 1, 4, 1441792, 0, 4, 1441792, 65535, 4, 1441792, 65534, 4, 1441792, 65533, 4, 1441792, 65532, 4, 1441792, 65531, 4, 1441792, 65530, 4, 1048577, 65530, 3, 655360, 65530, 2, 655360, 65530, 1, 655360, 65530, 0, 655360, 65530, 65535, 655360, 65530, 65534, 655360, 65530, 65533, 655360, 65530, 65532, 1)
+}
 script = ExtResource("4_ksclq")
-segment_id = "attic_start_surface"
-end_route_index = 10
-surface_audio_id = "attic_primary"
-surface_material_id = "wood"
-
-[node name="attic_feature_surface" type="Marker3D" parent="SurfaceSegments"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70, 3.55, 50)
-script = ExtResource("4_ksclq")
-segment_id = "attic_feature_surface"
-start_route_index = 11
-end_route_index = 20
-surface_audio_id = "attic_secondary"
-surface_material_id = "wood_feature"
-
-[node name="attic_return_surface" type="Marker3D" parent="SurfaceSegments"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 3.55, 10)
-script = ExtResource("4_ksclq")
-segment_id = "attic_return_surface"
-start_route_index = 21
-end_route_index = 31
-surface_audio_id = "attic_primary"
-surface_material_id = "wood"
-
-[node name="floor" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -32, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.648705, 0)
-material_override = SubResource("StandardMaterial3D_ci6am")
-mesh = SubResource("PlaneMesh_js7c1")
-
-[node name="AudioZones" type="Node3D" parent="."]
-
-[node name="attic_music_zone" type="Marker3D" parent="AudioZones"]
-script = ExtResource("5_c3enl")
-zone_id = "attic_music_zone"
-audio_id = "music"
-radius = 120.0
-volume_db = -14.0
-
-[node name="attic_feature_zone" type="Marker3D" parent="AudioZones"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 4.35, 36)
-script = ExtResource("5_c3enl")
-zone_id = "attic_feature_zone"
-audio_id = "attic_secondary"
-zone_kind = "oneshot"
-radius = 28.0
-
-[node name="attic_window_wind_zone" type="Marker3D" parent="AudioZones"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 132, 18, 42)
-script = ExtResource("5_c3enl")
-zone_id = "attic_window_wind_zone"
-audio_id = "attic_window_wind"
-audio_path = "res://assets/source/audio/sfx/attic/wind_blowing.mp3"
-radius = 46.0
-volume_db = -10.0
-
-[node name="RoadSegments" type="Node3D" parent="."]
-
-[node name="RoadSegment000" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(0.011807481, 0, 0.99993026, 0, 1, 0, -0.99993026, 0, 0.011807481, 6.9038544, 3.35, -70.64318)
-script = ExtResource("10_ci6am")
-segment_length = 229.82373
-role_tags = Array[String](["checkpoint", "start"])
-
-[node name="RoadSegment001" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(0.99066633, 0, -0.13630907, 0, 1, 0, 0.13630907, 0, 0.99066633, 114.75853, 3.35, -18.054295)
-script = ExtResource("10_ci6am")
-segment_length = 103.429504
-role_tags = Array[String](["checkpoint"])
-
-[node name="RoadSegment002" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(-0.005514757, 0, -0.9999848, 0, 1, 0, 0.9999848, 0, -0.005514757, -3.2928467, 3.35, 32.565624)
-script = ExtResource("10_ci6am")
-segment_length = 222.00774
-role_tags = Array[String](["checkpoint"])
-
-[node name="RoadSegment003" type="Node3D" parent="RoadSegments"]
-transform = Transform3D(-0.9981715, 0, 0.06044531, 0, 1, 0, -0.06044531, 0, -0.9981715, -111.147514, 3.35, -20.023262)
-script = ExtResource("10_ci6am")
-segment_length = 104.1439
-role_tags = Array[String](["checkpoint"])
+ordered_route_cells = Array[Vector3i]([Vector3i(-5, 0, -4), Vector3i(-4, 0, -4), Vector3i(-3, 0, -4), Vector3i(-2, 0, -4), Vector3i(-1, 0, -4), Vector3i(0, 0, -4), Vector3i(1, 0, -4), Vector3i(2, 0, -4), Vector3i(3, 0, -4), Vector3i(4, 0, -4), Vector3i(5, 0, -4), Vector3i(6, 0, -4), Vector3i(6, 0, -3), Vector3i(6, 0, -2), Vector3i(6, 0, -1), Vector3i(6, 0, 0), Vector3i(6, 0, 1), Vector3i(6, 0, 2), Vector3i(6, 0, 3), Vector3i(6, 0, 4), Vector3i(5, 0, 4), Vector3i(4, 0, 4), Vector3i(3, 0, 4), Vector3i(2, 0, 4), Vector3i(1, 0, 4), Vector3i(0, 0, 4), Vector3i(-1, 0, 4), Vector3i(-2, 0, 4), Vector3i(-3, 0, 4), Vector3i(-4, 0, 4), Vector3i(-5, 0, 4), Vector3i(-6, 0, 4), Vector3i(-6, 0, 3), Vector3i(-6, 0, 2), Vector3i(-6, 0, 1), Vector3i(-6, 0, 0), Vector3i(-6, 0, -1), Vector3i(-6, 0, -2), Vector3i(-6, 0, -3), Vector3i(-6, 0, -4)])
+checkpoint_route_indices = Array[int]([0, 7, 13, 20, 27, 33])
+spawn_slots = Array[ExtResource("5_c3enl")]([SubResource("Resource_rwysa"), SubResource("Resource_7bayy"), SubResource("Resource_7ded0"), SubResource("Resource_aye2y"), SubResource("Resource_xp5kx"), SubResource("Resource_ym315"), SubResource("Resource_eaf84"), SubResource("Resource_braye")])
+road_width_override = 16.0

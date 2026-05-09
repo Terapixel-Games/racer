@@ -1,35 +1,5 @@
 {
-	"alternate_routes": [
-		{
-			"enabled": true,
-			"entry_checkpoint_index": 1,
-			"exit_checkpoint_index": 3,
-			"id": "attic_branch",
-			"points": [
-				[
-					0.0,
-					3.54999995231628,
-					-76.0
-				],
-				[
-					18.0,
-					4.34999990463257,
-					-32.0
-				],
-				[
-					36.0,
-					4.34999990463257,
-					20.0
-				],
-				[
-					60.0,
-					3.75,
-					78.0
-				]
-			],
-			"road_width": 12.0
-		}
-	],
+	"alternate_routes": [],
 	"audio_ids": {
 		"attic_primary": "res://assets/source/audio/canva/tracks/attic/attic_creak_canva_01.mp3",
 		"attic_secondary": "res://assets/source/audio/canva/tracks/attic/attic_prank_squeak_canva_01.wav",
@@ -43,7 +13,7 @@
 			"id": "attic_feature_zone",
 			"position": [
 				60.0,
-				4.34999990463257,
+				4.35,
 				36.0
 			],
 			"radius": 28.0,
@@ -77,15 +47,17 @@
 			"zone_kind": "ambient"
 		}
 	],
-	"checkpoint_radius": 9.75,
+	"boundary_wall_debug_visible": false,
+	"boundary_walls_enabled": true,
+	"checkpoint_radius": 10.4,
 	"checkpoints": [
 		{
 			"index": 0,
 			"is_lap_gate": true,
 			"position": [
-				-108.0,
-				3.34999990463257,
-				-72.0
+				-80.0,
+				0.0,
+				-64.0
 			],
 			"route_index": 0
 		},
@@ -93,756 +65,2022 @@
 			"index": 1,
 			"is_lap_gate": false,
 			"position": [
+				32.0,
 				0.0,
-				3.34999990463257,
-				-76.0
+				-64.0
 			],
-			"route_index": 6
+			"route_index": 7
 		},
 		{
 			"index": 2,
 			"is_lap_gate": false,
 			"position": [
-				128.0,
-				3.34999990463257,
-				-30.0
+				96.0,
+				0.0,
+				-32.0
 			],
-			"route_index": 15
+			"route_index": 13
 		},
 		{
 			"index": 3,
 			"is_lap_gate": false,
 			"position": [
-				60.0,
-				3.34999990463257,
-				78.0
+				80.0,
+				0.0,
+				64.0
 			],
-			"route_index": 22
+			"route_index": 20
 		},
 		{
 			"index": 4,
 			"is_lap_gate": false,
 			"position": [
-				-94.0,
-				3.34999990463257,
-				54.0
+				-32.0,
+				0.0,
+				64.0
 			],
-			"route_index": 30
+			"route_index": 27
 		},
 		{
 			"index": 5,
 			"is_lap_gate": false,
 			"position": [
-				-126.0,
-				3.34999990463257,
-				-40.0
+				-96.0,
+				0.0,
+				32.0
 			],
-			"route_index": 34
+			"route_index": 33
 		}
 	],
 	"closed_loop": true,
 	"display_name": "Attic Mayhem",
 	"dressing_scene_path": "res://assets/gameplay/tracks/attic/attic_editable_room.tscn",
-	"floor_visual_y": -32.0,
+	"floor_visual_y": -1.1,
 	"grass_zones": [],
 	"ground_shader_path": "",
 	"ground_texture_path": "res://assets/gameplay/materials/attic/attic_cardboard_wood_albedo.png",
-	"hazard_sockets": [
-		{
-			"position": [
-				-50.0,
-				4.15000009536743,
-				-83.5
-			],
-			"yaw_degrees": 87.1375961303711
-		},
-		{
-			"position": [
-				60.0,
-				4.15000009536743,
-				-77.0
-			],
-			"yaw_degrees": 85.2363586425781
-		},
-		{
-			"position": [
-				130.0,
-				5.15000009536743,
-				-18.0
-			],
-			"yaw_degrees": 9.46232223510742
-		},
-		{
-			"position": [
-				72.0,
-				4.15000009536743,
-				75.0
-			],
-			"yaw_degrees": -75.963752746582
-		},
-		{
-			"position": [
-				-31.0,
-				4.75,
-				78.0
-			],
-			"yaw_degrees": -98.7461624145508
-		},
-		{
-			"position": [
-				-128.0,
-				4.15000009536743,
-				-3.0
-			],
-			"yaw_degrees": -171.253829956055
-		},
-		{
-			"position": [
-				-110.0,
-				4.15000009536743,
-				-65.0
-			],
-			"yaw_degrees": 129.805572509766
-		}
-	],
+	"hazard_sockets": [],
 	"id": "attic",
-	"item_sockets": [
-		{
-			"position": [
-				-86.0,
-				4.15000009536743,
-				-80.0
-			],
-			"yaw_degrees": 104.036247253418
-		},
-		{
-			"position": [
-				-30.0,
-				4.15000009536743,
-				-81.5
-			],
-			"yaw_degrees": 81.4692306518555
-		},
-		{
-			"position": [
-				36.0,
-				4.15000009536743,
-				-77.0
-			],
-			"yaw_degrees": 94.7636413574219
-		},
-		{
-			"position": [
-				106.0,
-				6.75,
-				-60.0
-			],
-			"yaw_degrees": 51.3401908874512
-		},
-		{
-			"position": [
-				131.0,
-				4.15000009536743,
-				6.0
-			],
-			"yaw_degrees": -4.76364183425903
-		},
-		{
-			"position": [
-				95.0,
-				4.15000009536743,
-				66.0
-			],
-			"yaw_degrees": -61.3895378112793
-		},
-		{
-			"position": [
-				21.0,
-				4.15000009536743,
-				82.0
-			],
-			"yaw_degrees": -90.0
-		},
-		{
-			"position": [
-				-57.0,
-				4.75,
-				72.0
-			],
-			"yaw_degrees": -107.102729797363
-		},
-		{
-			"position": [
-				-120.0,
-				4.15000009536743,
-				22.0
-			],
-			"yaw_degrees": -153.434951782227
-		},
-		{
-			"position": [
-				-121.0,
-				4.15000009536743,
-				-50.0
-			],
-			"yaw_degrees": 153.434951782227
-		}
-	],
+	"item_sockets": [],
 	"lap_gate_checkpoint_index": 0,
 	"laps": 3,
-	"out_of_bounds_y": -11.0,
-	"rail_texture_path": "res://assets/gameplay/materials/metal/toy_metal_albedo.png",
-	"rail_texture_uv_scale": 0.5,
+	"out_of_bounds_y": -28.0,
+	"progress_rule_id": "route_lap_progress",
+	"rail_texture_path": "",
+	"rail_texture_uv_scale": 1.0,
+	"rails_enabled": false,
 	"reset_mode": "instant_pop",
-	"road_segment_layout": [
-		{
-			"length": 15.231546,
-			"pitch_degrees": 0.0,
-			"position": [
-				-101.0,
-				3.34999990463257,
-				-75.0
+	"road_grid_layout": {
+		"basis": [
+			[
+				1.0,
+				0.0,
+				0.0
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": 113.198589756265
-		},
-		{
-			"length": 16.492422,
-			"pitch_degrees": 0.0,
-			"position": [
-				-86.0,
-				3.34999990463257,
-				-80.0
+			[
+				0.0,
+				1.0,
+				0.0
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": 104.036246154529
-		},
-		{
-			"length": 18.110771,
-			"pitch_degrees": 0.0,
-			"position": [
-				-69.0,
-				3.34999990463257,
-				-83.0
+			[
+				0.0,
+				0.0,
+				1.0
+			]
+		],
+		"cell_size": [
+			16.0,
+			4.0,
+			16.0
+		],
+		"cells": [
+			{
+				"cell": [
+					-6,
+					0,
+					-4
+				],
+				"item": 1,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					-96.0,
+					0.0,
+					-64.0
+				]
+			},
+			{
+				"cell": [
+					-5,
+					0,
+					-4
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					-80.0,
+					0.0,
+					-64.0
+				]
+			},
+			{
+				"cell": [
+					-4,
+					0,
+					-4
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					-64.0,
+					0.0,
+					-64.0
+				]
+			},
+			{
+				"cell": [
+					-3,
+					0,
+					-4
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					-48.0,
+					0.0,
+					-64.0
+				]
+			},
+			{
+				"cell": [
+					-2,
+					0,
+					-4
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					-32.0,
+					0.0,
+					-64.0
+				]
+			},
+			{
+				"cell": [
+					-1,
+					0,
+					-4
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					-16.0,
+					0.0,
+					-64.0
+				]
+			},
+			{
+				"cell": [
+					0,
+					0,
+					-4
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					0.0,
+					0.0,
+					-64.0
+				]
+			},
+			{
+				"cell": [
+					1,
+					0,
+					-4
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					16.0,
+					0.0,
+					-64.0
+				]
+			},
+			{
+				"cell": [
+					2,
+					0,
+					-4
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					32.0,
+					0.0,
+					-64.0
+				]
+			},
+			{
+				"cell": [
+					3,
+					0,
+					-4
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					48.0,
+					0.0,
+					-64.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					0,
+					-4
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					64.0,
+					0.0,
+					-64.0
+				]
+			},
+			{
+				"cell": [
+					5,
+					0,
+					-4
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					80.0,
+					0.0,
+					-64.0
+				]
+			},
+			{
+				"cell": [
+					6,
+					0,
+					-4
+				],
+				"item": 1,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					96.0,
+					0.0,
+					-64.0
+				]
+			},
+			{
+				"cell": [
+					-6,
+					0,
+					-3
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-96.0,
+					0.0,
+					-48.0
+				]
+			},
+			{
+				"cell": [
+					6,
+					0,
+					-3
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					96.0,
+					0.0,
+					-48.0
+				]
+			},
+			{
+				"cell": [
+					-6,
+					0,
+					-2
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-96.0,
+					0.0,
+					-32.0
+				]
+			},
+			{
+				"cell": [
+					6,
+					0,
+					-2
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					96.0,
+					0.0,
+					-32.0
+				]
+			},
+			{
+				"cell": [
+					-6,
+					0,
+					-1
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-96.0,
+					0.0,
+					-16.0
+				]
+			},
+			{
+				"cell": [
+					6,
+					0,
+					-1
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					96.0,
+					0.0,
+					-16.0
+				]
+			},
+			{
+				"cell": [
+					-6,
+					0,
+					0
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-96.0,
+					0.0,
+					0.0
+				]
+			},
+			{
+				"cell": [
+					6,
+					0,
+					0
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					96.0,
+					0.0,
+					0.0
+				]
+			},
+			{
+				"cell": [
+					-6,
+					0,
+					1
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-96.0,
+					0.0,
+					16.0
+				]
+			},
+			{
+				"cell": [
+					6,
+					0,
+					1
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					96.0,
+					0.0,
+					16.0
+				]
+			},
+			{
+				"cell": [
+					-6,
+					0,
+					2
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-96.0,
+					0.0,
+					32.0
+				]
+			},
+			{
+				"cell": [
+					6,
+					0,
+					2
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					96.0,
+					0.0,
+					32.0
+				]
+			},
+			{
+				"cell": [
+					-6,
+					0,
+					3
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-96.0,
+					0.0,
+					48.0
+				]
+			},
+			{
+				"cell": [
+					6,
+					0,
+					3
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					96.0,
+					0.0,
+					48.0
+				]
+			},
+			{
+				"cell": [
+					-6,
+					0,
+					4
+				],
+				"item": 1,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					-96.0,
+					0.0,
+					64.0
+				]
+			},
+			{
+				"cell": [
+					-5,
+					0,
+					4
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					-80.0,
+					0.0,
+					64.0
+				]
+			},
+			{
+				"cell": [
+					-4,
+					0,
+					4
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					-64.0,
+					0.0,
+					64.0
+				]
+			},
+			{
+				"cell": [
+					-3,
+					0,
+					4
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					-48.0,
+					0.0,
+					64.0
+				]
+			},
+			{
+				"cell": [
+					-2,
+					0,
+					4
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					-32.0,
+					0.0,
+					64.0
+				]
+			},
+			{
+				"cell": [
+					-1,
+					0,
+					4
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					-16.0,
+					0.0,
+					64.0
+				]
+			},
+			{
+				"cell": [
+					0,
+					0,
+					4
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					0.0,
+					0.0,
+					64.0
+				]
+			},
+			{
+				"cell": [
+					1,
+					0,
+					4
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					16.0,
+					0.0,
+					64.0
+				]
+			},
+			{
+				"cell": [
+					2,
+					0,
+					4
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					32.0,
+					0.0,
+					64.0
+				]
+			},
+			{
+				"cell": [
+					3,
+					0,
+					4
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					48.0,
+					0.0,
+					64.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					0,
+					4
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					64.0,
+					0.0,
+					64.0
+				]
+			},
+			{
+				"cell": [
+					5,
+					0,
+					4
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						0.0,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						0.0
+					]
+				],
+				"position": [
+					80.0,
+					0.0,
+					64.0
+				]
+			},
+			{
+				"cell": [
+					6,
+					0,
+					4
+				],
+				"item": 1,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					96.0,
+					0.0,
+					64.0
+				]
+			}
+		],
+		"checkpoint_route_indices": [
+			0,
+			7,
+			13,
+			20,
+			27,
+			33
+		],
+		"hazard_route_indices": [],
+		"item_route_indices": [],
+		"mesh_library_path": "res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres",
+		"ordered_route_cells": [
+			[
+				-5,
+				0,
+				-4
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": 96.3401939034342
-		},
-		{
-			"length": 20.024984,
-			"pitch_degrees": 0.0,
-			"position": [
-				-50.0,
-				3.34999990463257,
-				-83.5
+			[
+				-4,
+				0,
+				-4
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": 87.1375931667309
-		},
-		{
-			"length": 20.22375,
-			"pitch_degrees": 0.0,
-			"position": [
-				-30.0,
-				3.34999990463257,
-				-81.5
+			[
+				-3,
+				0,
+				-4
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": 81.4692328349156
-		},
-		{
-			"length": 20.396078,
-			"pitch_degrees": 0.0,
-			"position": [
-				-10.0,
-				3.34999990463257,
-				-78.0
+			[
+				-2,
+				0,
+				-4
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": 78.6900698427725
-		},
-		{
-			"length": 24.0,
-			"pitch_degrees": 0.0,
-			"position": [
-				12.0,
-				3.34999990463257,
-				-76.0
+			[
+				-1,
+				0,
+				-4
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": 90.0000025044782
-		},
-		{
-			"length": 24.083189,
-			"pitch_degrees": 0.0,
-			"position": [
-				36.0,
-				3.34999990463257,
-				-77.0
+			[
+				0,
+				0,
+				-4
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": 94.7636428090227
-		},
-		{
-			"length": 24.083189,
-			"pitch_degrees": 0.0,
-			"position": [
-				60.0,
-				3.34999990463257,
-				-77.0
+			[
+				1,
+				0,
+				-4
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": 85.2363553697445
-		},
-		{
-			"length": 25.377155,
-			"pitch_degrees": 4.52022753805568,
-			"position": [
-				84.0,
-				4.34999990463257,
-				-72.0
+			[
+				2,
+				0,
+				-4
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": 71.565048727047
-		},
-		{
-			"length": 25.640593,
-			"pitch_degrees": 2.68246712904634,
-			"position": [
-				106.0,
-				5.94999980926514,
-				-60.0
+			[
+				3,
+				0,
+				-4
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": 51.3401892361005
-		},
-		{
-			"length": 25.088642,
-			"pitch_degrees": -2.74152594147066,
-			"position": [
-				122.0,
-				5.94999980926514,
-				-41.0
+			[
+				4,
+				0,
+				-4
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": 28.6104603198895
-		},
-		{
-			"length": 24.41311,
-			"pitch_degrees": -4.69911931985952,
-			"position": [
-				130.0,
-				4.34999990463257,
-				-18.0
+			[
+				5,
+				0,
+				-4
 			],
-			"segment_id": "ramp_long",
-			"yaw_degrees": 9.46232209498764
-		},
-		{
-			"length": 24.083189,
-			"pitch_degrees": 0.0,
-			"position": [
-				131.0,
-				3.34999990463257,
-				6.0
+			[
+				6,
+				0,
+				-4
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": -4.76364158520499
-		},
-		{
-			"length": 25.298222,
-			"pitch_degrees": 0.0,
-			"position": [
-				126.0,
-				3.34999990463257,
-				30.0
+			[
+				6,
+				0,
+				-3
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": -18.4349486547893
-		},
-		{
-			"length": 24.083189,
-			"pitch_degrees": 0.0,
-			"position": [
-				114.0,
-				3.34999990463257,
-				51.0
+			[
+				6,
+				0,
+				-2
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": -41.6335410292178
-		},
-		{
-			"length": 25.059929,
-			"pitch_degrees": 0.0,
-			"position": [
-				95.0,
-				3.34999990463257,
-				66.0
+			[
+				6,
+				0,
+				-1
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": -61.3895421845887
-		},
-		{
-			"length": 24.738634,
-			"pitch_degrees": 0.0,
-			"position": [
-				72.0,
-				3.34999990463257,
-				75.0
+			[
+				6,
+				0,
+				0
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": -75.9637520242377
-		},
-		{
-			"length": 26.305893,
-			"pitch_degrees": 0.0,
-			"position": [
-				47.0,
-				3.34999990463257,
-				80.0
+			[
+				6,
+				0,
+				1
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": -81.2538359892501
-		},
-		{
-			"length": 26.0,
-			"pitch_degrees": 0.0,
-			"position": [
-				21.0,
-				3.34999990463257,
-				82.0
+			[
+				6,
+				0,
+				2
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": -90.0000025044782
-		},
-		{
-			"length": 26.076809,
-			"pitch_degrees": 0.0,
-			"position": [
-				-5.0,
-				3.34999990463257,
-				81.0
+			[
+				6,
+				0,
+				3
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": -94.3987058016689
-		},
-		{
-			"length": 26.333248,
-			"pitch_degrees": 2.61185935896063,
-			"position": [
-				-31.0,
-				3.94999980926514,
-				78.0
+			[
+				6,
+				0,
+				4
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": -98.7461621895171
-		},
-		{
-			"length": 27.229397,
-			"pitch_degrees": -2.5258436745781,
-			"position": [
-				-57.0,
-				3.94999980926514,
-				72.0
+			[
+				5,
+				0,
+				4
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": -107.102727884298
-		},
-		{
-			"length": 27.784887,
-			"pitch_degrees": 0.0,
-			"position": [
-				-82.0,
-				3.34999990463257,
-				61.0
+			[
+				4,
+				0,
+				4
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": -120.256435961503
-		},
-		{
-			"length": 28.284271,
-			"pitch_degrees": 0.0,
-			"position": [
-				-104.0,
-				3.34999990463257,
-				44.0
+			[
+				3,
+				0,
+				4
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": -135.000000341623
-		},
-		{
-			"length": 26.832815,
-			"pitch_degrees": 0.0,
-			"position": [
-				-120.0,
-				3.34999990463257,
-				22.0
+			[
+				2,
+				0,
+				4
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": -153.434954119054
-		},
-		{
-			"length": 26.305893,
-			"pitch_degrees": 0.0,
-			"position": [
-				-128.0,
-				3.34999990463257,
-				-3.0
+			[
+				1,
+				0,
+				4
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": -171.253838493728
-		},
-		{
-			"length": 24.33105,
-			"pitch_degrees": 0.0,
-			"position": [
-				-128.0,
-				3.34999990463257,
-				-28.0
+			[
+				0,
+				0,
+				4
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": 170.537665838496
-		},
-		{
-			"length": 22.36068,
-			"pitch_degrees": 0.0,
-			"position": [
-				-121.0,
-				3.34999990463257,
-				-50.0
+			[
+				-1,
+				0,
+				4
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": 153.434954119054
-		},
-		{
-			"length": 15.6205,
-			"pitch_degrees": 0.0,
-			"position": [
-				-110.0,
-				3.34999990463257,
-				-65.0
+			[
+				-2,
+				0,
+				4
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": 129.805573175936
-		},
-		{
-			"length": 8.246211,
-			"pitch_degrees": 0.0,
-			"position": [
-				-108.0,
-				3.34999990463257,
-				-69.0
+			[
+				-3,
+				0,
+				4
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": -75.9637520242377
-		},
-		{
-			"length": 5.656854,
-			"pitch_degrees": 0.0,
-			"position": [
-				-110.0,
-				3.34999990463257,
-				-70.0
+			[
+				-4,
+				0,
+				4
 			],
-			"segment_id": "straight_long",
-			"yaw_degrees": 135.000000341623
-		}
-	],
+			[
+				-5,
+				0,
+				4
+			],
+			[
+				-6,
+				0,
+				4
+			],
+			[
+				-6,
+				0,
+				3
+			],
+			[
+				-6,
+				0,
+				2
+			],
+			[
+				-6,
+				0,
+				1
+			],
+			[
+				-6,
+				0,
+				0
+			],
+			[
+				-6,
+				0,
+				-1
+			],
+			[
+				-6,
+				0,
+				-2
+			],
+			[
+				-6,
+				0,
+				-3
+			],
+			[
+				-6,
+				0,
+				-4
+			]
+		],
+		"ordered_route_points": [
+			[
+				-80.0,
+				0.0,
+				-64.0
+			],
+			[
+				-64.0,
+				0.0,
+				-64.0
+			],
+			[
+				-48.0,
+				0.0,
+				-64.0
+			],
+			[
+				-32.0,
+				0.0,
+				-64.0
+			],
+			[
+				-16.0,
+				0.0,
+				-64.0
+			],
+			[
+				0.0,
+				0.0,
+				-64.0
+			],
+			[
+				16.0,
+				0.0,
+				-64.0
+			],
+			[
+				32.0,
+				0.0,
+				-64.0
+			],
+			[
+				48.0,
+				0.0,
+				-64.0
+			],
+			[
+				64.0,
+				0.0,
+				-64.0
+			],
+			[
+				80.0,
+				0.0,
+				-64.0
+			],
+			[
+				96.0,
+				0.0,
+				-64.0
+			],
+			[
+				96.0,
+				0.0,
+				-48.0
+			],
+			[
+				96.0,
+				0.0,
+				-32.0
+			],
+			[
+				96.0,
+				0.0,
+				-16.0
+			],
+			[
+				96.0,
+				0.0,
+				0.0
+			],
+			[
+				96.0,
+				0.0,
+				16.0
+			],
+			[
+				96.0,
+				0.0,
+				32.0
+			],
+			[
+				96.0,
+				0.0,
+				48.0
+			],
+			[
+				96.0,
+				0.0,
+				64.0
+			],
+			[
+				80.0,
+				0.0,
+				64.0
+			],
+			[
+				64.0,
+				0.0,
+				64.0
+			],
+			[
+				48.0,
+				0.0,
+				64.0
+			],
+			[
+				32.0,
+				0.0,
+				64.0
+			],
+			[
+				16.0,
+				0.0,
+				64.0
+			],
+			[
+				0.0,
+				0.0,
+				64.0
+			],
+			[
+				-16.0,
+				0.0,
+				64.0
+			],
+			[
+				-32.0,
+				0.0,
+				64.0
+			],
+			[
+				-48.0,
+				0.0,
+				64.0
+			],
+			[
+				-64.0,
+				0.0,
+				64.0
+			],
+			[
+				-80.0,
+				0.0,
+				64.0
+			],
+			[
+				-96.0,
+				0.0,
+				64.0
+			],
+			[
+				-96.0,
+				0.0,
+				48.0
+			],
+			[
+				-96.0,
+				0.0,
+				32.0
+			],
+			[
+				-96.0,
+				0.0,
+				16.0
+			],
+			[
+				-96.0,
+				0.0,
+				0.0
+			],
+			[
+				-96.0,
+				0.0,
+				-16.0
+			],
+			[
+				-96.0,
+				0.0,
+				-32.0
+			],
+			[
+				-96.0,
+				0.0,
+				-48.0
+			],
+			[
+				-96.0,
+				0.0,
+				-64.0
+			]
+		],
+		"origin": [
+			-8.0,
+			-2.0,
+			-8.0
+		],
+		"road_width": 16.0,
+		"spawn_slots": [
+			{
+				"forward_offset": 5.0,
+				"lateral_offset": -2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 0.0
+			},
+			{
+				"forward_offset": 5.0,
+				"lateral_offset": 2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 0.0
+			},
+			{
+				"forward_offset": 10.25,
+				"lateral_offset": -2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 0.0
+			},
+			{
+				"forward_offset": 10.25,
+				"lateral_offset": 2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 0.0
+			},
+			{
+				"forward_offset": 15.5,
+				"lateral_offset": -2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 0.0
+			},
+			{
+				"forward_offset": 15.5,
+				"lateral_offset": 2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 0.0
+			},
+			{
+				"forward_offset": 20.75,
+				"lateral_offset": -2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 0.0
+			},
+			{
+				"forward_offset": 20.75,
+				"lateral_offset": 2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 0.0
+			}
+		]
+	},
+	"road_segment_layout": [],
 	"road_segment_material_style": "toy_plastic",
 	"road_segment_profile": "kenney_racing_kit",
-	"road_visual_style": "kenney_segments",
-	"road_width": 15.0,
-	"route_length": 736.597100734711,
+	"road_visual_style": "kenney_gridmap",
+	"road_width": 16.0,
+	"route_length": 640.0,
 	"route_points": [
 		[
-			-108.0,
-			3.34999990463257,
-			-72.0
+			-80.0,
+			0.0,
+			-64.0
 		],
 		[
-			-94.0,
-			3.34999990463257,
-			-78.0
+			-64.0,
+			0.0,
+			-64.0
 		],
 		[
-			-78.0,
-			3.34999990463257,
-			-82.0
+			-48.0,
+			0.0,
+			-64.0
 		],
 		[
-			-60.0,
-			3.34999990463257,
-			-84.0
+			-32.0,
+			0.0,
+			-64.0
 		],
 		[
-			-40.0,
-			3.34999990463257,
-			-83.0
-		],
-		[
-			-20.0,
-			3.34999990463257,
-			-80.0
+			-16.0,
+			0.0,
+			-64.0
 		],
 		[
 			0.0,
-			3.34999990463257,
-			-76.0
+			0.0,
+			-64.0
 		],
 		[
-			24.0,
-			3.34999990463257,
-			-76.0
+			16.0,
+			0.0,
+			-64.0
+		],
+		[
+			32.0,
+			0.0,
+			-64.0
 		],
 		[
 			48.0,
-			3.34999990463257,
-			-78.0
+			0.0,
+			-64.0
 		],
 		[
-			72.0,
-			3.34999990463257,
-			-76.0
+			64.0,
+			0.0,
+			-64.0
 		],
 		[
-			72.0,
-			5.34999990463257,
-			-76.0
-		],
-		[
-			96.0,
-			3.34999990463257,
-			-68.0
+			80.0,
+			0.0,
+			-64.0
 		],
 		[
 			96.0,
-			6.54999971389771,
-			-68.0
+			0.0,
+			-64.0
 		],
 		[
-			116.0,
-			5.34999990463257,
-			-52.0
+			96.0,
+			0.0,
+			-48.0
 		],
 		[
-			128.0,
-			6.54999971389771,
-			-30.0
+			96.0,
+			0.0,
+			-32.0
 		],
 		[
-			128.0,
-			3.34999990463257,
-			-30.0
-		],
-		[
-			132.0,
-			5.34999990463257,
-			-6.0
-		],
-		[
-			132.0,
-			3.34999990463257,
-			-6.0
-		],
-		[
-			130.0,
-			3.34999990463257,
-			18.0
-		],
-		[
-			122.0,
-			3.34999990463257,
-			42.0
-		],
-		[
-			106.0,
-			3.34999990463257,
-			60.0
-		],
-		[
-			84.0,
-			3.34999990463257,
-			72.0
-		],
-		[
-			60.0,
-			3.34999990463257,
-			78.0
-		],
-		[
-			34.0,
-			3.34999990463257,
-			82.0
-		],
-		[
-			8.0,
-			3.34999990463257,
-			82.0
-		],
-		[
-			-18.0,
-			3.34999990463257,
-			80.0
-		],
-		[
-			-18.0,
-			4.54999971389771,
-			80.0
-		],
-		[
-			-44.0,
-			3.34999990463257,
-			76.0
-		],
-		[
-			-70.0,
-			4.54999971389771,
-			68.0
-		],
-		[
-			-70.0,
-			3.34999990463257,
-			68.0
-		],
-		[
-			-94.0,
-			3.34999990463257,
-			54.0
-		],
-		[
-			-114.0,
-			3.34999990463257,
-			34.0
-		],
-		[
-			-126.0,
-			3.34999990463257,
-			10.0
-		],
-		[
-			-130.0,
-			3.34999990463257,
+			96.0,
+			0.0,
 			-16.0
 		],
 		[
-			-126.0,
-			3.34999990463257,
-			-40.0
+			96.0,
+			0.0,
+			0.0
 		],
 		[
-			-116.0,
-			3.34999990463257,
-			-60.0
+			96.0,
+			0.0,
+			16.0
 		],
 		[
-			-104.0,
-			3.34999990463257,
-			-70.0
+			96.0,
+			0.0,
+			32.0
 		],
 		[
-			-112.0,
-			3.34999990463257,
-			-68.0
+			96.0,
+			0.0,
+			48.0
+		],
+		[
+			96.0,
+			0.0,
+			64.0
+		],
+		[
+			80.0,
+			0.0,
+			64.0
+		],
+		[
+			64.0,
+			0.0,
+			64.0
+		],
+		[
+			48.0,
+			0.0,
+			64.0
+		],
+		[
+			32.0,
+			0.0,
+			64.0
+		],
+		[
+			16.0,
+			0.0,
+			64.0
+		],
+		[
+			0.0,
+			0.0,
+			64.0
+		],
+		[
+			-16.0,
+			0.0,
+			64.0
+		],
+		[
+			-32.0,
+			0.0,
+			64.0
+		],
+		[
+			-48.0,
+			0.0,
+			64.0
+		],
+		[
+			-64.0,
+			0.0,
+			64.0
+		],
+		[
+			-80.0,
+			0.0,
+			64.0
+		],
+		[
+			-96.0,
+			0.0,
+			64.0
+		],
+		[
+			-96.0,
+			0.0,
+			48.0
+		],
+		[
+			-96.0,
+			0.0,
+			32.0
+		],
+		[
+			-96.0,
+			0.0,
+			16.0
+		],
+		[
+			-96.0,
+			0.0,
+			0.0
+		],
+		[
+			-96.0,
+			0.0,
+			-16.0
+		],
+		[
+			-96.0,
+			0.0,
+			-32.0
+		],
+		[
+			-96.0,
+			0.0,
+			-48.0
+		],
+		[
+			-96.0,
+			0.0,
+			-64.0
 		]
 	],
 	"runtime_scene_path": "res://assets/gameplay/tracks/attic/attic_track.tscn",
@@ -869,471 +2107,75 @@
 	"spawn_points": [
 		{
 			"position": [
-				-107.409118652344,
-				4.15000009536743,
-				-70.6212844848633
+				-75.0,
+				0.800000011920929,
+				-61.25
 			],
-			"yaw_degrees": 113.198593139648
+			"yaw_degrees": 90.0
 		},
 		{
 			"position": [
-				-108.590881347656,
-				4.15000009536743,
-				-73.3787155151367
+				-75.0,
+				0.800000011920929,
+				-66.75
 			],
-			"yaw_degrees": 113.198593139648
+			"yaw_degrees": 90.0
 		},
 		{
 			"position": [
-				-102.81339263916,
-				4.15000009536743,
-				-72.5908813476563
+				-69.75,
+				0.800000011920929,
+				-61.25
 			],
-			"yaw_degrees": 113.198593139648
+			"yaw_degrees": 90.0
 		},
 		{
 			"position": [
-				-103.995155334473,
-				4.15000009536743,
-				-75.3483123779297
+				-69.75,
+				0.800000011920929,
+				-66.75
 			],
-			"yaw_degrees": 113.198593139648
+			"yaw_degrees": 90.0
 		},
 		{
 			"position": [
-				-98.2176666259766,
-				4.15000009536743,
-				-74.5604782104492
+				-64.5,
+				0.800000011920929,
+				-61.25
 			],
-			"yaw_degrees": 113.198593139648
+			"yaw_degrees": 90.0
 		},
 		{
 			"position": [
-				-99.3994293212891,
-				4.15000009536743,
-				-77.3179092407227
+				-64.5,
+				0.800000011920929,
+				-66.75
 			],
-			"yaw_degrees": 113.198593139648
+			"yaw_degrees": 90.0
 		},
 		{
 			"position": [
-				-93.621940612793,
-				4.15000009536743,
-				-76.5300750732422
+				-59.25,
+				0.800000011920929,
+				-61.25
 			],
-			"yaw_degrees": 113.198593139648
+			"yaw_degrees": 90.0
 		},
 		{
 			"position": [
-				-94.8037033081055,
-				4.15000009536743,
-				-79.2875061035156
+				-59.25,
+				0.800000011920929,
+				-66.75
 			],
-			"yaw_degrees": 113.198593139648
+			"yaw_degrees": 90.0
 		}
 	],
-	"stage_props": [
-		{
-			"asset_path": "",
-			"audio_material_id": "cardboard",
-			"box_color": [
-				0.579999983310699,
-				0.419999986886978,
-				0.239999994635582,
-				1.0
-			],
-			"box_size": [
-				28.0,
-				20.0,
-				28.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "attic_landmark",
-			"id": "BoxMazeA",
-			"kind": "box",
-			"position": [
-				-104.0,
-				-4.0,
-				-28.0
-			],
-			"scale": [
-				1.0,
-				1.0,
-				1.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"asset_path": "",
-			"audio_material_id": "cardboard",
-			"box_color": [
-				0.5,
-				0.360000014305115,
-				0.200000002980232,
-				1.0
-			],
-			"box_size": [
-				34.0,
-				24.0,
-				26.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "attic_landmark",
-			"id": "BoxMazeB",
-			"kind": "box",
-			"position": [
-				86.0,
-				-4.0,
-				34.0
-			],
-			"scale": [
-				1.0,
-				1.0,
-				1.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"asset_path": "res://assets/gameplay/tracks/attic/props/industrial_object.glb",
-			"audio_material_id": "metal",
-			"box_color": [
-				0.75,
-				0.720000028610229,
-				0.639999985694885,
-				1.0
-			],
-			"box_size": [
-				1.0,
-				1.0,
-				1.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "attic_landmark",
-			"id": "IndustrialObjectMeshy",
-			"kind": "scene",
-			"position": [
-				-80.3456954956055,
-				56.2006530761719,
-				-0.868645668029785
-			],
-			"scale": [
-				8.99639987945557,
-				9.0,
-				8.99639987945557
-			],
-			"yaw_degrees": -36.0166511535645
-		},
-		{
-			"asset_path": "res://assets/gameplay/tracks/attic/props/industrial_object.glb",
-			"audio_material_id": "metal",
-			"box_color": [
-				0.75,
-				0.720000028610229,
-				0.639999985694885,
-				1.0
-			],
-			"box_size": [
-				1.0,
-				1.0,
-				1.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "attic_landmark",
-			"id": "IndustrialObjectMeshy",
-			"kind": "scene",
-			"position": [
-				39.6360168457031,
-				56.2006530761719,
-				-0.868645668029785
-			],
-			"scale": [
-				8.99639987945557,
-				9.0,
-				8.99639987945557
-			],
-			"yaw_degrees": -36.0166511535645
-		},
-		{
-			"asset_path": "uid://ckjdv8gqg00j0",
-			"audio_material_id": "wood",
-			"box_color": [
-				0.75,
-				0.720000028610229,
-				0.639999985694885,
-				1.0
-			],
-			"box_size": [
-				1.0,
-				1.0,
-				1.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "toy_setpiece",
-			"id": "JackInTheBoxSetpiece",
-			"kind": "scene",
-			"position": [
-				106.0,
-				1.60000193119049,
-				34.0
-			],
-			"scale": [
-				2.80000019073486,
-				2.79999995231628,
-				2.80000019073486
-			],
-			"yaw_degrees": -109.527984619141
-		},
-		{
-			"asset_path": "uid://8p6ngnse0snf",
-			"audio_material_id": "wood",
-			"box_color": [
-				0.75,
-				0.720000028610229,
-				0.639999985694885,
-				1.0
-			],
-			"box_size": [
-				1.0,
-				1.0,
-				1.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "attic_clutter",
-			"id": "KenneyCrateStackA",
-			"kind": "scene",
-			"position": [
-				118.0,
-				-5.0,
-				74.0
-			],
-			"scale": [
-				10.0000009536743,
-				10.0,
-				10.0000009536743
-			],
-			"yaw_degrees": -12.0000114440918
-		},
-		{
-			"asset_path": "res://assets/gameplay/tracks/attic/kenney/kenney_detail_crate.glb",
-			"audio_material_id": "wood",
-			"box_color": [
-				0.75,
-				0.720000028610229,
-				0.639999985694885,
-				1.0
-			],
-			"box_size": [
-				1.0,
-				1.0,
-				1.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "attic_clutter",
-			"id": "KenneyCrateStackB",
-			"kind": "scene",
-			"position": [
-				-92.0,
-				-5.0,
-				-30.0
-			],
-			"scale": [
-				12.0000009536743,
-				12.0,
-				12.0000009536743
-			],
-			"yaw_degrees": 24.0000286102295
-		},
-		{
-			"asset_path": "res://assets/gameplay/tracks/attic/props/old_chest.glb",
-			"audio_material_id": "wood",
-			"box_color": [
-				0.75,
-				0.720000028610229,
-				0.639999985694885,
-				1.0
-			],
-			"box_size": [
-				1.0,
-				1.0,
-				1.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "attic_landmark",
-			"id": "OldChestMeshy",
-			"kind": "scene",
-			"position": [
-				92.0,
-				-5.0,
-				54.0
-			],
-			"scale": [
-				14.9999990463257,
-				15.0,
-				14.9999990463257
-			],
-			"yaw_degrees": 17.9999904632568
-		},
-		{
-			"asset_path": "",
-			"audio_material_id": "wood",
-			"box_color": [
-				0.239999994635582,
-				0.140000000596046,
-				0.0799999982118607,
-				1.0
-			],
-			"box_size": [
-				46.0,
-				18.0,
-				24.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "attic_landmark",
-			"id": "OldTrunk",
-			"kind": "box",
-			"position": [
-				10.0,
-				-5.0,
-				62.0
-			],
-			"scale": [
-				1.0,
-				1.0,
-				1.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"asset_path": "",
-			"audio_material_id": "fabric",
-			"box_color": [
-				0.899999976158142,
-				0.819999992847443,
-				0.620000004768372,
-				1.0
-			],
-			"box_size": [
-				1.0,
-				30.0,
-				1.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "attic_landmark",
-			"id": "PullCord",
-			"kind": "box",
-			"position": [
-				64.0,
-				15.0,
-				-48.0
-			],
-			"scale": [
-				1.0,
-				1.0,
-				1.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"asset_path": "",
-			"audio_material_id": "wood",
-			"box_color": [
-				0.340000003576279,
-				0.200000002980232,
-				0.100000001490116,
-				1.0
-			],
-			"box_size": [
-				112.0,
-				2.20000004768372,
-				12.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "ramp",
-			"id": "RafterBranch",
-			"kind": "box",
-			"position": [
-				0.0,
-				10.0,
-				-8.0
-			],
-			"scale": [
-				1.0,
-				1.0,
-				1.0
-			],
-			"yaw_degrees": 0.0
-		},
-		{
-			"asset_path": "",
-			"audio_material_id": "wood",
-			"box_color": [
-				0.550000011920929,
-				0.159999996423721,
-				0.119999997317791,
-				1.0
-			],
-			"box_size": [
-				18.0,
-				10.0,
-				10.0
-			],
-			"collision_mode": "visual",
-			"gameplay_tag": "toy_blocks",
-			"id": "WindowToyBlocks",
-			"kind": "box",
-			"position": [
-				128.0,
-				-6.5,
-				20.0
-			],
-			"scale": [
-				1.0,
-				1.0,
-				1.0
-			],
-			"yaw_degrees": 0.0
-		}
-	],
-	"surface_segments": [
-		{
-			"end_route_index": 20,
-			"id": "attic_feature_surface",
-			"position": [
-				70.0,
-				3.54999995231628,
-				50.0
-			],
-			"start_route_index": 11,
-			"surface_audio_id": "attic_secondary",
-			"surface_material_id": "wood_feature"
-		},
-		{
-			"end_route_index": 31,
-			"id": "attic_return_surface",
-			"position": [
-				-80.0,
-				3.54999995231628,
-				10.0
-			],
-			"start_route_index": 21,
-			"surface_audio_id": "attic_primary",
-			"surface_material_id": "wood"
-		},
-		{
-			"end_route_index": 10,
-			"id": "attic_start_surface",
-			"position": [
-				-30.0,
-				3.54999995231628,
-				-70.0
-			],
-			"start_route_index": 0,
-			"surface_audio_id": "attic_primary",
-			"surface_material_id": "wood"
-		}
-	],
+	"stage_props": [],
+	"surface_segments": [],
 	"track_id": "attic",
-	"version": "attic_mayhem_v1_2026_05_05",
-	"wall_height": 1.6,
-	"wall_thickness": 0.45
+	"track_source_id": "road_grid_map",
+	"version": "attic_gridmap_v1_2026_05_09",
+	"wall_height": 3.0,
+	"wall_thickness": 0.6,
+	"win_condition_id": "checkpoint_laps"
 }
