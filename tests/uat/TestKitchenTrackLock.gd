@@ -4,7 +4,6 @@ const RaceScene = preload("res://scenes/Race.tscn")
 const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
 const TrackSceneAuthoringData = preload("res://scripts/track/TrackSceneAuthoringData.gd")
 
-const ROUTE_RAY_SAMPLE_INDICES := [0, 2, 17, 36, 57, 72, 96, 118, 136, 151, 170]
 const START_SUPPORT_MIN_Y_OFFSET := -1.5
 const START_SUPPORT_MAX_Y_OFFSET := 6.0
 
@@ -87,8 +86,7 @@ func _route_samples_hit_road(instance: Node, definition) -> bool:
 	if road_body == null:
 		return false
 	var space := (instance as Node3D).get_world_3d().direct_space_state
-	for index_value in ROUTE_RAY_SAMPLE_INDICES:
-		var index := clampi(int(index_value), 0, route.size() - 1)
+	for index in _route_ray_sample_indices(route.size(), 12):
 		var point := route[index]
 		var query := PhysicsRayQueryParameters3D.create(point + Vector3.UP * 12.0, point + Vector3.DOWN * 12.0, 1)
 		query.collide_with_areas = false
@@ -98,6 +96,17 @@ func _route_samples_hit_road(instance: Node, definition) -> bool:
 		if hit.get("collider", null) != road_body:
 			return false
 	return true
+
+func _route_ray_sample_indices(route_size: int, sample_count: int) -> Array[int]:
+	var out: Array[int] = []
+	if route_size <= 0:
+		return out
+	var count := mini(route_size, sample_count)
+	for i in range(count):
+		var index := clampi(roundi(float(i) * float(route_size - 1) / float(maxi(count - 1, 1))), 0, route_size - 1)
+		if not out.has(index):
+			out.append(index)
+	return out
 
 func _ray_hits_any_track_collision(root: Node, from: Vector3, distance: float) -> bool:
 	var space := (root as Node3D).get_world_3d().direct_space_state

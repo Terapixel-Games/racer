@@ -6,8 +6,12 @@ const RaceController = preload("res://scripts/RaceController.gd")
 
 func test_projection_progress_increases_along_route() -> void:
 	var definition := TrackCatalog.get_definition("kitchen")
-	var near_start := TrackProgressRules.project_position(definition.route_points, Vector3(-86, 3.0, -76), true)
-	var later := TrackProgressRules.project_position(definition.route_points, Vector3(116, 3.0, -18), true)
+	var route: Array[Vector3] = definition.route_points
+	assert_true(route.size() >= 12, "Kitchen route should expose enough points for projection ordering")
+	if route.size() < 12:
+		return
+	var near_start := TrackProgressRules.project_position(route, route[2], true)
+	var later := TrackProgressRules.project_position(route, route[10], true)
 	assert_true(float(later.get("distance", 0.0)) > float(near_start.get("distance", 0.0)), "Projected route distance should increase along the route")
 
 func test_sample_route_at_distance_returns_position_and_tangent() -> void:

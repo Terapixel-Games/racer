@@ -104,6 +104,23 @@ func test_road_grid_map_ignores_stray_painted_cells_when_generating_route() -> v
 	assert_true(not grid.ordered_route_cells.has(Vector3i(8, 0, 8)), "Generated route should ignore stray painted cells")
 	grid.free()
 
+func test_road_grid_map_generates_route_metadata_through_large_corner() -> void:
+	var grid := RoadGridMapAuthoring.new()
+	grid.set_cell_item(Vector3i(0, 0, 0), 4, 16)
+	grid.set_cell_item(Vector3i(2, 0, 0), 1, 10)
+	grid.set_cell_item(Vector3i(2, 0, -1), 0, 0)
+	grid.set_cell_item(Vector3i(2, 0, -2), 1, 2)
+	grid.set_cell_item(Vector3i(1, 0, -2), 0, 22)
+	grid.set_cell_item(Vector3i(0, 0, -2), 1, 0)
+
+	var result := grid.regenerate_route_metadata_from_painted_track(3)
+
+	assert_true(bool(result.get("success", false)), "Painted loops should regenerate when a large corner connects two cells away")
+	assert_equal(grid.ordered_route_cells.size(), 6, "Generated route should include the large corner anchor plus connected route cells")
+	assert_true(grid.ordered_route_cells.has(Vector3i(0, 0, 0)), "Generated route should include the large corner anchor")
+	assert_true(_route_cells_allow_large_corner_step(grid.ordered_route_cells), "Generated route should allow a single two-cell step through the large corner")
+	grid.free()
+
 func test_grid_layout_uses_authored_spawn_slots() -> void:
 	var route: Array[Vector3] = [Vector3.ZERO, Vector3(10.0, 0.0, 0.0), Vector3(20.0, 0.0, 0.0)]
 	var layout := {"road_width": 12.0, "spawn_slots": _spawn_slot_layouts(8)}
@@ -378,6 +395,21 @@ func _route_cells_are_continuous_loop(cells: Array[Vector3i]) -> bool:
 		if abs(delta.y) > 1:
 			return false
 	return true
+
+func _route_cells_allow_large_corner_step(cells: Array[Vector3i]) -> bool:
+	var two_cell_steps := 0
+	for i in range(cells.size()):
+		var current := cells[i]
+		var next := cells[(i + 1) % cells.size()]
+		var delta := next - current
+		var horizontal_distance: int = abs(delta.x) + abs(delta.z)
+		if horizontal_distance == 2:
+			two_cell_steps += 1
+		elif horizontal_distance != 1:
+			return false
+		if abs(delta.y) > 1:
+			return false
+	return two_cell_steps == 2
 
 func _transformed_mesh_aabb(mesh: Mesh, transform: Transform3D) -> AABB:
 	if mesh == null:

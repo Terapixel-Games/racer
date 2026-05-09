@@ -110,6 +110,28 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(_runtime_spawn_matches_socket(instance, "BuiltTrack/SpawnPoints/Start08", definition.spawn_points[7]), "Generated Start08 should match the eighth RoadGridMap-authored slot")
 	instance.queue_free()
 
+func test_kitchen_road_gridmap_route_metadata_matches_painted_track() -> void:
+	var packed := load("res://assets/gameplay/tracks/kitchen/kitchen_editable_room.tscn") as PackedScene
+	assert_true(packed != null, "Kitchen editable scene should load")
+	if packed == null:
+		return
+	var root := packed.instantiate()
+	var grid := root.find_child("RoadGridMap", true, false)
+	assert_true(grid != null and grid.has_method("route_cells_from_painted_track"), "Kitchen editable scene should expose RoadGridMap route generation")
+	if grid == null or not grid.has_method("route_cells_from_painted_track"):
+		root.queue_free()
+		return
+	var painted_route: Array = grid.call("route_cells_from_painted_track") as Array
+	var authored_route: Array = grid.get("ordered_route_cells") as Array
+	assert_true(painted_route.size() >= 4, "Kitchen painted GridMap should resolve to a closed route")
+	assert_equal(authored_route.size(), painted_route.size(), "Kitchen ordered route metadata should match the regenerated painted route length")
+	assert_true(_vector3i_arrays_equal(authored_route, painted_route), "Kitchen ordered route metadata should come from the current painted RoadGridMap")
+
+	var definition := TrackCatalog.get_definition("kitchen")
+	var resolved_route: Array = definition.road_grid_layout.get("ordered_route_cells", []) as Array
+	assert_true(_vector3i_arrays_equal(resolved_route, authored_route), "TrackCatalog should resolve Kitchen gameplay from the editable RoadGridMap route")
+	root.queue_free()
+
 func test_outdoor_playground_runtime_uses_grass_shader() -> void:
 	var definition := TrackSceneAuthoringData.apply_to_definition(TrackCatalog.get_definition("outdoor_playground"))
 	assert_true(definition != null, "Outdoor Playground definition should load")
@@ -463,15 +485,15 @@ func _grid_road_corner_orientations_match_route(grid: GridMap, definition) -> bo
 		var previous := cells[(i - 1 + cells.size()) % cells.size()] as Vector3i
 		var current := cells[i] as Vector3i
 		var next := cells[(i + 1) % cells.size()] as Vector3i
-		var incoming := current - previous
-		var outgoing := next - current
-		incoming.y = 0
-		outgoing.y = 0
+		var incoming := _cardinal_direction(current - previous)
+		var outgoing := _cardinal_direction(next - current)
 		if incoming == outgoing:
 			continue
 		if incoming == Vector3i.ZERO or outgoing == Vector3i.ZERO:
 			continue
 		corner_count += 1
+		if grid.get_cell_item(current) == 4:
+			continue
 		if not expected.has(incoming):
 			return false
 		var outgoing_map := expected[incoming] as Dictionary
@@ -480,6 +502,13 @@ func _grid_road_corner_orientations_match_route(grid: GridMap, definition) -> bo
 		if grid.get_cell_item_orientation(current) != int(outgoing_map[outgoing]):
 			return false
 	return corner_count >= 4
+
+func _cardinal_direction(delta: Vector3i) -> Vector3i:
+	if abs(delta.x) >= abs(delta.z) and delta.x != 0:
+		return Vector3i(1 if delta.x > 0 else -1, 0, 0)
+	if delta.z != 0:
+		return Vector3i(0, 0, 1 if delta.z > 0 else -1)
+	return Vector3i.ZERO
 
 func _grid_road_straight_tile_spans_cell(grid: GridMap) -> bool:
 	if grid == null or grid.mesh_library == null:
@@ -697,3 +726,13 @@ func _vector2_from_value(value: Variant) -> Vector2:
 	if value is Array and value.size() >= 2:
 		return Vector2(float(value[0]), float(value[1]))
 	return Vector2.ZERO
+
+func _vector3i_arrays_equal(left: Array, right: Array) -> bool:
+	if left.size() != right.size():
+		return false
+	for i in range(left.size()):
+		if not (left[i] is Vector3i) or not (right[i] is Vector3i):
+			return false
+		if (left[i] as Vector3i) != (right[i] as Vector3i):
+			return false
+	return true

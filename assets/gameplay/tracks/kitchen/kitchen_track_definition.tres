@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="TrackDefinition" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="TrackDefinition" load_steps=2 format=3 uid="uid://blk173st3rfyg"]
 
-[ext_resource type="Script" path="res://scripts/track/TrackDefinition.gd" id="1"]
+[ext_resource type="Script" uid="uid://dndccbxb7m7sa" path="res://scripts/track/TrackDefinition.gd" id="1"]
 
 [resource]
 script = ExtResource("1")
@@ -23,647 +23,347 @@ road_grid_layout = {
 "basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
 "cell_size": Vector3(16, 4, 16),
 "cells": Array[Dictionary]([{
-"cell": Vector3i(-17, 0, -11),
+"cell": Vector3i(-17, -1, -11),
 "item": 1,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-264, 29.775, -168)
+"position": Vector3(-264, 25.775, -168)
 }, {
-"cell": Vector3i(-16, 0, -11),
+"cell": Vector3i(-16, -1, -11),
 "item": 0,
 "orientation": 22,
 "orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-248, 29.775, -168)
+"position": Vector3(-248, 25.775, -168)
 }, {
-"cell": Vector3i(-15, 0, -11),
+"cell": Vector3i(-15, -1, -11),
 "item": 0,
 "orientation": 22,
 "orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-232, 29.775, -168)
+"position": Vector3(-232, 25.775, -168)
 }, {
-"cell": Vector3i(-14, 0, -11),
+"cell": Vector3i(-14, -1, -11),
 "item": 0,
 "orientation": 22,
 "orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-216, 29.775, -168)
+"position": Vector3(-216, 25.775, -168)
 }, {
-"cell": Vector3i(-13, 0, -11),
+"cell": Vector3i(-13, -1, -11),
 "item": 0,
 "orientation": 22,
 "orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-200, 29.775, -168)
+"position": Vector3(-200, 25.775, -168)
 }, {
-"cell": Vector3i(-12, 0, -11),
+"cell": Vector3i(-12, -1, -11),
 "item": 0,
 "orientation": 22,
 "orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-184, 29.775, -168)
+"position": Vector3(-184, 25.775, -168)
 }, {
-"cell": Vector3i(-11, 0, -11),
+"cell": Vector3i(-11, -1, -11),
 "item": 0,
 "orientation": 22,
 "orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-168, 29.775, -168)
+"position": Vector3(-168, 25.775, -168)
 }, {
-"cell": Vector3i(-10, 0, -11),
+"cell": Vector3i(-10, -1, -11),
 "item": 0,
 "orientation": 22,
 "orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-152, 29.775, -168)
+"position": Vector3(-152, 25.775, -168)
 }, {
-"cell": Vector3i(-9, 0, -11),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-136, 29.775, -168)
-}, {
-"cell": Vector3i(-8, 0, -11),
-"item": 2,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-120, 29.775, -168)
-}, {
-"cell": Vector3i(-7, 0, -11),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-104, 29.775, -168)
-}, {
-"cell": Vector3i(-6, 0, -11),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-88, 29.775, -168)
-}, {
-"cell": Vector3i(-5, 0, -11),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-72, 29.775, -168)
-}, {
-"cell": Vector3i(-4, 0, -11),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-56, 29.775, -168)
-}, {
-"cell": Vector3i(-3, 0, -11),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-40, 29.775, -168)
-}, {
-"cell": Vector3i(-2, -1, -11),
-"item": 5,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(-24, 25.775, -168)
-}, {
-"cell": Vector3i(-1, -1, -11),
-"item": 0,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(-8, 25.775, -168)
-}, {
-"cell": Vector3i(0, -2, -11),
-"item": 5,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(8, 21.775, -168)
-}, {
-"cell": Vector3i(1, -3, -11),
-"item": 5,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(24, 17.775, -168)
-}, {
-"cell": Vector3i(2, -3, -11),
+"cell": Vector3i(-9, -1, -11),
 "item": 1,
 "orientation": 22,
 "orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(40, 17.775, -168)
+"position": Vector3(-136, 25.775, -168)
 }, {
-"cell": Vector3i(-17, 0, -10),
+"cell": Vector3i(-17, -1, -10),
 "item": 0,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-264, 29.775, -152)
+"position": Vector3(-264, 25.775, -152)
 }, {
-"cell": Vector3i(2, -3, -10),
+"cell": Vector3i(-9, -1, -10),
 "item": 0,
 "orientation": 10,
 "orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(40, 17.775, -152)
+"position": Vector3(-136, 25.775, -152)
 }, {
-"cell": Vector3i(-17, 0, -9),
+"cell": Vector3i(-17, -1, -9),
 "item": 0,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-264, 29.775, -136)
+"position": Vector3(-264, 25.775, -136)
 }, {
-"cell": Vector3i(2, -3, -9),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(40, 17.775, -136)
-}, {
-"cell": Vector3i(7, -12, -9),
-"item": 1,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(120, -18.225, -136)
-}, {
-"cell": Vector3i(8, -12, -9),
-"item": 5,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(136, -18.225, -136)
-}, {
-"cell": Vector3i(9, -11, -9),
-"item": 5,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(152, -14.225, -136)
-}, {
-"cell": Vector3i(10, -10, -9),
-"item": 5,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(168, -10.225, -136)
-}, {
-"cell": Vector3i(11, -9, -9),
-"item": 5,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(184, -6.2250004, -136)
-}, {
-"cell": Vector3i(11, -4, -9),
-"item": 1,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(184, 13.775, -136)
-}, {
-"cell": Vector3i(12, -8, -9),
-"item": 5,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(200, -2.2250004, -136)
-}, {
-"cell": Vector3i(12, -4, -9),
-"item": 5,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(200, 13.775, -136)
-}, {
-"cell": Vector3i(13, -7, -9),
-"item": 5,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(216, 1.7749996, -136)
-}, {
-"cell": Vector3i(13, -3, -9),
-"item": 5,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(216, 17.775, -136)
-}, {
-"cell": Vector3i(14, -6, -9),
-"item": 1,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(232, 5.7749996, -136)
-}, {
-"cell": Vector3i(14, -2, -9),
-"item": 5,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(232, 21.775, -136)
-}, {
-"cell": Vector3i(15, -1, -9),
-"item": 5,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(248, 25.775, -136)
-}, {
-"cell": Vector3i(16, 0, -9),
-"item": 1,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(264, 29.775, -136)
-}, {
-"cell": Vector3i(-17, 0, -8),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-264, 29.775, -120)
-}, {
-"cell": Vector3i(2, -3, -8),
+"cell": Vector3i(-9, -1, -9),
 "item": 0,
 "orientation": 10,
 "orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(40, 17.775, -120)
+"position": Vector3(-136, 25.775, -136)
 }, {
-"cell": Vector3i(7, -12, -8),
+"cell": Vector3i(-17, -1, -8),
 "item": 0,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(120, -18.225, -120)
+"position": Vector3(-264, 25.775, -120)
 }, {
-"cell": Vector3i(11, -4, -8),
+"cell": Vector3i(-9, -2, -8),
+"item": 5,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-136, 21.775, -120)
+}, {
+"cell": Vector3i(-17, -1, -7),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-264, 25.775, -104)
+}, {
+"cell": Vector3i(-9, -3, -7),
+"item": 5,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-136, 17.775, -104)
+}, {
+"cell": Vector3i(-17, -1, -6),
 "item": 1,
 "orientation": 16,
 "orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(184, 13.775, -120)
+"position": Vector3(-264, 25.775, -88)
 }, {
-"cell": Vector3i(12, -5, -8),
-"item": 5,
+"cell": Vector3i(-16, -1, -6),
+"item": 0,
 "orientation": 16,
 "orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(200, 9.775, -120)
+"position": Vector3(-248, 25.775, -88)
 }, {
-"cell": Vector3i(13, -6, -8),
-"item": 5,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(216, 5.7749996, -120)
-}, {
-"cell": Vector3i(14, -6, -8),
-"item": 1,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(232, 5.7749996, -120)
-}, {
-"cell": Vector3i(16, 0, -8),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(264, 29.775, -120)
-}, {
-"cell": Vector3i(-17, 0, -7),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-264, 29.775, -104)
-}, {
-"cell": Vector3i(2, -3, -7),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(40, 17.775, -104)
-}, {
-"cell": Vector3i(7, -12, -7),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(120, -18.225, -104)
-}, {
-"cell": Vector3i(16, 0, -7),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(264, 29.775, -104)
-}, {
-"cell": Vector3i(-17, 0, -6),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-264, 29.775, -88)
-}, {
-"cell": Vector3i(2, -3, -6),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(40, 17.775, -88)
-}, {
-"cell": Vector3i(7, -12, -6),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(120, -18.225, -88)
-}, {
-"cell": Vector3i(16, 0, -6),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(264, 29.775, -88)
-}, {
-"cell": Vector3i(-17, 0, -5),
-"item": 1,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(-264, 29.775, -72)
-}, {
-"cell": Vector3i(-16, 0, -5),
+"cell": Vector3i(-15, -1, -6),
 "item": 1,
 "orientation": 22,
 "orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-248, 29.775, -72)
+"position": Vector3(-232, 25.775, -88)
 }, {
-"cell": Vector3i(2, -3, -5),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(40, 17.775, -72)
-}, {
-"cell": Vector3i(7, -12, -5),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(120, -18.225, -72)
-}, {
-"cell": Vector3i(16, 0, -5),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(264, 29.775, -72)
-}, {
-"cell": Vector3i(-16, 0, -4),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-248, 29.775, -56)
-}, {
-"cell": Vector3i(2, -3, -4),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(40, 17.775, -56)
-}, {
-"cell": Vector3i(7, -12, -4),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(120, -18.225, -56)
-}, {
-"cell": Vector3i(16, 0, -4),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(264, 29.775, -56)
-}, {
-"cell": Vector3i(-16, 0, -3),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-248, 29.775, -40)
-}, {
-"cell": Vector3i(2, -3, -3),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(40, 17.775, -40)
-}, {
-"cell": Vector3i(7, -12, -3),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(120, -18.225, -40)
-}, {
-"cell": Vector3i(16, 0, -3),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(264, 29.775, -40)
-}, {
-"cell": Vector3i(-17, 0, -2),
-"item": 1,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-264, 29.775, -24)
-}, {
-"cell": Vector3i(-16, 0, -2),
-"item": 1,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(-248, 29.775, -24)
-}, {
-"cell": Vector3i(-1, -11, -2),
-"item": 1,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-8, -14.225, -24)
-}, {
-"cell": Vector3i(0, -11, -2),
+"cell": Vector3i(-9, -4, -6),
 "item": 5,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(8, -14.225, -24)
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-136, 13.775, -88)
 }, {
-"cell": Vector3i(0, -5, -2),
+"cell": Vector3i(-15, -1, -5),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-232, 25.775, -72)
+}, {
+"cell": Vector3i(-9, -5, -5),
+"item": 5,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-136, 9.775, -72)
+}, {
+"cell": Vector3i(-15, -1, -4),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-232, 25.775, -56)
+}, {
+"cell": Vector3i(-9, -6, -4),
+"item": 5,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-136, 5.7749996, -56)
+}, {
+"cell": Vector3i(-15, -1, -3),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-232, 25.775, -40)
+}, {
+"cell": Vector3i(-9, -7, -3),
+"item": 5,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-136, 1.7749996, -40)
+}, {
+"cell": Vector3i(-15, -1, -2),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-232, 25.775, -24)
+}, {
+"cell": Vector3i(-9, -8, -2),
+"item": 5,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-136, -2.2250004, -24)
+}, {
+"cell": Vector3i(-17, -1, -1),
 "item": 1,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(8, 9.775, -24)
+"position": Vector3(-264, 25.775, -8)
 }, {
-"cell": Vector3i(1, -10, -2),
-"item": 1,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(24, -10.225, -24)
-}, {
-"cell": Vector3i(1, -6, -2),
-"item": 5,
+"cell": Vector3i(-16, -1, -1),
+"item": 0,
 "orientation": 16,
 "orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(24, 5.7749996, -24)
+"position": Vector3(-248, 25.775, -8)
 }, {
-"cell": Vector3i(2, -6, -2),
+"cell": Vector3i(-15, -1, -1),
 "item": 1,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
+"position": Vector3(-232, 25.775, -8)
+}, {
+"cell": Vector3i(-9, -9, -1),
+"item": 5,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-136, -6.2250004, -8)
+}, {
+"cell": Vector3i(-2, -1, -1),
+"item": 1,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-24, 25.775, -8)
+}, {
+"cell": Vector3i(-1, -1, -1),
+"item": 0,
 "orientation": 22,
 "orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(40, 5.7749996, -24)
+"position": Vector3(-8, 25.775, -8)
 }, {
-"cell": Vector3i(2, -3, -2),
+"cell": Vector3i(0, -1, -1),
 "item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(40, 17.775, -24)
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"position": Vector3(8, 25.775, -8)
 }, {
-"cell": Vector3i(7, -12, -2),
+"cell": Vector3i(1, -1, -1),
 "item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(120, -18.225, -24)
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"position": Vector3(24, 25.775, -8)
 }, {
-"cell": Vector3i(16, 0, -2),
+"cell": Vector3i(2, -1, -1),
 "item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(264, 29.775, -24)
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"position": Vector3(40, 25.775, -8)
 }, {
-"cell": Vector3i(-17, 0, -1),
+"cell": Vector3i(3, -1, -1),
 "item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-264, 29.775, -8)
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"position": Vector3(56, 25.775, -8)
 }, {
-"cell": Vector3i(-1, -11, -1),
-"item": 1,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(-8, -14.225, -8)
+"cell": Vector3i(4, -1, -1),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"position": Vector3(72, 25.775, -8)
 }, {
-"cell": Vector3i(0, -12, -1),
-"item": 5,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(8, -18.225, -8)
+"cell": Vector3i(5, -1, -1),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"position": Vector3(88, 25.775, -8)
 }, {
-"cell": Vector3i(0, -5, -1),
-"item": 5,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(8, 9.775, -8)
+"cell": Vector3i(6, -1, -1),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"position": Vector3(104, 25.775, -8)
 }, {
-"cell": Vector3i(1, -12, -1),
+"cell": Vector3i(7, -1, -1),
 "item": 1,
 "orientation": 22,
 "orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(24, -18.225, -8)
+"position": Vector3(120, 25.775, -8)
 }, {
-"cell": Vector3i(1, -10, -1),
+"cell": Vector3i(-17, -1, 0),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-264, 25.775, 8)
+}, {
+"cell": Vector3i(-9, -10, 0),
 "item": 5,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(24, -10.225, -8)
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-136, -10.225, 8)
 }, {
-"cell": Vector3i(2, -7, -1),
+"cell": Vector3i(-2, -1, 0),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-24, 25.775, 8)
+}, {
+"cell": Vector3i(7, -1, 0),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(120, 25.775, 8)
+}, {
+"cell": Vector3i(-17, -1, 1),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-264, 25.775, 24)
+}, {
+"cell": Vector3i(-9, -11, 1),
 "item": 5,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(40, 1.7749996, -8)
+"position": Vector3(-136, -14.225, 24)
 }, {
-"cell": Vector3i(2, -3, -1),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(40, 17.775, -8)
-}, {
-"cell": Vector3i(7, -12, -1),
+"cell": Vector3i(-2, -1, 1),
 "item": 0,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(120, -18.225, -8)
+"position": Vector3(-24, 25.775, 24)
 }, {
-"cell": Vector3i(16, 0, -1),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(264, 29.775, -8)
-}, {
-"cell": Vector3i(-17, 0, 0),
+"cell": Vector3i(7, -1, 1),
 "item": 0,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-264, 29.775, 8)
+"position": Vector3(120, 25.775, 24)
 }, {
-"cell": Vector3i(0, -4, 0),
+"cell": Vector3i(-17, -1, 2),
 "item": 1,
 "orientation": 16,
 "orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(8, 13.775, 8)
+"position": Vector3(-264, 25.775, 40)
 }, {
-"cell": Vector3i(1, -12, 0),
+"cell": Vector3i(-16, -1, 2),
 "item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(24, -18.225, 8)
+"orientation": 16,
+"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
+"position": Vector3(-248, 25.775, 40)
 }, {
-"cell": Vector3i(1, -9, 0),
-"item": 5,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(24, -6.2250004, 8)
-}, {
-"cell": Vector3i(1, -4, 0),
-"item": 5,
+"cell": Vector3i(-15, -1, 2),
+"item": 1,
 "orientation": 22,
 "orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(24, 13.775, 8)
+"position": Vector3(-232, 25.775, 40)
 }, {
-"cell": Vector3i(2, -8, 0),
+"cell": Vector3i(-9, -12, 2),
 "item": 5,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(40, -2.2250004, 8)
+"position": Vector3(-136, -18.225, 40)
 }, {
-"cell": Vector3i(2, -3, 0),
-"item": 1,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(40, 17.775, 8)
-}, {
-"cell": Vector3i(7, -12, 0),
+"cell": Vector3i(-2, -1, 2),
 "item": 0,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(120, -18.225, 8)
+"position": Vector3(-24, 25.775, 40)
 }, {
-"cell": Vector3i(16, 0, 0),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(264, 29.775, 8)
-}, {
-"cell": Vector3i(-17, 0, 1),
+"cell": Vector3i(7, -1, 2),
 "item": 0,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-264, 29.775, 24)
-}, {
-"cell": Vector3i(1, -12, 1),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(24, -18.225, 24)
-}, {
-"cell": Vector3i(1, -8, 1),
-"item": 1,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(24, -2.2250004, 24)
-}, {
-"cell": Vector3i(2, -8, 1),
-"item": 1,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(40, -2.2250004, 24)
-}, {
-"cell": Vector3i(7, -12, 1),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(120, -18.225, 24)
-}, {
-"cell": Vector3i(16, 0, 1),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(264, 29.775, 24)
-}, {
-"cell": Vector3i(-17, 0, 2),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-264, 29.775, 40)
-}, {
-"cell": Vector3i(1, -12, 2),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(24, -18.225, 40)
-}, {
-"cell": Vector3i(7, -12, 2),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(120, -18.225, 40)
-}, {
-"cell": Vector3i(16, 0, 2),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(264, 29.775, 40)
+"position": Vector3(120, 25.775, 40)
 }, {
 "cell": Vector3i(-17, 0, 3),
 "item": 0,
@@ -671,23 +371,29 @@ road_grid_layout = {
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
 "position": Vector3(-264, 29.775, 56)
 }, {
-"cell": Vector3i(1, -12, 3),
+"cell": Vector3i(-15, -1, 3),
 "item": 0,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(24, -18.225, 56)
+"position": Vector3(-232, 25.775, 56)
 }, {
-"cell": Vector3i(7, -12, 3),
+"cell": Vector3i(-9, -12, 3),
 "item": 0,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(120, -18.225, 56)
+"position": Vector3(-136, -18.225, 56)
 }, {
-"cell": Vector3i(16, 0, 3),
+"cell": Vector3i(-2, -1, 3),
 "item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(264, 29.775, 56)
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-24, 25.775, 56)
+}, {
+"cell": Vector3i(7, -1, 3),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(120, 25.775, 56)
 }, {
 "cell": Vector3i(-17, 0, 4),
 "item": 1,
@@ -695,438 +401,414 @@ road_grid_layout = {
 "orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
 "position": Vector3(-264, 29.775, 72)
 }, {
-"cell": Vector3i(-16, 0, 4),
-"item": 1,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-248, 29.775, 72)
-}, {
-"cell": Vector3i(1, -12, 4),
+"cell": Vector3i(-15, -1, 4),
 "item": 0,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(24, -18.225, 72)
+"position": Vector3(-232, 25.775, 72)
 }, {
-"cell": Vector3i(7, -12, 4),
+"cell": Vector3i(-9, -12, 4),
 "item": 0,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(120, -18.225, 72)
+"position": Vector3(-136, -18.225, 72)
 }, {
-"cell": Vector3i(16, 0, 4),
+"cell": Vector3i(-2, -1, 4),
 "item": 0,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(264, 29.775, 72)
+"position": Vector3(-24, 25.775, 72)
 }, {
-"cell": Vector3i(-16, 0, 5),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(-248, 29.775, 88)
-}, {
-"cell": Vector3i(1, -12, 5),
+"cell": Vector3i(7, -1, 4),
 "item": 0,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(24, -18.225, 88)
+"position": Vector3(120, 25.775, 72)
 }, {
-"cell": Vector3i(7, -12, 5),
+"cell": Vector3i(-15, -1, 5),
 "item": 0,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(120, -18.225, 88)
+"position": Vector3(-232, 25.775, 88)
 }, {
-"cell": Vector3i(16, 0, 5),
+"cell": Vector3i(-9, -12, 5),
 "item": 0,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(264, 29.775, 88)
+"position": Vector3(-136, -18.225, 88)
 }, {
-"cell": Vector3i(-16, 0, 6),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(-248, 29.775, 104)
-}, {
-"cell": Vector3i(1, -12, 6),
-"item": 1,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(24, -18.225, 104)
-}, {
-"cell": Vector3i(2, -12, 6),
-"item": 1,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(40, -18.225, 104)
-}, {
-"cell": Vector3i(6, -12, 6),
-"item": 1,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(104, -18.225, 104)
-}, {
-"cell": Vector3i(7, -12, 6),
-"item": 1,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(120, -18.225, 104)
-}, {
-"cell": Vector3i(16, 0, 6),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(264, 29.775, 104)
-}, {
-"cell": Vector3i(-16, 0, 7),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(-248, 29.775, 120)
-}, {
-"cell": Vector3i(2, -12, 7),
-"item": 1,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(40, -18.225, 120)
-}, {
-"cell": Vector3i(3, -12, 7),
-"item": 1,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(56, -18.225, 120)
-}, {
-"cell": Vector3i(5, -12, 7),
-"item": 1,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(88, -18.225, 120)
-}, {
-"cell": Vector3i(6, -12, 7),
-"item": 1,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(104, -18.225, 120)
-}, {
-"cell": Vector3i(16, 0, 7),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(264, 29.775, 120)
-}, {
-"cell": Vector3i(-16, 0, 8),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(-248, 29.775, 136)
-}, {
-"cell": Vector3i(-8, 3, 8),
-"item": 1,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-120, 41.775, 136)
-}, {
-"cell": Vector3i(-7, 3, 8),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-104, 41.775, 136)
-}, {
-"cell": Vector3i(-6, 3, 8),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-88, 41.775, 136)
-}, {
-"cell": Vector3i(-5, 3, 8),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-72, 41.775, 136)
-}, {
-"cell": Vector3i(-4, 3, 8),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-56, 41.775, 136)
-}, {
-"cell": Vector3i(-3, 3, 8),
-"item": 1,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-40, 41.775, 136)
-}, {
-"cell": Vector3i(2, 0, 8),
-"item": 1,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(40, 29.775, 136)
-}, {
-"cell": Vector3i(3, -12, 8),
-"item": 1,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(56, -18.225, 136)
-}, {
-"cell": Vector3i(3, 0, 8),
-"item": 0,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(56, 29.775, 136)
-}, {
-"cell": Vector3i(4, -12, 8),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(72, -18.225, 136)
-}, {
-"cell": Vector3i(4, 0, 8),
-"item": 0,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(72, 29.775, 136)
-}, {
-"cell": Vector3i(5, -12, 8),
-"item": 1,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(88, -18.225, 136)
-}, {
-"cell": Vector3i(5, 0, 8),
-"item": 1,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(88, 29.775, 136)
-}, {
-"cell": Vector3i(16, 0, 8),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(264, 29.775, 136)
-}, {
-"cell": Vector3i(-16, 0, 9),
-"item": 1,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(-248, 29.775, 152)
-}, {
-"cell": Vector3i(-15, 0, 9),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-232, 29.775, 152)
-}, {
-"cell": Vector3i(-14, 0, 9),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-216, 29.775, 152)
-}, {
-"cell": Vector3i(-13, 0, 9),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-200, 29.775, 152)
-}, {
-"cell": Vector3i(-12, 0, 9),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-184, 29.775, 152)
-}, {
-"cell": Vector3i(-11, 0, 9),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-168, 29.775, 152)
-}, {
-"cell": Vector3i(-10, 0, 9),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-152, 29.775, 152)
-}, {
-"cell": Vector3i(-9, 0, 9),
-"item": 1,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-136, 29.775, 152)
-}, {
-"cell": Vector3i(-8, 2, 9),
+"cell": Vector3i(-2, -2, 5),
 "item": 5,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-120, 37.775, 152)
+"position": Vector3(-24, 21.775, 88)
 }, {
-"cell": Vector3i(-3, 2, 9),
-"item": 5,
+"cell": Vector3i(7, -1, 5),
+"item": 0,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-40, 37.775, 152)
+"position": Vector3(120, 25.775, 88)
 }, {
-"cell": Vector3i(-2, 0, 9),
+"cell": Vector3i(-15, -1, 6),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-232, 25.775, 104)
+}, {
+"cell": Vector3i(-9, -12, 6),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-136, -18.225, 104)
+}, {
+"cell": Vector3i(-4, -11, 6),
 "item": 1,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-24, 29.775, 152)
+"position": Vector3(-56, -14.225, 104)
 }, {
-"cell": Vector3i(-1, 0, 9),
-"item": 0,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(-8, 29.775, 152)
+"cell": Vector3i(-4, -7, 6),
+"item": 1,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-56, 1.7749996, 104)
 }, {
-"cell": Vector3i(0, 0, 9),
-"item": 0,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(8, 29.775, 152)
+"cell": Vector3i(-4, -3, 6),
+"item": 1,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-56, 17.775, 104)
 }, {
-"cell": Vector3i(1, 0, 9),
-"item": 0,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(24, 29.775, 152)
+"cell": Vector3i(-3, -11, 6),
+"item": 5,
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"position": Vector3(-40, -14.225, 104)
 }, {
-"cell": Vector3i(2, 0, 9),
+"cell": Vector3i(-3, -7, 6),
+"item": 5,
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"position": Vector3(-40, 1.7749996, 104)
+}, {
+"cell": Vector3i(-3, -3, 6),
+"item": 5,
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"position": Vector3(-40, 17.775, 104)
+}, {
+"cell": Vector3i(-2, -10, 6),
+"item": 1,
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"position": Vector3(-24, -10.225, 104)
+}, {
+"cell": Vector3i(-2, -6, 6),
+"item": 1,
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"position": Vector3(-24, 5.7749996, 104)
+}, {
+"cell": Vector3i(-2, -2, 6),
 "item": 1,
 "orientation": 10,
 "orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(40, 29.775, 152)
+"position": Vector3(-24, 21.775, 104)
 }, {
-"cell": Vector3i(5, 0, 9),
-"item": 1,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(88, 29.775, 152)
-}, {
-"cell": Vector3i(6, 0, 9),
+"cell": Vector3i(7, -1, 6),
 "item": 0,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(104, 29.775, 152)
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
+"position": Vector3(120, 25.775, 104)
 }, {
-"cell": Vector3i(7, 0, 9),
+"cell": Vector3i(-15, -1, 7),
 "item": 0,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(120, 29.775, 152)
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-232, 25.775, 120)
 }, {
-"cell": Vector3i(8, 0, 9),
+"cell": Vector3i(-4, -12, 7),
+"item": 5,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-56, -18.225, 120)
+}, {
+"cell": Vector3i(-4, -8, 7),
+"item": 5,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-56, -2.2250004, 120)
+}, {
+"cell": Vector3i(-4, -4, 7),
+"item": 5,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-56, 13.775, 120)
+}, {
+"cell": Vector3i(-2, -10, 7),
+"item": 5,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
+"position": Vector3(-24, -10.225, 120)
+}, {
+"cell": Vector3i(-2, -6, 7),
+"item": 5,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
+"position": Vector3(-24, 5.7749996, 120)
+}, {
+"cell": Vector3i(7, -1, 7),
 "item": 0,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(136, 29.775, 152)
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
+"position": Vector3(120, 25.775, 120)
 }, {
-"cell": Vector3i(9, 0, 9),
+"cell": Vector3i(-15, -1, 8),
 "item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-232, 25.775, 136)
+}, {
+"cell": Vector3i(-9, -12, 8),
+"item": 4,
 "orientation": 16,
 "orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(152, 29.775, 152)
+"position": Vector3(-136, -18.225, 136)
 }, {
-"cell": Vector3i(10, 0, 9),
-"item": 0,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(168, 29.775, 152)
-}, {
-"cell": Vector3i(11, 0, 9),
-"item": 0,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(184, 29.775, 152)
-}, {
-"cell": Vector3i(12, 0, 9),
-"item": 0,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(200, 29.775, 152)
-}, {
-"cell": Vector3i(13, 0, 9),
-"item": 0,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(216, 29.775, 152)
-}, {
-"cell": Vector3i(14, 0, 9),
-"item": 0,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(232, 29.775, 152)
-}, {
-"cell": Vector3i(15, 0, 9),
+"cell": Vector3i(-7, -12, 8),
 "item": 0,
 "orientation": 22,
 "orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(248, 29.775, 152)
+"position": Vector3(-104, -18.225, 136)
 }, {
-"cell": Vector3i(16, 0, 9),
+"cell": Vector3i(-6, -12, 8),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"position": Vector3(-88, -18.225, 136)
+}, {
+"cell": Vector3i(-6, -1, 8),
+"item": 1,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-88, 25.775, 136)
+}, {
+"cell": Vector3i(-5, -12, 8),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"position": Vector3(-72, -18.225, 136)
+}, {
+"cell": Vector3i(-5, -1, 8),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
+"position": Vector3(-72, 25.775, 136)
+}, {
+"cell": Vector3i(-4, -12, 8),
 "item": 1,
 "orientation": 10,
 "orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(264, 29.775, 152)
+"position": Vector3(-56, -18.225, 136)
 }, {
-"cell": Vector3i(-9, 0, 10),
+"cell": Vector3i(-4, -8, 8),
+"item": 1,
+"orientation": 16,
+"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
+"position": Vector3(-56, -2.2250004, 136)
+}, {
+"cell": Vector3i(-4, -4, 8),
+"item": 1,
+"orientation": 16,
+"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
+"position": Vector3(-56, 13.775, 136)
+}, {
+"cell": Vector3i(-4, -1, 8),
+"item": 1,
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"position": Vector3(-56, 25.775, 136)
+}, {
+"cell": Vector3i(-3, -9, 8),
 "item": 5,
+"orientation": 16,
+"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
+"position": Vector3(-40, -6.2250004, 136)
+}, {
+"cell": Vector3i(-3, -5, 8),
+"item": 5,
+"orientation": 16,
+"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
+"position": Vector3(-40, 9.775, 136)
+}, {
+"cell": Vector3i(-2, -9, 8),
+"item": 1,
 "orientation": 10,
 "orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(-136, 29.775, 168)
+"position": Vector3(-24, -6.2250004, 136)
 }, {
-"cell": Vector3i(-8, 1, 10),
-"item": 5,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-120, 33.775, 168)
+"cell": Vector3i(-2, -5, 8),
+"item": 1,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
+"position": Vector3(-24, 9.775, 136)
 }, {
-"cell": Vector3i(-3, 1, 10),
+"cell": Vector3i(7, -1, 8),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
+"position": Vector3(120, 25.775, 136)
+}, {
+"cell": Vector3i(-15, -1, 9),
+"item": 1,
+"orientation": 16,
+"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
+"position": Vector3(-232, 25.775, 152)
+}, {
+"cell": Vector3i(-14, -1, 9),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"position": Vector3(-216, 25.775, 152)
+}, {
+"cell": Vector3i(-13, -1, 9),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"position": Vector3(-200, 25.775, 152)
+}, {
+"cell": Vector3i(-12, -1, 9),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"position": Vector3(-184, 25.775, 152)
+}, {
+"cell": Vector3i(-11, -1, 9),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"position": Vector3(-168, 25.775, 152)
+}, {
+"cell": Vector3i(-10, -1, 9),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"position": Vector3(-152, 25.775, 152)
+}, {
+"cell": Vector3i(-9, -1, 9),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"position": Vector3(-136, 25.775, 152)
+}, {
+"cell": Vector3i(-8, -1, 9),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"position": Vector3(-120, 25.775, 152)
+}, {
+"cell": Vector3i(-7, -1, 9),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"position": Vector3(-104, 25.775, 152)
+}, {
+"cell": Vector3i(-6, -1, 9),
+"item": 1,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
+"position": Vector3(-88, 25.775, 152)
+}, {
+"cell": Vector3i(-4, -1, 9),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
+"position": Vector3(-56, 25.775, 152)
+}, {
+"cell": Vector3i(7, -1, 9),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
+"position": Vector3(120, 25.775, 152)
+}, {
+"cell": Vector3i(-4, -1, 10),
+"item": 1,
+"orientation": 16,
+"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
+"position": Vector3(-56, 25.775, 168)
+}, {
+"cell": Vector3i(-3, -1, 10),
 "item": 5,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-40, 33.775, 168)
+"orientation": 22,
+"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
+"position": Vector3(-40, 25.775, 168)
 }, {
 "cell": Vector3i(-2, 0, 10),
-"item": 5,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
 "position": Vector3(-24, 29.775, 168)
 }, {
-"cell": Vector3i(-19, 0, 11),
+"cell": Vector3i(-1, 0, 10),
 "item": 0,
-"orientation": 22,
-"orientation_basis": [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]],
-"position": Vector3(-296, 29.775, 184)
-}, {
-"cell": Vector3i(-9, 1, 11),
-"item": 1,
 "orientation": 16,
 "orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(-136, 33.775, 184)
+"position": Vector3(-8, 29.775, 168)
 }, {
-"cell": Vector3i(-8, 1, 11),
+"cell": Vector3i(0, 0, 10),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
+"position": Vector3(8, 29.775, 168)
+}, {
+"cell": Vector3i(1, 0, 10),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
+"position": Vector3(24, 29.775, 168)
+}, {
+"cell": Vector3i(2, 0, 10),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
+"position": Vector3(40, 29.775, 168)
+}, {
+"cell": Vector3i(3, -1, 10),
+"item": 5,
+"orientation": 16,
+"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
+"position": Vector3(56, 25.775, 168)
+}, {
+"cell": Vector3i(4, -1, 10),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
+"position": Vector3(72, 25.775, 168)
+}, {
+"cell": Vector3i(5, -1, 10),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
+"position": Vector3(88, 25.775, 168)
+}, {
+"cell": Vector3i(6, -1, 10),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
+"position": Vector3(104, 25.775, 168)
+}, {
+"cell": Vector3i(7, -1, 10),
 "item": 1,
 "orientation": 10,
 "orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(-120, 33.775, 184)
-}, {
-"cell": Vector3i(-3, 1, 11),
-"item": 1,
-"orientation": 16,
-"orientation_basis": [[0.0, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]],
-"position": Vector3(-40, 33.775, 184)
-}, {
-"cell": Vector3i(-2, 1, 11),
-"item": 1,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]],
-"position": Vector3(-24, 33.775, 184)
+"position": Vector3(120, 25.775, 168)
 }]),
-"checkpoint_route_indices": Array[int]([0, 30, 60, 91, 121, 151]),
+"checkpoint_route_indices": Array[int]([0, 21, 42, 64, 85, 106]),
 "hazard_route_indices": Array[int]([]),
 "item_route_indices": Array[int]([]),
 "mesh_library_path": "res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres",
-"ordered_route_cells": Array[Vector3i]([Vector3i(7, -12, -9), Vector3i(8, -12, -9), Vector3i(9, -11, -9), Vector3i(10, -10, -9), Vector3i(11, -9, -9), Vector3i(12, -8, -9), Vector3i(13, -7, -9), Vector3i(14, -6, -9), Vector3i(14, -6, -8), Vector3i(13, -6, -8), Vector3i(12, -5, -8), Vector3i(11, -4, -8), Vector3i(11, -4, -9), Vector3i(12, -4, -9), Vector3i(13, -3, -9), Vector3i(14, -2, -9), Vector3i(15, -1, -9), Vector3i(16, 0, -9), Vector3i(16, 0, -8), Vector3i(16, 0, -7), Vector3i(16, 0, -6), Vector3i(16, 0, -5), Vector3i(16, 0, -4), Vector3i(16, 0, -3), Vector3i(16, 0, -2), Vector3i(16, 0, -1), Vector3i(16, 0, 0), Vector3i(16, 0, 1), Vector3i(16, 0, 2), Vector3i(16, 0, 3), Vector3i(16, 0, 4), Vector3i(16, 0, 5), Vector3i(16, 0, 6), Vector3i(16, 0, 7), Vector3i(16, 0, 8), Vector3i(16, 0, 9), Vector3i(15, 0, 9), Vector3i(14, 0, 9), Vector3i(13, 0, 9), Vector3i(12, 0, 9), Vector3i(11, 0, 9), Vector3i(10, 0, 9), Vector3i(9, 0, 9), Vector3i(8, 0, 9), Vector3i(7, 0, 9), Vector3i(6, 0, 9), Vector3i(5, 0, 9), Vector3i(5, 0, 8), Vector3i(4, 0, 8), Vector3i(3, 0, 8), Vector3i(2, 0, 8), Vector3i(2, 0, 9), Vector3i(1, 0, 9), Vector3i(0, 0, 9), Vector3i(-1, 0, 9), Vector3i(-2, 0, 9), Vector3i(-2, 0, 10), Vector3i(-2, 1, 11), Vector3i(-3, 1, 11), Vector3i(-3, 1, 10), Vector3i(-3, 2, 9), Vector3i(-3, 3, 8), Vector3i(-4, 3, 8), Vector3i(-5, 3, 8), Vector3i(-6, 3, 8), Vector3i(-7, 3, 8), Vector3i(-8, 3, 8), Vector3i(-8, 2, 9), Vector3i(-8, 1, 10), Vector3i(-8, 1, 11), Vector3i(-9, 1, 11), Vector3i(-9, 0, 10), Vector3i(-9, 0, 9), Vector3i(-10, 0, 9), Vector3i(-11, 0, 9), Vector3i(-12, 0, 9), Vector3i(-13, 0, 9), Vector3i(-14, 0, 9), Vector3i(-15, 0, 9), Vector3i(-16, 0, 9), Vector3i(-16, 0, 8), Vector3i(-16, 0, 7), Vector3i(-16, 0, 6), Vector3i(-16, 0, 5), Vector3i(-16, 0, 4), Vector3i(-17, 0, 4), Vector3i(-17, 0, 3), Vector3i(-17, 0, 2), Vector3i(-17, 0, 1), Vector3i(-17, 0, 0), Vector3i(-17, 0, -1), Vector3i(-17, 0, -2), Vector3i(-16, 0, -2), Vector3i(-16, 0, -3), Vector3i(-16, 0, -4), Vector3i(-16, 0, -5), Vector3i(-17, 0, -5), Vector3i(-17, 0, -6), Vector3i(-17, 0, -7), Vector3i(-17, 0, -8), Vector3i(-17, 0, -9), Vector3i(-17, 0, -10), Vector3i(-17, 0, -11), Vector3i(-16, 0, -11), Vector3i(-15, 0, -11), Vector3i(-14, 0, -11), Vector3i(-13, 0, -11), Vector3i(-12, 0, -11), Vector3i(-11, 0, -11), Vector3i(-10, 0, -11), Vector3i(-9, 0, -11), Vector3i(-8, 0, -11), Vector3i(-7, 0, -11), Vector3i(-6, 0, -11), Vector3i(-5, 0, -11), Vector3i(-4, 0, -11), Vector3i(-3, 0, -11), Vector3i(-2, -1, -11), Vector3i(-1, -1, -11), Vector3i(0, -2, -11), Vector3i(1, -3, -11), Vector3i(2, -3, -11), Vector3i(2, -3, -10), Vector3i(2, -3, -9), Vector3i(2, -3, -8), Vector3i(2, -3, -7), Vector3i(2, -3, -6), Vector3i(2, -3, -5), Vector3i(2, -3, -4), Vector3i(2, -3, -3), Vector3i(2, -3, -2), Vector3i(2, -3, -1), Vector3i(2, -3, 0), Vector3i(1, -4, 0), Vector3i(0, -4, 0), Vector3i(0, -5, -1), Vector3i(0, -5, -2), Vector3i(1, -6, -2), Vector3i(2, -6, -2), Vector3i(2, -7, -1), Vector3i(2, -8, 0), Vector3i(2, -8, 1), Vector3i(1, -8, 1), Vector3i(1, -9, 0), Vector3i(1, -10, -1), Vector3i(1, -10, -2), Vector3i(0, -11, -2), Vector3i(-1, -11, -2), Vector3i(-1, -11, -1), Vector3i(0, -12, -1), Vector3i(1, -12, -1), Vector3i(1, -12, 0), Vector3i(1, -12, 1), Vector3i(1, -12, 2), Vector3i(1, -12, 3), Vector3i(1, -12, 4), Vector3i(1, -12, 5), Vector3i(1, -12, 6), Vector3i(2, -12, 6), Vector3i(2, -12, 7), Vector3i(3, -12, 7), Vector3i(3, -12, 8), Vector3i(4, -12, 8), Vector3i(5, -12, 8), Vector3i(5, -12, 7), Vector3i(6, -12, 7), Vector3i(6, -12, 6), Vector3i(7, -12, 6), Vector3i(7, -12, 5), Vector3i(7, -12, 4), Vector3i(7, -12, 3), Vector3i(7, -12, 2), Vector3i(7, -12, 1), Vector3i(7, -12, 0), Vector3i(7, -12, -1), Vector3i(7, -12, -2), Vector3i(7, -12, -3), Vector3i(7, -12, -4), Vector3i(7, -12, -5), Vector3i(7, -12, -6), Vector3i(7, -12, -7), Vector3i(7, -12, -8)]),
-"ordered_route_points": Array[Vector3]([Vector3(120, -18.225, -136), Vector3(136, -18.225, -136), Vector3(152, -14.225, -136), Vector3(168, -10.225, -136), Vector3(184, -6.2250004, -136), Vector3(200, -2.2250004, -136), Vector3(216, 1.7749996, -136), Vector3(232, 5.7749996, -136), Vector3(232, 5.7749996, -120), Vector3(216, 5.7749996, -120), Vector3(200, 9.775, -120), Vector3(184, 13.775, -120), Vector3(184, 13.775, -136), Vector3(200, 13.775, -136), Vector3(216, 17.775, -136), Vector3(232, 21.775, -136), Vector3(248, 25.775, -136), Vector3(264, 29.775, -136), Vector3(264, 29.775, -120), Vector3(264, 29.775, -104), Vector3(264, 29.775, -88), Vector3(264, 29.775, -72), Vector3(264, 29.775, -56), Vector3(264, 29.775, -40), Vector3(264, 29.775, -24), Vector3(264, 29.775, -8), Vector3(264, 29.775, 8), Vector3(264, 29.775, 24), Vector3(264, 29.775, 40), Vector3(264, 29.775, 56), Vector3(264, 29.775, 72), Vector3(264, 29.775, 88), Vector3(264, 29.775, 104), Vector3(264, 29.775, 120), Vector3(264, 29.775, 136), Vector3(264, 29.775, 152), Vector3(248, 29.775, 152), Vector3(232, 29.775, 152), Vector3(216, 29.775, 152), Vector3(200, 29.775, 152), Vector3(184, 29.775, 152), Vector3(168, 29.775, 152), Vector3(152, 29.775, 152), Vector3(136, 29.775, 152), Vector3(120, 29.775, 152), Vector3(104, 29.775, 152), Vector3(88, 29.775, 152), Vector3(88, 29.775, 136), Vector3(72, 29.775, 136), Vector3(56, 29.775, 136), Vector3(40, 29.775, 136), Vector3(40, 29.775, 152), Vector3(24, 29.775, 152), Vector3(8, 29.775, 152), Vector3(-8, 29.775, 152), Vector3(-24, 29.775, 152), Vector3(-24, 29.775, 168), Vector3(-24, 33.775, 184), Vector3(-40, 33.775, 184), Vector3(-40, 33.775, 168), Vector3(-40, 37.775, 152), Vector3(-40, 41.775, 136), Vector3(-56, 41.775, 136), Vector3(-72, 41.775, 136), Vector3(-88, 41.775, 136), Vector3(-104, 41.775, 136), Vector3(-120, 41.775, 136), Vector3(-120, 37.775, 152), Vector3(-120, 33.775, 168), Vector3(-120, 33.775, 184), Vector3(-136, 33.775, 184), Vector3(-136, 29.775, 168), Vector3(-136, 29.775, 152), Vector3(-152, 29.775, 152), Vector3(-168, 29.775, 152), Vector3(-184, 29.775, 152), Vector3(-200, 29.775, 152), Vector3(-216, 29.775, 152), Vector3(-232, 29.775, 152), Vector3(-248, 29.775, 152), Vector3(-248, 29.775, 136), Vector3(-248, 29.775, 120), Vector3(-248, 29.775, 104), Vector3(-248, 29.775, 88), Vector3(-248, 29.775, 72), Vector3(-264, 29.775, 72), Vector3(-264, 29.775, 56), Vector3(-264, 29.775, 40), Vector3(-264, 29.775, 24), Vector3(-264, 29.775, 8), Vector3(-264, 29.775, -8), Vector3(-264, 29.775, -24), Vector3(-248, 29.775, -24), Vector3(-248, 29.775, -40), Vector3(-248, 29.775, -56), Vector3(-248, 29.775, -72), Vector3(-264, 29.775, -72), Vector3(-264, 29.775, -88), Vector3(-264, 29.775, -104), Vector3(-264, 29.775, -120), Vector3(-264, 29.775, -136), Vector3(-264, 29.775, -152), Vector3(-264, 29.775, -168), Vector3(-248, 29.775, -168), Vector3(-232, 29.775, -168), Vector3(-216, 29.775, -168), Vector3(-200, 29.775, -168), Vector3(-184, 29.775, -168), Vector3(-168, 29.775, -168), Vector3(-152, 29.775, -168), Vector3(-136, 29.775, -168), Vector3(-120, 29.775, -168), Vector3(-104, 29.775, -168), Vector3(-88, 29.775, -168), Vector3(-72, 29.775, -168), Vector3(-56, 29.775, -168), Vector3(-40, 29.775, -168), Vector3(-24, 25.775, -168), Vector3(-8, 25.775, -168), Vector3(8, 21.775, -168), Vector3(24, 17.775, -168), Vector3(40, 17.775, -168), Vector3(40, 17.775, -152), Vector3(40, 17.775, -136), Vector3(40, 17.775, -120), Vector3(40, 17.775, -104), Vector3(40, 17.775, -88), Vector3(40, 17.775, -72), Vector3(40, 17.775, -56), Vector3(40, 17.775, -40), Vector3(40, 17.775, -24), Vector3(40, 17.775, -8), Vector3(40, 17.775, 8), Vector3(24, 13.775, 8), Vector3(8, 13.775, 8), Vector3(8, 9.775, -8), Vector3(8, 9.775, -24), Vector3(24, 5.7749996, -24), Vector3(40, 5.7749996, -24), Vector3(40, 1.7749996, -8), Vector3(40, -2.2250004, 8), Vector3(40, -2.2250004, 24), Vector3(24, -2.2250004, 24), Vector3(24, -6.2250004, 8), Vector3(24, -10.225, -8), Vector3(24, -10.225, -24), Vector3(8, -14.225, -24), Vector3(-8, -14.225, -24), Vector3(-8, -14.225, -8), Vector3(8, -18.225, -8), Vector3(24, -18.225, -8), Vector3(24, -18.225, 8), Vector3(24, -18.225, 24), Vector3(24, -18.225, 40), Vector3(24, -18.225, 56), Vector3(24, -18.225, 72), Vector3(24, -18.225, 88), Vector3(24, -18.225, 104), Vector3(40, -18.225, 104), Vector3(40, -18.225, 120), Vector3(56, -18.225, 120), Vector3(56, -18.225, 136), Vector3(72, -18.225, 136), Vector3(88, -18.225, 136), Vector3(88, -18.225, 120), Vector3(104, -18.225, 120), Vector3(104, -18.225, 104), Vector3(120, -18.225, 104), Vector3(120, -18.225, 88), Vector3(120, -18.225, 72), Vector3(120, -18.225, 56), Vector3(120, -18.225, 40), Vector3(120, -18.225, 24), Vector3(120, -18.225, 8), Vector3(120, -18.225, -8), Vector3(120, -18.225, -24), Vector3(120, -18.225, -40), Vector3(120, -18.225, -56), Vector3(120, -18.225, -72), Vector3(120, -18.225, -88), Vector3(120, -18.225, -104), Vector3(120, -18.225, -120)]),
+"ordered_route_cells": Array[Vector3i]([Vector3i(-9, -12, 2), Vector3i(-9, -12, 3), Vector3i(-9, -12, 4), Vector3i(-9, -12, 5), Vector3i(-9, -12, 6), Vector3i(-9, -12, 8), Vector3i(-7, -12, 8), Vector3i(-6, -12, 8), Vector3i(-5, -12, 8), Vector3i(-4, -12, 8), Vector3i(-4, -12, 7), Vector3i(-4, -11, 6), Vector3i(-3, -11, 6), Vector3i(-2, -10, 6), Vector3i(-2, -10, 7), Vector3i(-2, -9, 8), Vector3i(-3, -9, 8), Vector3i(-4, -8, 8), Vector3i(-4, -8, 7), Vector3i(-4, -7, 6), Vector3i(-3, -7, 6), Vector3i(-2, -6, 6), Vector3i(-2, -6, 7), Vector3i(-2, -5, 8), Vector3i(-3, -5, 8), Vector3i(-4, -4, 8), Vector3i(-4, -4, 7), Vector3i(-4, -3, 6), Vector3i(-3, -3, 6), Vector3i(-2, -2, 6), Vector3i(-2, -2, 5), Vector3i(-2, -1, 4), Vector3i(-2, -1, 3), Vector3i(-2, -1, 2), Vector3i(-2, -1, 1), Vector3i(-2, -1, 0), Vector3i(-2, -1, -1), Vector3i(-1, -1, -1), Vector3i(0, -1, -1), Vector3i(1, -1, -1), Vector3i(2, -1, -1), Vector3i(3, -1, -1), Vector3i(4, -1, -1), Vector3i(5, -1, -1), Vector3i(6, -1, -1), Vector3i(7, -1, -1), Vector3i(7, -1, 0), Vector3i(7, -1, 1), Vector3i(7, -1, 2), Vector3i(7, -1, 3), Vector3i(7, -1, 4), Vector3i(7, -1, 5), Vector3i(7, -1, 6), Vector3i(7, -1, 7), Vector3i(7, -1, 8), Vector3i(7, -1, 9), Vector3i(7, -1, 10), Vector3i(6, -1, 10), Vector3i(5, -1, 10), Vector3i(4, -1, 10), Vector3i(3, -1, 10), Vector3i(2, 0, 10), Vector3i(1, 0, 10), Vector3i(0, 0, 10), Vector3i(-1, 0, 10), Vector3i(-2, 0, 10), Vector3i(-3, -1, 10), Vector3i(-4, -1, 10), Vector3i(-4, -1, 9), Vector3i(-4, -1, 8), Vector3i(-5, -1, 8), Vector3i(-6, -1, 8), Vector3i(-6, -1, 9), Vector3i(-7, -1, 9), Vector3i(-8, -1, 9), Vector3i(-9, -1, 9), Vector3i(-10, -1, 9), Vector3i(-11, -1, 9), Vector3i(-12, -1, 9), Vector3i(-13, -1, 9), Vector3i(-14, -1, 9), Vector3i(-15, -1, 9), Vector3i(-15, -1, 8), Vector3i(-15, -1, 7), Vector3i(-15, -1, 6), Vector3i(-15, -1, 5), Vector3i(-15, -1, 4), Vector3i(-15, -1, 3), Vector3i(-15, -1, 2), Vector3i(-16, -1, 2), Vector3i(-17, -1, 2), Vector3i(-17, -1, 1), Vector3i(-17, -1, 0), Vector3i(-17, -1, -1), Vector3i(-16, -1, -1), Vector3i(-15, -1, -1), Vector3i(-15, -1, -2), Vector3i(-15, -1, -3), Vector3i(-15, -1, -4), Vector3i(-15, -1, -5), Vector3i(-15, -1, -6), Vector3i(-16, -1, -6), Vector3i(-17, -1, -6), Vector3i(-17, -1, -7), Vector3i(-17, -1, -8), Vector3i(-17, -1, -9), Vector3i(-17, -1, -10), Vector3i(-17, -1, -11), Vector3i(-16, -1, -11), Vector3i(-15, -1, -11), Vector3i(-14, -1, -11), Vector3i(-13, -1, -11), Vector3i(-12, -1, -11), Vector3i(-11, -1, -11), Vector3i(-10, -1, -11), Vector3i(-9, -1, -11), Vector3i(-9, -1, -10), Vector3i(-9, -1, -9), Vector3i(-9, -2, -8), Vector3i(-9, -3, -7), Vector3i(-9, -4, -6), Vector3i(-9, -5, -5), Vector3i(-9, -6, -4), Vector3i(-9, -7, -3), Vector3i(-9, -8, -2), Vector3i(-9, -9, -1), Vector3i(-9, -10, 0), Vector3i(-9, -11, 1)]),
+"ordered_route_points": Array[Vector3]([Vector3(-136, -18.225, 40), Vector3(-136, -18.225, 56), Vector3(-136, -18.225, 72), Vector3(-136, -18.225, 88), Vector3(-136, -18.225, 104), Vector3(-136, -18.225, 136), Vector3(-104, -18.225, 136), Vector3(-88, -18.225, 136), Vector3(-72, -18.225, 136), Vector3(-56, -18.225, 136), Vector3(-56, -18.225, 120), Vector3(-56, -14.225, 104), Vector3(-40, -14.225, 104), Vector3(-24, -10.225, 104), Vector3(-24, -10.225, 120), Vector3(-24, -6.2250004, 136), Vector3(-40, -6.2250004, 136), Vector3(-56, -2.2250004, 136), Vector3(-56, -2.2250004, 120), Vector3(-56, 1.7749996, 104), Vector3(-40, 1.7749996, 104), Vector3(-24, 5.7749996, 104), Vector3(-24, 5.7749996, 120), Vector3(-24, 9.775, 136), Vector3(-40, 9.775, 136), Vector3(-56, 13.775, 136), Vector3(-56, 13.775, 120), Vector3(-56, 17.775, 104), Vector3(-40, 17.775, 104), Vector3(-24, 21.775, 104), Vector3(-24, 21.775, 88), Vector3(-24, 25.775, 72), Vector3(-24, 25.775, 56), Vector3(-24, 25.775, 40), Vector3(-24, 25.775, 24), Vector3(-24, 25.775, 8), Vector3(-24, 25.775, -8), Vector3(-8, 25.775, -8), Vector3(8, 25.775, -8), Vector3(24, 25.775, -8), Vector3(40, 25.775, -8), Vector3(56, 25.775, -8), Vector3(72, 25.775, -8), Vector3(88, 25.775, -8), Vector3(104, 25.775, -8), Vector3(120, 25.775, -8), Vector3(120, 25.775, 8), Vector3(120, 25.775, 24), Vector3(120, 25.775, 40), Vector3(120, 25.775, 56), Vector3(120, 25.775, 72), Vector3(120, 25.775, 88), Vector3(120, 25.775, 104), Vector3(120, 25.775, 120), Vector3(120, 25.775, 136), Vector3(120, 25.775, 152), Vector3(120, 25.775, 168), Vector3(104, 25.775, 168), Vector3(88, 25.775, 168), Vector3(72, 25.775, 168), Vector3(56, 25.775, 168), Vector3(40, 29.775, 168), Vector3(24, 29.775, 168), Vector3(8, 29.775, 168), Vector3(-8, 29.775, 168), Vector3(-24, 29.775, 168), Vector3(-40, 25.775, 168), Vector3(-56, 25.775, 168), Vector3(-56, 25.775, 152), Vector3(-56, 25.775, 136), Vector3(-72, 25.775, 136), Vector3(-88, 25.775, 136), Vector3(-88, 25.775, 152), Vector3(-104, 25.775, 152), Vector3(-120, 25.775, 152), Vector3(-136, 25.775, 152), Vector3(-152, 25.775, 152), Vector3(-168, 25.775, 152), Vector3(-184, 25.775, 152), Vector3(-200, 25.775, 152), Vector3(-216, 25.775, 152), Vector3(-232, 25.775, 152), Vector3(-232, 25.775, 136), Vector3(-232, 25.775, 120), Vector3(-232, 25.775, 104), Vector3(-232, 25.775, 88), Vector3(-232, 25.775, 72), Vector3(-232, 25.775, 56), Vector3(-232, 25.775, 40), Vector3(-248, 25.775, 40), Vector3(-264, 25.775, 40), Vector3(-264, 25.775, 24), Vector3(-264, 25.775, 8), Vector3(-264, 25.775, -8), Vector3(-248, 25.775, -8), Vector3(-232, 25.775, -8), Vector3(-232, 25.775, -24), Vector3(-232, 25.775, -40), Vector3(-232, 25.775, -56), Vector3(-232, 25.775, -72), Vector3(-232, 25.775, -88), Vector3(-248, 25.775, -88), Vector3(-264, 25.775, -88), Vector3(-264, 25.775, -104), Vector3(-264, 25.775, -120), Vector3(-264, 25.775, -136), Vector3(-264, 25.775, -152), Vector3(-264, 25.775, -168), Vector3(-248, 25.775, -168), Vector3(-232, 25.775, -168), Vector3(-216, 25.775, -168), Vector3(-200, 25.775, -168), Vector3(-184, 25.775, -168), Vector3(-168, 25.775, -168), Vector3(-152, 25.775, -168), Vector3(-136, 25.775, -168), Vector3(-136, 25.775, -152), Vector3(-136, 25.775, -136), Vector3(-136, 21.775, -120), Vector3(-136, 17.775, -104), Vector3(-136, 13.775, -88), Vector3(-136, 9.775, -72), Vector3(-136, 5.7749996, -56), Vector3(-136, 1.7749996, -40), Vector3(-136, -2.2250004, -24), Vector3(-136, -6.2250004, -8), Vector3(-136, -10.225, 8), Vector3(-136, -14.225, 24)]),
 "origin": Vector3(0, 27.775, 0),
 "road_width": 16.0,
 "spawn_slots": Array[Dictionary]([{
@@ -1189,9 +871,9 @@ sky_cloud_amount = 0.16
 sky_cloud_speed = 0.014
 sky_haze_amount = 0.1
 sky_light_energy = 2.45
-route_points = Array[Vector3]([Vector3(120, -18.225, -136), Vector3(136, -18.225, -136), Vector3(152, -14.225, -136), Vector3(168, -10.225, -136), Vector3(184, -6.2250004, -136), Vector3(200, -2.2250004, -136), Vector3(216, 1.7749996, -136), Vector3(232, 5.7749996, -136), Vector3(232, 5.7749996, -120), Vector3(216, 5.7749996, -120), Vector3(200, 9.775, -120), Vector3(184, 13.775, -120), Vector3(184, 13.775, -136), Vector3(200, 13.775, -136), Vector3(216, 17.775, -136), Vector3(232, 21.775, -136), Vector3(248, 25.775, -136), Vector3(264, 29.775, -136), Vector3(264, 29.775, -120), Vector3(264, 29.775, -104), Vector3(264, 29.775, -88), Vector3(264, 29.775, -72), Vector3(264, 29.775, -56), Vector3(264, 29.775, -40), Vector3(264, 29.775, -24), Vector3(264, 29.775, -8), Vector3(264, 29.775, 8), Vector3(264, 29.775, 24), Vector3(264, 29.775, 40), Vector3(264, 29.775, 56), Vector3(264, 29.775, 72), Vector3(264, 29.775, 88), Vector3(264, 29.775, 104), Vector3(264, 29.775, 120), Vector3(264, 29.775, 136), Vector3(264, 29.775, 152), Vector3(248, 29.775, 152), Vector3(232, 29.775, 152), Vector3(216, 29.775, 152), Vector3(200, 29.775, 152), Vector3(184, 29.775, 152), Vector3(168, 29.775, 152), Vector3(152, 29.775, 152), Vector3(136, 29.775, 152), Vector3(120, 29.775, 152), Vector3(104, 29.775, 152), Vector3(88, 29.775, 152), Vector3(88, 29.775, 136), Vector3(72, 29.775, 136), Vector3(56, 29.775, 136), Vector3(40, 29.775, 136), Vector3(40, 29.775, 152), Vector3(24, 29.775, 152), Vector3(8, 29.775, 152), Vector3(-8, 29.775, 152), Vector3(-24, 29.775, 152), Vector3(-24, 29.775, 168), Vector3(-24, 33.775, 184), Vector3(-40, 33.775, 184), Vector3(-40, 33.775, 168), Vector3(-40, 37.775, 152), Vector3(-40, 41.775, 136), Vector3(-56, 41.775, 136), Vector3(-72, 41.775, 136), Vector3(-88, 41.775, 136), Vector3(-104, 41.775, 136), Vector3(-120, 41.775, 136), Vector3(-120, 37.775, 152), Vector3(-120, 33.775, 168), Vector3(-120, 33.775, 184), Vector3(-136, 33.775, 184), Vector3(-136, 29.775, 168), Vector3(-136, 29.775, 152), Vector3(-152, 29.775, 152), Vector3(-168, 29.775, 152), Vector3(-184, 29.775, 152), Vector3(-200, 29.775, 152), Vector3(-216, 29.775, 152), Vector3(-232, 29.775, 152), Vector3(-248, 29.775, 152), Vector3(-248, 29.775, 136), Vector3(-248, 29.775, 120), Vector3(-248, 29.775, 104), Vector3(-248, 29.775, 88), Vector3(-248, 29.775, 72), Vector3(-264, 29.775, 72), Vector3(-264, 29.775, 56), Vector3(-264, 29.775, 40), Vector3(-264, 29.775, 24), Vector3(-264, 29.775, 8), Vector3(-264, 29.775, -8), Vector3(-264, 29.775, -24), Vector3(-248, 29.775, -24), Vector3(-248, 29.775, -40), Vector3(-248, 29.775, -56), Vector3(-248, 29.775, -72), Vector3(-264, 29.775, -72), Vector3(-264, 29.775, -88), Vector3(-264, 29.775, -104), Vector3(-264, 29.775, -120), Vector3(-264, 29.775, -136), Vector3(-264, 29.775, -152), Vector3(-264, 29.775, -168), Vector3(-248, 29.775, -168), Vector3(-232, 29.775, -168), Vector3(-216, 29.775, -168), Vector3(-200, 29.775, -168), Vector3(-184, 29.775, -168), Vector3(-168, 29.775, -168), Vector3(-152, 29.775, -168), Vector3(-136, 29.775, -168), Vector3(-120, 29.775, -168), Vector3(-104, 29.775, -168), Vector3(-88, 29.775, -168), Vector3(-72, 29.775, -168), Vector3(-56, 29.775, -168), Vector3(-40, 29.775, -168), Vector3(-24, 25.775, -168), Vector3(-8, 25.775, -168), Vector3(8, 21.775, -168), Vector3(24, 17.775, -168), Vector3(40, 17.775, -168), Vector3(40, 17.775, -152), Vector3(40, 17.775, -136), Vector3(40, 17.775, -120), Vector3(40, 17.775, -104), Vector3(40, 17.775, -88), Vector3(40, 17.775, -72), Vector3(40, 17.775, -56), Vector3(40, 17.775, -40), Vector3(40, 17.775, -24), Vector3(40, 17.775, -8), Vector3(40, 17.775, 8), Vector3(24, 13.775, 8), Vector3(8, 13.775, 8), Vector3(8, 9.775, -8), Vector3(8, 9.775, -24), Vector3(24, 5.7749996, -24), Vector3(40, 5.7749996, -24), Vector3(40, 1.7749996, -8), Vector3(40, -2.2250004, 8), Vector3(40, -2.2250004, 24), Vector3(24, -2.2250004, 24), Vector3(24, -6.2250004, 8), Vector3(24, -10.225, -8), Vector3(24, -10.225, -24), Vector3(8, -14.225, -24), Vector3(-8, -14.225, -24), Vector3(-8, -14.225, -8), Vector3(8, -18.225, -8), Vector3(24, -18.225, -8), Vector3(24, -18.225, 8), Vector3(24, -18.225, 24), Vector3(24, -18.225, 40), Vector3(24, -18.225, 56), Vector3(24, -18.225, 72), Vector3(24, -18.225, 88), Vector3(24, -18.225, 104), Vector3(40, -18.225, 104), Vector3(40, -18.225, 120), Vector3(56, -18.225, 120), Vector3(56, -18.225, 136), Vector3(72, -18.225, 136), Vector3(88, -18.225, 136), Vector3(88, -18.225, 120), Vector3(104, -18.225, 120), Vector3(104, -18.225, 104), Vector3(120, -18.225, 104), Vector3(120, -18.225, 88), Vector3(120, -18.225, 72), Vector3(120, -18.225, 56), Vector3(120, -18.225, 40), Vector3(120, -18.225, 24), Vector3(120, -18.225, 8), Vector3(120, -18.225, -8), Vector3(120, -18.225, -24), Vector3(120, -18.225, -40), Vector3(120, -18.225, -56), Vector3(120, -18.225, -72), Vector3(120, -18.225, -88), Vector3(120, -18.225, -104), Vector3(120, -18.225, -120)])
-checkpoint_indices = Array[int]([0, 30, 60, 91, 121, 151])
-spawn_points = Array[Vector4]([Vector4(-114, 30.574999, -165.25, 90), Vector4(-114, 30.574999, -170.75, 90), Vector4(-108, 30.574999, -165.25, 90), Vector4(-108, 30.574999, -170.75, 90), Vector4(-102, 30.574999, -165.25, 90), Vector4(-102, 30.574999, -170.75, 90), Vector4(-96, 30.574999, -165.25, 90), Vector4(-96, 30.574999, -170.75, 90)])
+route_points = Array[Vector3]([Vector3(-136, -18.225, 40), Vector3(-136, -18.225, 56), Vector3(-136, -18.225, 72), Vector3(-136, -18.225, 88), Vector3(-136, -18.225, 104), Vector3(-136, -18.225, 136), Vector3(-104, -18.225, 136), Vector3(-88, -18.225, 136), Vector3(-72, -18.225, 136), Vector3(-56, -18.225, 136), Vector3(-56, -18.225, 120), Vector3(-56, -14.225, 104), Vector3(-40, -14.225, 104), Vector3(-24, -10.225, 104), Vector3(-24, -10.225, 120), Vector3(-24, -6.2250004, 136), Vector3(-40, -6.2250004, 136), Vector3(-56, -2.2250004, 136), Vector3(-56, -2.2250004, 120), Vector3(-56, 1.7749996, 104), Vector3(-40, 1.7749996, 104), Vector3(-24, 5.7749996, 104), Vector3(-24, 5.7749996, 120), Vector3(-24, 9.775, 136), Vector3(-40, 9.775, 136), Vector3(-56, 13.775, 136), Vector3(-56, 13.775, 120), Vector3(-56, 17.775, 104), Vector3(-40, 17.775, 104), Vector3(-24, 21.775, 104), Vector3(-24, 21.775, 88), Vector3(-24, 25.775, 72), Vector3(-24, 25.775, 56), Vector3(-24, 25.775, 40), Vector3(-24, 25.775, 24), Vector3(-24, 25.775, 8), Vector3(-24, 25.775, -8), Vector3(-8, 25.775, -8), Vector3(8, 25.775, -8), Vector3(24, 25.775, -8), Vector3(40, 25.775, -8), Vector3(56, 25.775, -8), Vector3(72, 25.775, -8), Vector3(88, 25.775, -8), Vector3(104, 25.775, -8), Vector3(120, 25.775, -8), Vector3(120, 25.775, 8), Vector3(120, 25.775, 24), Vector3(120, 25.775, 40), Vector3(120, 25.775, 56), Vector3(120, 25.775, 72), Vector3(120, 25.775, 88), Vector3(120, 25.775, 104), Vector3(120, 25.775, 120), Vector3(120, 25.775, 136), Vector3(120, 25.775, 152), Vector3(120, 25.775, 168), Vector3(104, 25.775, 168), Vector3(88, 25.775, 168), Vector3(72, 25.775, 168), Vector3(56, 25.775, 168), Vector3(40, 29.775, 168), Vector3(24, 29.775, 168), Vector3(8, 29.775, 168), Vector3(-8, 29.775, 168), Vector3(-24, 29.775, 168), Vector3(-40, 25.775, 168), Vector3(-56, 25.775, 168), Vector3(-56, 25.775, 152), Vector3(-56, 25.775, 136), Vector3(-72, 25.775, 136), Vector3(-88, 25.775, 136), Vector3(-88, 25.775, 152), Vector3(-104, 25.775, 152), Vector3(-120, 25.775, 152), Vector3(-136, 25.775, 152), Vector3(-152, 25.775, 152), Vector3(-168, 25.775, 152), Vector3(-184, 25.775, 152), Vector3(-200, 25.775, 152), Vector3(-216, 25.775, 152), Vector3(-232, 25.775, 152), Vector3(-232, 25.775, 136), Vector3(-232, 25.775, 120), Vector3(-232, 25.775, 104), Vector3(-232, 25.775, 88), Vector3(-232, 25.775, 72), Vector3(-232, 25.775, 56), Vector3(-232, 25.775, 40), Vector3(-248, 25.775, 40), Vector3(-264, 25.775, 40), Vector3(-264, 25.775, 24), Vector3(-264, 25.775, 8), Vector3(-264, 25.775, -8), Vector3(-248, 25.775, -8), Vector3(-232, 25.775, -8), Vector3(-232, 25.775, -24), Vector3(-232, 25.775, -40), Vector3(-232, 25.775, -56), Vector3(-232, 25.775, -72), Vector3(-232, 25.775, -88), Vector3(-248, 25.775, -88), Vector3(-264, 25.775, -88), Vector3(-264, 25.775, -104), Vector3(-264, 25.775, -120), Vector3(-264, 25.775, -136), Vector3(-264, 25.775, -152), Vector3(-264, 25.775, -168), Vector3(-248, 25.775, -168), Vector3(-232, 25.775, -168), Vector3(-216, 25.775, -168), Vector3(-200, 25.775, -168), Vector3(-184, 25.775, -168), Vector3(-168, 25.775, -168), Vector3(-152, 25.775, -168), Vector3(-136, 25.775, -168), Vector3(-136, 25.775, -152), Vector3(-136, 25.775, -136), Vector3(-136, 21.775, -120), Vector3(-136, 17.775, -104), Vector3(-136, 13.775, -88), Vector3(-136, 9.775, -72), Vector3(-136, 5.7749996, -56), Vector3(-136, 1.7749996, -40), Vector3(-136, -2.2250004, -24), Vector3(-136, -6.2250004, -8), Vector3(-136, -10.225, 8), Vector3(-136, -14.225, 24)])
+checkpoint_indices = Array[int]([0, 21, 42, 64, 85, 106])
+spawn_points = Array[Vector4]([Vector4(-194, 26.574999, -165.25, 90), Vector4(-194, 26.574999, -170.75, 90), Vector4(-188, 26.574999, -165.25, 90), Vector4(-188, 26.574999, -170.75, 90), Vector4(-182, 26.574999, -165.25, 90), Vector4(-182, 26.574999, -170.75, 90), Vector4(-176, 26.574999, -165.25, 90), Vector4(-176, 26.574999, -170.75, 90)])
 stage_props = Array[Dictionary]([{
 "asset_path": "",
 "audio_material_id": "stone",
