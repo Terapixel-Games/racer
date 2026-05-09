@@ -36,6 +36,7 @@ func test_level_select_uses_optimized_backyard_preview_dressing() -> void:
 	scene_tree.root.add_child(screen)
 	assert_true(bool(screen.call("select_track_for_test", "outdoor_playground")), "Level select should expose the Dash backyard track")
 	assert_true(bool(screen.call("preview_has_backyard_dressing_for_test")), "Backyard stage preview should show optimized dressed landmarks")
+	assert_equal(str(screen.call("preview_camera_mode_for_test")), "backyard_overview", "Backyard stage preview should frame the optimized landmarks instead of following only the route")
 	assert_true(not bool(screen.call("preview_has_visible_road_edges_for_test")), "Dressed backyard preview should still hide support road visuals")
 	screen.queue_free()
 
