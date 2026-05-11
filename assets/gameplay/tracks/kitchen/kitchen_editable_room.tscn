@@ -82,12 +82,12 @@ material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="BackWallLeftOfWindow" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(34, 0, 0, 0, 64.53761, 0, 0, 0, 2, -141, 21, 98)
+transform = Transform3D(34, 0, 0, 0, 65.16881, 0, 0, 0, 2, -141, 21.315598, 98)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="BackWallRightOfWindow" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(228, 0, 0, 0, 64.53761, 0, 0, 0, 2, 44, 21, 98)
+transform = Transform3D(228, 0, 0, 0, 65.16881, 0, 0, 0, 2, 44, 21.315598, 98)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
@@ -102,27 +102,32 @@ material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="LeftWall" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(1.731, 0, 0, 0, 60.449, 0, 0, 0, 193.426, -143.94037, 22.300934, 0)
+transform = Transform3D(1.731, 0, 0, 0, 61.823566, 0, 0, 0, 198.2, -143.94037, 22.98815, 0)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="RightWall" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(2, 0, 0, 0, 68.56597, 0, 0, 0, 221.22151, 72.907425, 21, 0)
+transform = Transform3D(2, 0, 0, 0, 67.185, 0, 0, 0, 221.22151, 72.907425, 20.3075, 0)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="RightWall2" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(2, 0, 0, 0, 68.56597, 0, 0, 0, 153.4515, -38.225384, 21, -22.88396)
+transform = Transform3D(2, 0, 0, 0, 67.185, 0, 0, 0, 153.4515, -38.225384, 20.3075, -22.88396)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="RightWall3" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(2, 0, 0, 0, 68.56597, 0, 0, 0, 72.41168, -37.06749, 21, 113.619064)
+transform = Transform3D(2, 0, 0, 0, 67.185, 0, 0, 0, 72.41168, -37.06749, 20.3075, 113.619064)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="RightWall4" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(2, 0, 0, 0, 16.144611, 0, 0, 0, 35.36012, -37.06749, 49.97618, 65.11378)
+transform = Transform3D(2, 0, 0, 0, 12, 0, 0, 0, 35.36012, -37.06749, 47.905, 65.11378)
+material_override = SubResource("Material_wall")
+mesh = SubResource("BoxMesh_unit")
+
+[node name="DoorwayOpenHeader" type="MeshInstance3D" parent="Track/RoomShell"]
+transform = Transform3D(6, 0, 0, 0, 14.1, 0, 0, 0, 25.5, -36.25, 46.85, 65.75)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
@@ -132,22 +137,22 @@ material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="FrontWallLeft" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(44.776714, 0, 0, 0, 62.42, 0, 0, 0, 2, -121.31064, 21.195286, -98)
+transform = Transform3D(44.776714, 0, 0, 0, 63.914715, 0, 0, 0, 2, -121.31064, 21.942642, -98)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="FrontWallRight" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(182.23038, 0, 0, 0, 66.385, 0, 0, 0, 2, 16.604912, 21, -98)
+transform = Transform3D(182.23038, 0, 0, 0, 66.0925, 0, 0, 0, 2, 16.604912, 20.85375, -98)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="FrontWallRight2" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(182.23038, 0, 0, 0, 66.385, 0, 0, 0, 2, 53.716743, 21, -21.162277)
+transform = Transform3D(182.23038, 0, 0, 0, 66.0925, 0, 0, 0, 2, 53.716743, 20.85375, -21.162277)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="DoorHeader" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(82, 0, 0, 0, 12, 0, 0, 0, 2, -57.708828, 45.854355, -98)
+transform = Transform3D(82, 0, 0, 0, 13.55, 0, 0, 0, 2, -57.708828, 46.625, -98)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
@@ -197,19 +202,19 @@ transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -4.31266, -10, 2.0820847)
 transform = Transform3D(49.999428, 0, 0.23736376, 0, 50.00001, 0, -0.23736376, 0, 49.999428, -120.75266, -10, -74.40904)
 
 [node name="kitchenCabinet13" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(-0.23736739, 0, 49.99943, 0, 50.000008, 0, -49.99943, 0, -0.23736739, -120.94163, -9.999998, -31.019432)
+transform = Transform3D(-0.23736739, 0, 49.99943, 0, 50.000008, 0, -49.99943, 0, -0.23736739, -120.94163, -9.999998, -35.35367)
 
 [node name="kitchenCabinet14" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(-0.23736739, 0, 49.99943, 0, 50.000008, 0, -49.99943, 0, -0.23736739, -121.24813, -9.999998, -52.565254)
+transform = Transform3D(-0.23736739, 0, 49.99943, 0, 50.000008, 0, -49.99943, 0, -0.23736739, -121.24813, -9.999998, -56.89949)
 
 [node name="kitchenCabinet15" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(-0.21963081, 0, 49.99059, 0, 50.000008, 0, -46.26337, 0, -0.23732542, -120.32952, -9.999998, 6.597663)
+transform = Transform3D(-0.21963081, 0, 49.99059, 0, 50.000008, 0, -46.26337, 0, -0.23732542, -120.32952, -9.999998, 8.14663)
 
 [node name="kitchenCabinetCornerInner2" parent="Track/RoomShell" instance=ExtResource("7_corner")]
 transform = Transform3D(-0.23736757, 0, 49.999428, 0, 50.00001, 0, -49.999428, 0, -0.23736757, -120.79824, -9.999999, -73.92721)
 
 [node name="kitchenCabinet17" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(0.012918809, 0, 50.000507, 0, 50.00001, 0, -46.26382, 0, 0.01396225, -120.16418, -10, 23.536942)
+transform = Transform3D(0.012918809, 0, 50.000507, 0, 50.00001, 0, -46.26382, 0, 0.01396225, -120.16418, -10, 25.085909)
 
 [node name="kitchenCabinet19" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
 transform = Transform3D(0.013962105, 0, 49.99999, 0, 50.00001, 0, -49.99999, 0, 0.013962105, -120.176186, -10, 73.34975)
@@ -227,7 +232,7 @@ transform = Transform3D(-49.999996, 0, -4.3711384e-06, 0, 50.000008, 0, 4.371138
 transform = Transform3D(-2.1855699e-06, 0, -50.00001, 0, 50.000004, 0, 50.00001, 0, -2.1855699e-06, 47.923073, -10, 53.967945)
 
 [node name="kitchenCabinetCornerInner4" parent="Track/RoomShell" instance=ExtResource("7_corner")]
-transform = Transform3D(-2.1855692e-06, 0, -49.999996, 0, 50.000008, 0, 49.999996, 0, -2.1855692e-06, 49.961136, -9.030309, 75.29956)
+transform = Transform3D(-2.1855692e-06, 0, -49.999996, 0, 50.000008, 0, 49.999996, 0, -2.1855692e-06, 49.961136, -10, 75.29956)
 
 [node name="doorwayOpen" parent="Track/RoomShell" instance=ExtResource("12_x538f")]
 transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, -33.640514, -10, 78.40431)
@@ -266,7 +271,7 @@ transform = Transform3D(-50, 0, -7.54979e-06, 0, 50, 0, 7.54979e-06, 0, -50, -77
 transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, -121.48029, -8.806137, -12.746695)
 
 [node name="hoodModern" parent="Track/Appliances" instance=ExtResource("6_487os")]
-transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, -128.67912, 25.528194, -20.211254)
+transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, -125.6066, 25.528194, -12.746695)
 
 [node name="doorway" parent="Track/Appliances" instance=ExtResource("5_51h51")]
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -98.63481, -10, -93.70375)
@@ -279,7 +284,7 @@ material_override = SubResource("Material_toon_water")
 mesh = SubResource("PlaneMesh_water")
 
 [node name="WasherWater" type="MeshInstance3D" parent="Track/WaterSurfaces"]
-transform = Transform3D(8.337667, 0, 0, 0, -4.371139e-08, -6.7815514, 0, 1, -2.9643104e-07, 15.42, 2.5, 73.36)
+transform = Transform3D(5.2, 0, 0, 0, -4.371139e-08, -4.8, 0, 1, -2.9643104e-07, 15.42, 2.5, 73.95)
 material_override = SubResource("Material_toon_water")
 mesh = SubResource("PlaneMesh_water")
 
@@ -299,9 +304,6 @@ transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06,
 
 [node name="LeftUpperCabinetC" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
 transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, -133.17755, 23.5, 16.20774)
-
-[node name="LeftUpperCabinetD" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
-transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, -133.17755, 23.5, 44.20774)
 
 [node name="LeftUpperCabinetE" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
 transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, -133.17755, 23.5, 72.20774)
