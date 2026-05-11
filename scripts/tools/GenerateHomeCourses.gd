@@ -610,7 +610,7 @@ func _tile_item_for_route_cell(route_cells: Array[Vector3i], index: int) -> int:
 	var current := route_cells[index]
 	var prev := route_cells[(index - 1 + route_cells.size()) % route_cells.size()]
 	var next := route_cells[(index + 1) % route_cells.size()]
-	if next.y != current.y:
+	if next.y > current.y or prev.y > current.y:
 		return TrackGridRoadBuilder.TILE_RAMP
 	if index == 0:
 		return TrackGridRoadBuilder.TILE_START
@@ -627,9 +627,8 @@ func _basis_for_route_cell(route_cells: Array[Vector3i], index: int, item: int) 
 	var prev_dir := _horizontal_delta(current, prev)
 	var next_dir := _horizontal_delta(current, next)
 	if item == TrackGridRoadBuilder.TILE_RAMP:
-		if next.y > current.y:
-			return _basis_for_forward(Vector3i(-next_dir.x, 0, -next_dir.z))
-		return _basis_for_forward(next_dir)
+		var high_dir := next_dir if next.y > current.y else prev_dir
+		return _basis_for_forward(Vector3i(-high_dir.x, 0, -high_dir.z))
 	if item != TrackGridRoadBuilder.TILE_CORNER and item != TrackGridRoadBuilder.TILE_CORNER_LARGE:
 		return _basis_for_forward(next_dir)
 	if _right_of(prev_dir) == next_dir:

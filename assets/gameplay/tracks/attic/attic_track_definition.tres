@@ -151,13 +151,13 @@ road_grid_layout = {
 "position": Vector3(-80, 4, 16)
 }, {
 "cell": Vector3i(-6, 1, 1),
-"item": 5,
+"item": 0,
 "orientation": 22,
 "orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
 "position": Vector3(-96, 4, 16)
 }, {
 "cell": Vector3i(-7, 0, 1),
-"item": 0,
+"item": 5,
 "orientation": 22,
 "orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
 "position": Vector3(-112, 0, 16)
