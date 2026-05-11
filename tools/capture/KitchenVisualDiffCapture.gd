@@ -150,6 +150,13 @@ func _camera_views(route: Array[Vector3]) -> Array[Dictionary]:
 			"note": "Doorway wall pieces must fit the prefab frame without protruding chunks or gaps.",
 		},
 		{
+			"id": "interior_door_depth_fit",
+			"position": Vector3(24.0, 56.0, 120.0),
+			"target": Vector3(-74.0, 40.0, 132.0),
+			"fov": 48.0,
+			"note": "Interior doorway frame depth must fit inside the surrounding wall thickness.",
+		},
+		{
 			"id": "right_countertop_corner",
 			"position": Vector3(70.0, 50.0, 118.0),
 			"target": Vector3(112.0, 25.0, 154.0),

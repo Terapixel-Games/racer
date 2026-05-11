@@ -177,6 +177,22 @@ Measured front-door checks:
 
 The capture harness now includes `front_door_frame_fit`, a direct view of the closed front-door wall returns and lintel.
 
+## Interior Doorway Depth Correction
+
+The eighth review showed the interior doorway frame still protruding past the surrounding wall/header assembly. The wall/header thickness was already correct at `x=-78.5..-72.1`; the doorway prefab depth was the oversized part, spanning `x=-76.191..-67.281`. This correction scales only the doorway prefab depth axis and shifts it so the frame fits inside the existing wall thickness.
+
+| Node | Old transform value | New transform value | Delta | Reason |
+| --- | --- | --- | --- | --- |
+| `Track/RoomShell/doorwayOpen` | `basis.z=(50, 0, -0.000002)`, `origin=(-33.640514, -10, 78.40431)` | `basis.z=(35.915, 0, -0.00000157)`, `origin=(-36.05, -10, 78.40431)` | Reduced frame depth, `origin.x -2.409486` | Fit the doorway frame inside the wall/header thickness without moving the route, wall, ceiling, or doorway width. |
+
+Measured interior-door checks:
+
+- `doorwayOpen` now spans `x=-78.500..-72.100`, `y=-20..80.953`, `z=108.209..156.809`.
+- `DoorwayOpenHeader` spans `x=-78.500..-72.100`, `y=80.950..107.800`, `z=107.000..156.700`.
+- `RightWall2` ends at `z=107.684` and `RightWall3` begins at `z=154.826`, so the doorway width remains preserved while the frame no longer protrudes past the wall plane.
+
+The capture harness now includes `interior_door_depth_fit`, a direct view for the doorway-depth-to-wall-thickness relationship.
+
 ## Craft Replay Read
 
 From route and fixture cameras, this pass should make repeat laps feel less like driving through a broken prototype: the doorway no longer exposes a frame gap, the wall/ceiling edges read as intentional enclosure, the washer effect is contained, the stove/hood/fridge area is no longer visibly interpenetrating, and the right counter run has a shared top plane. The Kitchen is still intentionally MVP-chaotic; deeper Sir Clink theming and richer replay hooks remain a later creative pass.
