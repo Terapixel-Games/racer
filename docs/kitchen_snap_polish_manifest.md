@@ -226,6 +226,41 @@ Measured closure checks:
 - The authored floor plane is at about global `y=-20.703`, so the wall panel overlaps the floor plane instead of ending above it.
 - The UAT load test now asserts the lower window infill overlaps the floor plane and preserves the existing window-bottom height.
 
+## Kitchen And Pantry Lighting/Decor Pass
+
+The eleventh pass added conservative interior design dressing without moving the room baseline, RoadGridMap, floor, checkpoints, spawns, walls, or broad cabinet/appliance layout. The design intent is layered light and task-zone identity: warm ambient bounce, visible under-cabinet task strips, a cooler window glint, prep/washing/cooking counter accessories, and a pantry shelf cluster near the existing `bookcaseOpen` storage run.
+
+Lighting changes:
+
+| Node | Old value | New value | Reason | Validation views |
+| --- | --- | --- | --- | --- |
+| `Track/Lighting/KitchenFillLight` | `light_energy=1.2`, default color | `light_color=(1, 0.9, 0.72)`, `light_energy=0.85`, `omni_range=95` | Keep the broad fill but reduce flat overexposure and warm the room base. | `kitchen_lighting_task_zones`, `level_select_angle` |
+| `Track/Lighting/WarmCeilingBounce` | Missing | `origin=(-38, 46, 18)`, `energy=0.42`, `range=150` | Add a soft ambient layer so the room reads inhabited instead of editor-flat. | `kitchen_lighting_task_zones`, route samples |
+| `Track/Lighting/CooktopTaskLight` | Missing | `origin=(-121, 26, -13)`, `energy=0.9`, `range=46` | Highlight the cooktop/hood task center. | `stove_hood_appliance_slot`, `kitchen_lighting_task_zones` |
+| `Track/Lighting/SinkTaskLight` | Missing | `origin=(-88, 26, 76)`, `energy=0.72`, `range=54` | Highlight the sink/prep counter task center. | `countertop_decor_task_read`, `sink_effect_anchor` |
+| `Track/Lighting/PantryWarmLight` | Missing | `origin=(63, 21, 34)`, `energy=0.78`, `range=42` | Make the pantry/storage run readable from route height. | `pantry_storage_closeup` |
+| `Track/Lighting/WindowCoolFill` | Missing | `origin=(-96, 42, 92)`, `energy=0.24`, `range=84` | Separate the window wall with a subtle cool daylight cue. | `kitchen_lighting_task_zones`, `back_wall_window_joints` |
+| `Track/Lighting/*TaskStrip`, `*Glow`, `WindowCoolGlint` | Missing | Added named `MeshInstance3D` light strips/glows using `Material_light_warm` or `Material_light_cool` | Make the light sources visually explain the lighting story. | `kitchen_lighting_task_zones`, `countertop_decor_task_read`, `pantry_storage_closeup` |
+
+Decor additions:
+
+| Node/group | Old value | New value | Reason | Validation views |
+| --- | --- | --- | --- | --- |
+| `Track/KitchenDecor` | Missing | Added named visual-only holder | Separate kitchen task-center decor from room shell and gameplay authoring. | `countertop_decor_task_read`, route samples |
+| `PrepCuttingBoard`, `PrepBowl`, `PrepApple`, `PrepBanana` | Missing | Added on the back counter landing, shifted to global `z=176..178` after route-clearance review | Create a prep landing zone while keeping props off the racing strip. | `countertop_decor_task_read` |
+| `SinkCup` | Missing | Added near the sink counter, route distance about `24` | Add washing/use detail without changing sink/effect anchors. | `countertop_decor_task_read`, `sink_effect_anchor` |
+| `CoffeeStationMachine` | Missing | Added on the back counter, shifted to global `z=173` after route-clearance review | Create a recognizable small-appliance station and keep it outside the line. | `countertop_decor_task_read` |
+| `RightCounterBlender` | Missing | Added on the right counter, route distance about `18` | Give the right run a task identity. | `level_select_angle`, `kitchen_lighting_task_zones` |
+| `CooktopOilBottle` | Missing | Added near the cooktop landing | Support the cooking task center without moving stove/hood geometry. | `stove_hood_appliance_slot` |
+| `Track/PantryDecor` | Missing | Added named visual-only holder with shelf cans, bowl, oil bottle, books, cookie, and subdued pantry package blocks | Turn the existing bookcases into a readable pantry/storage area. | `pantry_storage_closeup` |
+
+Measured checks:
+
+- No existing floor, wall, cabinet, appliance, RoadGridMap, spawn, checkpoint, or route transforms were moved.
+- `KitchenDecor` and `PantryDecor` are visual-only; the UAT load test asserts no enabled collision objects under either holder.
+- Larger counter props were route-clearance checked: `PrepCuttingBoard` about `24`, `CoffeeStationMachine` about `21`, and `RightCounterBlender` about `18` from the route centerline, all outside the `8`-unit half-width road line.
+- The capture harness now includes `kitchen_lighting_task_zones`, `pantry_storage_closeup`, and `countertop_decor_task_read` for before/after interior-quality review.
+
 ## Craft Replay Read
 
 From route and fixture cameras, this pass should make repeat laps feel less like driving through a broken prototype: the doorway no longer exposes a frame gap, the wall/ceiling edges read as intentional enclosure, the washer effect is contained, the stove/hood/fridge area is no longer visibly interpenetrating, and the right counter run has a shared top plane. The Kitchen is still intentionally MVP-chaotic; deeper Sir Clink theming and richer replay hooks remain a later creative pass.

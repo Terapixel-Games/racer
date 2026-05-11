@@ -170,6 +170,27 @@ func _camera_views(route: Array[Vector3]) -> Array[Dictionary]:
 			"note": "Counter/cabinet run must visually close to the back and right wall planes.",
 		},
 		{
+			"id": "kitchen_lighting_task_zones",
+			"position": Vector3(-188.0, 62.0, -122.0),
+			"target": Vector3(-78.0, 18.0, 28.0),
+			"fov": 50.0,
+			"note": "Layered kitchen lighting should reveal cooking, washing, storage, and route landmarks without glare.",
+		},
+		{
+			"id": "pantry_storage_closeup",
+			"position": Vector3(66.0, 30.0, 98.0),
+			"target": Vector3(118.0, 10.0, 68.0),
+			"fov": 48.0,
+			"note": "Pantry shelves should read as intentional storage with believable small goods and clear negative space.",
+		},
+		{
+			"id": "countertop_decor_task_read",
+			"position": Vector3(-208.0, 38.0, 96.0),
+			"target": Vector3(-146.0, 17.0, 150.0),
+			"fov": 50.0,
+			"note": "Counter accessories should support kitchen task centers while staying off the racing line.",
+		},
+		{
 			"id": "washer_water_containment",
 			"position": Vector3(-12.0, 20.0, 116.0),
 			"target": Vector3(31.0, 5.0, 148.0),
