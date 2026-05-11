@@ -95,6 +95,16 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	var back_window_base_bounds := _mesh_global_aabb(instance, "BuiltTrack/Dressing/EditableRoom/Track/RoomShell/BackWallBelowWindow")
 	assert_true(back_window_base_bounds.position.y <= kitchen_floor_bounds.position.y + 0.05, "Kitchen back-wall lower window panel should overlap the floor plane so exterior low angles cannot see through the wall base")
 	assert_true(back_window_base_bounds.end.y >= 47.95, "Kitchen back-wall lower window panel should preserve the existing window-bottom height")
+	_assert_z_span_matches(
+		_mesh_global_aabb(instance, "BuiltTrack/Dressing/EditableRoom/Track/RoomShell/FrontWallLeft"),
+		_mesh_global_aabb(instance, "BuiltTrack/Dressing/EditableRoom/Track/RoomShell/DoorHeader"),
+		"Front door left wall plane should be flush with the full door-header depth"
+	)
+	_assert_z_span_matches(
+		_mesh_global_aabb(instance, "BuiltTrack/Dressing/EditableRoom/Track/RoomShell/FrontWallRight"),
+		_mesh_global_aabb(instance, "BuiltTrack/Dressing/EditableRoom/Track/RoomShell/DoorHeader"),
+		"Front door right wall plane should be flush with the full door-header depth"
+	)
 	assert_true(_mesh_material_alpha(instance, "BuiltTrack/Dressing/EditableRoom/Track/RoomShell/WindowGlass") <= 0.15, "Kitchen window glass should be transparent enough for sky visibility")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/Appliances/kitchenSink") != null, "Editable room scene should preserve hand-placed kitchen props")
 	assert_true(_dressing_node_clears_route(instance, "BuiltTrack/Dressing/EditableRoom/Track/HandPlacedProps/IslandPlanter", definition, 16.0), "Kitchen island planter should sit outside the widened road and rail clearance")
@@ -502,6 +512,10 @@ func _assert_light_strip_mounts_under(root: Node, strip_path: NodePath, support_
 	var support_bounds := _node_global_mesh_aabb(root, support_path)
 	assert_true(absf(strip_bounds.end.y - support_bounds.position.y) <= tolerance, "%s; strip top %.3f support bottom %.3f" % [message, strip_bounds.end.y, support_bounds.position.y])
 	assert_true(_aabb_xz_overlaps(strip_bounds, support_bounds), "%s; strip footprint should overlap mounted support footprint" % message)
+
+func _assert_z_span_matches(a: AABB, b: AABB, message: String, tolerance := 0.08) -> void:
+	assert_true(absf(a.position.z - b.position.z) <= tolerance, "%s; min z %.3f expected %.3f" % [message, a.position.z, b.position.z])
+	assert_true(absf(a.end.z - b.end.z) <= tolerance, "%s; max z %.3f expected %.3f" % [message, a.end.z, b.end.z])
 
 func _node_global_mesh_aabb(root: Node, path: NodePath) -> AABB:
 	var node := root.get_node_or_null(path) as Node3D

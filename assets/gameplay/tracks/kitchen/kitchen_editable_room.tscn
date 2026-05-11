@@ -181,12 +181,12 @@ material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="FrontWallLeft" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(44.776714, 0, 0, 0, 63.914715, 0, 0, 0, 2, -121.31064, 21.942642, -98)
+transform = Transform3D(44.776714, 0, 0, 0, 63.914715, 0, 0, 0, 5.67, -121.31064, 21.942642, -95.932)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="FrontWallRight" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(182.23038, 0, 0, 0, 66.0925, 0, 0, 0, 2, 16.604912, 20.85375, -98)
+transform = Transform3D(182.23038, 0, 0, 0, 66.0925, 0, 0, 0, 5.67, 16.604912, 20.85375, -95.932)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 

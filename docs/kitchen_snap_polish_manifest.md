@@ -300,3 +300,18 @@ Validation changes:
 
 - The UAT load test now asserts support-face contact and X/Z footprint overlap for the prep counter, small appliances, cooktop bottle, pantry shelf goods, and task-light strips.
 - The capture harness now includes `countertop_prop_support_profile`, `pantry_shelf_support_profile`, `under_cabinet_light_mount_profile`, and `hood_task_light_mount_profile` so future reviews inspect the side profile of supported decor instead of relying on broad route screenshots.
+
+## Front Door Wall Depth Flush Correction
+
+The twelfth review showed a non-flush step/notch above the front door frame. The root issue was that the previous front-door correction deepened `DoorHeader` to match the closed-door prefab depth, but the adjacent `FrontWallLeft` and `FrontWallRight` slabs remained shallow two-unit wall planes. The header, jamb returns, and door frame matched each other, but the surrounding wall depth did not propagate to the wall slabs.
+
+| Node | Old transform value | New transform value | Delta | Reason |
+| --- | --- | --- | --- | --- |
+| `Track/RoomShell/FrontWallLeft` | `origin.z=-98`, `scale.z=2` | `origin.z=-95.932`, `scale.z=5.67` | `origin.z +2.068`, `scale.z +3.67` | Match the front wall slab depth to the door header and jamb returns so the wall reads as one flush opening assembly. |
+| `Track/RoomShell/FrontWallRight` | `origin.z=-98`, `scale.z=2` | `origin.z=-95.932`, `scale.z=5.67` | `origin.z +2.068`, `scale.z +3.67` | Remove the visible header side-face notch by matching the right wall slab depth to the full door-frame depth. |
+| `tools/capture/KitchenVisualDiffCapture.gd` | No direct front-door header-depth view | Added `front_door_header_depth_flush` | Added camera | Validate the high/oblique door-header angle that exposed the non-flush wall step. |
+
+Measured checks:
+
+- `FrontWallLeft`, `FrontWallRight`, and `DoorHeader` now share the same global Z span: about `-197.53..-186.19`.
+- The UAT load test now asserts that both adjacent front-wall slabs match the `DoorHeader` Z-depth span.

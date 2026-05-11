@@ -136,6 +136,13 @@ func _camera_views(route: Array[Vector3]) -> Array[Dictionary]:
 			"note": "Front wall returns and lintel must align to the closed-door prefab frame.",
 		},
 		{
+			"id": "front_door_header_depth_flush",
+			"position": Vector3(-112.0, 92.0, -260.0),
+			"target": Vector3(-149.0, 94.0, -188.0),
+			"fov": 42.0,
+			"note": "Front wall slabs must share the same depth as the door header so no header side-face notch is visible.",
+		},
+		{
 			"id": "rear_doorway_header_gap",
 			"position": Vector3(-130.0, 92.0, 132.0),
 			"target": Vector3(-75.0, 94.0, 132.0),
