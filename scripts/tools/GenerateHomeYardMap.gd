@@ -271,57 +271,132 @@ func _make_definition(course: Dictionary, layout: Dictionary, route_points: Arra
 
 func _add_site_base(root: Node3D, holders: Dictionary) -> void:
 	var site := holders["Site"] as Node3D
-	_add_box(root, site, "WholeSiteGround", Vector3(0, -1.0, -80), Vector3(500, 1, 590), Color(0.42, 0.52, 0.34), true)
-	_add_box(root, site, "NorthBackFence", Vector3(0, 12, -365), Vector3(480, 24, 7), Color(0.28, 0.20, 0.13), true)
-	_add_box(root, site, "SouthFrontFence", Vector3(0, 12, 190), Vector3(480, 24, 7), Color(0.28, 0.20, 0.13), true)
-	_add_box(root, site, "WestSideFence", Vector3(-240, 12, -85), Vector3(7, 24, 555), Color(0.28, 0.20, 0.13), true)
-	_add_box(root, site, "EastSideFence", Vector3(240, 12, -85), Vector3(7, 24, 555), Color(0.28, 0.20, 0.13), true)
+	_add_box(root, site, "WholeSiteGround", Vector3(0, -1.15, -85), Vector3(520, 1, 610), Color(0.36, 0.48, 0.30), true)
+	_add_box(root, site, "StreetFrontYardEdge", Vector3(0, -0.65, 190), Vector3(520, 1, 34), Color(0.20, 0.22, 0.22), true)
+	_add_box(root, site, "FrontWalkArrivalGarden", Vector3(-50, -0.55, 142), Vector3(170, 1, 18), Color(0.74, 0.74, 0.66), true)
+	_add_box(root, site, "FrontEntryWalk", Vector3(-50, -0.45, 114), Vector3(28, 1.1, 72), Color(0.68, 0.66, 0.60), true)
+	_add_box(root, site, "Driveway", Vector3(158, -0.45, 118), Vector3(112, 1.1, 126), Color(0.46, 0.46, 0.43), true)
+	_add_box(root, site, "DrivewayExpansionJointA", Vector3(158, 0.2, 92), Vector3(112, 0.14, 1.2), Color(0.27, 0.27, 0.25), false)
+	_add_box(root, site, "DrivewayExpansionJointB", Vector3(158, 0.2, 142), Vector3(112, 0.14, 1.2), Color(0.27, 0.27, 0.25), false)
+	_add_box(root, site, "FrontFoundationPlantingLeft", Vector3(-130, -0.35, 103), Vector3(120, 1.2, 14), Color(0.22, 0.42, 0.18), true)
+	_add_box(root, site, "FrontFoundationPlantingRight", Vector3(28, -0.35, 103), Vector3(72, 1.2, 14), Color(0.24, 0.44, 0.20), true)
+	_add_box(root, site, "NorthBackFence", Vector3(0, 12, -374), Vector3(500, 24, 7), Color(0.28, 0.20, 0.13), true)
+	_add_box(root, site, "SouthFrontFence", Vector3(0, 12, 206), Vector3(500, 24, 7), Color(0.28, 0.20, 0.13), true)
+	_add_box(root, site, "WestSideFence", Vector3(-250, 12, -84), Vector3(7, 24, 580), Color(0.28, 0.20, 0.13), true)
+	_add_box(root, site, "EastSideFence", Vector3(250, 12, -84), Vector3(7, 24, 580), Color(0.28, 0.20, 0.13), true)
 
 func _add_floor_plan_zones(root: Node3D, holders: Dictionary) -> void:
-	for zone in MAIN_ZONE_RECTS:
-		var holder := holders[str(zone["holder"])] as Node3D
-		_add_box(root, holder, str(zone["name"]), zone["pos"], zone["size"], zone["color"], true)
-		_add_label(root, holder, "%sLabel" % zone["name"], str(zone["label"]), (zone["pos"] as Vector3) + Vector3(0, 3.2, 0), 9.0)
+	var yard := holders["Yard"] as Node3D
+	_add_yard_plan(root, yard)
 
 func _add_main_floor_shell(root: Node3D, parent: Node3D) -> void:
-	_add_box(root, parent, "ExteriorBackWall", Vector3(-35, 22, -78), Vector3(360, 46, 5), Color(0.56, 0.50, 0.42), true)
-	_add_box(root, parent, "ExteriorFrontWall", Vector3(-35, 22, 112), Vector3(360, 46, 5), Color(0.56, 0.50, 0.42), true)
-	_add_box(root, parent, "ExteriorWestWall", Vector3(-215, 22, 18), Vector3(5, 46, 190), Color(0.52, 0.47, 0.40), true)
-	_add_box(root, parent, "ExteriorEastGarageWall", Vector3(215, 22, 18), Vector3(5, 46, 190), Color(0.52, 0.47, 0.40), true)
-	_add_box(root, parent, "RoofMassPlaceholder", Vector3(-35, 48, 18), Vector3(360, 7, 190), Color(0.36, 0.30, 0.25), false)
-	_add_box(root, parent, "DiningLivingDivider", Vector3(-95, 22, 70), Vector3(5, 46, 58), Color(0.62, 0.57, 0.50), true)
-	_add_box(root, parent, "LivingEntryDivider", Vector3(35, 22, 70), Vector3(5, 46, 58), Color(0.62, 0.57, 0.50), true)
-	_add_box(root, parent, "KitchenPlayroomDivider", Vector3(-90, 22, 10), Vector3(5, 46, 58), Color(0.62, 0.57, 0.50), true)
-	_add_box(root, parent, "PlayroomGarageDivider", Vector3(35, 22, 10), Vector3(5, 46, 58), Color(0.62, 0.57, 0.50), true)
-	_add_box(root, parent, "KitchenPatioThreshold", Vector3(-92, 2, -38), Vector3(110, 4, 5), Color(0.12, 0.36, 0.44), false)
-	_add_box(root, parent, "PlayroomPatioThreshold", Vector3(0, 2, -38), Vector3(72, 4, 5), Color(0.12, 0.36, 0.44), false)
+	var wall := Color(0.64, 0.58, 0.50)
+	var exterior := Color(0.54, 0.49, 0.42)
+	var trim := Color(0.24, 0.18, 0.12)
+	_add_room_floor(root, parent, "DiningHall", Vector3(-152, -0.55, 58), Vector3(114, 1.2, 92), Color(0.62, 0.48, 0.35))
+	_add_room_floor(root, parent, "LivingRoom", Vector3(-38, -0.55, 58), Vector3(114, 1.2, 92), Color(0.50, 0.43, 0.36))
+	_add_room_floor(root, parent, "EntryStairs", Vector3(52, -0.55, 58), Vector3(66, 1.2, 92), Color(0.58, 0.53, 0.45))
+	_add_room_floor(root, parent, "GarageService", Vector3(146, -0.55, 18), Vector3(124, 1.2, 172), Color(0.42, 0.42, 0.39))
+	_add_room_floor(root, parent, "KitchenPantry", Vector3(-150, -0.55, -38), Vector3(118, 1.2, 96), Color(0.78, 0.68, 0.50))
+	_add_room_floor(root, parent, "Playroom", Vector3(-32, -0.55, -38), Vector3(118, 1.2, 96), Color(0.76, 0.58, 0.30))
+	_add_wall_z(root, parent, "ExteriorFrontWallLeft", 106, -214, -70, exterior, true)
+	_add_wall_z(root, parent, "ExteriorFrontWallEntryHeader", 106, -28, 94, exterior, true)
+	_add_wall_z(root, parent, "ExteriorFrontGarageWall", 106, 94, 214, exterior, true)
+	_add_wall_z(root, parent, "ExteriorBackWallWest", -86, -214, -75, exterior, true)
+	_add_wall_z(root, parent, "ExteriorBackPatioHeader", -86, -15, 62, exterior, true)
+	_add_wall_z(root, parent, "ExteriorBackGarageWall", -86, 62, 214, exterior, true)
+	_add_wall_x(root, parent, "ExteriorWestWall", -214, -86, 106, exterior, true)
+	_add_wall_x(root, parent, "ExteriorEastGarageWall", 214, -86, 106, exterior, true)
+	_add_wall_x(root, parent, "DiningLivingDivider", -95, 16, 106, wall, true)
+	_add_wall_x(root, parent, "LivingEntryDivider", 18, 16, 106, wall, true)
+	_add_wall_x(root, parent, "KitchenPlayroomDivider", -92, -86, 16, wall, true)
+	_add_wall_x(root, parent, "PlayroomGarageDivider", 62, -86, 106, wall, true)
+	_add_wall_z(root, parent, "KitchenDiningWallLeft", 16, -214, -168, wall, true)
+	_add_wall_z(root, parent, "KitchenDiningWallCasedOpeningHeader", 16, -122, -92, wall, true)
+	_add_wall_z(root, parent, "KitchenDiningWallRight", 16, -92, -40, wall, true)
+	_add_wall_z(root, parent, "PlayLivingWallLeft", 16, -40, -8, wall, true)
+	_add_wall_z(root, parent, "PlayLivingWallOpeningHeader", 16, 32, 62, wall, true)
+	_add_wall_z(root, parent, "GarageInteriorBackWall", -18, 62, 214, wall, true)
+	_add_box(root, parent, "FrontDoorPanel", Vector3(-48, 12, 107.5), Vector3(36, 24, 2.4), Color(0.24, 0.13, 0.07), false)
+	_add_box(root, parent, "FrontDoorGlass", Vector3(-48, 17, 108.9), Vector3(22, 10, 0.6), Color(0.45, 0.72, 0.88, 0.45), false)
+	_add_box(root, parent, "KitchenPatioThreshold", Vector3(-46, 1.0, -86), Vector3(56, 2.0, 8), Color(0.16, 0.24, 0.24), false)
+	_add_box(root, parent, "PlayroomPatioThreshold", Vector3(20, 1.0, -86), Vector3(42, 2.0, 8), Color(0.16, 0.24, 0.24), false)
+	_add_window(root, parent, "DiningFrontWindow", Vector3(-150, 23, 108), Vector3(48, 22, 1.0))
+	_add_window(root, parent, "LivingFrontWindow", Vector3(-18, 23, 108), Vector3(46, 22, 1.0))
+	_add_window(root, parent, "KitchenGardenWindow", Vector3(-214.5, 22, -30), Vector3(1.0, 22, 46))
+	_add_box(root, parent, "GarageDoorPanel", Vector3(154, 14, 108), Vector3(86, 28, 2.0), Color(0.32, 0.30, 0.27), false)
+	_add_box(root, parent, "MainCeilingPlane", Vector3(0, 44.5, 10), Vector3(430, 3, 200), Color(0.76, 0.72, 0.64), false)
+	_add_box(root, parent, "RoofMassPlaceholder", Vector3(0, 52, 10), Vector3(448, 12, 214), Color(0.30, 0.24, 0.19), false)
+	_add_box(root, parent, "FrontEaveFascia", Vector3(0, 47, 118), Vector3(450, 8, 8), trim, false)
+	_add_box(root, parent, "BackEaveFascia", Vector3(0, 47, -98), Vector3(450, 8, 8), trim, false)
+	_add_box(root, parent, "WestEaveFascia", Vector3(-224, 47, 10), Vector3(8, 8, 214), trim, false)
+	_add_box(root, parent, "EastEaveFascia", Vector3(224, 47, 10), Vector3(8, 8, 214), trim, false)
+	_add_box(root, parent, "KitchenCabinetRunBack", Vector3(-150, 4, -82), Vector3(105, 8, 10), Color(0.38, 0.20, 0.10), false)
+	_add_box(root, parent, "KitchenIsland", Vector3(-150, 4, -22), Vector3(62, 8, 30), Color(0.52, 0.34, 0.18), false)
+	_add_box(root, parent, "LivingSofa", Vector3(-34, 5, 76), Vector3(66, 10, 16), Color(0.28, 0.34, 0.42), false)
+	_add_box(root, parent, "EntryStairBlockout", Vector3(50, 8, 70), Vector3(42, 16, 46), Color(0.42, 0.30, 0.20), false)
 
 func _add_upper_floor(root: Node3D, parent: Node3D) -> void:
-	_add_box(root, parent, "UpperFloorDeck", Vector3(60, 63, 66), Vector3(245, 2, 112), Color(0.46, 0.40, 0.48), true)
-	_add_box(root, parent, "BedroomZone", Vector3(0, 64, 66), Vector3(110, 1, 90), Color(0.55, 0.50, 0.66), true)
-	_add_box(root, parent, "GlamClosetZone", Vector3(120, 64, 66), Vector3(110, 1, 90), Color(0.74, 0.42, 0.63), true)
-	_add_box(root, parent, "UpperBackWall", Vector3(60, 88, 8), Vector3(245, 48, 5), Color(0.46, 0.38, 0.43), true)
-	_add_box(root, parent, "UpperFrontWall", Vector3(60, 88, 124), Vector3(245, 48, 5), Color(0.46, 0.38, 0.43), true)
-	_add_box(root, parent, "UpperLeftWall", Vector3(-65, 88, 66), Vector3(5, 48, 112), Color(0.42, 0.35, 0.40), true)
-	_add_box(root, parent, "UpperRightWall", Vector3(185, 88, 66), Vector3(5, 48, 112), Color(0.42, 0.35, 0.40), true)
-	_add_box(root, parent, "BedroomGlamDivider", Vector3(60, 88, 66), Vector3(5, 48, 112), Color(0.50, 0.42, 0.48), true)
-	_add_label(root, parent, "BedroomLabel", "Bedroom", Vector3(0, 68, 66), 9.0)
-	_add_label(root, parent, "GlamClosetLabel", "Glam Closet", Vector3(120, 68, 66), 9.0)
+	var wall := Color(0.54, 0.45, 0.50)
+	_add_room_floor(root, parent, "UpperFloorDeck", Vector3(62, 63, 66), Vector3(250, 2, 118), Color(0.42, 0.36, 0.44))
+	_add_room_floor(root, parent, "BedroomZone", Vector3(0, 64, 66), Vector3(116, 1.2, 92), Color(0.56, 0.50, 0.66))
+	_add_room_floor(root, parent, "GlamClosetZone", Vector3(122, 64, 66), Vector3(112, 1.2, 92), Color(0.70, 0.43, 0.60))
+	_add_wall_z(root, parent, "UpperBackWall", 8, -64, 188, wall, true, 64, 48)
+	_add_wall_z(root, parent, "UpperFrontWallLeft", 124, -64, 34, wall, true, 64, 48)
+	_add_wall_z(root, parent, "UpperFrontWallRight", 124, 86, 188, wall, true, 64, 48)
+	_add_wall_x(root, parent, "UpperLeftWall", -66, 8, 124, wall.darkened(0.08), true, 64, 48)
+	_add_wall_x(root, parent, "UpperRightWall", 190, 8, 124, wall.darkened(0.08), true, 64, 48)
+	_add_wall_x(root, parent, "BedroomGlamDividerLower", 62, 8, 52, wall, true, 64, 48)
+	_add_wall_x(root, parent, "BedroomGlamDividerUpper", 62, 82, 124, wall, true, 64, 48)
+	_add_box(root, parent, "UpperHallDoorHeader", Vector3(62, 91, 67), Vector3(6, 12, 30), wall, false)
+	_add_box(root, parent, "BedroomClosetBuiltIn", Vector3(-48, 72, 22), Vector3(22, 16, 28), Color(0.32, 0.24, 0.18), false)
+	_add_box(root, parent, "BedroomDeskNook", Vector3(38, 69, 24), Vector3(34, 10, 16), Color(0.40, 0.28, 0.18), false)
+	_add_box(root, parent, "GlamWardrobeRun", Vector3(166, 72, 66), Vector3(28, 16, 78), Color(0.34, 0.20, 0.28), false)
+	_add_box(root, parent, "GlamMirrorWall", Vector3(122, 76, 12), Vector3(54, 24, 1.0), Color(0.60, 0.72, 0.82, 0.55), false)
+	_add_box(root, parent, "UpperCeilingPlane", Vector3(62, 112, 66), Vector3(258, 3, 120), Color(0.68, 0.62, 0.68), false)
 
 func _add_attic(root: Node3D, parent: Node3D) -> void:
-	_add_box(root, parent, "AtticDeck", Vector3(60, 115, 18), Vector3(225, 2, 100), Color(0.48, 0.36, 0.24), true)
-	_add_box(root, parent, "AtticStorageZone", Vector3(60, 116, 18), Vector3(205, 1, 82), Color(0.45, 0.35, 0.25), true)
-	_add_box(root, parent, "AtticBackWall", Vector3(60, 137, -35), Vector3(225, 42, 5), Color(0.34, 0.27, 0.21), true)
-	_add_box(root, parent, "AtticFrontWall", Vector3(60, 137, 72), Vector3(225, 42, 5), Color(0.34, 0.27, 0.21), true)
-	_add_box(root, parent, "AtticRoofRidge", Vector3(60, 160, 18), Vector3(230, 8, 20), Color(0.26, 0.21, 0.18), false)
-	_add_label(root, parent, "AtticLabel", "Attic / Storage", Vector3(60, 121, 18), 9.0)
+	_add_room_floor(root, parent, "AtticDeck", Vector3(60, 115, 18), Vector3(230, 2, 104), Color(0.45, 0.33, 0.22))
+	_add_room_floor(root, parent, "AtticStorageZone", Vector3(60, 116, 18), Vector3(202, 1.2, 80), Color(0.48, 0.36, 0.24))
+	_add_wall_z(root, parent, "AtticBackWall", -36, -56, 176, Color(0.34, 0.27, 0.21), true, 116, 42)
+	_add_wall_z(root, parent, "AtticFrontWall", 72, -56, 176, Color(0.34, 0.27, 0.21), true, 116, 42)
+	_add_wall_x(root, parent, "AtticLeftGableWall", -56, -36, 72, Color(0.30, 0.24, 0.19), true, 116, 42)
+	_add_wall_x(root, parent, "AtticRightGableWall", 176, -36, 72, Color(0.30, 0.24, 0.19), true, 116, 42)
+	_add_box(root, parent, "AtticRoofPlaneLeft", Vector3(0, 151, 18), Vector3(124, 5, 112), Color(0.25, 0.20, 0.17), false, 0)
+	_add_box(root, parent, "AtticRoofPlaneRight", Vector3(120, 151, 18), Vector3(124, 5, 112), Color(0.25, 0.20, 0.17), false, 0)
+	_add_box(root, parent, "AtticRoofRidge", Vector3(60, 163, 18), Vector3(236, 7, 12), Color(0.20, 0.16, 0.14), false)
+	_add_box(root, parent, "AtticTrunkStack", Vector3(18, 122, 48), Vector3(44, 12, 18), Color(0.30, 0.18, 0.10), false)
+	_add_box(root, parent, "AtticBoxWall", Vector3(116, 123, -18), Vector3(62, 14, 20), Color(0.58, 0.42, 0.24), false)
 
 func _add_vertical_connectors(root: Node3D, parent: Node3D) -> void:
 	_add_box(root, parent, "MainToUpperToyRamp", Vector3(28, 31, 104), Vector3(24, 4, 130), Color(0.14, 0.36, 0.70), true, -28.0)
 	_add_box(root, parent, "UpperRampLanding", Vector3(48, 64, 112), Vector3(52, 3, 28), Color(0.16, 0.42, 0.75), true)
 	_add_box(root, parent, "UpperToAtticToyRamp", Vector3(92, 89, 34), Vector3(22, 4, 104), Color(0.65, 0.22, 0.18), true, -26.0)
 	_add_box(root, parent, "AtticRampLanding", Vector3(94, 116, -16), Vector3(48, 3, 26), Color(0.70, 0.25, 0.20), true)
-	_add_label(root, parent, "ToyRampLabel", "Toy ramps connect all floors", Vector3(42, 38, 130), 8.0)
+	_add_box(root, parent, "MainRampSideRailLeft", Vector3(12, 35, 104), Vector3(4, 8, 128), Color(0.08, 0.12, 0.18), false, -28.0)
+	_add_box(root, parent, "MainRampSideRailRight", Vector3(44, 35, 104), Vector3(4, 8, 128), Color(0.08, 0.12, 0.18), false, -28.0)
+	_add_box(root, parent, "AtticRampSideRailLeft", Vector3(78, 93, 34), Vector3(4, 8, 104), Color(0.18, 0.06, 0.04), false, -26.0)
+	_add_box(root, parent, "AtticRampSideRailRight", Vector3(106, 93, 34), Vector3(4, 8, 104), Color(0.18, 0.06, 0.04), false, -26.0)
+
+func _add_yard_plan(root: Node3D, parent: Node3D) -> void:
+	_add_box(root, parent, "PatioDeckTransition", Vector3(-36, -0.45, -110), Vector3(350, 1.2, 46), Color(0.48, 0.44, 0.38), true)
+	_add_box(root, parent, "PatioBoardLineA", Vector3(-36, 0.25, -122), Vector3(350, 0.12, 1.0), Color(0.27, 0.23, 0.18), false)
+	_add_box(root, parent, "PatioBoardLineB", Vector3(-36, 0.25, -98), Vector3(350, 0.12, 1.0), Color(0.27, 0.23, 0.18), false)
+	_add_box(root, parent, "OutdoorPlaygroundSetpieceZone", Vector3(-45, -0.45, -176), Vector3(300, 1.2, 74), Color(0.56, 0.42, 0.22), true)
+	_add_box(root, parent, "PlaygroundMulchBorderFront", Vector3(-45, 1.0, -138), Vector3(308, 3, 4), Color(0.22, 0.12, 0.06), false)
+	_add_box(root, parent, "PlaygroundMulchBorderBack", Vector3(-45, 1.0, -214), Vector3(308, 3, 4), Color(0.22, 0.12, 0.06), false)
+	_add_box(root, parent, "GardenZone", Vector3(-164, -0.35, -270), Vector3(136, 1.4, 126), Color(0.24, 0.36, 0.18), true)
+	_add_box(root, parent, "GardenRaisedBedA", Vector3(-194, 3, -270), Vector3(46, 6, 88), Color(0.20, 0.12, 0.07), false)
+	_add_box(root, parent, "GardenRaisedBedB", Vector3(-138, 3, -270), Vector3(46, 6, 88), Color(0.20, 0.12, 0.07), false)
+	_add_box(root, parent, "GardenPath", Vector3(-166, 0.05, -270), Vector3(16, 0.5, 116), Color(0.64, 0.56, 0.42), false)
+	_add_box(root, parent, "LawnRouteBuffer", Vector3(4, -0.55, -270), Vector3(190, 1.1, 126), Color(0.48, 0.62, 0.34), true)
+	_add_box(root, parent, "Sandbox", Vector3(156, -0.35, -270), Vector3(112, 1.4, 106), Color(0.82, 0.66, 0.42), true)
+	_add_box(root, parent, "SandboxTimberNorth", Vector3(156, 3, -324), Vector3(120, 6, 6), Color(0.30, 0.18, 0.08), false)
+	_add_box(root, parent, "SandboxTimberSouth", Vector3(156, 3, -216), Vector3(120, 6, 6), Color(0.30, 0.18, 0.08), false)
+	_add_box(root, parent, "SandboxTimberWest", Vector3(94, 3, -270), Vector3(6, 6, 112), Color(0.30, 0.18, 0.08), false)
+	_add_box(root, parent, "SandboxTimberEast", Vector3(218, 3, -270), Vector3(6, 6, 112), Color(0.30, 0.18, 0.08), false)
+	_add_box(root, parent, "TreeShrubScreen", Vector3(0, 2, -346), Vector3(430, 6, 18), Color(0.19, 0.36, 0.14), false)
+	_add_box(root, parent, "BackServiceGate", Vector3(218, 9, -346), Vector3(28, 18, 4), Color(0.22, 0.12, 0.06), false)
 
 func _add_decor(root: Node3D, holders: Dictionary) -> void:
 	var main := holders["MainFloor"] as Node3D
@@ -370,7 +445,7 @@ func _add_validation_cameras(root: Node3D, parent: Node3D) -> void:
 	_add_camera(root, parent, "RampSideProfileCamera", Vector3(-75, 84, 104), Vector3(-8, -90, 0), 70)
 
 func _add_concept_reference(root: Node3D, parent: Node3D) -> void:
-	_add_label(root, parent, "FloorPlanReferenceLabel", "Concept source: docs/concepts/floor_plans/racer_house_yard_concept_floor_plan.png", Vector3(0, 42, 210), 8.0)
+	parent.set_meta("concept_source", FLOOR_PLAN_PATH)
 
 func _add_lighting(root: Node3D) -> void:
 	var sun := DirectionalLight3D.new()
@@ -642,6 +717,62 @@ func _orientation_index(basis: Basis) -> int:
 
 func _basis_to_array(basis: Basis) -> Array:
 	return [[basis.x.x, basis.x.y, basis.x.z], [basis.y.x, basis.y.y, basis.y.z], [basis.z.x, basis.z.y, basis.z.z]]
+
+func _add_room_floor(root: Node3D, parent: Node3D, node_name: String, position: Vector3, size: Vector3, color: Color) -> void:
+	_add_box(root, parent, node_name, position, size, color, true)
+	var trim_color := color.darkened(0.32)
+	_add_box(root, parent, "%sBaseboardNorth" % node_name, position + Vector3(0, 2.0, -size.z * 0.5), Vector3(size.x, 4.0, 2.0), trim_color, false)
+	_add_box(root, parent, "%sBaseboardSouth" % node_name, position + Vector3(0, 2.0, size.z * 0.5), Vector3(size.x, 4.0, 2.0), trim_color, false)
+	_add_box(root, parent, "%sBaseboardWest" % node_name, position + Vector3(-size.x * 0.5, 2.0, 0), Vector3(2.0, 4.0, size.z), trim_color, false)
+	_add_box(root, parent, "%sBaseboardEast" % node_name, position + Vector3(size.x * 0.5, 2.0, 0), Vector3(2.0, 4.0, size.z), trim_color, false)
+
+func _add_wall_z(
+	root: Node3D,
+	parent: Node3D,
+	node_name: String,
+	z: float,
+	x0: float,
+	x1: float,
+	color: Color,
+	collision: bool,
+	base_y := 0.0,
+	height := 46.0
+) -> void:
+	var center_x := (x0 + x1) * 0.5
+	var width := absf(x1 - x0)
+	_add_box(root, parent, node_name, Vector3(center_x, base_y + height * 0.5, z), Vector3(width, height, 6.0), color, collision)
+	_add_box(root, parent, "%sTopTrim" % node_name, Vector3(center_x, base_y + height + 2.0, z), Vector3(width + 2.0, 4.0, 8.0), color.darkened(0.20), false)
+
+func _add_wall_x(
+	root: Node3D,
+	parent: Node3D,
+	node_name: String,
+	x: float,
+	z0: float,
+	z1: float,
+	color: Color,
+	collision: bool,
+	base_y := 0.0,
+	height := 46.0
+) -> void:
+	var center_z := (z0 + z1) * 0.5
+	var depth := absf(z1 - z0)
+	_add_box(root, parent, node_name, Vector3(x, base_y + height * 0.5, center_z), Vector3(6.0, height, depth), color, collision)
+	_add_box(root, parent, "%sTopTrim" % node_name, Vector3(x, base_y + height + 2.0, center_z), Vector3(8.0, 4.0, depth + 2.0), color.darkened(0.20), false)
+
+func _add_window(root: Node3D, parent: Node3D, node_name: String, position: Vector3, size: Vector3) -> void:
+	_add_box(root, parent, node_name, position, size, Color(0.55, 0.77, 0.92, 0.48), false)
+	var trim_color := Color(0.92, 0.86, 0.72)
+	if size.x >= size.z:
+		_add_box(root, parent, "%sHeader" % node_name, position + Vector3(0, size.y * 0.5 + 2.0, 0), Vector3(size.x + 8.0, 4.0, 3.0), trim_color, false)
+		_add_box(root, parent, "%sSill" % node_name, position + Vector3(0, -size.y * 0.5 - 2.0, 0), Vector3(size.x + 10.0, 4.0, 4.0), trim_color, false)
+		_add_box(root, parent, "%sLeftJamb" % node_name, position + Vector3(-size.x * 0.5 - 2.0, 0, 0), Vector3(4.0, size.y + 4.0, 3.0), trim_color, false)
+		_add_box(root, parent, "%sRightJamb" % node_name, position + Vector3(size.x * 0.5 + 2.0, 0, 0), Vector3(4.0, size.y + 4.0, 3.0), trim_color, false)
+	else:
+		_add_box(root, parent, "%sHeader" % node_name, position + Vector3(0, size.y * 0.5 + 2.0, 0), Vector3(3.0, 4.0, size.z + 8.0), trim_color, false)
+		_add_box(root, parent, "%sSill" % node_name, position + Vector3(0, -size.y * 0.5 - 2.0, 0), Vector3(4.0, 4.0, size.z + 10.0), trim_color, false)
+		_add_box(root, parent, "%sLeftJamb" % node_name, position + Vector3(0, 0, -size.z * 0.5 - 2.0), Vector3(3.0, size.y + 4.0, 4.0), trim_color, false)
+		_add_box(root, parent, "%sRightJamb" % node_name, position + Vector3(0, 0, size.z * 0.5 + 2.0), Vector3(3.0, size.y + 4.0, 4.0), trim_color, false)
 
 func _add_box(root: Node3D, parent: Node3D, node_name: String, position: Vector3, size: Vector3, color: Color, collision: bool, yaw_degrees := 0.0) -> MeshInstance3D:
 	var mesh := MeshInstance3D.new()
