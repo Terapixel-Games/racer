@@ -252,7 +252,7 @@ Decor additions:
 | `CoffeeStationMachine` | Missing | Added on the back counter, shifted to global `z=173` after route-clearance review | Create a recognizable small-appliance station and keep it outside the line. | `countertop_decor_task_read` |
 | `RightCounterBlender` | Missing | Added on the right counter, route distance about `18` | Give the right run a task identity. | `level_select_angle`, `kitchen_lighting_task_zones` |
 | `CooktopOilBottle` | Missing | Added near the cooktop landing | Support the cooking task center without moving stove/hood geometry. | `stove_hood_appliance_slot` |
-| `Track/PantryDecor` | Missing | Added named visual-only holder with shelf cans, bowl, oil bottle, books, cookie, and subdued pantry package blocks | Turn the existing bookcases into a readable pantry/storage area. | `pantry_storage_closeup` |
+| `Track/PantryDecor` | Missing | Added named visual-only holder with shelf cans, bowl, oil bottle, and subdued pantry package blocks | Turn the existing bookcases into a readable pantry/storage area. | `pantry_storage_closeup` |
 
 Measured checks:
 
@@ -264,3 +264,39 @@ Measured checks:
 ## Craft Replay Read
 
 From route and fixture cameras, this pass should make repeat laps feel less like driving through a broken prototype: the doorway no longer exposes a frame gap, the wall/ceiling edges read as intentional enclosure, the washer effect is contained, the stove/hood/fridge area is no longer visibly interpenetrating, and the right counter run has a shared top plane. The Kitchen is still intentionally MVP-chaotic; deeper Sir Clink theming and richer replay hooks remain a later creative pass.
+
+## Decor Support Correction
+
+The lighting/decor pass exposed a repeat quality failure: props and light strips were placed by approximate eye-level transforms instead of being snapped to support faces with footprint checks. This correction treats every new decor object as requiring a support target, a support face, and a validation view.
+
+| Node | Old transform value | New transform value | Delta | Reason |
+| --- | --- | --- | --- | --- |
+| `Track/KitchenDecor/PrepCuttingBoard` | `origin=(-73.5, 14.25, 88)` | `origin=(-73.5, 12.5, 88)` | `origin.y -1.75` | Put the board bottom on the cabinet/counter top datum. |
+| `Track/KitchenDecor/PrepBowl` | `origin=(-60.5, 14.55, 88.5)` | `origin=(-73.5, 13.22, 88.5)` | `origin=(-13, -1.33, 0)` | Put the bowl on the cutting board top and inside the board footprint. |
+| `Track/KitchenDecor/PrepApple` | `origin=(-61.5, 16.8, 88.8)` | `origin=(-72, 13.22, 88.8)` | `origin=(-10.5, -3.58, 0)` | Put the apple on the cutting board top and inside the board footprint. |
+| `Track/KitchenDecor/PrepBanana` | `origin=(-68, 15.1, 89)` | `origin=(-74.5, 13.22, 89)` | `origin=(-6.5, -1.88, 0)` | Put the banana on the cutting board top and inside the board footprint. |
+| `Track/KitchenDecor/CoffeeStationMachine` | `origin=(-48, 14.3, 86.5)` | `origin=(33, 12.5, 93.5)` | `origin=(+81, -1.8, +7)` | Move the coffee machine to a supported counter footprint instead of hovering near an unsupported edge. |
+| `Track/KitchenDecor/RightCounterBlender` | `origin=(25, 14.2, 5)` | `origin=(25, 12.5, 1)` | `origin=(0, -1.7, -4)` | Put the blender bottom on the right-counter support. |
+| `Track/KitchenDecor/CooktopOilBottle` | `origin=(-112, 14.2, -30)` | `origin=(-130, 13.7, -16)` | `origin=(-18, -0.5, +14)` | Put the oil bottle on the cooktop support and within the stove footprint. |
+| `Track/PantryDecor/PantryBooks` | Present at oversized shelf scale | Removed | Removed | Remove a shelf prop whose scale read wrong for the pantry aperture. |
+| `Track/PantryDecor/PantrySnackCookie` | Present at oversized shelf scale | Removed | Removed | Remove a shelf prop whose scale read wrong for the pantry aperture. |
+| `Track/PantryDecor/PantryCerealBoxLower` | `origin.y=1.1` | `origin.y=0.1` | `origin.y -1` | Put the package bottom on the lower shelf datum. |
+| `Track/PantryDecor/PantryFlourBoxMiddle` | `origin.y=12.2` | `origin.y=11.6` | `origin.y -0.6` | Put the package bottom on the middle shelf datum. |
+| `Track/PantryDecor/PantryTeaTinUpper` | `origin.y=24.2` | `origin.y=22.7` | `origin.y -1.5` | Put the package bottom on the upper shelf datum. |
+| `Track/Lighting/BackCounterTaskStrip` | `origin=(-76, 24.2, 78)`, `scale=(42, 0.35, 1.1)` | `origin=(-3.75, 23.325, 87.1)`, `scale=(41, 0.35, 0.45)` | Repositioned and narrowed | Mount the visible strip to the underside/front edge of the back-wall upper cabinets instead of floating over the counter. |
+| `Track/Lighting/CooktopTaskStrip` | `origin=(-121, 24.2, -13)`, `scale=(18, 0.35, 1.1)` | `origin=(-132.5, 23.825, -12.8)`, `scale=(11, 0.35, 0.45)` | Repositioned and narrowed | Mount the visible strip to the hood underside/front edge. |
+| `Track/Lighting/PantryShelfTaskStrip` | Present as a vertical shelf light strip | Removed | Removed | Remove an unsupported floating strip; `PantryWarmLight` keeps the pantry readable without an implausible fixture. |
+
+Measured support checks:
+
+- `PrepCuttingBoard.bottom=25.000`, matching `kitchenCabinet22.top=25.000`.
+- `PrepBowl.bottom=26.440`, `PrepApple.bottom=26.440`, and `PrepBanana.bottom=26.440`, matching `PrepCuttingBoard.top=26.440`; all three footprints overlap the board footprint.
+- `CoffeeStationMachine.bottom=25.000` and `RightCounterBlender.bottom=25.000`, matching their counter support tops.
+- `CooktopOilBottle.bottom=27.400`, matching `kitchenStove.top=27.388` within tolerance.
+- Pantry goods sit on shelf datums: lower shelf `-3.000`, middle shelf `20.000`, upper shelf `43.000`.
+- `BackCounterTaskStrip.top=47.000`, matching the back upper-cabinet underside. `CooktopTaskStrip.top=48.000`, matching the hood underside within tolerance.
+
+Validation changes:
+
+- The UAT load test now asserts support-face contact and X/Z footprint overlap for the prep counter, small appliances, cooktop bottle, pantry shelf goods, and task-light strips.
+- The capture harness now includes `countertop_prop_support_profile`, `pantry_shelf_support_profile`, `under_cabinet_light_mount_profile`, and `hood_task_light_mount_profile` so future reviews inspect the side profile of supported decor instead of relying on broad route screenshots.

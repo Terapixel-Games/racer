@@ -121,6 +121,22 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/Lighting/SinkTaskLight") is OmniLight3D, "Kitchen lighting should include a sink task light")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/Lighting/PantryWarmLight") is OmniLight3D, "Pantry lighting should include a warm storage light")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/Lighting/BackCounterTaskStrip") is MeshInstance3D, "Kitchen lighting should include visible under-cabinet task strips")
+	_assert_node_rests_on(instance, "BuiltTrack/Dressing/EditableRoom/Track/KitchenDecor/PrepCuttingBoard", "BuiltTrack/Dressing/EditableRoom/Track/RoomShell/kitchenCabinet22", "Prep cutting board should sit on the back counter cabinet top")
+	_assert_node_rests_on(instance, "BuiltTrack/Dressing/EditableRoom/Track/KitchenDecor/PrepBowl", "BuiltTrack/Dressing/EditableRoom/Track/KitchenDecor/PrepCuttingBoard", "Prep bowl should sit on the cutting board, not float above it")
+	_assert_node_rests_on(instance, "BuiltTrack/Dressing/EditableRoom/Track/KitchenDecor/PrepApple", "BuiltTrack/Dressing/EditableRoom/Track/KitchenDecor/PrepCuttingBoard", "Prep apple should sit on the cutting board, not float above it")
+	_assert_node_rests_on(instance, "BuiltTrack/Dressing/EditableRoom/Track/KitchenDecor/PrepBanana", "BuiltTrack/Dressing/EditableRoom/Track/KitchenDecor/PrepCuttingBoard", "Prep banana should sit on the cutting board, not float above it")
+	_assert_node_rests_on(instance, "BuiltTrack/Dressing/EditableRoom/Track/KitchenDecor/CoffeeStationMachine", "BuiltTrack/Dressing/EditableRoom/Track/RoomShell/kitchenCabinet25", "Coffee machine should sit on a real counter support")
+	_assert_node_rests_on(instance, "BuiltTrack/Dressing/EditableRoom/Track/KitchenDecor/RightCounterBlender", "BuiltTrack/Dressing/EditableRoom/Track/RoomShell/kitchenCabinet", "Right counter blender should sit on a lower cabinet top")
+	_assert_node_rests_on(instance, "BuiltTrack/Dressing/EditableRoom/Track/KitchenDecor/CooktopOilBottle", "BuiltTrack/Dressing/EditableRoom/Track/Appliances/kitchenStove", "Cooktop oil bottle should sit on the stove/cooktop support")
+	_assert_node_bottom_near(instance, "BuiltTrack/Dressing/EditableRoom/Track/PantryDecor/PantryCanLowerA", -3.0, "Lower pantry can A should sit on the lower shelf datum")
+	_assert_node_bottom_near(instance, "BuiltTrack/Dressing/EditableRoom/Track/PantryDecor/PantryCanLowerB", -3.0, "Lower pantry can B should sit on the lower shelf datum")
+	_assert_node_bottom_near(instance, "BuiltTrack/Dressing/EditableRoom/Track/PantryDecor/PantryOilBottle", 20.0, "Middle pantry oil bottle should sit on the middle shelf datum")
+	_assert_node_bottom_near(instance, "BuiltTrack/Dressing/EditableRoom/Track/PantryDecor/PantryBowl", 20.0, "Middle pantry bowl should sit on the middle shelf datum")
+	_assert_node_bottom_near(instance, "BuiltTrack/Dressing/EditableRoom/Track/PantryDecor/PantryCerealBoxLower", -3.0, "Lower pantry package should sit on the lower shelf datum")
+	_assert_node_bottom_near(instance, "BuiltTrack/Dressing/EditableRoom/Track/PantryDecor/PantryFlourBoxMiddle", 20.0, "Middle pantry package should sit on the middle shelf datum")
+	_assert_node_bottom_near(instance, "BuiltTrack/Dressing/EditableRoom/Track/PantryDecor/PantryTeaTinUpper", 43.0, "Upper pantry package should sit on the upper shelf datum")
+	_assert_light_strip_mounts_under(instance, "BuiltTrack/Dressing/EditableRoom/Track/Lighting/BackCounterTaskStrip", "BuiltTrack/Dressing/EditableRoom/Track/UpperCabinets/BackUpperCabinetLeftB", "Back counter task strip should touch the underside/front edge of the upper cabinets")
+	_assert_light_strip_mounts_under(instance, "BuiltTrack/Dressing/EditableRoom/Track/Lighting/CooktopTaskStrip", "BuiltTrack/Dressing/EditableRoom/Track/Appliances/hoodModern", "Cooktop task strip should touch the hood underside")
 	assert_equal(_enabled_collision_objects(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom")), 0, "Editable room dressing should not collide with the kart")
 	assert_equal(instance.get_node_or_null("BuiltTrack/Dressing").get_child_count(), 1, "Kitchen runtime dressing should only instantiate the editable room")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/StageProps") == null, "Kitchen runtime should not instantiate metadata stage props")
@@ -471,10 +487,53 @@ func _scaled_node_footprint_width(root: Node, path: NodePath) -> float:
 		return 0.0
 	return maxf(node.global_transform.basis.x.length(), node.global_transform.basis.z.length())
 
+func _assert_node_rests_on(root: Node, item_path: NodePath, support_path: NodePath, message: String, tolerance := 0.08) -> void:
+	var item_bounds := _node_global_mesh_aabb(root, item_path)
+	var support_bounds := _node_global_mesh_aabb(root, support_path)
+	assert_true(absf(item_bounds.position.y - support_bounds.end.y) <= tolerance, "%s; vertical gap %.3f" % [message, item_bounds.position.y - support_bounds.end.y])
+	assert_true(_aabb_xz_overlaps(item_bounds, support_bounds), "%s; item footprint should overlap support footprint" % message)
+
+func _assert_node_bottom_near(root: Node, item_path: NodePath, expected_bottom: float, message: String, tolerance := 0.08) -> void:
+	var item_bounds := _node_global_mesh_aabb(root, item_path)
+	assert_true(absf(item_bounds.position.y - expected_bottom) <= tolerance, "%s; bottom %.3f expected %.3f" % [message, item_bounds.position.y, expected_bottom])
+
+func _assert_light_strip_mounts_under(root: Node, strip_path: NodePath, support_path: NodePath, message: String, tolerance := 0.08) -> void:
+	var strip_bounds := _node_global_mesh_aabb(root, strip_path)
+	var support_bounds := _node_global_mesh_aabb(root, support_path)
+	assert_true(absf(strip_bounds.end.y - support_bounds.position.y) <= tolerance, "%s; strip top %.3f support bottom %.3f" % [message, strip_bounds.end.y, support_bounds.position.y])
+	assert_true(_aabb_xz_overlaps(strip_bounds, support_bounds), "%s; strip footprint should overlap mounted support footprint" % message)
+
+func _node_global_mesh_aabb(root: Node, path: NodePath) -> AABB:
+	var node := root.get_node_or_null(path) as Node3D
+	if node == null:
+		return AABB()
+	var has_bounds := false
+	var bounds := AABB()
+	if node is MeshInstance3D and (node as MeshInstance3D).mesh != null:
+		bounds = _mesh_instance_global_aabb(node as MeshInstance3D)
+		has_bounds = true
+	for child in node.find_children("*", "MeshInstance3D", true, false):
+		var mesh_instance := child as MeshInstance3D
+		if mesh_instance == null or mesh_instance.mesh == null:
+			continue
+		var child_bounds := _mesh_instance_global_aabb(mesh_instance)
+		if not has_bounds:
+			bounds = child_bounds
+			has_bounds = true
+		else:
+			bounds = bounds.merge(child_bounds)
+	return bounds
+
+func _aabb_xz_overlaps(a: AABB, b: AABB) -> bool:
+	return a.position.x <= b.end.x and a.end.x >= b.position.x and a.position.z <= b.end.z and a.end.z >= b.position.z
+
 func _mesh_global_aabb(root: Node, path: NodePath) -> AABB:
 	var mesh_instance := root.get_node_or_null(path) as MeshInstance3D
 	if mesh_instance == null or mesh_instance.mesh == null:
 		return AABB()
+	return _mesh_instance_global_aabb(mesh_instance)
+
+func _mesh_instance_global_aabb(mesh_instance: MeshInstance3D) -> AABB:
 	var local := mesh_instance.get_aabb()
 	var corners: Array[Vector3] = [
 		local.position,
