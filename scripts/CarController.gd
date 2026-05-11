@@ -55,6 +55,7 @@ var _item_boost_timer := 0.0
 var _item_boost_force := 0.0
 var _racer_visual_id := ""
 var _racer_visual_mode := ""
+var _racer_visual_lod := RacerRoster.RACER_MODEL_LOD0
 var _active_visual_model: Node3D = null
 var _visual_anim_time := 0.0
 var _visual_last_position := Vector3.ZERO
@@ -72,8 +73,14 @@ func _ready() -> void:
 	_apply_selected_racer_visual_from_metadata()
 
 func set_racer_visual(racer_id: String) -> bool:
+	return set_racer_visual_lod(racer_id, RacerRoster.RACER_MODEL_LOD0)
+
+func set_racer_visual_lod(racer_id: String, lod: String) -> bool:
 	var normalized := RacerRoster.normalize_id(racer_id)
-	var model_path := RacerRoster.get_racer_in_kart_model_path(normalized)
+	var normalized_lod := RacerRoster.normalize_model_lod(lod)
+	if _racer_visual_id == normalized and _racer_visual_lod == normalized_lod and has_racer_visual():
+		return true
+	var model_path := RacerRoster.get_racer_in_kart_model_path_for_lod(normalized, normalized_lod)
 	if model_path.is_empty() or not ResourceLoader.exists(model_path) or not _is_scene_import_valid(model_path):
 		return _apply_portrait_visual(normalized)
 	var packed := load(model_path)
@@ -96,6 +103,7 @@ func set_racer_visual(racer_id: String) -> bool:
 	_set_placeholder_visible(false)
 	_racer_visual_id = normalized
 	_racer_visual_mode = "model"
+	_racer_visual_lod = normalized_lod
 	return true
 
 func get_racer_visual_id() -> String:
@@ -103,6 +111,21 @@ func get_racer_visual_id() -> String:
 
 func get_racer_visual_mode() -> String:
 	return _racer_visual_mode
+
+func get_racer_visual_lod() -> String:
+	return _racer_visual_lod
+
+func update_racer_visual_lod_for_camera(camera_position: Vector3) -> void:
+	if _racer_visual_id.is_empty():
+		return
+	var distance := global_transform.origin.distance_to(camera_position)
+	var target_lod := RacerRoster.RACER_MODEL_LOD0
+	if distance >= 52.0:
+		target_lod = RacerRoster.RACER_MODEL_LOD2
+	elif distance >= 28.0:
+		target_lod = RacerRoster.RACER_MODEL_LOD1
+	if target_lod != _racer_visual_lod:
+		set_racer_visual_lod(_racer_visual_id, target_lod)
 
 func has_racer_visual() -> bool:
 	return _active_visual_model != null and is_instance_valid(_active_visual_model)
@@ -340,6 +363,7 @@ func _clear_racer_visual() -> void:
 	_active_visual_model = null
 	_racer_visual_id = ""
 	_racer_visual_mode = ""
+	_racer_visual_lod = RacerRoster.RACER_MODEL_LOD0
 	var mount := get_node_or_null("RacerVisual")
 	if mount != null:
 		if mount is Node3D:
@@ -380,6 +404,7 @@ func _apply_portrait_visual(racer_id: String) -> bool:
 	_active_visual_model = badge
 	_racer_visual_id = racer_id
 	_racer_visual_mode = "portrait"
+	_racer_visual_lod = RacerRoster.RACER_MODEL_LOD0
 	return true
 
 func _is_scene_import_valid(resource_path: String) -> bool:

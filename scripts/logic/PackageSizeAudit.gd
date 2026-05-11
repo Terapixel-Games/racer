@@ -12,11 +12,17 @@ static func collect() -> Dictionary:
 	var source_racer_glb_bytes := _sum_files(SOURCE_RACER_ROOT, func(path: String) -> bool:
 		return path.ends_with("/racer_in_kart.glb")
 	)
-	var optimized_racer_glb_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
-		return path.ends_with(".glb")
+	var optimized_racer_lod0_glb_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
+		return path.ends_with(".glb") and not _is_lod_path(path)
 	)
-	var optimized_racer_atlas_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
-		return path.ends_with(".jpg")
+	var optimized_racer_lod_glb_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
+		return path.ends_with(".glb") and _is_lod_path(path)
+	)
+	var optimized_racer_lod0_atlas_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
+		return path.ends_with(".jpg") and not _is_lod_path(path)
+	)
+	var optimized_racer_lod_atlas_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
+		return path.ends_with(".jpg") and _is_lod_path(path)
 	)
 	var web_build_bytes := _sum_files(WEB_BUILD_ROOT, func(_path: String) -> bool:
 		return true
@@ -29,16 +35,25 @@ static func collect() -> Dictionary:
 		android_package_bytes += int((package_file as Dictionary).get("bytes", 0))
 		if latest_android_package.is_empty() or int((package_file as Dictionary).get("modified_time", 0)) > int(latest_android_package.get("modified_time", 0)):
 			latest_android_package = package_file
-	var racer_savings_bytes := source_racer_glb_bytes - optimized_racer_glb_bytes
+	var optimized_racer_runtime_glb_bytes := optimized_racer_lod0_glb_bytes + optimized_racer_lod_glb_bytes
+	var optimized_racer_atlas_bytes := optimized_racer_lod0_atlas_bytes + optimized_racer_lod_atlas_bytes
+	var racer_savings_bytes := source_racer_glb_bytes - optimized_racer_lod0_glb_bytes
 	var optimized_ratio := 0.0
 	if source_racer_glb_bytes > 0:
-		optimized_ratio = float(optimized_racer_glb_bytes) / float(source_racer_glb_bytes)
+		optimized_ratio = float(optimized_racer_lod0_glb_bytes) / float(source_racer_glb_bytes)
 
 	return {
 		"source_racer_in_kart_glb_bytes": source_racer_glb_bytes,
-		"optimized_racer_glb_bytes": optimized_racer_glb_bytes,
+		"optimized_racer_glb_bytes": optimized_racer_lod0_glb_bytes,
+		"optimized_racer_lod0_glb_bytes": optimized_racer_lod0_glb_bytes,
+		"optimized_racer_lod_glb_bytes": optimized_racer_lod_glb_bytes,
+		"optimized_racer_runtime_glb_bytes": optimized_racer_runtime_glb_bytes,
 		"optimized_racer_atlas_source_bytes": optimized_racer_atlas_bytes,
-		"optimized_racer_staged_source_bytes": optimized_racer_glb_bytes + optimized_racer_atlas_bytes,
+		"optimized_racer_lod0_atlas_source_bytes": optimized_racer_lod0_atlas_bytes,
+		"optimized_racer_lod_atlas_source_bytes": optimized_racer_lod_atlas_bytes,
+		"optimized_racer_staged_source_bytes": optimized_racer_lod0_glb_bytes + optimized_racer_lod0_atlas_bytes,
+		"optimized_racer_staged_lod_bytes": optimized_racer_lod_glb_bytes + optimized_racer_lod_atlas_bytes,
+		"optimized_racer_total_staged_bytes": optimized_racer_runtime_glb_bytes + optimized_racer_atlas_bytes,
 		"racer_glb_savings_bytes": racer_savings_bytes,
 		"optimized_glb_source_ratio": optimized_ratio,
 		"web_build_total_bytes": web_build_bytes,
@@ -73,6 +88,9 @@ static func package_files(root_path: String) -> Array[Dictionary]:
 		return str(a.get("path", "")) < str(b.get("path", ""))
 	)
 	return files
+
+static func _is_lod_path(path: String) -> bool:
+	return path.contains("_lod1") or path.contains("_lod2")
 
 static func _sum_files(root_path: String, predicate: Callable) -> int:
 	var total := 0
