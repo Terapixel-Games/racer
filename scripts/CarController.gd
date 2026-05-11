@@ -8,6 +8,10 @@ const RacerRoster = preload("res://scripts/logic/RacerRoster.gd")
 const VISUAL_TARGET_FOOTPRINT := 1.75
 const VISUAL_BOTTOM_Y := -0.78
 const PORTRAIT_BADGE_PIXEL_SIZE := 0.0024
+const RACER_LOD0_TO_LOD1_DISTANCE := 42.0
+const RACER_LOD1_TO_LOD0_DISTANCE := 34.0
+const RACER_LOD1_TO_LOD2_DISTANCE := 72.0
+const RACER_LOD2_TO_LOD1_DISTANCE := 62.0
 
 @export var acceleration := 28.0
 @export var brake_force := 32.0
@@ -121,13 +125,28 @@ func update_racer_visual_lod_for_camera(camera_position: Vector3) -> void:
 	if _racer_visual_id.is_empty():
 		return
 	var distance := global_transform.origin.distance_to(camera_position)
-	var target_lod := RacerRoster.RACER_MODEL_LOD0
-	if distance >= 52.0:
-		target_lod = RacerRoster.RACER_MODEL_LOD2
-	elif distance >= 28.0:
-		target_lod = RacerRoster.RACER_MODEL_LOD1
+	var target_lod := _racer_visual_lod_for_camera_distance(distance)
 	if target_lod != _racer_visual_lod:
 		set_racer_visual_lod(_racer_visual_id, target_lod)
+
+func _racer_visual_lod_for_camera_distance(distance: float) -> String:
+	match _racer_visual_lod:
+		RacerRoster.RACER_MODEL_LOD2:
+			if distance < RACER_LOD2_TO_LOD1_DISTANCE:
+				return RacerRoster.RACER_MODEL_LOD1 if distance >= RACER_LOD0_TO_LOD1_DISTANCE else RacerRoster.RACER_MODEL_LOD0
+			return RacerRoster.RACER_MODEL_LOD2
+		RacerRoster.RACER_MODEL_LOD1:
+			if distance >= RACER_LOD1_TO_LOD2_DISTANCE:
+				return RacerRoster.RACER_MODEL_LOD2
+			if distance < RACER_LOD1_TO_LOD0_DISTANCE:
+				return RacerRoster.RACER_MODEL_LOD0
+			return RacerRoster.RACER_MODEL_LOD1
+		_:
+			if distance >= RACER_LOD1_TO_LOD2_DISTANCE:
+				return RacerRoster.RACER_MODEL_LOD2
+			if distance >= RACER_LOD0_TO_LOD1_DISTANCE:
+				return RacerRoster.RACER_MODEL_LOD1
+			return RacerRoster.RACER_MODEL_LOD0
 
 func has_racer_visual() -> bool:
 	return _active_visual_model != null and is_instance_valid(_active_visual_model)
