@@ -8,7 +8,9 @@
 tmp/
 /tmp/
 /artifacts/
+/reports/
 /build/android/
+/build/web/
 *.tmp
 changes.patch
 

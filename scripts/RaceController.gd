@@ -1916,6 +1916,12 @@ func _update_camera_for_car(car: CarController, delta: float) -> void:
 	var blend := 1.0 if delta <= 0.0 else clampf(delta * follow_speed, 0.0, 1.0)
 	camera.global_transform.origin = camera.global_transform.origin.lerp(resolved + shake_offset, blend)
 	camera.look_at(look_target + shake_offset * 0.25, Vector3.UP)
+	_update_racer_visual_lods()
+
+func _update_racer_visual_lods() -> void:
+	for car in cars.values():
+		if car is CarController:
+			(car as CarController).update_racer_visual_lod_for_camera(camera.global_transform.origin)
 
 func _update_motion_blur(delta: float) -> void:
 	var car: CarController = cars.get(local_user_id, null)

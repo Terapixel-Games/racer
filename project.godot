@@ -45,3 +45,7 @@ enabled=PackedStringArray("res://addons/gamedev_ai/plugin.cfg", "res://addons/go
 
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
+
+[racer]
+
+assets/profile="mobile_detail_phase1"

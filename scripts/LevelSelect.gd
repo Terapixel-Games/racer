@@ -3,33 +3,50 @@ extends Control
 const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
 const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd")
 const NavigationFlow = preload("res://scripts/logic/NavigationFlow.gd")
+const RacerRoster = preload("res://scripts/logic/RacerRoster.gd")
 
 const PREVIEW_CAMERA_ROUTE_SPEED := 0.035
 const PREVIEW_CAMERA_BLEND := 0.055
+const RACER_PREVIEW_ROTATION_SPEED := 0.75
+const RACER_PREVIEW_TARGET_SIZE := 3.4
 
 var _tracks: Array[Dictionary] = []
 var _track_index := 0
+var _racer_ids: Array[String] = []
+var _racer_index := 0
+var _selected_racer_id := RacerRoster.DEFAULT_RACER_ID
 var _preview_root: Node3D
 var _camera: Camera3D
 var _route_points: Array[Vector3] = []
 var _preview_time := 0.0
 var _preview_cache: Dictionary = {}
 var _threaded_scene_requests: Dictionary = {}
+var _racer_preview_anchor: Node3D
+var _racer_preview_model: Node3D
 
 var _title_label: Label
 var _track_name_label: Label
 var _meta_label: Label
+var _racer_name_label: Label
+var _racer_meta_label: Label
 var _select_button: Button
 var _prev_button: Button
 var _next_button: Button
+var _racer_prev_button: Button
+var _racer_next_button: Button
 
 func _ready() -> void:
 	_tracks = TrackCatalog.list_tracks()
+	_racer_ids = RacerRoster.select_order()
+	_selected_racer_id = RacerRoster.normalize_id(str(NakamaService.get_meta_value("selected_racer_id", RacerRoster.DEFAULT_RACER_ID)))
+	_racer_index = maxi(0, _racer_ids.find(_selected_racer_id))
 	_request_all_scene_preloads()
 	_build_screen()
 	_show_selected_track(false)
+	_show_selected_racer(false)
 
 func _exit_tree() -> void:
+	_dispose_racer_preview_model()
 	for build in _preview_cache.values():
 		if not (build is Dictionary):
 			continue
@@ -41,6 +58,8 @@ func _exit_tree() -> void:
 func _process(delta: float) -> void:
 	_preview_time += delta
 	_update_preview_camera()
+	if _racer_preview_anchor != null:
+		_racer_preview_anchor.rotate_y(delta * RACER_PREVIEW_ROTATION_SPEED)
 
 func get_track_count() -> int:
 	return _tracks.size()
@@ -52,6 +71,28 @@ func get_selected_track_id() -> String:
 
 func apply_selected_track_for_test() -> void:
 	_apply_selected_track_metadata()
+
+func get_selected_racer_id_for_test() -> String:
+	return _selected_racer_id
+
+func select_racer_for_test(racer_id: String) -> bool:
+	var normalized := racer_id.strip_edges()
+	if not RacerRoster.has(normalized):
+		return false
+	for i in range(_racer_ids.size()):
+		if _racer_ids[i] == normalized:
+			_racer_index = i
+			_show_selected_racer(false)
+			return true
+	return false
+
+func racer_preview_has_model_for_test() -> bool:
+	return _racer_preview_model != null and is_instance_valid(_racer_preview_model)
+
+func racer_preview_rotation_for_test() -> float:
+	if _racer_preview_anchor == null:
+		return 0.0
+	return _racer_preview_anchor.rotation.y
 
 func select_track_for_test(track_id: String) -> bool:
 	for i in range(_tracks.size()):
@@ -117,6 +158,8 @@ func _build_screen() -> void:
 	light.rotation_degrees = Vector3(-55, 35, 0)
 	viewport.add_child(light)
 
+	_build_racer_preview_layer()
+
 	var scrim := ColorRect.new()
 	scrim.name = "Scrim"
 	scrim.color = Color(0.0, 0.0, 0.0, 0.28)
@@ -171,6 +214,53 @@ func _build_screen() -> void:
 	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	root.add_child(spacer)
 
+	var racer_dock := HBoxContainer.new()
+	racer_dock.name = "RacerDock"
+	racer_dock.alignment = BoxContainer.ALIGNMENT_CENTER
+	racer_dock.add_theme_constant_override("separation", 12)
+	root.add_child(racer_dock)
+
+	_racer_prev_button = _make_button("<", Vector2(68, 58))
+	_racer_prev_button.name = "PrevRacerButton"
+	_racer_prev_button.pressed.connect(_cycle_racer.bind(-1))
+	racer_dock.add_child(_racer_prev_button)
+
+	var racer_panel := PanelContainer.new()
+	racer_panel.name = "RacerPanel"
+	racer_panel.custom_minimum_size = Vector2(340, 82)
+	racer_panel.add_theme_stylebox_override("panel", _panel_style(Color(0.045, 0.05, 0.075, 0.74), Color(0.38, 0.72, 1.0, 0.55), 2, 14))
+	racer_dock.add_child(racer_panel)
+
+	var racer_margin := MarginContainer.new()
+	racer_margin.add_theme_constant_override("margin_left", 16)
+	racer_margin.add_theme_constant_override("margin_top", 10)
+	racer_margin.add_theme_constant_override("margin_right", 16)
+	racer_margin.add_theme_constant_override("margin_bottom", 10)
+	racer_panel.add_child(racer_margin)
+
+	var racer_box := VBoxContainer.new()
+	racer_box.add_theme_constant_override("separation", 2)
+	racer_margin.add_child(racer_box)
+
+	_racer_name_label = Label.new()
+	_racer_name_label.name = "RacerName"
+	_racer_name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_racer_name_label.add_theme_font_size_override("font_size", 26)
+	_racer_name_label.add_theme_color_override("font_color", Color(1.0, 0.96, 0.82, 1.0))
+	racer_box.add_child(_racer_name_label)
+
+	_racer_meta_label = Label.new()
+	_racer_meta_label.name = "RacerMeta"
+	_racer_meta_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_racer_meta_label.add_theme_font_size_override("font_size", 15)
+	_racer_meta_label.add_theme_color_override("font_color", Color(0.76, 0.9, 1.0, 0.92))
+	racer_box.add_child(_racer_meta_label)
+
+	_racer_next_button = _make_button(">", Vector2(68, 58))
+	_racer_next_button.name = "NextRacerButton"
+	_racer_next_button.pressed.connect(_cycle_racer.bind(1))
+	racer_dock.add_child(_racer_next_button)
+
 	var footer := HBoxContainer.new()
 	footer.name = "Footer"
 	footer.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -217,11 +307,62 @@ func _build_screen() -> void:
 	_next_button.pressed.connect(_cycle_track.bind(1))
 	footer.add_child(_next_button)
 
+func _build_racer_preview_layer() -> void:
+	var preview_container := SubViewportContainer.new()
+	preview_container.name = "RacerPreview"
+	preview_container.set_anchors_preset(Control.PRESET_FULL_RECT)
+	preview_container.stretch = true
+	preview_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(preview_container)
+
+	var viewport := SubViewport.new()
+	viewport.name = "RacerViewport"
+	viewport.size = Vector2i(1280, 720)
+	viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	viewport.transparent_bg = true
+	viewport.own_world_3d = true
+	preview_container.add_child(viewport)
+
+	var root := Node3D.new()
+	root.name = "RacerPreviewRoot"
+	viewport.add_child(root)
+
+	_racer_preview_anchor = Node3D.new()
+	_racer_preview_anchor.name = "RacerPreviewAnchor"
+	root.add_child(_racer_preview_anchor)
+
+	var camera := Camera3D.new()
+	camera.name = "RacerPreviewCamera"
+	camera.current = true
+	camera.fov = 34.0
+	camera.position = Vector3(0.0, 1.45, 7.1)
+	root.add_child(camera)
+	camera.look_at(Vector3(0.0, 0.8, 0.0), Vector3.UP)
+
+	var key_light := DirectionalLight3D.new()
+	key_light.name = "RacerKeyLight"
+	key_light.light_energy = 2.2
+	key_light.rotation_degrees = Vector3(-42, -28, 0)
+	root.add_child(key_light)
+
+	var fill_light := OmniLight3D.new()
+	fill_light.name = "RacerFillLight"
+	fill_light.light_energy = 0.9
+	fill_light.omni_range = 7.0
+	fill_light.position = Vector3(2.6, 2.2, 3.8)
+	root.add_child(fill_light)
+
 func _cycle_track(step: int) -> void:
 	if _tracks.is_empty():
 		return
 	_track_index = posmod(_track_index + step, _tracks.size())
 	_show_selected_track(true)
+
+func _cycle_racer(step: int) -> void:
+	if _racer_ids.is_empty():
+		return
+	_racer_index = posmod(_racer_index + step, _racer_ids.size())
+	_show_selected_racer(true)
 
 func _show_selected_track(animated: bool) -> void:
 	if _tracks.is_empty():
@@ -242,6 +383,90 @@ func _show_selected_track(animated: bool) -> void:
 		_track_name_label.modulate.a = 0.0
 		var tween := create_tween()
 		tween.tween_property(_track_name_label, "modulate:a", 1.0, 0.18)
+
+func _show_selected_racer(animated: bool) -> void:
+	if _racer_ids.is_empty():
+		_selected_racer_id = RacerRoster.DEFAULT_RACER_ID
+	else:
+		_selected_racer_id = RacerRoster.normalize_id(_racer_ids[_racer_index])
+	NakamaService.set_meta_value("selected_racer_id", _selected_racer_id)
+
+	var profile := RacerRoster.get_profile(_selected_racer_id)
+	if _racer_name_label != null:
+		_racer_name_label.text = _selected_racer_id
+	if _racer_meta_label != null:
+		_racer_meta_label.text = "%s  /  %s" % [str(profile.get("class", "Racer")), str(profile.get("home_course", "Home Course"))]
+	if _racer_prev_button != null:
+		_racer_prev_button.disabled = _racer_ids.size() <= 1
+	if _racer_next_button != null:
+		_racer_next_button.disabled = _racer_ids.size() <= 1
+	_load_racer_preview_model(_selected_racer_id)
+	if animated and _racer_name_label != null:
+		_racer_name_label.modulate.a = 0.0
+		var tween := create_tween()
+		tween.tween_property(_racer_name_label, "modulate:a", 1.0, 0.16)
+
+func _load_racer_preview_model(racer_id: String) -> void:
+	if _racer_preview_anchor == null:
+		return
+	_dispose_racer_preview_model()
+
+	var model_path := RacerRoster.get_racer_in_kart_model_path(racer_id)
+	if model_path.is_empty() or not ResourceLoader.exists(model_path):
+		return
+	var scene := load(model_path) as PackedScene
+	if scene == null:
+		return
+	var model := scene.instantiate() as Node3D
+	if model == null:
+		return
+	model.name = "SelectedRacerPreviewModel"
+	model.rotation_degrees.y = RacerRoster.get_racer_in_kart_yaw_degrees(racer_id)
+	_racer_preview_anchor.add_child(model)
+	_fit_racer_preview_model(model)
+	_racer_preview_model = model
+
+func _dispose_racer_preview_model() -> void:
+	if _racer_preview_model == null or not is_instance_valid(_racer_preview_model):
+		_racer_preview_model = null
+		return
+	if _racer_preview_model.get_parent() != null:
+		_racer_preview_model.get_parent().remove_child(_racer_preview_model)
+	_racer_preview_model.free()
+	_racer_preview_model = null
+
+func _fit_racer_preview_model(model: Node3D) -> void:
+	var bounds := _combined_mesh_bounds(model)
+	if bounds.size == Vector3.ZERO:
+		model.position = Vector3(0.0, -0.55, 0.0)
+		model.scale = Vector3.ONE
+		return
+	var max_dimension: float = maxf(bounds.size.x, maxf(bounds.size.y, bounds.size.z))
+	var scale_factor := RACER_PREVIEW_TARGET_SIZE / maxf(max_dimension, 0.001)
+	var center := bounds.get_center()
+	model.scale = Vector3.ONE * scale_factor
+	model.position = Vector3(-center.x * scale_factor, -center.y * scale_factor + 0.2, -center.z * scale_factor)
+
+func _combined_mesh_bounds(node: Node) -> AABB:
+	var has_bounds := false
+	var combined := AABB()
+	var stack: Array[Node] = [node]
+	while not stack.is_empty():
+		var current: Node = stack.pop_back()
+		if current is MeshInstance3D:
+			var mesh_instance := current as MeshInstance3D
+			if mesh_instance.mesh != null:
+				var local_bounds := mesh_instance.get_aabb()
+				for i in range(8):
+					var point: Vector3 = mesh_instance.global_transform * local_bounds.get_endpoint(i)
+					if not has_bounds:
+						combined = AABB(point, Vector3.ZERO)
+						has_bounds = true
+					else:
+						combined = combined.expand(point)
+		for child in current.get_children():
+			stack.append(child)
+	return combined if has_bounds else AABB()
 
 func _rebuild_preview(track_id: String) -> void:
 	_detach_preview_children()
@@ -351,6 +576,7 @@ func _apply_selected_track_metadata() -> void:
 	var track_id := get_selected_track_id()
 	if track_id.is_empty():
 		return
+	NakamaService.set_meta_value("selected_racer_id", _selected_racer_id)
 	NakamaService.set_meta_value("track_id", track_id)
 	NakamaService.set_meta_value("track_recipe", {"track_id": track_id, "id": track_id})
 	NakamaService.set_meta_value("prepared_track_package", {})
