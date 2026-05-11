@@ -172,6 +172,20 @@ func _camera_views(route: Array[Vector3]) -> Array[Dictionary]:
 			"target": Vector3(145.0, 107.0, 160.0),
 			"note": "Right wall and ceiling flushness near visible corner seams.",
 		},
+		{
+			"id": "right_wall_panel_joints",
+			"position": Vector3(28.0, 48.0, 132.0),
+			"target": Vector3(-76.0, 44.0, 132.0),
+			"fov": 42.0,
+			"note": "Coplanar right-wall panel joints behind cabinet and doorway dressing.",
+		},
+		{
+			"id": "back_wall_window_joints",
+			"position": Vector3(-194.0, 54.0, 118.0),
+			"target": Vector3(-194.0, 46.0, 196.0),
+			"fov": 42.0,
+			"note": "Back-wall window panel joints and seam-cover strips.",
+		},
 		_node_anchor_view("sink_effect_anchor", "Dressing/EditableRoom/Track/Appliances/kitchenSink", Vector3(88.0, 30.0, -90.0), "Sink and sink-water alignment."),
 		_node_anchor_view("washer_effect_anchor", "Dressing/EditableRoom/Track/RoomShell/washer", Vector3(-82.0, 30.0, -88.0), "Washer and washer-water alignment."),
 	]

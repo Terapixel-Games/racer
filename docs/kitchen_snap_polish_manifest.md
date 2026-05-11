@@ -91,6 +91,19 @@ The second craft review found remaining wall gaps and lower-cabinet clipping int
 - `kitchenCabinet13.max_z=-70.49` and `kitchenStove.min_z=-68.49`, leaving about `2` world units of left-side oven clearance.
 - `kitchenCabinet15.min_z=-23.49` and `kitchenStove.max_z=-25.49`, leaving about `2` world units of right-side oven clearance.
 
+## Wall Seam Cover Correction
+
+The third wall review showed that exact butt-jointed modular wall boxes can still read as hairline cracks from editor/player cameras. This correction adds intentional wall-color overlap strips on visible coplanar wall joints instead of relying on adjacent box faces to render as one sealed surface.
+
+| Node | Old transform value | New transform value | Delta | Reason |
+| --- | --- | --- | --- | --- |
+| `Track/RoomShell/WallSeamCovers/BackWallWindowLeftSeamCover` | Missing | `origin=(-124, 26.95, 97.6)`, `scale=(1.5, 53.9, 0.35)` | Added | Cover the left vertical back-wall/window panel joint. |
+| `Track/RoomShell/WallSeamCovers/BackWallWindowRightSeamCover` | Missing | `origin=(-70, 26.95, 97.6)`, `scale=(1.5, 53.9, 0.35)` | Added | Cover the right vertical back-wall/window panel joint. |
+| `Track/RoomShell/WallSeamCovers/RightWallDoorLeftSeamCover` | Missing | `origin=(-37, 20.3, 53.8)`, `scale=(0.35, 67.2, 1.5)` | Added | Cover the visible left doorway/right-wall panel seam. |
+| `Track/RoomShell/WallSeamCovers/RightWallDoorRightSeamCover` | Missing | `origin=(-37, 20.3, 77.5)`, `scale=(0.35, 67.2, 1.5)` | Added | Cover the visible right doorway/right-wall panel seam. |
+
+The capture harness now includes `right_wall_panel_joints` and `back_wall_window_joints` so these modular wall seams are checked directly instead of inferred from broad route screenshots.
+
 ## Craft Replay Read
 
 From route and fixture cameras, this pass should make repeat laps feel less like driving through a broken prototype: the doorway no longer exposes a frame gap, the wall/ceiling edges read as intentional enclosure, the washer effect is contained, the stove/hood/fridge area is no longer visibly interpenetrating, and the right counter run has a shared top plane. The Kitchen is still intentionally MVP-chaotic; deeper Sir Clink theming and richer replay hooks remain a later creative pass.
