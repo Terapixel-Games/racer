@@ -129,6 +129,13 @@ func _camera_views(route: Array[Vector3]) -> Array[Dictionary]:
 			"note": "Front door header, ceiling seam, and frame closure.",
 		},
 		{
+			"id": "front_door_frame_fit",
+			"position": Vector3(-150.0, 46.0, -285.0),
+			"target": Vector3(-172.0, 28.0, -190.0),
+			"fov": 60.0,
+			"note": "Front wall returns and lintel must align to the closed-door prefab frame.",
+		},
+		{
 			"id": "rear_doorway_header_gap",
 			"position": Vector3(-130.0, 92.0, 132.0),
 			"target": Vector3(-75.0, 94.0, 132.0),

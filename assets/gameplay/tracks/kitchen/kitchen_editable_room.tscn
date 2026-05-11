@@ -147,7 +147,19 @@ material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="DoorHeader" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(82, 0, 0, 0, 13.55, 0, 0, 0, 2, -57.708828, 46.625, -98)
+transform = Transform3D(25.1, 0, 0, 0, 13.425, 0, 0, 0, 5.67, -86.55, 47.1875, -95.932)
+material_override = SubResource("Material_wall")
+mesh = SubResource("BoxMesh_unit")
+
+[node name="FrontDoorWallReturns" type="Node3D" parent="Track/RoomShell"]
+
+[node name="FrontDoorLeftJambReturn" type="MeshInstance3D" parent="Track/RoomShell/FrontDoorWallReturns"]
+transform = Transform3D(2, 0, 0, 0, 50.475, 0, 0, 0, 5.67, -99.635, 15.2375, -95.932)
+material_override = SubResource("Material_wall")
+mesh = SubResource("BoxMesh_unit")
+
+[node name="FrontDoorRightJambReturn" type="MeshInstance3D" parent="Track/RoomShell/FrontDoorWallReturns"]
+transform = Transform3D(2, 0, 0, 0, 50.475, 0, 0, 0, 5.67, -73.335, 15.2375, -95.932)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 

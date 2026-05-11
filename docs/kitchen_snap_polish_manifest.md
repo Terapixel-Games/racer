@@ -158,6 +158,25 @@ Measured orientation checks:
 
 The capture harness now includes `back_upper_cabinet_faces`, a direct back-wall upper-cabinet orientation view.
 
+## Front Door Frame Depth Correction
+
+The seventh review showed the front wall still did not align cleanly with the closed-door prefab frame. The X edges were nearly correct, but the wall only existed as a shallow flat plane while the door prefab extends deeper into the room. This correction treats the closed front door as a full opening assembly: the lintel now spans only the door opening, matches the door-frame depth, and left/right wall returns wrap the jambs.
+
+| Node | Old transform value | New transform value | Delta | Reason |
+| --- | --- | --- | --- | --- |
+| `Track/RoomShell/DoorHeader` | `origin=(-57.708828, 46.625, -98)`, `scale=(82, 13.55, 2)` | `origin=(-86.55, 47.1875, -95.932)`, `scale=(25.1, 13.425, 5.67)` | Narrowed X span, extended Z depth, shifted to door top/depth | Stop the header from overlapping the right wall run and make the lintel fit the door-frame depth. |
+| `Track/RoomShell/FrontDoorWallReturns/FrontDoorLeftJambReturn` | Missing | `origin=(-99.635, 15.2375, -95.932)`, `scale=(2, 50.475, 5.67)` | Added | Wrap the left side of the front door frame from floor to prefab top. |
+| `Track/RoomShell/FrontDoorWallReturns/FrontDoorRightJambReturn` | Missing | `origin=(-73.335, 15.2375, -95.932)`, `scale=(2, 50.475, 5.67)` | Added | Wrap the right side of the front door frame from floor to prefab top. |
+
+Measured front-door checks:
+
+- Closed-door prefab bounds are `x=-197.270..-148.670`, `y=-20..80.953`, `z=-197.533..-186.193`.
+- `DoorHeader` now spans `x=-198.200..-148.000`, `y=80.950..107.800`, `z=-197.534..-186.194`, matching the door top and depth while slightly overlapping the adjacent wall runs.
+- `FrontDoorLeftJambReturn` spans `x=-201.270..-197.270`, `y=-20..80.950`, `z=-197.534..-186.194`.
+- `FrontDoorRightJambReturn` spans `x=-148.670..-144.670`, `y=-20..80.950`, `z=-197.534..-186.194`.
+
+The capture harness now includes `front_door_frame_fit`, a direct view of the closed front-door wall returns and lintel.
+
 ## Craft Replay Read
 
 From route and fixture cameras, this pass should make repeat laps feel less like driving through a broken prototype: the doorway no longer exposes a frame gap, the wall/ceiling edges read as intentional enclosure, the washer effect is contained, the stove/hood/fridge area is no longer visibly interpenetrating, and the right counter run has a shared top plane. The Kitchen is still intentionally MVP-chaotic; deeper Sir Clink theming and richer replay hooks remain a later creative pass.
