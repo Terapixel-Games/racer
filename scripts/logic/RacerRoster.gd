@@ -16,6 +16,12 @@ const SELECT_ORDER := [
 const DEFAULT_RACER_ID := "Sir Clink"
 const FORWARD_AUTHORED_RACER_IN_KART_YAW_DEGREES := 0.0
 const VELVA_RACER_IN_KART_YAW_DEGREES := 90.0
+const RACER_ASSET_PROFILE_SETTING := "racer/assets/profile"
+const RACER_ASSET_PROFILE_ENV := "RACER_ASSET_PROFILE"
+const RACER_ASSET_PROFILE_SOURCE := "source"
+const RACER_ASSET_PROFILE_MOBILE_DETAIL := "mobile_detail"
+const RACER_ASSET_PROFILE_MOBILE_DETAIL_PHASE1 := "mobile_detail_phase1"
+const DEFAULT_RACER_ASSET_PROFILE := RACER_ASSET_PROFILE_SOURCE
 
 const ROSTER := {
 	"Rexx": {
@@ -122,15 +128,56 @@ static func normalize_id(racer_id: String) -> String:
 		return trimmed
 	return DEFAULT_RACER_ID
 
+static func normalize_asset_profile(profile: String) -> String:
+	var trimmed := profile.strip_edges()
+	if trimmed in [
+		RACER_ASSET_PROFILE_SOURCE,
+		RACER_ASSET_PROFILE_MOBILE_DETAIL,
+		RACER_ASSET_PROFILE_MOBILE_DETAIL_PHASE1,
+	]:
+		return trimmed
+	return DEFAULT_RACER_ASSET_PROFILE
+
+static func get_racer_asset_profile() -> String:
+	var env_profile := OS.get_environment(RACER_ASSET_PROFILE_ENV).strip_edges()
+	if not env_profile.is_empty():
+		return normalize_asset_profile(env_profile)
+	if ProjectSettings.has_setting(RACER_ASSET_PROFILE_SETTING):
+		return normalize_asset_profile(str(ProjectSettings.get_setting(RACER_ASSET_PROFILE_SETTING, DEFAULT_RACER_ASSET_PROFILE)))
+	return DEFAULT_RACER_ASSET_PROFILE
+
 static func get_profile(racer_id: String) -> Dictionary:
 	if not ROSTER.has(racer_id):
 		return {}
 	return (ROSTER[racer_id] as Dictionary).duplicate(true)
 
 static func get_racer_in_kart_model_path(racer_id: String) -> String:
+	return get_racer_in_kart_model_path_for_profile(racer_id, get_racer_asset_profile(), true)
+
+static func get_racer_in_kart_source_model_path(racer_id: String) -> String:
 	var normalized := normalize_id(racer_id)
 	var profile := get_profile(normalized)
 	return str(profile.get("racer_in_kart_model", ""))
+
+static func get_racer_in_kart_model_path_for_profile(racer_id: String, asset_profile: String, allow_source_fallback: bool = true) -> String:
+	var normalized := normalize_id(racer_id)
+	var normalized_profile := normalize_asset_profile(asset_profile)
+	var source_path := get_racer_in_kart_source_model_path(normalized)
+	if normalized_profile == RACER_ASSET_PROFILE_SOURCE:
+		return source_path
+	var optimized_path := _optimized_racer_in_kart_model_path(normalized, normalized_profile)
+	if allow_source_fallback and (optimized_path.is_empty() or not ResourceLoader.exists(optimized_path)):
+		return source_path
+	return optimized_path
+
+static func _optimized_racer_in_kart_model_path(racer_id: String, asset_profile: String) -> String:
+	var slug := _racer_asset_slug(racer_id)
+	if slug.is_empty():
+		return ""
+	return "res://assets/optimized/racers/%s/%s_racer_in_kart_%s.glb" % [slug, slug, asset_profile]
+
+static func _racer_asset_slug(racer_id: String) -> String:
+	return normalize_id(racer_id).to_lower().replace(" ", "_")
 
 static func get_racer_in_kart_yaw_degrees(racer_id: String) -> float:
 	var normalized := normalize_id(racer_id)

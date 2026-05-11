@@ -48,6 +48,19 @@ func test_roster_normalizes_invalid_visual_selection() -> void:
 	assert_equal(RacerRoster.normalize_id("missing"), RacerRoster.DEFAULT_RACER_ID, "Unknown racer ids should fall back to the default")
 	assert_true(ResourceLoader.exists(RacerRoster.get_racer_in_kart_model_path("missing")), "Fallback racer-in-kart model should exist")
 
+func test_racer_asset_profile_defaults_to_source_models() -> void:
+	var source_path := RacerRoster.get_racer_in_kart_source_model_path("Rexx")
+	assert_equal(RacerRoster.normalize_asset_profile("bad-profile"), RacerRoster.RACER_ASSET_PROFILE_SOURCE, "Unknown racer asset profiles should fall back to source")
+	assert_equal(RacerRoster.get_racer_in_kart_model_path_for_profile("Rexx", RacerRoster.RACER_ASSET_PROFILE_SOURCE), source_path, "Source asset profile should use the authored GLB")
+	assert_true(ResourceLoader.exists(source_path), "Source racer model should remain available")
+
+func test_mobile_detail_profile_exposes_optimized_paths_with_source_fallback() -> void:
+	var expected := "res://assets/optimized/racers/rexx/rexx_racer_in_kart_mobile_detail.glb"
+	var source_path := RacerRoster.get_racer_in_kart_source_model_path("Rexx")
+	assert_equal(RacerRoster.get_racer_in_kart_model_path_for_profile("Rexx", RacerRoster.RACER_ASSET_PROFILE_MOBILE_DETAIL, false), expected, "Mobile detail profile should resolve the staged optimized asset path")
+	assert_equal(RacerRoster.get_racer_in_kart_model_path_for_profile("Rexx", RacerRoster.RACER_ASSET_PROFILE_MOBILE_DETAIL, true), source_path, "Mobile detail profile should fall back until optimized GLBs are staged in res://")
+	assert_equal(RacerRoster.get_racer_in_kart_model_path_for_profile("Sir Clink", RacerRoster.RACER_ASSET_PROFILE_MOBILE_DETAIL_PHASE1, false), "res://assets/optimized/racers/sir_clink/sir_clink_racer_in_kart_mobile_detail_phase1.glb", "Phase profiles should preserve racer slugs with spaces")
+
 func test_racer_in_kart_direction_groups_match_import_orientation() -> void:
 	for racer_id in ["Rexx", "Moko", "Popper", "Slammo"]:
 		assert_equal(RacerRoster.get_racer_in_kart_yaw_degrees(racer_id), RacerRoster.FORWARD_AUTHORED_RACER_IN_KART_YAW_DEGREES, "%s should use the forward-authored racer-in-kart yaw" % racer_id)
