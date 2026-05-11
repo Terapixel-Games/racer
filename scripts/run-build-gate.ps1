@@ -135,6 +135,7 @@ Assert-Condition (-not $exportPresets.Contains("assets/source/meshy/2026-04-27-c
 Assert-Condition ($exportPresets.Contains("assets/source/*,assets/source/**")) "Android export must exclude assets/source/**."
 Assert-Condition (-not ($exportPresets -match "_lod[12]_Image_0\.jpg")) "LOD1/LOD2 atlas source images should not be allowlisted; LODs reuse the LOD0 atlas."
 
+Invoke-Native "Importing project for build gate..." $ResolvedGodotBin @("--headless", "--recovery-mode", "--path", $ProjectRoot, "--import", "--quit")
 & (Join-Path $PSScriptRoot "run-tests.ps1") -Suite all -GodotBin $ResolvedGodotBin
 if ($LASTEXITCODE -ne 0) {
 	throw "Unit/UAT test gate failed."
