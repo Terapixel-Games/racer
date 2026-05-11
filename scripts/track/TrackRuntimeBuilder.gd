@@ -11,6 +11,7 @@ const TrackWalls = preload("res://scripts/TrackWalls.gd")
 const TrackSceneAuthoringData = preload("res://scripts/track/TrackSceneAuthoringData.gd")
 const TrackGridRoadBuilder = preload("res://scripts/track/TrackGridRoadBuilder.gd")
 const StageSky = preload("res://scripts/track/StageSky.gd")
+const StageInteractionArea = preload("res://scripts/track/StageInteractionArea.gd")
 const RAIL_SCENE_PATH := "res://assets/source/kenney/racing_kit/rail.glb"
 
 const RAIL_SIDE_SCALE := 8.0
@@ -52,6 +53,7 @@ static func build(definition: TrackDefinition) -> Dictionary:
 	var waypoints := _build_waypoints(root, definition)
 	_build_checkpoints(root, definition)
 	_build_audio_zones(root, definition)
+	_build_stage_interactions(root, definition)
 	_build_dressing(root, definition)
 
 	return {
@@ -794,6 +796,30 @@ static func _build_audio_zones(root: Node3D, definition: TrackDefinition) -> voi
 		var shape := SphereShape3D.new()
 		shape.radius = maxf(float(zone.get("radius", 12.0)), 0.1)
 		shape_node.shape = shape
+		area.add_child(shape_node)
+		holder.add_child(area)
+
+static func _build_stage_interactions(root: Node3D, definition: TrackDefinition) -> void:
+	if definition.stage_interactions.is_empty():
+		return
+	var holder := Node3D.new()
+	holder.name = "StageInteractions"
+	root.add_child(holder)
+	for interaction in definition.stage_interactions:
+		var area := StageInteractionArea.new()
+		area.transform.origin = _vector3_from_value(interaction.get("position", Vector3.ZERO), Vector3.ZERO)
+		area.rotation_degrees.y = float(interaction.get("yaw_degrees", 0.0))
+		area.configure(interaction)
+		var shape_node := CollisionShape3D.new()
+		shape_node.name = "CollisionShape3D"
+		if str(interaction.get("shape", "box")) == "sphere":
+			var sphere := SphereShape3D.new()
+			sphere.radius = maxf(float(interaction.get("radius", 8.0)), 0.1)
+			shape_node.shape = sphere
+		else:
+			var box := BoxShape3D.new()
+			box.size = _vector3_from_value(interaction.get("size", Vector3(16.0, 4.0, 16.0)), Vector3(16.0, 4.0, 16.0))
+			shape_node.shape = box
 		area.add_child(shape_node)
 		holder.add_child(area)
 

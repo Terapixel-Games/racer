@@ -12,15 +12,15 @@ Target pacing: one competent local lap should take about 30 seconds. A 3-lap rac
 
 ## Required Scene Structure
 
-- `RoutePoints`: closed loop route markers.
-- `Checkpoints`: 5-7 markers, with the first marker or a clearly named lap marker acting as the lap gate.
-- `ItemSockets`: 6-10 item marker sockets.
-- `HazardSockets`: 4-8 hazard marker sockets.
-- `ShortcutGates`: one hidden green route or root shortcut when readable.
-- `Dressing`: visible props using `StagePropAuthoring` or scene instances.
-- `SurfaceSegments`: at least dirt, mud/leaf, stone, and hose/wet sections.
-- `AudioZones`: at least water crossing, leaf rustle, and stone hit zones.
+- `RoadGridMap`: source of truth for route cells, checkpoints, start tile, and 8 generated spawns.
+- `StageInteractions`: explicit `StageInteractionAuthoring` areas for `HoseSplashZone` and `StoneBridgeExitBoost`.
+- `Dressing`: named `StagePropAuthoring` markers for every visible landmark and route beat.
+- `BackyardShell`: shared optimized backyard floor, horizon containment, and route-readable garden staging.
+- `Lighting`: named canopy and route-read fills; keep foliage readable from kart height.
+- `AudioZones`: at least water crossing, leaf rustle, and stone hit zones where available.
 - `GrassZones`: optional, but use if grass/foliage coverage is part of the blockout.
+
+Do not use legacy `RoutePoints`, `ItemSockets`, `HazardSockets`, or `RoadSegments` for this stage.
 
 ## Route Direction
 
@@ -61,7 +61,7 @@ Implement one Garden effect hook:
 - Closed route validates with 5-7 checkpoints and 8 spawns.
 - Lap target is roughly 30 seconds for a competent local player.
 - Stage has visible Green Claim landmarks and survival markers.
-- At least 6 item sockets and 4 hazard sockets exist.
+- No legacy item or hazard sockets exist; route pressure is authored through `StageInteractions`.
 - Foliage does not block camera or hide required route direction.
 - One hose/water or mud signature effect is present and testable.
 - Shortcut entry is discoverable without unfair blind turns.

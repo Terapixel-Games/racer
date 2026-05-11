@@ -57,6 +57,7 @@ const TrackSourceRules = preload("res://scripts/track/TrackSourceRules.gd")
 @export var alternate_routes: Array[Dictionary] = []
 @export var stage_props: Array[Dictionary] = []
 @export var surface_segments: Array[Dictionary] = []
+@export var stage_interactions: Array[Dictionary] = []
 @export var audio_zones: Array[Dictionary] = []
 @export var grass_zones: Array[Dictionary] = []
 @export var dressing_overrides: Dictionary = {}
@@ -104,6 +105,7 @@ func validate() -> Array[String]:
 		errors.append("Track preview dressing scene path does not exist: %s" % preview_dressing_scene_path)
 	_validate_stage_props(errors)
 	_validate_surface_segments(errors)
+	_validate_stage_interactions(errors)
 	_validate_audio_zones(errors)
 	_validate_grass_zones(errors)
 	return errors
@@ -168,6 +170,7 @@ func to_metadata() -> Dictionary:
 		"alternate_routes": _alternate_routes_to_json(alternate_routes),
 		"stage_props": _stage_props_to_json(stage_props),
 		"surface_segments": _surface_segments_to_json(surface_segments),
+		"stage_interactions": _stage_interactions_to_json(stage_interactions),
 		"audio_zones": _audio_zones_to_json(audio_zones),
 		"grass_zones": _grass_zones_to_json(grass_zones),
 		"audio_ids": audio_ids,
@@ -253,6 +256,29 @@ func _validate_surface_segments(errors: Array[String]) -> void:
 			errors.append("Surface segment %s end route index is out of range." % segment_id)
 		if end_index < start_index:
 			errors.append("Surface segment %s end route index must be >= start route index." % segment_id)
+
+func _validate_stage_interactions(errors: Array[String]) -> void:
+	for i in range(stage_interactions.size()):
+		var interaction := stage_interactions[i]
+		var interaction_id := str(interaction.get("id", "")).strip_edges()
+		var action := str(interaction.get("action", "")).strip_edges()
+		var shape := str(interaction.get("shape", "box")).strip_edges()
+		if interaction_id.is_empty():
+			errors.append("Stage interaction %d id is required." % i)
+		if not ["boost", "slow", "impulse", "rumble", "trigger"].has(action):
+			errors.append("Stage interaction %s action is invalid." % interaction_id)
+		if not ["box", "sphere"].has(shape):
+			errors.append("Stage interaction %s shape is invalid." % interaction_id)
+		if shape == "box":
+			var size := _vector3_from_value(interaction.get("size", Vector3.ONE), Vector3.ONE)
+			if size.x <= 0.0 or size.y <= 0.0 or size.z <= 0.0:
+				errors.append("Stage interaction %s box size must be positive." % interaction_id)
+		if shape == "sphere" and float(interaction.get("radius", 0.0)) <= 0.0:
+			errors.append("Stage interaction %s radius must be greater than zero." % interaction_id)
+		if float(interaction.get("duration", 0.0)) < 0.0:
+			errors.append("Stage interaction %s duration must be non-negative." % interaction_id)
+		if float(interaction.get("cooldown", 0.0)) < 0.0:
+			errors.append("Stage interaction %s cooldown must be non-negative." % interaction_id)
 
 func _validate_audio_zones(errors: Array[String]) -> void:
 	for i in range(audio_zones.size()):
@@ -403,6 +429,29 @@ func _surface_segments_to_json(segments: Array[Dictionary]) -> Array:
 			"surface_audio_id": str(segment.get("surface_audio_id", "")),
 			"surface_material_id": str(segment.get("surface_material_id", "")),
 			"position": _point_value_to_array(segment.get("position", Vector3.ZERO)),
+		})
+	return out
+
+func _stage_interactions_to_json(interactions: Array[Dictionary]) -> Array:
+	var out: Array = []
+	for interaction in interactions:
+		out.append({
+			"id": str(interaction.get("id", "")),
+			"action": str(interaction.get("action", "boost")),
+			"shape": str(interaction.get("shape", "box")),
+			"position": _point_value_to_array(interaction.get("position", Vector3.ZERO)),
+			"yaw_degrees": float(interaction.get("yaw_degrees", 0.0)),
+			"size": _point_value_to_array(interaction.get("size", Vector3.ONE)),
+			"radius": float(interaction.get("radius", 0.0)),
+			"duration": float(interaction.get("duration", 0.0)),
+			"cooldown": float(interaction.get("cooldown", 0.0)),
+			"boost_force": float(interaction.get("boost_force", 0.0)),
+			"speed_multiplier": float(interaction.get("speed_multiplier", 1.0)),
+			"impulse": _point_value_to_array(interaction.get("impulse", Vector3.ZERO)),
+			"intensity": float(interaction.get("intensity", 0.0)),
+			"target_node_path": str(interaction.get("target_node_path", "")),
+			"target_method": str(interaction.get("target_method", "trigger")),
+			"note": str(interaction.get("note", "")),
 		})
 	return out
 

@@ -54,6 +54,15 @@ func test_kitchen_metadata_json_is_parseable() -> void:
 	assert_true(parsed is Dictionary, "Exported metadata JSON should parse")
 	assert_equal(str((parsed as Dictionary).get("id", "")), "kitchen", "Parsed JSON should preserve track id")
 
+func test_non_kitchen_metadata_exports_stage_interactions() -> void:
+	for track_id in ["attic", "bedroom", "garden", "glam_closet", "outdoor_playground", "playroom", "sandbox"]:
+		var definition := TrackCatalog.get_definition(track_id)
+		var metadata := TrackMetadataExporter.metadata_for(definition)
+		assert_true((metadata.get("stage_props", []) as Array).size() >= 5, "%s metadata should export named stage props" % track_id)
+		assert_true((metadata.get("stage_interactions", []) as Array).size() >= 2, "%s metadata should export stage interactions" % track_id)
+		assert_equal((metadata.get("item_sockets", []) as Array).size(), 0, "%s metadata should not export legacy item sockets" % track_id)
+		assert_equal((metadata.get("hazard_sockets", []) as Array).size(), 0, "%s metadata should not export legacy hazard sockets" % track_id)
+
 func test_track_catalog_uses_cooked_package_metadata() -> void:
 	var package := TrackCatalog.get_package("kitchen")
 	assert_equal(str(package.get("scene_path", "")), "res://assets/gameplay/tracks/kitchen/kitchen_track.tscn", "Catalog should expose the cooked client scene path")

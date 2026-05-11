@@ -53,6 +53,8 @@ var is_drifting := false
 var _drift_direction := 0.0
 var _item_boost_timer := 0.0
 var _item_boost_force := 0.0
+var _stage_speed_multiplier := 1.0
+var _stage_speed_timer := 0.0
 var _racer_visual_id := ""
 var _racer_visual_mode := ""
 var _racer_visual_lod := RacerRoster.RACER_MODEL_LOD0
@@ -199,6 +201,9 @@ func set_input(state:Dictionary) -> void:
 	input_state = state
 
 func _apply_input(delta: float) -> void:
+	_stage_speed_timer = maxf(_stage_speed_timer - delta, 0.0)
+	if _stage_speed_timer <= 0.0:
+		_stage_speed_multiplier = 1.0
 	var vertical_vel := velocity.y
 	var horiz_vel := velocity
 	horiz_vel.y = 0
@@ -211,6 +216,8 @@ func _apply_input(delta: float) -> void:
 		accel += acceleration * throttle_input
 	if brake_input > 0.1:
 		accel -= brake_force * brake_input
+	if accel > 0.0:
+		accel *= _stage_speed_multiplier
 	var steering_input : float = input_state.get("steer", 0.0)
 	var requested_drift : bool = input_state.get("drift", false)
 	if requested_drift and absf(steering_input) > 0.08 and DriftRules.can_start(speed):
@@ -246,7 +253,8 @@ func _apply_input(delta: float) -> void:
 	var grip_rate := drift_tire_grip_rate if is_drifting else tire_grip_rate
 	horiz_vel = KartPhysicsRules.damp_lateral_velocity(horiz_vel, lateral, grip_rate, delta)
 	horiz_vel = KartPhysicsRules.clamp_reverse_speed(horiz_vel, forward, reverse_max_speed)
-	horiz_vel = horiz_vel.limit_length(max_speed + (boost_force * 0.5 if input_state.get("boost", false) else 0.0) + (_item_boost_force * 0.25 if _item_boost_timer > 0.0 else 0.0))
+	var effective_max_speed := max_speed * _stage_speed_multiplier
+	horiz_vel = horiz_vel.limit_length(effective_max_speed + (boost_force * 0.5 if input_state.get("boost", false) else 0.0) + (_item_boost_force * 0.25 if _item_boost_timer > 0.0 else 0.0))
 	# natural drag and braking drag
 	var drag_force := coast_drag
 	if brake_input > 0.1:
@@ -284,6 +292,19 @@ func _release_drift_boost() -> float:
 func trigger_item_boost(duration: float, force: float) -> void:
 	_item_boost_timer = max(duration, 0.0)
 	_item_boost_force = max(force, 0.0)
+
+func apply_stage_speed_modifier(multiplier: float, duration: float) -> void:
+	var clamped := clampf(multiplier, 0.2, 2.0)
+	if _stage_speed_timer <= 0.0:
+		_stage_speed_multiplier = clamped
+	elif clamped < 1.0:
+		_stage_speed_multiplier = minf(_stage_speed_multiplier, clamped)
+	else:
+		_stage_speed_multiplier = maxf(_stage_speed_multiplier, clamped)
+	_stage_speed_timer = maxf(_stage_speed_timer, maxf(duration, 0.0))
+
+func apply_stage_impulse(world_impulse: Vector3) -> void:
+	velocity += world_impulse
 
 func get_drift_charge_ratio() -> float:
 	return drift_charge / max(DriftRules.MAX_CHARGE, 0.01)

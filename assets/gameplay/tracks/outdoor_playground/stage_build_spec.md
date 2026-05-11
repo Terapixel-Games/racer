@@ -12,14 +12,14 @@ Target pacing: one competent local lap should take about 30 seconds. A 3-lap rac
 
 ## Required Scene Structure
 
-- `RoutePoints`: closed loop route markers.
-- `Checkpoints`: 5-7 markers, with the first marker or a clearly named lap marker acting as the lap gate.
-- `ItemSockets`: 6-10 item marker sockets.
-- `HazardSockets`: 4-8 hazard marker sockets.
-- `ShortcutGates`: at least one border-break shortcut.
-- `Dressing`: visible props using `StagePropAuthoring` or scene instances.
-- `SurfaceSegments`: at least blacktop/play surface, slide, ramp, and rail-adjacent sections.
-- `AudioZones`: at least slide drop, swing chain, and stunt whoosh zones.
+- `RoadGridMap`: source of truth for route cells, checkpoints, start tile, and 8 generated spawns.
+- `StageInteractions`: explicit `StageInteractionAuthoring` areas for `SlideDropBoostZone` and `SwingGatePressure`.
+- `Dressing`: named `StagePropAuthoring` markers for every visible landmark and route beat.
+- `BackyardShell`: shared optimized backyard floor, horizon containment, and route-readable open-air staging.
+- `Lighting`: named outdoor landmark and route-read fills; keep mobile performance in mind.
+- `AudioZones`: at least slide drop, swing chain, and stunt whoosh zones where available.
+
+Do not use legacy `RoutePoints`, `ItemSockets`, `HazardSockets`, or `RoadSegments` for this stage.
 
 ## Route Direction
 
@@ -60,7 +60,7 @@ Implement one Outdoor Playground effect hook:
 - Closed route validates with 5-7 checkpoints and 8 spawns.
 - Lap target is roughly 30 seconds for a competent local player.
 - Stage has visible Open Run landmarks and chalk route language.
-- At least 6 item sockets and 4 hazard sockets exist.
+- No legacy item or hazard sockets exist; route pressure is authored through `StageInteractions`.
 - Jump landings and slide drop are readable and reset-safe.
 - Signature swing or slide effect is present and testable.
 - Thin rails do not create snaggy collision; use forgiving helper collision.

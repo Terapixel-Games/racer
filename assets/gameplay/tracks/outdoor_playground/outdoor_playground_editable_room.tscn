@@ -1,20 +1,21 @@
-[gd_scene load_steps=185 format=4]
+[gd_scene load_steps=179 format=4]
 
-[ext_resource type="PackedScene" path="res://assets/gameplay/tracks/shared/backyard/backyard_shell.tscn" id="1_40lle"]
-[ext_resource type="Shader" path="res://assets/gameplay/materials/grass/playground_grass.gdshader" id="2_hr1ph"]
-[ext_resource type="PackedScene" path="res://assets/gameplay/tracks/shared/backyard_optimized/playground_structure_low.glb" id="3_73kc6"]
-[ext_resource type="Material" path="res://assets/gameplay/tracks/shared/backyard_optimized/backyard_atlas_material.tres" id="4_yfpuy"]
-[ext_resource type="PackedScene" path="res://assets/gameplay/tracks/shared/backyard_optimized/swing_set_low.glb" id="5_7hdex"]
-[ext_resource type="PackedScene" path="res://assets/gameplay/tracks/shared/backyard_optimized/sandbox_fossil_low.glb" id="6_0e5r6"]
-[ext_resource type="PackedScene" path="res://assets/gameplay/tracks/shared/backyard_optimized/garden_log_bush_low.glb" id="7_4ktvn"]
-[ext_resource type="PackedScene" path="res://assets/source/kenney/mini_skate/half-pipe.glb" id="8_mjnda"]
-[ext_resource type="MeshLibrary" path="res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres" id="9_mdx1i"]
-[ext_resource type="Script" path="res://scripts/track/RoadGridMapAuthoring.gd" id="10_jw58s"]
-[ext_resource type="Script" path="res://scripts/track/RoadGridSpawn.gd" id="11_00iql"]
+[ext_resource type="PackedScene" path="res://assets/gameplay/tracks/shared/backyard/backyard_shell.tscn" id="1_hr1ph"]
+[ext_resource type="Shader" path="res://assets/gameplay/materials/grass/playground_grass.gdshader" id="2_73kc6"]
+[ext_resource type="PackedScene" path="res://assets/gameplay/tracks/shared/backyard_optimized/playground_structure_low.glb" id="3_yfpuy"]
+[ext_resource type="Material" path="res://assets/gameplay/tracks/shared/backyard_optimized/backyard_atlas_material.tres" id="4_7hdex"]
+[ext_resource type="PackedScene" path="res://assets/gameplay/tracks/shared/backyard_optimized/swing_set_low.glb" id="5_0e5r6"]
+[ext_resource type="PackedScene" path="res://assets/gameplay/tracks/shared/backyard_optimized/sandbox_fossil_low.glb" id="6_4ktvn"]
+[ext_resource type="PackedScene" path="res://assets/gameplay/tracks/shared/backyard_optimized/garden_log_bush_low.glb" id="7_mjnda"]
+[ext_resource type="Script" path="res://scripts/track/StagePropAuthoring.gd" id="8_mdx1i"]
+[ext_resource type="Script" path="res://scripts/track/StageInteractionAuthoring.gd" id="9_jw58s"]
+[ext_resource type="MeshLibrary" path="res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres" id="10_00iql"]
+[ext_resource type="Script" path="res://scripts/track/RoadGridMapAuthoring.gd" id="11_ujml4"]
+[ext_resource type="Script" path="res://scripts/track/RoadGridSpawn.gd" id="12_aeqy1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3kgys"]
 render_priority = 0
-shader = ExtResource("2_hr1ph")
+shader = ExtResource("2_73kc6")
 shader_parameter/base_color = Color(0.24, 0.42, 0.2, 1)
 shader_parameter/bright_color = null
 shader_parameter/dry_color = null
@@ -1608,102 +1609,47 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_2uany")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rxkw0"]
-resource_name = "colormap"
-cull_mode = 2
-texture_filter = 2
+[sub_resource type="Resource" id="Resource_dso4g"]
+script = ExtResource("12_aeqy1")
+lateral_offset = -2.75
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_nijot"]
-_surfaces = [{
-"aabb": AABB(-0.5, 0, -0.5, 1, 0.8, 1),
-"format": 34359742465,
-"index_count": 132,
-"index_data": PackedByteArray("AAABAAIAAQAAAAMAAwAEAAEAAgABABYAAQAFABYAFwAWAAUABQAHABcAFwAHAAAAFwAAAAYAAgAGAAAAFgAXABgAGAAXAAYAGAAZABYAAgAWABkAGgAYAAYAGQAYABoAAgAZABsAGgAbABkABgANABoADQAGAAIAHAAbABoAAgAbABwAGgAdABwADQAdABoAAgAMAA0ACgAMAAIADQAMAAoAAgAcAAoADQAOAB0ACgAOAA0AHgAcAB0AHAAeAAoAHgAJAAoACQALAAoAHQAfAB4ACQAeAB8ADgAfAB0AHwAIAAkADgAIAB8ADgAPAAgAEAARABIAEgATABAAFAATABIAEgAVABQA"),
-"lods": [0.28759754, PackedByteArray("AAABAAIAAQAAAAMAAwAEAAEAAgABAAUAAgAGAAAABwAAAAYABQAHAAgACAAHAAYACQAFAAgABQAJAAoAAgAFAAoACQALAAoACgAMAAIADQAGAAIAAgAMAA0ADQAMAAoABgANAAgACgAOAA0ADQAOAAgADgAPAAgAEAARABIAEgATABAAFAATABIAEgAVABQA")],
-"name": "colormap",
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 32,
-"vertex_data": PackedByteArray("AAAAvwAAAAAAAAA/AAAAPwAAAAAAAAA/AAAAPwAAAAAAAAC/AAAAv/tOXzxu/so+AAAAP/tOXzxu/so+AAAAP/tOXzxt/so+AAAAvwAAAAAAAAC/AAAAv/tOXzxt/so+AAAAvwNMMj8in5K+AAAAPwNMMj8in5K+AAAAP83MTD/NzMy+AAAAP83MTD+amZm+AAAAP83MTD8AAAC/AAAAv83MTD8AAAC/AAAAv83MTD/NzMy+AAAAv83MTD+amZm+AAAAv83MTD/MzMy+AAAAP83MTD/MzMy+AAAAP83MTD+ZmZm+AAAAv83MTD+ZmZm+AAAAvwNMMj8hn5K+AAAAPwNMMj8hn5K+AAAAP/tO3zzb/JU+AAAAv/tO3zzb/JU+AAAAvwSB2z3NzMw9AAAAPwSB2z3NzMw9AAAAvynwbz4Uhoa9AAAAPynwbz4Uhoa9AAAAP83MzD6xckW+AAAAv83MzD6xckW+AAAAPzrLFz+qpIu+AAAAvzrLFz+qpIu+")
-}]
-blend_shape_mode = 0
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_63n37"]
-resource_name = "half-pipe_half-pipe"
-_surfaces = [{
-"aabb": AABB(-0.5, 0, -0.5, 1, 0.8, 1),
-"attribute_data": PackedByteArray("AAAYP83MbD8AABg/zcxsPwAAGD/NzGw/AAAYP83MbD8AABg/MzNTPwAAGD8zM1M/AAAYPzMzUz8AABg/MzNTPwAAGD8zM1M/AAAYPzMzUz8AABg/TINWPwAAGD8zM1M/AAAYP83MbD8AABg/JV1sPwAAGD/NzGw/AAAYPzMzUz8AABg/zcxsPwAAGD/NzGw/AAAYPzMzUz8AABg/MzNTPwAAGD8zM1M/AAAYP83MbD8AABg/JV1sPwAAGD/NzGw/AAAYP0yDVj8AABg/MzNTPwAAGD9Mg1Y/AAAYPyVdbD8AABg/TINWPwAAGD8lXWw/AABgPmZmRj8AAGA+ZmZGPwAAYD5mZkY/AABgPmZmRj8AAGA+ZmZGPwAAYD6ZBk0/AABgPpkGTT8AAGA+ZmZGPwAAYD5Lung/AABgPku6eD8AAGA+mpl5PwAAYD6amXk/AAAYP2bTWT8AABg/AABgPwAAGD9MTWU/AAAYP8leaT8AABg/fu1rPwAAGD9m01k/AAAYPwAAYD8AABg/TE1lPwAAGD/JXmk/AAAYP37taz8AABg/fu1rPwAAGD9+7Ws/AAAYP2bTWT8AABg/AABgPwAAGD8AAGA/AAAYP2bTWT8AABg/TE1lPwAAGD9MTWU/AAAYP8leaT8AABg/yV5pPwAAGD9m01k/AAAYP2bTWT8AABg/yV5pPwAAGD/JXmk/AAAYP37taz8AABg/fu1rPwAAGD8AAGA/AAAYP0xNZT8AABg/TE1lPwAAGD8AAGA/"),
-"format": 34359742487,
-"index_count": 132,
-"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACAAKACoACAAqACsACwAIACsACwArACwADAALACwALAAtAAwALQAuAAwALgAOAAwALgANAA4ADwAQABEAEQASAA8AEwAUABUAGAAZABMALwAYABMAMAAvABMAFQAwABMAFQAxADAAFQAyADEAFQAzADIAFQAXADMAFwAWADMANAA1ABsAGwAdADQANgA3ADgAOAA5ADYAOgA7ADwAPAA9ADoAGgA+AD8APwAcABoAQABBAEIAQgBDAEAARABFAEYARgBHAEQAHgAfACAAIAAhAB4AIgAjACQAJAAlACIAJgAnACgAKAApACYA"),
-"lods": [0.28759754, PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACwAIAAoADAALAAoACgANAAwADQAOAAwADwAQABEAEQASAA8AEwAUABUAFQAWABMAFQAXABYAFgAYABMAGAAZABMAGgAbABwAGwAdABwAHgAfACAAIAAhAB4AIgAjACQAJAAlACIAJgAnACgAKAApACYA")],
-"material": SubResource("StandardMaterial3D_rxkw0"),
-"name": "colormap",
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 72,
-"vertex_data": PackedByteArray("AAAAvwAAAAAAAAA/AAAAPwAAAAAAAAA/AAAAPwAAAAAAAAC/AAAAvwAAAAAAAAC/AAAAv83MTD8AAAC/AAAAP83MTD8AAAC/AAAAP83MTD/NzMy+AAAAv83MTD/NzMy+AAAAv83MTD/NzMy+AAAAv83MTD+amZm+AAAAvwNMMj8in5K+AAAAv83MTD8AAAC/AAAAvwAAAAAAAAC/AAAAv/tOXzxt/so+AAAAvwAAAAAAAAA/AAAAv83MTD8AAAC/AAAAvwAAAAAAAAC/AAAAPwAAAAAAAAC/AAAAP83MTD8AAAC/AAAAP83MTD/NzMy+AAAAP83MTD8AAAC/AAAAPwAAAAAAAAC/AAAAP/tOXzxt/so+AAAAPwAAAAAAAAA/AAAAPwNMMj8in5K+AAAAP83MTD+amZm+AAAAPwNMMj8in5K+AAAAP/tOXzxt/so+AAAAvwNMMj8in5K+AAAAv/tOXzxt/so+AAAAv83MTD/MzMy+AAAAP83MTD/MzMy+AAAAP83MTD+ZmZm+AAAAv83MTD+ZmZm+AAAAP83MTD+ZmZm+AAAAPwNMMj8hn5K+AAAAvwNMMj8hn5K+AAAAv83MTD+ZmZm+AAAAv/tOXzxu/so+AAAAP/tOXzxu/so+AAAAPwAAAAAAAAA/AAAAvwAAAAAAAAA/AAAAvzrLFz+qpIu+AAAAv83MzD6xckW+AAAAvynwbz4Uhoa9AAAAvwSB2z3NzMw9AAAAv/tO3zzb/JU+AAAAPzrLFz+qpIu+AAAAP83MzD6xckW+AAAAPynwbz4Uhoa9AAAAPwSB2z3NzMw9AAAAP/tO3zzb/JU+AAAAv/tO3zzb/JU+AAAAP/tO3zzb/JU+AAAAPzrLFz+qpIu+AAAAP83MzD6xckW+AAAAv83MzD6xckW+AAAAvzrLFz+qpIu+AAAAvynwbz4Uhoa9AAAAPynwbz4Uhoa9AAAAPwSB2z3NzMw9AAAAvwSB2z3NzMw9AAAAPzrLFz+qpIu+AAAAvzrLFz+qpIu+AAAAvwSB2z3NzMw9AAAAPwSB2z3NzMw9AAAAP/tO3zzb/JU+AAAAv/tO3zzb/JU+AAAAP83MzD6xckW+AAAAPynwbz4Uhoa9AAAAvynwbz4Uhoa9AAAAv83MzD6xckW+/38AAP///7//fwAA////v/9/AAD///+//38AAP///7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/vwAA/3//f/+/AAD/f/9//78AAP9//3//vwAA/3//f/+/AAD/f/9//78AAP9/AAD/vwAA/3//f/+//////wAA/7//////AAD/v/////8AAP+//////wAA/7////9//////////3//////////f/////////9/AAD/v////3//////////f/////////9///////9/447///+//38a8f///7//f+OO////v/9/GvH///+//3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f+OO////v/9/447///+//3/jjv///7//f+OO////v/9/GvH///+//38a8f///7//fxrx////v/9/GvH///+/AAD/f/9//78AAP9//3//vwAA/3//f/+/AAD/f/9//78AAP9//3//v////3//////////f/////////9//////////3//////////f///////f/Lk////v/9/8uT///+//38Mm////7//f9mu////v/9/2a7///+//38Mm////7//f/+/////v/9//7////+//38l0f///7//fyXR////v/9/DJv///+//38Mm////7//fyXR////v/9/JdH///+//3/y5P///7//f/Lk////v/9/2a7///+//3//v////7//f/+/////v/9/2a7///+/")
-}]
-blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_nijot")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ujml4"]
-albedo_color = Color(0.1, 0.58, 1, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_aeqy1"]
-size = Vector3(64, 16, 4)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dso4g"]
-albedo_color = Color(0.95, 0.16, 0.12, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_ao4qd"]
-size = Vector3(70, 8, 24)
+[sub_resource type="Resource" id="Resource_ao4qd"]
+script = ExtResource("12_aeqy1")
+lateral_offset = 2.75
 
 [sub_resource type="Resource" id="Resource_pglj6"]
-script = ExtResource("11_00iql")
+script = ExtResource("12_aeqy1")
 lateral_offset = -2.75
 forward_offset = 5.0
 
 [sub_resource type="Resource" id="Resource_fb0vi"]
-script = ExtResource("11_00iql")
+script = ExtResource("12_aeqy1")
 lateral_offset = 2.75
 forward_offset = 5.0
 
 [sub_resource type="Resource" id="Resource_5djei"]
-script = ExtResource("11_00iql")
+script = ExtResource("12_aeqy1")
 lateral_offset = -2.75
-forward_offset = 10.25
+forward_offset = 10.0
 
 [sub_resource type="Resource" id="Resource_e3gtf"]
-script = ExtResource("11_00iql")
+script = ExtResource("12_aeqy1")
 lateral_offset = 2.75
-forward_offset = 10.25
+forward_offset = 10.0
 
 [sub_resource type="Resource" id="Resource_hv2hf"]
-script = ExtResource("11_00iql")
+script = ExtResource("12_aeqy1")
 lateral_offset = -2.75
-forward_offset = 15.5
+forward_offset = 15.0
 
 [sub_resource type="Resource" id="Resource_p07qj"]
-script = ExtResource("11_00iql")
+script = ExtResource("12_aeqy1")
 lateral_offset = 2.75
-forward_offset = 15.5
-
-[sub_resource type="Resource" id="Resource_f4c2l"]
-script = ExtResource("11_00iql")
-lateral_offset = -2.75
-forward_offset = 20.75
-
-[sub_resource type="Resource" id="Resource_ucekp"]
-script = ExtResource("11_00iql")
-lateral_offset = 2.75
-forward_offset = 20.75
+forward_offset = 15.0
 
 [node name="OutdoorPlaygroundEditableRoom" type="Node3D"]
 
-[node name="BackyardShell" type="Node3D" parent="." instance=ExtResource("1_40lle")]
+[node name="BackyardShell" type="Node3D" parent="." instance=ExtResource("1_hr1ph")]
 
 [node name="floor" type="Node3D" parent="BackyardShell"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1, 0)
@@ -1742,334 +1688,402 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -230, -0.75, -150)
 material_override = SubResource("StandardMaterial3D_h3506")
 mesh = SubResource("BoxMesh_vrohl")
 
-[node name="PlaygroundSet" type="Node3D" parent="BackyardShell" instance=ExtResource("3_73kc6")]
+[node name="PlaygroundSet" type="Node3D" parent="BackyardShell" instance=ExtResource("3_yfpuy")]
 transform = Transform3D(15.216905, 0, 4.944272, 0, 16, 0, -4.944272, 0, 15.216905, -310, 0, -248)
 
 [node name="post" type="MeshInstance3D" parent="BackyardShell/PlaygroundSet"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 1.6, 1.4)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_jd8li")
 skeleton = NodePath("")
 
 [node name="post_001" type="MeshInstance3D" parent="BackyardShell/PlaygroundSet"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 1.6, -1.4)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_0cf71")
 skeleton = NodePath("")
 
 [node name="post_002" type="MeshInstance3D" parent="BackyardShell/PlaygroundSet"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 1.6, 1.4)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_qb1c2")
 skeleton = NodePath("")
 
 [node name="post_003" type="MeshInstance3D" parent="BackyardShell/PlaygroundSet"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 1.6, -1.4)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_fmdee")
 skeleton = NodePath("")
 
 [node name="deck" type="MeshInstance3D" parent="BackyardShell/PlaygroundSet"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_0mjhk")
 skeleton = NodePath("")
 
 [node name="roof" type="MeshInstance3D" parent="BackyardShell/PlaygroundSet"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.55, 0)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_bsinv")
 skeleton = NodePath("")
 
 [node name="slide" type="MeshInstance3D" parent="BackyardShell/PlaygroundSet"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 0.85, 0.1)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_4jdy8")
 skeleton = NodePath("")
 
 [node name="ladder_a" type="MeshInstance3D" parent="BackyardShell/PlaygroundSet"]
 transform = Transform3D(0.95105654, 0, -0.309017, 0, 1, 0, 0.309017, 0, 0.95105654, -3, 0.9, 1.05)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_rjxr8")
 skeleton = NodePath("")
 
 [node name="ladder_b" type="MeshInstance3D" parent="BackyardShell/PlaygroundSet"]
 transform = Transform3D(0.95105654, 0, 0.309017, 0, 1, 0, -0.309017, 0, 0.95105654, -3, 0.9, -1.05)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_wvbb0")
 skeleton = NodePath("")
 
 [node name="ladder_rung" type="MeshInstance3D" parent="BackyardShell/PlaygroundSet"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.78, 1.2)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_oxkvm")
 skeleton = NodePath("")
 
 [node name="ladder_rung_001" type="MeshInstance3D" parent="BackyardShell/PlaygroundSet"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.6, 0)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_nusou")
 skeleton = NodePath("")
 
 [node name="ladder_rung_002" type="MeshInstance3D" parent="BackyardShell/PlaygroundSet"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.78, -1.2)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_8g3dk")
 skeleton = NodePath("")
 
 [node name="rail" type="MeshInstance3D" parent="BackyardShell/PlaygroundSet"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.15, 1.7)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_3aaa2")
 skeleton = NodePath("")
 
 [node name="rail_001" type="MeshInstance3D" parent="BackyardShell/PlaygroundSet"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.15, -1.7)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_8jmvp")
 skeleton = NodePath("")
 
-[node name="SwingSet" type="Node3D" parent="BackyardShell" instance=ExtResource("5_7hdex")]
+[node name="SwingSet" type="Node3D" parent="BackyardShell" instance=ExtResource("5_0e5r6")]
 transform = Transform3D(13.694067, 0, -2.9107637, 0, 14, 0, 2.9107637, 0, 13.694067, -124, 0, -210)
 
 [node name="top_beam" type="MeshInstance3D" parent="BackyardShell/SwingSet"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2, 0)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_6a1x6")
 skeleton = NodePath("")
 
 [node name="leg_a" type="MeshInstance3D" parent="BackyardShell/SwingSet"]
 transform = Transform3D(1, 0, 0, 0, 0.9702957, -0.2419219, 0, 0.2419219, 0.9702957, -2.6, 1.55, 0.9)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_btifp")
 skeleton = NodePath("")
 
 [node name="leg_b" type="MeshInstance3D" parent="BackyardShell/SwingSet"]
 transform = Transform3D(1, 0, 0, 0, 0.9702957, 0.2419219, 0, -0.2419219, 0.9702957, -2.6, 1.55, -0.9)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_napu7")
 skeleton = NodePath("")
 
 [node name="leg_a_001" type="MeshInstance3D" parent="BackyardShell/SwingSet"]
 transform = Transform3D(1, 0, 0, 0, 0.9702957, 0.2419219, 0, -0.2419219, 0.9702957, 2.6, 1.55, 0.9)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_jbhh1")
 skeleton = NodePath("")
 
 [node name="leg_b_001" type="MeshInstance3D" parent="BackyardShell/SwingSet"]
 transform = Transform3D(1, 0, 0, 0, 0.9702957, -0.2419219, 0, 0.2419219, 0.9702957, 2.6, 1.55, -0.9)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_d7kp4")
 skeleton = NodePath("")
 
 [node name="rope_l" type="MeshInstance3D" parent="BackyardShell/SwingSet"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.55, 2, 0)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_kyfra")
 skeleton = NodePath("")
 
 [node name="rope_r" type="MeshInstance3D" parent="BackyardShell/SwingSet"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, 2, 0)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_d630b")
 skeleton = NodePath("")
 
 [node name="seat" type="MeshInstance3D" parent="BackyardShell/SwingSet"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.9, 0)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_md567")
 skeleton = NodePath("")
 
 [node name="rope_l_001" type="MeshInstance3D" parent="BackyardShell/SwingSet"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85, 2, 0)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_mr1yb")
 skeleton = NodePath("")
 
 [node name="rope_r_001" type="MeshInstance3D" parent="BackyardShell/SwingSet"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.55, 2, 0)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_6eii3")
 skeleton = NodePath("")
 
 [node name="seat_001" type="MeshInstance3D" parent="BackyardShell/SwingSet"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0.9, 0)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_kmf3s")
 skeleton = NodePath("")
 
-[node name="SandboxFossil" type="Node3D" parent="BackyardShell" instance=ExtResource("6_0e5r6")]
+[node name="SandboxFossil" type="Node3D" parent="BackyardShell" instance=ExtResource("6_4ktvn")]
 transform = Transform3D(17.119019, 0, -5.562306, 0, 18, 0, 5.562306, 0, 17.119019, -72, 0, 260)
 
 [node name="spine" type="MeshInstance3D" parent="BackyardShell/SandboxFossil"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_tsu4l")
 skeleton = NodePath("")
 
 [node name="rib_l" type="MeshInstance3D" parent="BackyardShell/SandboxFossil"]
 transform = Transform3D(0.92718387, 0, 0.37460658, 0, 1, 0, -0.37460658, 0, 0.92718387, -2, 1.05, 0.45)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_33p5i")
 skeleton = NodePath("")
 
 [node name="rib_r" type="MeshInstance3D" parent="BackyardShell/SandboxFossil"]
 transform = Transform3D(0.92718387, 0, -0.37460658, 0, 1, 0, 0.37460658, 0, 0.92718387, -2, 1.05, -0.45)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_brsp5")
 skeleton = NodePath("")
 
 [node name="rib_l_001" type="MeshInstance3D" parent="BackyardShell/SandboxFossil"]
 transform = Transform3D(0.92718387, 0, 0.37460658, 0, 1, 0, -0.37460658, 0, 0.92718387, -1.2, 1.05, 0.45)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_yq2ih")
 skeleton = NodePath("")
 
 [node name="rib_r_001" type="MeshInstance3D" parent="BackyardShell/SandboxFossil"]
 transform = Transform3D(0.92718387, 0, -0.37460658, 0, 1, 0, 0.37460658, 0, 0.92718387, -1.2, 1.05, -0.45)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_x71k0")
 skeleton = NodePath("")
 
 [node name="rib_l_002" type="MeshInstance3D" parent="BackyardShell/SandboxFossil"]
 transform = Transform3D(0.92718387, 0, 0.37460658, 0, 1, 0, -0.37460658, 0, 0.92718387, -0.4, 1.05, 0.45)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_2qcjs")
 skeleton = NodePath("")
 
 [node name="rib_r_002" type="MeshInstance3D" parent="BackyardShell/SandboxFossil"]
 transform = Transform3D(0.92718387, 0, -0.37460658, 0, 1, 0, 0.37460658, 0, 0.92718387, -0.4, 1.05, -0.45)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_fibjd")
 skeleton = NodePath("")
 
 [node name="rib_l_003" type="MeshInstance3D" parent="BackyardShell/SandboxFossil"]
 transform = Transform3D(0.92718387, 0, 0.37460658, 0, 1, 0, -0.37460658, 0, 0.92718387, 0.4, 1.05, 0.45)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_jcu5f")
 skeleton = NodePath("")
 
 [node name="rib_r_003" type="MeshInstance3D" parent="BackyardShell/SandboxFossil"]
 transform = Transform3D(0.92718387, 0, -0.37460658, 0, 1, 0, 0.37460658, 0, 0.92718387, 0.4, 1.05, -0.45)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_eydsr")
 skeleton = NodePath("")
 
 [node name="rib_l_004" type="MeshInstance3D" parent="BackyardShell/SandboxFossil"]
 transform = Transform3D(0.92718387, 0, 0.37460658, 0, 1, 0, -0.37460658, 0, 0.92718387, 1.2, 1.05, 0.45)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_vjsem")
 skeleton = NodePath("")
 
 [node name="rib_r_004" type="MeshInstance3D" parent="BackyardShell/SandboxFossil"]
 transform = Transform3D(0.92718387, 0, -0.37460658, 0, 1, 0, 0.37460658, 0, 0.92718387, 1.2, 1.05, -0.45)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_syco3")
 skeleton = NodePath("")
 
 [node name="rib_l_005" type="MeshInstance3D" parent="BackyardShell/SandboxFossil"]
 transform = Transform3D(0.92718387, 0, 0.37460658, 0, 1, 0, -0.37460658, 0, 0.92718387, 2, 1.05, 0.45)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_6qwr6")
 skeleton = NodePath("")
 
 [node name="rib_r_005" type="MeshInstance3D" parent="BackyardShell/SandboxFossil"]
 transform = Transform3D(0.92718387, 0, -0.37460658, 0, 1, 0, 0.37460658, 0, 0.92718387, 2, 1.05, -0.45)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_camv8")
 skeleton = NodePath("")
 
 [node name="skull" type="MeshInstance3D" parent="BackyardShell/SandboxFossil"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.25, 1, 0)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_pg4pf")
 skeleton = NodePath("")
 
 [node name="jaw" type="MeshInstance3D" parent="BackyardShell/SandboxFossil"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.55, 0.55, 0)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_axhbq")
 skeleton = NodePath("")
 
 [node name="tail" type="MeshInstance3D" parent="BackyardShell/SandboxFossil"]
 transform = Transform3D(0.9781476, 0, 0.20791171, 0, 1, 0, -0.20791171, 0, 0.9781476, 3.1, 0.92, 0)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_gatg8")
 skeleton = NodePath("")
 
 [node name="sand_base" type="MeshInstance3D" parent="BackyardShell/SandboxFossil"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_ffj1n")
 skeleton = NodePath("")
 
-[node name="GardenLogBush" type="Node3D" parent="BackyardShell" instance=ExtResource("7_4ktvn")]
+[node name="GardenLogBush" type="Node3D" parent="BackyardShell" instance=ExtResource("7_mjnda")]
 transform = Transform3D(20.098, 0, 8.948206, 0, 22, 0, -8.948206, 0, 20.098, 322, 0, -98)
 
 [node name="log" type="MeshInstance3D" parent="BackyardShell/GardenLogBush"]
 transform = Transform3D(0.9848077, 0, 0.1736482, 0, 1, 0, -0.1736482, 0, 0.9848077, -1.1, 0.45, 0)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_010sc")
 skeleton = NodePath("")
 
 [node name="log_cut_a" type="MeshInstance3D" parent="BackyardShell/GardenLogBush"]
 transform = Transform3D(0.9848077, 0, 0.1736482, 0, 1, 0, -0.1736482, 0, 0.9848077, -2.35, 0.45, 0)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_earid")
 skeleton = NodePath("")
 
 [node name="log_cut_b" type="MeshInstance3D" parent="BackyardShell/GardenLogBush"]
 transform = Transform3D(0.9848077, 0, 0.1736482, 0, 1, 0, -0.1736482, 0, 0.9848077, 0.15, 0.45, 0)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_3rotn")
 skeleton = NodePath("")
 
 [node name="bush_core" type="MeshInstance3D" parent="BackyardShell/GardenLogBush"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 0.75, 0)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_rtdau")
 skeleton = NodePath("")
 
 [node name="bush_lobe_a" type="MeshInstance3D" parent="BackyardShell/GardenLogBush"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0.62, 0.55)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_7ayj5")
 skeleton = NodePath("")
 
 [node name="bush_lobe_b" type="MeshInstance3D" parent="BackyardShell/GardenLogBush"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, 0.62, -0.45)
-material_override = ExtResource("4_yfpuy")
+material_override = ExtResource("4_7hdex")
 mesh = SubResource("ArrayMesh_t64w5")
 skeleton = NodePath("")
 
 [node name="Dressing" type="Node3D" parent="."]
 
-[node name="PlaygroundHalfPipe" type="Node3D" parent="Dressing" instance=ExtResource("8_mjnda")]
-transform = Transform3D(16.914467, 0, 6.156362, 0, 18, 0, -6.156362, 0, 16.914467, -72, 0, -42)
+[node name="SlideDrop" type="Node3D" parent="Dressing"]
+transform = Transform3D(7.825181, 0, -1.6632936, 0, 8, 0, 1.6632936, 0, 7.825181, -182, 0, -198)
+script = ExtResource("8_mdx1i")
+prop_kind = "scene"
+prop_id = "SlideDrop"
+asset_path = "res://assets/source/meshy/playground_props/rusty_playground_slide.glb"
+box_color = Color(1, 1, 1, 1)
+gameplay_tag = "slide_drop"
 
-[node name="half-pipe" type="MeshInstance3D" parent="Dressing/PlaygroundHalfPipe"]
-mesh = SubResource("ArrayMesh_63n37")
-skeleton = NodePath("")
+[node name="SwingGate" type="Node3D" parent="Dressing"]
+transform = Transform3D(11.737772, 0, -2.4949403, 0, 12, 0, 2.4949403, 0, 11.737772, -346, 0, -162)
+script = ExtResource("8_mdx1i")
+prop_kind = "scene"
+prop_id = "SwingGate"
+asset_path = "res://assets/gameplay/tracks/shared/backyard_optimized/swing_set_low.glb"
+box_color = Color(1, 1, 1, 1)
+gameplay_tag = "swing_gate"
 
-[node name="DashBanner" type="MeshInstance3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -345, 18, -44)
-material_override = SubResource("StandardMaterial3D_ujml4")
-mesh = SubResource("BoxMesh_aeqy1")
+[node name="HalfPipeBank" type="Node3D" parent="Dressing"]
+transform = Transform3D(16.68931, 0, 6.7429185, 0, 18, 0, -6.7429185, 0, 16.68931, -148, 0, -72)
+script = ExtResource("8_mdx1i")
+prop_kind = "scene"
+prop_id = "HalfPipeBank"
+asset_path = "res://assets/source/kenney/mini_skate/half-pipe.glb"
+box_color = Color(1, 1, 1, 1)
 
-[node name="SlideBeat" type="MeshInstance3D" parent="Dressing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -132, 4, -276)
-material_override = SubResource("StandardMaterial3D_dso4g")
-mesh = SubResource("BoxMesh_ao4qd")
+[node name="RailShortcut" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -222, 5, -38)
+script = ExtResource("8_mdx1i")
+prop_id = "RailShortcut"
+box_size = Vector3(130, 10, 16)
+box_color = Color(0.12, 0.42, 0.9, 1)
+gameplay_tag = "rail_shortcut"
+
+[node name="BrokenBorderGate" type="Node3D" parent="Dressing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -372, 18, -232)
+script = ExtResource("8_mdx1i")
+prop_id = "BrokenBorderGate"
+box_size = Vector3(18, 36, 70)
+box_color = Color(0.9, 0.12, 0.1, 1)
+
+[node name="ChalkRouteArrows" type="Node3D" parent="Dressing"]
+transform = Transform3D(0.95105654, 0, -0.309017, 0, 1, 0, 0.309017, 0, 0.95105654, -282, 0.4, -122)
+script = ExtResource("8_mdx1i")
+prop_id = "ChalkRouteArrows"
+box_size = Vector3(132, 0.8, 18)
+box_color = Color(0.84, 0.92, 1, 1)
+
+[node name="StageInteractions" type="Node3D" parent="."]
+
+[node name="SlideDropBoostZone" type="Area3D" parent="StageInteractions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -182, 1.5, -198)
+script = ExtResource("9_jw58s")
+interaction_id = "SlideDropBoostZone"
+size = Vector3(22, 5, 22)
+duration = 0.85
+boost_force = 105.0
+speed_multiplier = 0.75
+note = "Speed payoff after committing to the slide line."
+
+[node name="SwingGatePressure" type="Area3D" parent="StageInteractions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -342, 1.5, -150)
+script = ExtResource("9_jw58s")
+interaction_id = "SwingGatePressure"
+action = "impulse"
+size = Vector3(22, 5, 22)
+cooldown = 0.75
+speed_multiplier = 0.75
+impulse = Vector3(4, 0, 0)
+note = "Forgiving deterministic swing nudge."
+
+[node name="Lighting" type="Node3D" parent="."]
+
+[node name="HeroLandmarkFill" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -230, 34, -150)
+light_color = Color(1, 0.88, 0.62, 1)
+light_energy = 1.25
+omni_range = 180.0
+
+[node name="RouteReadFill" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -142, 24, -226)
+light_color = Color(0.72, 0.86, 1, 1)
+light_energy = 0.65
+omni_range = 140.0
 
 [node name="RoadGridMap" type="GridMap" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -238, -2, -158)
-mesh_library = ExtResource("9_mdx1i")
+mesh_library = ExtResource("10_00iql")
 cell_size = Vector3(16, 4, 16)
 data = {
-"cells": PackedInt32Array(65530, 65531, 1048576, 65531, 65531, 1048576, 65532, 65531, 1048576, 65533, 65531, 1048576, 65534, 65531, 1048576, 65535, 65531, 1048576, 0, 65531, 1048576, 1, 65531, 1048576, 2, 65531, 1048576, 3, 65531, 1048576, 4, 65531, 1048576, 5, 65531, 1048576, 6, 65531, 1048576, 7, 65531, 1441793, 7, 65532, 0, 7, 65533, 0, 7, 65534, 0, 7, 65535, 0, 7, 0, 0, 7, 1, 0, 7, 2, 0, 7, 3, 0, 7, 4, 0, 7, 5, 655361, 6, 5, 1441792, 5, 5, 1441792, 4, 5, 1441792, 3, 5, 1441792, 2, 5, 1441792, 1, 5, 1441792, 0, 5, 1441792, 65535, 5, 1441792, 65534, 5, 1441792, 65533, 5, 1441792, 65532, 5, 1441792, 65531, 5, 1441792, 65530, 5, 1441792, 65529, 5, 1048577, 65529, 4, 655360, 65529, 3, 655360, 65529, 2, 655360, 65529, 1, 655360, 65529, 0, 655360, 65529, 65535, 655360, 65529, 65534, 655360, 65529, 65533, 655360, 65529, 65532, 655360, 65529, 65531, 1)
+"cells": PackedInt32Array(10, 7, 1441794, 9, 7, 1441792, 8, 7, 1441792, 7, 7, 1441792, 6, 7, 1441792, 5, 7, 1441792, 4, 7, 1441792, 3, 7, 1441792, 2, 7, 1441792, 1, 7, 1441792, 0, 7, 1048577, 0, 6, 655360, 0, 5, 655360, 0, 4, 1441793, 65535, 4, 1441792, 65534, 4, 1441792, 65533, 4, 1441792, 65532, 4, 1441792, 65531, 4, 1441792, 65530, 4, 1, 65530, 5, 0, 65530, 6, 655361, 65529, 6, 1441792, 65528, 6, 1441792, 65527, 6, 1441792, 65526, 6, 1048577, 65526, 5, 655360, 65526, 4, 655360, 65526, 3, 655360, 65526, 2, 655360, 65526, 1, 655360, 65526, 0, 1, 65527, 0, 1048576, 65528, 0, 1048576, 65529, 0, 655361, 65529, 65535, 655360, 65529, 65534, 655360, 65529, 65533, 655360, 65529, 65532, 1441793, 65528, 65532, 1441792, 65527, 65532, 1048577, 65527, 65531, 655360, 65527, 65530, 1, 65528, 65530, 1048576, 65529, 65530, 1048576, 65530, 65530, 1048576, 65531, 65530, 1048576, 65532, 65530, 1048576, 65533, 65530, 1048576, 65534, 65530, 1048576, 65535, 65530, 1048576, 0, 65530, 1048576, 1, 65530, 1048576, 2, 65530, 1048576, 3, 65530, 1441793, 3, 65531, 0, 3, 65532, 0, 3, 65533, 1048577, 4, 65533, 1048576, 5, 65533, 1048576, 6, 65533, 1048576, 7, 65533, 1048576, 8, 65533, 1441793, 8, 65534, 0, 8, 65535, 0, 8, 0, 0, 8, 1, 655361, 7, 1, 1441792, 6, 1, 1441792, 5, 1, 1441792, 4, 1, 1, 4, 2, 0, 4, 3, 0, 4, 4, 1048577, 5, 4, 1048576, 6, 4, 1048576, 7, 4, 1048576, 8, 4, 1048576, 9, 4, 1048576, 10, 4, 1441793, 10, 5, 0, 10, 6, 0)
 }
-script = ExtResource("10_jw58s")
-ordered_route_cells = Array[Vector3i]([Vector3i(-6, 0, -5), Vector3i(-5, 0, -5), Vector3i(-4, 0, -5), Vector3i(-3, 0, -5), Vector3i(-2, 0, -5), Vector3i(-1, 0, -5), Vector3i(0, 0, -5), Vector3i(1, 0, -5), Vector3i(2, 0, -5), Vector3i(3, 0, -5), Vector3i(4, 0, -5), Vector3i(5, 0, -5), Vector3i(6, 0, -5), Vector3i(7, 0, -5), Vector3i(7, 0, -4), Vector3i(7, 0, -3), Vector3i(7, 0, -2), Vector3i(7, 0, -1), Vector3i(7, 0, 0), Vector3i(7, 0, 1), Vector3i(7, 0, 2), Vector3i(7, 0, 3), Vector3i(7, 0, 4), Vector3i(7, 0, 5), Vector3i(6, 0, 5), Vector3i(5, 0, 5), Vector3i(4, 0, 5), Vector3i(3, 0, 5), Vector3i(2, 0, 5), Vector3i(1, 0, 5), Vector3i(0, 0, 5), Vector3i(-1, 0, 5), Vector3i(-2, 0, 5), Vector3i(-3, 0, 5), Vector3i(-4, 0, 5), Vector3i(-5, 0, 5), Vector3i(-6, 0, 5), Vector3i(-7, 0, 5), Vector3i(-7, 0, 4), Vector3i(-7, 0, 3), Vector3i(-7, 0, 2), Vector3i(-7, 0, 1), Vector3i(-7, 0, 0), Vector3i(-7, 0, -1), Vector3i(-7, 0, -2), Vector3i(-7, 0, -3), Vector3i(-7, 0, -4), Vector3i(-7, 0, -5)])
-checkpoint_route_indices = Array[int]([0, 8, 16, 24, 32, 40])
-spawn_slots = Array[ExtResource("11_00iql")]([SubResource("Resource_pglj6"), SubResource("Resource_fb0vi"), SubResource("Resource_5djei"), SubResource("Resource_e3gtf"), SubResource("Resource_hv2hf"), SubResource("Resource_p07qj"), SubResource("Resource_f4c2l"), SubResource("Resource_ucekp")])
+script = ExtResource("11_ujml4")
+ordered_route_cells = Array[Vector3i]([Vector3i(10, 0, 7), Vector3i(9, 0, 7), Vector3i(8, 0, 7), Vector3i(7, 0, 7), Vector3i(6, 0, 7), Vector3i(5, 0, 7), Vector3i(4, 0, 7), Vector3i(3, 0, 7), Vector3i(2, 0, 7), Vector3i(1, 0, 7), Vector3i(0, 0, 7), Vector3i(0, 0, 6), Vector3i(0, 0, 5), Vector3i(0, 0, 4), Vector3i(-1, 0, 4), Vector3i(-2, 0, 4), Vector3i(-3, 0, 4), Vector3i(-4, 0, 4), Vector3i(-5, 0, 4), Vector3i(-6, 0, 4), Vector3i(-6, 0, 5), Vector3i(-6, 0, 6), Vector3i(-7, 0, 6), Vector3i(-8, 0, 6), Vector3i(-9, 0, 6), Vector3i(-10, 0, 6), Vector3i(-10, 0, 5), Vector3i(-10, 0, 4), Vector3i(-10, 0, 3), Vector3i(-10, 0, 2), Vector3i(-10, 0, 1), Vector3i(-10, 0, 0), Vector3i(-9, 0, 0), Vector3i(-8, 0, 0), Vector3i(-7, 0, 0), Vector3i(-7, 0, -1), Vector3i(-7, 0, -2), Vector3i(-7, 0, -3), Vector3i(-7, 0, -4), Vector3i(-8, 0, -4), Vector3i(-9, 0, -4), Vector3i(-9, 0, -5), Vector3i(-9, 0, -6), Vector3i(-8, 0, -6), Vector3i(-7, 0, -6), Vector3i(-6, 0, -6), Vector3i(-5, 0, -6), Vector3i(-4, 0, -6), Vector3i(-3, 0, -6), Vector3i(-2, 0, -6), Vector3i(-1, 0, -6), Vector3i(0, 0, -6), Vector3i(1, 0, -6), Vector3i(2, 0, -6), Vector3i(3, 0, -6), Vector3i(3, 0, -5), Vector3i(3, 0, -4), Vector3i(3, 0, -3), Vector3i(4, 0, -3), Vector3i(5, 0, -3), Vector3i(6, 0, -3), Vector3i(7, 0, -3), Vector3i(8, 0, -3), Vector3i(8, 0, -2), Vector3i(8, 0, -1), Vector3i(8, 0, 0), Vector3i(8, 0, 1), Vector3i(7, 0, 1), Vector3i(6, 0, 1), Vector3i(5, 0, 1), Vector3i(4, 0, 1), Vector3i(4, 0, 2), Vector3i(4, 0, 3), Vector3i(4, 0, 4), Vector3i(5, 0, 4), Vector3i(6, 0, 4), Vector3i(7, 0, 4), Vector3i(8, 0, 4), Vector3i(9, 0, 4), Vector3i(10, 0, 4), Vector3i(10, 0, 5), Vector3i(10, 0, 6)])
+checkpoint_route_indices = Array[int]([0, 14, 27, 41, 55, 68])
+spawn_slots = Array[ExtResource("12_aeqy1")]([SubResource("Resource_dso4g"), SubResource("Resource_ao4qd"), SubResource("Resource_pglj6"), SubResource("Resource_fb0vi"), SubResource("Resource_5djei"), SubResource("Resource_e3gtf"), SubResource("Resource_hv2hf"), SubResource("Resource_p07qj")])
 road_width_override = 16.0

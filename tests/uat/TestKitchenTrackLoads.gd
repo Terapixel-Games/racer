@@ -189,6 +189,8 @@ func test_outdoor_playground_runtime_uses_shared_backyard_gridmap_shell() -> voi
 	assert_equal(definition.road_width, 16.0, "Outdoor Playground should use the shared MVP GridMap road width")
 	assert_true(definition.boundary_walls_enabled, "Outdoor Playground should use invisible boundary wall containment")
 	assert_true(not definition.rails_enabled, "Outdoor Playground should not use rail containment")
+	assert_true(_has_stage_interaction(definition, "SlideDropBoostZone"), "Outdoor Playground should export the slide boost interaction")
+	assert_true(_has_stage_interaction(definition, "SwingGatePressure"), "Outdoor Playground should export the swing pressure interaction")
 	var built := TrackRuntimeBuilder.build(definition)
 	var track_node := built.get("node", null) as Node3D
 	scene_tree.root.add_child(track_node)
@@ -201,8 +203,11 @@ func test_outdoor_playground_runtime_uses_shared_backyard_gridmap_shell() -> voi
 	assert_true(track_node.get_node_or_null("CheckpointSystem") != null, "Outdoor Playground should build checkpoints from GridMap metadata")
 	assert_true(track_node.get_node_or_null("Waypoints") != null, "Outdoor Playground should build waypoints from GridMap metadata")
 	assert_true(track_node.get_node_or_null("Dressing/EditableRoom/BackyardShell") != null, "Outdoor Playground should instance the shared backyard shell")
-	assert_true(track_node.get_node_or_null("Dressing/EditableRoom/Dressing/PlaygroundHalfPipe") != null, "Outdoor Playground should include playground-specific dressing")
-	assert_true(track_node.get_node_or_null("Dressing/EditableRoom/Dressing/DashBanner") != null, "Outdoor Playground should include Dash playground identity dressing")
+	assert_true(track_node.get_node_or_null("Dressing/StageProps/SlideDrop") != null, "Outdoor Playground should include the slide drop landmark")
+	assert_true(track_node.get_node_or_null("Dressing/StageProps/SwingGate") != null, "Outdoor Playground should include the swing gate landmark")
+	assert_true(track_node.get_node_or_null("Dressing/StageProps/HalfPipeBank") != null, "Outdoor Playground should include the half-pipe bank landmark")
+	assert_true(track_node.get_node_or_null("StageInteractions/SlideDropBoostZone") != null, "Outdoor Playground should build the slide boost interaction")
+	assert_true(track_node.get_node_or_null("StageInteractions/SwingGatePressure") != null, "Outdoor Playground should build the swing pressure interaction")
 	assert_true(track_node.get_node_or_null("Dressing/EditableRoom/RoadGridMap") != null, "Outdoor Playground editable room should expose the authored RoadGridMap")
 	assert_equal(_enabled_collision_objects(track_node.get_node_or_null("Dressing/EditableRoom")), 0, "Outdoor Playground dressing should remain visual-only")
 	assert_equal(_mesh_shader_path(track_node, "FloorVisual"), OUTDOOR_GRASS_SHADER, "Outdoor Playground generated floor should use the grass shader")
@@ -236,11 +241,15 @@ func test_attic_mayhem_authoring_scene_contains_gridmap_mvp_assets() -> void:
 	assert_true(instance.get_node_or_null("RoomShell/LeftWall") != null, "Attic MVP scene should include a left shell wall")
 	assert_true(instance.get_node_or_null("RoomShell/RightWall") != null, "Attic MVP scene should include a right shell wall")
 	assert_true(instance.get_node_or_null("RoomShell/Ceiling") != null, "Attic MVP scene should include a ceiling plane")
-	assert_true(instance.get_node_or_null("Dressing/CardboardBoxStackA") != null, "Attic MVP dressing should include stacked boxes")
-	assert_true(instance.get_node_or_null("Dressing/OldTrunk") != null, "Attic MVP dressing should include an old trunk beat")
-	assert_true(instance.get_node_or_null("Dressing/SheetGhost") != null, "Attic MVP dressing should include a sheet prank beat")
-	assert_true(instance.get_node_or_null("Dressing/RafterBeam") != null, "Attic MVP dressing should include a rafter beat")
-	assert_true(instance.get_node_or_null("Dressing/BookPile") != null, "Attic MVP dressing should reuse available prop assets")
+	assert_true(instance.get_node_or_null("Dressing/PrankTrunkMaze") != null, "Attic MVP dressing should include the trunk maze beat")
+	assert_true(instance.get_node_or_null("Dressing/BoxStackSwitchback") != null, "Attic MVP dressing should include the box switchback beat")
+	assert_true(instance.get_node_or_null("Dressing/SheetTunnel") != null, "Attic MVP dressing should include a sheet tunnel beat")
+	assert_true(instance.get_node_or_null("Dressing/FalseFinishGate") != null, "Attic MVP dressing should include a false finish read")
+	assert_true(instance.get_node_or_null("Dressing/StringLiftShortcut") != null, "Attic MVP dressing should include a string-lift shortcut read")
+	assert_true(instance.get_node_or_null("Dressing/PrankJackInTheBox") != null, "Attic MVP dressing should include the prank setpiece marker")
+	assert_true(instance.get_node_or_null("Dressing/AtticBookPile") != null, "Attic MVP dressing should reuse available prop assets")
+	assert_true(instance.get_node_or_null("StageInteractions/PrankTriggerZone") != null, "Attic MVP scene should author the prank trigger interaction")
+	assert_true(instance.get_node_or_null("StageInteractions/MarbleTrapRelease") != null, "Attic MVP scene should author the marble trap interaction")
 	var road_grid_map := instance.get_node_or_null("RoadGridMap")
 	assert_true(road_grid_map != null, "Attic MVP scene should expose a RoadGridMap authoring node")
 	assert_equal((road_grid_map.get("spawn_slots") as Array).size() if road_grid_map != null else 0, 8, "Attic RoadGridMap should author eight spawn slots")
@@ -383,6 +392,8 @@ func test_attic_mayhem_runtime_builds_redesigned_room() -> void:
 	assert_equal(definition.road_width, 16.0, "Attic should use the shared MVP GridMap road width")
 	assert_true(definition.boundary_walls_enabled, "Attic should use invisible boundary wall containment")
 	assert_true(not definition.rails_enabled, "Attic should not use rail containment")
+	assert_true(_has_stage_interaction(definition, "PrankTriggerZone"), "Attic definition should export the prank trigger interaction")
+	assert_true(_has_stage_interaction(definition, "MarbleTrapRelease"), "Attic definition should export the marble trap interaction")
 	assert_true(definition.audio_ids.has("attic_window_wind"), "Attic definition should include window wind audio")
 	assert_true(definition.audio_zones.size() >= 3, "Attic definition should export music, feature, and window wind zones")
 	var built := TrackRuntimeBuilder.build(definition)
@@ -395,9 +406,12 @@ func test_attic_mayhem_runtime_builds_redesigned_room() -> void:
 	assert_true(track_node.get_node_or_null("CheckpointSystem") != null, "Runtime attic should build checkpoints from GridMap metadata")
 	assert_true(track_node.get_node_or_null("SpawnPoints/Start08") != null, "Runtime attic should build all eight generated spawn points")
 	assert_true(track_node.get_node_or_null("Dressing/EditableRoom/RoomShell/BackWall") != null, "Runtime attic should include the MVP shell back wall")
-	assert_true(track_node.get_node_or_null("Dressing/EditableRoom/Dressing/CardboardBoxStackA") != null, "Runtime attic should include the stacked box dressing beat")
-	assert_true(track_node.get_node_or_null("Dressing/EditableRoom/Dressing/OldTrunk") != null, "Runtime attic should include the trunk dressing beat")
-	assert_true(track_node.get_node_or_null("Dressing/EditableRoom/Dressing/SheetGhost") != null, "Runtime attic should include the sheet prank dressing beat")
+	assert_true(track_node.get_node_or_null("Dressing/StageProps/PrankTrunkMaze") != null, "Runtime attic should include the trunk maze dressing beat")
+	assert_true(track_node.get_node_or_null("Dressing/StageProps/BoxStackSwitchback") != null, "Runtime attic should include the box switchback dressing beat")
+	assert_true(track_node.get_node_or_null("Dressing/StageProps/SheetTunnel") != null, "Runtime attic should include the sheet tunnel dressing beat")
+	assert_true(track_node.get_node_or_null("Dressing/StageProps/PrankJackInTheBox") != null, "Runtime attic should include the prank setpiece")
+	assert_true(track_node.get_node_or_null("StageInteractions/PrankTriggerZone") != null, "Runtime attic should build the prank trigger interaction")
+	assert_true(track_node.get_node_or_null("StageInteractions/MarbleTrapRelease") != null, "Runtime attic should build the marble trap interaction")
 	assert_true(track_node.get_node_or_null("Dressing/EditableRoom/RoadGridMap") != null, "Runtime attic should include the source RoadGridMap in dressing")
 	assert_true(track_node.get_node_or_null("AudioZones/attic_window_wind_zone") != null, "Runtime attic should build the window wind audio zone")
 	assert_true((built.get("waypoints", []) as Array).size() >= 30, "Runtime attic should keep the full route")
@@ -484,6 +498,14 @@ func _node_position(root: Node, path: NodePath) -> Vector3:
 	if node == null:
 		return Vector3.ZERO
 	return node.transform.origin
+
+func _has_stage_interaction(definition, interaction_id: String) -> bool:
+	if definition == null:
+		return false
+	for interaction in definition.stage_interactions:
+		if str(interaction.get("id", "")) == interaction_id:
+			return true
+	return false
 
 func _node_scale(root: Node, path: NodePath) -> Vector3:
 	var node := root.get_node_or_null(path) as Node3D

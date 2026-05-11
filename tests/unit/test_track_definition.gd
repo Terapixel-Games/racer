@@ -65,6 +65,37 @@ func test_validation_accepts_gridmap_mvp_route() -> void:
 	var definition := _base_definition()
 	assert_equal(definition.validate(), [], "GridMap MVP route should validate")
 
+func test_validation_accepts_stage_interactions_and_exports_metadata() -> void:
+	var definition := _base_definition()
+	definition.stage_interactions = [{
+		"id": "test_boost",
+		"action": "boost",
+		"shape": "box",
+		"position": Vector3(4, 1, 0),
+		"yaw_degrees": 0.0,
+		"size": Vector3(6, 3, 8),
+		"duration": 0.5,
+		"cooldown": 1.0,
+		"boost_force": 72.0,
+	}]
+	assert_equal(definition.validate(), [], "Valid stage interactions should not break GridMap validation")
+	var exported := definition.to_metadata().get("stage_interactions", []) as Array
+	assert_equal(exported.size(), 1, "Metadata should export stage interactions")
+	assert_equal(str((exported[0] as Dictionary).get("id", "")), "test_boost", "Metadata should preserve interaction ids")
+	assert_equal(((exported[0] as Dictionary).get("size", []) as Array).size(), 3, "Metadata should serialize interaction extents")
+
+func test_validation_rejects_invalid_stage_interactions() -> void:
+	var definition := _base_definition()
+	definition.stage_interactions = [{
+		"id": "bad_zone",
+		"action": "teleport",
+		"shape": "box",
+		"size": Vector3.ZERO,
+	}]
+	var errors := definition.validate()
+	assert_true(_has_error(errors, "action"), "Stage interactions should reject unknown actions")
+	assert_true(_has_error(errors, "box size"), "Stage interactions should reject empty box extents")
+
 func test_validation_rejects_backtracking_alternate_route() -> void:
 	var definition := _base_definition()
 	definition.alternate_routes = [{

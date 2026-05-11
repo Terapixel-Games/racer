@@ -12,14 +12,14 @@ Target pacing: one competent local lap should take about 30 seconds. A 3-lap rac
 
 ## Required Scene Structure
 
-- `RoutePoints`: closed loop route markers.
-- `Checkpoints`: 5-7 markers, with the first marker or a clearly named lap marker acting as the lap gate.
-- `ItemSockets`: 6-10 item marker sockets.
-- `HazardSockets`: 4-8 hazard marker sockets.
-- `ShortcutGates`: one ridge, bucket, or shovel shortcut when readable.
-- `Dressing`: visible props using `StagePropAuthoring` or scene instances.
-- `SurfaceSegments`: at least main sand, hard plastic, and rough berm sections.
-- `AudioZones`: at least grit slide, fossil clack, and bucket tunnel zones.
+- `RoadGridMap`: source of truth for route cells, checkpoints, start tile, and 8 generated spawns.
+- `StageInteractions`: explicit `StageInteractionAuthoring` areas for `ShovelRampBoostZone` and `SandBurstSlowZone`.
+- `Dressing`: named `StagePropAuthoring` markers for every visible landmark and route beat.
+- `BackyardShell`: shared optimized backyard floor, horizon containment, and route-readable sandbox staging.
+- `Lighting`: named throne, fossil, and route-read fills; keep exposed silhouettes readable.
+- `AudioZones`: at least grit slide, fossil clack, and bucket tunnel zones where available.
+
+Do not use legacy `RoutePoints`, `ItemSockets`, `HazardSockets`, or `RoadSegments` for this stage.
 
 ## Route Direction
 
@@ -60,7 +60,7 @@ Implement one Sandbox effect hook:
 - Closed route validates with 5-7 checkpoints and 8 spawns.
 - Lap target is roughly 30 seconds for a competent local player.
 - Stage has visible Rexx/Sand Throne landmarks, not only markers.
-- At least 6 item sockets and 4 hazard sockets exist.
+- No legacy item or hazard sockets exist; route pressure is authored through `StageInteractions`.
 - Bucket tunnel and fossil arch are readable and camera-safe.
 - One sand/grit signature effect is present and testable.
 - Shovel ramp landing has reset coverage and does not throw players out of bounds unfairly.

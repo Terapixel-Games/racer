@@ -24,255 +24,531 @@ road_grid_layout = {
 "basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
 "cell_size": Vector3(16, 4, 16),
 "cells": Array[Dictionary]([{
-"cell": Vector3i(-5, 0, -4),
-"item": 0,
+"cell": Vector3i(-8, 0, -5),
+"item": 2,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-80, 0, -64)
+"position": Vector3(-128, 0, -80)
 }, {
-"cell": Vector3i(-4, 0, -4),
+"cell": Vector3i(-7, 0, -5),
 "item": 0,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-64, 0, -64)
+"position": Vector3(-112, 0, -80)
 }, {
-"cell": Vector3i(-3, 0, -4),
+"cell": Vector3i(-6, 0, -5),
 "item": 0,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-48, 0, -64)
+"position": Vector3(-96, 0, -80)
 }, {
-"cell": Vector3i(-2, 0, -4),
+"cell": Vector3i(-5, 0, -5),
 "item": 0,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-32, 0, -64)
+"position": Vector3(-80, 0, -80)
 }, {
-"cell": Vector3i(-1, 0, -4),
+"cell": Vector3i(-4, 0, -5),
 "item": 0,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-16, 0, -64)
+"position": Vector3(-64, 0, -80)
 }, {
-"cell": Vector3i(0, 0, -4),
+"cell": Vector3i(-3, 0, -5),
 "item": 0,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(0, 0, -64)
+"position": Vector3(-48, 0, -80)
+}, {
+"cell": Vector3i(-2, 0, -5),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-32, 0, -80)
+}, {
+"cell": Vector3i(-1, 0, -5),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-16, 0, -80)
+}, {
+"cell": Vector3i(0, 0, -5),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(0, 0, -80)
+}, {
+"cell": Vector3i(1, 0, -5),
+"item": 1,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(16, 0, -80)
 }, {
 "cell": Vector3i(1, 0, -4),
 "item": 0,
-"orientation": 16,
-"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
 "position": Vector3(16, 0, -64)
 }, {
-"cell": Vector3i(2, 0, -4),
-"item": 0,
-"orientation": 16,
-"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(32, 0, -64)
-}, {
-"cell": Vector3i(3, 0, -4),
-"item": 0,
-"orientation": 16,
-"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(48, 0, -64)
-}, {
-"cell": Vector3i(4, 0, -4),
-"item": 0,
-"orientation": 16,
-"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(64, 0, -64)
-}, {
-"cell": Vector3i(5, 0, -4),
-"item": 0,
-"orientation": 16,
-"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(80, 0, -64)
-}, {
-"cell": Vector3i(6, 0, -4),
-"item": 1,
-"orientation": 22,
-"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(96, 0, -64)
-}, {
-"cell": Vector3i(6, 0, -3),
+"cell": Vector3i(1, 0, -3),
 "item": 0,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(96, 0, -48)
+"position": Vector3(16, 0, -48)
 }, {
-"cell": Vector3i(6, 0, -2),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(96, 0, -32)
-}, {
-"cell": Vector3i(6, 0, -1),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(96, 0, -16)
-}, {
-"cell": Vector3i(6, 0, 0),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(96, 0, 0)
-}, {
-"cell": Vector3i(6, 0, 1),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(96, 0, 16)
-}, {
-"cell": Vector3i(6, 0, 2),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(96, 0, 32)
-}, {
-"cell": Vector3i(6, 0, 3),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(96, 0, 48)
-}, {
-"cell": Vector3i(6, 0, 4),
+"cell": Vector3i(1, 0, -2),
 "item": 1,
 "orientation": 10,
 "orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
-"position": Vector3(96, 0, 64)
+"position": Vector3(16, 0, -32)
 }, {
-"cell": Vector3i(5, 0, 4),
+"cell": Vector3i(0, 0, -2),
 "item": 0,
 "orientation": 22,
 "orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(80, 0, 64)
+"position": Vector3(0, 0, -32)
 }, {
-"cell": Vector3i(4, 0, 4),
+"cell": Vector3i(-1, 0, -2),
 "item": 0,
 "orientation": 22,
 "orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(64, 0, 64)
+"position": Vector3(-16, 0, -32)
 }, {
-"cell": Vector3i(3, 0, 4),
+"cell": Vector3i(-2, 0, -2),
 "item": 0,
 "orientation": 22,
 "orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(48, 0, 64)
+"position": Vector3(-32, 0, -32)
 }, {
-"cell": Vector3i(2, 0, 4),
+"cell": Vector3i(-3, 0, -2),
 "item": 0,
 "orientation": 22,
 "orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(32, 0, 64)
+"position": Vector3(-48, 0, -32)
 }, {
-"cell": Vector3i(1, 0, 4),
+"cell": Vector3i(-4, 0, -2),
 "item": 0,
 "orientation": 22,
 "orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(16, 0, 64)
+"position": Vector3(-64, 0, -32)
 }, {
-"cell": Vector3i(0, 0, 4),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(0, 0, 64)
-}, {
-"cell": Vector3i(-1, 0, 4),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-16, 0, 64)
-}, {
-"cell": Vector3i(-2, 0, 4),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-32, 0, 64)
-}, {
-"cell": Vector3i(-3, 0, 4),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-48, 0, 64)
-}, {
-"cell": Vector3i(-4, 0, 4),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-64, 0, 64)
-}, {
-"cell": Vector3i(-5, 0, 4),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-80, 0, 64)
-}, {
-"cell": Vector3i(-6, 0, 4),
+"cell": Vector3i(-5, 0, -2),
 "item": 1,
-"orientation": 16,
-"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-96, 0, 64)
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-80, 0, -32)
 }, {
-"cell": Vector3i(-6, 0, 3),
+"cell": Vector3i(-5, 0, -1),
 "item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-80, 0, -16)
+}, {
+"cell": Vector3i(-5, 0, 0),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-80, 0, 0)
+}, {
+"cell": Vector3i(-5, 0, 1),
+"item": 1,
 "orientation": 10,
 "orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
-"position": Vector3(-96, 0, 48)
-}, {
-"cell": Vector3i(-6, 0, 2),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
-"position": Vector3(-96, 0, 32)
+"position": Vector3(-80, 0, 16)
 }, {
 "cell": Vector3i(-6, 0, 1),
 "item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
 "position": Vector3(-96, 0, 16)
 }, {
-"cell": Vector3i(-6, 0, 0),
+"cell": Vector3i(-7, 0, 1),
 "item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
-"position": Vector3(-96, 0, 0)
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-112, 0, 16)
 }, {
-"cell": Vector3i(-6, 0, -1),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
-"position": Vector3(-96, 0, -16)
-}, {
-"cell": Vector3i(-6, 0, -2),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
-"position": Vector3(-96, 0, -32)
-}, {
-"cell": Vector3i(-6, 0, -3),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
-"position": Vector3(-96, 0, -48)
-}, {
-"cell": Vector3i(-6, 0, -4),
+"cell": Vector3i(-8, 0, 1),
 "item": 1,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-96, 0, -64)
+"position": Vector3(-128, 0, 16)
+}, {
+"cell": Vector3i(-8, 0, 2),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-128, 0, 32)
+}, {
+"cell": Vector3i(-8, 0, 3),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-128, 0, 48)
+}, {
+"cell": Vector3i(-8, 0, 4),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-128, 0, 64)
+}, {
+"cell": Vector3i(-8, 0, 5),
+"item": 1,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-128, 0, 80)
+}, {
+"cell": Vector3i(-7, 0, 5),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-112, 0, 80)
+}, {
+"cell": Vector3i(-6, 0, 5),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-96, 0, 80)
+}, {
+"cell": Vector3i(-5, 0, 5),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-80, 0, 80)
+}, {
+"cell": Vector3i(-4, 0, 5),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-64, 0, 80)
+}, {
+"cell": Vector3i(-3, 0, 5),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-48, 0, 80)
+}, {
+"cell": Vector3i(-2, 0, 5),
+"item": 1,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(-32, 0, 80)
+}, {
+"cell": Vector3i(-2, 0, 4),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(-32, 0, 64)
+}, {
+"cell": Vector3i(-2, 0, 3),
+"item": 1,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-32, 0, 48)
+}, {
+"cell": Vector3i(-1, 0, 3),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-16, 0, 48)
+}, {
+"cell": Vector3i(0, 0, 3),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(0, 0, 48)
+}, {
+"cell": Vector3i(1, 0, 3),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(16, 0, 48)
+}, {
+"cell": Vector3i(2, 0, 3),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(32, 0, 48)
+}, {
+"cell": Vector3i(3, 0, 3),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(48, 0, 48)
+}, {
+"cell": Vector3i(4, 0, 3),
+"item": 1,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(64, 0, 48)
+}, {
+"cell": Vector3i(4, 0, 4),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(64, 0, 64)
+}, {
+"cell": Vector3i(4, 0, 5),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(64, 0, 80)
+}, {
+"cell": Vector3i(4, 0, 6),
+"item": 1,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(64, 0, 96)
+}, {
+"cell": Vector3i(5, 0, 6),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(80, 0, 96)
+}, {
+"cell": Vector3i(6, 0, 6),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(96, 0, 96)
+}, {
+"cell": Vector3i(7, 0, 6),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(112, 0, 96)
+}, {
+"cell": Vector3i(8, 0, 6),
+"item": 1,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(128, 0, 96)
+}, {
+"cell": Vector3i(8, 0, 5),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(128, 0, 80)
+}, {
+"cell": Vector3i(8, 0, 4),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(128, 0, 64)
+}, {
+"cell": Vector3i(8, 0, 3),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(128, 0, 48)
+}, {
+"cell": Vector3i(8, 0, 2),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(128, 0, 32)
+}, {
+"cell": Vector3i(8, 0, 1),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(128, 0, 16)
+}, {
+"cell": Vector3i(8, 0, 0),
+"item": 1,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(128, 0, 0)
+}, {
+"cell": Vector3i(7, 0, 0),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(112, 0, 0)
+}, {
+"cell": Vector3i(6, 0, 0),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(96, 0, 0)
+}, {
+"cell": Vector3i(5, 0, 0),
+"item": 1,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(80, 0, 0)
+}, {
+"cell": Vector3i(5, 0, -1),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(80, 0, -16)
+}, {
+"cell": Vector3i(5, 0, -2),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(80, 0, -32)
+}, {
+"cell": Vector3i(5, 0, -3),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(80, 0, -48)
+}, {
+"cell": Vector3i(5, 0, -4),
+"item": 1,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(80, 0, -64)
+}, {
+"cell": Vector3i(6, 0, -4),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(96, 0, -64)
+}, {
+"cell": Vector3i(7, 0, -4),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(112, 0, -64)
+}, {
+"cell": Vector3i(8, 0, -4),
+"item": 1,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(128, 0, -64)
+}, {
+"cell": Vector3i(8, 0, -5),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(128, 0, -80)
+}, {
+"cell": Vector3i(8, 0, -6),
+"item": 1,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(128, 0, -96)
+}, {
+"cell": Vector3i(7, 0, -6),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(112, 0, -96)
+}, {
+"cell": Vector3i(6, 0, -6),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(96, 0, -96)
+}, {
+"cell": Vector3i(5, 0, -6),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(80, 0, -96)
+}, {
+"cell": Vector3i(4, 0, -6),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(64, 0, -96)
+}, {
+"cell": Vector3i(3, 0, -6),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(48, 0, -96)
+}, {
+"cell": Vector3i(2, 0, -6),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(32, 0, -96)
+}, {
+"cell": Vector3i(1, 0, -6),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(16, 0, -96)
+}, {
+"cell": Vector3i(0, 0, -6),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(0, 0, -96)
+}, {
+"cell": Vector3i(-1, 0, -6),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-16, 0, -96)
+}, {
+"cell": Vector3i(-2, 0, -6),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-32, 0, -96)
+}, {
+"cell": Vector3i(-3, 0, -6),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-48, 0, -96)
+}, {
+"cell": Vector3i(-4, 0, -6),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-64, 0, -96)
+}, {
+"cell": Vector3i(-5, 0, -6),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-80, 0, -96)
+}, {
+"cell": Vector3i(-6, 0, -6),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-96, 0, -96)
+}, {
+"cell": Vector3i(-7, 0, -6),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-112, 0, -96)
+}, {
+"cell": Vector3i(-8, 0, -6),
+"item": 1,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-128, 0, -96)
 }]),
-"checkpoint_route_indices": Array[int]([0, 7, 13, 20, 27, 33]),
+"checkpoint_route_indices": Array[int]([0, 14, 28, 42, 56, 70]),
 "hazard_route_indices": [],
 "item_route_indices": [],
 "mesh_library_path": "res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres",
-"ordered_route_cells": Array[Vector3i]([Vector3i(-5, 0, -4), Vector3i(-4, 0, -4), Vector3i(-3, 0, -4), Vector3i(-2, 0, -4), Vector3i(-1, 0, -4), Vector3i(0, 0, -4), Vector3i(1, 0, -4), Vector3i(2, 0, -4), Vector3i(3, 0, -4), Vector3i(4, 0, -4), Vector3i(5, 0, -4), Vector3i(6, 0, -4), Vector3i(6, 0, -3), Vector3i(6, 0, -2), Vector3i(6, 0, -1), Vector3i(6, 0, 0), Vector3i(6, 0, 1), Vector3i(6, 0, 2), Vector3i(6, 0, 3), Vector3i(6, 0, 4), Vector3i(5, 0, 4), Vector3i(4, 0, 4), Vector3i(3, 0, 4), Vector3i(2, 0, 4), Vector3i(1, 0, 4), Vector3i(0, 0, 4), Vector3i(-1, 0, 4), Vector3i(-2, 0, 4), Vector3i(-3, 0, 4), Vector3i(-4, 0, 4), Vector3i(-5, 0, 4), Vector3i(-6, 0, 4), Vector3i(-6, 0, 3), Vector3i(-6, 0, 2), Vector3i(-6, 0, 1), Vector3i(-6, 0, 0), Vector3i(-6, 0, -1), Vector3i(-6, 0, -2), Vector3i(-6, 0, -3), Vector3i(-6, 0, -4)]),
-"ordered_route_points": Array[Vector3]([Vector3(-80, 0, -64), Vector3(-64, 0, -64), Vector3(-48, 0, -64), Vector3(-32, 0, -64), Vector3(-16, 0, -64), Vector3(0, 0, -64), Vector3(16, 0, -64), Vector3(32, 0, -64), Vector3(48, 0, -64), Vector3(64, 0, -64), Vector3(80, 0, -64), Vector3(96, 0, -64), Vector3(96, 0, -48), Vector3(96, 0, -32), Vector3(96, 0, -16), Vector3(96, 0, 0), Vector3(96, 0, 16), Vector3(96, 0, 32), Vector3(96, 0, 48), Vector3(96, 0, 64), Vector3(80, 0, 64), Vector3(64, 0, 64), Vector3(48, 0, 64), Vector3(32, 0, 64), Vector3(16, 0, 64), Vector3(0, 0, 64), Vector3(-16, 0, 64), Vector3(-32, 0, 64), Vector3(-48, 0, 64), Vector3(-64, 0, 64), Vector3(-80, 0, 64), Vector3(-96, 0, 64), Vector3(-96, 0, 48), Vector3(-96, 0, 32), Vector3(-96, 0, 16), Vector3(-96, 0, 0), Vector3(-96, 0, -16), Vector3(-96, 0, -32), Vector3(-96, 0, -48), Vector3(-96, 0, -64)]),
+"ordered_route_cells": Array[Vector3i]([Vector3i(-8, 0, -5), Vector3i(-7, 0, -5), Vector3i(-6, 0, -5), Vector3i(-5, 0, -5), Vector3i(-4, 0, -5), Vector3i(-3, 0, -5), Vector3i(-2, 0, -5), Vector3i(-1, 0, -5), Vector3i(0, 0, -5), Vector3i(1, 0, -5), Vector3i(1, 0, -4), Vector3i(1, 0, -3), Vector3i(1, 0, -2), Vector3i(0, 0, -2), Vector3i(-1, 0, -2), Vector3i(-2, 0, -2), Vector3i(-3, 0, -2), Vector3i(-4, 0, -2), Vector3i(-5, 0, -2), Vector3i(-5, 0, -1), Vector3i(-5, 0, 0), Vector3i(-5, 0, 1), Vector3i(-6, 0, 1), Vector3i(-7, 0, 1), Vector3i(-8, 0, 1), Vector3i(-8, 0, 2), Vector3i(-8, 0, 3), Vector3i(-8, 0, 4), Vector3i(-8, 0, 5), Vector3i(-7, 0, 5), Vector3i(-6, 0, 5), Vector3i(-5, 0, 5), Vector3i(-4, 0, 5), Vector3i(-3, 0, 5), Vector3i(-2, 0, 5), Vector3i(-2, 0, 4), Vector3i(-2, 0, 3), Vector3i(-1, 0, 3), Vector3i(0, 0, 3), Vector3i(1, 0, 3), Vector3i(2, 0, 3), Vector3i(3, 0, 3), Vector3i(4, 0, 3), Vector3i(4, 0, 4), Vector3i(4, 0, 5), Vector3i(4, 0, 6), Vector3i(5, 0, 6), Vector3i(6, 0, 6), Vector3i(7, 0, 6), Vector3i(8, 0, 6), Vector3i(8, 0, 5), Vector3i(8, 0, 4), Vector3i(8, 0, 3), Vector3i(8, 0, 2), Vector3i(8, 0, 1), Vector3i(8, 0, 0), Vector3i(7, 0, 0), Vector3i(6, 0, 0), Vector3i(5, 0, 0), Vector3i(5, 0, -1), Vector3i(5, 0, -2), Vector3i(5, 0, -3), Vector3i(5, 0, -4), Vector3i(6, 0, -4), Vector3i(7, 0, -4), Vector3i(8, 0, -4), Vector3i(8, 0, -5), Vector3i(8, 0, -6), Vector3i(7, 0, -6), Vector3i(6, 0, -6), Vector3i(5, 0, -6), Vector3i(4, 0, -6), Vector3i(3, 0, -6), Vector3i(2, 0, -6), Vector3i(1, 0, -6), Vector3i(0, 0, -6), Vector3i(-1, 0, -6), Vector3i(-2, 0, -6), Vector3i(-3, 0, -6), Vector3i(-4, 0, -6), Vector3i(-5, 0, -6), Vector3i(-6, 0, -6), Vector3i(-7, 0, -6), Vector3i(-8, 0, -6)]),
+"ordered_route_points": Array[Vector3]([Vector3(-128, 0, -80), Vector3(-112, 0, -80), Vector3(-96, 0, -80), Vector3(-80, 0, -80), Vector3(-64, 0, -80), Vector3(-48, 0, -80), Vector3(-32, 0, -80), Vector3(-16, 0, -80), Vector3(0, 0, -80), Vector3(16, 0, -80), Vector3(16, 0, -64), Vector3(16, 0, -48), Vector3(16, 0, -32), Vector3(0, 0, -32), Vector3(-16, 0, -32), Vector3(-32, 0, -32), Vector3(-48, 0, -32), Vector3(-64, 0, -32), Vector3(-80, 0, -32), Vector3(-80, 0, -16), Vector3(-80, 0, 0), Vector3(-80, 0, 16), Vector3(-96, 0, 16), Vector3(-112, 0, 16), Vector3(-128, 0, 16), Vector3(-128, 0, 32), Vector3(-128, 0, 48), Vector3(-128, 0, 64), Vector3(-128, 0, 80), Vector3(-112, 0, 80), Vector3(-96, 0, 80), Vector3(-80, 0, 80), Vector3(-64, 0, 80), Vector3(-48, 0, 80), Vector3(-32, 0, 80), Vector3(-32, 0, 64), Vector3(-32, 0, 48), Vector3(-16, 0, 48), Vector3(0, 0, 48), Vector3(16, 0, 48), Vector3(32, 0, 48), Vector3(48, 0, 48), Vector3(64, 0, 48), Vector3(64, 0, 64), Vector3(64, 0, 80), Vector3(64, 0, 96), Vector3(80, 0, 96), Vector3(96, 0, 96), Vector3(112, 0, 96), Vector3(128, 0, 96), Vector3(128, 0, 80), Vector3(128, 0, 64), Vector3(128, 0, 48), Vector3(128, 0, 32), Vector3(128, 0, 16), Vector3(128, 0, 0), Vector3(112, 0, 0), Vector3(96, 0, 0), Vector3(80, 0, 0), Vector3(80, 0, -16), Vector3(80, 0, -32), Vector3(80, 0, -48), Vector3(80, 0, -64), Vector3(96, 0, -64), Vector3(112, 0, -64), Vector3(128, 0, -64), Vector3(128, 0, -80), Vector3(128, 0, -96), Vector3(112, 0, -96), Vector3(96, 0, -96), Vector3(80, 0, -96), Vector3(64, 0, -96), Vector3(48, 0, -96), Vector3(32, 0, -96), Vector3(16, 0, -96), Vector3(0, 0, -96), Vector3(-16, 0, -96), Vector3(-32, 0, -96), Vector3(-48, 0, -96), Vector3(-64, 0, -96), Vector3(-80, 0, -96), Vector3(-96, 0, -96), Vector3(-112, 0, -96), Vector3(-128, 0, -96)]),
 "origin": Vector3(-8, -2, -8),
 "road_width": 16.0,
 "spawn_slots": Array[Dictionary]([{
+"forward_offset": 0.0,
+"lateral_offset": -2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 0.0,
+"lateral_offset": 2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
 "forward_offset": 5.0,
 "lateral_offset": -2.75,
 "route_index": 0,
@@ -285,37 +561,25 @@ road_grid_layout = {
 "y_offset": 0.8,
 "yaw_offset_degrees": 0.0
 }, {
-"forward_offset": 10.25,
+"forward_offset": 10.0,
 "lateral_offset": -2.75,
 "route_index": 0,
 "y_offset": 0.8,
 "yaw_offset_degrees": 0.0
 }, {
-"forward_offset": 10.25,
+"forward_offset": 10.0,
 "lateral_offset": 2.75,
 "route_index": 0,
 "y_offset": 0.8,
 "yaw_offset_degrees": 0.0
 }, {
-"forward_offset": 15.5,
+"forward_offset": 15.0,
 "lateral_offset": -2.75,
 "route_index": 0,
 "y_offset": 0.8,
 "yaw_offset_degrees": 0.0
 }, {
-"forward_offset": 15.5,
-"lateral_offset": 2.75,
-"route_index": 0,
-"y_offset": 0.8,
-"yaw_offset_degrees": 0.0
-}, {
-"forward_offset": 20.75,
-"lateral_offset": -2.75,
-"route_index": 0,
-"y_offset": 0.8,
-"yaw_offset_degrees": 0.0
-}, {
-"forward_offset": 20.75,
+"forward_offset": 15.0,
 "lateral_offset": 2.75,
 "route_index": 0,
 "y_offset": 0.8,
@@ -331,9 +595,135 @@ sky_cloud_amount = 0.82
 sky_cloud_speed = 0.036
 sky_haze_amount = 0.36
 sky_light_energy = 0.82
-route_points = Array[Vector3]([Vector3(-80, 0, -64), Vector3(-64, 0, -64), Vector3(-48, 0, -64), Vector3(-32, 0, -64), Vector3(-16, 0, -64), Vector3(0, 0, -64), Vector3(16, 0, -64), Vector3(32, 0, -64), Vector3(48, 0, -64), Vector3(64, 0, -64), Vector3(80, 0, -64), Vector3(96, 0, -64), Vector3(96, 0, -48), Vector3(96, 0, -32), Vector3(96, 0, -16), Vector3(96, 0, 0), Vector3(96, 0, 16), Vector3(96, 0, 32), Vector3(96, 0, 48), Vector3(96, 0, 64), Vector3(80, 0, 64), Vector3(64, 0, 64), Vector3(48, 0, 64), Vector3(32, 0, 64), Vector3(16, 0, 64), Vector3(0, 0, 64), Vector3(-16, 0, 64), Vector3(-32, 0, 64), Vector3(-48, 0, 64), Vector3(-64, 0, 64), Vector3(-80, 0, 64), Vector3(-96, 0, 64), Vector3(-96, 0, 48), Vector3(-96, 0, 32), Vector3(-96, 0, 16), Vector3(-96, 0, 0), Vector3(-96, 0, -16), Vector3(-96, 0, -32), Vector3(-96, 0, -48), Vector3(-96, 0, -64)])
-checkpoint_indices = Array[int]([0, 7, 13, 20, 27, 33])
-spawn_points = Array[Vector4]([Vector4(-75, 0.8, -61.25, 90), Vector4(-75, 0.8, -66.75, 90), Vector4(-69.75, 0.8, -61.25, 90), Vector4(-69.75, 0.8, -66.75, 90), Vector4(-64.5, 0.8, -61.25, 90), Vector4(-64.5, 0.8, -66.75, 90), Vector4(-59.25, 0.8, -61.25, 90), Vector4(-59.25, 0.8, -66.75, 90)])
+route_points = Array[Vector3]([Vector3(-128, 0, -80), Vector3(-112, 0, -80), Vector3(-96, 0, -80), Vector3(-80, 0, -80), Vector3(-64, 0, -80), Vector3(-48, 0, -80), Vector3(-32, 0, -80), Vector3(-16, 0, -80), Vector3(0, 0, -80), Vector3(16, 0, -80), Vector3(16, 0, -64), Vector3(16, 0, -48), Vector3(16, 0, -32), Vector3(0, 0, -32), Vector3(-16, 0, -32), Vector3(-32, 0, -32), Vector3(-48, 0, -32), Vector3(-64, 0, -32), Vector3(-80, 0, -32), Vector3(-80, 0, -16), Vector3(-80, 0, 0), Vector3(-80, 0, 16), Vector3(-96, 0, 16), Vector3(-112, 0, 16), Vector3(-128, 0, 16), Vector3(-128, 0, 32), Vector3(-128, 0, 48), Vector3(-128, 0, 64), Vector3(-128, 0, 80), Vector3(-112, 0, 80), Vector3(-96, 0, 80), Vector3(-80, 0, 80), Vector3(-64, 0, 80), Vector3(-48, 0, 80), Vector3(-32, 0, 80), Vector3(-32, 0, 64), Vector3(-32, 0, 48), Vector3(-16, 0, 48), Vector3(0, 0, 48), Vector3(16, 0, 48), Vector3(32, 0, 48), Vector3(48, 0, 48), Vector3(64, 0, 48), Vector3(64, 0, 64), Vector3(64, 0, 80), Vector3(64, 0, 96), Vector3(80, 0, 96), Vector3(96, 0, 96), Vector3(112, 0, 96), Vector3(128, 0, 96), Vector3(128, 0, 80), Vector3(128, 0, 64), Vector3(128, 0, 48), Vector3(128, 0, 32), Vector3(128, 0, 16), Vector3(128, 0, 0), Vector3(112, 0, 0), Vector3(96, 0, 0), Vector3(80, 0, 0), Vector3(80, 0, -16), Vector3(80, 0, -32), Vector3(80, 0, -48), Vector3(80, 0, -64), Vector3(96, 0, -64), Vector3(112, 0, -64), Vector3(128, 0, -64), Vector3(128, 0, -80), Vector3(128, 0, -96), Vector3(112, 0, -96), Vector3(96, 0, -96), Vector3(80, 0, -96), Vector3(64, 0, -96), Vector3(48, 0, -96), Vector3(32, 0, -96), Vector3(16, 0, -96), Vector3(0, 0, -96), Vector3(-16, 0, -96), Vector3(-32, 0, -96), Vector3(-48, 0, -96), Vector3(-64, 0, -96), Vector3(-80, 0, -96), Vector3(-96, 0, -96), Vector3(-112, 0, -96), Vector3(-128, 0, -96)])
+checkpoint_indices = Array[int]([0, 14, 28, 42, 56, 70])
+spawn_points = Array[Vector4]([Vector4(-128, 0.8, -77.25, 90), Vector4(-128, 0.8, -82.75, 90), Vector4(-123, 0.8, -77.25, 90), Vector4(-123, 0.8, -82.75, 90), Vector4(-118, 0.8, -77.25, 90), Vector4(-118, 0.8, -82.75, 90), Vector4(-113, 0.8, -77.25, 90), Vector4(-113, 0.8, -82.75, 90)])
+stage_props = Array[Dictionary]([{
+"audio_material_id": "",
+"box_color": Color(0.25, 0.13, 0.07, 1),
+"box_size": Vector3(56, 26, 34),
+"collision_mode": "visual",
+"gameplay_tag": "",
+"id": "PrankTrunkMaze",
+"kind": "box",
+"position": Vector3(-82, 13, -34),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 8.0
+}, {
+"audio_material_id": "",
+"box_color": Color(0.58, 0.42, 0.24, 1),
+"box_size": Vector3(42, 44, 46),
+"collision_mode": "visual",
+"gameplay_tag": "",
+"id": "BoxStackSwitchback",
+"kind": "box",
+"position": Vector3(-114, 22, 52),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": -6.0
+}, {
+"audio_material_id": "",
+"box_color": Color(0.86, 0.84, 0.76, 1),
+"box_size": Vector3(92, 38, 24),
+"collision_mode": "visual",
+"gameplay_tag": "",
+"id": "SheetTunnel",
+"kind": "box",
+"position": Vector3(24, 19, 76),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 0.0
+}, {
+"audio_material_id": "",
+"box_color": Color(0.44, 0.18, 0.72, 1),
+"box_size": Vector3(54, 44, 8),
+"collision_mode": "visual",
+"gameplay_tag": "",
+"id": "FalseFinishGate",
+"kind": "box",
+"position": Vector3(112, 22, -64),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 0.0
+}, {
+"audio_material_id": "",
+"box_color": Color(0.72, 0.55, 0.18, 1),
+"box_size": Vector3(134, 8, 10),
+"collision_mode": "visual",
+"gameplay_tag": "",
+"id": "StringLiftShortcut",
+"kind": "box",
+"position": Vector3(12, 46, -28),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 0.0
+}, {
+"audio_material_id": "",
+"box_color": Color(0.12, 0.1, 0.14, 1),
+"box_size": Vector3(58, 10, 36),
+"collision_mode": "visual",
+"gameplay_tag": "",
+"id": "MarbleTrap",
+"kind": "box",
+"position": Vector3(88, 5, 42),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 14.0
+}, {
+"asset_path": "res://assets/gameplay/tracks/attic/props/JackInTheBoxSetpiece.tscn",
+"audio_material_id": "",
+"box_color": Color(1, 1, 1, 1),
+"box_size": Vector3(1, 1, 1),
+"collision_mode": "visual",
+"gameplay_tag": "prank_trigger",
+"id": "PrankJackInTheBox",
+"kind": "scene",
+"position": Vector3(128, 0, -12),
+"scale": Vector3(5.2, 5.2, 5.2),
+"yaw_degrees": -20.0
+}, {
+"asset_path": "res://assets/source/kenney/furniture_kit/books.glb",
+"audio_material_id": "",
+"box_color": Color(1, 1, 1, 1),
+"box_size": Vector3(1, 1, 1),
+"collision_mode": "visual",
+"gameplay_tag": "",
+"id": "AtticBookPile",
+"kind": "scene",
+"position": Vector3(-42, 0, 92),
+"scale": Vector3(12, 12, 12),
+"yaw_degrees": -12.0
+}])
+stage_interactions = Array[Dictionary]([{
+"action": "trigger",
+"boost_force": 82.0,
+"cooldown": 5.0,
+"duration": 0.2,
+"id": "PrankTriggerZone",
+"impulse": Vector3(0, 0, 0),
+"intensity": 1.0,
+"note": "Triggers the jack-in-the-box prank as racers exit the trunk maze.",
+"position": Vector3(16, 1.5, -32),
+"radius": 8.0,
+"shape": "box",
+"size": Vector3(18, 5, 18),
+"speed_multiplier": 0.75,
+"target_method": "trigger",
+"target_node_path": "Dressing/StageProps/PrankJackInTheBox",
+"yaw_degrees": 0.0
+}, {
+"action": "impulse",
+"boost_force": 82.0,
+"cooldown": 1.2,
+"duration": 0.15,
+"id": "MarbleTrapRelease",
+"impulse": Vector3(3, 0, 0),
+"intensity": 1.0,
+"note": "Small deterministic nudge through the marble trap beat.",
+"position": Vector3(64, 1.5, 48),
+"radius": 8.0,
+"shape": "box",
+"size": Vector3(18, 5, 18),
+"speed_multiplier": 0.75,
+"target_method": "trigger",
+"target_node_path": "",
+"yaw_degrees": 0.0
+}])
 audio_zones = Array[Dictionary]([{
 "audio_id": "attic_secondary",
 "audio_path": "",

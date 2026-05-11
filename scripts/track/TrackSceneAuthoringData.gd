@@ -47,6 +47,9 @@ static func _apply_scene_markers(definition: TrackDefinition, scene_root: Node3D
 	var stage_props := _collect_stage_props(scene_root)
 	if not stage_props.is_empty():
 		definition.stage_props = stage_props
+	var stage_interactions := _collect_stage_interactions(scene_root)
+	if not stage_interactions.is_empty():
+		definition.stage_interactions = stage_interactions
 
 static func _resolve_race_layout(definition: TrackDefinition, scene_root: Node3D, _road_source: String) -> RaceLayout:
 	var grid_layout := _race_layout_from_grid(scene_root, definition)
@@ -145,6 +148,16 @@ static func _collect_stage_props(root: Node) -> Array[Dictionary]:
 		if child.has_method("to_stage_prop"):
 			props.append(child.call("to_stage_prop") as Dictionary)
 	return props
+
+static func _collect_stage_interactions(root: Node) -> Array[Dictionary]:
+	var interactions: Array[Dictionary] = []
+	var holder := _find_authoring_holder(root, "StageInteractions")
+	if holder == null:
+		return interactions
+	for child in _sorted_node3d_children(holder):
+		if child.has_method("to_stage_interaction"):
+			interactions.append(child.call("to_stage_interaction") as Dictionary)
+	return interactions
 
 static func _indices_strictly_increasing(indices: Array[int]) -> bool:
 	var previous := -1

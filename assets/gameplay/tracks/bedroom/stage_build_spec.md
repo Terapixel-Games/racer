@@ -12,14 +12,14 @@ Target pacing: one competent local lap should take about 30 seconds. A 3-lap rac
 
 ## Required Scene Structure
 
-- `RoutePoints`: closed loop route markers.
-- `Checkpoints`: 5-7 markers, with the first marker or a clearly named lap marker acting as the lap gate.
-- `ItemSockets`: 6-10 item marker sockets.
-- `HazardSockets`: 4-8 hazard marker sockets.
-- `ShortcutGates`: one blanket-fold or under-bed shortcut if readable.
-- `Dressing`: visible props using `StagePropAuthoring` or scene instances.
-- `SurfaceSegments`: at least rug/carpet, blanket, and hard toy-block sections.
-- `AudioZones`: at least lamp refuge, plush thump, and blanket slide zones.
+- `RoadGridMap`: source of truth for route cells, checkpoints, start tile, and 8 generated spawns.
+- `StageInteractions`: explicit `StageInteractionAuthoring` areas for `LampBeaconBoostZone` and `RugGripSlowZone`.
+- `Dressing`: named `StagePropAuthoring` markers for every visible landmark and route beat.
+- `RoomShell`: floor, side walls, rear wall, front opening treatment, and ceiling with no visible leaks.
+- `Lighting`: named warm refuge and route-read lights; keep them visually supported by fixtures or the room.
+- `AudioZones`: at least lamp refuge, plush thump, and blanket slide zones where available.
+
+Do not use legacy `RoutePoints`, `ItemSockets`, `HazardSockets`, or `RoadSegments` for this stage.
 
 ## Route Direction
 
@@ -51,7 +51,7 @@ Use existing furniture/toy props where practical. If boxes are used, color and n
 
 Implement one Bedroom effect hook:
 
-- Preferred: `LampBeaconZone` using a warm visible light, subtle pulse, and `AudioZoneAuthoring`.
+- Preferred: `LampBeaconBoostZone` using a warm visible light, subtle pulse, and deterministic boost behavior.
 - Acceptable alternative: `BlanketPulseZone` with soft particle/light feedback when racers pass through the blanket tunnel.
 
 ## Acceptance Checklist
@@ -59,7 +59,7 @@ Implement one Bedroom effect hook:
 - Closed route validates with 5-7 checkpoints and 8 spawns.
 - Lap target is roughly 30 seconds for a competent local player.
 - Tuggs' family-will-return belief is visible through `WaitingLine`, `ToyTriageCorner`, and protected route dressing.
-- At least 6 item sockets and 4 hazard sockets exist.
+- No legacy item or hazard sockets exist; route pressure is authored through `StageInteractions`.
 - Blanket tunnel has enough clearance for kart and camera.
 - Signature lamp or blanket effect is present and testable.
 - No route section traps the player against soft barriers without reset coverage.
