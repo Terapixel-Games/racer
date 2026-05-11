@@ -210,6 +210,22 @@ Measured surface checks:
 - The separate `WasherWater` node remains present but is `visible=false`, so it cannot create a square water patch in game views.
 - The closeup capture `washer_water_window_localuv_washer_water_natural_closeup.png` shows the shader confined to the round porthole with procedural water variation.
 
+## Outer Back-Wall Floor Leak Correction
+
+The tenth review showed a visible exterior leak along the lower back wall below the window. The root cause was that the lower window infill panel preserved the window-bottom height but did not extend down to the room floor/wall-base datum. From low exterior/editor angles, the floor plane was visible under the wall panel.
+
+| Node | Old transform value | New transform value | Delta | Reason |
+| --- | --- | --- | --- | --- |
+| `Track/RoomShell/BackWallBelowWindow` | `origin=(0, 12, 98)`, `scale=(316.4062, 24, 2)` | `origin=(0, 6.3655, 98)`, `scale=(316.4062, 35.269, 2)` | `origin.y -5.6345`, `scale.y +11.269` | Extend the panel down to the adjacent back-wall base while preserving the existing window-bottom top edge. |
+| `tools/capture/KitchenVisualDiffCapture.gd` | No direct exterior floor-leak view | Added `outer_back_wall_floor_leak` | Added camera | Validate the exact low exterior angle that exposed the shell leak. |
+
+Measured closure checks:
+
+- `BackWallBelowWindow` previously spanned global `y=0..48`, leaving the floor/base line visible from outside.
+- `BackWallBelowWindow` now spans global `y=-22.538..48`, matching the adjacent `BackWallLeftOfWindow` and `BackWallRightOfWindow` lower datum.
+- The authored floor plane is at about global `y=-20.703`, so the wall panel overlaps the floor plane instead of ending above it.
+- The UAT load test now asserts the lower window infill overlaps the floor plane and preserves the existing window-bottom height.
+
 ## Craft Replay Read
 
 From route and fixture cameras, this pass should make repeat laps feel less like driving through a broken prototype: the doorway no longer exposes a frame gap, the wall/ceiling edges read as intentional enclosure, the washer effect is contained, the stove/hood/fridge area is no longer visibly interpenetrating, and the right counter run has a shared top plane. The Kitchen is still intentionally MVP-chaotic; deeper Sir Clink theming and richer replay hooks remain a later creative pass.

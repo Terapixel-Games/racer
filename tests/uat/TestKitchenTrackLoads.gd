@@ -90,6 +90,11 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(not _node_visible(instance, "BuiltTrack/Dressing/EditableRoom/Track/RoomShell/BackWall"), "Kitchen back wall should be split around the window instead of blocking the view")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/RoomShell/BackWallLeftOfWindow") != null, "Kitchen window should keep editable wall trim on the left")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/RoomShell/BackWallRightOfWindow") != null, "Kitchen window should keep editable wall trim on the right")
+	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/RoomShell/BackWallBelowWindow") != null, "Kitchen back wall should include the lower window infill panel")
+	var kitchen_floor_bounds := _mesh_global_aabb(instance, "BuiltTrack/Dressing/EditableRoom/Track/floor/MeshInstance3D")
+	var back_window_base_bounds := _mesh_global_aabb(instance, "BuiltTrack/Dressing/EditableRoom/Track/RoomShell/BackWallBelowWindow")
+	assert_true(back_window_base_bounds.position.y <= kitchen_floor_bounds.position.y + 0.05, "Kitchen back-wall lower window panel should overlap the floor plane so exterior low angles cannot see through the wall base")
+	assert_true(back_window_base_bounds.end.y >= 47.95, "Kitchen back-wall lower window panel should preserve the existing window-bottom height")
 	assert_true(_mesh_material_alpha(instance, "BuiltTrack/Dressing/EditableRoom/Track/RoomShell/WindowGlass") <= 0.15, "Kitchen window glass should be transparent enough for sky visibility")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/Appliances/kitchenSink") != null, "Editable room scene should preserve hand-placed kitchen props")
 	assert_true(_dressing_node_clears_route(instance, "BuiltTrack/Dressing/EditableRoom/Track/HandPlacedProps/IslandPlanter", definition, 16.0), "Kitchen island planter should sit outside the widened road and rail clearance")
@@ -451,6 +456,26 @@ func _scaled_node_footprint_width(root: Node, path: NodePath) -> float:
 	if node == null:
 		return 0.0
 	return maxf(node.global_transform.basis.x.length(), node.global_transform.basis.z.length())
+
+func _mesh_global_aabb(root: Node, path: NodePath) -> AABB:
+	var mesh_instance := root.get_node_or_null(path) as MeshInstance3D
+	if mesh_instance == null or mesh_instance.mesh == null:
+		return AABB()
+	var local := mesh_instance.get_aabb()
+	var corners: Array[Vector3] = [
+		local.position,
+		local.position + Vector3(local.size.x, 0, 0),
+		local.position + Vector3(0, local.size.y, 0),
+		local.position + Vector3(0, 0, local.size.z),
+		local.position + Vector3(local.size.x, local.size.y, 0),
+		local.position + Vector3(local.size.x, 0, local.size.z),
+		local.position + Vector3(0, local.size.y, local.size.z),
+		local.end,
+	]
+	var bounds := AABB(mesh_instance.global_transform * corners[0], Vector3.ZERO)
+	for i in range(1, corners.size()):
+		bounds = bounds.expand(mesh_instance.global_transform * corners[i])
+	return bounds
 
 func _dressing_node_clears_route(root: Node, path: NodePath, definition, extra_clearance: float) -> bool:
 	var node := root.get_node_or_null(path) as Node3D

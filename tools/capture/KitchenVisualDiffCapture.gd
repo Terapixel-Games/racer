@@ -222,6 +222,13 @@ func _camera_views(route: Array[Vector3]) -> Array[Dictionary]:
 			"note": "Back-wall window panel joints and seam-cover strips.",
 		},
 		{
+			"id": "outer_back_wall_floor_leak",
+			"position": Vector3(-96.0, 2.0, 270.0),
+			"target": Vector3(-96.0, -8.0, 196.0),
+			"fov": 45.0,
+			"note": "Exterior back-wall window base must close to the floor plane without a visible lower leak.",
+		},
+		{
 			"id": "back_upper_cabinet_faces",
 			"position": Vector3(-16.0, 64.0, 84.0),
 			"target": Vector3(-16.0, 64.0, 176.0),

@@ -110,7 +110,7 @@ material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="BackWallBelowWindow" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(316.4062, 0, 0, 0, 24, 0, 0, 0, 2, 0, 12, 98)
+transform = Transform3D(316.4062, 0, 0, 0, 35.269, 0, 0, 0, 2, 0, 6.3655, 98)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
