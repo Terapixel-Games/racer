@@ -55,6 +55,24 @@ func test_all_loaded_meshy_racer_models_use_roster_direction() -> void:
 				assert_true(yaw_error <= 0.1, "%s Meshy racer-in-kart model should use the roster direction" % racer_id)
 		car.queue_free()
 
+func test_car_visual_lod_switches_by_camera_distance() -> void:
+	var car_scene := load("res://scenes/Car.tscn")
+	assert_true(car_scene is PackedScene, "Car scene should load")
+	var car := (car_scene as PackedScene).instantiate()
+	scene_tree.root.add_child(car)
+	var controller := car as CarController
+	assert_true(controller != null, "Car should be a CarController")
+	if controller != null:
+		assert_true(controller.set_racer_visual("Sir Clink"), "Car should apply LOD0 visual")
+		assert_equal(controller.get_racer_visual_lod(), RacerRoster.RACER_MODEL_LOD0, "Default racer visual should use LOD0")
+		controller.update_racer_visual_lod_for_camera(controller.global_transform.origin + Vector3(0, 0, 36))
+		assert_equal(controller.get_racer_visual_lod(), RacerRoster.RACER_MODEL_LOD1, "Race camera distance should switch to LOD1")
+		controller.update_racer_visual_lod_for_camera(controller.global_transform.origin + Vector3(0, 0, 64))
+		assert_equal(controller.get_racer_visual_lod(), RacerRoster.RACER_MODEL_LOD2, "Far race camera distance should switch to LOD2")
+		controller.update_racer_visual_lod_for_camera(controller.global_transform.origin + Vector3(0, 0, 12))
+		assert_equal(controller.get_racer_visual_lod(), RacerRoster.RACER_MODEL_LOD0, "Close camera distance should restore LOD0")
+	car.queue_free()
+
 func test_racer_visual_has_procedural_motion() -> void:
 	var car_scene := load("res://scenes/Car.tscn")
 	assert_true(car_scene is PackedScene, "Car scene should load")

@@ -61,6 +61,18 @@ func test_mobile_detail_profile_exposes_optimized_paths_with_source_fallback() -
 	assert_equal(RacerRoster.get_racer_in_kart_model_path_for_profile("Rexx", RacerRoster.RACER_ASSET_PROFILE_MOBILE_DETAIL, true), source_path, "Mobile detail profile should fall back until optimized GLBs are staged in res://")
 	assert_equal(RacerRoster.get_racer_in_kart_model_path_for_profile("Sir Clink", RacerRoster.RACER_ASSET_PROFILE_MOBILE_DETAIL_PHASE1, false), "res://assets/optimized/racers/sir_clink/sir_clink_racer_in_kart_mobile_detail_phase1.glb", "Phase profiles should preserve racer slugs with spaces")
 
+func test_mobile_detail_phase1_exposes_staged_lod_paths() -> void:
+	assert_equal(RacerRoster.normalize_model_lod("bad"), RacerRoster.RACER_MODEL_LOD0, "Unknown model LODs should fall back to LOD0")
+	for racer_id in RacerRoster.select_order():
+		var lod0_path := RacerRoster.get_racer_in_kart_model_path_for_profile_lod(racer_id, RacerRoster.RACER_ASSET_PROFILE_MOBILE_DETAIL_PHASE1, RacerRoster.RACER_MODEL_LOD0, false)
+		var lod1_path := RacerRoster.get_racer_in_kart_model_path_for_profile_lod(racer_id, RacerRoster.RACER_ASSET_PROFILE_MOBILE_DETAIL_PHASE1, RacerRoster.RACER_MODEL_LOD1, false)
+		var lod2_path := RacerRoster.get_racer_in_kart_model_path_for_profile_lod(racer_id, RacerRoster.RACER_ASSET_PROFILE_MOBILE_DETAIL_PHASE1, RacerRoster.RACER_MODEL_LOD2, false)
+		assert_true(lod0_path.ends_with("_mobile_detail_phase1.glb"), "%s LOD0 should stay on the existing phase1 GLB" % racer_id)
+		assert_true(lod1_path.ends_with("_mobile_detail_phase1_lod1.glb"), "%s LOD1 should resolve to the staged LOD1 GLB" % racer_id)
+		assert_true(lod2_path.ends_with("_mobile_detail_phase1_lod2.glb"), "%s LOD2 should resolve to the staged LOD2 GLB" % racer_id)
+		assert_true(ResourceLoader.exists(lod1_path), "%s LOD1 optimized racer GLB should be staged in res://" % racer_id)
+		assert_true(ResourceLoader.exists(lod2_path), "%s LOD2 optimized racer GLB should be staged in res://" % racer_id)
+
 func test_configured_racer_asset_profile_uses_staged_phase1_glbs() -> void:
 	assert_equal(RacerRoster.get_racer_asset_profile(), RacerRoster.RACER_ASSET_PROFILE_MOBILE_DETAIL_PHASE1, "The project should use the staged optimized racer profile")
 	for racer_id in RacerRoster.select_order():
