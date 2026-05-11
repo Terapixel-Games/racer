@@ -193,6 +193,23 @@ Measured interior-door checks:
 
 The capture harness now includes `interior_door_depth_fit`, a direct view for the doorway-depth-to-wall-thickness relationship.
 
+## Washer Window Water Surface Correction
+
+The ninth review showed that the washer water was technically contained but still read as a square blue decal inside the round door. The root cause was using a separate rectangular `PlaneMesh` effect as the visible water instead of the washer model's own porthole glass surface.
+
+| Node | Old value | New value | Delta | Reason |
+| --- | --- | --- | --- | --- |
+| `Track/RoomShell/washer/washer(Clone)/washerDoor` surface `1` (`glass`) | Base GLB glass material only | `surface_material_override/1 = Material_washer_water` using `res://assets/shaders/washer_window_water.gdshader` | Added surface override | Render the water through the actual washer window aperture instead of as a freestanding patch. |
+| `Track/WaterSurfaces/WasherWater` | Visible `PlaneMesh_water`, `scale=(5.2, 4.8)`, general `Material_toon_water` | Hidden legacy anchor, `scale=(6.3, 5.6)`, washer-window material | Hidden from render | Keep the old authoring path available for tests/inspection while preventing the square patch from drawing. |
+| `tools/capture/KitchenVisualDiffCapture.gd` | Broad washer containment view only | Added `washer_water_natural_closeup` | Added camera | Validate water silhouette and texture from a close player/editor view. |
+
+Measured surface checks:
+
+- `washerDoor` surface `1` is the imported washer `glass` surface.
+- The runtime washer door surface override resolves to `res://assets/shaders/washer_window_water.gdshader`.
+- The separate `WasherWater` node remains present but is `visible=false`, so it cannot create a square water patch in game views.
+- The closeup capture `washer_water_window_localuv_washer_water_natural_closeup.png` shows the shader confined to the round porthole with procedural water variation.
+
 ## Craft Replay Read
 
 From route and fixture cameras, this pass should make repeat laps feel less like driving through a broken prototype: the doorway no longer exposes a frame gap, the wall/ceiling edges read as intentional enclosure, the washer effect is contained, the stove/hood/fridge area is no longer visibly interpenetrating, and the right counter run has a shared top plane. The Kitchen is still intentionally MVP-chaotic; deeper Sir Clink theming and richer replay hooks remain a later creative pass.

@@ -97,6 +97,8 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/WaterSurfaces/SinkWater") != null, "Editable room scene should include authored sink water")
 	assert_true(_node_position(instance, "BuiltTrack/Dressing/EditableRoom/Track/WaterSurfaces/SinkWater").distance_to(_authored_kitchen_position("Track/WaterSurfaces/SinkWater")) <= 0.05, "Kitchen sink water should stay at the authored editable scene location")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/WaterSurfaces/WasherWater") != null, "Editable room scene should include authored washer water")
+	assert_true(not _node_visible(instance, "BuiltTrack/Dressing/EditableRoom/Track/WaterSurfaces/WasherWater"), "Kitchen washer water should render through the washer door glass, not as a separate square patch")
+	assert_equal(_named_descendant_surface_shader_path(instance, "BuiltTrack/Dressing/EditableRoom/Track/RoomShell/washer", "washerDoor", 1), "res://assets/shaders/washer_window_water.gdshader", "Washer door glass should carry the natural washer-water shader")
 	assert_true(_named_descendant_has_script(instance, "BuiltTrack/Dressing/EditableRoom/Track", "washer"), "Editable room washer should run its in-place rumble script")
 	assert_true(_named_descendant_has_script(instance, "BuiltTrack/Dressing/EditableRoom/Track", "dryer"), "Editable room dryer should run its in-place rumble script")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/UpperCabinets") != null, "Editable room scene should preserve authored upper cabinet grouping")
@@ -682,6 +684,18 @@ func _mesh_shader_path(root: Node, path: NodePath) -> String:
 		if material.shader != null:
 			return material.shader.resource_path
 	return ""
+
+func _named_descendant_surface_shader_path(root: Node, parent_path: NodePath, node_name: String, surface_index: int) -> String:
+	var parent := root.get_node_or_null(parent_path)
+	if parent == null:
+		return ""
+	var mesh := parent.find_child(node_name, true, false) as MeshInstance3D
+	if mesh == null:
+		return ""
+	var material := mesh.get_surface_override_material(surface_index) as ShaderMaterial
+	if material == null or material.shader == null:
+		return ""
+	return material.shader.resource_path
 
 func _shader_texture_path(root: Node, path: NodePath, parameter_name: String) -> String:
 	var mesh := root.get_node_or_null(path) as MeshInstance3D

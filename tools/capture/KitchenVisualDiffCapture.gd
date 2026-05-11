@@ -176,6 +176,13 @@ func _camera_views(route: Array[Vector3]) -> Array[Dictionary]:
 			"note": "Washer water must stay inside the washer door/glass.",
 		},
 		{
+			"id": "washer_water_natural_closeup",
+			"position": Vector3(1.0, 12.0, 112.0),
+			"target": Vector3(31.0, 4.5, 148.0),
+			"fov": 34.0,
+			"note": "Washer water silhouette should read as a natural fill inside the round porthole, not a square decal.",
+		},
+		{
 			"id": "stove_hood_appliance_slot",
 			"position": Vector3(-190.0, 52.0, -126.0),
 			"target": Vector3(-266.0, 28.0, -48.0),
