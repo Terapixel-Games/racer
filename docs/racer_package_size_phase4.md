@@ -1,10 +1,12 @@
 # Racer Package Size Phase 4 Runtime LOD Selection
 
-Measured on 2026-05-11 after staging `lod1` and `lod2` racer GLBs for the eight-racer roster.
+Measured on 2026-05-11 after staging `lod1` and `lod2` racer GLBs for the eight-racer roster, then deduplicating LOD texture payloads back to the LOD0 atlas.
 
 ## Change
 
 - Staged LOD1 and LOD2 GLBs under `assets/optimized/racers/<slug>/`.
+- Rewrote LOD1 and LOD2 GLBs to reference the existing LOD0 atlas image instead of embedding duplicate JPEG payloads.
+- Removed duplicate LOD atlas source JPGs and imports from `assets/optimized/racers/<slug>/`.
 - Added roster helpers for LOD0, LOD1, and LOD2 racer model paths.
 - Added race-only runtime LOD switching in `CarController` and `RaceController`.
 - Level select still uses the configured LOD0 racer model path.
@@ -13,20 +15,20 @@ Measured on 2026-05-11 after staging `lod1` and `lod2` racer GLBs for the eight-
 
 | Checkpoint | Bytes | MiB |
 | --- | ---: | ---: |
-| Web `index.pck` after LOD staging | 565,878,328 | 539.7 |
-| Total Web build after LOD staging | 604,272,643 | 576.3 |
+| Web `index.pck` after LOD dedupe | 450,494,676 | 429.6 |
+| Total Web build after LOD dedupe | 488,888,991 | 466.2 |
 | LOD0 racer GLBs | 218,483,632 | 208.4 |
-| LOD1 racer GLBs | 199,629,260 | 190.4 |
-| LOD2 racer GLBs | 147,144,116 | 140.3 |
-| LOD GLB total | 346,773,376 | 330.7 |
-| Runtime racer GLB total | 565,257,008 | 539.1 |
-| LOD atlas source copies | 69,295,542 | 66.1 |
-| Total staged LOD cost | 416,068,918 | 396.8 |
+| LOD GLB total after embedded texture removal | 277,477,336 | 264.6 |
+| Runtime racer GLB total | 495,960,968 | 473.0 |
+| LOD atlas source copies | 0 | 0.0 |
+| Total staged LOD cost | 277,477,336 | 264.6 |
+| Total staged racer runtime assets | 530,608,739 | 506.0 |
 
 ## Gate Notes
 
 - LOD0 remains the default roster profile and level-select path.
 - Race camera distance switches car visuals to LOD1 at 28 units and LOD2 at 52 units.
 - Close camera views switch back to LOD0.
-- The staged LOD outputs duplicate atlas images today; a later texture-reference dedupe pass should reduce that cost.
-- Web `index.pck` increased by 283,678,448 bytes versus the Phase 2 checkpoint because LOD1/LOD2 are now shipped in addition to LOD0.
+- LOD1 and LOD2 now reuse each racer's LOD0 atlas source image.
+- Web `index.pck` is 115,383,652 bytes smaller than the initial Phase 4 LOD-staging export.
+- Web `index.pck` remains 168,294,796 bytes larger than the Phase 2 checkpoint because LOD1/LOD2 meshes are still shipped in addition to LOD0.

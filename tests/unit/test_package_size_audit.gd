@@ -15,6 +15,7 @@ func test_package_size_audit_tracks_racer_optimization_savings() -> void:
 	assert_true(float(audit.get("optimized_glb_source_ratio", 1.0)) <= 0.5, "Optimized racer GLBs should stay at or below half of source GLB size")
 	assert_true(savings_bytes > 200 * 1024 * 1024, "Racer GLB optimization should retain more than 200 MB of savings")
 	assert_true(lod_bytes >= 0, "Optional LOD GLB cost should be reported separately from LOD0 savings")
+	assert_equal(int(audit.get("optimized_racer_lod_atlas_source_bytes", -1)), 0, "LOD GLBs should reuse LOD0 atlas source images instead of staging duplicate LOD atlas images")
 
 func test_package_size_audit_reports_web_build_when_present() -> void:
 	var audit := PackageSizeAudit.collect()
