@@ -330,10 +330,10 @@ mesh = SubResource("PlaneMesh_water")
 [node name="UpperCabinets" type="Node3D" parent="Track"]
 
 [node name="BackUpperCabinetLeftB" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
-transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -24.99524, 23.5, 97.81024)
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, -50, -24.99524, 23.5, 87.81024)
 
 [node name="BackUpperCabinetLeftC" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
-transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -4.4475403, 23.5, 97.81024)
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, -50, -4.4475403, 23.5, 87.81024)
 
 [node name="LeftUpperCabinetA" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
 transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, -133.17755, 23.5, -68.269035)

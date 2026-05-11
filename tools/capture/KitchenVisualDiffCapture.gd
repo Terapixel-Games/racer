@@ -200,6 +200,13 @@ func _camera_views(route: Array[Vector3]) -> Array[Dictionary]:
 			"fov": 42.0,
 			"note": "Back-wall window panel joints and seam-cover strips.",
 		},
+		{
+			"id": "back_upper_cabinet_faces",
+			"position": Vector3(-16.0, 64.0, 84.0),
+			"target": Vector3(-16.0, 64.0, 176.0),
+			"fov": 46.0,
+			"note": "Back-wall upper cabinet doors must face into the room, not into the wall.",
+		},
 		_node_anchor_view("sink_effect_anchor", "Dressing/EditableRoom/Track/Appliances/kitchenSink", Vector3(88.0, 30.0, -90.0), "Sink and sink-water alignment."),
 		_node_anchor_view("washer_effect_anchor", "Dressing/EditableRoom/Track/RoomShell/washer", Vector3(-82.0, 30.0, -88.0), "Washer and washer-water alignment."),
 	]

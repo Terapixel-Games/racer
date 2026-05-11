@@ -141,6 +141,23 @@ Measured door-fit checks:
 
 The capture harness now includes `door_frame_wall_fit`, a direct view of wall-to-frame fit around the interior doorway.
 
+## Upper Cabinet Orientation Correction
+
+The sixth review showed the back-wall upper cabinets facing the wall instead of the playable room side. The imported `kitchenCabinetUpper` asset has its door/front on local `+Z`; the back-wall cabinets reused an unflipped transform, which put that front face into the back wall. This correction flips only the back-wall upper cabinet local `Z` axis and shifts the origins so the cabinets keep the same wall-plane footprint while their doors face the room.
+
+| Node | Old transform value | New transform value | Delta | Reason |
+| --- | --- | --- | --- | --- |
+| `Track/UpperCabinets/BackUpperCabinetLeftB` | `basis.z=(0, 0, 50)`, `origin.z=97.81024` | `basis.z=(0, 0, -50)`, `origin.z=87.81024` | Flipped local `Z`, `origin.z -10` | Turn the cabinet door/front toward the room while preserving the back-wall footprint. |
+| `Track/UpperCabinets/BackUpperCabinetLeftC` | `basis.z=(0, 0, 50)`, `origin.z=97.81024` | `basis.z=(0, 0, -50)`, `origin.z=87.81024` | Flipped local `Z`, `origin.z -10` | Turn the cabinet door/front toward the room while preserving the back-wall footprint. |
+
+Measured orientation checks:
+
+- The raw upper-cabinet asset front/door is on local `+Z`.
+- Both corrected cabinets keep the same world AABB as before: `z=174.62..196.62`, so the wall footprint is preserved.
+- With local `+Z` now mapped toward room-side `-Z`, the front/door face is visible from the route and cabinet-run cameras instead of being pressed into the back wall.
+
+The capture harness now includes `back_upper_cabinet_faces`, a direct back-wall upper-cabinet orientation view.
+
 ## Craft Replay Read
 
 From route and fixture cameras, this pass should make repeat laps feel less like driving through a broken prototype: the doorway no longer exposes a frame gap, the wall/ceiling edges read as intentional enclosure, the washer effect is contained, the stove/hood/fridge area is no longer visibly interpenetrating, and the right counter run has a shared top plane. The Kitchen is still intentionally MVP-chaotic; deeper Sir Clink theming and richer replay hooks remain a later creative pass.
