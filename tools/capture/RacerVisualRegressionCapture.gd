@@ -97,13 +97,21 @@ func _capture_target(output_dir: String, phase: String, racer_id: String, target
 	var target_id := str(target.get("id", "capture"))
 	var requested_lod := RacerRoster.normalize_model_lod(str(target.get("lod", RacerRoster.RACER_MODEL_LOD0)))
 	var model_path := RacerRoster.get_racer_in_kart_model_path_for_lod(normalized, requested_lod, false)
+	var texture_path := model_path.replace(".glb", "_Image_0.jpg")
+	if requested_lod != RacerRoster.RACER_MODEL_LOD0:
+		texture_path = RacerRoster.get_racer_in_kart_model_path_for_lod(normalized, RacerRoster.RACER_MODEL_LOD0, false).replace(".glb", "_Image_0.jpg")
+	var model_bytes := _file_size(model_path)
+	var texture_bytes := _file_size(texture_path)
 	var capture := {
 		"racer_id": normalized,
 		"target": target_id,
 		"requested_lod": requested_lod,
 		"selected_asset_profile": RacerRoster.get_racer_asset_profile(),
 		"model_path": model_path,
-		"model_bytes": _file_size(model_path),
+		"model_bytes": model_bytes,
+		"texture_path": texture_path,
+		"texture_bytes": texture_bytes,
+		"total_staged_bytes": model_bytes + texture_bytes,
 		"note": str(target.get("note", "")),
 		"crops": [],
 	}

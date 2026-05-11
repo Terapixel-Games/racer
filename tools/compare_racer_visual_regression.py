@@ -12,6 +12,11 @@ from typing import Any
 
 
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
+QUALITY_TIERS = {
+    "strict": {"threshold": 0.99, "production_eligible": True},
+    "human_90": {"threshold": 0.90, "production_eligible": False},
+    "human_70": {"threshold": 0.70, "production_eligible": False},
+}
 
 
 def read_png_rgba(path: Path) -> tuple[int, int, bytes]:
@@ -129,13 +134,20 @@ def load_manifest(path: Path) -> dict[str, Any]:
         return json.load(file)
 
 
-def compare_manifests(baseline_path: Path, candidate_path: Path) -> dict[str, Any]:
+def compare_manifests(
+    baseline_path: Path,
+    candidate_path: Path,
+    quality_tier: str = "strict",
+    threshold_override: float | None = None,
+) -> dict[str, Any]:
     baseline = load_manifest(baseline_path)
     candidate = load_manifest(candidate_path)
     baseline_root = baseline_path.parent
     candidate_root = candidate_path.parent
-    threshold = float(candidate.get("detail_score_threshold", baseline.get("detail_score_threshold", 0.99)))
-    full_threshold = float(candidate.get("full_score_threshold", baseline.get("full_score_threshold", 0.99)))
+    tier = QUALITY_TIERS[quality_tier]
+    default_threshold = float(tier["threshold"])
+    threshold = threshold_override if threshold_override is not None else default_threshold
+    full_threshold = threshold_override if threshold_override is not None else default_threshold
 
     baseline_by_key = {manifest_key(capture): capture for capture in baseline.get("captures", [])}
     candidate_by_key = {manifest_key(capture): capture for capture in candidate.get("captures", [])}
@@ -154,6 +166,8 @@ def compare_manifests(baseline_path: Path, candidate_path: Path) -> dict[str, An
             "selected_asset_profile": candidate_capture.get("selected_asset_profile", ""),
             "model_path": candidate_capture.get("model_path", ""),
             "model_bytes": int(candidate_capture.get("model_bytes", 0)),
+            "texture_bytes": int(candidate_capture.get("texture_bytes", 0)),
+            "total_staged_bytes": int(candidate_capture.get("total_staged_bytes", candidate_capture.get("model_bytes", 0))),
             "full_score": 0.0,
             "detail_scores": {},
             "passed": False,
@@ -206,8 +220,10 @@ def compare_manifests(baseline_path: Path, candidate_path: Path) -> dict[str, An
         "schema_version": 1,
         "baseline_manifest": str(baseline_path),
         "candidate_manifest": str(candidate_path),
+        "quality_tier": quality_tier,
         "detail_score_threshold": threshold,
         "full_score_threshold": full_threshold,
+        "production_eligible": bool(tier["production_eligible"]) and not failed_attempts,
         "comparisons": comparisons,
         "failed_attempts": failed_attempts,
         "status": "passed" if not failed_attempts else "failed",
@@ -226,9 +242,11 @@ def main() -> int:
     parser.add_argument("--baseline", required=True, type=Path)
     parser.add_argument("--candidate", required=True, type=Path)
     parser.add_argument("--report", required=True, type=Path)
+    parser.add_argument("--quality-tier", choices=sorted(QUALITY_TIERS), default="strict")
+    parser.add_argument("--threshold", type=float)
     args = parser.parse_args()
 
-    report = compare_manifests(args.baseline, args.candidate)
+    report = compare_manifests(args.baseline, args.candidate, args.quality_tier, args.threshold)
     args.report.parent.mkdir(parents=True, exist_ok=True)
     with args.report.open("w", encoding="utf-8") as file:
         json.dump(report, file, indent=2)

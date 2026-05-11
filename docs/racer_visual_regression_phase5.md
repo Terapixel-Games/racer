@@ -31,6 +31,18 @@ python tools\compare_racer_visual_regression.py --baseline reports\racer_visual_
 
 The report records full-frame score, per-crop detail scores, selected profile, model size, and failed attempts. The gate fails if full render or any detail crop falls below `0.99`.
 
+Use review-only quality tiers when evaluating size/quality tradeoffs for humans:
+
+```powershell
+python tools\compare_racer_visual_regression.py --baseline reports\racer_visual_regression\baseline\baseline_manifest.json --candidate reports\racer_visual_regression\candidate\candidate_manifest.json --report reports\racer_visual_regression\candidate_strict_report.json --quality-tier strict
+python tools\compare_racer_visual_regression.py --baseline reports\racer_visual_regression\baseline\baseline_manifest.json --candidate reports\racer_visual_regression\candidate\candidate_manifest.json --report reports\racer_visual_regression\candidate_human_90_report.json --quality-tier human_90
+python tools\compare_racer_visual_regression.py --baseline reports\racer_visual_regression\baseline\baseline_manifest.json --candidate reports\racer_visual_regression\candidate\candidate_manifest.json --report reports\racer_visual_regression\candidate_human_70_report.json --quality-tier human_70
+```
+
+Only `strict` is production-eligible. `human_90` and `human_70` are comparison
+tiers for reviewer studies and include model, texture, and total staged byte
+metadata from the capture manifest.
+
 ## Scope
 
 Targets currently covered:

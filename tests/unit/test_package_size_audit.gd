@@ -26,6 +26,20 @@ func test_package_size_audit_reports_web_build_when_present() -> void:
 		assert_true(not largest_files.is_empty(), "Existing Web build should include largest-file diagnostics")
 		assert_equal(str((largest_files[0] as Dictionary).get("path", "")), "res://build/web/index.pck", "The PCK should be the largest current Web build artifact")
 
+func test_package_size_audit_reports_web_export_resource_categories() -> void:
+	var audit := PackageSizeAudit.collect()
+	var category_bytes: Dictionary = audit.get("web_export_resource_category_bytes", {})
+	assert_true(category_bytes.has("racer_lod0"), "Web export diagnostics should split LOD0 racer assets into their own category")
+	assert_true(category_bytes.has("racer_lod"), "Web export diagnostics should split staged racer LOD assets into their own category")
+	assert_true(category_bytes.has("racer_textures"), "Web export diagnostics should report racer texture source bytes separately")
+	assert_true(category_bytes.has("environment_assets"), "Web export diagnostics should report track/environment asset bytes separately")
+	assert_true(category_bytes.has("ui_assets"), "Web export diagnostics should report UI/headshot bytes separately")
+	assert_true(category_bytes.has("addons_scripts"), "Web export diagnostics should report addon script bytes separately")
+	assert_true(category_bytes.has("game_scripts"), "Web export diagnostics should report game script bytes separately")
+	assert_true(int(audit.get("web_export_resource_files_total_bytes", 0)) > 0, "Web export resource allowlist should have measurable source bytes")
+	assert_true(int(category_bytes.get("racer_lod0", 0)) > 0, "LOD0 racer export bytes should be measurable")
+	assert_true(int(category_bytes.get("racer_lod", 0)) > 0, "Staged LOD racer export bytes should be measurable")
+
 func test_package_size_audit_reports_android_packages_when_present() -> void:
 	var audit := PackageSizeAudit.collect()
 	var package_files: Array = audit.get("android_package_files", [])

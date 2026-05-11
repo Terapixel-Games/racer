@@ -7,6 +7,7 @@ const OPTIMIZED_RACER_ROOT := "res://assets/optimized/racers"
 const WEB_BUILD_ROOT := "res://build/web"
 const WEB_PCK_PATH := "res://build/web/index.pck"
 const ANDROID_BUILD_ROOT := "res://build/android"
+const EXPORT_PRESETS_PATH := "res://export_presets.cfg"
 
 static func collect() -> Dictionary:
 	var source_racer_glb_bytes := _sum_files(SOURCE_RACER_ROOT, func(path: String) -> bool:
@@ -28,6 +29,7 @@ static func collect() -> Dictionary:
 		return true
 	)
 	var web_pck_bytes := _file_size(WEB_PCK_PATH)
+	var web_export_categories := web_export_resource_categories()
 	var android_package_files := package_files(ANDROID_BUILD_ROOT)
 	var android_package_bytes := 0
 	var latest_android_package: Dictionary = {}
@@ -58,6 +60,9 @@ static func collect() -> Dictionary:
 		"optimized_glb_source_ratio": optimized_ratio,
 		"web_build_total_bytes": web_build_bytes,
 		"web_pck_bytes": web_pck_bytes,
+		"web_export_resource_category_bytes": web_export_categories.get("category_bytes", {}),
+		"web_export_resource_category_files": web_export_categories.get("category_files", {}),
+		"web_export_resource_files_total_bytes": int(web_export_categories.get("total_bytes", 0)),
 		"largest_web_build_files": largest_files(WEB_BUILD_ROOT, 8),
 		"android_package_total_bytes": android_package_bytes,
 		"android_package_files": android_package_files,
@@ -88,6 +93,80 @@ static func package_files(root_path: String) -> Array[Dictionary]:
 		return str(a.get("path", "")) < str(b.get("path", ""))
 	)
 	return files
+
+static func web_export_resource_categories() -> Dictionary:
+	var paths := _web_export_resource_paths()
+	var category_bytes := {
+		"racer_lod0": 0,
+		"racer_lod": 0,
+		"racer_textures": 0,
+		"environment_assets": 0,
+		"ui_assets": 0,
+		"addons_scripts": 0,
+		"game_scripts": 0,
+		"scenes_resources": 0,
+		"other": 0,
+	}
+	var category_files := {}
+	for key in category_bytes.keys():
+		category_files[key] = []
+	var total := 0
+	for res_path in paths:
+		var category := _web_export_category_for_path(res_path)
+		var bytes := _file_size(res_path)
+		category_bytes[category] = int(category_bytes.get(category, 0)) + bytes
+		total += bytes
+		(category_files[category] as Array).append({
+			"path": res_path,
+			"bytes": bytes,
+		})
+	return {
+		"category_bytes": category_bytes,
+		"category_files": category_files,
+		"total_bytes": total,
+	}
+
+static func _web_export_resource_paths() -> Array[String]:
+	var text := FileAccess.get_file_as_string(EXPORT_PRESETS_PATH)
+	if text.is_empty():
+		return []
+	var web_section_start := text.find("[preset.1]")
+	if web_section_start < 0:
+		return []
+	var next_section := text.find("\n[preset.", web_section_start + 1)
+	var web_section := text.substr(web_section_start) if next_section < 0 else text.substr(web_section_start, next_section - web_section_start)
+	var marker := "export_files=PackedStringArray("
+	var start := web_section.find(marker)
+	if start < 0:
+		return []
+	start += marker.length()
+	var end := web_section.find(")", start)
+	if end < 0:
+		return []
+	var raw_paths := web_section.substr(start, end - start)
+	var out: Array[String] = []
+	for raw_part in raw_paths.split(",", false):
+		var res_path := raw_part.strip_edges().trim_prefix("\"").trim_suffix("\"")
+		if not res_path.is_empty():
+			out.append(res_path)
+	return out
+
+static func _web_export_category_for_path(path: String) -> String:
+	if path.begins_with(OPTIMIZED_RACER_ROOT):
+		if path.ends_with(".jpg") or path.ends_with(".png") or path.ends_with(".webp"):
+			return "racer_textures"
+		return "racer_lod" if _is_lod_path(path) else "racer_lod0"
+	if path.begins_with("res://assets/ui/"):
+		return "ui_assets"
+	if path.begins_with("res://addons/"):
+		return "addons_scripts"
+	if path.begins_with("res://scripts/"):
+		return "game_scripts"
+	if path.begins_with("res://scenes/") or path.ends_with(".tres") or path.ends_with(".tscn"):
+		return "scenes_resources"
+	if path.begins_with("res://assets/gameplay/") or path.begins_with("res://assets/source/") or path.begins_with("res://assets/models/") or path.begins_with("res://shaders/"):
+		return "environment_assets"
+	return "other"
 
 static func _is_lod_path(path: String) -> bool:
 	return path.contains("_lod1") or path.contains("_lod2")
