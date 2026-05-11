@@ -48,4 +48,4 @@ textures/vram_compression/import_etc2_astc=true
 
 [racer]
 
-assets/profile="source"
+assets/profile="mobile_detail_phase1"
