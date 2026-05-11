@@ -2,6 +2,7 @@ extends "res://tests/framework/TestCase.gd"
 
 const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
 const TrackDefinition = preload("res://scripts/track/TrackDefinition.gd")
+const TrackGridRoadBuilder = preload("res://scripts/track/TrackGridRoadBuilder.gd")
 const TrackSceneAuthoringData = preload("res://scripts/track/TrackSceneAuthoringData.gd")
 
 const SELECTABLE_TRACK_IDS := [
@@ -27,6 +28,12 @@ const NON_KITCHEN_TRACK_IDS := [
 	"outdoor_playground",
 	"playroom",
 	"sandbox",
+]
+const INDOOR_NON_KITCHEN_TRACK_IDS := [
+	"attic",
+	"bedroom",
+	"glam_closet",
+	"playroom",
 ]
 const EXPECTED_STAGE_SKY_PRESETS := {
 	"kitchen": "noon_clear",
@@ -141,6 +148,8 @@ func test_authoring_scenes_use_road_gridmap_without_legacy_gameplay_nodes() -> v
 			assert_equal((grid.get("spawn_slots") as Array).size(), expected_spawn_slots, "%s RoadGridMap should author expected spawn slots" % track_id)
 			if BACKYARD_TRACK_IDS.has(track_id):
 				backyard_positions[track_id] = (grid as Node3D).position
+		if INDOOR_NON_KITCHEN_TRACK_IDS.has(track_id):
+			_assert_indoor_shell_seals(root, track_id)
 		var dressing := root.get_node_or_null("Dressing")
 		if track_id != "kitchen":
 			assert_true(dressing != null and dressing.get_child_count() >= 5, "%s should retain named editable visual dressing" % track_id)
@@ -179,6 +188,8 @@ func _assert_gridmap_contract(definition: TrackDefinition, track_id: String) -> 
 		assert_equal(definition.stage_interactions.size(), 0, "%s should not export stage interactions in this pass" % track_id)
 	assert_equal(str(definition.road_grid_layout.get("mesh_library_path", "")), "res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres", "%s should use the shared Kenney GridMap mesh library" % track_id)
 	assert_true((definition.road_grid_layout.get("ordered_route_cells", []) as Array).size() >= 12, "%s should export ordered GridMap route cells" % track_id)
+	if NON_KITCHEN_TRACK_IDS.has(track_id):
+		_assert_closed_grid_route_visual_contract(definition, track_id)
 	var expected_spawn_slots := 0 if track_id == "kitchen" else 8
 	assert_equal((definition.road_grid_layout.get("spawn_slots", []) as Array).size(), expected_spawn_slots, "%s should export expected RoadGridMap spawn slots" % track_id)
 	if NON_KITCHEN_TRACK_IDS.has(track_id):
@@ -245,6 +256,78 @@ func _assert_two_by_four_start_slots(slots: Array, track_id: String) -> void:
 	assert_equal(lateral_offsets.size(), 2, "%s start grid should have two lateral columns" % track_id)
 	assert_equal(forward_offsets.size(), 4, "%s start grid should have four forward rows" % track_id)
 	assert_equal(forward_offsets[0], 0.0, "%s first start-grid row should sit on the route start" % track_id)
+
+func _assert_indoor_shell_seals(root: Node, track_id: String) -> void:
+	var shell := root.get_node_or_null("RoomShell")
+	assert_true(shell != null, "%s indoor scene should keep a RoomShell" % track_id)
+	if shell == null:
+		return
+	for node_name in [
+		"CeilingBackSeal",
+		"CeilingLeftSeal",
+		"CeilingRightSeal",
+		"CeilingFrontSeal",
+		"ExteriorBackCeilingFascia",
+		"ExteriorLeftCeilingFascia",
+		"ExteriorRightCeilingFascia",
+		"ExteriorFrontCeilingFascia",
+		"ExteriorBackWallTopBelt",
+		"ExteriorLeftWallTopBelt",
+		"ExteriorRightWallTopBelt",
+		"ExteriorFrontWallTopBelt",
+		"BackLeftCornerSeal",
+		"BackRightCornerSeal",
+		"FrontLeftCornerSeal",
+		"FrontRightCornerSeal",
+		"DoorJambLeft",
+		"DoorJambRight",
+		"DoorHeader",
+		"DoorPanel",
+	]:
+		assert_true(shell.get_node_or_null(node_name) != null, "%s RoomShell should include seam/door seal node %s" % [track_id, node_name])
+
+func _assert_closed_grid_route_visual_contract(definition: TrackDefinition, track_id: String) -> void:
+	assert_true(definition.closed_loop, "%s should be authored as a closed loop" % track_id)
+	var cells := (definition.road_grid_layout.get("ordered_route_cells", []) as Array)
+	var cell_items := _grid_cell_items(definition.road_grid_layout)
+	for i in range(cells.size()):
+		var current := _vector3i_from_value(cells[i])
+		var next := _vector3i_from_value(cells[(i + 1) % cells.size()])
+		assert_equal(_manhattan_distance(current, next), 1, "%s route cell %d should connect to the next cell, including the lap seam" % [track_id, i])
+		var previous := _vector3i_from_value(cells[(i - 1 + cells.size()) % cells.size()])
+		var item := int(cell_items.get(current, -1))
+		var is_corner := ((previous - current) + (next - current)) != Vector3i.ZERO
+		if item == TrackGridRoadBuilder.TILE_START:
+			assert_true(not is_corner, "%s start tile must sit on a straight route cell so the lap seam renders closed" % track_id)
+		elif item == TrackGridRoadBuilder.TILE_STRAIGHT:
+			assert_true(not is_corner, "%s straight tile at route index %d should not hide a corner seam" % [track_id, i])
+		elif item == TrackGridRoadBuilder.TILE_CORNER:
+			assert_true(is_corner, "%s corner tile at route index %d should be a real route corner" % [track_id, i])
+
+func _grid_cell_items(layout: Dictionary) -> Dictionary:
+	var out := {}
+	for value in layout.get("cells", []):
+		if not (value is Dictionary):
+			continue
+		var data := value as Dictionary
+		out[_vector3i_from_value(data.get("cell", Vector3i.ZERO))] = int(data.get("item", -1))
+	return out
+
+func _vector3i_from_value(value: Variant) -> Vector3i:
+	if value is Vector3i:
+		return value as Vector3i
+	if value is Vector3:
+		var point := value as Vector3
+		return Vector3i(roundi(point.x), roundi(point.y), roundi(point.z))
+	if value is Array:
+		var array := value as Array
+		if array.size() >= 3:
+			return Vector3i(roundi(float(array[0])), roundi(float(array[1])), roundi(float(array[2])))
+	return Vector3i.ZERO
+
+func _manhattan_distance(a: Vector3i, b: Vector3i) -> int:
+	var delta := b - a
+	return absi(delta.x) + absi(delta.y) + absi(delta.z)
 
 func _spawn_grid_starts_at_route_origin(spawns: Array[Vector4], route_points: Array[Vector3]) -> bool:
 	if spawns.size() < 2 or route_points.size() < 2:

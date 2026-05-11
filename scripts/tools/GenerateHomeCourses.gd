@@ -29,6 +29,15 @@ const BACKYARD_GARDEN_PATH := "res://assets/gameplay/tracks/shared/backyard_opti
 
 const INDOOR_FLOOR_SIZE := Vector2(360.0, 240.0)
 const BACKYARD_FLOOR_SIZE := Vector2(900.0, 720.0)
+const ROOM_WALL_THICKNESS := 8.0
+const ROOM_SEAM_OVERLAP := 2.0
+const ROOM_WALL_HEIGHT := 66.0
+const ROOM_WALL_CENTER_Y := 31.0
+const ROOM_CEILING_Y := 62.0
+const ROOM_CEILING_THICKNESS := 4.0
+const ROOM_DOOR_WIDTH := 34.0
+const ROOM_DOOR_HEIGHT := 42.0
+const ROOM_DOOR_TRIM := 5.0
 
 const COURSES := [
 	{
@@ -150,13 +159,20 @@ const COURSES := [
 ]
 
 func _initialize() -> void:
-	_save_backyard_atlas_material()
-	_save_backyard_shell()
-	_save_backyard_preview_shell()
+	var selected_ids := _selected_course_ids()
+	var selected_courses := _selected_courses(selected_ids)
+	if selected_courses.is_empty():
+		push_error("No matching courses for GenerateHomeCourses selection: %s" % [selected_ids])
+		quit(1)
+		return
+	if selected_ids.is_empty():
+		_save_backyard_atlas_material()
+		_save_backyard_shell()
+		_save_backyard_preview_shell()
 	var manifest := _load_manifest()
 	if not manifest.has("tracks"):
 		manifest["tracks"] = {}
-	for course in COURSES:
+	for course in selected_courses:
 		_generate_course(course)
 		manifest["tracks"][course["id"]] = {
 			"id": course["id"],
@@ -167,8 +183,35 @@ func _initialize() -> void:
 			"metadata_path": _metadata_path(course),
 		}
 	_save_manifest(manifest)
-	print("Generated %d GridMap-backed home-course stages." % COURSES.size())
+	print("Generated %d GridMap-backed home-course stages." % selected_courses.size())
 	quit()
+
+func _selected_course_ids() -> Array[String]:
+	var ids: Array[String] = []
+	for arg in OS.get_cmdline_user_args():
+		if arg == "--indoor_only=true" or arg == "--indoor-only":
+			for course in COURSES:
+				if not bool(course.get("backyard", false)):
+					ids.append(str(course["id"]))
+		elif arg.begins_with("--track_id="):
+			_append_selected_ids(ids, arg.trim_prefix("--track_id="))
+		elif arg.begins_with("--track_ids="):
+			_append_selected_ids(ids, arg.trim_prefix("--track_ids="))
+	return ids
+
+func _append_selected_ids(ids: Array[String], raw_value: String) -> void:
+	for value in raw_value.split(",", false):
+		var track_id := value.strip_edges()
+		if not track_id.is_empty() and not ids.has(track_id):
+			ids.append(track_id)
+
+func _selected_courses(selected_ids: Array[String]) -> Array[Dictionary]:
+	var out: Array[Dictionary] = []
+	for course in COURSES:
+		if selected_ids.is_empty() or selected_ids.has(str(course["id"])):
+			out.append(course)
+	return out
+
 
 func _generate_course(course: Dictionary) -> void:
 	var dir := "res://assets/gameplay/tracks/%s" % course["folder"]
@@ -481,6 +524,21 @@ func _route_from_points(points: Array[Vector2i]) -> Array[Vector3i]:
 			if i == points.size() - 1 and cell == cells[0]:
 				break
 			cells.append(cell)
+	return _rotate_route_start_to_straight(cells)
+
+func _rotate_route_start_to_straight(cells: Array[Vector3i]) -> Array[Vector3i]:
+	if cells.size() < 4:
+		return cells
+	for i in range(cells.size()):
+		var current := cells[i]
+		var prev := cells[(i - 1 + cells.size()) % cells.size()]
+		var next := cells[(i + 1) % cells.size()]
+		if (prev - current) + (next - current) != Vector3i.ZERO:
+			continue
+		var rotated: Array[Vector3i] = []
+		for offset in range(cells.size()):
+			rotated.append(cells[(i + offset) % cells.size()])
+		return rotated
 	return cells
 
 func _tile_item_for_route_cell(route_cells: Array[Vector3i], index: int) -> int:
@@ -606,13 +664,57 @@ func _add_indoor_shell(root: Node3D, course: Dictionary) -> void:
 	var half_x := size.x * 0.5
 	var half_z := size.y * 0.5
 	var color := _stage_wall_color(str(course["id"]))
-	_add_box(shell, "BackWall", Vector3(0, 30, half_z + 4), Vector3(size.x + 12, 62, 8), color)
-	_add_box(shell, "LeftWall", Vector3(-half_x - 4, 30, 0), Vector3(8, 62, size.y + 8), color.darkened(0.08))
-	_add_box(shell, "RightWall", Vector3(half_x + 4, 30, 0), Vector3(8, 62, size.y + 8), color.darkened(0.08))
-	_add_box(shell, "FrontWallLeft", Vector3(-half_x * 0.52, 30, -half_z - 4), Vector3(half_x * 0.96, 62, 8), color.darkened(0.04))
-	_add_box(shell, "FrontWallRight", Vector3(half_x * 0.52, 30, -half_z - 4), Vector3(half_x * 0.96, 62, 8), color.darkened(0.04))
-	_add_box(shell, "DoorHeader", Vector3(0, 50, -half_z - 4), Vector3(half_x * 0.24, 22, 8), color.darkened(0.02))
-	_add_box(shell, "Ceiling", Vector3(0, 62, 0), Vector3(size.x + 16, 2, size.y + 16), color.lightened(0.08))
+	var wall_depth := ROOM_WALL_THICKNESS + ROOM_SEAM_OVERLAP
+	var side_center_x := half_x + ROOM_WALL_THICKNESS * 0.5 - ROOM_SEAM_OVERLAP * 0.5
+	var back_center_z := half_z + ROOM_WALL_THICKNESS * 0.5 - ROOM_SEAM_OVERLAP * 0.5
+	var front_center_z := -back_center_z
+	var shell_width := size.x + ROOM_WALL_THICKNESS * 2.0 + ROOM_SEAM_OVERLAP * 2.0
+	var shell_depth := size.y + ROOM_WALL_THICKNESS * 2.0 + ROOM_SEAM_OVERLAP * 2.0
+	var wall_top := ROOM_WALL_CENTER_Y + ROOM_WALL_HEIGHT * 0.5
+	var door_half := ROOM_DOOR_WIDTH * 0.5
+	var left_front_center_x := (-side_center_x + -door_half) * 0.5
+	var right_front_center_x := (side_center_x + door_half) * 0.5
+	var front_panel_width := side_center_x - door_half + ROOM_SEAM_OVERLAP
+
+	_add_box(shell, "BackWall", Vector3(0, ROOM_WALL_CENTER_Y, back_center_z), Vector3(shell_width, ROOM_WALL_HEIGHT, wall_depth), color)
+	_add_box(shell, "LeftWall", Vector3(-side_center_x, ROOM_WALL_CENTER_Y, 0), Vector3(wall_depth, ROOM_WALL_HEIGHT, shell_depth), color.darkened(0.08))
+	_add_box(shell, "RightWall", Vector3(side_center_x, ROOM_WALL_CENTER_Y, 0), Vector3(wall_depth, ROOM_WALL_HEIGHT, shell_depth), color.darkened(0.08))
+	_add_box(shell, "FrontWallLeft", Vector3(left_front_center_x, ROOM_WALL_CENTER_Y, front_center_z), Vector3(front_panel_width, ROOM_WALL_HEIGHT, wall_depth), color.darkened(0.04))
+	_add_box(shell, "FrontWallRight", Vector3(right_front_center_x, ROOM_WALL_CENTER_Y, front_center_z), Vector3(front_panel_width, ROOM_WALL_HEIGHT, wall_depth), color.darkened(0.04))
+	_add_box(shell, "DoorJambLeft", Vector3(-door_half - ROOM_DOOR_TRIM * 0.5, ROOM_WALL_CENTER_Y, front_center_z - 0.2), Vector3(ROOM_DOOR_TRIM, ROOM_WALL_HEIGHT, wall_depth + 0.8), color.lightened(0.04))
+	_add_box(shell, "DoorJambRight", Vector3(door_half + ROOM_DOOR_TRIM * 0.5, ROOM_WALL_CENTER_Y, front_center_z - 0.2), Vector3(ROOM_DOOR_TRIM, ROOM_WALL_HEIGHT, wall_depth + 0.8), color.lightened(0.04))
+	_add_box(shell, "DoorHeader", Vector3(0, (ROOM_DOOR_HEIGHT + wall_top) * 0.5, front_center_z - 0.2), Vector3(ROOM_DOOR_WIDTH + ROOM_DOOR_TRIM * 2.0, wall_top - ROOM_DOOR_HEIGHT + ROOM_SEAM_OVERLAP, wall_depth + 0.8), color.lightened(0.02))
+	_add_box(shell, "DoorPanel", Vector3(0, ROOM_DOOR_HEIGHT * 0.5 - 0.8, front_center_z - wall_depth * 0.55), Vector3(ROOM_DOOR_WIDTH - 2.0, ROOM_DOOR_HEIGHT + 1.6, 1.6), color.darkened(0.18))
+	_add_box(shell, "Ceiling", Vector3(0, ROOM_CEILING_Y, 0), Vector3(shell_width, ROOM_CEILING_THICKNESS, shell_depth), color.lightened(0.08))
+	_add_indoor_shell_seals(shell, size, color)
+
+func _add_indoor_shell_seals(shell: Node3D, size: Vector2, color: Color) -> void:
+	var half_x := size.x * 0.5
+	var half_z := size.y * 0.5
+	var side_center_x := half_x + ROOM_WALL_THICKNESS * 0.5 - ROOM_SEAM_OVERLAP * 0.5
+	var back_center_z := half_z + ROOM_WALL_THICKNESS * 0.5 - ROOM_SEAM_OVERLAP * 0.5
+	var front_center_z := -back_center_z
+	var shell_width := size.x + ROOM_WALL_THICKNESS * 2.0 + ROOM_SEAM_OVERLAP * 2.0
+	var shell_depth := size.y + ROOM_WALL_THICKNESS * 2.0 + ROOM_SEAM_OVERLAP * 2.0
+	var seal_color := color.lightened(0.12)
+	var corner_color := color.darkened(0.02)
+	var top_y := ROOM_CEILING_Y - ROOM_CEILING_THICKNESS * 0.5 + 0.6
+	_add_box(shell, "CeilingBackSeal", Vector3(0, top_y, back_center_z - ROOM_WALL_THICKNESS * 0.35), Vector3(shell_width, 5.0, 4.0), seal_color)
+	_add_box(shell, "CeilingFrontSeal", Vector3(0, top_y, front_center_z + ROOM_WALL_THICKNESS * 0.35), Vector3(shell_width, 5.0, 4.0), seal_color)
+	_add_box(shell, "CeilingLeftSeal", Vector3(-side_center_x + ROOM_WALL_THICKNESS * 0.35, top_y, 0), Vector3(4.0, 5.0, shell_depth), seal_color.darkened(0.04))
+	_add_box(shell, "CeilingRightSeal", Vector3(side_center_x - ROOM_WALL_THICKNESS * 0.35, top_y, 0), Vector3(4.0, 5.0, shell_depth), seal_color.darkened(0.04))
+	_add_box(shell, "ExteriorBackCeilingFascia", Vector3(0, top_y - 1.0, back_center_z + ROOM_WALL_THICKNESS * 0.35), Vector3(shell_width, 7.0, 4.0), seal_color.darkened(0.02))
+	_add_box(shell, "ExteriorFrontCeilingFascia", Vector3(0, top_y - 1.0, front_center_z - ROOM_WALL_THICKNESS * 0.35), Vector3(shell_width, 7.0, 4.0), seal_color.darkened(0.02))
+	_add_box(shell, "ExteriorLeftCeilingFascia", Vector3(-side_center_x - ROOM_WALL_THICKNESS * 0.35, top_y - 1.0, 0), Vector3(4.0, 7.0, shell_depth), seal_color.darkened(0.06))
+	_add_box(shell, "ExteriorRightCeilingFascia", Vector3(side_center_x + ROOM_WALL_THICKNESS * 0.35, top_y - 1.0, 0), Vector3(4.0, 7.0, shell_depth), seal_color.darkened(0.06))
+	_add_box(shell, "ExteriorBackWallTopBelt", Vector3(0, top_y - 0.2, back_center_z + ROOM_WALL_THICKNESS * 0.65), Vector3(shell_width, 4.0, 1.8), seal_color.lightened(0.02))
+	_add_box(shell, "ExteriorFrontWallTopBelt", Vector3(0, top_y - 0.2, front_center_z - ROOM_WALL_THICKNESS * 0.65), Vector3(shell_width, 4.0, 1.8), seal_color.lightened(0.02))
+	_add_box(shell, "ExteriorLeftWallTopBelt", Vector3(-side_center_x - ROOM_WALL_THICKNESS * 0.65, top_y - 0.2, 0), Vector3(1.8, 4.0, shell_depth), seal_color)
+	_add_box(shell, "ExteriorRightWallTopBelt", Vector3(side_center_x + ROOM_WALL_THICKNESS * 0.65, top_y - 0.2, 0), Vector3(1.8, 4.0, shell_depth), seal_color)
+	_add_box(shell, "BackLeftCornerSeal", Vector3(-side_center_x + ROOM_WALL_THICKNESS * 0.35, ROOM_WALL_CENTER_Y, back_center_z - ROOM_WALL_THICKNESS * 0.35), Vector3(5.0, ROOM_WALL_HEIGHT, 5.0), corner_color)
+	_add_box(shell, "BackRightCornerSeal", Vector3(side_center_x - ROOM_WALL_THICKNESS * 0.35, ROOM_WALL_CENTER_Y, back_center_z - ROOM_WALL_THICKNESS * 0.35), Vector3(5.0, ROOM_WALL_HEIGHT, 5.0), corner_color)
+	_add_box(shell, "FrontLeftCornerSeal", Vector3(-side_center_x + ROOM_WALL_THICKNESS * 0.35, ROOM_WALL_CENTER_Y, front_center_z + ROOM_WALL_THICKNESS * 0.35), Vector3(5.0, ROOM_WALL_HEIGHT, 5.0), corner_color)
+	_add_box(shell, "FrontRightCornerSeal", Vector3(side_center_x - ROOM_WALL_THICKNESS * 0.35, ROOM_WALL_CENTER_Y, front_center_z + ROOM_WALL_THICKNESS * 0.35), Vector3(5.0, ROOM_WALL_HEIGHT, 5.0), corner_color)
 
 func _add_concept_dressing(root: Node3D, course: Dictionary) -> void:
 	var holder := Node3D.new()

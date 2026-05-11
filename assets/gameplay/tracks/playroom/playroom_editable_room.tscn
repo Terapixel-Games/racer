@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3]
+[gd_scene load_steps=69 format=3]
 
 [ext_resource type="Texture2D" path="res://assets/gameplay/materials/plastic/glossy_plastic_albedo.png" id="1_7wcvr"]
 [ext_resource type="Script" path="res://scripts/track/StagePropAuthoring.gd" id="2_ktcui"]
@@ -21,84 +21,217 @@ albedo_color = Color(0.42, 0.58, 0.82, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_kkjd5"]
-size = Vector3(372, 62, 8)
+size = Vector3(380, 66, 10)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_247g8"]
 albedo_color = Color(0.38639998, 0.5336, 0.7544, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_k217s"]
-size = Vector3(8, 62, 248)
+size = Vector3(10, 66, 260)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eiotw"]
 albedo_color = Color(0.38639998, 0.5336, 0.7544, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_gd7kq"]
-size = Vector3(8, 62, 248)
+size = Vector3(10, 66, 260)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jodl5"]
 albedo_color = Color(0.40319997, 0.55679995, 0.7872, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_7niqu"]
-size = Vector3(172.8, 62, 8)
+size = Vector3(168, 66, 10)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fg8r1"]
 albedo_color = Color(0.40319997, 0.55679995, 0.7872, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_srv6p"]
-size = Vector3(172.8, 62, 8)
+size = Vector3(168, 66, 10)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wy64s"]
-albedo_color = Color(0.4116, 0.56839997, 0.8036, 1)
+albedo_color = Color(0.4432, 0.59679997, 0.8272, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_rawmt"]
-size = Vector3(43.2, 22, 8)
+size = Vector3(5, 66, 10.8)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wgc2j"]
-albedo_color = Color(0.4664, 0.61359996, 0.8344, 1)
+albedo_color = Color(0.4432, 0.59679997, 0.8272, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_xpmjt"]
-size = Vector3(376, 2, 256)
+size = Vector3(5, 66, 10.8)
 
-[sub_resource type="Resource" id="Resource_yxug3"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yxug3"]
+albedo_color = Color(0.43159997, 0.5884, 0.8236, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_r0kuf"]
+size = Vector3(44, 24, 10.8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gty6m"]
+albedo_color = Color(0.3444, 0.47559997, 0.6724, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_nidrp"]
+size = Vector3(32, 43.6, 1.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2pjw7"]
+albedo_color = Color(0.4664, 0.61359996, 0.8344, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_0a2a8"]
+size = Vector3(380, 4, 260)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a6egt"]
+albedo_color = Color(0.4896, 0.6304, 0.8416, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_1a30t"]
+size = Vector3(380, 5, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nb176"]
+albedo_color = Color(0.4896, 0.6304, 0.8416, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_0ymy7"]
+size = Vector3(380, 5, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_15b5t"]
+albedo_color = Color(0.470016, 0.60518396, 0.80793595, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_w1yf8"]
+size = Vector3(4, 5, 260)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_acgv2"]
+albedo_color = Color(0.470016, 0.60518396, 0.80793595, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_gtklo"]
+size = Vector3(4, 5, 260)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xacrr"]
+albedo_color = Color(0.479808, 0.617792, 0.824768, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_wjsbe"]
+size = Vector3(380, 7, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gomhy"]
+albedo_color = Color(0.479808, 0.617792, 0.824768, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_w180r"]
+size = Vector3(380, 7, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7xa2d"]
+albedo_color = Color(0.460224, 0.592576, 0.791104, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_2id58"]
+size = Vector3(4, 7, 260)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_23ipg"]
+albedo_color = Color(0.460224, 0.592576, 0.791104, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_wpqkc"]
+size = Vector3(4, 7, 260)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0xedw"]
+albedo_color = Color(0.499808, 0.637792, 0.844768, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_rcljt"]
+size = Vector3(380, 4, 1.8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_snpa2"]
+albedo_color = Color(0.499808, 0.637792, 0.844768, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_7idaj"]
+size = Vector3(380, 4, 1.8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v4pkp"]
+albedo_color = Color(0.4896, 0.6304, 0.8416, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_0rxyc"]
+size = Vector3(1.8, 4, 260)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ihn7i"]
+albedo_color = Color(0.4896, 0.6304, 0.8416, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_537co"]
+size = Vector3(1.8, 4, 260)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ibijq"]
+albedo_color = Color(0.4116, 0.56839997, 0.8036, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_76n2t"]
+size = Vector3(5, 66, 5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dkj1h"]
+albedo_color = Color(0.4116, 0.56839997, 0.8036, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_t68hm"]
+size = Vector3(5, 66, 5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ayqc1"]
+albedo_color = Color(0.4116, 0.56839997, 0.8036, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_y8n10"]
+size = Vector3(5, 66, 5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j0hnl"]
+albedo_color = Color(0.4116, 0.56839997, 0.8036, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_g82t3"]
+size = Vector3(5, 66, 5)
+
+[sub_resource type="Resource" id="Resource_7rqqc"]
 script = ExtResource("6_v8uut")
 lateral_offset = -2.75
 
-[sub_resource type="Resource" id="Resource_r0kuf"]
+[sub_resource type="Resource" id="Resource_qx5fa"]
 script = ExtResource("6_v8uut")
 lateral_offset = 2.75
 
-[sub_resource type="Resource" id="Resource_gty6m"]
+[sub_resource type="Resource" id="Resource_f6qin"]
 script = ExtResource("6_v8uut")
 lateral_offset = -2.75
 forward_offset = 5.0
 
-[sub_resource type="Resource" id="Resource_nidrp"]
+[sub_resource type="Resource" id="Resource_fcika"]
 script = ExtResource("6_v8uut")
 lateral_offset = 2.75
 forward_offset = 5.0
 
-[sub_resource type="Resource" id="Resource_2pjw7"]
+[sub_resource type="Resource" id="Resource_4epmq"]
 script = ExtResource("6_v8uut")
 lateral_offset = -2.75
 forward_offset = 10.0
 
-[sub_resource type="Resource" id="Resource_0a2a8"]
+[sub_resource type="Resource" id="Resource_fq6h6"]
 script = ExtResource("6_v8uut")
 lateral_offset = 2.75
 forward_offset = 10.0
 
-[sub_resource type="Resource" id="Resource_a6egt"]
+[sub_resource type="Resource" id="Resource_pngnl"]
 script = ExtResource("6_v8uut")
 lateral_offset = -2.75
 forward_offset = 15.0
 
-[sub_resource type="Resource" id="Resource_1a30t"]
+[sub_resource type="Resource" id="Resource_dqyjg"]
 script = ExtResource("6_v8uut")
 lateral_offset = 2.75
 forward_offset = 15.0
@@ -115,39 +248,134 @@ mesh = SubResource("PlaneMesh_85l84")
 [node name="RoomShell" type="Node3D" parent="."]
 
 [node name="BackWall" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30, 124)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 31, 123)
 material_override = SubResource("StandardMaterial3D_g603f")
 mesh = SubResource("BoxMesh_kkjd5")
 
 [node name="LeftWall" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -184, 30, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -183, 31, 0)
 material_override = SubResource("StandardMaterial3D_247g8")
 mesh = SubResource("BoxMesh_k217s")
 
 [node name="RightWall" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 184, 30, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 183, 31, 0)
 material_override = SubResource("StandardMaterial3D_eiotw")
 mesh = SubResource("BoxMesh_gd7kq")
 
 [node name="FrontWallLeft" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -93.6, 30, -124)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 31, -123)
 material_override = SubResource("StandardMaterial3D_jodl5")
 mesh = SubResource("BoxMesh_7niqu")
 
 [node name="FrontWallRight" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 93.6, 30, -124)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 31, -123)
 material_override = SubResource("StandardMaterial3D_fg8r1")
 mesh = SubResource("BoxMesh_srv6p")
 
-[node name="DoorHeader" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, -124)
+[node name="DoorJambLeft" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.5, 31, -123.2)
 material_override = SubResource("StandardMaterial3D_wy64s")
 mesh = SubResource("BoxMesh_rawmt")
 
-[node name="Ceiling" type="MeshInstance3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 62, 0)
+[node name="DoorJambRight" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.5, 31, -123.2)
 material_override = SubResource("StandardMaterial3D_wgc2j")
 mesh = SubResource("BoxMesh_xpmjt")
+
+[node name="DoorHeader" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 53, -123.2)
+material_override = SubResource("StandardMaterial3D_yxug3")
+mesh = SubResource("BoxMesh_r0kuf")
+
+[node name="DoorPanel" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.2, -128.5)
+material_override = SubResource("StandardMaterial3D_gty6m")
+mesh = SubResource("BoxMesh_nidrp")
+
+[node name="Ceiling" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 62, 0)
+material_override = SubResource("StandardMaterial3D_2pjw7")
+mesh = SubResource("BoxMesh_0a2a8")
+
+[node name="CeilingBackSeal" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 60.6, 120.2)
+material_override = SubResource("StandardMaterial3D_a6egt")
+mesh = SubResource("BoxMesh_1a30t")
+
+[node name="CeilingFrontSeal" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 60.6, -120.2)
+material_override = SubResource("StandardMaterial3D_nb176")
+mesh = SubResource("BoxMesh_0ymy7")
+
+[node name="CeilingLeftSeal" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -180.2, 60.6, 0)
+material_override = SubResource("StandardMaterial3D_15b5t")
+mesh = SubResource("BoxMesh_w1yf8")
+
+[node name="CeilingRightSeal" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 180.2, 60.6, 0)
+material_override = SubResource("StandardMaterial3D_acgv2")
+mesh = SubResource("BoxMesh_gtklo")
+
+[node name="ExteriorBackCeilingFascia" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 59.6, 125.8)
+material_override = SubResource("StandardMaterial3D_xacrr")
+mesh = SubResource("BoxMesh_wjsbe")
+
+[node name="ExteriorFrontCeilingFascia" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 59.6, -125.8)
+material_override = SubResource("StandardMaterial3D_gomhy")
+mesh = SubResource("BoxMesh_w180r")
+
+[node name="ExteriorLeftCeilingFascia" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -185.8, 59.6, 0)
+material_override = SubResource("StandardMaterial3D_7xa2d")
+mesh = SubResource("BoxMesh_2id58")
+
+[node name="ExteriorRightCeilingFascia" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 185.8, 59.6, 0)
+material_override = SubResource("StandardMaterial3D_23ipg")
+mesh = SubResource("BoxMesh_wpqkc")
+
+[node name="ExteriorBackWallTopBelt" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 60.4, 128.2)
+material_override = SubResource("StandardMaterial3D_0xedw")
+mesh = SubResource("BoxMesh_rcljt")
+
+[node name="ExteriorFrontWallTopBelt" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 60.4, -128.2)
+material_override = SubResource("StandardMaterial3D_snpa2")
+mesh = SubResource("BoxMesh_7idaj")
+
+[node name="ExteriorLeftWallTopBelt" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -188.2, 60.4, 0)
+material_override = SubResource("StandardMaterial3D_v4pkp")
+mesh = SubResource("BoxMesh_0rxyc")
+
+[node name="ExteriorRightWallTopBelt" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 188.2, 60.4, 0)
+material_override = SubResource("StandardMaterial3D_ihn7i")
+mesh = SubResource("BoxMesh_537co")
+
+[node name="BackLeftCornerSeal" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -180.2, 31, 120.2)
+material_override = SubResource("StandardMaterial3D_ibijq")
+mesh = SubResource("BoxMesh_76n2t")
+
+[node name="BackRightCornerSeal" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 180.2, 31, 120.2)
+material_override = SubResource("StandardMaterial3D_dkj1h")
+mesh = SubResource("BoxMesh_t68hm")
+
+[node name="FrontLeftCornerSeal" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -180.2, 31, -120.2)
+material_override = SubResource("StandardMaterial3D_ayqc1")
+mesh = SubResource("BoxMesh_y8n10")
+
+[node name="FrontRightCornerSeal" type="MeshInstance3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 180.2, 31, -120.2)
+material_override = SubResource("StandardMaterial3D_j0hnl")
+mesh = SubResource("BoxMesh_g82t3")
 
 [node name="Dressing" type="Node3D" parent="."]
 
@@ -255,10 +483,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, -2, -8)
 mesh_library = ExtResource("4_fsmij")
 cell_size = Vector3(16, 4, 16)
 data = {
-"cells": PackedInt32Array(65528, 65531, 1048578, 65529, 65531, 1048576, 65530, 65531, 1048576, 65531, 65531, 1048576, 65532, 65531, 1048576, 65533, 65531, 1048576, 65534, 65531, 1048576, 65535, 65531, 1048576, 0, 65531, 1048576, 1, 65531, 1048576, 2, 65531, 1048576, 3, 65531, 1048576, 4, 65531, 1048576, 5, 65531, 1441793, 5, 65532, 0, 5, 65533, 1048577, 6, 65533, 1048576, 7, 65533, 1048576, 8, 65533, 1441793, 8, 65534, 0, 8, 65535, 0, 8, 0, 0, 8, 1, 0, 8, 2, 655361, 7, 2, 1441792, 6, 2, 1441792, 5, 2, 1441792, 4, 2, 1, 4, 3, 0, 4, 4, 0, 4, 5, 655361, 3, 5, 1441792, 2, 5, 1441792, 1, 5, 1441792, 0, 5, 1441792, 65535, 5, 1048577, 65535, 4, 655360, 65535, 3, 655360, 65535, 2, 1441793, 65534, 2, 1441792, 65533, 2, 1441792, 65532, 2, 1441792, 65531, 2, 1, 65531, 3, 0, 65531, 4, 0, 65531, 5, 655361, 65530, 5, 1441792, 65529, 5, 1441792, 65528, 5, 1048577, 65528, 4, 655360, 65528, 3, 655360, 65528, 2, 655360, 65528, 1, 655360, 65528, 0, 1, 65529, 0, 1048576, 65530, 0, 1048576, 65531, 0, 1048576, 65532, 0, 655361, 65532, 65535, 655360, 65532, 65534, 655360, 65532, 65533, 1441793, 65531, 65533, 1441792, 65530, 65533, 1441792, 65529, 65533, 1441792, 65528, 65533, 1048577, 65528, 65532, 655360)
+"cells": PackedInt32Array(65529, 65531, 1048578, 65530, 65531, 1048576, 65531, 65531, 1048576, 65532, 65531, 1048576, 65533, 65531, 1048576, 65534, 65531, 1048576, 65535, 65531, 1048576, 0, 65531, 1048576, 1, 65531, 1048576, 2, 65531, 1048576, 3, 65531, 1048576, 4, 65531, 1048576, 5, 65531, 1441793, 5, 65532, 0, 5, 65533, 1048577, 6, 65533, 1048576, 7, 65533, 1048576, 8, 65533, 1441793, 8, 65534, 0, 8, 65535, 0, 8, 0, 0, 8, 1, 0, 8, 2, 655361, 7, 2, 1441792, 6, 2, 1441792, 5, 2, 1441792, 4, 2, 1, 4, 3, 0, 4, 4, 0, 4, 5, 655361, 3, 5, 1441792, 2, 5, 1441792, 1, 5, 1441792, 0, 5, 1441792, 65535, 5, 1048577, 65535, 4, 655360, 65535, 3, 655360, 65535, 2, 1441793, 65534, 2, 1441792, 65533, 2, 1441792, 65532, 2, 1441792, 65531, 2, 1, 65531, 3, 0, 65531, 4, 0, 65531, 5, 655361, 65530, 5, 1441792, 65529, 5, 1441792, 65528, 5, 1048577, 65528, 4, 655360, 65528, 3, 655360, 65528, 2, 655360, 65528, 1, 655360, 65528, 0, 1, 65529, 0, 1048576, 65530, 0, 1048576, 65531, 0, 1048576, 65532, 0, 655361, 65532, 65535, 655360, 65532, 65534, 655360, 65532, 65533, 1441793, 65531, 65533, 1441792, 65530, 65533, 1441792, 65529, 65533, 1441792, 65528, 65533, 1048577, 65528, 65532, 655360, 65528, 65531, 1)
 }
 script = ExtResource("5_pj6aq")
-ordered_route_cells = Array[Vector3i]([Vector3i(-8, 0, -5), Vector3i(-7, 0, -5), Vector3i(-6, 0, -5), Vector3i(-5, 0, -5), Vector3i(-4, 0, -5), Vector3i(-3, 0, -5), Vector3i(-2, 0, -5), Vector3i(-1, 0, -5), Vector3i(0, 0, -5), Vector3i(1, 0, -5), Vector3i(2, 0, -5), Vector3i(3, 0, -5), Vector3i(4, 0, -5), Vector3i(5, 0, -5), Vector3i(5, 0, -4), Vector3i(5, 0, -3), Vector3i(6, 0, -3), Vector3i(7, 0, -3), Vector3i(8, 0, -3), Vector3i(8, 0, -2), Vector3i(8, 0, -1), Vector3i(8, 0, 0), Vector3i(8, 0, 1), Vector3i(8, 0, 2), Vector3i(7, 0, 2), Vector3i(6, 0, 2), Vector3i(5, 0, 2), Vector3i(4, 0, 2), Vector3i(4, 0, 3), Vector3i(4, 0, 4), Vector3i(4, 0, 5), Vector3i(3, 0, 5), Vector3i(2, 0, 5), Vector3i(1, 0, 5), Vector3i(0, 0, 5), Vector3i(-1, 0, 5), Vector3i(-1, 0, 4), Vector3i(-1, 0, 3), Vector3i(-1, 0, 2), Vector3i(-2, 0, 2), Vector3i(-3, 0, 2), Vector3i(-4, 0, 2), Vector3i(-5, 0, 2), Vector3i(-5, 0, 3), Vector3i(-5, 0, 4), Vector3i(-5, 0, 5), Vector3i(-6, 0, 5), Vector3i(-7, 0, 5), Vector3i(-8, 0, 5), Vector3i(-8, 0, 4), Vector3i(-8, 0, 3), Vector3i(-8, 0, 2), Vector3i(-8, 0, 1), Vector3i(-8, 0, 0), Vector3i(-7, 0, 0), Vector3i(-6, 0, 0), Vector3i(-5, 0, 0), Vector3i(-4, 0, 0), Vector3i(-4, 0, -1), Vector3i(-4, 0, -2), Vector3i(-4, 0, -3), Vector3i(-5, 0, -3), Vector3i(-6, 0, -3), Vector3i(-7, 0, -3), Vector3i(-8, 0, -3), Vector3i(-8, 0, -4)])
+ordered_route_cells = Array[Vector3i]([Vector3i(-7, 0, -5), Vector3i(-6, 0, -5), Vector3i(-5, 0, -5), Vector3i(-4, 0, -5), Vector3i(-3, 0, -5), Vector3i(-2, 0, -5), Vector3i(-1, 0, -5), Vector3i(0, 0, -5), Vector3i(1, 0, -5), Vector3i(2, 0, -5), Vector3i(3, 0, -5), Vector3i(4, 0, -5), Vector3i(5, 0, -5), Vector3i(5, 0, -4), Vector3i(5, 0, -3), Vector3i(6, 0, -3), Vector3i(7, 0, -3), Vector3i(8, 0, -3), Vector3i(8, 0, -2), Vector3i(8, 0, -1), Vector3i(8, 0, 0), Vector3i(8, 0, 1), Vector3i(8, 0, 2), Vector3i(7, 0, 2), Vector3i(6, 0, 2), Vector3i(5, 0, 2), Vector3i(4, 0, 2), Vector3i(4, 0, 3), Vector3i(4, 0, 4), Vector3i(4, 0, 5), Vector3i(3, 0, 5), Vector3i(2, 0, 5), Vector3i(1, 0, 5), Vector3i(0, 0, 5), Vector3i(-1, 0, 5), Vector3i(-1, 0, 4), Vector3i(-1, 0, 3), Vector3i(-1, 0, 2), Vector3i(-2, 0, 2), Vector3i(-3, 0, 2), Vector3i(-4, 0, 2), Vector3i(-5, 0, 2), Vector3i(-5, 0, 3), Vector3i(-5, 0, 4), Vector3i(-5, 0, 5), Vector3i(-6, 0, 5), Vector3i(-7, 0, 5), Vector3i(-8, 0, 5), Vector3i(-8, 0, 4), Vector3i(-8, 0, 3), Vector3i(-8, 0, 2), Vector3i(-8, 0, 1), Vector3i(-8, 0, 0), Vector3i(-7, 0, 0), Vector3i(-6, 0, 0), Vector3i(-5, 0, 0), Vector3i(-4, 0, 0), Vector3i(-4, 0, -1), Vector3i(-4, 0, -2), Vector3i(-4, 0, -3), Vector3i(-5, 0, -3), Vector3i(-6, 0, -3), Vector3i(-7, 0, -3), Vector3i(-8, 0, -3), Vector3i(-8, 0, -4), Vector3i(-8, 0, -5)])
 checkpoint_route_indices = Array[int]([0, 11, 22, 33, 44, 55])
-spawn_slots = Array[ExtResource("6_v8uut")]([SubResource("Resource_yxug3"), SubResource("Resource_r0kuf"), SubResource("Resource_gty6m"), SubResource("Resource_nidrp"), SubResource("Resource_2pjw7"), SubResource("Resource_0a2a8"), SubResource("Resource_a6egt"), SubResource("Resource_1a30t")])
+spawn_slots = Array[ExtResource("6_v8uut")]([SubResource("Resource_7rqqc"), SubResource("Resource_qx5fa"), SubResource("Resource_f6qin"), SubResource("Resource_fcika"), SubResource("Resource_4epmq"), SubResource("Resource_fq6h6"), SubResource("Resource_pngnl"), SubResource("Resource_dqyjg")])
 road_width_override = 16.0
