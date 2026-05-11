@@ -29,6 +29,15 @@ const NON_KITCHEN_TRACK_IDS := [
 	"playroom",
 	"sandbox",
 ]
+const GENERATED_VERTICAL_TRACK_IDS := [
+	"attic",
+	"bedroom",
+	"garden",
+	"glam_closet",
+	"outdoor_playground",
+	"playroom",
+	"sandbox",
+]
 const INDOOR_NON_KITCHEN_TRACK_IDS := [
 	"attic",
 	"bedroom",
@@ -45,6 +54,11 @@ const EXPECTED_STAGE_SKY_PRESETS := {
 	"playroom": "party_evening",
 	"sandbox": "hot_afternoon",
 }
+const RAMP_TILE_ITEMS := [
+	TrackGridRoadBuilder.TILE_RAMP,
+	TrackGridRoadBuilder.TILE_RAMP_LONG,
+	TrackGridRoadBuilder.TILE_RAMP_LONG_CURVED,
+]
 const LEGACY_GAMEPLAY_NODES := [
 	"TrackAuthoringPreview",
 	"RoutePoints",
@@ -190,6 +204,8 @@ func _assert_gridmap_contract(definition: TrackDefinition, track_id: String) -> 
 	assert_true((definition.road_grid_layout.get("ordered_route_cells", []) as Array).size() >= 12, "%s should export ordered GridMap route cells" % track_id)
 	if NON_KITCHEN_TRACK_IDS.has(track_id):
 		_assert_closed_grid_route_visual_contract(definition, track_id)
+	if GENERATED_VERTICAL_TRACK_IDS.has(track_id):
+		_assert_generated_route_has_verticality(definition, track_id)
 	var expected_spawn_slots := 0 if track_id == "kitchen" else 8
 	assert_equal((definition.road_grid_layout.get("spawn_slots", []) as Array).size(), expected_spawn_slots, "%s should export expected RoadGridMap spawn slots" % track_id)
 	if NON_KITCHEN_TRACK_IDS.has(track_id):
@@ -293,16 +309,40 @@ func _assert_closed_grid_route_visual_contract(definition: TrackDefinition, trac
 	for i in range(cells.size()):
 		var current := _vector3i_from_value(cells[i])
 		var next := _vector3i_from_value(cells[(i + 1) % cells.size()])
-		assert_equal(_manhattan_distance(current, next), 1, "%s route cell %d should connect to the next cell, including the lap seam" % [track_id, i])
+		assert_true(_route_step_is_continuous(current, next), "%s route cell %d should connect horizontally to the next cell, including ramp transitions and the lap seam" % [track_id, i])
 		var previous := _vector3i_from_value(cells[(i - 1 + cells.size()) % cells.size()])
 		var item := int(cell_items.get(current, -1))
-		var is_corner := ((previous - current) + (next - current)) != Vector3i.ZERO
+		var vertical_delta := next.y - current.y
+		if vertical_delta != 0:
+			assert_true(_is_ramp_item(item), "%s route index %d changes elevation but does not use a ramp tile" % [track_id, i])
+			continue
+		var is_corner := _is_horizontal_corner(previous, current, next)
+		assert_true(not _is_ramp_item(item), "%s ramp tile at route index %d should have an outgoing elevation change" % [track_id, i])
 		if item == TrackGridRoadBuilder.TILE_START:
 			assert_true(not is_corner, "%s start tile must sit on a straight route cell so the lap seam renders closed" % track_id)
 		elif item == TrackGridRoadBuilder.TILE_STRAIGHT:
 			assert_true(not is_corner, "%s straight tile at route index %d should not hide a corner seam" % [track_id, i])
 		elif item == TrackGridRoadBuilder.TILE_CORNER:
 			assert_true(is_corner, "%s corner tile at route index %d should be a real route corner" % [track_id, i])
+
+func _assert_generated_route_has_verticality(definition: TrackDefinition, track_id: String) -> void:
+	var cells := (definition.road_grid_layout.get("ordered_route_cells", []) as Array)
+	var cell_items := _grid_cell_items(definition.road_grid_layout)
+	var y_levels := {}
+	var ramp_tile_count := 0
+	for value in cells:
+		var cell := _vector3i_from_value(value)
+		y_levels[cell.y] = true
+		if _is_ramp_item(int(cell_items.get(cell, -1))):
+			ramp_tile_count += 1
+	assert_true(y_levels.size() >= 2, "%s concept includes playable elevation, so ordered_route_cells should use multiple Y levels" % track_id)
+	assert_true(ramp_tile_count >= 2, "%s should include at least one climb and one descent ramp tile" % track_id)
+	var min_y := 999999.0
+	var max_y := -999999.0
+	for point in definition.route_points:
+		min_y = minf(min_y, point.y)
+		max_y = maxf(max_y, point.y)
+	assert_true(max_y - min_y >= 3.9, "%s route_points should expose a visible one-cell elevation change" % track_id)
 
 func _grid_cell_items(layout: Dictionary) -> Dictionary:
 	var out := {}
@@ -325,9 +365,19 @@ func _vector3i_from_value(value: Variant) -> Vector3i:
 			return Vector3i(roundi(float(array[0])), roundi(float(array[1])), roundi(float(array[2])))
 	return Vector3i.ZERO
 
-func _manhattan_distance(a: Vector3i, b: Vector3i) -> int:
+func _route_step_is_continuous(a: Vector3i, b: Vector3i) -> bool:
 	var delta := b - a
-	return absi(delta.x) + absi(delta.y) + absi(delta.z)
+	var horizontal_distance := absi(delta.x) + absi(delta.z)
+	return horizontal_distance == 1 and absi(delta.y) <= 1
+
+func _is_horizontal_corner(previous: Vector3i, current: Vector3i, next: Vector3i) -> bool:
+	return _horizontal_delta(current, previous) + _horizontal_delta(current, next) != Vector3i.ZERO
+
+func _horizontal_delta(from_cell: Vector3i, to_cell: Vector3i) -> Vector3i:
+	return Vector3i(to_cell.x - from_cell.x, 0, to_cell.z - from_cell.z)
+
+func _is_ramp_item(item: int) -> bool:
+	return RAMP_TILE_ITEMS.has(item)
 
 func _spawn_grid_starts_at_route_origin(spawns: Array[Vector4], route_points: Array[Vector3]) -> bool:
 	if spawns.size() < 2 or route_points.size() < 2:

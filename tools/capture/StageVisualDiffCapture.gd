@@ -161,6 +161,8 @@ func _camera_views(track_id: String, definition) -> Array[Dictionary]:
 
 	for ratio in [0.25, 0.5, 0.75]:
 		views.append(_route_sample_view(route, ratio))
+	for view in _elevation_transition_views(route):
+		views.append(view)
 	for view in _hero_landmark_views(definition, center):
 		views.append(view)
 	for view in _interaction_views(definition):
@@ -186,6 +188,30 @@ func _route_sample_view(route: Array[Vector3], ratio: float) -> Dictionary:
 		"fov": 62.0,
 		"note": "Representative playable route sample at %d percent." % int(ratio * 100.0),
 	}
+
+func _elevation_transition_views(route: Array[Vector3]) -> Array[Dictionary]:
+	var views: Array[Dictionary] = []
+	if route.size() < 2:
+		return views
+	for i in range(route.size()):
+		var current := route[i]
+		var next := route[(i + 1) % route.size()]
+		if absf(next.y - current.y) < 0.1:
+			continue
+		var forward := _flat_forward(next - current)
+		var right := Vector3(forward.z, 0.0, -forward.x).normalized()
+		var mid := current.lerp(next, 0.5)
+		var direction_label := "climb" if next.y > current.y else "descent"
+		views.append({
+			"id": "elevation_%s_%d" % [direction_label, views.size()],
+			"position": mid + right * 64.0 + Vector3.UP * 24.0,
+			"target": mid + Vector3.UP * 5.0,
+			"fov": 50.0,
+			"note": "Side-profile check for %s transition, ramp orientation, landing clearance, and containment." % direction_label,
+		})
+		if views.size() >= 3:
+			break
+	return views
 
 func _hero_landmark_views(definition, route_center: Vector3) -> Array[Dictionary]:
 	var views: Array[Dictionary] = []

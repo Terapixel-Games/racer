@@ -451,89 +451,121 @@ func _route_cells_for_course(course: Dictionary) -> Array[Vector3i]:
 	match str(course["id"]):
 		"attic":
 			return _route_from_points([
-				Vector2i(-8, -5), Vector2i(1, -5), Vector2i(1, -2), Vector2i(-5, -2),
-				Vector2i(-5, 1), Vector2i(-8, 1), Vector2i(-8, 5), Vector2i(-2, 5),
-				Vector2i(-2, 3), Vector2i(4, 3), Vector2i(4, 6), Vector2i(8, 6),
-				Vector2i(8, 0), Vector2i(5, 0), Vector2i(5, -4), Vector2i(8, -4),
-				Vector2i(8, -6), Vector2i(-8, -6),
+				Vector3i(-8, 0, -5), Vector3i(1, 0, -5), Vector3i(1, 1, -2), Vector3i(-5, 1, -2),
+				Vector3i(-5, 1, 1), Vector3i(-8, 0, 1), Vector3i(-8, 0, 5), Vector3i(-2, 0, 5),
+				Vector3i(-2, 0, 3), Vector3i(4, 0, 3), Vector3i(4, 0, 6), Vector3i(8, 0, 6),
+				Vector3i(8, 0, 0), Vector3i(5, 0, 0), Vector3i(5, 0, -4), Vector3i(8, 0, -4),
+				Vector3i(8, 0, -6), Vector3i(-8, 0, -6),
 			])
 		"bedroom":
 			return _route_from_points([
-				Vector2i(-7, -4), Vector2i(5, -4), Vector2i(5, -1), Vector2i(1, -1),
-				Vector2i(1, 1), Vector2i(7, 1), Vector2i(7, 5), Vector2i(2, 5),
-				Vector2i(2, 3), Vector2i(-4, 3), Vector2i(-4, 5), Vector2i(-8, 5),
-				Vector2i(-8, 0), Vector2i(-5, 0), Vector2i(-5, -3), Vector2i(-8, -3),
-				Vector2i(-8, -4),
+				Vector3i(-7, 0, -4), Vector3i(5, 0, -4), Vector3i(5, 1, -1), Vector3i(1, 1, -1),
+				Vector3i(1, 0, 1), Vector3i(7, 0, 1), Vector3i(7, 0, 5), Vector3i(2, 0, 5),
+				Vector3i(2, 0, 3), Vector3i(-4, 0, 3), Vector3i(-4, 0, 5), Vector3i(-8, 0, 5),
+				Vector3i(-8, 0, 0), Vector3i(-5, 0, 0), Vector3i(-5, 0, -3), Vector3i(-8, 0, -3),
+				Vector3i(-8, 0, -4),
 			])
 		"glam_closet":
 			return _route_from_points([
-				Vector2i(-8, -5), Vector2i(7, -5), Vector2i(7, -2), Vector2i(3, -2),
-				Vector2i(3, 1), Vector2i(8, 1), Vector2i(8, 5), Vector2i(1, 5),
-				Vector2i(1, 2), Vector2i(-4, 2), Vector2i(-4, 5), Vector2i(-8, 5),
-				Vector2i(-8, 1), Vector2i(-5, 1), Vector2i(-5, -2), Vector2i(-8, -2),
-				Vector2i(-8, -4),
+				Vector3i(-8, 0, -5), Vector3i(7, 0, -5), Vector3i(7, 1, -2), Vector3i(3, 1, -2),
+				Vector3i(3, 1, 1), Vector3i(8, 0, 1), Vector3i(8, 0, 5), Vector3i(1, 0, 5),
+				Vector3i(1, 0, 2), Vector3i(-4, 0, 2), Vector3i(-4, 0, 5), Vector3i(-8, 0, 5),
+				Vector3i(-8, 0, 1), Vector3i(-5, 0, 1), Vector3i(-5, 0, -2), Vector3i(-8, 0, -2),
+				Vector3i(-8, 0, -4),
 			])
 		"playroom":
 			return _route_from_points([
-				Vector2i(-8, -5), Vector2i(5, -5), Vector2i(5, -3), Vector2i(8, -3),
-				Vector2i(8, 2), Vector2i(4, 2), Vector2i(4, 5), Vector2i(-1, 5),
-				Vector2i(-1, 2), Vector2i(-5, 2), Vector2i(-5, 5), Vector2i(-8, 5),
-				Vector2i(-8, 0), Vector2i(-4, 0), Vector2i(-4, -3), Vector2i(-8, -3),
-				Vector2i(-8, -4),
+				Vector3i(-8, 0, -5), Vector3i(5, 0, -5), Vector3i(5, 1, -3), Vector3i(8, 1, -3),
+				Vector3i(8, 0, 2), Vector3i(4, 0, 2), Vector3i(4, 0, 5), Vector3i(-1, 0, 5),
+				Vector3i(-1, 0, 2), Vector3i(-5, 0, 2), Vector3i(-5, 0, 5), Vector3i(-8, 0, 5),
+				Vector3i(-8, 0, 0), Vector3i(-4, 0, 0), Vector3i(-4, 0, -3), Vector3i(-8, 0, -3),
+				Vector3i(-8, 0, -4),
 			])
 		"outdoor_playground":
 			return _route_from_points([
-				Vector2i(10, 7), Vector2i(0, 7), Vector2i(0, 4), Vector2i(-6, 4),
-				Vector2i(-6, 6), Vector2i(-10, 6), Vector2i(-10, 0), Vector2i(-7, 0),
-				Vector2i(-7, -4), Vector2i(-9, -4), Vector2i(-9, -6), Vector2i(3, -6),
-				Vector2i(3, -3), Vector2i(8, -3), Vector2i(8, 1), Vector2i(4, 1),
-				Vector2i(4, 4), Vector2i(10, 4),
+				Vector3i(10, 0, 7), Vector3i(0, 0, 7), Vector3i(0, 1, 4), Vector3i(-6, 1, 4),
+				Vector3i(-6, 0, 6), Vector3i(-10, 0, 6), Vector3i(-10, 0, 0), Vector3i(-7, 0, 0),
+				Vector3i(-7, 0, -4), Vector3i(-9, 0, -4), Vector3i(-9, 0, -6), Vector3i(3, 0, -6),
+				Vector3i(3, 0, -3), Vector3i(8, 0, -3), Vector3i(8, 0, 1), Vector3i(4, 0, 1),
+				Vector3i(4, 0, 4), Vector3i(10, 0, 4),
 			])
 		"garden":
 			return _route_from_points([
-				Vector2i(-8, -5), Vector2i(-2, -5), Vector2i(-2, -3), Vector2i(3, -3),
-				Vector2i(3, -6), Vector2i(8, -6), Vector2i(8, -1), Vector2i(5, -1),
-				Vector2i(5, 3), Vector2i(9, 3), Vector2i(9, 6), Vector2i(1, 6),
-				Vector2i(1, 3), Vector2i(-4, 3), Vector2i(-4, 5), Vector2i(-9, 5),
-				Vector2i(-9, 0), Vector2i(-6, 0), Vector2i(-6, -4), Vector2i(-8, -4),
+				Vector3i(-8, 0, -5), Vector3i(-2, 0, -5), Vector3i(-2, 1, -3), Vector3i(3, 1, -3),
+				Vector3i(3, 0, -6), Vector3i(8, 0, -6), Vector3i(8, 0, -1), Vector3i(5, 0, -1),
+				Vector3i(5, 0, 3), Vector3i(9, 0, 3), Vector3i(9, 0, 6), Vector3i(1, 0, 6),
+				Vector3i(1, 0, 3), Vector3i(-4, 0, 3), Vector3i(-4, 0, 5), Vector3i(-9, 0, 5),
+				Vector3i(-9, 0, 0), Vector3i(-6, 0, 0), Vector3i(-6, 0, -4), Vector3i(-8, 0, -4),
 			])
 		"sandbox":
 			return _route_from_points([
-				Vector2i(-9, -6), Vector2i(6, -6), Vector2i(6, -3), Vector2i(9, -3),
-				Vector2i(9, 2), Vector2i(3, 2), Vector2i(3, 5), Vector2i(7, 5),
-				Vector2i(7, 7), Vector2i(-2, 7), Vector2i(-2, 4), Vector2i(-7, 4),
-				Vector2i(-7, 6), Vector2i(-10, 6), Vector2i(-10, 0), Vector2i(-6, 0),
-				Vector2i(-6, -4), Vector2i(-9, -4), Vector2i(-9, -5),
+				Vector3i(-9, 0, -6), Vector3i(6, 0, -6), Vector3i(6, 1, -3), Vector3i(9, 1, -3),
+				Vector3i(9, 0, 2), Vector3i(3, 0, 2), Vector3i(3, 0, 5), Vector3i(7, 0, 5),
+				Vector3i(7, 0, 7), Vector3i(-2, 0, 7), Vector3i(-2, 0, 4), Vector3i(-7, 0, 4),
+				Vector3i(-7, 0, 6), Vector3i(-10, 0, 6), Vector3i(-10, 0, 0), Vector3i(-6, 0, 0),
+				Vector3i(-6, 0, -4), Vector3i(-9, 0, -4), Vector3i(-9, 0, -5),
 			])
 	return _rect_loop_cells(int(course["half_x"]), int(course["half_z"]))
 
-func _route_from_points(points: Array[Vector2i]) -> Array[Vector3i]:
+func _route_from_points(points: Array) -> Array[Vector3i]:
 	var cells: Array[Vector3i] = []
 	if points.is_empty():
 		return cells
-	var cursor := points[0]
-	cells.append(Vector3i(cursor.x, 0, cursor.y))
+	var cursor := _route_waypoint_from_value(points[0])
+	cells.append(cursor)
 	for i in range(points.size()):
-		var target := points[(i + 1) % points.size()]
+		var target := _route_waypoint_from_value(points[(i + 1) % points.size()])
+		var guard := 0
 		while cursor != target:
+			guard += 1
+			if guard > 1000:
+				push_error("Route generation exceeded guard while walking from %s to %s" % [cursor, target])
+				break
+			var moved_horizontal := false
 			if cursor.x != target.x:
 				cursor.x += 1 if target.x > cursor.x else -1
+				moved_horizontal = true
+			elif cursor.z != target.z:
+				cursor.z += 1 if target.z > cursor.z else -1
+				moved_horizontal = true
 			elif cursor.y != target.y:
+				push_error("Route generation requires horizontal movement for vertical transition from %s to %s" % [cursor, target])
+				break
+			if moved_horizontal and cursor.y != target.y:
 				cursor.y += 1 if target.y > cursor.y else -1
-			var cell := Vector3i(cursor.x, 0, cursor.y)
+			var cell := cursor
 			if i == points.size() - 1 and cell == cells[0]:
 				break
 			cells.append(cell)
 	return _rotate_route_start_to_straight(cells)
 
+func _route_waypoint_from_value(value: Variant) -> Vector3i:
+	if value is Vector3i:
+		return value as Vector3i
+	if value is Vector2i:
+		var point2i := value as Vector2i
+		return Vector3i(point2i.x, 0, point2i.y)
+	if value is Vector3:
+		var point3 := value as Vector3
+		return Vector3i(roundi(point3.x), roundi(point3.y), roundi(point3.z))
+	if value is Vector2:
+		var point2 := value as Vector2
+		return Vector3i(roundi(point2.x), 0, roundi(point2.y))
+	if value is Array:
+		var array := value as Array
+		if array.size() >= 3:
+			return Vector3i(roundi(float(array[0])), roundi(float(array[1])), roundi(float(array[2])))
+	if value is Dictionary:
+		var data := value as Dictionary
+		return Vector3i(int(data.get("x", 0)), int(data.get("y", 0)), int(data.get("z", 0)))
+	push_error("Unsupported route waypoint value: %s" % [value])
+	return Vector3i.ZERO
+
 func _rotate_route_start_to_straight(cells: Array[Vector3i]) -> Array[Vector3i]:
 	if cells.size() < 4:
 		return cells
 	for i in range(cells.size()):
-		var current := cells[i]
-		var prev := cells[(i - 1 + cells.size()) % cells.size()]
-		var next := cells[(i + 1) % cells.size()]
-		if (prev - current) + (next - current) != Vector3i.ZERO:
+		if not _is_flat_straight_route_cell(cells, i):
 			continue
 		var rotated: Array[Vector3i] = []
 		for offset in range(cells.size()):
@@ -541,14 +573,24 @@ func _rotate_route_start_to_straight(cells: Array[Vector3i]) -> Array[Vector3i]:
 		return rotated
 	return cells
 
+func _is_flat_straight_route_cell(cells: Array[Vector3i], index: int) -> bool:
+	var current := cells[index]
+	var prev := cells[(index - 1 + cells.size()) % cells.size()]
+	var next := cells[(index + 1) % cells.size()]
+	if prev.y != current.y or next.y != current.y:
+		return false
+	return _horizontal_delta(current, prev) + _horizontal_delta(current, next) == Vector3i.ZERO
+
 func _tile_item_for_route_cell(route_cells: Array[Vector3i], index: int) -> int:
-	if index == 0:
-		return TrackGridRoadBuilder.TILE_START
 	var current := route_cells[index]
 	var prev := route_cells[(index - 1 + route_cells.size()) % route_cells.size()]
 	var next := route_cells[(index + 1) % route_cells.size()]
-	var prev_dir := prev - current
-	var next_dir := next - current
+	if next.y != current.y:
+		return TrackGridRoadBuilder.TILE_RAMP
+	if index == 0:
+		return TrackGridRoadBuilder.TILE_START
+	var prev_dir := _horizontal_delta(current, prev)
+	var next_dir := _horizontal_delta(current, next)
 	if prev_dir + next_dir == Vector3i.ZERO:
 		return TrackGridRoadBuilder.TILE_STRAIGHT
 	return TrackGridRoadBuilder.TILE_CORNER
@@ -557,8 +599,12 @@ func _basis_for_route_cell(route_cells: Array[Vector3i], index: int, item: int) 
 	var current := route_cells[index]
 	var prev := route_cells[(index - 1 + route_cells.size()) % route_cells.size()]
 	var next := route_cells[(index + 1) % route_cells.size()]
-	var prev_dir := prev - current
-	var next_dir := next - current
+	var prev_dir := _horizontal_delta(current, prev)
+	var next_dir := _horizontal_delta(current, next)
+	if item == TrackGridRoadBuilder.TILE_RAMP:
+		if next.y > current.y:
+			return _basis_for_forward(Vector3i(-next_dir.x, 0, -next_dir.z))
+		return _basis_for_forward(next_dir)
 	if item != TrackGridRoadBuilder.TILE_CORNER and item != TrackGridRoadBuilder.TILE_CORNER_LARGE:
 		return _basis_for_forward(next_dir)
 	if _right_of(prev_dir) == next_dir:
@@ -570,7 +616,12 @@ func _basis_for_route_cell(route_cells: Array[Vector3i], index: int, item: int) 
 func _right_of(direction: Vector3i) -> Vector3i:
 	return Vector3i(direction.z, 0, -direction.x)
 
+func _horizontal_delta(from_cell: Vector3i, to_cell: Vector3i) -> Vector3i:
+	return Vector3i(to_cell.x - from_cell.x, 0, to_cell.z - from_cell.z)
+
 func _basis_for_forward(direction: Vector3i) -> Basis:
+	if direction.x == 0 and direction.z == 0:
+		return Basis.IDENTITY
 	var yaw := atan2(float(direction.x), float(direction.z))
 	return Basis(Vector3.UP, yaw)
 
@@ -844,7 +895,7 @@ func _stage_interactions_for_course(course: Dictionary) -> Array[Dictionary]:
 	match str(course["id"]):
 		"attic":
 			return [
-				_interaction_at_cell(course, "PrankTriggerZone", "trigger", Vector3i(1, 0, -2), Vector3(18, 5, 18), {
+				_interaction_at_cell(course, "PrankTriggerZone", "trigger", Vector3i(1, 1, -2), Vector3(18, 5, 18), {
 					"target_node_path": "Dressing/StageProps/PrankJackInTheBox",
 					"target_method": "trigger",
 					"duration": 0.2,
@@ -866,7 +917,7 @@ func _stage_interactions_for_course(course: Dictionary) -> Array[Dictionary]:
 					"cooldown": 1.0,
 					"note": "Warm lamp beacon rewards the safe line.",
 				}),
-				_interaction_at_cell(course, "RugGripSlowZone", "slow", Vector3i(5, 0, -1), Vector3(48, 5, 24), {
+				_interaction_at_cell(course, "RugGripSlowZone", "slow", Vector3i(5, 1, -1), Vector3(48, 5, 24), {
 					"speed_multiplier": 0.82,
 					"duration": 0.3,
 					"note": "Soft rug adds tactile drag without becoming a grind.",
@@ -874,7 +925,7 @@ func _stage_interactions_for_course(course: Dictionary) -> Array[Dictionary]:
 			]
 		"glam_closet":
 			return [
-				_interaction_at_cell(course, "PerfumeMistZone", "slow", Vector3i(3, 0, 1), Vector3(42, 5, 28), {
+				_interaction_at_cell(course, "PerfumeMistZone", "slow", Vector3i(3, 1, 1), Vector3(42, 5, 28), {
 					"speed_multiplier": 0.76,
 					"duration": 0.35,
 					"note": "Readable perfume cloud pressure before the mirror turn.",
@@ -888,7 +939,7 @@ func _stage_interactions_for_course(course: Dictionary) -> Array[Dictionary]:
 			]
 		"playroom":
 			return [
-				_interaction_at_cell(course, "ChampionRampBurst", "boost", Vector3i(5, 0, -3), Vector3(22, 5, 20), {
+				_interaction_at_cell(course, "ChampionRampBurst", "boost", Vector3i(5, 1, -3), Vector3(22, 5, 20), {
 					"boost_force": 92.0,
 					"duration": 0.75,
 					"cooldown": 1.0,
@@ -903,7 +954,7 @@ func _stage_interactions_for_course(course: Dictionary) -> Array[Dictionary]:
 			]
 		"outdoor_playground":
 			return [
-				_interaction_at_cell(course, "SlideDropBoostZone", "boost", Vector3i(3, 0, -3), Vector3(22, 5, 22), {
+				_interaction_at_cell(course, "SlideDropBoostZone", "boost", Vector3i(0, 1, 4), Vector3(22, 5, 22), {
 					"boost_force": 105.0,
 					"duration": 0.85,
 					"cooldown": 1.0,
@@ -922,7 +973,7 @@ func _stage_interactions_for_course(course: Dictionary) -> Array[Dictionary]:
 					"duration": 0.35,
 					"note": "Water crossing adds a short slick beat.",
 				}),
-				_interaction_at_cell(course, "StoneBridgeExitBoost", "boost", Vector3i(-2, 0, -3), Vector3(18, 5, 18), {
+				_interaction_at_cell(course, "StoneBridgeExitBoost", "boost", Vector3i(-2, 1, -3), Vector3(18, 5, 18), {
 					"boost_force": 74.0,
 					"duration": 0.55,
 					"cooldown": 1.0,
@@ -931,7 +982,7 @@ func _stage_interactions_for_course(course: Dictionary) -> Array[Dictionary]:
 			]
 		"sandbox":
 			return [
-				_interaction_at_cell(course, "ShovelRampBoostZone", "boost", Vector3i(6, 0, -3), Vector3(22, 5, 22), {
+				_interaction_at_cell(course, "ShovelRampBoostZone", "boost", Vector3i(6, 1, -3), Vector3(22, 5, 22), {
 					"boost_force": 96.0,
 					"duration": 0.8,
 					"cooldown": 1.0,
