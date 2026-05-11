@@ -311,12 +311,15 @@ func _assert_closed_grid_route_visual_contract(definition: TrackDefinition, trac
 		var next := _vector3i_from_value(cells[(i + 1) % cells.size()])
 		assert_true(_route_step_is_continuous(current, next), "%s route cell %d should connect horizontally to the next cell, including ramp transitions and the lap seam" % [track_id, i])
 		var previous := _vector3i_from_value(cells[(i - 1 + cells.size()) % cells.size()])
+		var after_next := _vector3i_from_value(cells[(i + 2) % cells.size()])
 		var item := int(cell_items.get(current, -1))
 		var vertical_delta := next.y - current.y
 		if vertical_delta != 0:
 			assert_true(_is_ramp_item(item), "%s route index %d changes elevation but does not use a ramp tile" % [track_id, i])
 			assert_true(not _is_horizontal_corner(previous, current, next), "%s route index %d changes elevation on a corner cell; straight ramp tiles must not replace turn geometry" % [track_id, i])
 			assert_equal(previous.y, current.y, "%s route index %d ramp should have a flat same-level approach before changing elevation" % [track_id, i])
+			assert_equal(after_next.y, next.y, "%s route index %d ramp should have a flat same-level landing before the next elevation or turn" % [track_id, i])
+			assert_equal(_horizontal_delta(current, next), _horizontal_delta(next, after_next), "%s route index %d ramp should land into a straight same-direction cell before turning" % [track_id, i])
 			continue
 		var is_corner := _is_horizontal_corner(previous, current, next)
 		assert_true(not _is_ramp_item(item), "%s ramp tile at route index %d should have an outgoing elevation change" % [track_id, i])

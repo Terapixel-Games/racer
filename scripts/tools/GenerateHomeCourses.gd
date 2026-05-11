@@ -460,7 +460,7 @@ func _route_cells_for_course(course: Dictionary) -> Array[Vector3i]:
 		"bedroom":
 			return _route_from_points([
 				Vector3i(-7, 0, -4), Vector3i(5, 0, -4), Vector3i(5, 1, -1), Vector3i(1, 1, -1),
-				Vector3i(1, 0, 1), Vector3i(7, 0, 1), Vector3i(7, 0, 5), Vector3i(2, 0, 5),
+				Vector3i(1, 0, 2), Vector3i(7, 0, 2), Vector3i(7, 0, 5), Vector3i(2, 0, 5),
 				Vector3i(2, 0, 3), Vector3i(-4, 0, 3), Vector3i(-4, 0, 5), Vector3i(-8, 0, 5),
 				Vector3i(-8, 0, 0), Vector3i(-5, 0, 0), Vector3i(-5, 0, -3), Vector3i(-8, 0, -3),
 				Vector3i(-8, 0, -4),
@@ -475,7 +475,7 @@ func _route_cells_for_course(course: Dictionary) -> Array[Vector3i]:
 			])
 		"playroom":
 			return _route_from_points([
-				Vector3i(-8, 0, -5), Vector3i(5, 0, -5), Vector3i(5, 1, -3), Vector3i(8, 1, -3),
+				Vector3i(-8, 0, -5), Vector3i(5, 0, -5), Vector3i(5, 1, -2), Vector3i(8, 1, -2),
 				Vector3i(8, 0, 2), Vector3i(4, 0, 2), Vector3i(4, 0, 5), Vector3i(-1, 0, 5),
 				Vector3i(-1, 0, 2), Vector3i(-5, 0, 2), Vector3i(-5, 0, 5), Vector3i(-8, 0, 5),
 				Vector3i(-8, 0, 0), Vector3i(-4, 0, 0), Vector3i(-4, 0, -3), Vector3i(-8, 0, -3),
@@ -484,14 +484,14 @@ func _route_cells_for_course(course: Dictionary) -> Array[Vector3i]:
 		"outdoor_playground":
 			return _route_from_points([
 				Vector3i(10, 0, 7), Vector3i(0, 0, 7), Vector3i(0, 1, 4), Vector3i(-6, 1, 4),
-				Vector3i(-6, 0, 6), Vector3i(-10, 0, 6), Vector3i(-10, 0, 0), Vector3i(-7, 0, 0),
+				Vector3i(-6, 0, 7), Vector3i(-10, 0, 7), Vector3i(-10, 0, 0), Vector3i(-7, 0, 0),
 				Vector3i(-7, 0, -4), Vector3i(-9, 0, -4), Vector3i(-9, 0, -6), Vector3i(3, 0, -6),
 				Vector3i(3, 0, -3), Vector3i(8, 0, -3), Vector3i(8, 0, 1), Vector3i(4, 0, 1),
 				Vector3i(4, 0, 4), Vector3i(10, 0, 4),
 			])
 		"garden":
 			return _route_from_points([
-				Vector3i(-8, 0, -5), Vector3i(-2, 0, -5), Vector3i(-2, 1, -3), Vector3i(3, 1, -3),
+				Vector3i(-8, 0, -5), Vector3i(-2, 0, -5), Vector3i(-2, 1, -2), Vector3i(3, 1, -2),
 				Vector3i(3, 0, -6), Vector3i(8, 0, -6), Vector3i(8, 0, -1), Vector3i(5, 0, -1),
 				Vector3i(5, 0, 3), Vector3i(9, 0, 3), Vector3i(9, 0, 6), Vector3i(1, 0, 6),
 				Vector3i(1, 0, 3), Vector3i(-4, 0, 3), Vector3i(-4, 0, 5), Vector3i(-9, 0, 5),
@@ -517,6 +517,7 @@ func _route_from_points(points: Array) -> Array[Vector3i]:
 		var target := _route_waypoint_from_value(points[(i + 1) % points.size()])
 		var guard := 0
 		var step_index := 0
+		var entering_corner := _segment_enters_corner(points, i, cursor, target)
 		while cursor != target:
 			guard += 1
 			if guard > 1000:
@@ -535,7 +536,8 @@ func _route_from_points(points: Array) -> Array[Vector3i]:
 			elif cursor.y != target.y:
 				push_error("Route generation requires horizontal movement for vertical transition from %s to %s" % [cursor, target])
 				break
-			if moved_horizontal and cursor.y != target.y and not (step_index == 0 and leaving_corner):
+			var landing_on_corner := cursor == target and entering_corner
+			if moved_horizontal and cursor.y != target.y and not (step_index == 0 and leaving_corner) and not landing_on_corner:
 				cursor.y += 1 if target.y > cursor.y else -1
 			var cell := cursor
 			if i == points.size() - 1 and cell == cells[0]:
@@ -597,6 +599,12 @@ func _previous_route_direction(cells: Array[Vector3i]) -> Vector3i:
 	if cells.size() < 2:
 		return Vector3i.ZERO
 	return _horizontal_delta(cells[cells.size() - 2], cells[cells.size() - 1])
+
+func _segment_enters_corner(points: Array, index: int, segment_start: Vector3i, target: Vector3i) -> bool:
+	var direction := _horizontal_direction_to_target(segment_start, target)
+	var next_target := _route_waypoint_from_value(points[(index + 2) % points.size()])
+	var next_direction := _horizontal_direction_to_target(target, next_target)
+	return direction != Vector3i.ZERO and next_direction != Vector3i.ZERO and direction != next_direction
 
 func _tile_item_for_route_cell(route_cells: Array[Vector3i], index: int) -> int:
 	var current := route_cells[index]
