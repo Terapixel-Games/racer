@@ -63,9 +63,9 @@ func test_kitchen_local_race_starts_player_supported_by_track() -> void:
 		return
 
 	var spawns: Array = race.get("spawn_points")
-	assert_true(spawns.size() >= 8, "Kitchen local race should use the full RoadGridMap start grid")
+	assert_true(spawns.size() >= 8, "Kitchen local race should use the full fallback RoadGridMap start grid")
 	var expected_spawn := spawns[0] as Transform3D
-	assert_true(Vector2(car.global_position.x, car.global_position.z).distance_to(Vector2(expected_spawn.origin.x, expected_spawn.origin.z)) <= 4.0, "Player kart should start at the authored Kitchen grid spawn")
+	assert_true(Vector2(car.global_position.x, car.global_position.z).distance_to(Vector2(expected_spawn.origin.x, expected_spawn.origin.z)) <= 4.0, "Player kart should start at the generated Kitchen route-start spawn")
 	assert_true(car.global_position.y >= expected_spawn.origin.y + START_SUPPORT_MIN_Y_OFFSET, "Player kart should not fall through the Kitchen track at spawn")
 	assert_true(car.global_position.y <= expected_spawn.origin.y + START_SUPPORT_MAX_Y_OFFSET, "Player kart should not float far above the Kitchen track at spawn")
 	assert_true(_ray_hits_any_track_collision(race, car.global_position + Vector3.UP * 4.0, 12.0), "Player spawn should have enabled track collision beneath it")

@@ -139,6 +139,7 @@
 	"lap_gate_checkpoint_index": 0,
 	"laps": 3,
 	"out_of_bounds_y": -36.0,
+	"preview_dressing_scene_path": "",
 	"progress_rule_id": "route_lap_progress",
 	"rail_texture_path": "res://assets/gameplay/materials/metal/toy_metal_albedo.png",
 	"rail_texture_uv_scale": 0.5,
@@ -5500,64 +5501,7 @@
 			0.0
 		],
 		"road_width": 16.0,
-		"spawn_slots": [
-			{
-				"forward_offset": 6.0,
-				"lateral_offset": -2.75,
-				"route_index": 111,
-				"y_offset": 0.8,
-				"yaw_offset_degrees": 0.0
-			},
-			{
-				"forward_offset": 6.0,
-				"lateral_offset": 2.75,
-				"route_index": 111,
-				"y_offset": 0.8,
-				"yaw_offset_degrees": 0.0
-			},
-			{
-				"forward_offset": 12.0,
-				"lateral_offset": -2.75,
-				"route_index": 111,
-				"y_offset": 0.8,
-				"yaw_offset_degrees": 0.0
-			},
-			{
-				"forward_offset": 12.0,
-				"lateral_offset": 2.75,
-				"route_index": 111,
-				"y_offset": 0.8,
-				"yaw_offset_degrees": 0.0
-			},
-			{
-				"forward_offset": 18.0,
-				"lateral_offset": -2.75,
-				"route_index": 111,
-				"y_offset": 0.8,
-				"yaw_offset_degrees": 0.0
-			},
-			{
-				"forward_offset": 18.0,
-				"lateral_offset": 2.75,
-				"route_index": 111,
-				"y_offset": 0.8,
-				"yaw_offset_degrees": 0.0
-			},
-			{
-				"forward_offset": 24.0,
-				"lateral_offset": -2.75,
-				"route_index": 111,
-				"y_offset": 0.8,
-				"yaw_offset_degrees": 0.0
-			},
-			{
-				"forward_offset": 24.0,
-				"lateral_offset": 2.75,
-				"route_index": 111,
-				"y_offset": 0.8,
-				"yaw_offset_degrees": 0.0
-			}
-		]
+		"spawn_slots": []
 	},
 	"road_segment_layout": [],
 	"road_segment_material_style": "toy_plastic",
@@ -6231,67 +6175,67 @@
 	"spawn_points": [
 		{
 			"position": [
-				-194.0,
-				26.5749988555908,
-				-165.25
+				-137.5,
+				-17.4250011444092,
+				40.0
 			],
-			"yaw_degrees": 90.0
+			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				-194.0,
-				26.5749988555908,
-				-170.75
+				-134.5,
+				-17.4250011444092,
+				40.0
 			],
-			"yaw_degrees": 90.0
+			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				-188.0,
-				26.5749988555908,
-				-165.25
+				-137.5,
+				-17.4250011444092,
+				45.0
 			],
-			"yaw_degrees": 90.0
+			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				-188.0,
-				26.5749988555908,
-				-170.75
+				-134.5,
+				-17.4250011444092,
+				45.0
 			],
-			"yaw_degrees": 90.0
+			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				-182.0,
-				26.5749988555908,
-				-165.25
+				-137.5,
+				-17.4250011444092,
+				50.0
 			],
-			"yaw_degrees": 90.0
+			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				-182.0,
-				26.5749988555908,
-				-170.75
+				-134.5,
+				-17.4250011444092,
+				50.0
 			],
-			"yaw_degrees": 90.0
+			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				-176.0,
-				26.5749988555908,
-				-165.25
+				-137.5,
+				-17.4250011444092,
+				55.0
 			],
-			"yaw_degrees": 90.0
+			"yaw_degrees": 0.0
 		},
 		{
 			"position": [
-				-176.0,
-				26.5749988555908,
-				-170.75
+				-134.5,
+				-17.4250011444092,
+				55.0
 			],
-			"yaw_degrees": 90.0
+			"yaw_degrees": 0.0
 		}
 	],
 	"stage_props": [

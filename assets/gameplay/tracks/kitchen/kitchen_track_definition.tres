@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="TrackDefinition" load_steps=2 format=3 uid="uid://blk173st3rfyg"]
+[gd_resource type="Resource" script_class="TrackDefinition" load_steps=2 format=3]
 
-[ext_resource type="Script" uid="uid://dndccbxb7m7sa" path="res://scripts/track/TrackDefinition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/track/TrackDefinition.gd" id="1"]
 
 [resource]
 script = ExtResource("1")
@@ -811,55 +811,7 @@ road_grid_layout = {
 "ordered_route_points": Array[Vector3]([Vector3(-136, -18.225, 40), Vector3(-136, -18.225, 56), Vector3(-136, -18.225, 72), Vector3(-136, -18.225, 88), Vector3(-136, -18.225, 104), Vector3(-136, -18.225, 136), Vector3(-104, -18.225, 136), Vector3(-88, -18.225, 136), Vector3(-72, -18.225, 136), Vector3(-56, -18.225, 136), Vector3(-56, -18.225, 120), Vector3(-56, -14.225, 104), Vector3(-40, -14.225, 104), Vector3(-24, -10.225, 104), Vector3(-24, -10.225, 120), Vector3(-24, -6.2250004, 136), Vector3(-40, -6.2250004, 136), Vector3(-56, -2.2250004, 136), Vector3(-56, -2.2250004, 120), Vector3(-56, 1.7749996, 104), Vector3(-40, 1.7749996, 104), Vector3(-24, 5.7749996, 104), Vector3(-24, 5.7749996, 120), Vector3(-24, 9.775, 136), Vector3(-40, 9.775, 136), Vector3(-56, 13.775, 136), Vector3(-56, 13.775, 120), Vector3(-56, 17.775, 104), Vector3(-40, 17.775, 104), Vector3(-24, 21.775, 104), Vector3(-24, 21.775, 88), Vector3(-24, 25.775, 72), Vector3(-24, 25.775, 56), Vector3(-24, 25.775, 40), Vector3(-24, 25.775, 24), Vector3(-24, 25.775, 8), Vector3(-24, 25.775, -8), Vector3(-8, 25.775, -8), Vector3(8, 25.775, -8), Vector3(24, 25.775, -8), Vector3(40, 25.775, -8), Vector3(56, 25.775, -8), Vector3(72, 25.775, -8), Vector3(88, 25.775, -8), Vector3(104, 25.775, -8), Vector3(120, 25.775, -8), Vector3(120, 25.775, 8), Vector3(120, 25.775, 24), Vector3(120, 25.775, 40), Vector3(120, 25.775, 56), Vector3(120, 25.775, 72), Vector3(120, 25.775, 88), Vector3(120, 25.775, 104), Vector3(120, 25.775, 120), Vector3(120, 25.775, 136), Vector3(120, 25.775, 152), Vector3(120, 25.775, 168), Vector3(104, 25.775, 168), Vector3(88, 25.775, 168), Vector3(72, 25.775, 168), Vector3(56, 25.775, 168), Vector3(40, 29.775, 168), Vector3(24, 29.775, 168), Vector3(8, 29.775, 168), Vector3(-8, 29.775, 168), Vector3(-24, 29.775, 168), Vector3(-40, 25.775, 168), Vector3(-56, 25.775, 168), Vector3(-56, 25.775, 152), Vector3(-56, 25.775, 136), Vector3(-72, 25.775, 136), Vector3(-88, 25.775, 136), Vector3(-88, 25.775, 152), Vector3(-104, 25.775, 152), Vector3(-120, 25.775, 152), Vector3(-136, 25.775, 152), Vector3(-152, 25.775, 152), Vector3(-168, 25.775, 152), Vector3(-184, 25.775, 152), Vector3(-200, 25.775, 152), Vector3(-216, 25.775, 152), Vector3(-232, 25.775, 152), Vector3(-232, 25.775, 136), Vector3(-232, 25.775, 120), Vector3(-232, 25.775, 104), Vector3(-232, 25.775, 88), Vector3(-232, 25.775, 72), Vector3(-232, 25.775, 56), Vector3(-232, 25.775, 40), Vector3(-248, 25.775, 40), Vector3(-264, 25.775, 40), Vector3(-264, 25.775, 24), Vector3(-264, 25.775, 8), Vector3(-264, 25.775, -8), Vector3(-248, 25.775, -8), Vector3(-232, 25.775, -8), Vector3(-232, 25.775, -24), Vector3(-232, 25.775, -40), Vector3(-232, 25.775, -56), Vector3(-232, 25.775, -72), Vector3(-232, 25.775, -88), Vector3(-248, 25.775, -88), Vector3(-264, 25.775, -88), Vector3(-264, 25.775, -104), Vector3(-264, 25.775, -120), Vector3(-264, 25.775, -136), Vector3(-264, 25.775, -152), Vector3(-264, 25.775, -168), Vector3(-248, 25.775, -168), Vector3(-232, 25.775, -168), Vector3(-216, 25.775, -168), Vector3(-200, 25.775, -168), Vector3(-184, 25.775, -168), Vector3(-168, 25.775, -168), Vector3(-152, 25.775, -168), Vector3(-136, 25.775, -168), Vector3(-136, 25.775, -152), Vector3(-136, 25.775, -136), Vector3(-136, 21.775, -120), Vector3(-136, 17.775, -104), Vector3(-136, 13.775, -88), Vector3(-136, 9.775, -72), Vector3(-136, 5.7749996, -56), Vector3(-136, 1.7749996, -40), Vector3(-136, -2.2250004, -24), Vector3(-136, -6.2250004, -8), Vector3(-136, -10.225, 8), Vector3(-136, -14.225, 24)]),
 "origin": Vector3(0, 27.775, 0),
 "road_width": 16.0,
-"spawn_slots": Array[Dictionary]([{
-"forward_offset": 6.0,
-"lateral_offset": -2.75,
-"route_index": 111,
-"y_offset": 0.8,
-"yaw_offset_degrees": 0.0
-}, {
-"forward_offset": 6.0,
-"lateral_offset": 2.75,
-"route_index": 111,
-"y_offset": 0.8,
-"yaw_offset_degrees": 0.0
-}, {
-"forward_offset": 12.0,
-"lateral_offset": -2.75,
-"route_index": 111,
-"y_offset": 0.8,
-"yaw_offset_degrees": 0.0
-}, {
-"forward_offset": 12.0,
-"lateral_offset": 2.75,
-"route_index": 111,
-"y_offset": 0.8,
-"yaw_offset_degrees": 0.0
-}, {
-"forward_offset": 18.0,
-"lateral_offset": -2.75,
-"route_index": 111,
-"y_offset": 0.8,
-"yaw_offset_degrees": 0.0
-}, {
-"forward_offset": 18.0,
-"lateral_offset": 2.75,
-"route_index": 111,
-"y_offset": 0.8,
-"yaw_offset_degrees": 0.0
-}, {
-"forward_offset": 24.0,
-"lateral_offset": -2.75,
-"route_index": 111,
-"y_offset": 0.8,
-"yaw_offset_degrees": 0.0
-}, {
-"forward_offset": 24.0,
-"lateral_offset": 2.75,
-"route_index": 111,
-"y_offset": 0.8,
-"yaw_offset_degrees": 0.0
-}])
+"spawn_slots": Array[Dictionary]([])
 }
 rail_texture_path = "res://assets/gameplay/materials/metal/toy_metal_albedo.png"
 rail_texture_uv_scale = 0.5
@@ -873,7 +825,7 @@ sky_haze_amount = 0.1
 sky_light_energy = 2.45
 route_points = Array[Vector3]([Vector3(-136, -18.225, 40), Vector3(-136, -18.225, 56), Vector3(-136, -18.225, 72), Vector3(-136, -18.225, 88), Vector3(-136, -18.225, 104), Vector3(-136, -18.225, 136), Vector3(-104, -18.225, 136), Vector3(-88, -18.225, 136), Vector3(-72, -18.225, 136), Vector3(-56, -18.225, 136), Vector3(-56, -18.225, 120), Vector3(-56, -14.225, 104), Vector3(-40, -14.225, 104), Vector3(-24, -10.225, 104), Vector3(-24, -10.225, 120), Vector3(-24, -6.2250004, 136), Vector3(-40, -6.2250004, 136), Vector3(-56, -2.2250004, 136), Vector3(-56, -2.2250004, 120), Vector3(-56, 1.7749996, 104), Vector3(-40, 1.7749996, 104), Vector3(-24, 5.7749996, 104), Vector3(-24, 5.7749996, 120), Vector3(-24, 9.775, 136), Vector3(-40, 9.775, 136), Vector3(-56, 13.775, 136), Vector3(-56, 13.775, 120), Vector3(-56, 17.775, 104), Vector3(-40, 17.775, 104), Vector3(-24, 21.775, 104), Vector3(-24, 21.775, 88), Vector3(-24, 25.775, 72), Vector3(-24, 25.775, 56), Vector3(-24, 25.775, 40), Vector3(-24, 25.775, 24), Vector3(-24, 25.775, 8), Vector3(-24, 25.775, -8), Vector3(-8, 25.775, -8), Vector3(8, 25.775, -8), Vector3(24, 25.775, -8), Vector3(40, 25.775, -8), Vector3(56, 25.775, -8), Vector3(72, 25.775, -8), Vector3(88, 25.775, -8), Vector3(104, 25.775, -8), Vector3(120, 25.775, -8), Vector3(120, 25.775, 8), Vector3(120, 25.775, 24), Vector3(120, 25.775, 40), Vector3(120, 25.775, 56), Vector3(120, 25.775, 72), Vector3(120, 25.775, 88), Vector3(120, 25.775, 104), Vector3(120, 25.775, 120), Vector3(120, 25.775, 136), Vector3(120, 25.775, 152), Vector3(120, 25.775, 168), Vector3(104, 25.775, 168), Vector3(88, 25.775, 168), Vector3(72, 25.775, 168), Vector3(56, 25.775, 168), Vector3(40, 29.775, 168), Vector3(24, 29.775, 168), Vector3(8, 29.775, 168), Vector3(-8, 29.775, 168), Vector3(-24, 29.775, 168), Vector3(-40, 25.775, 168), Vector3(-56, 25.775, 168), Vector3(-56, 25.775, 152), Vector3(-56, 25.775, 136), Vector3(-72, 25.775, 136), Vector3(-88, 25.775, 136), Vector3(-88, 25.775, 152), Vector3(-104, 25.775, 152), Vector3(-120, 25.775, 152), Vector3(-136, 25.775, 152), Vector3(-152, 25.775, 152), Vector3(-168, 25.775, 152), Vector3(-184, 25.775, 152), Vector3(-200, 25.775, 152), Vector3(-216, 25.775, 152), Vector3(-232, 25.775, 152), Vector3(-232, 25.775, 136), Vector3(-232, 25.775, 120), Vector3(-232, 25.775, 104), Vector3(-232, 25.775, 88), Vector3(-232, 25.775, 72), Vector3(-232, 25.775, 56), Vector3(-232, 25.775, 40), Vector3(-248, 25.775, 40), Vector3(-264, 25.775, 40), Vector3(-264, 25.775, 24), Vector3(-264, 25.775, 8), Vector3(-264, 25.775, -8), Vector3(-248, 25.775, -8), Vector3(-232, 25.775, -8), Vector3(-232, 25.775, -24), Vector3(-232, 25.775, -40), Vector3(-232, 25.775, -56), Vector3(-232, 25.775, -72), Vector3(-232, 25.775, -88), Vector3(-248, 25.775, -88), Vector3(-264, 25.775, -88), Vector3(-264, 25.775, -104), Vector3(-264, 25.775, -120), Vector3(-264, 25.775, -136), Vector3(-264, 25.775, -152), Vector3(-264, 25.775, -168), Vector3(-248, 25.775, -168), Vector3(-232, 25.775, -168), Vector3(-216, 25.775, -168), Vector3(-200, 25.775, -168), Vector3(-184, 25.775, -168), Vector3(-168, 25.775, -168), Vector3(-152, 25.775, -168), Vector3(-136, 25.775, -168), Vector3(-136, 25.775, -152), Vector3(-136, 25.775, -136), Vector3(-136, 21.775, -120), Vector3(-136, 17.775, -104), Vector3(-136, 13.775, -88), Vector3(-136, 9.775, -72), Vector3(-136, 5.7749996, -56), Vector3(-136, 1.7749996, -40), Vector3(-136, -2.2250004, -24), Vector3(-136, -6.2250004, -8), Vector3(-136, -10.225, 8), Vector3(-136, -14.225, 24)])
 checkpoint_indices = Array[int]([0, 21, 42, 64, 85, 106])
-spawn_points = Array[Vector4]([Vector4(-194, 26.574999, -165.25, 90), Vector4(-194, 26.574999, -170.75, 90), Vector4(-188, 26.574999, -165.25, 90), Vector4(-188, 26.574999, -170.75, 90), Vector4(-182, 26.574999, -165.25, 90), Vector4(-182, 26.574999, -170.75, 90), Vector4(-176, 26.574999, -165.25, 90), Vector4(-176, 26.574999, -170.75, 90)])
+spawn_points = Array[Vector4]([Vector4(-137.5, -17.425001, 40, 0), Vector4(-134.5, -17.425001, 40, 0), Vector4(-137.5, -17.425001, 45, 0), Vector4(-134.5, -17.425001, 45, 0), Vector4(-137.5, -17.425001, 50, 0), Vector4(-134.5, -17.425001, 50, 0), Vector4(-137.5, -17.425001, 55, 0), Vector4(-134.5, -17.425001, 55, 0)])
 stage_props = Array[Dictionary]([{
 "asset_path": "",
 "audio_material_id": "stone",

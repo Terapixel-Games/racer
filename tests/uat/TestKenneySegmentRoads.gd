@@ -16,7 +16,7 @@ func test_all_tracks_build_gridmap_roads_with_generated_collision() -> void:
 		assert_true(not definition.road_grid_layout.is_empty(), "%s should use GridMap data" % track_id)
 		assert_true(definition.road_segment_layout.is_empty(), "%s should not use legacy segment layout data" % track_id)
 		assert_true(_authoring_scene_has_road_grid(definition), "%s authoring scene should include RoadGridMap" % track_id)
-		assert_true(_authoring_scene_has_grid_spawns(definition), "%s authoring scene should keep spawn slots on RoadGridMap" % track_id)
+		assert_true(_authoring_scene_has_expected_grid_spawns(definition, track_id), "%s authoring scene should use the expected RoadGridMap spawn contract" % track_id)
 		assert_true(_authoring_scene_has_no_legacy_gameplay_nodes(definition), "%s authoring scene should not keep legacy gameplay marker groups" % track_id)
 		var built := TrackRuntimeBuilder.build(definition)
 		var track_node := built.get("node", null) as Node3D
@@ -67,7 +67,7 @@ func _authoring_scene_has_road_grid(definition) -> bool:
 	root.queue_free()
 	return found
 
-func _authoring_scene_has_grid_spawns(definition) -> bool:
+func _authoring_scene_has_expected_grid_spawns(definition, track_id: String) -> bool:
 	var path := str(definition.dressing_scene_path)
 	if path.is_empty():
 		return false
@@ -78,7 +78,8 @@ func _authoring_scene_has_grid_spawns(definition) -> bool:
 	if root == null:
 		return false
 	var grid := _find_authoring_node(root, "RoadGridMap")
-	var found := grid != null and ((grid.get("spawn_slots") as Array).size() >= 8)
+	var expected_count := 0 if track_id == "kitchen" else 8
+	var found := grid != null and ((grid.get("spawn_slots") as Array).size() == expected_count)
 	root.queue_free()
 	return found
 

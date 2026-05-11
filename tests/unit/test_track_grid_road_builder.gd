@@ -136,8 +136,11 @@ func test_grid_layout_falls_back_when_spawn_slots_are_incomplete() -> void:
 		"spawn_slots": _spawn_slot_layouts(7) + [{"route_index": 99}],
 	}
 	var spawns := TrackGridRoadBuilder.spawn_points_from_grid_layout(layout, route)
-	assert_equal(spawns.size(), 8, "Incomplete RoadGridMap spawn slots should fall back to the generated 4x2 start grid")
+	assert_equal(spawns.size(), 8, "Incomplete RoadGridMap spawn slots should fall back to the generated 2-column by 4-row start grid")
 	assert_equal(spawns[0], Vector4(0.0, 0.8, 1.5, 90.0), "Fallback grid should keep the existing route-start placement")
+	assert_equal(Vector2(spawns[0].x, spawns[0].z).lerp(Vector2(spawns[1].x, spawns[1].z), 0.5), Vector2(route[0].x, route[0].z), "First fallback row should be centered on route_points[0]")
+	assert_equal(Vector2(spawns[2].x, spawns[2].z).lerp(Vector2(spawns[3].x, spawns[3].z), 0.5), Vector2(5.0, 0.0), "Second fallback row should advance along the route")
+	assert_equal(Vector2(spawns[6].x, spawns[6].z).lerp(Vector2(spawns[7].x, spawns[7].z), 0.5), Vector2(15.0, 0.0), "Fourth fallback row should preserve row ordering")
 
 func test_grid_layout_builds_complete_race_layout() -> void:
 	var layout := {

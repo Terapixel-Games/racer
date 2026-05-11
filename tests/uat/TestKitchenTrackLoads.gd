@@ -73,7 +73,8 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoadGridMap") != null, "Editable room scene should expose the authored RoadGridMap")
 	var road_grid_map := instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoadGridMap")
 	assert_true(road_grid_map is Node3D and not (road_grid_map as Node3D).visible, "Runtime dressing should hide the authoring RoadGridMap so only generated GridRoad is visible")
-	assert_equal((road_grid_map.get("spawn_slots") as Array).size() if road_grid_map != null else 0, 8, "Editable room RoadGridMap should author the full spawn grid")
+	assert_equal((road_grid_map.get("spawn_slots") as Array).size() if road_grid_map != null else -1, 0, "Editable room RoadGridMap should rely on route-start fallback spawns")
+	assert_equal((definition.road_grid_layout.get("spawn_slots", []) as Array).size(), 0, "Kitchen definition should export no authored spawn slots")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/TrackAuthoringPreview") == null, "Kitchen editable room should not keep the legacy TrackAuthoringPreview")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoadSegments") == null, "Kitchen editable room should not keep legacy road segment authoring")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Track/Checkpoints") == null, "Kitchen editable room should not keep legacy checkpoint markers")
@@ -106,8 +107,9 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/KitchenSink") == null, "Kitchen runtime should not add hardcoded sink dressing")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/SpoonHazard") == null, "Kitchen runtime should not add hardcoded food hazards")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/FridgeTopSpeedStrip") == null, "Kitchen runtime should not add hardcoded route stripes")
-	assert_true(_runtime_spawn_matches_socket(instance, "BuiltTrack/SpawnPoints/Start01", definition.spawn_points[0]), "Generated Start01 should match the first RoadGridMap-authored slot")
-	assert_true(_runtime_spawn_matches_socket(instance, "BuiltTrack/SpawnPoints/Start08", definition.spawn_points[7]), "Generated Start08 should match the eighth RoadGridMap-authored slot")
+	assert_true(_runtime_spawn_matches_socket(instance, "BuiltTrack/SpawnPoints/Start01", definition.spawn_points[0]), "Generated Start01 should match the first fallback route-start spawn")
+	assert_true(_runtime_spawn_matches_socket(instance, "BuiltTrack/SpawnPoints/Start08", definition.spawn_points[7]), "Generated Start08 should match the eighth fallback route-start spawn")
+	assert_true(_spawn_grid_starts_at_route_origin(definition.spawn_points, definition.route_points), "Kitchen fallback start grid should align to ordered_route_cells[0]")
 	instance.queue_free()
 
 func test_kitchen_road_gridmap_route_metadata_matches_painted_track() -> void:
@@ -466,6 +468,26 @@ func _runtime_spawn_matches_socket(root: Node, path: NodePath, socket: Vector4) 
 	var expected_yaw := socket.w
 	var actual_yaw := rad_to_deg(node.transform.basis.get_euler().y)
 	return node.transform.origin.distance_to(expected) <= 0.01 and absf(angle_difference(deg_to_rad(actual_yaw), deg_to_rad(expected_yaw))) <= 0.01
+
+func _spawn_grid_starts_at_route_origin(spawns: Array[Vector4], route_points: Array[Vector3]) -> bool:
+	if spawns.size() < 8 or route_points.size() < 2:
+		return false
+	var start := route_points[0]
+	var first_left := Vector3(spawns[0].x, start.y, spawns[0].z)
+	var first_right := Vector3(spawns[1].x, start.y, spawns[1].z)
+	var midpoint := first_left.lerp(first_right, 0.5)
+	if midpoint.distance_to(Vector3(start.x, start.y, start.z)) > 0.01:
+		return false
+	var forward := route_points[1] - route_points[0]
+	forward.y = 0.0
+	if forward.length_squared() <= 0.001:
+		return false
+	forward = forward.normalized()
+	var yaw := rad_to_deg(atan2(forward.x, forward.z))
+	for spawn in spawns:
+		if absf(angle_difference(deg_to_rad(spawn.w), deg_to_rad(yaw))) > 0.01:
+			return false
+	return true
 
 func _grid_road_covers_route(grid: GridMap, definition) -> bool:
 	if grid == null or definition == null:

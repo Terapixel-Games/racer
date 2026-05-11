@@ -129,7 +129,8 @@ func test_authoring_scenes_use_road_gridmap_without_legacy_gameplay_nodes() -> v
 		var grid := _find_authoring_road_grid(root)
 		assert_true(grid != null and grid.has_method("to_grid_road_layout"), "%s should author gameplay through RoadGridMap" % track_id)
 		if grid != null:
-			assert_equal((grid.get("spawn_slots") as Array).size(), 8, "%s RoadGridMap should author exactly 8 spawn slots" % track_id)
+			var expected_spawn_slots := 0 if track_id == "kitchen" else 8
+			assert_equal((grid.get("spawn_slots") as Array).size(), expected_spawn_slots, "%s RoadGridMap should author expected spawn slots" % track_id)
 			if BACKYARD_TRACK_IDS.has(track_id):
 				backyard_positions[track_id] = (grid as Node3D).position
 		var dressing := root.get_node_or_null("Dressing")
@@ -164,7 +165,8 @@ func _assert_gridmap_contract(definition: TrackDefinition, track_id: String) -> 
 	assert_equal(definition.hazard_sockets.size(), 0, "%s MVP metadata should not export hazard sockets" % track_id)
 	assert_equal(str(definition.road_grid_layout.get("mesh_library_path", "")), "res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres", "%s should use the shared Kenney GridMap mesh library" % track_id)
 	assert_true((definition.road_grid_layout.get("ordered_route_cells", []) as Array).size() >= 12, "%s should export ordered GridMap route cells" % track_id)
-	assert_equal((definition.road_grid_layout.get("spawn_slots", []) as Array).size(), 8, "%s should export RoadGridMap spawn slots" % track_id)
+	var expected_spawn_slots := 0 if track_id == "kitchen" else 8
+	assert_equal((definition.road_grid_layout.get("spawn_slots", []) as Array).size(), expected_spawn_slots, "%s should export expected RoadGridMap spawn slots" % track_id)
 	assert_equal(definition.sky_preset_id, str(EXPECTED_STAGE_SKY_PRESETS[track_id]), "%s should use its stage sky preset" % track_id)
 	var expected_ground_shader := OUTDOOR_GRASS_SHADER if track_id == "outdoor_playground" else ""
 	assert_equal(definition.ground_shader_path, expected_ground_shader, "%s should use the expected ground shader" % track_id)

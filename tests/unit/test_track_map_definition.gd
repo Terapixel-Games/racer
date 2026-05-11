@@ -37,10 +37,11 @@ func test_kitchen_race_mode_uses_grid_without_segments() -> void:
 	assert_true(not definition.road_grid_layout.is_empty(), "Kitchen race mode should collect RoadGridMap data")
 	assert_true(definition.road_segment_layout.is_empty(), "Kitchen race mode should not co-enable segment road layout")
 	assert_true(definition.route_points.size() >= (definition.road_grid_layout.get("ordered_route_cells", []) as Array).size(), "Kitchen route should be generated from grid cells")
-	assert_equal((definition.road_grid_layout.get("spawn_slots", []) as Array).size(), 8, "Kitchen RoadGridMap should author the full start grid")
+	assert_equal((definition.road_grid_layout.get("spawn_slots", []) as Array).size(), 0, "Kitchen RoadGridMap should use fallback start spawns from route start")
 	assert_equal(definition.spawn_points.size(), 8, "Kitchen grid race layout should expose eight runtime spawn points")
-	var authored_spawns := TrackGridRoadBuilder.spawn_points_from_grid_layout(definition.road_grid_layout, definition.route_points)
-	assert_equal(definition.spawn_points, authored_spawns, "Kitchen runtime spawn data should come from RoadGridMap spawn slots")
+	var fallback_spawns := TrackGridRoadBuilder.start_grid_from_grid_layout(definition.road_grid_layout, definition.route_points)
+	assert_equal(definition.spawn_points, fallback_spawns, "Kitchen runtime spawn data should come from the generated route-start grid")
+	assert_true(_spawn_grid_starts_at_route_origin(definition.spawn_points, definition.route_points), "Kitchen start grid should align to route_points[0] from ordered_route_cells[0]")
 
 func test_non_grid_source_request_does_not_synthesize_gridmap() -> void:
 	var definition := TrackDefinition.new()
@@ -127,3 +128,23 @@ func _enabled_collision_objects(node: Node) -> int:
 	for child in node.get_children():
 		count += _enabled_collision_objects(child)
 	return count
+
+func _spawn_grid_starts_at_route_origin(spawns: Array[Vector4], route_points: Array[Vector3]) -> bool:
+	if spawns.size() < 8 or route_points.size() < 2:
+		return false
+	var start := route_points[0]
+	var first_left := Vector3(spawns[0].x, start.y, spawns[0].z)
+	var first_right := Vector3(spawns[1].x, start.y, spawns[1].z)
+	var midpoint := first_left.lerp(first_right, 0.5)
+	if midpoint.distance_to(Vector3(start.x, start.y, start.z)) > 0.01:
+		return false
+	var forward := route_points[1] - route_points[0]
+	forward.y = 0.0
+	if forward.length_squared() <= 0.001:
+		return false
+	forward = forward.normalized()
+	var yaw := rad_to_deg(atan2(forward.x, forward.z))
+	for spawn in spawns:
+		if absf(angle_difference(deg_to_rad(spawn.w), deg_to_rad(yaw))) > 0.01:
+			return false
+	return true
