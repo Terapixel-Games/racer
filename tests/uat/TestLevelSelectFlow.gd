@@ -31,6 +31,21 @@ func test_level_select_loads_default_track_and_writes_local_single_metadata() ->
 	assert_equal(NakamaService.get_meta_value("race_mode", ""), "local_single", "Level select should configure local single-race mode")
 	screen.queue_free()
 
+func test_level_select_shows_rotating_selected_racer_preview() -> void:
+	NakamaService.set_meta_value("selected_racer_id", "Dash")
+	var screen := LevelSelectScene.instantiate()
+	scene_tree.root.add_child(screen)
+	assert_equal(str(screen.call("get_selected_racer_id_for_test")), "Dash", "Level select should inherit the selected racer from character select")
+	assert_true(bool(screen.call("racer_preview_has_model_for_test")), "Level select should render the selected racer model over the track preview")
+	var start_rotation := float(screen.call("racer_preview_rotation_for_test"))
+	screen.call("_process", 0.5)
+	var next_rotation := float(screen.call("racer_preview_rotation_for_test"))
+	assert_true(absf(angle_difference(start_rotation, next_rotation)) > 0.01, "Racer preview should rotate for visual inspection")
+	assert_true(bool(screen.call("select_racer_for_test", "Rexx")), "Level select should allow racer changes from the preview test bed")
+	assert_equal(str(screen.call("get_selected_racer_id_for_test")), "Rexx", "Level select should update the selected racer")
+	assert_equal(NakamaService.get_meta_value("selected_racer_id", ""), "Rexx", "Level select should persist racer selection metadata for race launch")
+	screen.queue_free()
+
 func test_level_select_uses_optimized_backyard_preview_dressing() -> void:
 	var screen := LevelSelectScene.instantiate()
 	scene_tree.root.add_child(screen)
