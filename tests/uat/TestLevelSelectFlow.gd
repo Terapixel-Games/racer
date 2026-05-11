@@ -147,6 +147,26 @@ func test_local_single_countdown_uses_large_overlay() -> void:
 	assert_equal(countdown.text, "GO!", "Countdown should show GO before enabling racing")
 	race.queue_free()
 
+func test_local_single_lods_refresh_from_active_camera_during_intro() -> void:
+	var race: Node = _make_local_race()
+	race.call("_set_local_phase", "grid_entry")
+	var camera := race.find_child("FollowCamera", true, false) as Camera3D
+	assert_true(camera != null, "Race scene should expose the active follow camera")
+	var ai_ids: Array = race.get("ai_racer_ids")
+	assert_true(not ai_ids.is_empty(), "Local race should spawn CPU racers for LOD coverage")
+	var cars: Dictionary = race.get("cars")
+	var first_ai := str(ai_ids[0])
+	var car: CarController = cars.get(first_ai, null)
+	assert_true(car != null, "CPU racer should have a car for LOD coverage")
+	if camera != null and car != null:
+		race.call("_update_route_camera", 0.0)
+		car.global_transform = Transform3D(Basis.IDENTITY, camera.global_transform.origin + Vector3(0.0, 0.0, 8.0))
+		assert_true(car.set_racer_visual_lod(car.get_racer_visual_id(), RacerRoster.RACER_MODEL_LOD2), "Test setup should force a stale far LOD")
+		assert_equal(car.get_racer_visual_lod(), RacerRoster.RACER_MODEL_LOD2, "Test setup should start with a stale far LOD")
+		race.call("_physics_process_local_single", 0.016)
+		assert_equal(car.get_racer_visual_lod(), RacerRoster.RACER_MODEL_LOD0, "Intro camera modes should refresh racer LODs from the active camera, not leave player-relative or stale LODs")
+	race.queue_free()
+
 func test_local_out_of_bounds_returns_to_last_road_center() -> void:
 	var race: Node = _make_local_race()
 	var last_center := Transform3D(Basis(Vector3.UP, deg_to_rad(30.0)), Vector3(24.0, 4.35, -18.0))
