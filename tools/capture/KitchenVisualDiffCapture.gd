@@ -142,6 +142,13 @@ func _camera_views(route: Array[Vector3]) -> Array[Dictionary]:
 			"note": "Right cabinet corner top plane and side-face alignment.",
 		},
 		{
+			"id": "counter_wall_closure",
+			"position": Vector3(112.0, 50.0, 110.0),
+			"target": Vector3(48.0, 24.0, 172.0),
+			"fov": 42.0,
+			"note": "Counter/cabinet run must visually close to the back and right wall planes.",
+		},
+		{
 			"id": "washer_water_containment",
 			"position": Vector3(-12.0, 20.0, 116.0),
 			"target": Vector3(31.0, 5.0, 148.0),

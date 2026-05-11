@@ -104,6 +104,26 @@ The third wall review showed that exact butt-jointed modular wall boxes can stil
 
 The capture harness now includes `right_wall_panel_joints` and `back_wall_window_joints` so these modular wall seams are checked directly instead of inferred from broad route screenshots.
 
+## Cabinet Wall Closure Correction
+
+The fourth review showed that cabinet/counter runs still exposed bright negative space where imported fixture backs did not reach the back/right wall planes. This was not a wall-panel seam; it was a fixture-to-envelope closure miss. The correction adds intentional wall-trim colored deck fillers and backsplash strips so the cabinet/counter run reads as built into the room instead of floating in front of the walls.
+
+| Node | Old transform value | New transform value | Delta | Reason |
+| --- | --- | --- | --- | --- |
+| `Track/RoomShell/CabinetWallClosures/BackCounterDeckFiller` | Missing | `origin=(-36.25, 12.35, 94.9)`, `scale=(217.5, 0.35, 4.4)` | Added | Cover the horizontal top gap between the back counter/appliance run and the back wall face. |
+| `Track/RoomShell/CabinetWallClosures/BackCounterBacksplash` | Missing | `origin=(-36.25, 14.1, 96.7)`, `scale=(217.5, 3, 0.55)` | Added | Add an intentional vertical backsplash against the back wall so model backs do not reveal a slot. |
+| `Track/RoomShell/CabinetWallClosures/RightCounterDeckFiller` | Missing | `origin=(71.2, 12.35, 59)`, `scale=(1.7, 0.35, 76)` | Added | Cover the horizontal top gap between the right cabinet/corner run and the right wall face. |
+| `Track/RoomShell/CabinetWallClosures/RightCounterBacksplash` | Missing | `origin=(71.4, 14.1, 59)`, `scale=(0.55, 3, 76)` | Added | Add an intentional vertical backsplash against the right wall so side gaps read as closed trim. |
+
+The capture harness now includes `counter_wall_closure`, a direct view of the back/right cabinet-to-wall closure that previously needed manual screenshot review to catch.
+
+Measured closure checks:
+
+- `BackCounterDeckFiller` spans global `z=185.4..194.2`, closing fixture backs to the back-wall interior face at about `z=194`.
+- `BackCounterBacksplash` spans global `z=192.85..193.95` and `y=22.2..34.2`, reading as a vertical backsplash below the window band.
+- `RightCounterDeckFiller` spans global `x=140.7..144.1`, closing the right cabinet/corner run to the right-wall interior face at about `x=143.8`.
+- `RightCounterBacksplash` spans global `x=142.25..143.35` and `y=22.2..34.2`, reading as a right-wall side backsplash instead of an exposed slot.
+
 ## Craft Replay Read
 
 From route and fixture cameras, this pass should make repeat laps feel less like driving through a broken prototype: the doorway no longer exposes a frame gap, the wall/ceiling edges read as intentional enclosure, the washer effect is contained, the stove/hood/fridge area is no longer visibly interpenetrating, and the right counter run has a shared top plane. The Kitchen is still intentionally MVP-chaotic; deeper Sir Clink theming and richer replay hooks remain a later creative pass.
