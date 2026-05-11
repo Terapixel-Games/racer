@@ -15,8 +15,8 @@ func test_all_tracks_build_gridmap_roads_with_generated_collision() -> void:
 		assert_equal(definition.track_source_id, "road_grid_map", "%s should resolve as a GridMap track" % track_id)
 		assert_true(not definition.road_grid_layout.is_empty(), "%s should use GridMap data" % track_id)
 		assert_true(definition.road_segment_layout.is_empty(), "%s should not use legacy segment layout data" % track_id)
-		assert_true(_authoring_scene_has_road_grid(definition), "%s authoring scene should include RoadGridMap" % track_id)
-		assert_true(_authoring_scene_has_expected_grid_spawns(definition, track_id), "%s authoring scene should use the expected RoadGridMap spawn contract" % track_id)
+		assert_true(_authoring_scene_has_shared_home_yard_contract(definition), "%s authoring scene should use the shared home-yard scene contract" % track_id)
+		assert_equal((definition.road_grid_layout.get("spawn_slots", []) as Array).size(), 8, "%s definition should export the expected RoadGridMap spawn contract" % track_id)
 		assert_true(_authoring_scene_has_no_legacy_gameplay_nodes(definition), "%s authoring scene should not keep legacy gameplay marker groups" % track_id)
 		var built := TrackRuntimeBuilder.build(definition)
 		var track_node := built.get("node", null) as Node3D
@@ -47,17 +47,14 @@ func test_all_tracks_build_gridmap_roads_with_generated_collision() -> void:
 		assert_true(track_node.get_node_or_null("SpawnPoints/Start08") != null, "%s should generate the full eight-car grid" % track_id)
 		assert_true(track_node.get_node_or_null("ItemSockets") == null, "%s should not include item sockets in MVP" % track_id)
 		assert_true(track_node.get_node_or_null("HazardSockets") == null, "%s should not include hazard sockets in MVP" % track_id)
-		if track_id == "kitchen":
-			assert_true(track_node.get_node_or_null("StageInteractions") == null, "Kitchen should not build stage interactions in this pass")
-		else:
-			var interactions := track_node.get_node_or_null("StageInteractions")
-			assert_true(interactions != null and interactions.get_child_count() >= 2, "%s should build runtime stage interaction zones" % track_id)
+		var interactions := track_node.get_node_or_null("StageInteractions")
+		assert_true(interactions != null and interactions.get_child_count() >= 2, "%s should build runtime stage interaction zones" % track_id)
 		assert_true(track_node.get_node_or_null("Rails") == null, "%s should not build rail containment in the GridMap MVP" % track_id)
 		var boundary_walls := track_node.get_node_or_null("BoundaryWalls")
 		assert_true(boundary_walls != null and _enabled_collision_objects(boundary_walls) > 0, "%s should include collidable invisible boundary walls" % track_id)
 		track_node.queue_free()
 
-func _authoring_scene_has_road_grid(definition) -> bool:
+func _authoring_scene_has_shared_home_yard_contract(definition) -> bool:
 	var path := str(definition.dressing_scene_path)
 	if path.is_empty():
 		return false
@@ -67,24 +64,13 @@ func _authoring_scene_has_road_grid(definition) -> bool:
 	var root := packed.instantiate()
 	if root == null:
 		return false
-	var grid := _find_authoring_node(root, "RoadGridMap")
-	var found := grid != null and grid.has_method("to_grid_road_layout")
-	root.queue_free()
-	return found
-
-func _authoring_scene_has_expected_grid_spawns(definition, track_id: String) -> bool:
-	var path := str(definition.dressing_scene_path)
-	if path.is_empty():
-		return false
-	var packed := load(path) as PackedScene
-	if packed == null:
-		return false
-	var root := packed.instantiate()
-	if root == null:
-		return false
-	var grid := _find_authoring_node(root, "RoadGridMap")
-	var expected_count := 0 if track_id == "kitchen" else 8
-	var found := grid != null and ((grid.get("spawn_slots") as Array).size() == expected_count)
+	var found := root.get_node_or_null("Site") != null \
+		and root.get_node_or_null("MainFloor") != null \
+		and root.get_node_or_null("UpperFloor") != null \
+		and root.get_node_or_null("Attic") != null \
+		and root.get_node_or_null("Yard") != null \
+		and root.get_node_or_null("VerticalConnectors") != null \
+		and root.get_node_or_null("CourseRoutes") != null
 	root.queue_free()
 	return found
 

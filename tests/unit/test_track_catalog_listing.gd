@@ -75,6 +75,8 @@ const KITCHEN_EDITABLE_FLOOR_SIZE := Vector2(292.0, 190.0)
 const OUTDOOR_GRASS_SHADER := "res://assets/gameplay/materials/grass/playground_grass.gdshader"
 const OUTDOOR_PLAYGROUND_FLOOR_TEXTURE := "res://assets/gameplay/materials/playground/outdoor_playground_floor_albedo.png"
 const BACKYARD_PREVIEW_SHELL := "res://assets/gameplay/tracks/shared/backyard_optimized/backyard_preview_shell.tscn"
+const HOME_YARD_MAP_SCENE := "res://assets/gameplay/tracks/home_yard/home_yard_map.tscn"
+const HOME_YARD_GROUND_SIZE := Vector2(520.0, 620.0)
 const OLD_BACKYARD_RESOURCE_MARKERS := [
 	"wooden_playground_set_static.glb",
 	"wooden_playground_set_swing.glb",
@@ -141,7 +143,6 @@ func test_track_sky_presets_match_stage_plan() -> void:
 		assert_equal(str(metadata.get("sky_preset_id", "")), str(EXPECTED_STAGE_SKY_PRESETS[track_id]), "%s package metadata should export the planned sky preset" % track_id)
 
 func test_authoring_scenes_use_road_gridmap_without_legacy_gameplay_nodes() -> void:
-	var backyard_positions := {}
 	for track_id in SELECTABLE_TRACK_IDS:
 		var definition := TrackCatalog.get_definition(track_id)
 		assert_true(definition != null, "%s definition should load" % track_id)
@@ -155,28 +156,11 @@ func test_authoring_scenes_use_road_gridmap_without_legacy_gameplay_nodes() -> v
 			continue
 		for legacy_name in LEGACY_GAMEPLAY_NODES:
 			assert_true(root.find_child(legacy_name, true, false) == null, "%s should not keep legacy gameplay node %s" % [track_id, legacy_name])
-		var grid := _find_authoring_road_grid(root)
-		assert_true(grid != null and grid.has_method("to_grid_road_layout"), "%s should author gameplay through RoadGridMap" % track_id)
-		if grid != null:
-			var expected_spawn_slots := 0 if track_id == "kitchen" else 8
-			assert_equal((grid.get("spawn_slots") as Array).size(), expected_spawn_slots, "%s RoadGridMap should author expected spawn slots" % track_id)
-			if BACKYARD_TRACK_IDS.has(track_id):
-				backyard_positions[track_id] = (grid as Node3D).position
-		if INDOOR_NON_KITCHEN_TRACK_IDS.has(track_id):
-			_assert_indoor_shell_seals(root, track_id)
-		var dressing := root.get_node_or_null("Dressing")
-		if track_id != "kitchen":
-			assert_true(dressing != null and dressing.get_child_count() >= 5, "%s should retain named editable visual dressing" % track_id)
-			var interactions := root.get_node_or_null("StageInteractions")
-			assert_true(interactions != null and interactions.get_child_count() >= 2, "%s should author explicit stage interaction zones" % track_id)
-		if BACKYARD_TRACK_IDS.has(track_id):
-			assert_true(root.get_node_or_null("BackyardShell") != null, "%s should instance the shared backyard shell" % track_id)
-		assert_equal(_floor_mesh_size_from_root(root), _expected_editable_floor_size(track_id), "%s editable floor should match its stage shell scale" % track_id)
+		assert_equal(definition.dressing_scene_path, HOME_YARD_MAP_SCENE, "%s should use the shared home-yard map scene" % track_id)
+		assert_true(not definition.road_grid_layout.is_empty(), "%s should carry its RoadGridMap layout in the mode definition" % track_id)
+		assert_equal((definition.road_grid_layout.get("spawn_slots", []) as Array).size(), 8, "%s should export authored spawn slots from its mode definition" % track_id)
+		_assert_home_yard_scene_holders(root, track_id)
 		root.queue_free()
-	assert_true(backyard_positions.size() == BACKYARD_TRACK_IDS.size(), "Backyard trio should all expose RoadGridMap positions")
-	assert_true(backyard_positions["outdoor_playground"] != backyard_positions["garden"], "Dash and Moko tracks should occupy different backyard areas")
-	assert_true(backyard_positions["garden"] != backyard_positions["sandbox"], "Moko and Rexx tracks should occupy different backyard areas")
-	assert_true(backyard_positions["outdoor_playground"] != backyard_positions["sandbox"], "Dash and Rexx tracks should occupy different backyard areas")
 
 func _assert_gridmap_contract(definition: TrackDefinition, track_id: String) -> void:
 	assert_equal(definition.validate(), [], "%s definition should validate" % track_id)
@@ -195,32 +179,24 @@ func _assert_gridmap_contract(definition: TrackDefinition, track_id: String) -> 
 	assert_equal(definition.spawn_points.size(), 8, "%s should expose exactly 8 spawns" % track_id)
 	assert_equal(definition.item_sockets.size(), 0, "%s MVP metadata should not export item sockets" % track_id)
 	assert_equal(definition.hazard_sockets.size(), 0, "%s MVP metadata should not export hazard sockets" % track_id)
-	if NON_KITCHEN_TRACK_IDS.has(track_id):
-		assert_true(definition.stage_props.size() >= 5, "%s should export named stage props" % track_id)
-		assert_true(definition.stage_interactions.size() >= 2, "%s should export explicit stage interactions" % track_id)
-	else:
-		assert_equal(definition.stage_interactions.size(), 0, "%s should not export stage interactions in this pass" % track_id)
+	assert_true(definition.stage_props.size() >= 5, "%s should export named stage props" % track_id)
+	assert_true(definition.stage_interactions.size() >= 2, "%s should export explicit stage interactions" % track_id)
 	assert_equal(str(definition.road_grid_layout.get("mesh_library_path", "")), "res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres", "%s should use the shared Kenney GridMap mesh library" % track_id)
 	assert_true((definition.road_grid_layout.get("ordered_route_cells", []) as Array).size() >= 12, "%s should export ordered GridMap route cells" % track_id)
 	if NON_KITCHEN_TRACK_IDS.has(track_id):
 		_assert_closed_grid_route_visual_contract(definition, track_id)
 	if GENERATED_VERTICAL_TRACK_IDS.has(track_id):
 		_assert_generated_route_has_verticality(definition, track_id)
-	var expected_spawn_slots := 0 if track_id == "kitchen" else 8
-	assert_equal((definition.road_grid_layout.get("spawn_slots", []) as Array).size(), expected_spawn_slots, "%s should export expected RoadGridMap spawn slots" % track_id)
-	if NON_KITCHEN_TRACK_IDS.has(track_id):
-		_assert_two_by_four_start_slots(definition.road_grid_layout.get("spawn_slots", []) as Array, track_id)
-		assert_true(_spawn_grid_starts_at_route_origin(definition.spawn_points, definition.route_points), "%s runtime spawns should start at ordered_route_cells[0]" % track_id)
+	assert_equal((definition.road_grid_layout.get("spawn_slots", []) as Array).size(), 8, "%s should export expected RoadGridMap spawn slots" % track_id)
+	_assert_two_by_four_start_slots(definition.road_grid_layout.get("spawn_slots", []) as Array, track_id)
+	assert_true(_spawn_grid_starts_at_route_origin(definition.spawn_points, definition.route_points), "%s runtime spawns should start at ordered_route_cells[0]" % track_id)
 	assert_equal(definition.sky_preset_id, str(EXPECTED_STAGE_SKY_PRESETS[track_id]), "%s should use its stage sky preset" % track_id)
 	var expected_ground_shader := OUTDOOR_GRASS_SHADER if track_id == "outdoor_playground" else ""
 	assert_equal(definition.ground_shader_path, expected_ground_shader, "%s should use the expected ground shader" % track_id)
 	if track_id == "outdoor_playground":
 		assert_equal(definition.ground_texture_path, OUTDOOR_PLAYGROUND_FLOOR_TEXTURE, "Outdoor Playground should use the authored floor texture")
 	assert_equal(definition.ground_size, _expected_definition_ground_size(track_id), "%s definition should match its runtime ground dimensions" % track_id)
-	if BACKYARD_TRACK_IDS.has(track_id):
-		assert_equal(definition.preview_dressing_scene_path, BACKYARD_PREVIEW_SHELL, "%s should use the optimized backyard preview dressing" % track_id)
-	else:
-		assert_equal(definition.preview_dressing_scene_path, "", "%s should not require preview-only dressing" % track_id)
+	assert_equal(definition.preview_dressing_scene_path, HOME_YARD_MAP_SCENE, "%s should use the shared home-yard preview dressing" % track_id)
 	var metadata: Dictionary = definition.to_metadata()
 	assert_equal(str(metadata.get("track_source_id", "")), "road_grid_map", "%s metadata should export GridMap source" % track_id)
 	assert_equal(str(metadata.get("progress_rule_id", "")), "route_lap_progress", "%s metadata should export route progress rules" % track_id)
@@ -301,6 +277,13 @@ func _assert_indoor_shell_seals(root: Node, track_id: String) -> void:
 		"DoorPanel",
 	]:
 		assert_true(shell.get_node_or_null(node_name) != null, "%s RoomShell should include seam/door seal node %s" % [track_id, node_name])
+
+func _assert_home_yard_scene_holders(root: Node, track_id: String) -> void:
+	for holder_name in ["Site", "MainFloor", "UpperFloor", "Attic", "Yard", "VerticalConnectors", "CourseRoutes", "ValidationCameras"]:
+		assert_true(root.get_node_or_null(holder_name) != null, "%s shared home-yard scene should include %s" % [track_id, holder_name])
+	assert_true(root.get_node_or_null("VerticalConnectors/MainToUpperToyRamp") != null, "%s should include a main-to-upper toy ramp" % track_id)
+	assert_true(root.get_node_or_null("VerticalConnectors/UpperToAtticToyRamp") != null, "%s should include an upper-to-attic toy ramp" % track_id)
+	assert_true(root.get_node_or_null("CourseRoutes/%sRoutePreview" % track_id.capitalize()) != null, "%s should include a route preview holder" % track_id)
 
 func _assert_closed_grid_route_visual_contract(definition: TrackDefinition, track_id: String) -> void:
 	assert_true(definition.closed_loop, "%s should be authored as a closed loop" % track_id)
@@ -423,11 +406,7 @@ func _find_authoring_road_grid(root: Node) -> Node:
 	return null
 
 func _expected_definition_ground_size(track_id: String) -> Vector2:
-	if track_id == "kitchen":
-		return KITCHEN_DEFINITION_GROUND_SIZE
-	if BACKYARD_TRACK_IDS.has(track_id):
-		return BACKYARD_FLOOR_SIZE
-	return INDOOR_FLOOR_SIZE
+	return HOME_YARD_GROUND_SIZE
 
 func _expected_editable_floor_size(track_id: String) -> Vector2:
 	if track_id == "kitchen":

@@ -139,6 +139,32 @@ func _apply_mode_fields(definition: TrackDefinition, mode_id: String, mode_confi
 		definition.road_width = float(mode_config.get("road_width", definition.road_width))
 	if mode_config.has("reset_mode"):
 		definition.reset_mode = str(mode_config.get("reset_mode", definition.reset_mode))
+	if mode_config.has("sky_preset_id"):
+		definition.sky_preset_id = str(mode_config.get("sky_preset_id", definition.sky_preset_id))
+	if mode_config.has("sky_time_of_day"):
+		definition.sky_time_of_day = float(mode_config.get("sky_time_of_day", definition.sky_time_of_day))
+	if mode_config.has("sky_weather"):
+		definition.sky_weather = str(mode_config.get("sky_weather", definition.sky_weather))
+	if mode_config.has("sky_top_color"):
+		definition.sky_top_color = mode_config.get("sky_top_color", definition.sky_top_color)
+	if mode_config.has("sky_horizon_color"):
+		definition.sky_horizon_color = mode_config.get("sky_horizon_color", definition.sky_horizon_color)
+	if mode_config.has("sky_cloud_amount"):
+		definition.sky_cloud_amount = float(mode_config.get("sky_cloud_amount", definition.sky_cloud_amount))
+	if mode_config.has("sky_cloud_speed"):
+		definition.sky_cloud_speed = float(mode_config.get("sky_cloud_speed", definition.sky_cloud_speed))
+	if mode_config.has("sky_haze_amount"):
+		definition.sky_haze_amount = float(mode_config.get("sky_haze_amount", definition.sky_haze_amount))
+	if mode_config.has("sky_light_energy"):
+		definition.sky_light_energy = float(mode_config.get("sky_light_energy", definition.sky_light_energy))
+	if mode_config.has("ground_size"):
+		definition.ground_size = mode_config.get("ground_size", definition.ground_size)
+	if mode_config.has("ground_color"):
+		definition.ground_color = mode_config.get("ground_color", definition.ground_color)
+	if mode_config.has("ground_texture_path"):
+		definition.ground_texture_path = str(mode_config.get("ground_texture_path", definition.ground_texture_path))
+	if mode_config.has("ground_shader_path"):
+		definition.ground_shader_path = str(mode_config.get("ground_shader_path", definition.ground_shader_path))
 
 func _normalize_mode_id(mode_id: String) -> String:
 	var normalized := mode_id.strip_edges().to_lower()

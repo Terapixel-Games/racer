@@ -1,11 +1,11 @@
 extends "res://tests/framework/TestCase.gd"
 
 const TrackDefinition = preload("res://scripts/track/TrackDefinition.gd")
-const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
 const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd")
 const TrackGridRoadBuilder = preload("res://scripts/track/TrackGridRoadBuilder.gd")
 
 const TMP_SCENE_PATH := "res://tmp_scene_source_route.tscn"
+const LEGACY_KITCHEN_DEFINITION := "res://assets/gameplay/tracks/kitchen/kitchen_track_definition.tres"
 
 func test_runtime_ignores_alternate_routes_for_mvp_gridmap() -> void:
 	var definition := _branch_definition()
@@ -96,7 +96,7 @@ func test_ramp_rail_visuals_stay_upright() -> void:
 	holder.queue_free()
 
 func test_runtime_uses_road_grid_from_editable_scene() -> void:
-	var definition := (TrackCatalog.get_definition("kitchen") as TrackDefinition).duplicate(true) as TrackDefinition
+	var definition := (load(LEGACY_KITCHEN_DEFINITION) as TrackDefinition).duplicate(true) as TrackDefinition
 	var packed := load(definition.dressing_scene_path) as PackedScene
 	assert_true(packed != null, "Kitchen editable scene should load")
 	var scene_root := packed.instantiate() as Node3D
@@ -134,7 +134,7 @@ func test_runtime_uses_road_grid_from_editable_scene() -> void:
 		DirAccess.remove_absolute(ProjectSettings.globalize_path(TMP_SCENE_PATH))
 
 func test_runtime_uses_road_grid_when_holder_is_moved() -> void:
-	var definition := (TrackCatalog.get_definition("kitchen") as TrackDefinition).duplicate(true) as TrackDefinition
+	var definition := (load(LEGACY_KITCHEN_DEFINITION) as TrackDefinition).duplicate(true) as TrackDefinition
 	var packed := load(definition.dressing_scene_path) as PackedScene
 	assert_true(packed != null, "Kitchen editable scene should load")
 	var scene_root := packed.instantiate() as Node3D

@@ -1,0 +1,2013 @@
+{
+	"alternate_routes": [],
+	"audio_ids": {
+		"bedroom_primary": "res://assets/source/audio/canva/tracks/bedroom/bedroom_blanket_slide_canva_01.mp3",
+		"bedroom_secondary": "res://assets/source/audio/canva/tracks/bedroom/bedroom_plush_thump_canva_01.wav",
+		"music": "res://assets/source/audio/suno/tracks/bedroom/bedroom_loop_suno_01.mp3"
+	},
+	"audio_zones": [
+		{
+			"audio_id": "bedroom_secondary",
+			"audio_path": "",
+			"id": "bedroom_feature_zone",
+			"position": [
+				60.0,
+				4.35,
+				36.0
+			],
+			"radius": 28.0,
+			"volume_db": -6.0,
+			"zone_kind": "oneshot"
+		},
+		{
+			"audio_id": "music",
+			"audio_path": "",
+			"id": "bedroom_music_zone",
+			"position": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"radius": 120.0,
+			"volume_db": -14.0,
+			"zone_kind": "ambient"
+		}
+	],
+	"boundary_wall_debug_visible": false,
+	"boundary_walls_enabled": true,
+	"checkpoint_radius": 10.4,
+	"checkpoints": [
+		{
+			"index": 0,
+			"is_lap_gate": true,
+			"position": [
+				-64.0,
+				64.0,
+				18.0
+			],
+			"route_index": 0
+		},
+		{
+			"index": 1,
+			"is_lap_gate": false,
+			"position": [
+				16.0,
+				64.0,
+				18.0
+			],
+			"route_index": 5
+		},
+		{
+			"index": 2,
+			"is_lap_gate": false,
+			"position": [
+				64.0,
+				68.0,
+				66.0
+			],
+			"route_index": 11
+		},
+		{
+			"index": 3,
+			"is_lap_gate": false,
+			"position": [
+				16.0,
+				64.0,
+				98.0
+			],
+			"route_index": 16
+		},
+		{
+			"index": 4,
+			"is_lap_gate": false,
+			"position": [
+				-48.0,
+				64.0,
+				114.0
+			],
+			"route_index": 21
+		},
+		{
+			"index": 5,
+			"is_lap_gate": false,
+			"position": [
+				-80.0,
+				64.0,
+				50.0
+			],
+			"route_index": 27
+		}
+	],
+	"closed_loop": true,
+	"display_name": "Bedroom / Tuggs",
+	"dressing_scene_path": "res://assets/gameplay/tracks/home_yard/home_yard_map.tscn",
+	"floor_visual_y": -1.1,
+	"grass_zones": [],
+	"ground_shader_path": "",
+	"ground_texture_path": "res://assets/gameplay/materials/fabric/plush_fabric_albedo.png",
+	"hazard_sockets": [],
+	"id": "bedroom",
+	"item_sockets": [],
+	"lap_gate_checkpoint_index": 0,
+	"laps": 3,
+	"out_of_bounds_y": -28.0,
+	"preview_dressing_scene_path": "res://assets/gameplay/tracks/home_yard/home_yard_map.tscn",
+	"progress_rule_id": "route_lap_progress",
+	"rail_texture_path": "",
+	"rail_texture_uv_scale": 1.0,
+	"rails_enabled": false,
+	"reset_mode": "instant_pop",
+	"road_grid_layout": {
+		"basis": [
+			[
+				1.0,
+				0.0,
+				0.0
+			],
+			[
+				0.0,
+				1.0,
+				0.0
+			],
+			[
+				0.0,
+				0.0,
+				1.0
+			]
+		],
+		"cell_size": [
+			16.0,
+			4.0,
+			16.0
+		],
+		"cells": [
+			{
+				"cell": [
+					-4,
+					0,
+					-3
+				],
+				"item": 2,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-64.0,
+					64.0,
+					18.0
+				]
+			},
+			{
+				"cell": [
+					-3,
+					0,
+					-3
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-48.0,
+					64.0,
+					18.0
+				]
+			},
+			{
+				"cell": [
+					-2,
+					0,
+					-3
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-32.0,
+					64.0,
+					18.0
+				]
+			},
+			{
+				"cell": [
+					-1,
+					0,
+					-3
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-16.0,
+					64.0,
+					18.0
+				]
+			},
+			{
+				"cell": [
+					0,
+					0,
+					-3
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					0.0,
+					64.0,
+					18.0
+				]
+			},
+			{
+				"cell": [
+					1,
+					0,
+					-3
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					16.0,
+					64.0,
+					18.0
+				]
+			},
+			{
+				"cell": [
+					2,
+					0,
+					-3
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					32.0,
+					64.0,
+					18.0
+				]
+			},
+			{
+				"cell": [
+					3,
+					0,
+					-3
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					48.0,
+					64.0,
+					18.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					0,
+					-3
+				],
+				"item": 1,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					64.0,
+					64.0,
+					18.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					0,
+					-2
+				],
+				"item": 5,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					64.0,
+					64.0,
+					34.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					1,
+					-1
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					64.0,
+					68.0,
+					50.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					1,
+					0
+				],
+				"item": 1,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					64.0,
+					68.0,
+					66.0
+				]
+			},
+			{
+				"cell": [
+					3,
+					1,
+					0
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					48.0,
+					68.0,
+					66.0
+				]
+			},
+			{
+				"cell": [
+					2,
+					1,
+					0
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					32.0,
+					68.0,
+					66.0
+				]
+			},
+			{
+				"cell": [
+					1,
+					1,
+					0
+				],
+				"item": 1,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					16.0,
+					68.0,
+					66.0
+				]
+			},
+			{
+				"cell": [
+					1,
+					1,
+					1
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					16.0,
+					68.0,
+					82.0
+				]
+			},
+			{
+				"cell": [
+					1,
+					0,
+					2
+				],
+				"item": 5,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					16.0,
+					64.0,
+					98.0
+				]
+			},
+			{
+				"cell": [
+					1,
+					0,
+					3
+				],
+				"item": 1,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					16.0,
+					64.0,
+					114.0
+				]
+			},
+			{
+				"cell": [
+					0,
+					0,
+					3
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					0.0,
+					64.0,
+					114.0
+				]
+			},
+			{
+				"cell": [
+					-1,
+					0,
+					3
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-16.0,
+					64.0,
+					114.0
+				]
+			},
+			{
+				"cell": [
+					-2,
+					0,
+					3
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-32.0,
+					64.0,
+					114.0
+				]
+			},
+			{
+				"cell": [
+					-3,
+					0,
+					3
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-48.0,
+					64.0,
+					114.0
+				]
+			},
+			{
+				"cell": [
+					-4,
+					0,
+					3
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-64.0,
+					64.0,
+					114.0
+				]
+			},
+			{
+				"cell": [
+					-5,
+					0,
+					3
+				],
+				"item": 1,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-80.0,
+					64.0,
+					114.0
+				]
+			},
+			{
+				"cell": [
+					-5,
+					0,
+					2
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-80.0,
+					64.0,
+					98.0
+				]
+			},
+			{
+				"cell": [
+					-5,
+					0,
+					1
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-80.0,
+					64.0,
+					82.0
+				]
+			},
+			{
+				"cell": [
+					-5,
+					0,
+					0
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-80.0,
+					64.0,
+					66.0
+				]
+			},
+			{
+				"cell": [
+					-5,
+					0,
+					-1
+				],
+				"item": 1,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-80.0,
+					64.0,
+					50.0
+				]
+			},
+			{
+				"cell": [
+					-6,
+					0,
+					-1
+				],
+				"item": 1,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-96.0,
+					64.0,
+					50.0
+				]
+			},
+			{
+				"cell": [
+					-6,
+					0,
+					-2
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-96.0,
+					64.0,
+					34.0
+				]
+			},
+			{
+				"cell": [
+					-6,
+					0,
+					-3
+				],
+				"item": 1,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					-96.0,
+					64.0,
+					18.0
+				]
+			},
+			{
+				"cell": [
+					-5,
+					0,
+					-3
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-80.0,
+					64.0,
+					18.0
+				]
+			}
+		],
+		"checkpoint_route_indices": [
+			0,
+			5,
+			11,
+			16,
+			21,
+			27
+		],
+		"hazard_route_indices": [],
+		"item_route_indices": [],
+		"mesh_library_path": "res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres",
+		"ordered_route_cells": [
+			[
+				-4,
+				0,
+				-3
+			],
+			[
+				-3,
+				0,
+				-3
+			],
+			[
+				-2,
+				0,
+				-3
+			],
+			[
+				-1,
+				0,
+				-3
+			],
+			[
+				0,
+				0,
+				-3
+			],
+			[
+				1,
+				0,
+				-3
+			],
+			[
+				2,
+				0,
+				-3
+			],
+			[
+				3,
+				0,
+				-3
+			],
+			[
+				4,
+				0,
+				-3
+			],
+			[
+				4,
+				0,
+				-2
+			],
+			[
+				4,
+				1,
+				-1
+			],
+			[
+				4,
+				1,
+				0
+			],
+			[
+				3,
+				1,
+				0
+			],
+			[
+				2,
+				1,
+				0
+			],
+			[
+				1,
+				1,
+				0
+			],
+			[
+				1,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2
+			],
+			[
+				1,
+				0,
+				3
+			],
+			[
+				0,
+				0,
+				3
+			],
+			[
+				-1,
+				0,
+				3
+			],
+			[
+				-2,
+				0,
+				3
+			],
+			[
+				-3,
+				0,
+				3
+			],
+			[
+				-4,
+				0,
+				3
+			],
+			[
+				-5,
+				0,
+				3
+			],
+			[
+				-5,
+				0,
+				2
+			],
+			[
+				-5,
+				0,
+				1
+			],
+			[
+				-5,
+				0,
+				0
+			],
+			[
+				-5,
+				0,
+				-1
+			],
+			[
+				-6,
+				0,
+				-1
+			],
+			[
+				-6,
+				0,
+				-2
+			],
+			[
+				-6,
+				0,
+				-3
+			],
+			[
+				-5,
+				0,
+				-3
+			]
+		],
+		"ordered_route_points": [
+			[
+				-64.0,
+				64.0,
+				18.0
+			],
+			[
+				-48.0,
+				64.0,
+				18.0
+			],
+			[
+				-32.0,
+				64.0,
+				18.0
+			],
+			[
+				-16.0,
+				64.0,
+				18.0
+			],
+			[
+				0.0,
+				64.0,
+				18.0
+			],
+			[
+				16.0,
+				64.0,
+				18.0
+			],
+			[
+				32.0,
+				64.0,
+				18.0
+			],
+			[
+				48.0,
+				64.0,
+				18.0
+			],
+			[
+				64.0,
+				64.0,
+				18.0
+			],
+			[
+				64.0,
+				64.0,
+				34.0
+			],
+			[
+				64.0,
+				68.0,
+				50.0
+			],
+			[
+				64.0,
+				68.0,
+				66.0
+			],
+			[
+				48.0,
+				68.0,
+				66.0
+			],
+			[
+				32.0,
+				68.0,
+				66.0
+			],
+			[
+				16.0,
+				68.0,
+				66.0
+			],
+			[
+				16.0,
+				68.0,
+				82.0
+			],
+			[
+				16.0,
+				64.0,
+				98.0
+			],
+			[
+				16.0,
+				64.0,
+				114.0
+			],
+			[
+				0.0,
+				64.0,
+				114.0
+			],
+			[
+				-16.0,
+				64.0,
+				114.0
+			],
+			[
+				-32.0,
+				64.0,
+				114.0
+			],
+			[
+				-48.0,
+				64.0,
+				114.0
+			],
+			[
+				-64.0,
+				64.0,
+				114.0
+			],
+			[
+				-80.0,
+				64.0,
+				114.0
+			],
+			[
+				-80.0,
+				64.0,
+				98.0
+			],
+			[
+				-80.0,
+				64.0,
+				82.0
+			],
+			[
+				-80.0,
+				64.0,
+				66.0
+			],
+			[
+				-80.0,
+				64.0,
+				50.0
+			],
+			[
+				-96.0,
+				64.0,
+				50.0
+			],
+			[
+				-96.0,
+				64.0,
+				34.0
+			],
+			[
+				-96.0,
+				64.0,
+				18.0
+			],
+			[
+				-80.0,
+				64.0,
+				18.0
+			]
+		],
+		"origin": [
+			-8.0,
+			62.0,
+			58.0
+		],
+		"road_width": 16.0,
+		"spawn_slots": [
+			{
+				"forward_offset": 0.0,
+				"lateral_offset": -2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 0.0
+			},
+			{
+				"forward_offset": 0.0,
+				"lateral_offset": 2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 0.0
+			},
+			{
+				"forward_offset": 5.0,
+				"lateral_offset": -2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 0.0
+			},
+			{
+				"forward_offset": 5.0,
+				"lateral_offset": 2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 0.0
+			},
+			{
+				"forward_offset": 10.0,
+				"lateral_offset": -2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 0.0
+			},
+			{
+				"forward_offset": 10.0,
+				"lateral_offset": 2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 0.0
+			},
+			{
+				"forward_offset": 15.0,
+				"lateral_offset": -2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 0.0
+			},
+			{
+				"forward_offset": 15.0,
+				"lateral_offset": 2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 0.0
+			}
+		]
+	},
+	"road_segment_layout": [],
+	"road_segment_material_style": "toy_plastic",
+	"road_segment_profile": "kenney_racing_kit",
+	"road_visual_style": "kenney_gridmap",
+	"road_width": 16.0,
+	"route_length": 512.984844207764,
+	"route_points": [
+		[
+			-64.0,
+			64.0,
+			18.0
+		],
+		[
+			-48.0,
+			64.0,
+			18.0
+		],
+		[
+			-32.0,
+			64.0,
+			18.0
+		],
+		[
+			-16.0,
+			64.0,
+			18.0
+		],
+		[
+			0.0,
+			64.0,
+			18.0
+		],
+		[
+			16.0,
+			64.0,
+			18.0
+		],
+		[
+			32.0,
+			64.0,
+			18.0
+		],
+		[
+			48.0,
+			64.0,
+			18.0
+		],
+		[
+			64.0,
+			64.0,
+			18.0
+		],
+		[
+			64.0,
+			64.0,
+			34.0
+		],
+		[
+			64.0,
+			68.0,
+			50.0
+		],
+		[
+			64.0,
+			68.0,
+			66.0
+		],
+		[
+			48.0,
+			68.0,
+			66.0
+		],
+		[
+			32.0,
+			68.0,
+			66.0
+		],
+		[
+			16.0,
+			68.0,
+			66.0
+		],
+		[
+			16.0,
+			68.0,
+			82.0
+		],
+		[
+			16.0,
+			64.0,
+			98.0
+		],
+		[
+			16.0,
+			64.0,
+			114.0
+		],
+		[
+			0.0,
+			64.0,
+			114.0
+		],
+		[
+			-16.0,
+			64.0,
+			114.0
+		],
+		[
+			-32.0,
+			64.0,
+			114.0
+		],
+		[
+			-48.0,
+			64.0,
+			114.0
+		],
+		[
+			-64.0,
+			64.0,
+			114.0
+		],
+		[
+			-80.0,
+			64.0,
+			114.0
+		],
+		[
+			-80.0,
+			64.0,
+			98.0
+		],
+		[
+			-80.0,
+			64.0,
+			82.0
+		],
+		[
+			-80.0,
+			64.0,
+			66.0
+		],
+		[
+			-80.0,
+			64.0,
+			50.0
+		],
+		[
+			-96.0,
+			64.0,
+			50.0
+		],
+		[
+			-96.0,
+			64.0,
+			34.0
+		],
+		[
+			-96.0,
+			64.0,
+			18.0
+		],
+		[
+			-80.0,
+			64.0,
+			18.0
+		]
+	],
+	"runtime_scene_path": "res://assets/gameplay/tracks/home_yard/modes/bedroom_track.tscn",
+	"shortcut_gates": [],
+	"sky_cloud_amount": 0.32,
+	"sky_cloud_speed": 0.014,
+	"sky_haze_amount": 0.1,
+	"sky_horizon_color": [
+		0.980000019073486,
+		0.860000014305115,
+		0.759999990463257,
+		1.0
+	],
+	"sky_light_energy": 2.05,
+	"sky_preset_id": "soft_morning",
+	"sky_time_of_day": 0.5,
+	"sky_top_color": [
+		0.720000028610229,
+		0.779999971389771,
+		0.949999988079071,
+		1.0
+	],
+	"sky_weather": "soft",
+	"spawn_points": [
+		{
+			"position": [
+				-64.0,
+				64.8000030517578,
+				20.75
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"position": [
+				-64.0,
+				64.8000030517578,
+				15.25
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"position": [
+				-59.0,
+				64.8000030517578,
+				20.75
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"position": [
+				-59.0,
+				64.8000030517578,
+				15.25
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"position": [
+				-54.0,
+				64.8000030517578,
+				20.75
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"position": [
+				-54.0,
+				64.8000030517578,
+				15.25
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"position": [
+				-49.0,
+				64.8000030517578,
+				20.75
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"position": [
+				-49.0,
+				64.8000030517578,
+				15.25
+			],
+			"yaw_degrees": 90.0
+		}
+	],
+	"stage_interactions": [
+		{
+			"action": "boost",
+			"boost_force": 24.0,
+			"cooldown": 1.0,
+			"duration": 0.25,
+			"id": "bedroom_boost_pad",
+			"impulse": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"intensity": 0.0,
+			"note": "Home-yard mode boost beat.",
+			"position": [
+				64.0,
+				65.0,
+				18.0
+			],
+			"radius": 0.0,
+			"shape": "box",
+			"size": [
+				12.0,
+				3.0,
+				12.0
+			],
+			"speed_multiplier": 1.0,
+			"target_method": "trigger",
+			"target_node_path": "",
+			"yaw_degrees": 0.0
+		},
+		{
+			"action": "rumble",
+			"boost_force": 0.0,
+			"cooldown": 1.2,
+			"duration": 0.4,
+			"id": "bedroom_rumble_zone",
+			"impulse": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"intensity": 0.45,
+			"note": "Home-yard mode texture beat.",
+			"position": [
+				16.0,
+				65.0,
+				98.0
+			],
+			"radius": 0.0,
+			"shape": "box",
+			"size": [
+				14.0,
+				3.0,
+				14.0
+			],
+			"speed_multiplier": 1.0,
+			"target_method": "trigger",
+			"target_node_path": "",
+			"yaw_degrees": 0.0
+		}
+	],
+	"stage_props": [
+		{
+			"asset_path": "res://assets/source/kenney/toy_car_kit/gate.glb",
+			"audio_material_id": "",
+			"box_color": [
+				1.0,
+				1.0,
+				1.0,
+				1.0
+			],
+			"box_size": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "landmark",
+			"id": "bedroom_start_gate",
+			"kind": "scene",
+			"position": [
+				-64.0,
+				66.0,
+				18.0
+			],
+			"scale": [
+				5.0,
+				5.0,
+				5.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "",
+			"box_color": [
+				0.648999989032745,
+				0.610000014305115,
+				0.734800040721893,
+				1.0
+			],
+			"box_size": [
+				18.0,
+				9.0,
+				2.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "start_finish",
+			"id": "bedroom_finish_language_panel",
+			"kind": "box",
+			"position": [
+				-48.0,
+				69.0,
+				9.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "",
+			"box_color": [
+				0.550000011920929,
+				0.5,
+				0.660000026226044,
+				1.0
+			],
+			"box_size": [
+				12.0,
+				8.0,
+				12.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "landmark",
+			"id": "bedroom_landmark_box",
+			"kind": "box",
+			"position": [
+				18.0,
+				68.0,
+				84.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "",
+			"box_color": [
+				0.418000012636185,
+				0.379999995231628,
+				0.501600027084351,
+				1.0
+			],
+			"box_size": [
+				6.0,
+				5.0,
+				18.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "direction",
+			"id": "bedroom_route_arrow_left",
+			"kind": "box",
+			"position": [
+				54.0,
+				71.0,
+				50.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 20.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "",
+			"box_color": [
+				0.61300003528595,
+				0.569999992847443,
+				0.707599997520447,
+				1.0
+			],
+			"box_size": [
+				6.0,
+				5.0,
+				18.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "direction",
+			"id": "bedroom_route_arrow_right",
+			"kind": "box",
+			"position": [
+				-38.0,
+				67.0,
+				114.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": -20.0
+		}
+	],
+	"surface_segments": [],
+	"track_id": "bedroom",
+	"track_source_id": "road_grid_map",
+	"version": "home_yard_open_world_v1_2026_05_11",
+	"wall_height": 3.0,
+	"wall_thickness": 0.6,
+	"win_condition_id": "checkpoint_laps"
+}

@@ -12,7 +12,8 @@ const OUTDOOR_GRASS_BLADE_SHADER := "res://assets/gameplay/materials/grass/playg
 const OUTDOOR_PLAYGROUND_FLOOR_TEXTURE := "res://assets/gameplay/materials/playground/outdoor_playground_floor_albedo.png"
 
 func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
-	var packed := load("res://assets/gameplay/tracks/kitchen/kitchen_track.tscn")
+	var package := TrackCatalog.get_package("kitchen")
+	var packed := load(str(package.get("scene_path", "")))
 	assert_true(packed is PackedScene, "Kitchen track scene should load")
 	var instance := (packed as PackedScene).instantiate()
 	scene_tree.root.add_child(instance)
@@ -28,7 +29,10 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(_grid_road_straight_tile_spans_cell(instance.get_node_or_null("BuiltTrack/GridRoad") as GridMap), "Kitchen GridRoad straight tiles should span the full cell width")
 	assert_true(_grid_road_corner_orientations_match_route(instance.get_node_or_null("BuiltTrack/GridRoad") as GridMap, definition), "Kitchen GridRoad corner tiles should rotate to connect the previous and next route cells")
 	assert_true(_grid_road_corner_tile_spans_cell(instance.get_node_or_null("BuiltTrack/GridRoad") as GridMap), "Kitchen GridRoad corner tiles should span the full cell so they meet adjacent straight tiles")
-	assert_equal(_node_count_by_type(built_track, "WorldEnvironment"), 1, "Kitchen runtime should build exactly one WorldEnvironment")
+	if str(definition.get_meta("track_map_id", "")) == "home_yard":
+		assert_true(_node_count_by_type(built_track, "WorldEnvironment") >= 1, "Kitchen shared runtime should build a WorldEnvironment")
+	else:
+		assert_equal(_node_count_by_type(built_track, "WorldEnvironment"), 1, "Kitchen runtime should build exactly one WorldEnvironment")
 	var world_environment := instance.get_node_or_null("BuiltTrack/WorldEnvironment") as WorldEnvironment
 	assert_true(world_environment != null, "Kitchen track should include a world environment")
 	if world_environment != null:
@@ -59,6 +63,18 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/ShortcutGates") == null, "MVP Kitchen track should not include shortcut gates")
 	assert_true(instance.get_node_or_null("BuiltTrack/ShortcutSurface") == null, "Kitchen table jump surface should stay disabled while it blocks the main path")
 	assert_true(instance.get_node_or_null("BuiltTrack/SurfaceSegments") == null, "MVP Kitchen track should not include surface segment metadata markers")
+	if str(definition.get_meta("track_map_id", "")) == "home_yard":
+		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Site") != null, "Kitchen shared runtime should include the full site holder")
+		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/MainFloor") != null, "Kitchen shared runtime should include the main-floor holder")
+		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Yard") != null, "Kitchen shared runtime should include the yard holder")
+		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/VerticalConnectors/MainToUpperToyRamp") != null, "Kitchen shared runtime should include toy-ramp vertical connectors")
+		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/StageProps/kitchen_start_gate") != null, "Kitchen shared runtime should include metadata route landmarks")
+		assert_true(instance.get_node_or_null("BuiltTrack/StageInteractions/kitchen_boost_pad") != null, "Kitchen shared runtime should build the boost interaction")
+		assert_equal((definition.road_grid_layout.get("spawn_slots", []) as Array).size(), 8, "Kitchen definition should export authored home-yard spawn slots")
+		assert_true(_runtime_spawn_matches_socket(instance, "BuiltTrack/SpawnPoints/Start01", definition.spawn_points[0]), "Generated Start01 should match the first authored home-yard spawn")
+		assert_true(_runtime_spawn_matches_socket(instance, "BuiltTrack/SpawnPoints/Start08", definition.spawn_points[7]), "Generated Start08 should match the eighth authored home-yard spawn")
+		instance.queue_free()
+		return
 	assert_true(instance.get_node_or_null("BuiltTrack/AudioZones/SinkSplashZone") != null, "Kitchen track should include authored audio zone markers")
 	assert_true(instance.get_node_or_null("BuiltTrack/AudioZones/StoveSizzleZone") != null, "Kitchen track should include stove sizzle audio zone markers")
 	assert_true(instance.get_node_or_null("BuiltTrack/SectionMarkers") == null, "Kitchen MVP track should not build legacy section marker overlays")
@@ -160,6 +176,12 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	instance.queue_free()
 
 func test_kitchen_road_gridmap_route_metadata_matches_painted_track() -> void:
+	var public_definition := TrackCatalog.get_definition("kitchen")
+	if str(public_definition.get_meta("track_map_id", "")) == "home_yard":
+		var resolved_route: Array = public_definition.road_grid_layout.get("ordered_route_cells", []) as Array
+		assert_true(resolved_route.size() >= 12, "TrackCatalog should resolve Kitchen gameplay from the shared home-yard mode route")
+		assert_equal((public_definition.road_grid_layout.get("spawn_slots", []) as Array).size(), 8, "Kitchen shared mode should export authored RoadGridMap spawn slots")
+		return
 	var packed := load("res://assets/gameplay/tracks/kitchen/kitchen_editable_room.tscn") as PackedScene
 	assert_true(packed != null, "Kitchen editable scene should load")
 	if packed == null:
@@ -189,6 +211,23 @@ func test_outdoor_playground_runtime_uses_shared_backyard_gridmap_shell() -> voi
 	assert_equal(definition.road_width, 16.0, "Outdoor Playground should use the shared MVP GridMap road width")
 	assert_true(definition.boundary_walls_enabled, "Outdoor Playground should use invisible boundary wall containment")
 	assert_true(not definition.rails_enabled, "Outdoor Playground should not use rail containment")
+	if str(definition.get_meta("track_map_id", "")) == "home_yard":
+		assert_true(_has_stage_interaction(definition, "outdoor_playground_boost_pad"), "Outdoor Playground should export the shared boost interaction")
+		assert_true(_has_stage_interaction(definition, "outdoor_playground_rumble_zone"), "Outdoor Playground should export the shared rumble interaction")
+		var built_shared := TrackRuntimeBuilder.build(definition)
+		var shared_track := built_shared.get("node", null) as Node3D
+		scene_tree.root.add_child(shared_track)
+		assert_true(shared_track.get_node_or_null("Road/CollisionBody/CollisionShape3D") != null, "Outdoor Playground should build hidden road collision")
+		assert_true(shared_track.get_node_or_null("GridRoad") is GridMap, "Outdoor Playground should build visible GridRoad tiles")
+		assert_true(shared_track.get_node_or_null("BoundaryWalls") != null, "Outdoor Playground should build invisible boundary walls")
+		assert_true(shared_track.get_node_or_null("Dressing/EditableRoom/Yard") != null, "Outdoor Playground should instance the shared home-yard scene")
+		assert_true(shared_track.get_node_or_null("Dressing/StageProps/outdoor_playground_start_gate") != null, "Outdoor Playground should include the shared start-gate landmark")
+		assert_true(shared_track.get_node_or_null("StageInteractions/outdoor_playground_boost_pad") != null, "Outdoor Playground should build the shared boost interaction")
+		assert_true(shared_track.get_node_or_null("StageInteractions/outdoor_playground_rumble_zone") != null, "Outdoor Playground should build the shared rumble interaction")
+		assert_equal(_mesh_shader_path(shared_track, "FloorVisual"), OUTDOOR_GRASS_SHADER, "Outdoor Playground generated floor should use the grass shader")
+		assert_equal(_shader_texture_path(shared_track, "FloorVisual", "floor_texture"), OUTDOOR_PLAYGROUND_FLOOR_TEXTURE, "Outdoor Playground generated floor should use the authored floor texture")
+		shared_track.queue_free()
+		return
 	assert_true(_has_stage_interaction(definition, "SlideDropBoostZone"), "Outdoor Playground should export the slide boost interaction")
 	assert_true(_has_stage_interaction(definition, "SwingGatePressure"), "Outdoor Playground should export the swing pressure interaction")
 	var built := TrackRuntimeBuilder.build(definition)
@@ -392,6 +431,24 @@ func test_attic_mayhem_runtime_builds_redesigned_room() -> void:
 	assert_equal(definition.road_width, 16.0, "Attic should use the shared MVP GridMap road width")
 	assert_true(definition.boundary_walls_enabled, "Attic should use invisible boundary wall containment")
 	assert_true(not definition.rails_enabled, "Attic should not use rail containment")
+	if str(definition.get_meta("track_map_id", "")) == "home_yard":
+		assert_true(_has_stage_interaction(definition, "attic_boost_pad"), "Attic definition should export the shared boost interaction")
+		assert_true(_has_stage_interaction(definition, "attic_rumble_zone"), "Attic definition should export the shared rumble interaction")
+		var built_shared := TrackRuntimeBuilder.build(definition)
+		var shared_track := built_shared.get("node", null) as Node3D
+		scene_tree.root.add_child(shared_track)
+		assert_true(shared_track.get_node_or_null("Road/CollisionBody/CollisionShape3D") != null, "Runtime attic should include hidden road collision")
+		assert_true(shared_track.get_node_or_null("GridRoad") is GridMap, "Runtime attic should include visible GridRoad tiles")
+		assert_true(shared_track.get_node_or_null("BoundaryWalls") != null, "Runtime attic should include invisible boundary walls")
+		assert_true(shared_track.get_node_or_null("Dressing/EditableRoom/Attic") != null, "Runtime attic should include the shared attic holder")
+		assert_true(shared_track.get_node_or_null("Dressing/EditableRoom/VerticalConnectors/UpperToAtticToyRamp") != null, "Runtime attic should include the toy ramp connector")
+		assert_true(shared_track.get_node_or_null("Dressing/StageProps/attic_start_gate") != null, "Runtime attic should include shared route landmarks")
+		assert_true(shared_track.get_node_or_null("StageInteractions/attic_boost_pad") != null, "Runtime attic should build the shared boost interaction")
+		assert_true(shared_track.get_node_or_null("StageInteractions/attic_rumble_zone") != null, "Runtime attic should build the shared rumble interaction")
+		assert_true((built_shared.get("waypoints", []) as Array).size() >= 30, "Runtime attic should keep the full route")
+		assert_true((built_shared.get("spawns", []) as Array).size() >= 8, "Runtime attic should keep a full start grid")
+		shared_track.queue_free()
+		return
 	assert_true(_has_stage_interaction(definition, "PrankTriggerZone"), "Attic definition should export the prank trigger interaction")
 	assert_true(_has_stage_interaction(definition, "MarbleTrapRelease"), "Attic definition should export the marble trap interaction")
 	assert_true(definition.audio_ids.has("attic_window_wind"), "Attic definition should include window wind audio")

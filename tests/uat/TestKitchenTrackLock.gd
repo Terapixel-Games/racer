@@ -8,7 +8,8 @@ const START_SUPPORT_MIN_Y_OFFSET := -1.5
 const START_SUPPORT_MAX_Y_OFFSET := 6.0
 
 func test_kitchen_runtime_uses_gridmap_wall_collision_contract() -> void:
-	var packed := load("res://assets/gameplay/tracks/kitchen/kitchen_track.tscn") as PackedScene
+	var package := TrackCatalog.get_package("kitchen")
+	var packed := load(str(package.get("scene_path", ""))) as PackedScene
 	assert_true(packed != null, "Kitchen track scene should load")
 	if packed == null:
 		return

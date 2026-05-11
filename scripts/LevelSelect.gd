@@ -132,6 +132,10 @@ func preview_has_backyard_dressing_for_test() -> bool:
 		_has_visible_named_node(_preview_root, "PlaygroundSet")
 		and _has_visible_named_node(_preview_root, "SwingSet")
 		and _has_visible_named_node(_preview_root, "SandboxFossil")
+	) or (
+		_has_visible_named_node(_preview_root, "Yard")
+		and _has_visible_named_node(_preview_root, "OutdoorPlaygroundSetpieceZone")
+		and _has_visible_named_node(_preview_root, "Sandbox")
 	)
 
 func _build_screen() -> void:

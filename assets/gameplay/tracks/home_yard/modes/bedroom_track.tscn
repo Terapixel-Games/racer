@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/track/TrackRuntimeScene.gd" id="1_hmxgg"]
+[ext_resource type="Resource" path="res://assets/gameplay/tracks/home_yard/modes/bedroom_track_definition.tres" id="2_0rh8x"]
+
+[node name="BedroomHomeYardTrack" type="Node3D"]
+script = ExtResource("1_hmxgg")
+definition = ExtResource("2_0rh8x")

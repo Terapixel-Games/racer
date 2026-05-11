@@ -73,6 +73,14 @@ static func get_map_definition(map_id: String = DEFAULT_TRACK_ID) -> TrackMapDef
 	return load(path) as TrackMapDefinition
 
 static func get_mode_definition(map_id: String = DEFAULT_TRACK_ID, mode_id: String = "race") -> TrackDefinition:
+	var package := get_package(map_id)
+	if not package.is_empty() and package.has("map_id"):
+		var packaged_map_id := str(package.get("map_id", ""))
+		var packaged_mode_id := str(package.get("mode_id", map_id))
+		if not packaged_map_id.is_empty() and packaged_map_id != map_id:
+			var requested_mode := mode_id.strip_edges().to_lower()
+			if requested_mode.is_empty() or requested_mode == "race" or requested_mode == packaged_mode_id:
+				return get_mode_definition(packaged_map_id, packaged_mode_id)
 	var map_definition := get_map_definition(map_id)
 	if map_definition != null:
 		var definition := map_definition.to_track_definition(mode_id)
