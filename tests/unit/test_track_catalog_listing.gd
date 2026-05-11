@@ -315,6 +315,8 @@ func _assert_closed_grid_route_visual_contract(definition: TrackDefinition, trac
 		var vertical_delta := next.y - current.y
 		if vertical_delta != 0:
 			assert_true(_is_ramp_item(item), "%s route index %d changes elevation but does not use a ramp tile" % [track_id, i])
+			assert_true(not _is_horizontal_corner(previous, current, next), "%s route index %d changes elevation on a corner cell; straight ramp tiles must not replace turn geometry" % [track_id, i])
+			assert_equal(previous.y, current.y, "%s route index %d ramp should have a flat same-level approach before changing elevation" % [track_id, i])
 			continue
 		var is_corner := _is_horizontal_corner(previous, current, next)
 		assert_true(not _is_ramp_item(item), "%s ramp tile at route index %d should have an outgoing elevation change" % [track_id, i])

@@ -516,11 +516,15 @@ func _route_from_points(points: Array) -> Array[Vector3i]:
 	for i in range(points.size()):
 		var target := _route_waypoint_from_value(points[(i + 1) % points.size()])
 		var guard := 0
+		var step_index := 0
 		while cursor != target:
 			guard += 1
 			if guard > 1000:
 				push_error("Route generation exceeded guard while walking from %s to %s" % [cursor, target])
 				break
+			var direction_before_move := _horizontal_direction_to_target(cursor, target)
+			var previous_direction := _previous_route_direction(cells)
+			var leaving_corner := previous_direction != Vector3i.ZERO and direction_before_move != Vector3i.ZERO and previous_direction != direction_before_move
 			var moved_horizontal := false
 			if cursor.x != target.x:
 				cursor.x += 1 if target.x > cursor.x else -1
@@ -531,12 +535,13 @@ func _route_from_points(points: Array) -> Array[Vector3i]:
 			elif cursor.y != target.y:
 				push_error("Route generation requires horizontal movement for vertical transition from %s to %s" % [cursor, target])
 				break
-			if moved_horizontal and cursor.y != target.y:
+			if moved_horizontal and cursor.y != target.y and not (step_index == 0 and leaving_corner):
 				cursor.y += 1 if target.y > cursor.y else -1
 			var cell := cursor
 			if i == points.size() - 1 and cell == cells[0]:
 				break
 			cells.append(cell)
+			step_index += 1
 	return _rotate_route_start_to_straight(cells)
 
 func _route_waypoint_from_value(value: Variant) -> Vector3i:
@@ -580,6 +585,18 @@ func _is_flat_straight_route_cell(cells: Array[Vector3i], index: int) -> bool:
 	if prev.y != current.y or next.y != current.y:
 		return false
 	return _horizontal_delta(current, prev) + _horizontal_delta(current, next) == Vector3i.ZERO
+
+func _horizontal_direction_to_target(from_cell: Vector3i, target: Vector3i) -> Vector3i:
+	if from_cell.x != target.x:
+		return Vector3i(1 if target.x > from_cell.x else -1, 0, 0)
+	if from_cell.z != target.z:
+		return Vector3i(0, 0, 1 if target.z > from_cell.z else -1)
+	return Vector3i.ZERO
+
+func _previous_route_direction(cells: Array[Vector3i]) -> Vector3i:
+	if cells.size() < 2:
+		return Vector3i.ZERO
+	return _horizontal_delta(cells[cells.size() - 2], cells[cells.size() - 1])
 
 func _tile_item_for_route_cell(route_cells: Array[Vector3i], index: int) -> int:
 	var current := route_cells[index]

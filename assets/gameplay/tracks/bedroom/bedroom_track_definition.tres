@@ -97,16 +97,16 @@ road_grid_layout = {
 "position": Vector3(64, 0, -64)
 }, {
 "cell": Vector3i(5, 0, -4),
+"item": 1,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(80, 0, -64)
+}, {
+"cell": Vector3i(5, 0, -3),
 "item": 5,
 "orientation": 10,
 "orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
-"position": Vector3(80, 0, -64)
-}, {
-"cell": Vector3i(5, 1, -3),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(80, 4, -48)
+"position": Vector3(80, 0, -48)
 }, {
 "cell": Vector3i(5, 1, -2),
 "item": 0,
@@ -139,16 +139,16 @@ road_grid_layout = {
 "position": Vector3(32, 4, -16)
 }, {
 "cell": Vector3i(1, 1, -1),
-"item": 5,
+"item": 1,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
 "position": Vector3(16, 4, -16)
 }, {
-"cell": Vector3i(1, 0, 0),
-"item": 0,
+"cell": Vector3i(1, 1, 0),
+"item": 5,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(16, 0, 0)
+"position": Vector3(16, 4, 0)
 }, {
 "cell": Vector3i(1, 0, 1),
 "item": 1,
@@ -424,8 +424,8 @@ road_grid_layout = {
 "hazard_route_indices": [],
 "item_route_indices": [],
 "mesh_library_path": "res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres",
-"ordered_route_cells": Array[Vector3i]([Vector3i(-7, 0, -4), Vector3i(-6, 0, -4), Vector3i(-5, 0, -4), Vector3i(-4, 0, -4), Vector3i(-3, 0, -4), Vector3i(-2, 0, -4), Vector3i(-1, 0, -4), Vector3i(0, 0, -4), Vector3i(1, 0, -4), Vector3i(2, 0, -4), Vector3i(3, 0, -4), Vector3i(4, 0, -4), Vector3i(5, 0, -4), Vector3i(5, 1, -3), Vector3i(5, 1, -2), Vector3i(5, 1, -1), Vector3i(4, 1, -1), Vector3i(3, 1, -1), Vector3i(2, 1, -1), Vector3i(1, 1, -1), Vector3i(1, 0, 0), Vector3i(1, 0, 1), Vector3i(2, 0, 1), Vector3i(3, 0, 1), Vector3i(4, 0, 1), Vector3i(5, 0, 1), Vector3i(6, 0, 1), Vector3i(7, 0, 1), Vector3i(7, 0, 2), Vector3i(7, 0, 3), Vector3i(7, 0, 4), Vector3i(7, 0, 5), Vector3i(6, 0, 5), Vector3i(5, 0, 5), Vector3i(4, 0, 5), Vector3i(3, 0, 5), Vector3i(2, 0, 5), Vector3i(2, 0, 4), Vector3i(2, 0, 3), Vector3i(1, 0, 3), Vector3i(0, 0, 3), Vector3i(-1, 0, 3), Vector3i(-2, 0, 3), Vector3i(-3, 0, 3), Vector3i(-4, 0, 3), Vector3i(-4, 0, 4), Vector3i(-4, 0, 5), Vector3i(-5, 0, 5), Vector3i(-6, 0, 5), Vector3i(-7, 0, 5), Vector3i(-8, 0, 5), Vector3i(-8, 0, 4), Vector3i(-8, 0, 3), Vector3i(-8, 0, 2), Vector3i(-8, 0, 1), Vector3i(-8, 0, 0), Vector3i(-7, 0, 0), Vector3i(-6, 0, 0), Vector3i(-5, 0, 0), Vector3i(-5, 0, -1), Vector3i(-5, 0, -2), Vector3i(-5, 0, -3), Vector3i(-6, 0, -3), Vector3i(-7, 0, -3), Vector3i(-8, 0, -3), Vector3i(-8, 0, -4)]),
-"ordered_route_points": Array[Vector3]([Vector3(-112, 0, -64), Vector3(-96, 0, -64), Vector3(-80, 0, -64), Vector3(-64, 0, -64), Vector3(-48, 0, -64), Vector3(-32, 0, -64), Vector3(-16, 0, -64), Vector3(0, 0, -64), Vector3(16, 0, -64), Vector3(32, 0, -64), Vector3(48, 0, -64), Vector3(64, 0, -64), Vector3(80, 0, -64), Vector3(80, 4, -48), Vector3(80, 4, -32), Vector3(80, 4, -16), Vector3(64, 4, -16), Vector3(48, 4, -16), Vector3(32, 4, -16), Vector3(16, 4, -16), Vector3(16, 0, 0), Vector3(16, 0, 16), Vector3(32, 0, 16), Vector3(48, 0, 16), Vector3(64, 0, 16), Vector3(80, 0, 16), Vector3(96, 0, 16), Vector3(112, 0, 16), Vector3(112, 0, 32), Vector3(112, 0, 48), Vector3(112, 0, 64), Vector3(112, 0, 80), Vector3(96, 0, 80), Vector3(80, 0, 80), Vector3(64, 0, 80), Vector3(48, 0, 80), Vector3(32, 0, 80), Vector3(32, 0, 64), Vector3(32, 0, 48), Vector3(16, 0, 48), Vector3(0, 0, 48), Vector3(-16, 0, 48), Vector3(-32, 0, 48), Vector3(-48, 0, 48), Vector3(-64, 0, 48), Vector3(-64, 0, 64), Vector3(-64, 0, 80), Vector3(-80, 0, 80), Vector3(-96, 0, 80), Vector3(-112, 0, 80), Vector3(-128, 0, 80), Vector3(-128, 0, 64), Vector3(-128, 0, 48), Vector3(-128, 0, 32), Vector3(-128, 0, 16), Vector3(-128, 0, 0), Vector3(-112, 0, 0), Vector3(-96, 0, 0), Vector3(-80, 0, 0), Vector3(-80, 0, -16), Vector3(-80, 0, -32), Vector3(-80, 0, -48), Vector3(-96, 0, -48), Vector3(-112, 0, -48), Vector3(-128, 0, -48), Vector3(-128, 0, -64)]),
+"ordered_route_cells": Array[Vector3i]([Vector3i(-7, 0, -4), Vector3i(-6, 0, -4), Vector3i(-5, 0, -4), Vector3i(-4, 0, -4), Vector3i(-3, 0, -4), Vector3i(-2, 0, -4), Vector3i(-1, 0, -4), Vector3i(0, 0, -4), Vector3i(1, 0, -4), Vector3i(2, 0, -4), Vector3i(3, 0, -4), Vector3i(4, 0, -4), Vector3i(5, 0, -4), Vector3i(5, 0, -3), Vector3i(5, 1, -2), Vector3i(5, 1, -1), Vector3i(4, 1, -1), Vector3i(3, 1, -1), Vector3i(2, 1, -1), Vector3i(1, 1, -1), Vector3i(1, 1, 0), Vector3i(1, 0, 1), Vector3i(2, 0, 1), Vector3i(3, 0, 1), Vector3i(4, 0, 1), Vector3i(5, 0, 1), Vector3i(6, 0, 1), Vector3i(7, 0, 1), Vector3i(7, 0, 2), Vector3i(7, 0, 3), Vector3i(7, 0, 4), Vector3i(7, 0, 5), Vector3i(6, 0, 5), Vector3i(5, 0, 5), Vector3i(4, 0, 5), Vector3i(3, 0, 5), Vector3i(2, 0, 5), Vector3i(2, 0, 4), Vector3i(2, 0, 3), Vector3i(1, 0, 3), Vector3i(0, 0, 3), Vector3i(-1, 0, 3), Vector3i(-2, 0, 3), Vector3i(-3, 0, 3), Vector3i(-4, 0, 3), Vector3i(-4, 0, 4), Vector3i(-4, 0, 5), Vector3i(-5, 0, 5), Vector3i(-6, 0, 5), Vector3i(-7, 0, 5), Vector3i(-8, 0, 5), Vector3i(-8, 0, 4), Vector3i(-8, 0, 3), Vector3i(-8, 0, 2), Vector3i(-8, 0, 1), Vector3i(-8, 0, 0), Vector3i(-7, 0, 0), Vector3i(-6, 0, 0), Vector3i(-5, 0, 0), Vector3i(-5, 0, -1), Vector3i(-5, 0, -2), Vector3i(-5, 0, -3), Vector3i(-6, 0, -3), Vector3i(-7, 0, -3), Vector3i(-8, 0, -3), Vector3i(-8, 0, -4)]),
+"ordered_route_points": Array[Vector3]([Vector3(-112, 0, -64), Vector3(-96, 0, -64), Vector3(-80, 0, -64), Vector3(-64, 0, -64), Vector3(-48, 0, -64), Vector3(-32, 0, -64), Vector3(-16, 0, -64), Vector3(0, 0, -64), Vector3(16, 0, -64), Vector3(32, 0, -64), Vector3(48, 0, -64), Vector3(64, 0, -64), Vector3(80, 0, -64), Vector3(80, 0, -48), Vector3(80, 4, -32), Vector3(80, 4, -16), Vector3(64, 4, -16), Vector3(48, 4, -16), Vector3(32, 4, -16), Vector3(16, 4, -16), Vector3(16, 4, 0), Vector3(16, 0, 16), Vector3(32, 0, 16), Vector3(48, 0, 16), Vector3(64, 0, 16), Vector3(80, 0, 16), Vector3(96, 0, 16), Vector3(112, 0, 16), Vector3(112, 0, 32), Vector3(112, 0, 48), Vector3(112, 0, 64), Vector3(112, 0, 80), Vector3(96, 0, 80), Vector3(80, 0, 80), Vector3(64, 0, 80), Vector3(48, 0, 80), Vector3(32, 0, 80), Vector3(32, 0, 64), Vector3(32, 0, 48), Vector3(16, 0, 48), Vector3(0, 0, 48), Vector3(-16, 0, 48), Vector3(-32, 0, 48), Vector3(-48, 0, 48), Vector3(-64, 0, 48), Vector3(-64, 0, 64), Vector3(-64, 0, 80), Vector3(-80, 0, 80), Vector3(-96, 0, 80), Vector3(-112, 0, 80), Vector3(-128, 0, 80), Vector3(-128, 0, 64), Vector3(-128, 0, 48), Vector3(-128, 0, 32), Vector3(-128, 0, 16), Vector3(-128, 0, 0), Vector3(-112, 0, 0), Vector3(-96, 0, 0), Vector3(-80, 0, 0), Vector3(-80, 0, -16), Vector3(-80, 0, -32), Vector3(-80, 0, -48), Vector3(-96, 0, -48), Vector3(-112, 0, -48), Vector3(-128, 0, -48), Vector3(-128, 0, -64)]),
 "origin": Vector3(-8, -2, -8),
 "road_width": 16.0,
 "spawn_slots": Array[Dictionary]([{
@@ -487,7 +487,7 @@ sky_cloud_amount = 0.28
 sky_cloud_speed = 0.01
 sky_haze_amount = 0.22
 sky_light_energy = 1.9
-route_points = Array[Vector3]([Vector3(-112, 0, -64), Vector3(-96, 0, -64), Vector3(-80, 0, -64), Vector3(-64, 0, -64), Vector3(-48, 0, -64), Vector3(-32, 0, -64), Vector3(-16, 0, -64), Vector3(0, 0, -64), Vector3(16, 0, -64), Vector3(32, 0, -64), Vector3(48, 0, -64), Vector3(64, 0, -64), Vector3(80, 0, -64), Vector3(80, 4, -48), Vector3(80, 4, -32), Vector3(80, 4, -16), Vector3(64, 4, -16), Vector3(48, 4, -16), Vector3(32, 4, -16), Vector3(16, 4, -16), Vector3(16, 0, 0), Vector3(16, 0, 16), Vector3(32, 0, 16), Vector3(48, 0, 16), Vector3(64, 0, 16), Vector3(80, 0, 16), Vector3(96, 0, 16), Vector3(112, 0, 16), Vector3(112, 0, 32), Vector3(112, 0, 48), Vector3(112, 0, 64), Vector3(112, 0, 80), Vector3(96, 0, 80), Vector3(80, 0, 80), Vector3(64, 0, 80), Vector3(48, 0, 80), Vector3(32, 0, 80), Vector3(32, 0, 64), Vector3(32, 0, 48), Vector3(16, 0, 48), Vector3(0, 0, 48), Vector3(-16, 0, 48), Vector3(-32, 0, 48), Vector3(-48, 0, 48), Vector3(-64, 0, 48), Vector3(-64, 0, 64), Vector3(-64, 0, 80), Vector3(-80, 0, 80), Vector3(-96, 0, 80), Vector3(-112, 0, 80), Vector3(-128, 0, 80), Vector3(-128, 0, 64), Vector3(-128, 0, 48), Vector3(-128, 0, 32), Vector3(-128, 0, 16), Vector3(-128, 0, 0), Vector3(-112, 0, 0), Vector3(-96, 0, 0), Vector3(-80, 0, 0), Vector3(-80, 0, -16), Vector3(-80, 0, -32), Vector3(-80, 0, -48), Vector3(-96, 0, -48), Vector3(-112, 0, -48), Vector3(-128, 0, -48), Vector3(-128, 0, -64)])
+route_points = Array[Vector3]([Vector3(-112, 0, -64), Vector3(-96, 0, -64), Vector3(-80, 0, -64), Vector3(-64, 0, -64), Vector3(-48, 0, -64), Vector3(-32, 0, -64), Vector3(-16, 0, -64), Vector3(0, 0, -64), Vector3(16, 0, -64), Vector3(32, 0, -64), Vector3(48, 0, -64), Vector3(64, 0, -64), Vector3(80, 0, -64), Vector3(80, 0, -48), Vector3(80, 4, -32), Vector3(80, 4, -16), Vector3(64, 4, -16), Vector3(48, 4, -16), Vector3(32, 4, -16), Vector3(16, 4, -16), Vector3(16, 4, 0), Vector3(16, 0, 16), Vector3(32, 0, 16), Vector3(48, 0, 16), Vector3(64, 0, 16), Vector3(80, 0, 16), Vector3(96, 0, 16), Vector3(112, 0, 16), Vector3(112, 0, 32), Vector3(112, 0, 48), Vector3(112, 0, 64), Vector3(112, 0, 80), Vector3(96, 0, 80), Vector3(80, 0, 80), Vector3(64, 0, 80), Vector3(48, 0, 80), Vector3(32, 0, 80), Vector3(32, 0, 64), Vector3(32, 0, 48), Vector3(16, 0, 48), Vector3(0, 0, 48), Vector3(-16, 0, 48), Vector3(-32, 0, 48), Vector3(-48, 0, 48), Vector3(-64, 0, 48), Vector3(-64, 0, 64), Vector3(-64, 0, 80), Vector3(-80, 0, 80), Vector3(-96, 0, 80), Vector3(-112, 0, 80), Vector3(-128, 0, 80), Vector3(-128, 0, 64), Vector3(-128, 0, 48), Vector3(-128, 0, 32), Vector3(-128, 0, 16), Vector3(-128, 0, 0), Vector3(-112, 0, 0), Vector3(-96, 0, 0), Vector3(-80, 0, 0), Vector3(-80, 0, -16), Vector3(-80, 0, -32), Vector3(-80, 0, -48), Vector3(-96, 0, -48), Vector3(-112, 0, -48), Vector3(-128, 0, -48), Vector3(-128, 0, -64)])
 checkpoint_indices = Array[int]([0, 11, 22, 33, 44, 55])
 spawn_points = Array[Vector4]([Vector4(-112, 0.8, -61.25, 90), Vector4(-112, 0.8, -66.75, 90), Vector4(-107, 0.8, -61.25, 90), Vector4(-107, 0.8, -66.75, 90), Vector4(-102, 0.8, -61.25, 90), Vector4(-102, 0.8, -66.75, 90), Vector4(-97, 0.8, -61.25, 90), Vector4(-97, 0.8, -66.75, 90)])
 stage_props = Array[Dictionary]([{
