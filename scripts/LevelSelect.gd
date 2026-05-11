@@ -30,6 +30,7 @@ var _meta_label: Label
 var _racer_name_label: Label
 var _racer_meta_label: Label
 var _select_button: Button
+var _multiplayer_button: Button
 var _prev_button: Button
 var _next_button: Button
 var _racer_prev_button: Button
@@ -103,7 +104,22 @@ func select_track_for_test(track_id: String) -> bool:
 	return false
 
 func get_back_target_for_test() -> String:
-	return "res://scenes/CharacterSelect.tscn"
+	return "res://scenes/MainMenu.tscn"
+
+func get_flow_action_labels_for_test() -> Array[String]:
+	_refresh_flow_actions()
+	var labels: Array[String] = []
+	if _select_button != null and _select_button.visible:
+		labels.append(_select_button.text)
+	if _multiplayer_button != null and _multiplayer_button.visible:
+		labels.append(_multiplayer_button.text)
+	return labels
+
+func prepare_local_flow_for_test() -> String:
+	return _prepare_local_flow()
+
+func prepare_multiplayer_flow_for_test() -> String:
+	return _prepare_multiplayer_flow()
 
 func preview_has_visible_road_edges_for_test() -> bool:
 	return _has_visible_preview_road_edges(_preview_root)
@@ -299,8 +315,14 @@ func _build_screen() -> void:
 	_select_button = _make_button("Race This Track", Vector2(0, 54))
 	_select_button.name = "SelectButton"
 	_select_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_select_button.pressed.connect(_start_selected_track)
+	_select_button.pressed.connect(_start_local_flow)
 	info_box.add_child(_select_button)
+
+	_multiplayer_button = _make_button("Multiplayer Lobby", Vector2(0, 48))
+	_multiplayer_button.name = "MultiplayerButton"
+	_multiplayer_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_multiplayer_button.pressed.connect(_start_multiplayer_flow)
+	info_box.add_child(_multiplayer_button)
 
 	_next_button = _make_button(">", Vector2(74, 64))
 	_next_button.name = "NextButton"
@@ -368,6 +390,8 @@ func _show_selected_track(animated: bool) -> void:
 	if _tracks.is_empty():
 		_track_name_label.text = "No tracks available"
 		_select_button.disabled = true
+		if _multiplayer_button != null:
+			_multiplayer_button.disabled = true
 		return
 	var selected := _tracks[_track_index]
 	var track_id := str(selected.get("id", ""))
@@ -376,6 +400,9 @@ func _show_selected_track(animated: bool) -> void:
 	_prev_button.disabled = _tracks.size() <= 1
 	_next_button.disabled = _tracks.size() <= 1
 	_select_button.disabled = false
+	if _multiplayer_button != null:
+		_multiplayer_button.disabled = false
+	_refresh_flow_actions()
 	_rebuild_preview(track_id)
 	_request_scene_preload(track_id)
 	_request_neighbor_scene_preloads()
@@ -568,21 +595,43 @@ func _has_visible_named_node(node: Node, target_name: String) -> bool:
 			return true
 	return false
 
-func _start_selected_track() -> void:
+func _start_local_flow() -> void:
+	var target := _prepare_local_flow()
+	if target != "":
+		get_tree().change_scene_to_file(target)
+
+func _start_multiplayer_flow() -> void:
+	var target := _prepare_multiplayer_flow()
+	if target != "":
+		get_tree().change_scene_to_file(target)
+
+func _prepare_local_flow() -> String:
 	_apply_selected_track_metadata()
-	get_tree().change_scene_to_file("res://scenes/Race.tscn")
+	match NavigationFlow.get_nav_flow_mode(NakamaService):
+		NavigationFlow.FLOW_TOURNAMENT:
+			NavigationFlow.prepare_local_tournament(NakamaService, null, get_selected_track_id())
+		_:
+			NakamaService.set_meta_value("race_match_id", NavigationFlow.LOCAL_SINGLE_MATCH_ID)
+			NakamaService.set_meta_value("race_mode", NavigationFlow.RACE_MODE_LOCAL_SINGLE)
+	return "res://scenes/Race.tscn"
+
+func _prepare_multiplayer_flow() -> String:
+	_apply_selected_track_metadata()
+	match NavigationFlow.get_nav_flow_mode(NakamaService):
+		NavigationFlow.FLOW_TOURNAMENT:
+			NavigationFlow.prepare_tournament_multiplayer(NakamaService)
+		_:
+			NavigationFlow.prepare_single_multiplayer(NakamaService)
+	return "res://scenes/Lobby.tscn"
 
 func _apply_selected_track_metadata() -> void:
 	var track_id := get_selected_track_id()
 	if track_id.is_empty():
 		return
 	NakamaService.set_meta_value("selected_racer_id", _selected_racer_id)
-	NakamaService.set_meta_value("track_id", track_id)
-	NakamaService.set_meta_value("track_recipe", {"track_id": track_id, "id": track_id})
+	NavigationFlow.prepare_local_single_track(NakamaService, track_id)
 	NakamaService.set_meta_value("prepared_track_package", {})
 	_request_scene_preload(track_id)
-	NakamaService.set_meta_value("race_match_id", "local-single-race")
-	NakamaService.set_meta_value("race_mode", "local_single")
 
 func _request_neighbor_scene_preloads() -> void:
 	if _tracks.size() <= 1:
@@ -607,11 +656,21 @@ func _request_scene_preload(track_id: String) -> void:
 		_threaded_scene_requests[track_id] = scene_path
 
 func _go_back() -> void:
-	if NavigationFlow.get_nav_flow_mode(NakamaService) == NavigationFlow.FLOW_SINGLE_RACE:
-		NavigationFlow.set_nav_flow_mode(NakamaService, NavigationFlow.FLOW_SINGLE_RACE)
-		get_tree().change_scene_to_file("res://scenes/CharacterSelect.tscn")
+	NavigationFlow.clear_nav_flow_mode(NakamaService)
+	get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
+
+func _refresh_flow_actions() -> void:
+	if _select_button == null or _multiplayer_button == null:
 		return
-	get_tree().change_scene_to_file("res://scenes/CharacterSelect.tscn")
+	match NavigationFlow.get_nav_flow_mode(NakamaService):
+		NavigationFlow.FLOW_TOURNAMENT:
+			_title_label.text = "Select Cup"
+			_select_button.text = "Start Cup"
+			_multiplayer_button.text = "Tournament Lobby"
+		_:
+			_title_label.text = "Select Track"
+			_select_button.text = "Race This Track"
+			_multiplayer_button.text = "Multiplayer Lobby"
 
 func _make_button(text: String, min_size: Vector2) -> Button:
 	var button := Button.new()

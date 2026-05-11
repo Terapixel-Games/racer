@@ -28,3 +28,8 @@ func test_main_menu_sets_navigation_flow_and_preview_track() -> void:
 	screen.call("start_tournament_for_test")
 	assert_equal(NakamaService.get_meta_value("nav_flow_mode", ""), "tournament", "Tournament should write navigation flow")
 	screen.queue_free()
+
+func test_main_menu_buttons_route_to_unified_level_select() -> void:
+	var source := FileAccess.get_file_as_string(ProjectSettings.globalize_path("res://scripts/MainMenu.gd"))
+	assert_true(source.contains("res://scenes/LevelSelect.tscn"), "Main menu should route mode buttons to unified level select")
+	assert_true(not source.contains("res://scenes/CharacterSelect.tscn"), "Main menu should not route through static character select")

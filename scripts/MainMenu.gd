@@ -159,11 +159,11 @@ func _build_screen() -> void:
 
 func _on_single_race_pressed() -> void:
 	_prepare_single_race()
-	get_tree().change_scene_to_file("res://scenes/CharacterSelect.tscn")
+	get_tree().change_scene_to_file("res://scenes/LevelSelect.tscn")
 
 func _on_tournament_pressed() -> void:
 	_prepare_tournament()
-	get_tree().change_scene_to_file("res://scenes/CharacterSelect.tscn")
+	get_tree().change_scene_to_file("res://scenes/LevelSelect.tscn")
 
 func _prepare_single_race() -> void:
 	NavigationFlow.set_nav_flow_mode(NakamaService, NavigationFlow.FLOW_SINGLE_RACE)

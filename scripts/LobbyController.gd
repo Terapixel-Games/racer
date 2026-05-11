@@ -27,7 +27,7 @@ func _connect_socket_handlers() -> void:
 		NakamaService.socket.received_match_state.connect(_on_match_state)
 
 func _join_or_create_lobby() -> void:
-	var join_metadata := lobby_join_metadata_for_racer(_selected_racer_id())
+	var join_metadata := lobby_join_metadata_for_racer(_selected_racer_id(), _selected_track_id())
 	var request := join_metadata.duplicate()
 	request["mode"] = _online_mode()
 	request["room_code"] = str(NakamaService.get_meta_value("join_room_code", ""))
@@ -48,7 +48,7 @@ func _join_or_create_lobby() -> void:
 
 func _start_offline_lobby() -> void:
 	var selected_racer := _selected_racer_id()
-	var request := lobby_join_metadata_for_racer(selected_racer)
+	var request := lobby_join_metadata_for_racer(selected_racer, _selected_track_id())
 	request["mode"] = _online_mode()
 	var res := await NakamaService.call_rpc("racer_online_join_or_create", request)
 	lobby_match_id = str(res.get("match_id", "offline-lobby"))
@@ -120,19 +120,26 @@ func _leave_to_menu() -> void:
 func _selected_racer_id() -> String:
 	return normalize_selected_racer_id(str(NakamaService.get_meta_value("selected_racer_id", RacerRoster.DEFAULT_RACER_ID)))
 
+func _selected_track_id() -> String:
+	return str(NakamaService.get_meta_value("track_id", "")).strip_edges()
+
 static func normalize_selected_racer_id(racer_id: String) -> String:
 	var trimmed := racer_id.strip_edges()
 	if RacerRoster.has(trimmed):
 		return trimmed
 	return RacerRoster.DEFAULT_RACER_ID
 
-static func lobby_join_metadata_for_racer(racer_id: String) -> Dictionary:
+static func lobby_join_metadata_for_racer(racer_id: String, track_id: String = "") -> Dictionary:
 	var normalized := normalize_selected_racer_id(racer_id)
-	return {
+	var metadata := {
 		"schema_version": NetMessages.SCHEMA_VERSION,
 		"selected_racer_id": normalized,
 		"racer_display_name": normalized,
 	}
+	var normalized_track_id := track_id.strip_edges()
+	if normalized_track_id != "":
+		metadata["track_id"] = normalized_track_id
+	return metadata
 
 static func player_label_from_entry(entry: Variant) -> String:
 	if entry is Dictionary:

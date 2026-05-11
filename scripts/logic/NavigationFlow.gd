@@ -63,8 +63,8 @@ static func prepare_local_single_track(service: Node, track_id: String) -> void:
 	_set_meta(service, KEY_RACE_MATCH_ID, LOCAL_SINGLE_MATCH_ID)
 	_set_meta(service, KEY_RACE_MODE, RACE_MODE_LOCAL_SINGLE)
 
-static func prepare_local_tournament(service: Node, rng: RandomNumberGenerator = null) -> Array[String]:
-	var track_ids := random_tournament_track_ids(rng)
+static func prepare_local_tournament(service: Node, rng: RandomNumberGenerator = null, first_track_id: String = "") -> Array[String]:
+	var track_ids := random_tournament_track_ids(rng, first_track_id)
 	_set_meta(service, KEY_RACE_MODE, RACE_MODE_LOCAL_TOURNAMENT)
 	_set_meta(service, KEY_NAV_FLOW_MODE, FLOW_TOURNAMENT)
 	_set_meta(service, KEY_RACE_MATCH_ID, LOCAL_TOURNAMENT_MATCH_ID)
@@ -75,7 +75,7 @@ static func prepare_local_tournament(service: Node, rng: RandomNumberGenerator =
 		_apply_tournament_track(service, track_ids[0])
 	return track_ids
 
-static func random_tournament_track_ids(rng: RandomNumberGenerator = null) -> Array[String]:
+static func random_tournament_track_ids(rng: RandomNumberGenerator = null, first_track_id: String = "") -> Array[String]:
 	var ids: Array[String] = []
 	for track in TrackCatalog.list_tracks():
 		if track is Dictionary:
@@ -90,6 +90,10 @@ static func random_tournament_track_ids(rng: RandomNumberGenerator = null) -> Ar
 		var temp := ids[index]
 		ids[index] = ids[swap_index]
 		ids[swap_index] = temp
+	var requested := first_track_id.strip_edges()
+	if requested != "" and ids.has(requested):
+		ids.erase(requested)
+		ids.push_front(requested)
 	return ids.slice(0, min(TOURNAMENT_ROUND_COUNT, ids.size()))
 
 static func award_tournament_points(service: Node, results: Array) -> Dictionary:

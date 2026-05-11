@@ -10,7 +10,7 @@ Arcade Ridge Racer-like multiplayer prototype powered by Nakama. Default backend
 - Two instances: start two editor play sessions to join the same lobby and verify countdown reset (<10s -> resets to 10).
 
 ## Multiplayer flow
-- MainMenu -> Single Race or Tournament -> Character Select -> Multiplayer opens the Nakama lobby path.
+- MainMenu -> Single Race or Tournament -> Level Select. The unified selector chooses both racer and track, then opens either the local race or the Nakama lobby path.
 - Lobby RPC `racer_online_join_or_create` creates or joins a fresh online session with a room code, session id, lobby match id, mode, selected track ids, and current standings.
 - Single race uses one validated track from `assets/gameplay/tracks/track_packages.json`; tournament uses the same lobby group across four unique tracks.
 - Race scene joins the returned race match id, drives locally, and sends pose/progress input. Nakama owns session phase, finish ordering, tournament points, and canonical snapshots.

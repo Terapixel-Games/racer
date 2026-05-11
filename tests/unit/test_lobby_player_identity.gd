@@ -12,6 +12,10 @@ func test_lobby_join_metadata_defaults_invalid_racer() -> void:
 	var metadata := LobbyController.lobby_join_metadata_for_racer("Not A Racer")
 	assert_equal(metadata.get("selected_racer_id", ""), RacerRoster.DEFAULT_RACER_ID, "Invalid selections should fall back to the default racer")
 
+func test_lobby_join_metadata_carries_selected_track() -> void:
+	var metadata := LobbyController.lobby_join_metadata_for_racer("Moko", "kitchen")
+	assert_equal(metadata.get("track_id", ""), "kitchen", "Join metadata should carry selected track for lobby creation")
+
 func test_lobby_player_label_prefers_racer_id() -> void:
 	var label := LobbyController.player_label_from_entry({"name": "ignored user", "racer_id": "Velva"})
 	assert_equal(label, "Velva", "Lobby labels should show the selected racer")

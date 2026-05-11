@@ -17,6 +17,18 @@ func test_local_tournament_selects_unique_tracks_and_first_track_metadata() -> v
 	assert_equal(NakamaService.get_meta_value("track_id", ""), tracks[0], "Tournament should prepare first round track")
 	assert_true(NakamaService.get_meta_value("track_recipe", {}) is Dictionary, "Tournament should write first round track metadata")
 
+func test_local_tournament_can_seed_first_track() -> void:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 42
+	var tracks := NavigationFlow.prepare_local_tournament(NakamaService, rng, "kitchen")
+	assert_true(tracks.size() >= 1, "Seeded tournament should select available tracks")
+	assert_equal(str(tracks[0]), "kitchen", "Seeded tournament should use the requested first track")
+	var seen := {}
+	for track_id in tracks:
+		seen[str(track_id)] = true
+	assert_equal(seen.size(), tracks.size(), "Seeded tournament tracks should remain unique")
+	assert_equal(NakamaService.get_meta_value("track_id", ""), "kitchen", "Seeded tournament should prepare requested first round")
+
 func test_tournament_points_accumulate_by_finish_order() -> void:
 	NakamaService.set_meta_value("tournament_points", {})
 	var results := [
