@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://d3456a26kxrcj"]
+[gd_scene load_steps=38 format=3 uid="uid://d3456a26kxrcj"]
 
 [ext_resource type="Texture2D" uid="uid://dyof4gx7wh6w7" path="res://assets/source/generated/textures/toy_materials_2026-04-27/kitchen_tile_albedo.png" id="1_tile"]
 [ext_resource type="PackedScene" uid="uid://bnh07515k0fhb" path="res://assets/source/meshy/kitchen/retro_cream_refrigerator.glb" id="2_fridge"]
@@ -27,7 +27,7 @@ roughness = 0.78
 uv1_scale = Vector3(24, 24, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_floor"]
-size = Vector2(560, 400)
+size = Vector2(292, 190)
 
 [sub_resource type="StandardMaterial3D" id="Material_wall"]
 albedo_color = Color(0.62, 0.58, 0.51, 1)
@@ -46,10 +46,6 @@ roughness = 0.48
 [sub_resource type="StandardMaterial3D" id="Material_dark"]
 albedo_color = Color(0.05, 0.055, 0.06, 1)
 roughness = 0.5
-
-[sub_resource type="BoxMesh" id="BoxMesh_eq2kr"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_msb3l"]
 
 [sub_resource type="ShaderMaterial" id="Material_toon_water"]
 render_priority = 0
@@ -116,292 +112,284 @@ forward_offset = 24.0
 [node name="KitchenEditableRoom" type="Node3D"]
 
 [node name="Track" type="Node3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
 [node name="floor" type="Node3D" parent="Track"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -32, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Track/floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.040315628, 21.648705, 0.17739868)
 material_override = SubResource("Material_floor")
 mesh = SubResource("PlaneMesh_floor")
 
 [node name="RoomShell" type="Node3D" parent="Track"]
 
 [node name="BackWall" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(560, 0, 0, 0, 96, 0, 0, 0, 4, 0, 16, 200)
+transform = Transform3D(316.4062, 0, 0, 0, 64.53761, 0, 0, 0, 2, 0, 21, 98)
 visible = false
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="BackWallLeftOfWindow" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(42, 0, 0, 0, 96, 0, 0, 0, 4, -259, 16, 200)
+transform = Transform3D(34, 0, 0, 0, 64.53761, 0, 0, 0, 2, -141, 21, 98)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="BackWallRightOfWindow" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(422, 0, 0, 0, 96, 0, 0, 0, 4, 69, 16, 200)
+transform = Transform3D(228, 0, 0, 0, 64.53761, 0, 0, 0, 2, 44, 21, 98)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="BackWallBelowWindow" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(96, 0, 0, 0, 54, 0, 0, 0, 4, -190, -5, 200)
+transform = Transform3D(316.4062, 0, 0, 0, 24, 0, 0, 0, 2, 0, 12, 98)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="BackWallAboveWindow" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(96, 0, 0, 0, 14, 0, 0, 0, 4, -190, 57, 200)
+transform = Transform3D(316.4062, 0, 0, 0, 22, 0, 0, 0, 2, 0, 53, 98)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="LeftWall" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(4, 0, 0, 0, 96, 0, 0, 0, 400, -280, 16, 0)
+transform = Transform3D(1.731, 0, 0, 0, 60.449, 0, 0, 0, 193.426, -143.94037, 22.300934, 0)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="RightWall" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(4, 0, 0, 0, 96, 0, 0, 0, 400, 280, 16, 0)
+transform = Transform3D(2, 0, 0, 0, 68.56597, 0, 0, 0, 221.22151, 72.907425, 21, 0)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="RightWall2" type="MeshInstance3D" parent="Track/RoomShell"]
-visible = false
+transform = Transform3D(2, 0, 0, 0, 68.56597, 0, 0, 0, 153.4515, -38.225384, 21, -22.88396)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="RightWall3" type="MeshInstance3D" parent="Track/RoomShell"]
-visible = false
+transform = Transform3D(2, 0, 0, 0, 68.56597, 0, 0, 0, 72.41168, -37.06749, 21, 113.619064)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="RightWall4" type="MeshInstance3D" parent="Track/RoomShell"]
-visible = false
+transform = Transform3D(2, 0, 0, 0, 16.144611, 0, 0, 0, 35.36012, -37.06749, 49.97618, 65.11378)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="FrontWallLeft" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(225, 0, 0, 0, 96, 0, 0, 0, 4, -167.5, 16, -200)
+transform = Transform3D(44.776714, 0, 0, 0, 62.42, 0, 0, 0, 2, -121.31064, 21.195286, -98)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="FrontWallRight" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(225, 0, 0, 0, 96, 0, 0, 0, 4, 167.5, 16, -200)
+transform = Transform3D(182.23038, 0, 0, 0, 66.385, 0, 0, 0, 2, 16.604912, 21, -98)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="FrontWallRight2" type="MeshInstance3D" parent="Track/RoomShell"]
-visible = false
+transform = Transform3D(182.23038, 0, 0, 0, 66.385, 0, 0, 0, 2, 53.716743, 21, -21.162277)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="DoorHeader" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(120, 0, 0, 0, 24, 0, 0, 0, 4, 0, 52, -200)
+transform = Transform3D(82, 0, 0, 0, 12, 0, 0, 0, 2, -57.708828, 45.854355, -98)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="DoorFrameRight" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(3, 0, 0, 0, 72, 0, 0, 0, 2, 61, 4, -201)
+transform = Transform3D(2, 0, 0, 0, 18, 0, 0, 0, 1.2, 54, 26.05394, -99)
 material_override = SubResource("Material_wall_trim")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="WindowGlass" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(88, 0, 0, 0, 28, 0, 0, 0, 1, -190, 36, 198.5)
+transform = Transform3D(47.86275, 0, 0, 0, 15, 0, 0, 0, 0.55, -96.58783, 33.38555, 96.5)
 material_override = SubResource("Material_accent")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="WindowFrame" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(96, 0, 0, 0, 3, 0, 0, 0, 2, -190, 51, 198)
+transform = Transform3D(54.59963, 0, 0, 0, 3.1219745, 0, 0, 0, 0.6, -97.085045, 41.384697, 97)
 material_override = SubResource("Material_dark")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="WindowFrame2" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(96, 0, 0, 0, 3, 0, 0, 0, 2, -190, 21, 198)
+transform = Transform3D(54.59963, 0, 0, 0, 3.1219745, 0, 0, 0, 0.6, -97.085045, 25.102695, 97)
 material_override = SubResource("Material_dark")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="WindowFrame3" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(3, 0, 0, 0, 32, 0, 0, 0, 2, -140, 36, 198)
+transform = Transform3D(3.7556505, 0, 0, 0, 15.035066, 0, 0, 0, 0.6, -71.597755, 33.809288, 96.99217)
 material_override = SubResource("Material_dark")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="WindowFrame4" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(3, 0, 0, 0, 32, 0, 0, 0, 2, -240, 36, 198)
+transform = Transform3D(3.7556505, 0, 0, 0, 15.035066, 0, 0, 0, 0.6, -122.45666, 33.809288, 96.99217)
 material_override = SubResource("Material_dark")
 mesh = SubResource("BoxMesh_unit")
 
-[node name="kitchenCabinet" type="Node3D" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 34.34497, -20, 4.1641693)
+[node name="kitchenCabinet" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 17.172485, -10, 2.0820847)
 
-[node name="kitchenCabinet2" type="Node3D" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 77.271484, -20, 4.1641693)
+[node name="kitchenCabinet2" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 38.635742, -10, 2.0820847)
 
-[node name="kitchenCabinet3" type="Node3D" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -51.72132, -20, 4.1641693)
+[node name="kitchenCabinet3" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -25.86066, -10, 2.0820847)
 
-[node name="kitchenCabinet4" type="Node3D" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -8.62532, -20, 4.1641693)
+[node name="kitchenCabinet4" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -4.31266, -10, 2.0820847)
 
-[node name="kitchenCabinet11" type="Node3D" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(99.998856, 0, 0.4747275, 0, 100.00002, 0, -0.4747275, 0, 99.998856, -241.50533, -20, -148.81808)
+[node name="kitchenCabinet11" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(49.999428, 0, 0.23736376, 0, 50.00001, 0, -0.23736376, 0, 49.999428, -120.75266, -10, -74.40904)
 
-[node name="kitchenCabinet13" type="Node3D" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(-0.47473478, 0, 99.99886, 0, 100.000015, 0, -99.99886, 0, -0.47473478, -241.88326, -19.999996, -62.038864)
+[node name="kitchenCabinet13" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-0.23736739, 0, 49.99943, 0, 50.000008, 0, -49.99943, 0, -0.23736739, -120.94163, -9.999998, -31.019432)
 
-[node name="kitchenCabinet14" type="Node3D" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(-0.47473478, 0, 99.99886, 0, 100.000015, 0, -99.99886, 0, -0.47473478, -242.49626, -19.999996, -105.13051)
+[node name="kitchenCabinet14" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-0.23736739, 0, 49.99943, 0, 50.000008, 0, -49.99943, 0, -0.23736739, -121.24813, -9.999998, -52.565254)
 
-[node name="kitchenCabinet15" type="Node3D" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(-0.43926162, 0, 99.98118, 0, 100.000015, 0, -92.52674, 0, -0.47465083, -240.65904, -19.999996, 13.195326)
+[node name="kitchenCabinet15" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-0.21963081, 0, 49.99059, 0, 50.000008, 0, -46.26337, 0, -0.23732542, -120.32952, -9.999998, 6.597663)
 
-[node name="kitchenCabinetCornerInner2" type="Node3D" parent="Track/RoomShell" instance=ExtResource("7_corner")]
-transform = Transform3D(-0.47473514, 0, 99.998856, 0, 100.00002, 0, -99.998856, 0, -0.47473514, -241.59648, -19.999998, -147.85442)
+[node name="kitchenCabinetCornerInner2" parent="Track/RoomShell" instance=ExtResource("7_corner")]
+transform = Transform3D(-0.23736757, 0, 49.999428, 0, 50.00001, 0, -49.999428, 0, -0.23736757, -120.79824, -9.999999, -73.92721)
 
-[node name="kitchenCabinet17" type="Node3D" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(0.025837619, 0, 100.001015, 0, 100.00002, 0, -92.52764, 0, 0.0279245, -240.32835, -20, 47.073883)
+[node name="kitchenCabinet17" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(0.012918809, 0, 50.000507, 0, 50.00001, 0, -46.26382, 0, 0.01396225, -120.16418, -10, 23.536942)
 
-[node name="kitchenCabinet19" type="Node3D" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(0.02792421, 0, 99.99998, 0, 100.00002, 0, -99.99998, 0, 0.02792421, -240.35237, -20, 146.6995)
+[node name="kitchenCabinet19" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(0.013962105, 0, 49.99999, 0, 50.00001, 0, -49.99999, 0, 0.013962105, -120.176186, -10, 73.34975)
 
-[node name="kitchenCabinet22" type="Node3D" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(-100, 0, 0.027921945, 0, 100.000015, 0, -0.027921945, 0, -100, -112.60443, -19.999996, 147.91002)
+[node name="kitchenCabinet22" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-50, 0, 0.013960972, 0, 50.000008, 0, -0.013960972, 0, -50, -56.302216, -9.999998, 73.95501)
 
-[node name="kitchenCabinetCornerInner3" type="Node3D" parent="Track/RoomShell" instance=ExtResource("7_corner")]
-transform = Transform3D(-99.99998, 0, 0.027921975, 0, 100.00002, 0, -0.027921975, 0, -99.99998, -239.38918, -19.999998, 146.62323)
+[node name="kitchenCabinetCornerInner3" parent="Track/RoomShell" instance=ExtResource("7_corner")]
+transform = Transform3D(-49.99999, 0, 0.013960987, 0, 50.00001, 0, -0.013960987, 0, -49.99999, -119.69459, -9.999999, 73.311615)
 
-[node name="kitchenCabinet25" type="Node3D" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(-99.99999, 0, -8.742277e-06, 0, 100.000015, 0, 8.742277e-06, 0, -99.99999, 99.796265, -18.06062, 151.55884)
+[node name="kitchenCabinet25" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-49.999996, 0, -4.3711384e-06, 0, 50.000008, 0, 4.3711384e-06, 0, -49.999996, 49.898132, -9.03031, 75.77942)
 
-[node name="kitchenCabinet26" type="Node3D" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
-transform = Transform3D(-4.3711398e-06, 0, -100.00002, 0, 100.00001, 0, 100.00002, 0, -4.3711398e-06, 95.846146, -18.060616, 107.93589)
+[node name="kitchenCabinet26" parent="Track/RoomShell" instance=ExtResource("11_j4p2m")]
+transform = Transform3D(-2.1855699e-06, 0, -50.00001, 0, 50.000004, 0, 50.00001, 0, -2.1855699e-06, 47.923073, -9.030308, 53.967945)
 
-[node name="kitchenCabinetCornerInner4" type="Node3D" parent="Track/RoomShell" instance=ExtResource("7_corner")]
-transform = Transform3D(-4.3711384e-06, 0, -99.99999, 0, 100.000015, 0, 99.99999, 0, -4.3711384e-06, 99.92227, -18.060617, 150.59912)
+[node name="kitchenCabinetCornerInner4" parent="Track/RoomShell" instance=ExtResource("7_corner")]
+transform = Transform3D(-2.1855692e-06, 0, -49.999996, 0, 50.000008, 0, 49.999996, 0, -2.1855692e-06, 49.961136, -9.030309, 75.29956)
 
-[node name="doorwayOpen" type="Node3D" parent="Track/RoomShell" instance=ExtResource("12_x538f")]
-transform = Transform3D(-4.371139e-06, 0, 100, 0, 100, 0, -100, 0, -4.371139e-06, -67.28103, -18.463982, 156.80862)
+[node name="doorwayOpen" parent="Track/RoomShell" instance=ExtResource("12_x538f")]
+transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, -33.640514, -9.231991, 78.40431)
 
-[node name="washer" type="Node3D" parent="Track/RoomShell" instance=ExtResource("13_ft60m")]
-transform = Transform3D(-100, 0, -8.742278e-06, 0, 100, 0, 8.742278e-06, 0, -100, 50.334488, -18.463974, 151.32156)
+[node name="washer" parent="Track/RoomShell" instance=ExtResource("13_ft60m")]
+transform = Transform3D(-50, 0, -4.371139e-06, 0, 50, 0, 4.371139e-06, 0, -50, 25.167244, -9.231987, 75.66078)
 script = ExtResource("18_rumbler")
 
-[node name="dryer" type="Node3D" parent="Track/RoomShell" instance=ExtResource("14_452dl")]
-transform = Transform3D(-100, 0, -8.742278e-06, 0, 100, 0, 8.742278e-06, 0, -100, 8.759003, -18.463982, 149.56532)
+[node name="dryer" parent="Track/RoomShell" instance=ExtResource("14_452dl")]
+transform = Transform3D(-50, 0, -4.371139e-06, 0, 50, 0, 4.371139e-06, 0, -50, 4.3795013, -9.231991, 74.78266)
 script = ExtResource("18_rumbler")
 
-[node name="bookcaseOpen" type="Node3D" parent="Track/RoomShell" instance=ExtResource("15_j8sh0")]
-transform = Transform3D(-4.371139e-06, 0, 100, 0, 100, 0, -100, 0, -4.371139e-06, 132.6376, -18.463982, 93.1855)
+[node name="bookcaseOpen" parent="Track/RoomShell" instance=ExtResource("15_j8sh0")]
+transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, 66.3188, -9.231991, 46.59275)
 
-[node name="bookcaseOpen2" type="Node3D" parent="Track/RoomShell" instance=ExtResource("15_j8sh0")]
-transform = Transform3D(-4.371139e-06, 0, 100, 0, 100, 0, -100, 0, -4.371139e-06, 132.6376, -18.463982, 52.302963)
-
-[node name="DoorFrameLeft" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(3, 0, 0, 0, 72, 0, 0, 0, 2, -61, 4, -201)
-material_override = SubResource("Material_wall_trim")
-mesh = SubResource("BoxMesh_eq2kr")
-
-[node name="Ceiling" type="MeshInstance3D" parent="Track/RoomShell"]
-transform = Transform3D(560, 0, 0, 0, 4, 0, 0, 0, 400, 0, 64, 0)
-material_override = SubResource("Material_wall")
-mesh = SubResource("BoxMesh_msb3l")
+[node name="bookcaseOpen2" parent="Track/RoomShell" instance=ExtResource("15_j8sh0")]
+transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, 66.3188, -9.231991, 26.151482)
 
 [node name="CounterRuns" type="Node3D" parent="Track"]
 
-[node name="table" type="Node3D" parent="Track/CounterRuns" instance=ExtResource("9_table")]
-transform = Transform3D(-4.371139e-06, 0, 100, 0, 153.77103, 0, -100, 0, -4.371139e-06, -78.85541, -18.463982, 23.564125)
+[node name="table" parent="Track/CounterRuns" instance=ExtResource("9_table")]
+transform = Transform3D(-2.1855694e-06, 0, 50, 0, 76.88551, 0, -50, 0, -2.1855694e-06, -39.427704, -9.231991, 11.782063)
 
 [node name="Appliances" type="Node3D" parent="Track"]
 
-[node name="retro_cream_refrigerator" type="Node3D" parent="Track/Appliances" instance=ExtResource("2_fridge")]
-transform = Transform3D(-2.4128688e-06, 0, 55.2, 0, 55.2, 0, -55.2, 0, -2.4128688e-06, -268.95337, 32.009865, 73.33124)
+[node name="retro_cream_refrigerator" parent="Track/Appliances" instance=ExtResource("2_fridge")]
+transform = Transform3D(-1.2064344e-06, 0, 27.6, 0, 27.6, 0, -27.6, 0, -1.2064344e-06, -134.47668, 16.004932, 36.66562)
 
-[node name="kitchenSink" type="Node3D" parent="Track/Appliances" instance=ExtResource("3_sink")]
-transform = Transform3D(-100, 0, -1.509958e-05, 0, 100, 0, 1.509958e-05, 0, -100, -196.52892, -20.288364, 148.71443)
+[node name="kitchenSink" parent="Track/Appliances" instance=ExtResource("3_sink")]
+transform = Transform3D(-50, 0, -7.54979e-06, 0, 50, 0, 7.54979e-06, 0, -50, -98.26446, -10.144182, 74.357216)
 
-[node name="kitchenSink2" type="Node3D" parent="Track/Appliances" instance=ExtResource("3_sink")]
-transform = Transform3D(-100, 0, -1.509958e-05, 0, 100, 0, 1.509958e-05, 0, -100, -154.6496, -20, 148.65633)
+[node name="kitchenSink2" parent="Track/Appliances" instance=ExtResource("3_sink")]
+transform = Transform3D(-50, 0, -7.54979e-06, 0, 50, 0, 7.54979e-06, 0, -50, -77.3248, -10, 74.32816)
 
-[node name="kitchenStove" type="Node3D" parent="Track/Appliances" instance=ExtResource("8_stove")]
-transform = Transform3D(-4.371139e-06, 0, 100, 0, 100, 0, -100, 0, -4.371139e-06, -242.96059, -17.612274, -25.49339)
+[node name="kitchenStove" parent="Track/Appliances" instance=ExtResource("8_stove")]
+transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, -121.48029, -8.806137, -12.746695)
 
-[node name="hoodModern" type="Node3D" parent="Track/Appliances" instance=ExtResource("6_487os")]
-transform = Transform3D(-4.371139e-06, 0, 100, 0, 100, 0, -100, 0, -4.371139e-06, -257.35825, 51.05639, -40.42251)
+[node name="hoodModern" parent="Track/Appliances" instance=ExtResource("6_487os")]
+transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, -128.67912, 25.528194, -20.211254)
 
-[node name="doorway" type="Node3D" parent="Track/Appliances" instance=ExtResource("5_51h51")]
-transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -197.26962, -18.463982, -187.4075)
+[node name="doorway" parent="Track/Appliances" instance=ExtResource("5_51h51")]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -98.63481, -9.231991, -93.70375)
 
 [node name="WaterSurfaces" type="Node3D" parent="Track"]
 
 [node name="SinkWater" type="MeshInstance3D" parent="Track/WaterSurfaces"]
-transform = Transform3D(76, 0, 0, 0, 2, 0, 0, 0, 28, -185.19057, 20.589916, 169.65982)
+transform = Transform3D(38, 0, 0, 0, 1, 0, 0, 0, 14, -92.59528, 10.294958, 84.82991)
 material_override = SubResource("Material_toon_water")
 mesh = SubResource("PlaneMesh_water")
 
 [node name="WasherWater" type="MeshInstance3D" parent="Track/WaterSurfaces"]
-transform = Transform3D(16.675335, 0, 0, 0, -8.742278e-08, -13.563103, 0, 2, -5.928621e-07, 174.15324, 2.3523226, -146.9335)
+transform = Transform3D(8.337667, 0, 0, 0, -4.371139e-08, -6.7815514, 0, 1, -2.9643104e-07, 87.07662, 1.1761613, -73.46675)
 material_override = SubResource("Material_toon_water")
 mesh = SubResource("PlaneMesh_water")
 
 [node name="UpperCabinets" type="Node3D" parent="Track"]
 
-[node name="BackUpperCabinetLeftB" type="Node3D" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
-transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -49.99048, 47, 195.62048)
+[node name="BackUpperCabinetLeftB" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -24.99524, 23.5, 97.81024)
 
-[node name="BackUpperCabinetLeftC" type="Node3D" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
-transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -8.895081, 47, 195.62048)
+[node name="BackUpperCabinetLeftC" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -4.4475403, 23.5, 97.81024)
 
-[node name="LeftUpperCabinetA" type="Node3D" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
-transform = Transform3D(-4.371139e-06, 0, 100, 0, 100, 0, -100, 0, -4.371139e-06, -266.3551, 47, -136.53807)
+[node name="LeftUpperCabinetA" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, -133.17755, 23.5, -68.269035)
 
-[node name="LeftUpperCabinetB" type="Node3D" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
-transform = Transform3D(-4.371139e-06, 0, 100, 0, 100, 0, -100, 0, -4.371139e-06, -266.3551, 47, -84.53807)
+[node name="LeftUpperCabinetB" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, -133.17755, 23.5, -42.269035)
 
-[node name="LeftUpperCabinetC" type="Node3D" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
-transform = Transform3D(-4.371139e-06, 0, 100, 0, 100, 0, -100, 0, -4.371139e-06, -266.3551, 47, 32.41548)
+[node name="LeftUpperCabinetC" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, -133.17755, 23.5, 16.20774)
 
-[node name="LeftUpperCabinetD" type="Node3D" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
-transform = Transform3D(-4.371139e-06, 0, 100, 0, 100, 0, -100, 0, -4.371139e-06, -266.3551, 47, 88.41548)
+[node name="LeftUpperCabinetD" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, -133.17755, 23.5, 44.20774)
 
-[node name="LeftUpperCabinetE" type="Node3D" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
-transform = Transform3D(-4.371139e-06, 0, 100, 0, 100, 0, -100, 0, -4.371139e-06, -266.3551, 47, 144.41548)
+[node name="LeftUpperCabinetE" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(-2.1855694e-06, 0, 50, 0, 50, 0, -50, 0, -2.1855694e-06, -133.17755, 23.5, 72.20774)
 
-[node name="FrontUpperCabinetLeftA" type="Node3D" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
-transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -248.86844, 47, -176.49036)
+[node name="FrontUpperCabinetLeftA" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -124.43422, 23.5, -88.24518)
 
-[node name="FrontUpperCabinetLeftB" type="Node3D" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
-transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -132, 47, -176.49036)
+[node name="FrontUpperCabinetLeftB" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -66, 23.5, -88.24518)
 
-[node name="FrontUpperCabinetRightA" type="Node3D" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
-transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -52.60366, 47, -17.808441)
+[node name="FrontUpperCabinetRightA" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -26.30183, 23.5, -8.904221)
 
-[node name="FrontUpperCabinetRightB" type="Node3D" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
-transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -9.743629, 47, -17.808441)
+[node name="FrontUpperCabinetRightB" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -4.8718147, 23.5, -8.904221)
 
-[node name="FrontUpperCabinetRightA2" type="Node3D" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
-transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 30.962738, 47, -17.808441)
+[node name="FrontUpperCabinetRightA2" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 15.481369, 23.5, -8.904221)
 
-[node name="FrontUpperCabinetRightB2" type="Node3D" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
-transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 73.82277, 47, -17.808441)
+[node name="FrontUpperCabinetRightB2" parent="Track/UpperCabinets" instance=ExtResource("5_upper")]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 36.911385, 23.5, -8.904221)
 
 [node name="HandPlacedProps" type="Node3D" parent="Track"]
 
-[node name="KitchenCabinetCornerInner" type="Node3D" parent="Track/HandPlacedProps" instance=ExtResource("7_corner")]
-transform = Transform3D(-6.1196e-07, 0, 14, 0, 14, 0, -14, 0, -6.1196e-07, -232, 4.2, 164)
+[node name="KitchenCabinetCornerInner" parent="Track/HandPlacedProps" instance=ExtResource("7_corner")]
+transform = Transform3D(-3.0598e-07, 0, 7, 0, 7, 0, -7, 0, -3.0598e-07, -116, 2.1, 82)
 
-[node name="IslandPlanter" type="Node3D" parent="Track/HandPlacedProps" instance=ExtResource("10_plant")]
-transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, 300, 14.66346, -104)
+[node name="IslandPlanter" parent="Track/HandPlacedProps" instance=ExtResource("10_plant")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 150, 7.33173, -52)
 
 [node name="Lighting" type="Node3D" parent="Track"]
 
 [node name="IslandPendantA" type="MeshInstance3D" parent="Track/Lighting"]
-transform = Transform3D(8, 0, 0, 0, 5.6, 0, 0, 0, 8, 4.7660007, 74.2666, -72)
+transform = Transform3D(4, 0, 0, 0, 2.8, 0, 0, 0, 4, 2.3830004, 37.1333, -36)
 material_override = SubResource("Material_wall_trim")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="IslandPendantB" type="MeshInstance3D" parent="Track/Lighting"]
-transform = Transform3D(8, 0, 0, 0, 5.6, 0, 0, 0, 8, -20.025246, 71.93006, -72)
+transform = Transform3D(4, 0, 0, 0, 2.8, 0, 0, 0, 4, -10.012623, 35.96503, -36)
 material_override = SubResource("Material_wall_trim")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="KitchenFillLight" type="OmniLight3D" parent="Track/Lighting"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -1.8839226, 65.6063, -56)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9419613, 32.80315, -28)
 light_energy = 1.2
 omni_range = 95.0
 

@@ -139,7 +139,6 @@
 	"lap_gate_checkpoint_index": 0,
 	"laps": 3,
 	"out_of_bounds_y": -36.0,
-	"preview_dressing_scene_path": "",
 	"progress_rule_id": "route_lap_progress",
 	"rail_texture_path": "res://assets/gameplay/materials/metal/toy_metal_albedo.png",
 	"rail_texture_uv_scale": 0.5,
@@ -6396,9 +6395,9 @@
 				1.0
 			],
 			"box_size": [
-				560.0,
-				96.0,
-				4.0
+				252.0,
+				87.4,
+				2.0
 			],
 			"collision_mode": "visual",
 			"gameplay_tag": "room_envelope",
@@ -6406,8 +6405,8 @@
 			"kind": "box",
 			"position": [
 				0.0,
-				16.0,
-				200.0
+				11.7,
+				98.0
 			],
 			"scale": [
 				1.0,
@@ -6426,17 +6425,17 @@
 				1.0
 			],
 			"box_size": [
-				560.0,
-				4.0,
-				400.0
+				292.0,
+				1.0,
+				200.0
 			],
 			"collision_mode": "visual",
 			"gameplay_tag": "room_envelope",
 			"id": "KitchenCeiling",
 			"kind": "box",
 			"position": [
-				0.0,
-				64.0,
+				9.0,
+				55.4,
 				0.0
 			],
 			"scale": [
@@ -6456,18 +6455,18 @@
 				1.0
 			],
 			"box_size": [
-				3.0,
-				72.0,
-				2.0
+				2.0,
+				38.0,
+				1.0
 			],
 			"collision_mode": "visual",
 			"gameplay_tag": "doorway",
 			"id": "KitchenDoorFrameLeft",
 			"kind": "box",
 			"position": [
-				-61.0,
-				4.0,
-				-201.0
+				-28.0,
+				-13.0,
+				-99.0
 			],
 			"scale": [
 				1.0,
@@ -6486,18 +6485,18 @@
 				1.0
 			],
 			"box_size": [
-				3.0,
-				72.0,
-				2.0
+				2.0,
+				38.0,
+				1.0
 			],
 			"collision_mode": "visual",
 			"gameplay_tag": "doorway",
 			"id": "KitchenDoorFrameRight",
 			"kind": "box",
 			"position": [
-				61.0,
-				4.0,
-				-201.0
+				54.0,
+				-13.0,
+				-99.0
 			],
 			"scale": [
 				1.0,
@@ -6516,18 +6515,18 @@
 				1.0
 			],
 			"box_size": [
-				126.0,
-				3.0,
-				2.0
+				84.0,
+				1.7,
+				1.0
 			],
 			"collision_mode": "visual",
 			"gameplay_tag": "doorway",
 			"id": "KitchenDoorFrameTop",
 			"kind": "box",
 			"position": [
-				0.0,
-				41.0,
-				-201.0
+				13.0,
+				6.5,
+				-99.0
 			],
 			"scale": [
 				1.0,
@@ -6546,18 +6545,18 @@
 				1.0
 			],
 			"box_size": [
-				120.0,
-				24.0,
-				4.0
+				80.0,
+				22.8,
+				2.0
 			],
 			"collision_mode": "visual",
 			"gameplay_tag": "room_envelope",
 			"id": "KitchenFrontDoorHeader",
 			"kind": "box",
 			"position": [
-				0.0,
-				52.0,
-				-200.0
+				13.0,
+				44.0,
+				-98.0
 			],
 			"scale": [
 				1.0,
@@ -6576,18 +6575,18 @@
 				1.0
 			],
 			"box_size": [
-				225.0,
-				96.0,
-				4.0
+				110.0,
+				87.4,
+				2.0
 			],
 			"collision_mode": "visual",
 			"gameplay_tag": "room_envelope",
 			"id": "KitchenFrontWallLeft",
 			"kind": "box",
 			"position": [
-				-167.5,
-				16.0,
-				-200.0
+				-91.0,
+				11.7,
+				-98.0
 			],
 			"scale": [
 				1.0,
@@ -6606,18 +6605,18 @@
 				1.0
 			],
 			"box_size": [
-				225.0,
-				96.0,
-				4.0
+				94.0,
+				87.4,
+				2.0
 			],
 			"collision_mode": "visual",
 			"gameplay_tag": "room_envelope",
 			"id": "KitchenFrontWallRight",
 			"kind": "box",
 			"position": [
-				167.5,
-				16.0,
-				-200.0
+				99.0,
+				11.7,
+				-98.0
 			],
 			"scale": [
 				1.0,
@@ -6696,17 +6695,17 @@
 				1.0
 			],
 			"box_size": [
-				4.0,
-				96.0,
-				400.0
+				2.0,
+				87.4,
+				196.0
 			],
 			"collision_mode": "visual",
 			"gameplay_tag": "room_envelope",
 			"id": "KitchenLeftWall",
 			"kind": "box",
 			"position": [
-				-280.0,
-				16.0,
+				-128.0,
+				11.7,
 				0.0
 			],
 			"scale": [
@@ -6726,17 +6725,17 @@
 				1.0
 			],
 			"box_size": [
-				4.0,
-				96.0,
-				400.0
+				2.0,
+				87.4,
+				196.0
 			],
 			"collision_mode": "visual",
 			"gameplay_tag": "room_envelope",
 			"id": "KitchenRightWall",
 			"kind": "box",
 			"position": [
-				280.0,
-				16.0,
+				146.0,
+				11.7,
 				0.0
 			],
 			"scale": [
