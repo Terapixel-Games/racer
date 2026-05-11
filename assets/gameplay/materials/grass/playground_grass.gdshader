@@ -13,6 +13,9 @@ uniform float blade_scale = 120.0;
 uniform float blade_strength = 0.18;
 uniform float wind_speed = 0.16;
 uniform float wind_strength = 0.025;
+uniform float track_edge_brightness : hint_range(0.0, 1.0) = 0.18;
+uniform float micro_shadow : hint_range(0.0, 1.0) = 0.12;
+uniform float color_noise_strength : hint_range(0.0, 1.0) = 0.22;
 
 float hash(vec2 p) {
 	return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
@@ -37,7 +40,10 @@ void fragment() {
 	float wind = sin((uv.x + uv.y) * 10.0 + TIME * wind_speed) * wind_strength;
 	float blades = sin((uv.x + wind) * blade_scale) * sin((uv.y - wind) * blade_scale * 0.43);
 	blades = smoothstep(0.34, 1.0, blades) * blade_strength;
+	float micro = noise(uv * blade_scale * 0.18 + vec2(3.0, 7.0));
+	float edge_read = smoothstep(0.0, 0.16, min(min(uv.x, 1.0 - uv.x), min(uv.y, 1.0 - uv.y)));
 	vec3 color = mix(base_color.rgb, bright_color.rgb, patches * 0.45);
+	color = mix(color, bright_color.rgb, micro * color_noise_strength * 0.18);
 	color = mix(color, dry_color.rgb, dry * 0.42);
 	color = mix(color, soil_color.rgb, soil * 0.18);
 	if (use_floor_texture) {
@@ -45,6 +51,8 @@ void fragment() {
 		color = mix(color, floor_color, 0.88);
 	}
 	color += blades * vec3(0.035, 0.055, 0.018);
+	color *= 1.0 - (1.0 - edge_read) * micro_shadow;
+	color += vec3(0.035, 0.045, 0.014) * track_edge_brightness * (1.0 - edge_read);
 	ALBEDO = color;
 	ROUGHNESS = 0.98;
 	SPECULAR = 0.03;

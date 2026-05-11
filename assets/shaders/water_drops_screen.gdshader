@@ -19,7 +19,8 @@ vec2 hash22(vec2 p) {
 
 void fragment() {
 	vec2 aspect_uv = UV;
-	aspect_uv.x *= SCREEN_PIXEL_SIZE.y / SCREEN_PIXEL_SIZE.x;
+	vec2 screen_size = max(vec2(textureSize(screen_texture, 0)), vec2(1.0));
+	aspect_uv.x *= screen_size.x / screen_size.y;
 	vec2 grid_uv = aspect_uv * drop_density;
 	vec2 cell = floor(grid_uv);
 	vec2 local = fract(grid_uv);

@@ -20,15 +20,15 @@
 [ext_resource type="Shader" uid="uid://chc0moscwhiq8" path="res://assets/shaders/washer_window_water.gdshader" id="19_washer_window_shader"]
 [ext_resource type="MeshLibrary" uid="uid://bwycpki47anwh" path="res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres" id="20_msb3l"]
 [ext_resource type="Script" uid="uid://ciqqj1srodgqx" path="res://scripts/track/RoadGridMapAuthoring.gd" id="21_uxd1m"]
-[ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/kitchenCoffeeMachine.glb" id="22_coffee"]
-[ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/kitchenBlender.glb" id="23_blender"]
-[ext_resource type="PackedScene" path="res://assets/source/kenney/food_kit/bottle-oil.glb" id="25_oil"]
-[ext_resource type="PackedScene" path="res://assets/source/kenney/food_kit/bowl.glb" id="26_bowl"]
-[ext_resource type="PackedScene" path="res://assets/source/kenney/food_kit/can.glb" id="27_can"]
-[ext_resource type="PackedScene" path="res://assets/source/kenney/food_kit/cup.glb" id="29_cup"]
-[ext_resource type="PackedScene" path="res://assets/source/kenney/food_kit/cutting-board.glb" id="30_board"]
-[ext_resource type="PackedScene" path="res://assets/source/kenney/food_kit/apple.glb" id="31_apple"]
-[ext_resource type="PackedScene" path="res://assets/source/kenney/food_kit/banana.glb" id="32_banana"]
+[ext_resource type="PackedScene" uid="uid://d8ibgm48fgrs" path="res://assets/source/kenney/furniture_kit/kitchenCoffeeMachine.glb" id="22_coffee"]
+[ext_resource type="PackedScene" uid="uid://bshtdspsdg38k" path="res://assets/source/kenney/furniture_kit/kitchenBlender.glb" id="23_blender"]
+[ext_resource type="PackedScene" uid="uid://dq72rb2q87624" path="res://assets/source/kenney/food_kit/bottle-oil.glb" id="25_oil"]
+[ext_resource type="PackedScene" uid="uid://drlbuwrgdj14p" path="res://assets/source/kenney/food_kit/bowl.glb" id="26_bowl"]
+[ext_resource type="PackedScene" uid="uid://diqrq1jnfaqgq" path="res://assets/source/kenney/food_kit/can.glb" id="27_can"]
+[ext_resource type="PackedScene" uid="uid://y3uss040qk0j" path="res://assets/source/kenney/food_kit/cup.glb" id="29_cup"]
+[ext_resource type="PackedScene" uid="uid://cfh7xtc5u4rii" path="res://assets/source/kenney/food_kit/cutting-board.glb" id="30_board"]
+[ext_resource type="PackedScene" uid="uid://cdel15npo6w31" path="res://assets/source/kenney/food_kit/apple.glb" id="31_apple"]
+[ext_resource type="PackedScene" uid="uid://b4kijc0bo8wwp" path="res://assets/source/kenney/food_kit/banana.glb" id="32_banana"]
 
 [sub_resource type="StandardMaterial3D" id="Material_floor"]
 albedo_texture = ExtResource("1_tile")
@@ -56,28 +56,6 @@ roughness = 0.48
 albedo_color = Color(0.05, 0.055, 0.06, 1)
 roughness = 0.5
 
-[sub_resource type="StandardMaterial3D" id="Material_light_warm"]
-albedo_color = Color(1, 0.72, 0.38, 1)
-emission_enabled = true
-emission = Color(1, 0.55, 0.2, 1)
-emission_energy_multiplier = 0.35
-roughness = 0.32
-
-[sub_resource type="StandardMaterial3D" id="Material_light_cool"]
-albedo_color = Color(0.68, 0.86, 1, 1)
-emission_enabled = true
-emission = Color(0.35, 0.68, 1, 1)
-emission_energy_multiplier = 0.25
-roughness = 0.25
-
-[sub_resource type="StandardMaterial3D" id="Material_pantry_blue"]
-albedo_color = Color(0.34, 0.48, 0.62, 1)
-roughness = 0.78
-
-[sub_resource type="StandardMaterial3D" id="Material_pantry_cream"]
-albedo_color = Color(0.78, 0.68, 0.52, 1)
-roughness = 0.82
-
 [sub_resource type="ShaderMaterial" id="Material_toon_water"]
 render_priority = 0
 shader = ExtResource("17_water_shader")
@@ -88,6 +66,9 @@ shader_parameter/wave_strength = 0.12
 shader_parameter/wave_speed = 1.25
 shader_parameter/foam_cutoff = 0.64
 shader_parameter/foam_scale = 18.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_water"]
+size = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="Material_washer_water"]
 render_priority = 1
@@ -106,8 +87,27 @@ shader_parameter/fill_wave = 0.045
 shader_parameter/window_center = Vector2(0.12855, 0)
 shader_parameter/window_radius = Vector2(0.087, 0.087)
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_water"]
-size = Vector2(1, 1)
+[sub_resource type="StandardMaterial3D" id="Material_pantry_blue"]
+albedo_color = Color(0.34, 0.48, 0.62, 1)
+roughness = 0.78
+
+[sub_resource type="StandardMaterial3D" id="Material_pantry_cream"]
+albedo_color = Color(0.78, 0.68, 0.52, 1)
+roughness = 0.82
+
+[sub_resource type="StandardMaterial3D" id="Material_light_warm"]
+albedo_color = Color(1, 0.72, 0.38, 1)
+roughness = 0.32
+emission_enabled = true
+emission = Color(1, 0.55, 0.2, 1)
+emission_energy_multiplier = 0.35
+
+[sub_resource type="StandardMaterial3D" id="Material_light_cool"]
+albedo_color = Color(0.68, 0.86, 1, 1)
+roughness = 0.25
+emission_enabled = true
+emission = Color(0.35, 0.68, 1, 1)
+emission_energy_multiplier = 0.25
 
 [node name="KitchenEditableRoom" type="Node3D"]
 

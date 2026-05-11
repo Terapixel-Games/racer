@@ -828,7 +828,7 @@ static func _build_dressing(root: Node3D, definition: TrackDefinition) -> void:
 	holder.name = "Dressing"
 	root.add_child(holder)
 	_add_dressing_scene(holder, definition)
-	if definition.id == "kitchen":
+	if definition.id == "kitchen" and str(definition.get_meta("track_map_id", "")) != "home_yard":
 		return
 	_build_stage_props(holder, definition)
 
@@ -899,12 +899,23 @@ static func _add_dressing_scene(parent: Node3D, definition: TrackDefinition) -> 
 		return
 	instance.name = "EditableRoom"
 	_remove_saved_preview(instance)
+	_remove_embedded_runtime_environment(instance)
 	_hide_runtime_authoring_nodes(instance)
 	if definition.id == "kitchen":
 		_make_kitchen_window_glass_transparent(instance)
 	_apply_ground_shader_to_editable_floor(instance, definition)
 	_disable_gameplay_collision(instance)
 	parent.add_child(instance)
+	_disable_gameplay_collision(instance)
+
+static func _remove_embedded_runtime_environment(parent: Node) -> void:
+	if parent == null:
+		return
+	for child in parent.get_children():
+		_remove_embedded_runtime_environment(child)
+		if child is WorldEnvironment:
+			parent.remove_child(child)
+			child.queue_free()
 
 static func _apply_ground_shader_to_editable_floor(instance: Node3D, definition: TrackDefinition) -> void:
 	if definition.ground_shader_path.strip_edges().is_empty():

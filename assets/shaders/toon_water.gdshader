@@ -8,6 +8,11 @@ uniform float wave_strength : hint_range(0.0, 1.0) = 0.12;
 uniform float wave_speed : hint_range(0.0, 6.0) = 1.25;
 uniform float foam_cutoff : hint_range(0.0, 1.0) = 0.64;
 uniform float foam_scale : hint_range(1.0, 60.0) = 18.0;
+uniform float edge_clarity : hint_range(0.0, 1.0) = 0.45;
+uniform float highlight_strength : hint_range(0.0, 1.0) = 0.22;
+uniform float normal_tilt : hint_range(0.0, 1.0) = 0.18;
+
+varying float wave_height;
 
 float wave_noise(vec2 p) {
 	return sin(p.x * 1.7 + TIME * wave_speed)
@@ -17,7 +22,9 @@ float wave_noise(vec2 p) {
 
 void vertex() {
 	float wave = wave_noise(UV * foam_scale) * wave_strength;
+	wave_height = wave;
 	VERTEX.y += wave;
+	NORMAL = normalize(NORMAL + vec3(wave * normal_tilt, 0.0, -wave * normal_tilt));
 }
 
 void fragment() {
@@ -25,8 +32,10 @@ void fragment() {
 	vec4 water = mix(shallow_color, deep_color, depth_mix);
 	float foam_wave = wave_noise(UV * foam_scale + vec2(TIME * 0.15, -TIME * 0.1)) * 0.5 + 0.5;
 	float rim = 1.0 - smoothstep(0.0, 0.12, min(min(UV.x, 1.0 - UV.x), min(UV.y, 1.0 - UV.y)));
-	float foam = max(step(foam_cutoff, foam_wave) * 0.36, rim * 0.7);
+	float crest = smoothstep(0.0, wave_strength * 1.5 + 0.001, wave_height);
+	float foam = max(smoothstep(foam_cutoff, 1.0, foam_wave) * 0.36, rim * (0.52 + edge_clarity * 0.32));
 	vec4 color = mix(water, foam_color, foam);
+	color.rgb += foam_color.rgb * crest * highlight_strength;
 	ALBEDO = color.rgb;
 	ROUGHNESS = 0.18;
 	SPECULAR = 0.55;
