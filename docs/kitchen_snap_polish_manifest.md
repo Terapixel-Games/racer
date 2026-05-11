@@ -124,6 +124,23 @@ Measured closure checks:
 - `RightCounterDeckFiller` spans global `x=140.7..144.1`, closing the right cabinet/corner run to the right-wall interior face at about `x=143.8`.
 - `RightCounterBacksplash` spans global `x=142.25..143.35` and `y=22.2..34.2`, reading as a right-wall side backsplash instead of an exposed slot.
 
+## Door Frame Wall Fit Correction
+
+The fifth review showed the interior doorway wall pieces still read as overlapping chunks around the doorway frame. The root issue was treating the doorway top fill as a broad slab instead of fitting the wall plane to the doorway prefab frame.
+
+| Node | Old transform value | New transform value | Delta | Reason |
+| --- | --- | --- | --- | --- |
+| `Track/RoomShell/RightWall4` | `origin=(-37.06749, 47.905, 65.11378)`, `scale=(2, 12, 35.36012)` | Removed | Removed | Eliminate the redundant wall slab that crossed the doorway top and protruded around the frame. |
+| `Track/RoomShell/DoorwayOpenHeader` | `origin=(-36.25, 46.85, 65.75)`, `scale=(6, 14.1, 25.5)` | `origin=(-37.65, 47.1875, 65.925)`, `scale=(3.2, 13.425, 24.85)` | `origin=(-1.4, +0.3375, +0.175)`, `scale=(-2.8, -0.675, -0.65)` | Fit the lintel to the wall plane and prefab top instead of filling the full doorway-frame depth. |
+
+Measured door-fit checks:
+
+- `doorwayOpen` frame bounds are `x=-76.191..-67.281`, `y=-20..80.953`, `z=108.209..156.809`.
+- `DoorwayOpenHeader` now spans `x=-78.5..-72.1`, `y=80.95..107.8`, `z=107..156.7`, matching the wall plane thickness, starting at the prefab top, and overlapping the side wall runs without protruding through the visible frame depth.
+- `RightWall2.max_z=107.684` and `RightWall3.min_z=154.826`, so the header overlaps both side wall runs while preserving the doorway opening.
+
+The capture harness now includes `door_frame_wall_fit`, a direct view of wall-to-frame fit around the interior doorway.
+
 ## Craft Replay Read
 
 From route and fixture cameras, this pass should make repeat laps feel less like driving through a broken prototype: the doorway no longer exposes a frame gap, the wall/ceiling edges read as intentional enclosure, the washer effect is contained, the stove/hood/fridge area is no longer visibly interpenetrating, and the right counter run has a shared top plane. The Kitchen is still intentionally MVP-chaotic; deeper Sir Clink theming and richer replay hooks remain a later creative pass.

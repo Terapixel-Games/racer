@@ -136,6 +136,13 @@ func _camera_views(route: Array[Vector3]) -> Array[Dictionary]:
 			"note": "Interior doorway header infill between the doorway frame and ceiling seam.",
 		},
 		{
+			"id": "door_frame_wall_fit",
+			"position": Vector3(-14.0, 62.0, 126.0),
+			"target": Vector3(-74.0, 88.0, 132.0),
+			"fov": 42.0,
+			"note": "Doorway wall pieces must fit the prefab frame without protruding chunks or gaps.",
+		},
+		{
 			"id": "right_countertop_corner",
 			"position": Vector3(70.0, 50.0, 118.0),
 			"target": Vector3(112.0, 25.0, 154.0),
