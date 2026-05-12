@@ -11,6 +11,7 @@
     2048,
     2048
   ],
+  "sprite_world_size": 1.75,
   "yaw_degrees": [
     0.0,
     22.5,
@@ -31,9 +32,11 @@
   ],
   "source_bytes": 27432916,
   "baseline_bytes": 7095456,
-  "sprite_sheet_bytes": 3845977,
+  "sprite_sheet_bytes": 4077185,
   "settings": {
     "camera": "orthographic race-distance pitch",
+    "ortho_scale": 2.3499999046325684,
+    "sprite_world_size": 1.75,
     "transparent": true,
     "view_transform": "Filmic",
     "look": "Medium High Contrast"

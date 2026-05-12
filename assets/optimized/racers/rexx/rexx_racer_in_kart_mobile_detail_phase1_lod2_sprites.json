@@ -1,6 +1,6 @@
 {
   "source": "C:\\code\\TeraPixel\\games\\racer\\assets\\optimized\\racers\\rexx\\rexx_racer_in_kart_mobile_detail_phase1.glb",
-  "lod2_baseline": "C:\\code\\TeraPixel\\games\\racer\\assets\\optimized\\racers\\rexx\\rexx_racer_in_kart_mobile_detail_phase1_lod2.glb",
+  "baseline": "C:\\code\\TeraPixel\\games\\racer\\assets\\optimized\\racers\\rexx\\rexx_racer_in_kart_mobile_detail_phase1_lod2.glb",
   "sheet": "C:\\code\\TeraPixel\\asset-pipeline\\output\\racer_sprite_lod\\mobile_detail_phase1\\rexx\\rexx_racer_in_kart_mobile_detail_phase1_lod2_sprites.png",
   "contact_sheet": "C:\\code\\TeraPixel\\asset-pipeline\\output\\racer_sprite_lod\\mobile_detail_phase1\\rexx\\rexx_racer_in_kart_mobile_detail_phase1_lod2_contact_sheet.png",
   "frame_size": 256,
@@ -11,6 +11,7 @@
     1024,
     1024
   ],
+  "sprite_world_size": 1.75,
   "yaw_degrees": [
     0.0,
     22.5,
@@ -30,10 +31,12 @@
     337.5
   ],
   "source_bytes": 32173764,
-  "lod2_baseline_bytes": 3762348,
-  "sprite_sheet_bytes": 1057418,
+  "baseline_bytes": 3762348,
+  "sprite_sheet_bytes": 1132178,
   "settings": {
     "camera": "orthographic race-distance pitch",
+    "ortho_scale": 2.3499999046325684,
+    "sprite_world_size": 1.75,
     "transparent": true,
     "view_transform": "Filmic",
     "look": "Medium High Contrast"
