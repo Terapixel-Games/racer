@@ -373,8 +373,62 @@ func _add_main_floor_shell(root: Node3D, parent: Node3D) -> void:
 	_add_box(root, parent, "EastEaveFascia", Vector3(224, 47, 10), Vector3(8, 8, 214), trim, false)
 	_add_box(root, parent, "KitchenCabinetRunBack", Vector3(-150, 4, -82), Vector3(105, 8, 10), Color(0.38, 0.20, 0.10), false)
 	_add_box(root, parent, "KitchenIsland", Vector3(-150, 4, -22), Vector3(62, 8, 30), Color(0.52, 0.34, 0.18), false)
+	_add_kitchen_readability_system(root, parent)
 	_add_box(root, parent, "LivingSofa", Vector3(-34, 5, 76), Vector3(66, 10, 16), Color(0.28, 0.34, 0.42), false)
 	_add_box(root, parent, "EntryStairBlockout", Vector3(50, 8, 70), Vector3(42, 16, 46), Color(0.42, 0.30, 0.20), false)
+
+func _add_kitchen_readability_system(root: Node3D, parent: Node3D) -> void:
+	var holder := Node3D.new()
+	holder.name = "KitchenRaceReadabilityKit"
+	holder.set_meta("player_readability_contract", {
+		"course_id": "kitchen",
+		"surface": "blue taped toy-track mat over warm kitchen tile",
+		"edge_treatment": "yellow curb stripes and low red/cream boundary blocks",
+		"landmarks": ["fridge wall", "sink island", "pantry boxes", "finish banner"],
+		"first_seconds": "start grid faces a high-contrast straight with arrows and a visible first corner",
+	})
+	parent.add_child(holder)
+	holder.owner = root
+	var course := _course_by_id("kitchen")
+	var cells := _route_cells_for_course("kitchen")
+	var points: Array[Vector3] = []
+	for cell in cells:
+		points.append(_cell_center(course, cell))
+	var mat_color := Color(0.06, 0.42, 0.86)
+	var edge_color := Color(1.00, 0.78, 0.12)
+	for i in range(points.size()):
+		var a := points[i]
+		var b := points[(i + 1) % points.size()]
+		_add_readable_route_segment(root, holder, "KitchenReadableRoute%02d" % i, a, b, mat_color, edge_color)
+	for i in range(points.size()):
+		var point := points[i]
+		_add_box(root, holder, "KitchenCornerCurb%02d" % i, point + Vector3(0, 0.92, 0), Vector3(18, 1.2, 18), Color(0.92, 0.18, 0.08), false)
+		_add_box(root, holder, "KitchenCornerArrow%02d" % i, point + Vector3(0, 1.55, -7), Vector3(12, 0.8, 3), edge_color, false, 20.0 * float((i % 2) * 2 - 1))
+	var start := points[0]
+	_add_box(root, holder, "KitchenStartFinishFloorBand", start + Vector3(0, 1.35, 0), Vector3(28, 0.7, 4), Color(1.0, 0.95, 0.72), false, 90)
+	_add_box(root, holder, "KitchenStartFinishLeftPost", start + Vector3(-12, 8, -9), Vector3(3, 14, 3), Color(0.70, 0.08, 0.06), false)
+	_add_box(root, holder, "KitchenStartFinishRightPost", start + Vector3(12, 8, -9), Vector3(3, 14, 3), Color(0.70, 0.08, 0.06), false)
+	_add_box(root, holder, "KitchenStartFinishBanner", start + Vector3(0, 16, -9), Vector3(32, 6, 3), Color(1.0, 0.78, 0.18), false)
+	_add_box(root, holder, "KitchenFirstTurnBillboard", points[1] + Vector3(10, 8, 0), Vector3(4, 12, 22), Color(0.10, 0.24, 0.62), false)
+	_add_box(root, holder, "KitchenPantryStackLandmarkA", Vector3(-107, 6, -66), Vector3(12, 12, 10), Color(0.86, 0.35, 0.16), false)
+	_add_box(root, holder, "KitchenPantryStackLandmarkB", Vector3(-108, 16, -66), Vector3(10, 8, 8), Color(0.95, 0.68, 0.20), false)
+	_add_box(root, holder, "KitchenSinkIslandInfieldEdge", Vector3(-150, 9, -22), Vector3(66, 3, 34), Color(0.25, 0.14, 0.08), false)
+	_add_box(root, holder, "KitchenFridgeLandmarkPanel", Vector3(-204, 16, -62), Vector3(4, 26, 28), Color(0.86, 0.92, 0.95), false)
+	_add_box(root, holder, "KitchenWarmUndercabinetGlow", Vector3(-150, 11, -75), Vector3(98, 2, 2), Color(1.0, 0.76, 0.32), false)
+
+func _add_readable_route_segment(root: Node3D, parent: Node3D, node_name: String, a: Vector3, b: Vector3, mat_color: Color, edge_color: Color) -> void:
+	var delta := b - a
+	delta.y = 0
+	var length := maxf(delta.length(), 1.0)
+	var yaw := rad_to_deg(atan2(delta.x, delta.z))
+	var mid := (a + b) * 0.5
+	var forward := delta.normalized()
+	var right := Vector3(forward.z, 0, -forward.x)
+	_add_box(root, parent, "%sMat" % node_name, mid + Vector3(0, 0.72, 0), Vector3(15.0, 0.34, length), mat_color, false, yaw)
+	_add_box(root, parent, "%sLeftEdge" % node_name, mid + right * 8.8 + Vector3(0, 1.05, 0), Vector3(1.8, 1.1, length), edge_color, false, yaw)
+	_add_box(root, parent, "%sRightEdge" % node_name, mid - right * 8.8 + Vector3(0, 1.05, 0), Vector3(1.8, 1.1, length), edge_color, false, yaw)
+	_add_box(root, parent, "%sDirectionTickA" % node_name, mid + forward * (length * 0.18) + Vector3(0, 1.42, 0), Vector3(6.0, 0.7, 2.0), Color(1.0, 1.0, 0.86), false, yaw)
+	_add_box(root, parent, "%sDirectionTickB" % node_name, mid + forward * (length * 0.34) + Vector3(0, 1.42, 0), Vector3(3.4, 0.7, 2.0), Color(1.0, 1.0, 0.86), false, yaw)
 
 func _add_upper_floor(root: Node3D, parent: Node3D) -> void:
 	var wall := Color(0.54, 0.45, 0.50)
@@ -604,6 +658,8 @@ func _add_validation_cameras(root: Node3D, parent: Node3D) -> void:
 	_add_camera(root, parent, "GarageServiceSideCamera", Vector3(286, 50, 88), Vector3(-11, 84, 0), 58)
 	_add_camera(root, parent, "ToyboxTreeSwingCamera", Vector3(-116, 48, -324), Vector3(-7, -63, 0), 54)
 	_add_camera(root, parent, "MainFloorRouteCamera", Vector3(-245, 54, 122), Vector3(-14, -62, 0), 70)
+	_add_camera(root, parent, "KitchenStartPlayerCamera", Vector3(-166, 12, -91), Vector3(-6, 0, 0), 64)
+	_add_camera(root, parent, "KitchenFirstTurnPlayerCamera", Vector3(-106, 15, -68), Vector3(-8, -44, 0), 58)
 	_add_camera(root, parent, "UpperFloorRouteCamera", Vector3(-100, 118, 158), Vector3(-20, -42, 0), 70)
 	_add_camera(root, parent, "AtticRouteCamera", Vector3(-45, 166, 92), Vector3(-18, -42, 0), 70)
 	_add_camera(root, parent, "RampSideProfileCamera", Vector3(-75, 84, 104), Vector3(-8, -90, 0), 70)
@@ -712,6 +768,12 @@ func _route_cells_for_course(course_id: String) -> Array[Vector3i]:
 		"attic":
 			return _route_from_points([Vector3i(-4, 0, -2), Vector3i(4, 0, -2), Vector3i(4, 1, 2), Vector3i(-4, 1, 2)])
 	return []
+
+func _course_by_id(course_id: String) -> Dictionary:
+	for course in COURSES:
+		if str(course["id"]) == course_id:
+			return course
+	return COURSES[0]
 
 func _compact_vertical_route() -> Array[Vector3i]:
 	return _route_from_points([Vector3i(-2, 0, -2), Vector3i(2, 0, -2), Vector3i(2, 1, 2), Vector3i(-2, 1, 2)])

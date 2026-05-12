@@ -310,6 +310,8 @@ func _assert_home_yard_scene_holders(root: Node, track_id: String) -> void:
 	_assert_home_yard_exterior_shell(root, track_id)
 	_assert_home_yard_roof_and_attic_contract(root, track_id)
 	_assert_home_yard_landscape_and_assets(root, track_id)
+	if track_id == "kitchen":
+		_assert_home_yard_kitchen_readability(root)
 	assert_true(root.get_node_or_null("VerticalConnectors/MainToUpperToyRamp") != null, "%s should include a main-to-upper toy ramp" % track_id)
 	assert_true(root.get_node_or_null("VerticalConnectors/UpperToAtticToyRamp") != null, "%s should include an upper-to-attic toy ramp" % track_id)
 	assert_true(root.get_node_or_null("CourseRoutes/%sRoutePreview" % track_id.capitalize()) != null, "%s should include a route preview holder" % track_id)
@@ -403,6 +405,32 @@ func _assert_home_yard_landscape_and_assets(root: Node, track_id: String) -> voi
 		"ValidationCameras/ToyboxTreeSwingCamera",
 	]:
 		assert_true(root.get_node_or_null(node_path) != null, "%s shared home-yard scene should include %s" % [track_id, node_path])
+
+func _assert_home_yard_kitchen_readability(root: Node) -> void:
+	var kit := root.get_node_or_null("MainFloor/KitchenRaceReadabilityKit")
+	assert_true(kit != null, "Kitchen shared route should include a player-height readability kit")
+	if kit == null:
+		return
+	var contract: Variant = kit.get_meta("player_readability_contract", {})
+	assert_true(contract is Dictionary, "Kitchen readability kit should export a player readability contract")
+	if contract is Dictionary:
+		assert_equal(str((contract as Dictionary).get("course_id", "")), "kitchen", "Kitchen readability contract should identify the kitchen course")
+		assert_true(str((contract as Dictionary).get("surface", "")).contains("toy-track"), "Kitchen readability contract should name a readable driving surface")
+	for node_name in [
+		"KitchenReadableRoute00Mat",
+		"KitchenReadableRoute00LeftEdge",
+		"KitchenReadableRoute00RightEdge",
+		"KitchenStartFinishFloorBand",
+		"KitchenStartFinishBanner",
+		"KitchenFirstTurnBillboard",
+		"KitchenPantryStackLandmarkA",
+		"KitchenSinkIslandInfieldEdge",
+		"KitchenFridgeLandmarkPanel",
+		"KitchenWarmUndercabinetGlow",
+	]:
+		assert_true(kit.get_node_or_null(node_name) != null, "Kitchen readability kit should include %s" % node_name)
+	assert_true(root.get_node_or_null("ValidationCameras/KitchenStartPlayerCamera") != null, "Kitchen should include a start-grid player-height validation camera")
+	assert_true(root.get_node_or_null("ValidationCameras/KitchenFirstTurnPlayerCamera") != null, "Kitchen should include a first-turn player-height validation camera")
 
 func _assert_closed_grid_route_visual_contract(definition: TrackDefinition, track_id: String) -> void:
 	assert_true(definition.closed_loop, "%s should be authored as a closed loop" % track_id)
