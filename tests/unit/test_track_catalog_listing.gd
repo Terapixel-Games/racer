@@ -437,6 +437,7 @@ func _assert_home_yard_roof_and_attic_contract(root: Node, track_id: String) -> 
 	_assert_ridge_axis(roof, "UpperAtticRoofRidgeCap", "z", track_id)
 	_assert_ridge_axis(roof, "GarageCrossGableRidge", "x", track_id)
 	_assert_ridge_axis(roof, "FrontPorchGableRidge", "x", track_id)
+	_assert_mesh_top_below(roof, "UpperAtticRoofRidgeCap", 132.0, track_id)
 	_assert_mesh_top_below(roof, "UpperDormerLowerFrontWall", 98.0, track_id)
 	_assert_mesh_top_below(roof, "UpperDormerLowerBackWall", 98.0, track_id)
 	var left_plane := roof.get_node_or_null("UpperAtticRoofLeftPlane")
@@ -451,9 +452,11 @@ func _assert_home_yard_roof_and_attic_contract(root: Node, track_id: String) -> 
 	if attic != null:
 		assert_true(attic.get_node_or_null("InteriorPartitions/AtticWestKneePartition") != null, "%s attic should include contract-owned west knee partition" % track_id)
 		assert_true(attic.get_node_or_null("InteriorPartitions/AtticEastKneePartition") != null, "%s attic should include contract-owned east knee partition" % track_id)
-		_assert_mesh_top_below(attic, "RoomFinishes/AtticRidgeBeamInterior", 143.0, track_id)
+		_assert_mesh_top_below(attic, "RoomFinishes/AtticRidgeBeamInterior", 128.0, track_id)
 	assert_true(root.find_child("RoofMassPlaceholder", true, false) == null, "%s should not keep a visible flat roof placeholder" % track_id)
 	assert_true(root.find_child("MainEnvelopeCeilingPlane", true, false) == null, "%s should not expose a flat ceiling plane as a visible roof placeholder" % track_id)
+	assert_true(root.find_child("UpperRoofLeftRakeFascia", true, false) == null, "%s should not keep horizontal dormer side rake bars that read as floating rails" % track_id)
+	assert_true(root.find_child("UpperRoofRightRakeFascia", true, false) == null, "%s should not keep horizontal dormer side rake bars that read as floating rails" % track_id)
 
 func _assert_ridge_axis(roof: Node, node_name: String, expected_axis: String, track_id: String) -> void:
 	var node := roof.get_node_or_null(node_name) as MeshInstance3D
