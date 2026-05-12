@@ -14,19 +14,43 @@ static func collect() -> Dictionary:
 		return path.ends_with("/racer_in_kart.glb")
 	)
 	var optimized_racer_lod0_glb_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
-		return path.ends_with(".glb") and not _is_lod_path(path)
+		return path.ends_with("_mobile_detail_phase1.glb")
 	)
 	var optimized_racer_lod_glb_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
-		return path.ends_with(".glb") and _is_lod_path(path)
+		return path.ends_with("_mobile_detail_phase1_lod1.glb") or path.ends_with("_mobile_detail_phase1_lod2.glb")
 	)
 	var optimized_racer_lod0_atlas_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
-		return path.ends_with(".jpg") and not _is_lod_path(path)
+		return path.ends_with("_mobile_detail_phase1_Image_0.jpg")
 	)
 	var optimized_racer_lod_atlas_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
-		return path.ends_with(".jpg") and _is_lod_path(path)
+		return path.ends_with("_mobile_detail_phase1_lod1_Image_0.jpg") or path.ends_with("_mobile_detail_phase1_lod2_Image_0.jpg")
 	)
 	var optimized_racer_lod_sprite_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
 		return _is_lod_sprite_path(path)
+	)
+	var optimized_racer_quantized_lod0_glb_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
+		return path.ends_with("_mobile_detail_quantized.glb")
+	)
+	var optimized_racer_quantized_lod_glb_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
+		return path.ends_with("_mobile_detail_quantized_lod1.glb") or path.ends_with("_mobile_detail_quantized_lod2.glb")
+	)
+	var optimized_racer_quantized_lod0_atlas_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
+		return path.ends_with("_mobile_detail_quantized_Image_0.jpg")
+	)
+	var optimized_racer_quantized_lod_atlas_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
+		return path.ends_with("_mobile_detail_quantized_lod1_Image_0.jpg") or path.ends_with("_mobile_detail_quantized_lod2_Image_0.jpg")
+	)
+	var optimized_racer_dequantized_lod0_glb_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
+		return path.ends_with("_mobile_detail_dequantized.glb")
+	)
+	var optimized_racer_dequantized_lod0_atlas_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
+		return path.ends_with("_mobile_detail_dequantized_Image_0.jpg")
+	)
+	var optimized_racer_simplified95_lod0_glb_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
+		return path.ends_with("_mobile_detail_simplified95.glb")
+	)
+	var optimized_racer_simplified95_lod0_atlas_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
+		return path.ends_with("_mobile_detail_simplified95_Image_0.jpg")
 	)
 	var web_build_bytes := _sum_files(WEB_BUILD_ROOT, func(_path: String) -> bool:
 		return true
@@ -57,6 +81,20 @@ static func collect() -> Dictionary:
 		"optimized_racer_lod0_atlas_source_bytes": optimized_racer_lod0_atlas_bytes,
 		"optimized_racer_lod_atlas_source_bytes": optimized_racer_lod_atlas_bytes,
 		"optimized_racer_lod_sprite_bytes": optimized_racer_lod_sprite_bytes,
+		"optimized_racer_quantized_lod0_glb_bytes": optimized_racer_quantized_lod0_glb_bytes,
+		"optimized_racer_quantized_lod_glb_bytes": optimized_racer_quantized_lod_glb_bytes,
+		"optimized_racer_quantized_lod0_atlas_source_bytes": optimized_racer_quantized_lod0_atlas_bytes,
+		"optimized_racer_quantized_lod_atlas_source_bytes": optimized_racer_quantized_lod_atlas_bytes,
+		"optimized_racer_quantized_lod0_savings_bytes": optimized_racer_lod0_glb_bytes - optimized_racer_quantized_lod0_glb_bytes,
+		"optimized_racer_quantized_lod0_delta_bytes": optimized_racer_quantized_lod0_glb_bytes - optimized_racer_lod0_glb_bytes,
+		"optimized_racer_dequantized_lod0_glb_bytes": optimized_racer_dequantized_lod0_glb_bytes,
+		"optimized_racer_dequantized_lod0_atlas_source_bytes": optimized_racer_dequantized_lod0_atlas_bytes,
+		"optimized_racer_dequantized_lod0_savings_bytes": optimized_racer_lod0_glb_bytes - optimized_racer_dequantized_lod0_glb_bytes,
+		"optimized_racer_dequantized_lod0_delta_bytes": optimized_racer_dequantized_lod0_glb_bytes - optimized_racer_lod0_glb_bytes,
+		"optimized_racer_simplified95_lod0_glb_bytes": optimized_racer_simplified95_lod0_glb_bytes,
+		"optimized_racer_simplified95_lod0_atlas_source_bytes": optimized_racer_simplified95_lod0_atlas_bytes,
+		"optimized_racer_simplified95_lod0_savings_bytes": optimized_racer_lod0_glb_bytes - optimized_racer_simplified95_lod0_glb_bytes,
+		"optimized_racer_simplified95_lod0_delta_bytes": optimized_racer_simplified95_lod0_glb_bytes - optimized_racer_lod0_glb_bytes,
 		"optimized_racer_staged_source_bytes": optimized_racer_lod0_glb_bytes + optimized_racer_lod0_atlas_bytes,
 		"optimized_racer_staged_lod_bytes": optimized_racer_lod_glb_bytes + optimized_racer_lod_atlas_bytes,
 		"optimized_racer_total_staged_bytes": optimized_racer_runtime_glb_bytes + optimized_racer_atlas_bytes + optimized_racer_lod_sprite_bytes,
