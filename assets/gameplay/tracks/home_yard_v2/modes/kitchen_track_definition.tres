@@ -1,0 +1,336 @@
+[gd_resource type="Resource" script_class="TrackDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/track/TrackDefinition.gd" id="1_0bp7c"]
+
+[resource]
+script = ExtResource("1_0bp7c")
+id = "kitchen"
+display_name = "Kitchen / Sir Clink"
+version = "home_yard_gambrel_v2_2026_05_12"
+laps = 3
+track_source_id = "road_grid_map"
+road_width = 16.0
+out_of_bounds_y = -28.0
+reset_mode = "instant_pop"
+floor_visual_y = -1.1
+runtime_scene_path = "res://assets/gameplay/tracks/home_yard_v2/modes/kitchen_track.tscn"
+dressing_scene_path = "res://assets/gameplay/tracks/home_yard_v2/home_yard_v2_map.tscn"
+preview_dressing_scene_path = "res://assets/gameplay/tracks/home_yard_v2/home_yard_v2_map.tscn"
+ground_size = Vector2(520, 620)
+ground_color = Color(0.48, 0.58, 0.38, 1)
+ground_texture_path = "res://assets/gameplay/materials/tile/kitchen_tile_albedo.png"
+road_texture_path = "res://assets/gameplay/materials/plastic/glossy_plastic_albedo.png"
+road_visual_style = "kenney_gridmap"
+road_grid_layout = {
+"basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"cell_size": Vector3(16, 4, 16),
+"cells": Array[Dictionary]([{
+"cell": Vector3i(-1, 0, -2),
+"item": 2,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-166, 0.6, -70)
+}, {
+"cell": Vector3i(0, 0, -2),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-150, 0.6, -70)
+}, {
+"cell": Vector3i(1, 0, -2),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-134, 0.6, -70)
+}, {
+"cell": Vector3i(2, 0, -2),
+"item": 1,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-118, 0.6, -70)
+}, {
+"cell": Vector3i(2, 0, -1),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-118, 0.6, -54)
+}, {
+"cell": Vector3i(2, 0, 0),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-118, 0.6, -38)
+}, {
+"cell": Vector3i(2, 0, 1),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-118, 0.6, -22)
+}, {
+"cell": Vector3i(2, 0, 2),
+"item": 1,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(-118, 0.6, -6)
+}, {
+"cell": Vector3i(1, 0, 2),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-134, 0.6, -6)
+}, {
+"cell": Vector3i(0, 0, 2),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-150, 0.6, -6)
+}, {
+"cell": Vector3i(-1, 0, 2),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-166, 0.6, -6)
+}, {
+"cell": Vector3i(-2, 0, 2),
+"item": 1,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-182, 0.6, -6)
+}, {
+"cell": Vector3i(-2, 0, 1),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(-182, 0.6, -22)
+}, {
+"cell": Vector3i(-2, 0, 0),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(-182, 0.6, -38)
+}, {
+"cell": Vector3i(-2, 0, -1),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(-182, 0.6, -54)
+}, {
+"cell": Vector3i(-2, 0, -2),
+"item": 1,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-182, 0.6, -70)
+}]),
+"checkpoint_route_indices": Array[int]([0, 3, 5, 8, 11, 13]),
+"hazard_route_indices": [],
+"item_route_indices": [],
+"mesh_library_path": "res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres",
+"ordered_route_cells": Array[Vector3i]([Vector3i(-1, 0, -2), Vector3i(0, 0, -2), Vector3i(1, 0, -2), Vector3i(2, 0, -2), Vector3i(2, 0, -1), Vector3i(2, 0, 0), Vector3i(2, 0, 1), Vector3i(2, 0, 2), Vector3i(1, 0, 2), Vector3i(0, 0, 2), Vector3i(-1, 0, 2), Vector3i(-2, 0, 2), Vector3i(-2, 0, 1), Vector3i(-2, 0, 0), Vector3i(-2, 0, -1), Vector3i(-2, 0, -2)]),
+"ordered_route_points": Array[Vector3]([Vector3(-166, 0.6, -70), Vector3(-150, 0.6, -70), Vector3(-134, 0.6, -70), Vector3(-118, 0.6, -70), Vector3(-118, 0.6, -54), Vector3(-118, 0.6, -38), Vector3(-118, 0.6, -22), Vector3(-118, 0.6, -6), Vector3(-134, 0.6, -6), Vector3(-150, 0.6, -6), Vector3(-166, 0.6, -6), Vector3(-182, 0.6, -6), Vector3(-182, 0.6, -22), Vector3(-182, 0.6, -38), Vector3(-182, 0.6, -54), Vector3(-182, 0.6, -70)]),
+"origin": Vector3(-158, -1.4, -46),
+"road_width": 16.0,
+"route_envelope": {
+"cell_size": Vector3(16, 4, 16),
+"confidence": "inferred_from_floor_plan_and_route_cell_budget",
+"corridor_width": 16.0,
+"course_id": "kitchen",
+"floor_top_y": 0.05,
+"forbidden_overlap": ["walls", "furniture", "fixtures", "plants", "porch_posts", "service_props", "collision_blockers"],
+"gate": "spatial_audit_kitchen_route_inside_kitchen_pantry",
+"minimum_clearance_y": 0.55,
+"road_surface_y": 0.6,
+"roof_clearance_max_y": 9999.0,
+"route_local_bounds": {
+"max": Vector3i(2, 0, 2),
+"min": Vector3i(-2, 0, -2)
+},
+"route_world_bounds": {
+"max": Vector3(-110, 2.6, 2),
+"min": Vector3(-190, -1.4, -78)
+},
+"zone_center": Vector3(-150, 0, -38),
+"zone_id": "kitchen_pantry",
+"zone_size": Vector3(118, 46, 96),
+"zone_world_bounds": {
+"max": Vector3(-91, 23, 10),
+"min": Vector3(-209, -23, -86)
+}
+},
+"spawn_slots": Array[Dictionary]([{
+"forward_offset": 0.0,
+"lateral_offset": -2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 0.0,
+"lateral_offset": 2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 5.0,
+"lateral_offset": -2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 5.0,
+"lateral_offset": 2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 10.0,
+"lateral_offset": -2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 10.0,
+"lateral_offset": 2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 15.0,
+"lateral_offset": -2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 15.0,
+"lateral_offset": 2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}])
+}
+sky_preset_id = "noon_clear"
+sky_weather = "clear"
+sky_top_color = Color(0.44, 0.72, 1, 1)
+sky_horizon_color = Color(0.78, 0.9, 1, 1)
+sky_cloud_amount = 0.16
+sky_cloud_speed = 0.014
+sky_haze_amount = 0.1
+sky_light_energy = 2.45
+route_points = Array[Vector3]([Vector3(-166, 0.6, -70), Vector3(-150, 0.6, -70), Vector3(-134, 0.6, -70), Vector3(-118, 0.6, -70), Vector3(-118, 0.6, -54), Vector3(-118, 0.6, -38), Vector3(-118, 0.6, -22), Vector3(-118, 0.6, -6), Vector3(-134, 0.6, -6), Vector3(-150, 0.6, -6), Vector3(-166, 0.6, -6), Vector3(-182, 0.6, -6), Vector3(-182, 0.6, -22), Vector3(-182, 0.6, -38), Vector3(-182, 0.6, -54), Vector3(-182, 0.6, -70)])
+checkpoint_indices = Array[int]([0, 3, 5, 8, 11, 13])
+spawn_points = Array[Vector4]([Vector4(-166, 1.4000001, -67.25, 90), Vector4(-166, 1.4000001, -72.75, 90), Vector4(-161, 1.4000001, -67.25, 90), Vector4(-161, 1.4000001, -72.75, 90), Vector4(-156, 1.4000001, -67.25, 90), Vector4(-156, 1.4000001, -72.75, 90), Vector4(-151, 1.4000001, -67.25, 90), Vector4(-151, 1.4000001, -72.75, 90)])
+stage_props = Array[Dictionary]([{
+"asset_path": "res://assets/source/kenney/toy_car_kit/gate.glb",
+"collision_mode": "visual",
+"gameplay_tag": "landmark",
+"id": "kitchen_start_gate",
+"kind": "scene",
+"position": Vector3(-166, 2.6, -70),
+"scale": Vector3(5, 5, 5),
+"yaw_degrees": 0.0
+}, {
+"box_color": Color(0.9376, 0.82839996, 0.649, 1),
+"box_size": Vector3(18, 9, 2),
+"collision_mode": "visual",
+"gameplay_tag": "start_finish",
+"id": "kitchen_finish_language_panel",
+"kind": "box",
+"position": Vector3(-150, 5.6, -79),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 0.0
+}, {
+"box_color": Color(0.92, 0.78, 0.55, 1),
+"box_size": Vector3(12, 8, 12),
+"collision_mode": "visual",
+"gameplay_tag": "landmark",
+"id": "kitchen_landmark_box",
+"kind": "box",
+"position": Vector3(-132, 4.6, -20),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 0.0
+}, {
+"box_color": Color(0.6992, 0.59279996, 0.418, 1),
+"box_size": Vector3(6, 5, 18),
+"collision_mode": "visual",
+"gameplay_tag": "direction",
+"id": "kitchen_route_arrow_left",
+"kind": "box",
+"position": Vector3(-128, 3.6, -38),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 20.0
+}, {
+"box_color": Color(0.9312, 0.81079996, 0.61300004, 1),
+"box_size": Vector3(6, 5, 18),
+"collision_mode": "visual",
+"gameplay_tag": "direction",
+"id": "kitchen_route_arrow_right",
+"kind": "box",
+"position": Vector3(-156, 3.6, -6),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": -20.0
+}])
+stage_interactions = Array[Dictionary]([{
+"action": "boost",
+"boost_force": 24.0,
+"cooldown": 1.0,
+"duration": 0.25,
+"id": "kitchen_boost_pad",
+"note": "Home-yard mode boost beat.",
+"position": Vector3(-118, 1.6, -54),
+"shape": "box",
+"size": Vector3(12, 3, 12),
+"yaw_degrees": 0.0
+}, {
+"action": "rumble",
+"cooldown": 1.2,
+"duration": 0.4,
+"id": "kitchen_rumble_zone",
+"intensity": 0.45,
+"note": "Home-yard mode texture beat.",
+"position": Vector3(-134, 1.6, -6),
+"shape": "box",
+"size": Vector3(14, 3, 14),
+"yaw_degrees": 0.0
+}])
+audio_zones = Array[Dictionary]([{
+"audio_id": "clatter",
+"audio_path": "",
+"id": "FridgeHumZone",
+"position": [126.0, 3.8, 34.0],
+"radius": 26.0,
+"volume_db": -16.0,
+"zone_kind": "ambient"
+}, {
+"audio_id": "clatter",
+"audio_path": "",
+"id": "KitchenClatterZone",
+"position": [0.0, 5.0, 0.0],
+"radius": 120.0,
+"volume_db": -12.0,
+"zone_kind": "ambient"
+}, {
+"audio_id": "sink_splash",
+"audio_path": "",
+"id": "SinkSplashZone",
+"position": [-8.0, 4.45, 74.0],
+"radius": 18.0,
+"volume_db": -5.0,
+"zone_kind": "oneshot"
+}, {
+"audio_id": "stove_sizzle",
+"audio_path": "",
+"id": "StoveSizzleZone",
+"position": [-121.48029, -8.806137, -12.746695],
+"radius": 30.0,
+"volume_db": -6.0,
+"zone_kind": "ambient"
+}])
+audio_ids = {
+"clatter": "res://assets/source/audio/canva/tracks/kitchen/kitchen_clatter_canva_01.mp3",
+"music": "res://assets/source/audio/suno/tracks/kitchen/kitchen_loop_suno_01.mp3",
+"sink_splash": "res://assets/source/audio/canva/tracks/kitchen/kitchen_sink_water.mp3",
+"stove_sizzle": "res://assets/source/audio/canva/tracks/kitchen/kitchen_oven_sizzle.mp3",
+"utensil_clink": "res://assets/source/audio/canva/tracks/kitchen/kitchen_utensil_clink_canva_01.wav"
+}
+metadata/track_map_id = "home_yard_v2"
+metadata/track_mode_id = "kitchen"
+metadata/track_mode_kind = "race"
+metadata/road_source = "road_grid_map"

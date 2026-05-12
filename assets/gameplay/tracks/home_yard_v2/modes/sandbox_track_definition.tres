@@ -1,0 +1,350 @@
+[gd_resource type="Resource" script_class="TrackDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/track/TrackDefinition.gd" id="1_tquw4"]
+
+[resource]
+script = ExtResource("1_tquw4")
+id = "sandbox"
+display_name = "Sandbox / Rexx"
+version = "home_yard_gambrel_v2_2026_05_12"
+laps = 3
+track_source_id = "road_grid_map"
+road_width = 16.0
+out_of_bounds_y = -28.0
+reset_mode = "instant_pop"
+floor_visual_y = -1.1
+runtime_scene_path = "res://assets/gameplay/tracks/home_yard_v2/modes/sandbox_track.tscn"
+dressing_scene_path = "res://assets/gameplay/tracks/home_yard_v2/home_yard_v2_map.tscn"
+preview_dressing_scene_path = "res://assets/gameplay/tracks/home_yard_v2/home_yard_v2_map.tscn"
+ground_size = Vector2(520, 620)
+ground_color = Color(0.48, 0.58, 0.38, 1)
+ground_texture_path = "res://assets/gameplay/materials/sand/sandbox_sand_albedo.png"
+road_texture_path = "res://assets/gameplay/materials/plastic/glossy_plastic_albedo.png"
+road_visual_style = "kenney_gridmap"
+road_grid_layout = {
+"basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"cell_size": Vector3(16, 4, 16),
+"cells": Array[Dictionary]([{
+"cell": Vector3i(-1, 0, -3),
+"item": 2,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(140, 0.9, -318)
+}, {
+"cell": Vector3i(0, 0, -3),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(156, 0.9, -318)
+}, {
+"cell": Vector3i(1, 0, -3),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(172, 0.9, -318)
+}, {
+"cell": Vector3i(2, 0, -3),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(188, 0.9, -318)
+}, {
+"cell": Vector3i(3, 0, -3),
+"item": 1,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(204, 0.9, -318)
+}, {
+"cell": Vector3i(3, 0, -2),
+"item": 5,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(204, 0.9, -302)
+}, {
+"cell": Vector3i(3, 1, -1),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(204, 4.9, -286)
+}, {
+"cell": Vector3i(3, 1, 0),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(204, 4.9, -270)
+}, {
+"cell": Vector3i(3, 1, 1),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(204, 4.9, -254)
+}, {
+"cell": Vector3i(3, 1, 2),
+"item": 1,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(204, 4.9, -238)
+}, {
+"cell": Vector3i(2, 1, 2),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(188, 4.9, -238)
+}, {
+"cell": Vector3i(1, 1, 2),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(172, 4.9, -238)
+}, {
+"cell": Vector3i(0, 1, 2),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(156, 4.9, -238)
+}, {
+"cell": Vector3i(-1, 1, 2),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(140, 4.9, -238)
+}, {
+"cell": Vector3i(-2, 1, 2),
+"item": 1,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(124, 4.9, -238)
+}, {
+"cell": Vector3i(-2, 1, 1),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(124, 4.9, -254)
+}, {
+"cell": Vector3i(-2, 0, 0),
+"item": 5,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(124, 0.9, -270)
+}, {
+"cell": Vector3i(-2, 0, -1),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(124, 0.9, -286)
+}, {
+"cell": Vector3i(-2, 0, -2),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(124, 0.9, -302)
+}, {
+"cell": Vector3i(-2, 0, -3),
+"item": 1,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(124, 0.9, -318)
+}]),
+"checkpoint_route_indices": Array[int]([0, 3, 7, 10, 13, 17]),
+"hazard_route_indices": [],
+"item_route_indices": [],
+"mesh_library_path": "res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres",
+"ordered_route_cells": Array[Vector3i]([Vector3i(-1, 0, -3), Vector3i(0, 0, -3), Vector3i(1, 0, -3), Vector3i(2, 0, -3), Vector3i(3, 0, -3), Vector3i(3, 0, -2), Vector3i(3, 1, -1), Vector3i(3, 1, 0), Vector3i(3, 1, 1), Vector3i(3, 1, 2), Vector3i(2, 1, 2), Vector3i(1, 1, 2), Vector3i(0, 1, 2), Vector3i(-1, 1, 2), Vector3i(-2, 1, 2), Vector3i(-2, 1, 1), Vector3i(-2, 0, 0), Vector3i(-2, 0, -1), Vector3i(-2, 0, -2), Vector3i(-2, 0, -3)]),
+"ordered_route_points": Array[Vector3]([Vector3(140, 0.9, -318), Vector3(156, 0.9, -318), Vector3(172, 0.9, -318), Vector3(188, 0.9, -318), Vector3(204, 0.9, -318), Vector3(204, 0.9, -302), Vector3(204, 4.9, -286), Vector3(204, 4.9, -270), Vector3(204, 4.9, -254), Vector3(204, 4.9, -238), Vector3(188, 4.9, -238), Vector3(172, 4.9, -238), Vector3(156, 4.9, -238), Vector3(140, 4.9, -238), Vector3(124, 4.9, -238), Vector3(124, 4.9, -254), Vector3(124, 0.9, -270), Vector3(124, 0.9, -286), Vector3(124, 0.9, -302), Vector3(124, 0.9, -318)]),
+"origin": Vector3(148, -1.1, -278),
+"road_width": 16.0,
+"route_envelope": {
+"cell_size": Vector3(16, 4, 16),
+"confidence": "inferred_from_floor_plan_and_route_cell_budget",
+"corridor_width": 16.0,
+"course_id": "sandbox",
+"floor_top_y": 0.35,
+"forbidden_overlap": ["walls", "furniture", "fixtures", "plants", "porch_posts", "service_props", "collision_blockers"],
+"gate": "spatial_audit_sandbox_route_inside_sandbox",
+"minimum_clearance_y": 0.55,
+"road_surface_y": 0.9,
+"roof_clearance_max_y": 9999.0,
+"route_local_bounds": {
+"max": Vector3i(3, 1, 2),
+"min": Vector3i(-2, 0, -3)
+},
+"route_world_bounds": {
+"max": Vector3(212, 6.9, -230),
+"min": Vector3(116, -1.1, -326)
+},
+"zone_center": Vector3(156, 0, -270),
+"zone_id": "sandbox",
+"zone_size": Vector3(112, 24, 116),
+"zone_world_bounds": {
+"max": Vector3(212, 12, -212),
+"min": Vector3(100, -12, -328)
+}
+},
+"spawn_slots": Array[Dictionary]([{
+"forward_offset": 0.0,
+"lateral_offset": -2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 0.0,
+"lateral_offset": 2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 5.0,
+"lateral_offset": -2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 5.0,
+"lateral_offset": 2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 10.0,
+"lateral_offset": -2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 10.0,
+"lateral_offset": 2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 15.0,
+"lateral_offset": -2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 15.0,
+"lateral_offset": 2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}])
+}
+sky_preset_id = "hot_afternoon"
+sky_weather = "hot"
+sky_top_color = Color(0.58, 0.74, 0.96, 1)
+sky_horizon_color = Color(1, 0.86, 0.58, 1)
+sky_cloud_amount = 0.08
+sky_cloud_speed = 0.014
+sky_haze_amount = 0.1
+sky_light_energy = 2.65
+route_points = Array[Vector3]([Vector3(140, 0.9, -318), Vector3(156, 0.9, -318), Vector3(172, 0.9, -318), Vector3(188, 0.9, -318), Vector3(204, 0.9, -318), Vector3(204, 0.9, -302), Vector3(204, 4.9, -286), Vector3(204, 4.9, -270), Vector3(204, 4.9, -254), Vector3(204, 4.9, -238), Vector3(188, 4.9, -238), Vector3(172, 4.9, -238), Vector3(156, 4.9, -238), Vector3(140, 4.9, -238), Vector3(124, 4.9, -238), Vector3(124, 4.9, -254), Vector3(124, 0.9, -270), Vector3(124, 0.9, -286), Vector3(124, 0.9, -302), Vector3(124, 0.9, -318)])
+checkpoint_indices = Array[int]([0, 3, 7, 10, 13, 17])
+spawn_points = Array[Vector4]([Vector4(140, 1.7, -315.25, 90), Vector4(140, 1.7, -320.75, 90), Vector4(145, 1.7, -315.25, 90), Vector4(145, 1.7, -320.75, 90), Vector4(150, 1.7, -315.25, 90), Vector4(150, 1.7, -320.75, 90), Vector4(155, 1.7, -315.25, 90), Vector4(155, 1.7, -320.75, 90)])
+stage_props = Array[Dictionary]([{
+"asset_path": "res://assets/source/kenney/toy_car_kit/gate.glb",
+"collision_mode": "visual",
+"gameplay_tag": "landmark",
+"id": "sandbox_start_gate",
+"kind": "scene",
+"position": Vector3(140, 2.9, -318),
+"scale": Vector3(5, 5, 5),
+"yaw_degrees": 0.0
+}, {
+"box_color": Color(0.8596, 0.73480004, 0.54760003, 1),
+"box_size": Vector3(18, 9, 2),
+"collision_mode": "visual",
+"gameplay_tag": "start_finish",
+"id": "sandbox_finish_language_panel",
+"kind": "box",
+"position": Vector3(156, 5.9, -327),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 0.0
+}, {
+"box_color": Color(0.82, 0.66, 0.42, 1),
+"box_size": Vector3(12, 8, 12),
+"collision_mode": "visual",
+"gameplay_tag": "landmark",
+"id": "sandbox_landmark_box",
+"kind": "box",
+"position": Vector3(174, 4.9, -252),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 0.0
+}, {
+"box_color": Color(0.6232, 0.5016, 0.31919998, 1),
+"box_size": Vector3(6, 5, 18),
+"collision_mode": "visual",
+"gameplay_tag": "direction",
+"id": "sandbox_route_arrow_left",
+"kind": "box",
+"position": Vector3(194, 7.9, -286),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 20.0
+}, {
+"box_color": Color(0.8452, 0.7076, 0.50119996, 1),
+"box_size": Vector3(6, 5, 18),
+"collision_mode": "visual",
+"gameplay_tag": "direction",
+"id": "sandbox_route_arrow_right",
+"kind": "box",
+"position": Vector3(150, 7.9, -238),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": -20.0
+}])
+stage_interactions = Array[Dictionary]([{
+"action": "boost",
+"boost_force": 24.0,
+"cooldown": 1.0,
+"duration": 0.25,
+"id": "sandbox_boost_pad",
+"note": "Home-yard mode boost beat.",
+"position": Vector3(204, 1.9, -302),
+"shape": "box",
+"size": Vector3(12, 3, 12),
+"yaw_degrees": 0.0
+}, {
+"action": "rumble",
+"cooldown": 1.2,
+"duration": 0.4,
+"id": "sandbox_rumble_zone",
+"intensity": 0.45,
+"note": "Home-yard mode texture beat.",
+"position": Vector3(188, 5.9, -238),
+"shape": "box",
+"size": Vector3(14, 3, 14),
+"yaw_degrees": 0.0
+}])
+audio_zones = Array[Dictionary]([{
+"audio_id": "sandbox_secondary",
+"audio_path": "",
+"id": "sandbox_feature_zone",
+"position": [60.0, 4.35, 36.0],
+"radius": 28.0,
+"volume_db": -6.0,
+"zone_kind": "oneshot"
+}, {
+"audio_id": "music",
+"audio_path": "",
+"id": "sandbox_music_zone",
+"position": [0.0, 0.0, 0.0],
+"radius": 120.0,
+"volume_db": -14.0,
+"zone_kind": "ambient"
+}])
+grass_zones = Array[Dictionary]([{
+"density": 0.75,
+"enabled": true,
+"id": "sandbox_back_grass",
+"position": [0.0, -8.5, 76.0],
+"size": [240.0, 34.0],
+"yaw_degrees": 0.0
+}])
+audio_ids = {
+"music": "res://assets/source/audio/canva/tracks/sandbox/sandbox_grit_slide_canva_01.wav",
+"sandbox_primary": "res://assets/source/audio/canva/tracks/sandbox/sandbox_grit_slide_canva_01.wav",
+"sandbox_secondary": "res://assets/source/audio/canva/tracks/sandbox/sandbox_bucket_bonk_canva_01.mp3"
+}
+metadata/track_map_id = "home_yard_v2"
+metadata/track_mode_id = "sandbox"
+metadata/track_mode_kind = "race"
+metadata/road_source = "road_grid_map"

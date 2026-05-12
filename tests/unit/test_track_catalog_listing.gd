@@ -75,7 +75,8 @@ const KITCHEN_EDITABLE_FLOOR_SIZE := Vector2(292.0, 190.0)
 const OUTDOOR_GRASS_SHADER := "res://assets/gameplay/materials/grass/playground_grass.gdshader"
 const OUTDOOR_PLAYGROUND_FLOOR_TEXTURE := "res://assets/gameplay/materials/playground/outdoor_playground_floor_albedo.png"
 const BACKYARD_PREVIEW_SHELL := "res://assets/gameplay/tracks/shared/backyard_optimized/backyard_preview_shell.tscn"
-const HOME_YARD_MAP_SCENE := "res://assets/gameplay/tracks/home_yard/home_yard_map.tscn"
+const HOME_YARD_MAP_ID := "home_yard_v2"
+const HOME_YARD_MAP_SCENE := "res://assets/gameplay/tracks/home_yard_v2/home_yard_v2_map.tscn"
 const HOME_YARD_GROUND_SIZE := Vector2(520.0, 620.0)
 const OLD_BACKYARD_RESOURCE_MARKERS := [
 	"wooden_playground_set_static.glb",
@@ -104,6 +105,7 @@ func test_catalog_exposes_only_gridmap_backed_tracks() -> void:
 			_assert_gridmap_contract(definition, track_id)
 	for expected_id in SELECTABLE_TRACK_IDS:
 		assert_true(listed_ids.has(expected_id), "%s should remain selectable" % expected_id)
+	assert_true(TrackCatalog.get_map_definition("home_yard") == null, "Old home_yard generated package should be hidden from normal catalog resolution")
 
 func test_tracks_without_real_gridmap_metadata_fail_validation() -> void:
 	var definition := TrackDefinition.new()
@@ -197,6 +199,7 @@ func _assert_gridmap_contract(definition: TrackDefinition, track_id: String) -> 
 	if track_id == "outdoor_playground":
 		assert_equal(definition.ground_texture_path, OUTDOOR_PLAYGROUND_FLOOR_TEXTURE, "Outdoor Playground should use the authored floor texture")
 	assert_equal(definition.ground_size, _expected_definition_ground_size(track_id), "%s definition should match its runtime ground dimensions" % track_id)
+	assert_equal(str(definition.get_meta("track_map_id", "")), HOME_YARD_MAP_ID, "%s should resolve through the scratch-built home-yard v2 map" % track_id)
 	assert_equal(definition.preview_dressing_scene_path, HOME_YARD_MAP_SCENE, "%s should use the shared home-yard preview dressing" % track_id)
 	var metadata: Dictionary = definition.to_metadata()
 	assert_equal(str(metadata.get("track_source_id", "")), "road_grid_map", "%s metadata should export GridMap source" % track_id)
@@ -251,6 +254,8 @@ func _assert_home_yard_route_envelope(definition: TrackDefinition, track_id: Str
 	assert_true(float(data.get("road_surface_y", 0.0)) > float(data.get("floor_top_y", 0.0)), "%s road surface should sit above the finished floor/ground" % track_id)
 	assert_true(float(data.get("road_surface_y", 0.0)) - float(data.get("floor_top_y", 0.0)) >= 0.14, "%s road surface should have a visible floor clearance" % track_id)
 	assert_true(float(data.get("corridor_width", 0.0)) >= definition.road_width, "%s route corridor should cover the road width" % track_id)
+	if track_id == "attic":
+		assert_true(float(data.get("roof_clearance_max_y", 0.0)) >= route_max.y + 8.0, "attic route should stay below the Dutch gambrel roof clearance")
 	assert_true(data.get("forbidden_overlap", []) is Array and not (data.get("forbidden_overlap", []) as Array).is_empty(), "%s route envelope should declare obstacle exclusions" % track_id)
 
 func _assert_two_by_four_start_slots(slots: Array, track_id: String) -> void:
@@ -324,10 +329,11 @@ func _assert_home_yard_floor_plan_contract(root: Node, track_id: String) -> void
 	if not (contract is Dictionary):
 		return
 	var data := contract as Dictionary
-	assert_equal(str(data.get("selected_alternative", "")), "Architecture-First", "%s should record the selected floor-plan alternative" % track_id)
+	assert_equal(str(data.get("selected_alternative", "")), "Dutch Gambrel V2", "%s should record the selected floor-plan alternative" % track_id)
 	assert_true(str(data.get("site_orientation", "")).contains("front/street"), "%s should record front/street site orientation" % track_id)
 	assert_true(data.get("floor_heights", {}) is Dictionary, "%s should record vertical floor relationships" % track_id)
 	assert_true(str(data.get("route_contract", "")) != "", "%s should record route envelope contract requirements" % track_id)
+	assert_true(str(data.get("roof_contract", "")).contains("Dutch gambrel"), "%s should record the Dutch gambrel attic roof contract" % track_id)
 	assert_true(str(data.get("shell_ownership", "")).contains("ExteriorShell"), "%s should record shared shell ownership" % track_id)
 	var wall_schedule: Variant = root.get_meta("interior_wall_schedule", [])
 	assert_true(wall_schedule is Array, "%s shared home-yard scene should include an interior wall schedule" % track_id)
@@ -407,54 +413,54 @@ func _assert_home_yard_roof_and_attic_contract(root: Node, track_id: String) -> 
 	if roof == null:
 		return
 	for node_name in [
-		"MainRoofLeftPlane",
-		"MainRoofRightPlane",
-		"MainRoofRidgeCap",
-		"MainFrontGableWall",
-		"MainBackGableWall",
+		"DutchGambrelLowerLeftPlane",
+		"DutchGambrelUpperLeftPlane",
+		"DutchGambrelUpperRightPlane",
+		"DutchGambrelLowerRightPlane",
+		"DutchGambrelRidgeCap",
+		"DutchGambrelLeftBreakCap",
+		"DutchGambrelRightBreakCap",
+		"DutchGambrelFrontGableWall",
+		"DutchGambrelBackGableWall",
 		"GarageCrossGableRidge",
 		"FrontPorchGableRidge",
-		"UpperAtticRoofLeftPlane",
-		"UpperAtticRoofRightPlane",
-		"UpperAtticRoofRidgeCap",
-		"UpperDormerCheekLeft",
-		"UpperDormerCheekRight",
-		"UpperDormerLowerFrontWall",
-		"UpperDormerLowerBackWall",
-		"UpperDormerLowerLeftWall",
-		"UpperDormerLowerRightWall",
-		"UpperDormerStoryBeltCourseFront",
-		"UpperDormerFrontGableWall",
-		"UpperDormerBackGableWall",
 		"GarageValleyCoverFront",
-		"UpperDormerValleyCoverLeft",
+		"GambrelFrontEaveFascia",
+		"GambrelBackEaveFascia",
+		"GambrelSoffitFront",
+		"GambrelSoffitBack",
 	]:
 		assert_true(roof.get_node_or_null(node_name) != null, "%s roof system should include measured assembly node %s" % [track_id, node_name])
 	var massing_contract := str(roof.get_meta("massing_contract", ""))
-	assert_true(massing_contract.contains("single craftsman primary gable"), "%s roof should record one cohesive massing hierarchy" % track_id)
-	assert_true(massing_contract.contains("no layer-cake"), "%s roof should reject layer-cake exposed boxes" % track_id)
-	_assert_ridge_axis(roof, "MainRoofRidgeCap", "z", track_id)
-	_assert_ridge_axis(roof, "UpperAtticRoofRidgeCap", "z", track_id)
+	assert_true(massing_contract.contains("Dutch Colonial gambrel"), "%s roof should record the Dutch gambrel massing hierarchy" % track_id)
+	assert_true(massing_contract.contains("no stacked attic box"), "%s roof should reject stacked attic boxes" % track_id)
+	_assert_ridge_axis(roof, "DutchGambrelRidgeCap", "z", track_id)
 	_assert_ridge_axis(roof, "GarageCrossGableRidge", "x", track_id)
 	_assert_ridge_axis(roof, "FrontPorchGableRidge", "x", track_id)
-	_assert_mesh_top_below(roof, "UpperAtticRoofRidgeCap", 132.0, track_id)
-	_assert_mesh_top_below(roof, "UpperDormerLowerFrontWall", 98.0, track_id)
-	_assert_mesh_top_below(roof, "UpperDormerLowerBackWall", 98.0, track_id)
-	var left_plane := roof.get_node_or_null("UpperAtticRoofLeftPlane")
-	var right_plane := roof.get_node_or_null("UpperAtticRoofRightPlane")
-	for plane in [left_plane, right_plane]:
+	_assert_mesh_top_below(roof, "DutchGambrelRidgeCap", 154.0, track_id)
+	var gambrel_planes := [
+		roof.get_node_or_null("DutchGambrelLowerLeftPlane"),
+		roof.get_node_or_null("DutchGambrelUpperLeftPlane"),
+		roof.get_node_or_null("DutchGambrelUpperRightPlane"),
+		roof.get_node_or_null("DutchGambrelLowerRightPlane"),
+	]
+	for plane in gambrel_planes:
 		assert_true(plane != null and plane is MeshInstance3D, "%s attic roof plane should be real mesh geometry" % track_id)
 		if plane != null:
-			assert_equal(str(plane.get_meta("span_axis", "")), "x", "%s attic roof plane should slope across the declared span axis" % track_id)
-			assert_true(float(plane.get_meta("slope_delta_y", 0.0)) > 0.0, "%s attic roof plane should have visible rise" % track_id)
+			assert_equal(str(plane.get_meta("span_axis", "")), "x", "%s gambrel roof plane should slope across the declared span axis" % track_id)
+			assert_true(float(plane.get_meta("slope_delta_y", 0.0)) > 0.0, "%s gambrel roof plane should have visible rise" % track_id)
 	var attic := root.get_node_or_null("Attic")
 	assert_true(attic != null, "%s should include attic holder" % track_id)
 	if attic != null:
 		assert_true(attic.get_node_or_null("InteriorPartitions/AtticWestKneePartition") != null, "%s attic should include contract-owned west knee partition" % track_id)
 		assert_true(attic.get_node_or_null("InteriorPartitions/AtticEastKneePartition") != null, "%s attic should include contract-owned east knee partition" % track_id)
-		_assert_mesh_top_below(attic, "RoomFinishes/AtticRidgeBeamInterior", 128.0, track_id)
+		assert_true(attic.get_node_or_null("RoomFinishes/PopperHighRampLaunchDeck") != null, "%s attic should include Popper high-ramp launch deck" % track_id)
+		assert_true(attic.get_node_or_null("RoomFinishes/PopperHighRampLandingDeck") != null, "%s attic should include Popper high-ramp landing deck" % track_id)
+		_assert_mesh_top_below(attic, "RoomFinishes/AtticRidgeBeamInterior", 150.0, track_id)
 	assert_true(root.find_child("RoofMassPlaceholder", true, false) == null, "%s should not keep a visible flat roof placeholder" % track_id)
 	assert_true(root.find_child("MainEnvelopeCeilingPlane", true, false) == null, "%s should not expose a flat ceiling plane as a visible roof placeholder" % track_id)
+	assert_true(root.find_child("UpperAtticRoofRidgeCap", true, false) == null, "%s should not keep the old stacked attic ridge cap" % track_id)
+	assert_true(root.find_child("UpperDormerFrontGableWall", true, false) == null, "%s should not keep old upper-dormer gable walls" % track_id)
 	assert_true(root.find_child("UpperRoofLeftRakeFascia", true, false) == null, "%s should not keep horizontal dormer side rake bars that read as floating rails" % track_id)
 	assert_true(root.find_child("UpperRoofRightRakeFascia", true, false) == null, "%s should not keep horizontal dormer side rake bars that read as floating rails" % track_id)
 

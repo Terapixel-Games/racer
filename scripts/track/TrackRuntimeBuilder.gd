@@ -828,7 +828,7 @@ static func _build_dressing(root: Node3D, definition: TrackDefinition) -> void:
 	holder.name = "Dressing"
 	root.add_child(holder)
 	_add_dressing_scene(holder, definition)
-	if definition.id == "kitchen" and str(definition.get_meta("track_map_id", "")) != "home_yard":
+	if definition.id == "kitchen" and not str(definition.get_meta("track_map_id", "")).begins_with("home_yard"):
 		return
 	_build_stage_props(holder, definition)
 

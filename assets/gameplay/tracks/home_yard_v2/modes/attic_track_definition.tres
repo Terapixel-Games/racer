@@ -1,0 +1,399 @@
+[gd_resource type="Resource" script_class="TrackDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/track/TrackDefinition.gd" id="1_7r7sb"]
+
+[resource]
+script = ExtResource("1_7r7sb")
+id = "attic"
+display_name = "Attic Mayhem"
+version = "home_yard_gambrel_v2_2026_05_12"
+laps = 3
+track_source_id = "road_grid_map"
+road_width = 16.0
+out_of_bounds_y = -28.0
+reset_mode = "instant_pop"
+floor_visual_y = -1.1
+runtime_scene_path = "res://assets/gameplay/tracks/home_yard_v2/modes/attic_track.tscn"
+dressing_scene_path = "res://assets/gameplay/tracks/home_yard_v2/home_yard_v2_map.tscn"
+preview_dressing_scene_path = "res://assets/gameplay/tracks/home_yard_v2/home_yard_v2_map.tscn"
+ground_size = Vector2(520, 620)
+ground_color = Color(0.48, 0.58, 0.38, 1)
+ground_texture_path = "res://assets/gameplay/materials/attic/attic_cardboard_wood_albedo.png"
+road_texture_path = "res://assets/gameplay/materials/plastic/glossy_plastic_albedo.png"
+road_visual_style = "kenney_gridmap"
+road_grid_layout = {
+"basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"cell_size": Vector3(16, 4, 16),
+"cells": Array[Dictionary]([{
+"cell": Vector3i(-4, 0, -2),
+"item": 2,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-4, 117.2, -14)
+}, {
+"cell": Vector3i(-3, 0, -2),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(12, 117.2, -14)
+}, {
+"cell": Vector3i(-2, 0, -2),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(28, 117.2, -14)
+}, {
+"cell": Vector3i(-1, 0, -2),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(44, 117.2, -14)
+}, {
+"cell": Vector3i(0, 0, -2),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(60, 117.2, -14)
+}, {
+"cell": Vector3i(1, 0, -2),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(76, 117.2, -14)
+}, {
+"cell": Vector3i(2, 0, -2),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(92, 117.2, -14)
+}, {
+"cell": Vector3i(3, 0, -2),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(108, 117.2, -14)
+}, {
+"cell": Vector3i(4, 0, -2),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(124, 117.2, -14)
+}, {
+"cell": Vector3i(5, 0, -2),
+"item": 1,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(140, 117.2, -14)
+}, {
+"cell": Vector3i(5, 0, -1),
+"item": 5,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(140, 117.2, 2)
+}, {
+"cell": Vector3i(5, 1, 0),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(140, 121.2, 18)
+}, {
+"cell": Vector3i(5, 1, 1),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(140, 121.2, 34)
+}, {
+"cell": Vector3i(5, 1, 2),
+"item": 1,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(140, 121.2, 50)
+}, {
+"cell": Vector3i(4, 1, 2),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(124, 121.2, 50)
+}, {
+"cell": Vector3i(3, 1, 2),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(108, 121.2, 50)
+}, {
+"cell": Vector3i(2, 1, 2),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(92, 121.2, 50)
+}, {
+"cell": Vector3i(1, 1, 2),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(76, 121.2, 50)
+}, {
+"cell": Vector3i(0, 1, 2),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(60, 121.2, 50)
+}, {
+"cell": Vector3i(-1, 1, 2),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(44, 121.2, 50)
+}, {
+"cell": Vector3i(-2, 1, 2),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(28, 121.2, 50)
+}, {
+"cell": Vector3i(-3, 1, 2),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(12, 121.2, 50)
+}, {
+"cell": Vector3i(-4, 1, 2),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-4, 121.2, 50)
+}, {
+"cell": Vector3i(-5, 1, 2),
+"item": 1,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-20, 121.2, 50)
+}, {
+"cell": Vector3i(-5, 1, 1),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(-20, 121.2, 34)
+}, {
+"cell": Vector3i(-5, 0, 0),
+"item": 5,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(-20, 117.2, 18)
+}, {
+"cell": Vector3i(-5, 0, -1),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(-20, 117.2, 2)
+}, {
+"cell": Vector3i(-5, 0, -2),
+"item": 1,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-20, 117.2, -14)
+}]),
+"checkpoint_route_indices": Array[int]([0, 5, 9, 14, 19, 23]),
+"hazard_route_indices": [],
+"item_route_indices": [],
+"mesh_library_path": "res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres",
+"ordered_route_cells": Array[Vector3i]([Vector3i(-4, 0, -2), Vector3i(-3, 0, -2), Vector3i(-2, 0, -2), Vector3i(-1, 0, -2), Vector3i(0, 0, -2), Vector3i(1, 0, -2), Vector3i(2, 0, -2), Vector3i(3, 0, -2), Vector3i(4, 0, -2), Vector3i(5, 0, -2), Vector3i(5, 0, -1), Vector3i(5, 1, 0), Vector3i(5, 1, 1), Vector3i(5, 1, 2), Vector3i(4, 1, 2), Vector3i(3, 1, 2), Vector3i(2, 1, 2), Vector3i(1, 1, 2), Vector3i(0, 1, 2), Vector3i(-1, 1, 2), Vector3i(-2, 1, 2), Vector3i(-3, 1, 2), Vector3i(-4, 1, 2), Vector3i(-5, 1, 2), Vector3i(-5, 1, 1), Vector3i(-5, 0, 0), Vector3i(-5, 0, -1), Vector3i(-5, 0, -2)]),
+"ordered_route_points": Array[Vector3]([Vector3(-4, 117.2, -14), Vector3(12, 117.2, -14), Vector3(28, 117.2, -14), Vector3(44, 117.2, -14), Vector3(60, 117.2, -14), Vector3(76, 117.2, -14), Vector3(92, 117.2, -14), Vector3(108, 117.2, -14), Vector3(124, 117.2, -14), Vector3(140, 117.2, -14), Vector3(140, 117.2, 2), Vector3(140, 121.2, 18), Vector3(140, 121.2, 34), Vector3(140, 121.2, 50), Vector3(124, 121.2, 50), Vector3(108, 121.2, 50), Vector3(92, 121.2, 50), Vector3(76, 121.2, 50), Vector3(60, 121.2, 50), Vector3(44, 121.2, 50), Vector3(28, 121.2, 50), Vector3(12, 121.2, 50), Vector3(-4, 121.2, 50), Vector3(-20, 121.2, 50), Vector3(-20, 121.2, 34), Vector3(-20, 117.2, 18), Vector3(-20, 117.2, 2), Vector3(-20, 117.2, -14)]),
+"origin": Vector3(52, 115.2, 10),
+"road_width": 16.0,
+"route_envelope": {
+"cell_size": Vector3(16, 4, 16),
+"confidence": "inferred_from_floor_plan_and_route_cell_budget",
+"corridor_width": 16.0,
+"course_id": "attic",
+"floor_top_y": 116.6,
+"forbidden_overlap": ["walls", "furniture", "fixtures", "plants", "porch_posts", "service_props", "collision_blockers"],
+"gate": "spatial_audit_attic_route_inside_gambrel_attic_high_ramp_zone",
+"minimum_clearance_y": 0.55,
+"road_surface_y": 117.2,
+"roof_clearance_max_y": 150.0,
+"route_local_bounds": {
+"max": Vector3i(5, 1, 2),
+"min": Vector3i(-5, 0, -2)
+},
+"route_world_bounds": {
+"max": Vector3(148, 123.2, 58),
+"min": Vector3(-28, 115.2, -22)
+},
+"zone_center": Vector3(60, 116, 18),
+"zone_id": "gambrel_attic_high_ramp_zone",
+"zone_size": Vector3(214, 58, 88),
+"zone_world_bounds": {
+"max": Vector3(167, 145, 62),
+"min": Vector3(-47, 87, -26)
+}
+},
+"spawn_slots": Array[Dictionary]([{
+"forward_offset": 0.0,
+"lateral_offset": -2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 0.0,
+"lateral_offset": 2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 5.0,
+"lateral_offset": -2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 5.0,
+"lateral_offset": 2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 10.0,
+"lateral_offset": -2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 10.0,
+"lateral_offset": 2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 15.0,
+"lateral_offset": -2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}, {
+"forward_offset": 15.0,
+"lateral_offset": 2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 0.0
+}])
+}
+sky_preset_id = "stormy_moonlight_night"
+sky_weather = "storm"
+sky_top_color = Color(0.08, 0.09, 0.12, 1)
+sky_horizon_color = Color(0.2, 0.22, 0.28, 1)
+sky_cloud_amount = 0.62
+sky_cloud_speed = 0.014
+sky_haze_amount = 0.1
+sky_light_energy = 1.25
+route_points = Array[Vector3]([Vector3(-4, 117.2, -14), Vector3(12, 117.2, -14), Vector3(28, 117.2, -14), Vector3(44, 117.2, -14), Vector3(60, 117.2, -14), Vector3(76, 117.2, -14), Vector3(92, 117.2, -14), Vector3(108, 117.2, -14), Vector3(124, 117.2, -14), Vector3(140, 117.2, -14), Vector3(140, 117.2, 2), Vector3(140, 121.2, 18), Vector3(140, 121.2, 34), Vector3(140, 121.2, 50), Vector3(124, 121.2, 50), Vector3(108, 121.2, 50), Vector3(92, 121.2, 50), Vector3(76, 121.2, 50), Vector3(60, 121.2, 50), Vector3(44, 121.2, 50), Vector3(28, 121.2, 50), Vector3(12, 121.2, 50), Vector3(-4, 121.2, 50), Vector3(-20, 121.2, 50), Vector3(-20, 121.2, 34), Vector3(-20, 117.2, 18), Vector3(-20, 117.2, 2), Vector3(-20, 117.2, -14)])
+checkpoint_indices = Array[int]([0, 5, 9, 14, 19, 23])
+spawn_points = Array[Vector4]([Vector4(-4, 118, -11.25, 90), Vector4(-4, 118, -16.75, 90), Vector4(1, 118, -11.25, 90), Vector4(1, 118, -16.75, 90), Vector4(6, 118, -11.25, 90), Vector4(6, 118, -16.75, 90), Vector4(11, 118, -11.25, 90), Vector4(11, 118, -16.75, 90)])
+stage_props = Array[Dictionary]([{
+"asset_path": "res://assets/source/kenney/toy_car_kit/gate.glb",
+"collision_mode": "visual",
+"gameplay_tag": "landmark",
+"id": "attic_start_gate",
+"kind": "scene",
+"position": Vector3(-4, 119.2, -14),
+"scale": Vector3(5, 5, 5),
+"yaw_degrees": 0.0
+}, {
+"box_color": Color(0.571, 0.49299997, 0.415, 1),
+"box_size": Vector3(18, 9, 2),
+"collision_mode": "visual",
+"gameplay_tag": "start_finish",
+"id": "attic_finish_language_panel",
+"kind": "box",
+"position": Vector3(12, 122.2, -23),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 0.0
+}, {
+"box_color": Color(0.45, 0.35, 0.25, 1),
+"box_size": Vector3(12, 8, 12),
+"collision_mode": "visual",
+"gameplay_tag": "landmark",
+"id": "attic_landmark_box",
+"kind": "box",
+"position": Vector3(78, 121.2, 36),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 0.0
+}, {
+"box_color": Color(0.34199998, 0.266, 0.19, 1),
+"box_size": Vector3(6, 5, 18),
+"collision_mode": "visual",
+"gameplay_tag": "direction",
+"id": "attic_route_arrow_left",
+"kind": "box",
+"position": Vector3(130, 120.2, -14),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": 20.0
+}, {
+"box_color": Color(0.527, 0.44099998, 0.35500002, 1),
+"box_size": Vector3(6, 5, 18),
+"collision_mode": "visual",
+"gameplay_tag": "direction",
+"id": "attic_route_arrow_right",
+"kind": "box",
+"position": Vector3(70, 124.2, 50),
+"scale": Vector3(1, 1, 1),
+"yaw_degrees": -20.0
+}])
+stage_interactions = Array[Dictionary]([{
+"action": "boost",
+"boost_force": 24.0,
+"cooldown": 1.0,
+"duration": 0.25,
+"id": "attic_boost_pad",
+"note": "Home-yard mode boost beat.",
+"position": Vector3(108, 118.2, -14),
+"shape": "box",
+"size": Vector3(12, 3, 12),
+"yaw_degrees": 0.0
+}, {
+"action": "rumble",
+"cooldown": 1.2,
+"duration": 0.4,
+"id": "attic_rumble_zone",
+"intensity": 0.45,
+"note": "Home-yard mode texture beat.",
+"position": Vector3(124, 122.2, 50),
+"shape": "box",
+"size": Vector3(14, 3, 14),
+"yaw_degrees": 0.0
+}])
+audio_zones = Array[Dictionary]([{
+"audio_id": "attic_secondary",
+"audio_path": "",
+"id": "attic_feature_zone",
+"position": [60.0, 4.35, 36.0],
+"radius": 28.0,
+"volume_db": -6.0,
+"zone_kind": "oneshot"
+}, {
+"audio_id": "music",
+"audio_path": "",
+"id": "attic_music_zone",
+"position": [0.0, 0.0, 0.0],
+"radius": 120.0,
+"volume_db": -14.0,
+"zone_kind": "ambient"
+}, {
+"audio_id": "attic_window_wind",
+"audio_path": "res://assets/source/audio/sfx/attic/wind_blowing.mp3",
+"id": "attic_window_wind_zone",
+"position": [132.0, 18.0, 42.0],
+"radius": 46.0,
+"volume_db": -10.0,
+"zone_kind": "ambient"
+}])
+audio_ids = {
+"attic_primary": "res://assets/source/audio/canva/tracks/attic/attic_creak_canva_01.mp3",
+"attic_secondary": "res://assets/source/audio/canva/tracks/attic/attic_prank_squeak_canva_01.wav",
+"attic_window_wind": "res://assets/source/audio/sfx/attic/wind_blowing.mp3",
+"music": "res://assets/source/audio/suno/tracks/attic/attic_loop_suno_01.mp3"
+}
+metadata/track_map_id = "home_yard_v2"
+metadata/track_mode_id = "attic"
+metadata/track_mode_kind = "race"
+metadata/road_source = "road_grid_map"

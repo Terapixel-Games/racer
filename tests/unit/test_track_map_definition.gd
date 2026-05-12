@@ -17,7 +17,9 @@ const HOME_YARD_MODE_IDS := [
 	"playroom",
 	"sandbox",
 ]
-const HOME_YARD_MAP_SCENE := "res://assets/gameplay/tracks/home_yard/home_yard_map.tscn"
+const HOME_YARD_MAP_ID := "home_yard_v2"
+const OLD_HOME_YARD_MAP_ID := "home_yard"
+const HOME_YARD_MAP_SCENE := "res://assets/gameplay/tracks/home_yard_v2/home_yard_v2_map.tscn"
 
 func test_kitchen_map_definition_exposes_race_mode() -> void:
 	var map_definition := TrackCatalog.get_map_definition("kitchen")
@@ -31,32 +33,36 @@ func test_kitchen_map_definition_exposes_race_mode() -> void:
 	assert_equal(str(modes[0].get("road_source", "")), "road_grid_map", "Kitchen race mode should use RoadGridMap as its source")
 
 func test_home_yard_map_exposes_all_concept_course_modes() -> void:
-	var map_definition := TrackCatalog.get_map_definition("home_yard")
+	var map_definition := TrackCatalog.get_map_definition(HOME_YARD_MAP_ID)
 	assert_true(map_definition is TrackMapDefinition, "Home Yard should load as a track map definition")
-	assert_equal(map_definition.id, "home_yard", "Home Yard map id should be stable")
+	assert_equal(map_definition.id, HOME_YARD_MAP_ID, "Home Yard v2 map id should be stable")
 	assert_equal(map_definition.map_scene_path, HOME_YARD_MAP_SCENE, "Home Yard should own the shared floor-plan scene")
 	var mode_ids := map_definition.list_mode_ids()
 	assert_equal(mode_ids, HOME_YARD_MODE_IDS, "Home Yard should expose the eight concept course modes")
 	for mode_id in HOME_YARD_MODE_IDS:
 		var mode_summary := map_definition.mode_summary(mode_id)
-		assert_equal(str(mode_summary.get("map_id", "")), "home_yard", "%s should belong to the Home Yard map" % mode_id)
+		assert_equal(str(mode_summary.get("map_id", "")), HOME_YARD_MAP_ID, "%s should belong to the Home Yard v2 map" % mode_id)
 		assert_equal(str(mode_summary.get("road_source", "")), "road_grid_map", "%s should use RoadGridMap mode metadata" % mode_id)
 
 func test_public_home_course_ids_resolve_to_home_yard_modes() -> void:
 	for mode_id in HOME_YARD_MODE_IDS:
 		var definition := TrackCatalog.get_definition(mode_id)
 		assert_true(definition is TrackDefinition, "%s public course id should resolve to a definition" % mode_id)
-		assert_equal(str(definition.get_meta("track_map_id", "")), "home_yard", "%s should resolve through the Home Yard map" % mode_id)
+		assert_equal(str(definition.get_meta("track_map_id", "")), HOME_YARD_MAP_ID, "%s should resolve through the Home Yard v2 map" % mode_id)
 		assert_equal(str(definition.get_meta("track_mode_id", "")), mode_id, "%s should resolve to its matching Home Yard mode" % mode_id)
 		assert_equal(definition.dressing_scene_path, HOME_YARD_MAP_SCENE, "%s should use the shared Home Yard scene" % mode_id)
 		assert_true(not definition.road_grid_layout.is_empty(), "%s should keep mode-specific RoadGridMap metadata" % mode_id)
 		assert_equal(definition.validate(), [], "%s Home Yard mode definition should validate" % mode_id)
 
+func test_old_home_yard_map_is_hidden_from_catalog() -> void:
+	assert_true(TrackCatalog.get_map_definition(OLD_HOME_YARD_MAP_ID) == null, "Old home_yard generated map should stay hidden from the runtime catalog")
+	assert_true(ResourceLoader.exists("res://assets/gameplay/tracks/home_yard/home_yard_map.tscn"), "Old home_yard scene should remain loadable by path for fallback/reference")
+
 func test_legacy_kitchen_definition_adapter_returns_race_definition() -> void:
 	var definition := TrackCatalog.get_definition("kitchen")
 	assert_true(definition is TrackDefinition, "Legacy get_definition should still return a TrackDefinition")
 	assert_equal(definition.id, "kitchen", "Legacy adapter should preserve the Kitchen track id")
-	assert_equal(str(definition.get_meta("track_map_id", "")), "home_yard", "Adapted Kitchen definition should resolve through the shared Home Yard map")
+	assert_equal(str(definition.get_meta("track_map_id", "")), HOME_YARD_MAP_ID, "Adapted Kitchen definition should resolve through the shared Home Yard v2 map")
 	assert_equal(str(definition.get_meta("track_mode_id", "")), "kitchen", "Adapted Kitchen definition should remember its Home Yard mode")
 	assert_equal(str(definition.get_meta("road_source", "")), "road_grid_map", "Adapted Kitchen race should use grid road authoring")
 	assert_equal(definition.validate(), [], "Adapted Kitchen race definition should validate")

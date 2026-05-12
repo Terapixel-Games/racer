@@ -3,15 +3,15 @@ extends "res://tests/framework/TestCase.gd"
 const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
 const TrackDefinition = preload("res://scripts/track/TrackDefinition.gd")
 
-const HOME_YARD_MAP_SCENE := "res://assets/gameplay/tracks/home_yard/home_yard_map.tscn"
-const HOME_YARD_VERSION := "home_yard_open_world_v1_2026_05_11"
+const HOME_YARD_MAP_SCENE := "res://assets/gameplay/tracks/home_yard_v2/home_yard_v2_map.tscn"
+const HOME_YARD_VERSION := "home_yard_gambrel_v2_2026_05_12"
 
 func test_kitchen_definition_validates() -> void:
 	var definition := TrackCatalog.get_definition("kitchen")
 	assert_true(definition != null, "Kitchen definition should load")
 	assert_equal(definition.validate(), [], "Kitchen definition should be valid")
 	assert_equal(definition.id, "kitchen", "Kitchen should keep the public course id inside the shared home-yard map")
-	assert_equal(str(definition.get_meta("track_map_id", "")), "home_yard", "Kitchen should resolve through the shared home-yard map")
+	assert_equal(str(definition.get_meta("track_map_id", "")), "home_yard_v2", "Kitchen should resolve through the scratch-built shared home-yard v2 map")
 	assert_equal(str(definition.get_meta("track_mode_id", "")), "kitchen", "Kitchen should resolve the Kitchen home-yard mode")
 	assert_equal(definition.version, HOME_YARD_VERSION, "Kitchen should use the shared home-yard package version")
 	assert_equal(definition.laps, 3, "Kitchen should run 3 laps")

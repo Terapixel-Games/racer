@@ -1,0 +1,1512 @@
+{
+	"alternate_routes": [],
+	"audio_ids": {
+		"music": "res://assets/source/audio/canva/tracks/sandbox/sandbox_grit_slide_canva_01.wav",
+		"sandbox_primary": "res://assets/source/audio/canva/tracks/sandbox/sandbox_grit_slide_canva_01.wav",
+		"sandbox_secondary": "res://assets/source/audio/canva/tracks/sandbox/sandbox_bucket_bonk_canva_01.mp3"
+	},
+	"audio_zones": [
+		{
+			"audio_id": "sandbox_secondary",
+			"audio_path": "",
+			"id": "sandbox_feature_zone",
+			"position": [
+				60.0,
+				4.35,
+				36.0
+			],
+			"radius": 28.0,
+			"volume_db": -6.0,
+			"zone_kind": "oneshot"
+		},
+		{
+			"audio_id": "music",
+			"audio_path": "",
+			"id": "sandbox_music_zone",
+			"position": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"radius": 120.0,
+			"volume_db": -14.0,
+			"zone_kind": "ambient"
+		}
+	],
+	"boundary_wall_debug_visible": false,
+	"boundary_walls_enabled": true,
+	"checkpoint_radius": 10.4,
+	"checkpoints": [
+		{
+			"index": 0,
+			"is_lap_gate": true,
+			"position": [
+				140.0,
+				0.899999976158142,
+				-318.0
+			],
+			"route_index": 0
+		},
+		{
+			"index": 1,
+			"is_lap_gate": false,
+			"position": [
+				188.0,
+				0.899999976158142,
+				-318.0
+			],
+			"route_index": 3
+		},
+		{
+			"index": 2,
+			"is_lap_gate": false,
+			"position": [
+				204.0,
+				4.90000009536743,
+				-270.0
+			],
+			"route_index": 7
+		},
+		{
+			"index": 3,
+			"is_lap_gate": false,
+			"position": [
+				188.0,
+				4.90000009536743,
+				-238.0
+			],
+			"route_index": 10
+		},
+		{
+			"index": 4,
+			"is_lap_gate": false,
+			"position": [
+				140.0,
+				4.90000009536743,
+				-238.0
+			],
+			"route_index": 13
+		},
+		{
+			"index": 5,
+			"is_lap_gate": false,
+			"position": [
+				124.0,
+				0.899999976158142,
+				-286.0
+			],
+			"route_index": 17
+		}
+	],
+	"closed_loop": true,
+	"display_name": "Sandbox / Rexx",
+	"dressing_scene_path": "res://assets/gameplay/tracks/home_yard_v2/home_yard_v2_map.tscn",
+	"floor_visual_y": -1.1,
+	"grass_zones": [
+		{
+			"density": 0.75,
+			"enabled": true,
+			"id": "sandbox_back_grass",
+			"position": [
+				0.0,
+				-8.5,
+				76.0
+			],
+			"size": [
+				240.0,
+				34.0
+			],
+			"yaw_degrees": 0.0
+		}
+	],
+	"ground_shader_path": "",
+	"ground_texture_path": "res://assets/gameplay/materials/sand/sandbox_sand_albedo.png",
+	"hazard_sockets": [],
+	"id": "sandbox",
+	"item_sockets": [],
+	"lap_gate_checkpoint_index": 0,
+	"laps": 3,
+	"out_of_bounds_y": -28.0,
+	"preview_dressing_scene_path": "res://assets/gameplay/tracks/home_yard_v2/home_yard_v2_map.tscn",
+	"progress_rule_id": "route_lap_progress",
+	"rail_texture_path": "",
+	"rail_texture_uv_scale": 1.0,
+	"rails_enabled": false,
+	"reset_mode": "instant_pop",
+	"road_grid_layout": {
+		"basis": [
+			[
+				1.0,
+				0.0,
+				0.0
+			],
+			[
+				0.0,
+				1.0,
+				0.0
+			],
+			[
+				0.0,
+				0.0,
+				1.0
+			]
+		],
+		"cell_size": [
+			16.0,
+			4.0,
+			16.0
+		],
+		"cells": [
+			{
+				"cell": [
+					-1,
+					0,
+					-3
+				],
+				"item": 2,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					140.0,
+					0.899999976158142,
+					-318.0
+				]
+			},
+			{
+				"cell": [
+					0,
+					0,
+					-3
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					156.0,
+					0.899999976158142,
+					-318.0
+				]
+			},
+			{
+				"cell": [
+					1,
+					0,
+					-3
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					172.0,
+					0.899999976158142,
+					-318.0
+				]
+			},
+			{
+				"cell": [
+					2,
+					0,
+					-3
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					188.0,
+					0.899999976158142,
+					-318.0
+				]
+			},
+			{
+				"cell": [
+					3,
+					0,
+					-3
+				],
+				"item": 1,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					204.0,
+					0.899999976158142,
+					-318.0
+				]
+			},
+			{
+				"cell": [
+					3,
+					0,
+					-2
+				],
+				"item": 5,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					204.0,
+					0.899999976158142,
+					-302.0
+				]
+			},
+			{
+				"cell": [
+					3,
+					1,
+					-1
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					204.0,
+					4.90000009536743,
+					-286.0
+				]
+			},
+			{
+				"cell": [
+					3,
+					1,
+					0
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					204.0,
+					4.90000009536743,
+					-270.0
+				]
+			},
+			{
+				"cell": [
+					3,
+					1,
+					1
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					204.0,
+					4.90000009536743,
+					-254.0
+				]
+			},
+			{
+				"cell": [
+					3,
+					1,
+					2
+				],
+				"item": 1,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					204.0,
+					4.90000009536743,
+					-238.0
+				]
+			},
+			{
+				"cell": [
+					2,
+					1,
+					2
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					188.0,
+					4.90000009536743,
+					-238.0
+				]
+			},
+			{
+				"cell": [
+					1,
+					1,
+					2
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					172.0,
+					4.90000009536743,
+					-238.0
+				]
+			},
+			{
+				"cell": [
+					0,
+					1,
+					2
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					156.0,
+					4.90000009536743,
+					-238.0
+				]
+			},
+			{
+				"cell": [
+					-1,
+					1,
+					2
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					140.0,
+					4.90000009536743,
+					-238.0
+				]
+			},
+			{
+				"cell": [
+					-2,
+					1,
+					2
+				],
+				"item": 1,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					124.0,
+					4.90000009536743,
+					-238.0
+				]
+			},
+			{
+				"cell": [
+					-2,
+					1,
+					1
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					124.0,
+					4.90000009536743,
+					-254.0
+				]
+			},
+			{
+				"cell": [
+					-2,
+					0,
+					0
+				],
+				"item": 5,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					124.0,
+					0.899999976158142,
+					-270.0
+				]
+			},
+			{
+				"cell": [
+					-2,
+					0,
+					-1
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					124.0,
+					0.899999976158142,
+					-286.0
+				]
+			},
+			{
+				"cell": [
+					-2,
+					0,
+					-2
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					124.0,
+					0.899999976158142,
+					-302.0
+				]
+			},
+			{
+				"cell": [
+					-2,
+					0,
+					-3
+				],
+				"item": 1,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					124.0,
+					0.899999976158142,
+					-318.0
+				]
+			}
+		],
+		"checkpoint_route_indices": [
+			0,
+			3,
+			7,
+			10,
+			13,
+			17
+		],
+		"hazard_route_indices": [],
+		"item_route_indices": [],
+		"mesh_library_path": "res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres",
+		"ordered_route_cells": [
+			[
+				-1,
+				0,
+				-3
+			],
+			[
+				0,
+				0,
+				-3
+			],
+			[
+				1,
+				0,
+				-3
+			],
+			[
+				2,
+				0,
+				-3
+			],
+			[
+				3,
+				0,
+				-3
+			],
+			[
+				3,
+				0,
+				-2
+			],
+			[
+				3,
+				1,
+				-1
+			],
+			[
+				3,
+				1,
+				0
+			],
+			[
+				3,
+				1,
+				1
+			],
+			[
+				3,
+				1,
+				2
+			],
+			[
+				2,
+				1,
+				2
+			],
+			[
+				1,
+				1,
+				2
+			],
+			[
+				0,
+				1,
+				2
+			],
+			[
+				-1,
+				1,
+				2
+			],
+			[
+				-2,
+				1,
+				2
+			],
+			[
+				-2,
+				1,
+				1
+			],
+			[
+				-2,
+				0,
+				0
+			],
+			[
+				-2,
+				0,
+				-1
+			],
+			[
+				-2,
+				0,
+				-2
+			],
+			[
+				-2,
+				0,
+				-3
+			]
+		],
+		"ordered_route_points": [
+			[
+				140.0,
+				0.899999976158142,
+				-318.0
+			],
+			[
+				156.0,
+				0.899999976158142,
+				-318.0
+			],
+			[
+				172.0,
+				0.899999976158142,
+				-318.0
+			],
+			[
+				188.0,
+				0.899999976158142,
+				-318.0
+			],
+			[
+				204.0,
+				0.899999976158142,
+				-318.0
+			],
+			[
+				204.0,
+				0.899999976158142,
+				-302.0
+			],
+			[
+				204.0,
+				4.90000009536743,
+				-286.0
+			],
+			[
+				204.0,
+				4.90000009536743,
+				-270.0
+			],
+			[
+				204.0,
+				4.90000009536743,
+				-254.0
+			],
+			[
+				204.0,
+				4.90000009536743,
+				-238.0
+			],
+			[
+				188.0,
+				4.90000009536743,
+				-238.0
+			],
+			[
+				172.0,
+				4.90000009536743,
+				-238.0
+			],
+			[
+				156.0,
+				4.90000009536743,
+				-238.0
+			],
+			[
+				140.0,
+				4.90000009536743,
+				-238.0
+			],
+			[
+				124.0,
+				4.90000009536743,
+				-238.0
+			],
+			[
+				124.0,
+				4.90000009536743,
+				-254.0
+			],
+			[
+				124.0,
+				0.899999976158142,
+				-270.0
+			],
+			[
+				124.0,
+				0.899999976158142,
+				-286.0
+			],
+			[
+				124.0,
+				0.899999976158142,
+				-302.0
+			],
+			[
+				124.0,
+				0.899999976158142,
+				-318.0
+			]
+		],
+		"origin": [
+			148.0,
+			-1.10000002384186,
+			-278.0
+		],
+		"road_width": 16.0,
+		"route_envelope": {
+			"cell_size": "(16.0, 4.0, 16.0)",
+			"confidence": "inferred_from_floor_plan_and_route_cell_budget",
+			"corridor_width": 16.0,
+			"course_id": "sandbox",
+			"floor_top_y": 0.35,
+			"forbidden_overlap": [
+				"walls",
+				"furniture",
+				"fixtures",
+				"plants",
+				"porch_posts",
+				"service_props",
+				"collision_blockers"
+			],
+			"gate": "spatial_audit_sandbox_route_inside_sandbox",
+			"minimum_clearance_y": 0.55,
+			"road_surface_y": 0.899999976158142,
+			"roof_clearance_max_y": 9999.0,
+			"route_local_bounds": {
+				"max": "(3, 1, 2)",
+				"min": "(-2, 0, -3)"
+			},
+			"route_world_bounds": {
+				"max": "(212.0, 6.9, -230.0)",
+				"min": "(116.0, -1.1, -326.0)"
+			},
+			"zone_center": "(156.0, 0.0, -270.0)",
+			"zone_id": "sandbox",
+			"zone_size": "(112.0, 24.0, 116.0)",
+			"zone_world_bounds": {
+				"max": "(212.0, 12.0, -212.0)",
+				"min": "(100.0, -12.0, -328.0)"
+			}
+		},
+		"spawn_slots": [
+			{
+				"forward_offset": 0.0,
+				"lateral_offset": -2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 0.0
+			},
+			{
+				"forward_offset": 0.0,
+				"lateral_offset": 2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 0.0
+			},
+			{
+				"forward_offset": 5.0,
+				"lateral_offset": -2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 0.0
+			},
+			{
+				"forward_offset": 5.0,
+				"lateral_offset": 2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 0.0
+			},
+			{
+				"forward_offset": 10.0,
+				"lateral_offset": -2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 0.0
+			},
+			{
+				"forward_offset": 10.0,
+				"lateral_offset": 2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 0.0
+			},
+			{
+				"forward_offset": 15.0,
+				"lateral_offset": -2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 0.0
+			},
+			{
+				"forward_offset": 15.0,
+				"lateral_offset": 2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 0.0
+			}
+		]
+	},
+	"road_segment_layout": [],
+	"road_segment_material_style": "toy_plastic",
+	"road_segment_profile": "kenney_racing_kit",
+	"road_visual_style": "kenney_gridmap",
+	"road_width": 16.0,
+	"route_length": 320.984844207764,
+	"route_points": [
+		[
+			140.0,
+			0.899999976158142,
+			-318.0
+		],
+		[
+			156.0,
+			0.899999976158142,
+			-318.0
+		],
+		[
+			172.0,
+			0.899999976158142,
+			-318.0
+		],
+		[
+			188.0,
+			0.899999976158142,
+			-318.0
+		],
+		[
+			204.0,
+			0.899999976158142,
+			-318.0
+		],
+		[
+			204.0,
+			0.899999976158142,
+			-302.0
+		],
+		[
+			204.0,
+			4.90000009536743,
+			-286.0
+		],
+		[
+			204.0,
+			4.90000009536743,
+			-270.0
+		],
+		[
+			204.0,
+			4.90000009536743,
+			-254.0
+		],
+		[
+			204.0,
+			4.90000009536743,
+			-238.0
+		],
+		[
+			188.0,
+			4.90000009536743,
+			-238.0
+		],
+		[
+			172.0,
+			4.90000009536743,
+			-238.0
+		],
+		[
+			156.0,
+			4.90000009536743,
+			-238.0
+		],
+		[
+			140.0,
+			4.90000009536743,
+			-238.0
+		],
+		[
+			124.0,
+			4.90000009536743,
+			-238.0
+		],
+		[
+			124.0,
+			4.90000009536743,
+			-254.0
+		],
+		[
+			124.0,
+			0.899999976158142,
+			-270.0
+		],
+		[
+			124.0,
+			0.899999976158142,
+			-286.0
+		],
+		[
+			124.0,
+			0.899999976158142,
+			-302.0
+		],
+		[
+			124.0,
+			0.899999976158142,
+			-318.0
+		]
+	],
+	"runtime_scene_path": "res://assets/gameplay/tracks/home_yard_v2/modes/sandbox_track.tscn",
+	"shortcut_gates": [],
+	"sky_cloud_amount": 0.08,
+	"sky_cloud_speed": 0.014,
+	"sky_haze_amount": 0.1,
+	"sky_horizon_color": [
+		1.0,
+		0.860000014305115,
+		0.579999983310699,
+		1.0
+	],
+	"sky_light_energy": 2.65,
+	"sky_preset_id": "hot_afternoon",
+	"sky_time_of_day": 0.5,
+	"sky_top_color": [
+		0.579999983310699,
+		0.740000009536743,
+		0.959999978542328,
+		1.0
+	],
+	"sky_weather": "hot",
+	"spawn_points": [
+		{
+			"position": [
+				140.0,
+				1.70000004768372,
+				-315.25
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"position": [
+				140.0,
+				1.70000004768372,
+				-320.75
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"position": [
+				145.0,
+				1.70000004768372,
+				-315.25
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"position": [
+				145.0,
+				1.70000004768372,
+				-320.75
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"position": [
+				150.0,
+				1.70000004768372,
+				-315.25
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"position": [
+				150.0,
+				1.70000004768372,
+				-320.75
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"position": [
+				155.0,
+				1.70000004768372,
+				-315.25
+			],
+			"yaw_degrees": 90.0
+		},
+		{
+			"position": [
+				155.0,
+				1.70000004768372,
+				-320.75
+			],
+			"yaw_degrees": 90.0
+		}
+	],
+	"stage_interactions": [
+		{
+			"action": "boost",
+			"boost_force": 24.0,
+			"cooldown": 1.0,
+			"duration": 0.25,
+			"id": "sandbox_boost_pad",
+			"impulse": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"intensity": 0.0,
+			"note": "Home-yard mode boost beat.",
+			"position": [
+				204.0,
+				1.89999997615814,
+				-302.0
+			],
+			"radius": 0.0,
+			"shape": "box",
+			"size": [
+				12.0,
+				3.0,
+				12.0
+			],
+			"speed_multiplier": 1.0,
+			"target_method": "trigger",
+			"target_node_path": "",
+			"yaw_degrees": 0.0
+		},
+		{
+			"action": "rumble",
+			"boost_force": 0.0,
+			"cooldown": 1.2,
+			"duration": 0.4,
+			"id": "sandbox_rumble_zone",
+			"impulse": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"intensity": 0.45,
+			"note": "Home-yard mode texture beat.",
+			"position": [
+				188.0,
+				5.90000009536743,
+				-238.0
+			],
+			"radius": 0.0,
+			"shape": "box",
+			"size": [
+				14.0,
+				3.0,
+				14.0
+			],
+			"speed_multiplier": 1.0,
+			"target_method": "trigger",
+			"target_node_path": "",
+			"yaw_degrees": 0.0
+		}
+	],
+	"stage_props": [
+		{
+			"asset_path": "res://assets/source/kenney/toy_car_kit/gate.glb",
+			"audio_material_id": "",
+			"box_color": [
+				1.0,
+				1.0,
+				1.0,
+				1.0
+			],
+			"box_size": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "landmark",
+			"id": "sandbox_start_gate",
+			"kind": "scene",
+			"position": [
+				140.0,
+				2.90000009536743,
+				-318.0
+			],
+			"scale": [
+				5.0,
+				5.0,
+				5.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "",
+			"box_color": [
+				0.859600007534027,
+				0.734800040721893,
+				0.547600030899048,
+				1.0
+			],
+			"box_size": [
+				18.0,
+				9.0,
+				2.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "start_finish",
+			"id": "sandbox_finish_language_panel",
+			"kind": "box",
+			"position": [
+				156.0,
+				5.90000009536743,
+				-327.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "",
+			"box_color": [
+				0.819999992847443,
+				0.660000026226044,
+				0.419999986886978,
+				1.0
+			],
+			"box_size": [
+				12.0,
+				8.0,
+				12.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "landmark",
+			"id": "sandbox_landmark_box",
+			"kind": "box",
+			"position": [
+				174.0,
+				4.90000009536743,
+				-252.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "",
+			"box_color": [
+				0.623199999332428,
+				0.501600027084351,
+				0.319199979305267,
+				1.0
+			],
+			"box_size": [
+				6.0,
+				5.0,
+				18.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "direction",
+			"id": "sandbox_route_arrow_left",
+			"kind": "box",
+			"position": [
+				194.0,
+				7.90000009536743,
+				-286.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": 20.0
+		},
+		{
+			"asset_path": "",
+			"audio_material_id": "",
+			"box_color": [
+				0.845200002193451,
+				0.707599997520447,
+				0.501199960708618,
+				1.0
+			],
+			"box_size": [
+				6.0,
+				5.0,
+				18.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "direction",
+			"id": "sandbox_route_arrow_right",
+			"kind": "box",
+			"position": [
+				150.0,
+				7.90000009536743,
+				-238.0
+			],
+			"scale": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"yaw_degrees": -20.0
+		}
+	],
+	"surface_segments": [],
+	"track_id": "sandbox",
+	"track_source_id": "road_grid_map",
+	"version": "home_yard_gambrel_v2_2026_05_12",
+	"wall_height": 3.0,
+	"wall_thickness": 0.6,
+	"win_condition_id": "checkpoint_laps"
+}

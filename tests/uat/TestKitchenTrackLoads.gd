@@ -29,7 +29,7 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(_grid_road_straight_tile_spans_cell(instance.get_node_or_null("BuiltTrack/GridRoad") as GridMap), "Kitchen GridRoad straight tiles should span the full cell width")
 	assert_true(_grid_road_corner_orientations_match_route(instance.get_node_or_null("BuiltTrack/GridRoad") as GridMap, definition), "Kitchen GridRoad corner tiles should rotate to connect the previous and next route cells")
 	assert_true(_grid_road_corner_tile_spans_cell(instance.get_node_or_null("BuiltTrack/GridRoad") as GridMap), "Kitchen GridRoad corner tiles should span the full cell so they meet adjacent straight tiles")
-	if str(definition.get_meta("track_map_id", "")) == "home_yard":
+	if str(definition.get_meta("track_map_id", "")).begins_with("home_yard"):
 		assert_true(_node_count_by_type(built_track, "WorldEnvironment") >= 1, "Kitchen shared runtime should build a WorldEnvironment")
 	else:
 		assert_equal(_node_count_by_type(built_track, "WorldEnvironment"), 1, "Kitchen runtime should build exactly one WorldEnvironment")
@@ -63,7 +63,7 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/ShortcutGates") == null, "MVP Kitchen track should not include shortcut gates")
 	assert_true(instance.get_node_or_null("BuiltTrack/ShortcutSurface") == null, "Kitchen table jump surface should stay disabled while it blocks the main path")
 	assert_true(instance.get_node_or_null("BuiltTrack/SurfaceSegments") == null, "MVP Kitchen track should not include surface segment metadata markers")
-	if str(definition.get_meta("track_map_id", "")) == "home_yard":
+	if str(definition.get_meta("track_map_id", "")).begins_with("home_yard"):
 		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Site") != null, "Kitchen shared runtime should include the full site holder")
 		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/MainFloor") != null, "Kitchen shared runtime should include the main-floor holder")
 		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Yard") != null, "Kitchen shared runtime should include the yard holder")
@@ -177,7 +177,7 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 
 func test_kitchen_road_gridmap_route_metadata_matches_painted_track() -> void:
 	var public_definition := TrackCatalog.get_definition("kitchen")
-	if str(public_definition.get_meta("track_map_id", "")) == "home_yard":
+	if str(public_definition.get_meta("track_map_id", "")).begins_with("home_yard"):
 		var resolved_route: Array = public_definition.road_grid_layout.get("ordered_route_cells", []) as Array
 		assert_true(resolved_route.size() >= 12, "TrackCatalog should resolve Kitchen gameplay from the shared home-yard mode route")
 		assert_equal((public_definition.road_grid_layout.get("spawn_slots", []) as Array).size(), 8, "Kitchen shared mode should export authored RoadGridMap spawn slots")
@@ -211,7 +211,7 @@ func test_outdoor_playground_runtime_uses_shared_backyard_gridmap_shell() -> voi
 	assert_equal(definition.road_width, 16.0, "Outdoor Playground should use the shared MVP GridMap road width")
 	assert_true(definition.boundary_walls_enabled, "Outdoor Playground should use invisible boundary wall containment")
 	assert_true(not definition.rails_enabled, "Outdoor Playground should not use rail containment")
-	if str(definition.get_meta("track_map_id", "")) == "home_yard":
+	if str(definition.get_meta("track_map_id", "")).begins_with("home_yard"):
 		assert_true(_has_stage_interaction(definition, "outdoor_playground_boost_pad"), "Outdoor Playground should export the shared boost interaction")
 		assert_true(_has_stage_interaction(definition, "outdoor_playground_rumble_zone"), "Outdoor Playground should export the shared rumble interaction")
 		var built_shared := TrackRuntimeBuilder.build(definition)
@@ -431,7 +431,7 @@ func test_attic_mayhem_runtime_builds_redesigned_room() -> void:
 	assert_equal(definition.road_width, 16.0, "Attic should use the shared MVP GridMap road width")
 	assert_true(definition.boundary_walls_enabled, "Attic should use invisible boundary wall containment")
 	assert_true(not definition.rails_enabled, "Attic should not use rail containment")
-	if str(definition.get_meta("track_map_id", "")) == "home_yard":
+	if str(definition.get_meta("track_map_id", "")).begins_with("home_yard"):
 		assert_true(_has_stage_interaction(definition, "attic_boost_pad"), "Attic definition should export the shared boost interaction")
 		assert_true(_has_stage_interaction(definition, "attic_rumble_zone"), "Attic definition should export the shared rumble interaction")
 		var built_shared := TrackRuntimeBuilder.build(definition)

@@ -5,9 +5,10 @@ const TrackMetadataExporter = preload("res://scripts/track/TrackMetadataExporter
 const StageSky = preload("res://scripts/track/StageSky.gd")
 const TrackDefinition = preload("res://scripts/track/TrackDefinition.gd")
 
-const HOME_YARD_MAP_SCENE := "res://assets/gameplay/tracks/home_yard/home_yard_map.tscn"
-const HOME_YARD_MODE_DIR := "res://assets/gameplay/tracks/home_yard/modes"
-const HOME_YARD_VERSION := "home_yard_open_world_v1_2026_05_11"
+const HOME_YARD_MAP_ID := "home_yard_v2"
+const HOME_YARD_MAP_SCENE := "res://assets/gameplay/tracks/home_yard_v2/home_yard_v2_map.tscn"
+const HOME_YARD_MODE_DIR := "res://assets/gameplay/tracks/home_yard_v2/modes"
+const HOME_YARD_VERSION := "home_yard_gambrel_v2_2026_05_12"
 
 func test_kitchen_metadata_matches_server_shape() -> void:
 	var definition := TrackCatalog.get_definition("kitchen")
@@ -67,7 +68,7 @@ func test_home_yard_metadata_exports_stage_interactions() -> void:
 
 func test_track_catalog_uses_cooked_package_metadata() -> void:
 	var package := TrackCatalog.get_package("kitchen")
-	assert_equal(str(package.get("map_id", "")), "home_yard", "Catalog package should point Kitchen at the shared home-yard map")
+	assert_equal(str(package.get("map_id", "")), HOME_YARD_MAP_ID, "Catalog package should point Kitchen at the shared home-yard v2 map")
 	assert_equal(str(package.get("mode_id", "")), "kitchen", "Catalog package should point Kitchen at the Kitchen home-yard mode")
 	assert_equal(str(package.get("scene_path", "")), "%s/kitchen_track.tscn" % HOME_YARD_MODE_DIR, "Catalog should expose the shared-map client scene path")
 	assert_equal(str(package.get("definition_path", "")), "%s/kitchen_track_definition.tres" % HOME_YARD_MODE_DIR, "Catalog should expose the shared-map runtime definition")

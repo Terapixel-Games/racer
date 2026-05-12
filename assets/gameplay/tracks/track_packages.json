@@ -1,13 +1,13 @@
 {
 	"default_track_id": "kitchen",
 	"maps": {
-		"home_yard": {
+		"home_yard_v2": {
 			"default_mode_id": "kitchen",
 			"display_name": "Racer House + Yard",
-			"id": "home_yard",
-			"map_definition_path": "res://assets/gameplay/tracks/home_yard/home_yard_track_map.tres",
-			"map_scene_path": "res://assets/gameplay/tracks/home_yard/home_yard_map.tscn",
-			"version": "home_yard_open_world_v1_2026_05_11"
+			"id": "home_yard_v2",
+			"map_definition_path": "res://assets/gameplay/tracks/home_yard_v2/home_yard_v2_track_map.tres",
+			"map_scene_path": "res://assets/gameplay/tracks/home_yard_v2/home_yard_v2_map.tscn",
+			"version": "home_yard_gambrel_v2_2026_05_12"
 		},
 		"kitchen": {
 			"default_mode_id": "race",
@@ -20,84 +20,84 @@
 	},
 	"tracks": {
 		"attic": {
-			"definition_path": "res://assets/gameplay/tracks/home_yard/modes/attic_track_definition.tres",
+			"definition_path": "res://assets/gameplay/tracks/home_yard_v2/modes/attic_track_definition.tres",
 			"display_name": "Attic Mayhem",
 			"id": "attic",
-			"map_id": "home_yard",
-			"metadata_path": "res://assets/gameplay/tracks/home_yard/modes/attic_track_metadata.json",
+			"map_id": "home_yard_v2",
+			"metadata_path": "res://assets/gameplay/tracks/home_yard_v2/modes/attic_track_metadata.json",
 			"mode_id": "attic",
-			"scene_path": "res://assets/gameplay/tracks/home_yard/modes/attic_track.tscn",
-			"version": "home_yard_open_world_v1_2026_05_11"
+			"scene_path": "res://assets/gameplay/tracks/home_yard_v2/modes/attic_track.tscn",
+			"version": "home_yard_gambrel_v2_2026_05_12"
 		},
 		"bedroom": {
-			"definition_path": "res://assets/gameplay/tracks/home_yard/modes/bedroom_track_definition.tres",
+			"definition_path": "res://assets/gameplay/tracks/home_yard_v2/modes/bedroom_track_definition.tres",
 			"display_name": "Bedroom / Tuggs",
 			"id": "bedroom",
-			"map_id": "home_yard",
-			"metadata_path": "res://assets/gameplay/tracks/home_yard/modes/bedroom_track_metadata.json",
+			"map_id": "home_yard_v2",
+			"metadata_path": "res://assets/gameplay/tracks/home_yard_v2/modes/bedroom_track_metadata.json",
 			"mode_id": "bedroom",
-			"scene_path": "res://assets/gameplay/tracks/home_yard/modes/bedroom_track.tscn",
-			"version": "home_yard_open_world_v1_2026_05_11"
+			"scene_path": "res://assets/gameplay/tracks/home_yard_v2/modes/bedroom_track.tscn",
+			"version": "home_yard_gambrel_v2_2026_05_12"
 		},
 		"garden": {
-			"definition_path": "res://assets/gameplay/tracks/home_yard/modes/garden_track_definition.tres",
+			"definition_path": "res://assets/gameplay/tracks/home_yard_v2/modes/garden_track_definition.tres",
 			"display_name": "Garden / Moko",
 			"id": "garden",
-			"map_id": "home_yard",
-			"metadata_path": "res://assets/gameplay/tracks/home_yard/modes/garden_track_metadata.json",
+			"map_id": "home_yard_v2",
+			"metadata_path": "res://assets/gameplay/tracks/home_yard_v2/modes/garden_track_metadata.json",
 			"mode_id": "garden",
-			"scene_path": "res://assets/gameplay/tracks/home_yard/modes/garden_track.tscn",
-			"version": "home_yard_open_world_v1_2026_05_11"
+			"scene_path": "res://assets/gameplay/tracks/home_yard_v2/modes/garden_track.tscn",
+			"version": "home_yard_gambrel_v2_2026_05_12"
 		},
 		"glam_closet": {
-			"definition_path": "res://assets/gameplay/tracks/home_yard/modes/glam_closet_track_definition.tres",
+			"definition_path": "res://assets/gameplay/tracks/home_yard_v2/modes/glam_closet_track_definition.tres",
 			"display_name": "Glam Closet / Velva",
 			"id": "glam_closet",
-			"map_id": "home_yard",
-			"metadata_path": "res://assets/gameplay/tracks/home_yard/modes/glam_closet_track_metadata.json",
+			"map_id": "home_yard_v2",
+			"metadata_path": "res://assets/gameplay/tracks/home_yard_v2/modes/glam_closet_track_metadata.json",
 			"mode_id": "glam_closet",
-			"scene_path": "res://assets/gameplay/tracks/home_yard/modes/glam_closet_track.tscn",
-			"version": "home_yard_open_world_v1_2026_05_11"
+			"scene_path": "res://assets/gameplay/tracks/home_yard_v2/modes/glam_closet_track.tscn",
+			"version": "home_yard_gambrel_v2_2026_05_12"
 		},
 		"kitchen": {
-			"definition_path": "res://assets/gameplay/tracks/home_yard/modes/kitchen_track_definition.tres",
+			"definition_path": "res://assets/gameplay/tracks/home_yard_v2/modes/kitchen_track_definition.tres",
 			"display_name": "Kitchen / Sir Clink",
 			"id": "kitchen",
-			"map_id": "home_yard",
-			"metadata_path": "res://assets/gameplay/tracks/home_yard/modes/kitchen_track_metadata.json",
+			"map_id": "home_yard_v2",
+			"metadata_path": "res://assets/gameplay/tracks/home_yard_v2/modes/kitchen_track_metadata.json",
 			"mode_id": "kitchen",
-			"scene_path": "res://assets/gameplay/tracks/home_yard/modes/kitchen_track.tscn",
-			"version": "home_yard_open_world_v1_2026_05_11"
+			"scene_path": "res://assets/gameplay/tracks/home_yard_v2/modes/kitchen_track.tscn",
+			"version": "home_yard_gambrel_v2_2026_05_12"
 		},
 		"outdoor_playground": {
-			"definition_path": "res://assets/gameplay/tracks/home_yard/modes/outdoor_playground_track_definition.tres",
+			"definition_path": "res://assets/gameplay/tracks/home_yard_v2/modes/outdoor_playground_track_definition.tres",
 			"display_name": "Outdoor Playground / Dash",
 			"id": "outdoor_playground",
-			"map_id": "home_yard",
-			"metadata_path": "res://assets/gameplay/tracks/home_yard/modes/outdoor_playground_track_metadata.json",
+			"map_id": "home_yard_v2",
+			"metadata_path": "res://assets/gameplay/tracks/home_yard_v2/modes/outdoor_playground_track_metadata.json",
 			"mode_id": "outdoor_playground",
-			"scene_path": "res://assets/gameplay/tracks/home_yard/modes/outdoor_playground_track.tscn",
-			"version": "home_yard_open_world_v1_2026_05_11"
+			"scene_path": "res://assets/gameplay/tracks/home_yard_v2/modes/outdoor_playground_track.tscn",
+			"version": "home_yard_gambrel_v2_2026_05_12"
 		},
 		"playroom": {
-			"definition_path": "res://assets/gameplay/tracks/home_yard/modes/playroom_track_definition.tres",
+			"definition_path": "res://assets/gameplay/tracks/home_yard_v2/modes/playroom_track_definition.tres",
 			"display_name": "Playroom / Slammo",
 			"id": "playroom",
-			"map_id": "home_yard",
-			"metadata_path": "res://assets/gameplay/tracks/home_yard/modes/playroom_track_metadata.json",
+			"map_id": "home_yard_v2",
+			"metadata_path": "res://assets/gameplay/tracks/home_yard_v2/modes/playroom_track_metadata.json",
 			"mode_id": "playroom",
-			"scene_path": "res://assets/gameplay/tracks/home_yard/modes/playroom_track.tscn",
-			"version": "home_yard_open_world_v1_2026_05_11"
+			"scene_path": "res://assets/gameplay/tracks/home_yard_v2/modes/playroom_track.tscn",
+			"version": "home_yard_gambrel_v2_2026_05_12"
 		},
 		"sandbox": {
-			"definition_path": "res://assets/gameplay/tracks/home_yard/modes/sandbox_track_definition.tres",
+			"definition_path": "res://assets/gameplay/tracks/home_yard_v2/modes/sandbox_track_definition.tres",
 			"display_name": "Sandbox / Rexx",
 			"id": "sandbox",
-			"map_id": "home_yard",
-			"metadata_path": "res://assets/gameplay/tracks/home_yard/modes/sandbox_track_metadata.json",
+			"map_id": "home_yard_v2",
+			"metadata_path": "res://assets/gameplay/tracks/home_yard_v2/modes/sandbox_track_metadata.json",
 			"mode_id": "sandbox",
-			"scene_path": "res://assets/gameplay/tracks/home_yard/modes/sandbox_track.tscn",
-			"version": "home_yard_open_world_v1_2026_05_11"
+			"scene_path": "res://assets/gameplay/tracks/home_yard_v2/modes/sandbox_track.tscn",
+			"version": "home_yard_gambrel_v2_2026_05_12"
 		}
 	}
 }

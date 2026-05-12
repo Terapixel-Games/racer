@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/track/TrackRuntimeScene.gd" id="1_gt1kw"]
+[ext_resource type="Resource" path="res://assets/gameplay/tracks/home_yard_v2/modes/sandbox_track_definition.tres" id="2_rvyo8"]
+
+[node name="SandboxHomeYardTrack" type="Node3D"]
+script = ExtResource("1_gt1kw")
+definition = ExtResource("2_rvyo8")
