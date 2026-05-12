@@ -307,6 +307,7 @@ func _assert_home_yard_scene_holders(root: Node, track_id: String) -> void:
 	for holder_name in ["Site", "Foundation", "ExteriorShell", "Roof", "Openings", "PorchesDecks", "GarageService", "MainFloor", "UpperFloor", "Attic", "Yard", "VerticalConnectors", "CourseRoutes", "Collision", "ValidationCameras"]:
 		assert_true(root.get_node_or_null(holder_name) != null, "%s shared home-yard scene should include %s" % [track_id, holder_name])
 	_assert_home_yard_floor_plan_contract(root, track_id)
+	_assert_home_yard_shared_shell_ownership(root, track_id)
 	_assert_home_yard_exterior_shell(root, track_id)
 	_assert_home_yard_roof_and_attic_contract(root, track_id)
 	_assert_home_yard_landscape_and_assets(root, track_id)
@@ -327,10 +328,59 @@ func _assert_home_yard_floor_plan_contract(root: Node, track_id: String) -> void
 	assert_true(str(data.get("site_orientation", "")).contains("front/street"), "%s should record front/street site orientation" % track_id)
 	assert_true(data.get("floor_heights", {}) is Dictionary, "%s should record vertical floor relationships" % track_id)
 	assert_true(str(data.get("route_contract", "")) != "", "%s should record route envelope contract requirements" % track_id)
+	assert_true(str(data.get("shell_ownership", "")).contains("ExteriorShell"), "%s should record shared shell ownership" % track_id)
+	var wall_schedule: Variant = root.get_meta("interior_wall_schedule", [])
+	assert_true(wall_schedule is Array, "%s shared home-yard scene should include an interior wall schedule" % track_id)
+	if wall_schedule is Array:
+		var schedule := wall_schedule as Array
+		assert_true(schedule.size() >= 10, "%s interior wall schedule should cover connected room seams" % track_id)
+		for expected_wall_id in ["KitchenDiningCasedOpening", "KitchenPlayroomDivider", "PlayroomLivingCasedOpening", "GarageInteriorBackWall", "BedroomGlamCasedOpening", "AtticWestKneePartition"]:
+			assert_true(_wall_schedule_has_id(schedule, expected_wall_id), "%s interior wall schedule should include %s" % [track_id, expected_wall_id])
 	var envelopes: Variant = root.get_meta("route_envelopes", {})
 	assert_true(envelopes is Dictionary and (envelopes as Dictionary).has(track_id), "%s shared home-yard scene should include numeric route envelopes" % track_id)
 	var conflicts: Variant = root.get_meta("clearance_conflicts", [])
 	assert_true(conflicts is Array and (conflicts as Array).is_empty(), "%s shared home-yard scene should export no known clearance conflicts" % track_id)
+
+func _wall_schedule_has_id(schedule: Array, wall_id: String) -> bool:
+	for item in schedule:
+		if item is Dictionary and str((item as Dictionary).get("id", "")) == wall_id:
+			var data := item as Dictionary
+			return str(data.get("owner", "")) == "interior_partition" and data.get("connected_zones", []) is Array and str(data.get("owner_skill", "")) == "floor-plan-architect"
+	return false
+
+func _assert_home_yard_shared_shell_ownership(root: Node, track_id: String) -> void:
+	for node_path in [
+		"MainFloor/InteriorWalls",
+		"MainFloor/RoomFinishes",
+		"UpperFloor/InteriorWalls",
+		"UpperFloor/RoomFinishes",
+		"Attic/InteriorPartitions",
+		"Attic/RoomFinishes",
+	]:
+		assert_true(root.get_node_or_null(node_path) != null, "%s shared home-yard scene should include %s" % [track_id, node_path])
+	for forbidden_holder in ["MainFloor", "UpperFloor", "Attic"]:
+		var holder := root.get_node_or_null(forbidden_holder)
+		assert_true(holder != null, "%s should include %s for shell-ownership audit" % [track_id, forbidden_holder])
+		if holder != null:
+			_assert_no_stage_owned_exterior_nodes(holder, track_id, forbidden_holder, forbidden_holder)
+	for node_path in [
+		"ValidationCameras/KitchenDiningSeamCamera",
+		"ValidationCameras/KitchenPlayroomSeamCamera",
+		"ValidationCameras/PlayroomLivingSeamCamera",
+		"ValidationCameras/GarageServiceSeamCamera",
+		"ValidationCameras/BedroomGlamSeamCamera",
+		"ValidationCameras/AtticStorageSeamCamera",
+	]:
+		assert_true(root.get_node_or_null(node_path) != null, "%s shared home-yard scene should include seam validation camera %s" % [track_id, node_path])
+
+func _assert_no_stage_owned_exterior_nodes(node: Node, track_id: String, holder_name: String, path: String) -> void:
+	for child in node.get_children():
+		var child_name := str(child.name)
+		var child_path := "%s/%s" % [path, child_name]
+		var lower := child_name.to_lower()
+		var is_forbidden := lower.begins_with("exterior") or lower.contains("roof") or lower.contains("gable")
+		assert_true(not is_forbidden, "%s %s must not own exterior shell node %s" % [track_id, holder_name, child_path])
+		_assert_no_stage_owned_exterior_nodes(child, track_id, holder_name, child_path)
 
 func _assert_home_yard_exterior_shell(root: Node, track_id: String) -> void:
 	var shell := root.get_node_or_null("ExteriorShell")
@@ -392,8 +442,8 @@ func _assert_home_yard_roof_and_attic_contract(root: Node, track_id: String) -> 
 	var attic := root.get_node_or_null("Attic")
 	assert_true(attic != null, "%s should include attic holder" % track_id)
 	if attic != null:
-		assert_true(attic.get_node_or_null("AtticFrontTriangularGableWall") != null, "%s attic should include front triangular gable wall" % track_id)
-		assert_true(attic.get_node_or_null("AtticBackTriangularGableWall") != null, "%s attic should include back triangular gable wall" % track_id)
+		assert_true(attic.get_node_or_null("InteriorPartitions/AtticWestKneePartition") != null, "%s attic should include contract-owned west knee partition" % track_id)
+		assert_true(attic.get_node_or_null("InteriorPartitions/AtticEastKneePartition") != null, "%s attic should include contract-owned east knee partition" % track_id)
 	assert_true(root.find_child("RoofMassPlaceholder", true, false) == null, "%s should not keep a visible flat roof placeholder" % track_id)
 
 func _assert_ridge_axis(roof: Node, node_name: String, expected_axis: String, track_id: String) -> void:
@@ -588,9 +638,10 @@ func _mesh_instance_global_aabb(mesh_instance: MeshInstance3D) -> AABB:
 		local.position + Vector3(0, local.size.y, local.size.z),
 		local.end,
 	]
-	var bounds := AABB(mesh_instance.global_transform * corners[0], Vector3.ZERO)
+	var xform := mesh_instance.global_transform if mesh_instance.is_inside_tree() else mesh_instance.transform
+	var bounds := AABB(xform * corners[0], Vector3.ZERO)
 	for i in range(1, corners.size()):
-		bounds = bounds.expand(mesh_instance.global_transform * corners[i])
+		bounds = bounds.expand(xform * corners[i])
 	return bounds
 
 func _expected_definition_ground_size(track_id: String) -> Vector2:

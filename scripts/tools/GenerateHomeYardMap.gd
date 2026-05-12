@@ -31,8 +31,23 @@ const PLAN_CONTRACT := {
 	"style_contract": "toy-scale craftsman suburban house with legible porch, garage/service edge, patio-to-yard hinge, upper bedroom/glam inset, and gabled attic/storage volume",
 	"world_scale": "1 floor-plan foot ~= 4 Godot units; RoadGridMap cell is 16 x 16 units",
 	"floor_heights": {"main": 0.0, "upper": 64.0, "attic": 116.0},
+	"shell_ownership": "ExteriorShell/Roof/Foundation/Openings/PorchesDecks/GarageService own exterior assemblies; floor holders own interior partitions, room finishes, props, lighting, route aids, and localized collision only.",
 	"route_contract": "Each course declares zone bounds, route bounds, road-surface elevation, and obstacle exclusion before decor placement.",
 }
+
+const INTERIOR_WALL_SCHEDULE := [
+	{"id": "DiningLivingDivider", "floor": "main", "owner": "interior_partition", "axis": "x", "x": -95.0, "start": 16.0, "end": 106.0, "base_y": 0.0, "height": 46.0, "connected_zones": ["dining_hall", "living_room"], "opening_span": Vector2.ZERO, "threshold_datum": 0.05, "owner_skill": "floor-plan-architect", "confidence": "inferred_from_existing_home_yard_contract"},
+	{"id": "LivingEntryDivider", "floor": "main", "owner": "interior_partition", "axis": "x", "x": 18.0, "start": 16.0, "end": 106.0, "base_y": 0.0, "height": 46.0, "connected_zones": ["living_room", "entry_stairs"], "opening_span": Vector2.ZERO, "threshold_datum": 0.05, "owner_skill": "floor-plan-architect", "confidence": "inferred_from_existing_home_yard_contract"},
+	{"id": "KitchenPlayroomDivider", "floor": "main", "owner": "interior_partition", "axis": "x", "x": -92.0, "start": -86.0, "end": 16.0, "base_y": 0.0, "height": 46.0, "connected_zones": ["kitchen_pantry", "playroom"], "opening_span": Vector2.ZERO, "threshold_datum": 0.05, "owner_skill": "floor-plan-architect", "confidence": "inferred_from_existing_home_yard_contract"},
+	{"id": "PlayroomGarageDivider", "floor": "main", "owner": "interior_partition", "axis": "x", "x": 62.0, "start": -86.0, "end": 106.0, "base_y": 0.0, "height": 46.0, "connected_zones": ["playroom", "garage_service"], "opening_span": Vector2(44.0, 64.0), "threshold_datum": 0.05, "owner_skill": "floor-plan-architect", "confidence": "inferred_from_existing_home_yard_contract"},
+	{"id": "KitchenDiningCasedOpening", "floor": "main", "owner": "interior_partition", "axis": "z", "z": 16.0, "start": -214.0, "end": -40.0, "base_y": 0.0, "height": 46.0, "connected_zones": ["kitchen_pantry", "dining_hall"], "opening_span": Vector2(-168.0, -122.0), "threshold_datum": 0.05, "owner_skill": "floor-plan-architect", "confidence": "inferred_from_existing_home_yard_contract"},
+	{"id": "PlayroomLivingCasedOpening", "floor": "main", "owner": "interior_partition", "axis": "z", "z": 16.0, "start": -40.0, "end": 62.0, "base_y": 0.0, "height": 46.0, "connected_zones": ["playroom", "living_room"], "opening_span": Vector2(-8.0, 32.0), "threshold_datum": 0.05, "owner_skill": "floor-plan-architect", "confidence": "inferred_from_existing_home_yard_contract"},
+	{"id": "GarageInteriorBackWall", "floor": "main", "owner": "interior_partition", "axis": "z", "z": -18.0, "start": 62.0, "end": 214.0, "base_y": 0.0, "height": 46.0, "connected_zones": ["garage_service", "house_service_threshold"], "opening_span": Vector2.ZERO, "threshold_datum": 0.05, "owner_skill": "floor-plan-architect", "confidence": "inferred_from_existing_home_yard_contract"},
+	{"id": "BedroomGlamCasedOpening", "floor": "upper", "owner": "interior_partition", "axis": "x", "x": 62.0, "start": 8.0, "end": 124.0, "base_y": 64.0, "height": 48.0, "connected_zones": ["bedroom_zone", "glam_closet_zone"], "opening_span": Vector2(52.0, 82.0), "threshold_datum": 64.60, "owner_skill": "floor-plan-architect", "confidence": "inferred_from_existing_home_yard_contract"},
+	{"id": "AtticWestKneePartition", "floor": "attic", "owner": "interior_partition", "axis": "x", "x": -56.0, "start": -36.0, "end": 72.0, "base_y": 116.0, "height": 18.0, "connected_zones": ["attic_storage_zone", "west_knee_storage"], "opening_span": Vector2.ZERO, "threshold_datum": 116.60, "owner_skill": "floor-plan-architect", "confidence": "aligned_to_upper_attic_roof_contract"},
+	{"id": "AtticEastKneePartition", "floor": "attic", "owner": "interior_partition", "axis": "x", "x": 176.0, "start": -36.0, "end": 72.0, "base_y": 116.0, "height": 18.0, "connected_zones": ["attic_storage_zone", "east_knee_storage"], "opening_span": Vector2.ZERO, "threshold_datum": 116.60, "owner_skill": "floor-plan-architect", "confidence": "aligned_to_upper_attic_roof_contract"},
+	{"id": "AtticStorageBackPartition", "floor": "attic", "owner": "interior_partition", "axis": "z", "z": -18.0, "start": 84.0, "end": 148.0, "base_y": 116.0, "height": 24.0, "connected_zones": ["attic_storage_zone", "attic_access_storage"], "opening_span": Vector2.ZERO, "threshold_datum": 116.60, "owner_skill": "floor-plan-architect", "confidence": "aligned_to_upper_attic_roof_contract"},
+]
 
 const BACKYARD_PLAYGROUND_PATH := "res://assets/gameplay/tracks/shared/backyard_optimized/playground_structure_low.glb"
 const BACKYARD_SWING_PATH := "res://assets/gameplay/tracks/shared/backyard_optimized/swing_set_low.glb"
@@ -83,6 +98,7 @@ func _save_map_scene() -> void:
 	var root := Node3D.new()
 	root.name = "HomeYardMap"
 	root.set_meta("floor_plan_contract", PLAN_CONTRACT)
+	root.set_meta("interior_wall_schedule", INTERIOR_WALL_SCHEDULE)
 	root.set_meta("route_envelopes", _all_route_envelopes())
 	root.set_meta("clearance_conflicts", [])
 	var holders := {}
@@ -95,14 +111,15 @@ func _save_map_scene() -> void:
 	_add_site_base(root, holders)
 	_add_foundation(root, holders["Foundation"])
 	_add_floor_plan_zones(root, holders)
-	_add_main_floor_shell(root, holders["MainFloor"])
-	_add_upper_floor(root, holders["UpperFloor"])
-	_add_attic(root, holders["Attic"])
 	_add_exterior_architecture(root, holders["ExteriorShell"])
+	_add_exterior_wall_system(root, holders["ExteriorShell"])
 	_add_opening_assemblies(root, holders["Openings"])
 	_add_porch_deck_system(root, holders["PorchesDecks"])
 	_add_garage_service_system(root, holders["GarageService"])
 	_add_roof_system(root, holders["Roof"])
+	_add_main_floor_interior(root, holders["MainFloor"])
+	_add_upper_floor_interior(root, holders["UpperFloor"])
+	_add_attic_interior(root, holders["Attic"])
 	_add_vertical_connectors(root, holders["VerticalConnectors"])
 	_add_decor(root, holders)
 	_add_course_route_markers(root, holders["CourseRoutes"])
@@ -330,52 +347,25 @@ func _add_foundation(root: Node3D, parent: Node3D) -> void:
 	_add_box(root, parent, "BackDeckPierWest", Vector3(-104, 5, -114), Vector3(10, 10, 10), stone.darkened(0.08), false)
 	_add_box(root, parent, "BackDeckPierEast", Vector3(20, 5, -114), Vector3(10, 10, 10), stone.darkened(0.08), false)
 
-func _add_main_floor_shell(root: Node3D, parent: Node3D) -> void:
+func _add_main_floor_interior(root: Node3D, parent: Node3D) -> void:
+	parent.set_meta("plan_role", "main floor interior only; exterior shell is owned by ExteriorShell/Openings/Roof/Foundation")
+	var finishes := _add_child_holder(root, parent, "RoomFinishes", "main floor floors, baseboards, interior finishes, and route-facing room set dressing")
+	var walls := _add_child_holder(root, parent, "InteriorWalls", "contract-generated main floor interior partitions only")
 	var wall := Color(0.64, 0.58, 0.50)
-	var exterior := Color(0.54, 0.49, 0.42)
-	var trim := Color(0.24, 0.18, 0.12)
-	_add_room_floor(root, parent, "DiningHall", Vector3(-152, -0.55, 58), Vector3(114, 1.2, 92), Color(0.62, 0.48, 0.35))
-	_add_room_floor(root, parent, "LivingRoom", Vector3(-38, -0.55, 58), Vector3(114, 1.2, 92), Color(0.50, 0.43, 0.36))
-	_add_room_floor(root, parent, "EntryStairs", Vector3(52, -0.55, 58), Vector3(66, 1.2, 92), Color(0.58, 0.53, 0.45))
-	_add_room_floor(root, parent, "GarageService", Vector3(146, -0.55, 18), Vector3(124, 1.2, 172), Color(0.42, 0.42, 0.39))
-	_add_room_floor(root, parent, "KitchenPantry", Vector3(-150, -0.55, -38), Vector3(118, 1.2, 96), Color(0.78, 0.68, 0.50))
-	_add_room_floor(root, parent, "Playroom", Vector3(-32, -0.55, -38), Vector3(118, 1.2, 96), Color(0.76, 0.58, 0.30))
-	_add_wall_z(root, parent, "ExteriorFrontWallLeft", 106, -214, -70, exterior, true)
-	_add_wall_z(root, parent, "ExteriorFrontWallEntryHeader", 106, -28, 94, exterior, true)
-	_add_wall_z(root, parent, "ExteriorFrontGarageWall", 106, 94, 214, exterior, true)
-	_add_wall_z(root, parent, "ExteriorBackWallWest", -86, -214, -75, exterior, true)
-	_add_wall_z(root, parent, "ExteriorBackPatioHeader", -86, -15, 62, exterior, true)
-	_add_wall_z(root, parent, "ExteriorBackGarageWall", -86, 62, 214, exterior, true)
-	_add_wall_x(root, parent, "ExteriorWestWall", -214, -86, 106, exterior, true)
-	_add_wall_x(root, parent, "ExteriorEastGarageWall", 214, -86, 106, exterior, true)
-	_add_wall_x(root, parent, "DiningLivingDivider", -95, 16, 106, wall, true)
-	_add_wall_x(root, parent, "LivingEntryDivider", 18, 16, 106, wall, true)
-	_add_wall_x(root, parent, "KitchenPlayroomDivider", -92, -86, 16, wall, true)
-	_add_wall_x(root, parent, "PlayroomGarageDivider", 62, -86, 106, wall, true)
-	_add_wall_z(root, parent, "KitchenDiningWallLeft", 16, -214, -168, wall, true)
-	_add_wall_z(root, parent, "KitchenDiningWallCasedOpeningHeader", 16, -122, -92, wall, true)
-	_add_wall_z(root, parent, "KitchenDiningWallRight", 16, -92, -40, wall, true)
-	_add_wall_z(root, parent, "PlayLivingWallLeft", 16, -40, -8, wall, true)
-	_add_wall_z(root, parent, "PlayLivingWallOpeningHeader", 16, 32, 62, wall, true)
-	_add_wall_z(root, parent, "GarageInteriorBackWall", -18, 62, 214, wall, true)
-	_add_box(root, parent, "FrontDoorPanel", Vector3(-48, 12, 107.5), Vector3(36, 24, 2.4), Color(0.24, 0.13, 0.07), false)
-	_add_box(root, parent, "FrontDoorGlass", Vector3(-48, 17, 108.9), Vector3(22, 10, 0.6), Color(0.45, 0.72, 0.88, 0.45), false)
-	_add_box(root, parent, "KitchenPatioThreshold", Vector3(-46, 1.0, -86), Vector3(56, 2.0, 8), Color(0.16, 0.24, 0.24), false)
-	_add_box(root, parent, "PlayroomPatioThreshold", Vector3(20, 1.0, -86), Vector3(42, 2.0, 8), Color(0.16, 0.24, 0.24), false)
-	_add_window(root, parent, "DiningFrontWindow", Vector3(-150, 23, 108), Vector3(48, 22, 1.0))
-	_add_window(root, parent, "LivingFrontWindow", Vector3(-18, 23, 108), Vector3(46, 22, 1.0))
-	_add_window(root, parent, "KitchenGardenWindow", Vector3(-214.5, 22, -30), Vector3(1.0, 22, 46))
-	_add_box(root, parent, "GarageDoorPanel", Vector3(154, 14, 108), Vector3(86, 28, 2.0), Color(0.32, 0.30, 0.27), false)
-	_add_box(root, parent, "MainCeilingPlane", Vector3(0, 44.5, 10), Vector3(430, 3, 200), Color(0.76, 0.72, 0.64), false)
-	_add_box(root, parent, "FrontEaveFascia", Vector3(0, 47, 118), Vector3(450, 8, 8), trim, false)
-	_add_box(root, parent, "BackEaveFascia", Vector3(0, 47, -98), Vector3(450, 8, 8), trim, false)
-	_add_box(root, parent, "WestEaveFascia", Vector3(-224, 47, 10), Vector3(8, 8, 214), trim, false)
-	_add_box(root, parent, "EastEaveFascia", Vector3(224, 47, 10), Vector3(8, 8, 214), trim, false)
-	_add_box(root, parent, "KitchenCabinetRunBack", Vector3(-150, 4, -82), Vector3(105, 8, 10), Color(0.38, 0.20, 0.10), false)
-	_add_box(root, parent, "KitchenIsland", Vector3(-150, 4, -22), Vector3(62, 8, 30), Color(0.52, 0.34, 0.18), false)
+	_add_room_floor(root, finishes, "DiningHall", Vector3(-152, -0.55, 58), Vector3(114, 1.2, 92), Color(0.62, 0.48, 0.35))
+	_add_room_floor(root, finishes, "LivingRoom", Vector3(-38, -0.55, 58), Vector3(114, 1.2, 92), Color(0.50, 0.43, 0.36))
+	_add_room_floor(root, finishes, "EntryStairs", Vector3(52, -0.55, 58), Vector3(66, 1.2, 92), Color(0.58, 0.53, 0.45))
+	_add_room_floor(root, finishes, "GarageService", Vector3(146, -0.55, 18), Vector3(124, 1.2, 172), Color(0.42, 0.42, 0.39))
+	_add_room_floor(root, finishes, "KitchenPantry", Vector3(-150, -0.55, -38), Vector3(118, 1.2, 96), Color(0.78, 0.68, 0.50))
+	_add_room_floor(root, finishes, "Playroom", Vector3(-32, -0.55, -38), Vector3(118, 1.2, 96), Color(0.76, 0.58, 0.30))
+	_add_interior_partitions_from_schedule(root, walls, "main", wall)
+	_add_box(root, finishes, "KitchenPatioThresholdInterior", Vector3(-46, 1.0, -86), Vector3(56, 2.0, 8), Color(0.16, 0.24, 0.24), false)
+	_add_box(root, finishes, "PlayroomPatioThresholdInterior", Vector3(20, 1.0, -86), Vector3(42, 2.0, 8), Color(0.16, 0.24, 0.24), false)
+	_add_box(root, finishes, "KitchenCabinetRunBack", Vector3(-150, 4, -82), Vector3(105, 8, 10), Color(0.38, 0.20, 0.10), false)
+	_add_box(root, finishes, "KitchenIsland", Vector3(-150, 4, -22), Vector3(62, 8, 30), Color(0.52, 0.34, 0.18), false)
 	_add_kitchen_readability_system(root, parent)
-	_add_box(root, parent, "LivingSofa", Vector3(-34, 5, 76), Vector3(66, 10, 16), Color(0.28, 0.34, 0.42), false)
-	_add_box(root, parent, "EntryStairBlockout", Vector3(50, 8, 70), Vector3(42, 16, 46), Color(0.42, 0.30, 0.20), false)
+	_add_box(root, finishes, "LivingSofa", Vector3(-34, 5, 76), Vector3(66, 10, 16), Color(0.28, 0.34, 0.42), false)
+	_add_box(root, finishes, "EntryStairBlockout", Vector3(50, 8, 70), Vector3(42, 16, 46), Color(0.42, 0.30, 0.20), false)
 
 func _add_kitchen_readability_system(root: Node3D, parent: Node3D) -> void:
 	var holder := Node3D.new()
@@ -430,41 +420,76 @@ func _add_readable_route_segment(root: Node3D, parent: Node3D, node_name: String
 	_add_box(root, parent, "%sDirectionTickA" % node_name, mid + forward * (length * 0.18) + Vector3(0, 1.42, 0), Vector3(6.0, 0.7, 2.0), Color(1.0, 1.0, 0.86), false, yaw)
 	_add_box(root, parent, "%sDirectionTickB" % node_name, mid + forward * (length * 0.34) + Vector3(0, 1.42, 0), Vector3(3.4, 0.7, 2.0), Color(1.0, 1.0, 0.86), false, yaw)
 
-func _add_upper_floor(root: Node3D, parent: Node3D) -> void:
+func _add_upper_floor_interior(root: Node3D, parent: Node3D) -> void:
+	parent.set_meta("plan_role", "upper floor interior only; exterior dormer shell and roof are owned by ExteriorShell/Roof/Openings")
+	var finishes := _add_child_holder(root, parent, "RoomFinishes", "upper floor floors, baseboards, interior finishes, and course dressing")
+	var walls := _add_child_holder(root, parent, "InteriorWalls", "contract-generated upper floor interior partitions only")
 	var wall := Color(0.57, 0.51, 0.43)
-	_add_room_floor(root, parent, "UpperFloorDeck", Vector3(62, 63, 66), Vector3(250, 2, 118), Color(0.46, 0.40, 0.34))
-	_add_room_floor(root, parent, "BedroomZone", Vector3(0, 64, 66), Vector3(116, 1.2, 92), Color(0.58, 0.52, 0.43))
-	_add_room_floor(root, parent, "GlamClosetZone", Vector3(122, 64, 66), Vector3(112, 1.2, 92), Color(0.60, 0.52, 0.45))
-	_add_wall_z(root, parent, "UpperBackWall", 8, -64, 188, wall, true, 64, 48)
-	_add_wall_z(root, parent, "UpperFrontWallLeft", 124, -64, 34, wall, true, 64, 48)
-	_add_wall_z(root, parent, "UpperFrontWallRight", 124, 86, 188, wall, true, 64, 48)
-	_add_wall_x(root, parent, "UpperLeftWall", -66, 8, 124, wall.darkened(0.08), true, 64, 48)
-	_add_wall_x(root, parent, "UpperRightWall", 190, 8, 124, wall.darkened(0.08), true, 64, 48)
-	_add_wall_x(root, parent, "BedroomGlamDividerLower", 62, 8, 52, wall, true, 64, 48)
-	_add_wall_x(root, parent, "BedroomGlamDividerUpper", 62, 82, 124, wall, true, 64, 48)
-	_add_box(root, parent, "UpperHallDoorHeader", Vector3(62, 91, 67), Vector3(6, 12, 30), wall, false)
-	_add_box(root, parent, "BedroomClosetBuiltIn", Vector3(-48, 72, 22), Vector3(22, 16, 28), Color(0.32, 0.24, 0.18), false)
-	_add_box(root, parent, "BedroomDeskNook", Vector3(38, 69, 24), Vector3(34, 10, 16), Color(0.40, 0.28, 0.18), false)
-	_add_box(root, parent, "GlamWardrobeRun", Vector3(166, 72, 66), Vector3(28, 16, 78), Color(0.34, 0.20, 0.28), false)
-	_add_box(root, parent, "GlamMirrorWall", Vector3(122, 76, 12), Vector3(54, 24, 1.0), Color(0.60, 0.72, 0.82, 0.55), false)
-	_add_box(root, parent, "UpperCeilingPlane", Vector3(62, 112, 66), Vector3(258, 3, 120), Color(0.68, 0.62, 0.68), false)
+	_add_room_floor(root, finishes, "UpperFloorDeck", Vector3(62, 63, 66), Vector3(250, 2, 118), Color(0.46, 0.40, 0.34))
+	_add_room_floor(root, finishes, "BedroomZone", Vector3(0, 64, 66), Vector3(116, 1.2, 92), Color(0.58, 0.52, 0.43))
+	_add_room_floor(root, finishes, "GlamClosetZone", Vector3(122, 64, 66), Vector3(112, 1.2, 92), Color(0.60, 0.52, 0.45))
+	_add_interior_partitions_from_schedule(root, walls, "upper", wall)
+	_add_box(root, finishes, "BedroomClosetBuiltIn", Vector3(-48, 72, 22), Vector3(22, 16, 28), Color(0.32, 0.24, 0.18), false)
+	_add_box(root, finishes, "BedroomDeskNook", Vector3(38, 69, 24), Vector3(34, 10, 16), Color(0.40, 0.28, 0.18), false)
+	_add_box(root, finishes, "GlamWardrobeRun", Vector3(166, 72, 66), Vector3(28, 16, 78), Color(0.34, 0.20, 0.28), false)
+	_add_box(root, finishes, "GlamMirrorWall", Vector3(122, 76, 12), Vector3(54, 24, 1.0), Color(0.60, 0.72, 0.82, 0.55), false)
 
-func _add_attic(root: Node3D, parent: Node3D) -> void:
-	parent.set_meta("plan_role", "attic/storage under measured upper gable roof")
-	_add_room_floor(root, parent, "AtticDeck", Vector3(60, 115, 18), Vector3(230, 2, 104), Color(0.45, 0.33, 0.22))
-	_add_room_floor(root, parent, "AtticStorageZone", Vector3(60, 116, 18), Vector3(202, 1.2, 80), Color(0.48, 0.36, 0.24))
-	_add_wall_x(root, parent, "AtticWestKneeWall", -56, -36, 72, Color(0.34, 0.27, 0.21), true, 116, 18)
-	_add_wall_x(root, parent, "AtticEastKneeWall", 176, -36, 72, Color(0.34, 0.27, 0.21), true, 116, 18)
-	_add_gable_wall_z(root, parent, "AtticFrontTriangularGableWall", 72, -56, 176, 116, 134, 166, Color(0.30, 0.24, 0.19))
-	_add_gable_wall_z(root, parent, "AtticBackTriangularGableWall", -36, -56, 176, 116, 134, 166, Color(0.30, 0.24, 0.19))
-	_add_box(root, parent, "AtticRafterLeftA", Vector3(-4, 143, 18), Vector3(3, 5, 110), Color(0.20, 0.14, 0.10), false, 0, Vector3(0, 0, -17))
-	_add_box(root, parent, "AtticRafterRightA", Vector3(124, 143, 18), Vector3(3, 5, 110), Color(0.20, 0.14, 0.10), false, 0, Vector3(0, 0, 17))
-	_add_box(root, parent, "AtticRidgeBeamInterior", Vector3(60, 164, 18), Vector3(232, 5, 6), Color(0.18, 0.12, 0.08), false)
-	_add_box(root, parent, "AtticTrunkStack", Vector3(18, 122, 48), Vector3(44, 12, 18), Color(0.30, 0.18, 0.10), false)
-	_add_box(root, parent, "AtticBoxWall", Vector3(116, 123, -18), Vector3(62, 14, 20), Color(0.58, 0.42, 0.24), false)
+func _add_attic_interior(root: Node3D, parent: Node3D) -> void:
+	parent.set_meta("plan_role", "attic/storage interior partitions under measured upper gable roof; exterior gables and roof are owned by Roof")
+	var finishes := _add_child_holder(root, parent, "RoomFinishes", "attic deck, storage floor, rafters, and storage dressing")
+	var walls := _add_child_holder(root, parent, "InteriorPartitions", "contract-generated attic knee/storage partitions only")
+	_add_room_floor(root, finishes, "AtticDeck", Vector3(60, 115, 18), Vector3(230, 2, 104), Color(0.45, 0.33, 0.22))
+	_add_room_floor(root, finishes, "AtticStorageZone", Vector3(60, 116, 18), Vector3(202, 1.2, 80), Color(0.48, 0.36, 0.24))
+	_add_interior_partitions_from_schedule(root, walls, "attic", Color(0.34, 0.27, 0.21))
+	_add_box(root, finishes, "AtticRafterLeftA", Vector3(-4, 143, 18), Vector3(3, 5, 110), Color(0.20, 0.14, 0.10), false, 0, Vector3(0, 0, -17))
+	_add_box(root, finishes, "AtticRafterRightA", Vector3(124, 143, 18), Vector3(3, 5, 110), Color(0.20, 0.14, 0.10), false, 0, Vector3(0, 0, 17))
+	_add_box(root, finishes, "AtticRidgeBeamInterior", Vector3(60, 164, 18), Vector3(232, 5, 6), Color(0.18, 0.12, 0.08), false)
+	_add_box(root, finishes, "AtticTrunkStack", Vector3(18, 122, 48), Vector3(44, 12, 18), Color(0.30, 0.18, 0.10), false)
+	_add_box(root, finishes, "AtticBoxWall", Vector3(116, 123, -18), Vector3(62, 14, 20), Color(0.58, 0.42, 0.24), false)
+
+func _add_interior_partitions_from_schedule(root: Node3D, parent: Node3D, floor_id: String, color: Color) -> void:
+	parent.set_meta("wall_schedule", INTERIOR_WALL_SCHEDULE.filter(func(wall: Dictionary) -> bool:
+		return str(wall.get("floor", "")) == floor_id
+	))
+	for wall in INTERIOR_WALL_SCHEDULE:
+		if str(wall.get("floor", "")) != floor_id:
+			continue
+		_add_scheduled_wall(root, parent, wall, color)
+
+func _add_scheduled_wall(root: Node3D, parent: Node3D, wall: Dictionary, color: Color) -> void:
+	var wall_id := str(wall["id"])
+	var axis := str(wall["axis"])
+	var start := float(wall["start"])
+	var end := float(wall["end"])
+	var base_y := float(wall["base_y"])
+	var height := float(wall["height"])
+	var opening := wall.get("opening_span", Vector2.ZERO) as Vector2
+	if opening != Vector2.ZERO:
+		var a := minf(opening.x, opening.y)
+		var b := maxf(opening.x, opening.y)
+		_add_scheduled_wall_segment(root, parent, wall, "%sLower" % wall_id, start, a, color)
+		_add_scheduled_wall_segment(root, parent, wall, "%sUpper" % wall_id, b, end, color)
+		if axis == "x":
+			_add_box(root, parent, "%sOpeningHeader" % wall_id, Vector3(float(wall["x"]), base_y + height - 6.0, (a + b) * 0.5), Vector3(8.0, 10.0, absf(b - a)), color.darkened(0.08), false)
+			_add_box(root, parent, "%sThreshold" % wall_id, Vector3(float(wall["x"]), float(wall["threshold_datum"]) + 0.6, (a + b) * 0.5), Vector3(7.0, 1.2, absf(b - a)), color.darkened(0.32), false)
+		else:
+			_add_box(root, parent, "%sOpeningHeader" % wall_id, Vector3((a + b) * 0.5, base_y + height - 6.0, float(wall["z"])), Vector3(absf(b - a), 10.0, 8.0), color.darkened(0.08), false)
+			_add_box(root, parent, "%sThreshold" % wall_id, Vector3((a + b) * 0.5, float(wall["threshold_datum"]) + 0.6, float(wall["z"])), Vector3(absf(b - a), 1.2, 7.0), color.darkened(0.32), false)
+	else:
+		_add_scheduled_wall_segment(root, parent, wall, wall_id, start, end, color)
+
+func _add_scheduled_wall_segment(root: Node3D, parent: Node3D, wall: Dictionary, node_name: String, start: float, end: float, color: Color) -> void:
+	if is_equal_approx(start, end):
+		return
+	var axis := str(wall["axis"])
+	if axis == "x":
+		_add_wall_x(root, parent, node_name, float(wall["x"]), start, end, color, true, float(wall["base_y"]), float(wall["height"]))
+	else:
+		_add_wall_z(root, parent, node_name, float(wall["z"]), start, end, color, true, float(wall["base_y"]), float(wall["height"]))
 
 func _add_exterior_architecture(root: Node3D, parent: Node3D) -> void:
 	parent.set_meta("style_contract", "toy-scale craftsman suburban house: low porch, visible foundation, gabled roof hierarchy, warm siding, cream trim, practical garage and service side")
+	parent.set_meta("shell_ownership", "single authoritative exterior shell; stage/floor holders may not create exterior walls, gables, roof planes, fascia, exterior openings, or foundation collision")
 	var siding := Color(0.55, 0.48, 0.39)
 	var siding_shadow := Color(0.43, 0.37, 0.31)
 	var trim := Color(0.88, 0.82, 0.67)
@@ -497,16 +522,34 @@ func _add_exterior_architecture(root: Node3D, parent: Node3D) -> void:
 	_add_box(root, parent, "ServiceElectricMeter", Vector3(218, 22, 22), Vector3(1.2, 14, 10), Color(0.14, 0.16, 0.16), false)
 	_add_box(root, parent, "ServiceUtilityPanel", Vector3(218, 16, -10), Vector3(1.2, 18, 14), Color(0.22, 0.24, 0.23), false)
 
+func _add_exterior_wall_system(root: Node3D, parent: Node3D) -> void:
+	var exterior := Color(0.54, 0.49, 0.42)
+	_add_wall_z(root, parent, "ExteriorFrontWallLeft", 106, -214, -70, exterior, true)
+	_add_wall_z(root, parent, "ExteriorFrontWallEntryHeader", 106, -28, 94, exterior, true)
+	_add_wall_z(root, parent, "ExteriorFrontGarageWall", 106, 94, 214, exterior, true)
+	_add_wall_z(root, parent, "ExteriorBackWallWest", -86, -214, -75, exterior, true)
+	_add_wall_z(root, parent, "ExteriorBackPatioHeader", -86, -15, 62, exterior, true)
+	_add_wall_z(root, parent, "ExteriorBackGarageWall", -86, 62, 214, exterior, true)
+	_add_wall_x(root, parent, "ExteriorWestWall", -214, -86, 106, exterior, true)
+	_add_wall_x(root, parent, "ExteriorEastGarageWall", 214, -86, 106, exterior, true)
+	_add_box(root, parent, "MainEnvelopeCeilingPlane", Vector3(0, 44.5, 10), Vector3(430, 3, 200), Color(0.76, 0.72, 0.64), false)
+
 func _add_opening_assemblies(root: Node3D, parent: Node3D) -> void:
 	parent.set_meta("plan_role", "door/window/threshold schedule from floor-plan contract")
 	var trim := Color(0.88, 0.82, 0.67)
+	_add_box(root, parent, "FrontDoorPanel", Vector3(-48, 12, 107.5), Vector3(36, 24, 2.4), Color(0.24, 0.13, 0.07), false)
+	_add_box(root, parent, "FrontDoorGlass", Vector3(-48, 17, 108.9), Vector3(22, 10, 0.6), Color(0.45, 0.72, 0.88, 0.45), false)
 	_add_box(root, parent, "FrontEntryThresholdStone", Vector3(-48, 2, 112), Vector3(48, 4, 10), Color(0.46, 0.43, 0.37), false)
 	_add_box(root, parent, "FrontEntrySidelightLeft", Vector3(-74, 20, 110), Vector3(8, 24, 2), Color(0.50, 0.75, 0.88, 0.55), false)
 	_add_box(root, parent, "FrontEntrySidelightRight", Vector3(-22, 20, 110), Vector3(8, 24, 2), Color(0.50, 0.75, 0.88, 0.55), false)
+	_add_window(root, parent, "DiningFrontWindow", Vector3(-150, 23, 108), Vector3(48, 22, 1.0))
+	_add_window(root, parent, "LivingFrontWindow", Vector3(-18, 23, 108), Vector3(46, 22, 1.0))
+	_add_window(root, parent, "KitchenGardenWindow", Vector3(-214.5, 22, -30), Vector3(1.0, 22, 46))
 	_add_box(root, parent, "KitchenPatioDoorFrame", Vector3(-48, 20, -91), Vector3(62, 40, 5), trim, false)
 	_add_box(root, parent, "KitchenPatioDoorGlass", Vector3(-48, 20, -94), Vector3(48, 30, 1.2), Color(0.48, 0.72, 0.86, 0.45), false)
 	_add_box(root, parent, "PlayroomPatioDoorFrame", Vector3(22, 20, -91), Vector3(48, 40, 5), trim, false)
 	_add_box(root, parent, "PlayroomPatioDoorGlass", Vector3(22, 20, -94), Vector3(34, 30, 1.2), Color(0.48, 0.72, 0.86, 0.45), false)
+	_add_box(root, parent, "GarageDoorPanel", Vector3(154, 14, 108), Vector3(86, 28, 2.0), Color(0.32, 0.30, 0.27), false)
 	_add_box(root, parent, "GarageHouseServiceDoor", Vector3(62, 14, 54), Vector3(4, 28, 20), Color(0.22, 0.16, 0.10), false)
 	_add_box(root, parent, "AtticAccessHatchFrame", Vector3(94, 118, -16), Vector3(52, 5, 30), trim.darkened(0.20), false)
 
@@ -674,8 +717,14 @@ func _add_validation_cameras(root: Node3D, parent: Node3D) -> void:
 	_add_camera(root, parent, "MainFloorRouteCamera", Vector3(-245, 54, 122), Vector3(-14, -62, 0), 70)
 	_add_camera(root, parent, "KitchenStartPlayerCamera", Vector3(-166, 12, -91), Vector3(-6, 0, 0), 64)
 	_add_camera(root, parent, "KitchenFirstTurnPlayerCamera", Vector3(-106, 15, -68), Vector3(-8, -44, 0), 58)
+	_add_camera(root, parent, "KitchenDiningSeamCamera", Vector3(-182, 22, 42), Vector3(-14, -22, 0), 54)
+	_add_camera(root, parent, "KitchenPlayroomSeamCamera", Vector3(-92, 20, -104), Vector3(-10, 0, 0), 54)
+	_add_camera(root, parent, "PlayroomLivingSeamCamera", Vector3(-12, 22, 42), Vector3(-14, -18, 0), 54)
+	_add_camera(root, parent, "GarageServiceSeamCamera", Vector3(104, 24, -38), Vector3(-12, 36, 0), 54)
 	_add_camera(root, parent, "UpperFloorRouteCamera", Vector3(-100, 118, 158), Vector3(-20, -42, 0), 70)
+	_add_camera(root, parent, "BedroomGlamSeamCamera", Vector3(62, 92, 144), Vector3(-15, 0, 0), 54)
 	_add_camera(root, parent, "AtticRouteCamera", Vector3(-45, 166, 92), Vector3(-18, -42, 0), 70)
+	_add_camera(root, parent, "AtticStorageSeamCamera", Vector3(124, 146, -48), Vector3(-16, 34, 0), 54)
 	_add_camera(root, parent, "RampSideProfileCamera", Vector3(-75, 84, 104), Vector3(-8, -90, 0), 70)
 
 func _add_concept_reference(root: Node3D, parent: Node3D) -> void:
@@ -1091,6 +1140,14 @@ func _add_mesh(root: Node3D, parent: Node3D, node_name: String, vertices: Packed
 	parent.add_child(mesh_instance)
 	mesh_instance.owner = root
 	return mesh_instance
+
+func _add_child_holder(root: Node3D, parent: Node3D, node_name: String, plan_role: String) -> Node3D:
+	var holder := Node3D.new()
+	holder.name = node_name
+	holder.set_meta("plan_role", plan_role)
+	parent.add_child(holder)
+	holder.owner = root
+	return holder
 
 func _add_room_floor(root: Node3D, parent: Node3D, node_name: String, position: Vector3, size: Vector3, color: Color) -> void:
 	_add_box(root, parent, node_name, position, size, color, true)
