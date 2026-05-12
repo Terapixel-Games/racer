@@ -101,6 +101,7 @@ func test_lod_sprites_use_directional_frames_for_roster() -> void:
 			var lod1_sprite := car.find_child("RacerInKartSpriteLOD1", true, false) as RacerSpriteLodVisual
 			assert_true(lod1_sprite != null, "%s sprite-backed LOD1 node should be present" % racer_id)
 			if lod1_sprite != null:
+				assert_true(absf(lod1_sprite.position.y - CarController.VISUAL_BOTTOM_Y) <= 0.001, "%s sprite-backed LOD1 should keep the same ground contact as LOD0" % racer_id)
 				assert_equal(lod1_sprite.current_frame_for_test(), 0, "Camera in front of %s should select the front LOD1 sprite frame" % racer_id)
 			controller.update_racer_visual_lod_for_camera(controller.global_transform.origin + Vector3(48, 0, 0))
 			if lod1_sprite != null:

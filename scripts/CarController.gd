@@ -467,6 +467,7 @@ func _apply_sprite_lod_visual(racer_id: String, lod: String) -> bool:
 	var visual := RacerSpriteLodVisualScript.new()
 	visual.name = "RacerInKartSprite%s" % normalized_lod.to_upper()
 	visual.configure(texture as Texture2D, RacerSpriteLodVisualScript.manifest_for_path(manifest_path))
+	visual.position.y = VISUAL_BOTTOM_Y
 	_clear_racer_visual()
 	_set_placeholder_visible(false)
 	_get_visual_mount().add_child(visual)
