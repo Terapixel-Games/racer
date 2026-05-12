@@ -52,6 +52,12 @@ static func collect() -> Dictionary:
 	var optimized_racer_simplified95_lod0_atlas_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
 		return path.ends_with("_mobile_detail_simplified95_Image_0.jpg")
 	)
+	var optimized_racer_retopo_bake_lod0_glb_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
+		return path.ends_with("_mobile_detail_retopo_bake.glb")
+	)
+	var optimized_racer_retopo_bake_lod0_atlas_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
+		return path.ends_with("_mobile_detail_retopo_bake_Image_0.jpg") or path.ends_with("_mobile_detail_retopo_bake_atlas_base_color.png") or path.ends_with("_mobile_detail_retopo_bake_atlas_normal.png") or path.ends_with("_mobile_detail_retopo_bake_atlas_ao.png")
+	)
 	var web_build_bytes := _sum_files(WEB_BUILD_ROOT, func(_path: String) -> bool:
 		return true
 	)
@@ -95,6 +101,10 @@ static func collect() -> Dictionary:
 		"optimized_racer_simplified95_lod0_atlas_source_bytes": optimized_racer_simplified95_lod0_atlas_bytes,
 		"optimized_racer_simplified95_lod0_savings_bytes": optimized_racer_lod0_glb_bytes - optimized_racer_simplified95_lod0_glb_bytes,
 		"optimized_racer_simplified95_lod0_delta_bytes": optimized_racer_simplified95_lod0_glb_bytes - optimized_racer_lod0_glb_bytes,
+		"optimized_racer_retopo_bake_lod0_glb_bytes": optimized_racer_retopo_bake_lod0_glb_bytes,
+		"optimized_racer_retopo_bake_lod0_atlas_source_bytes": optimized_racer_retopo_bake_lod0_atlas_bytes,
+		"optimized_racer_retopo_bake_lod0_savings_bytes": optimized_racer_lod0_glb_bytes - optimized_racer_retopo_bake_lod0_glb_bytes,
+		"optimized_racer_retopo_bake_lod0_delta_bytes": optimized_racer_retopo_bake_lod0_glb_bytes - optimized_racer_lod0_glb_bytes,
 		"optimized_racer_staged_source_bytes": optimized_racer_lod0_glb_bytes + optimized_racer_lod0_atlas_bytes,
 		"optimized_racer_staged_lod_bytes": optimized_racer_lod_glb_bytes + optimized_racer_lod_atlas_bytes,
 		"optimized_racer_total_staged_bytes": optimized_racer_runtime_glb_bytes + optimized_racer_atlas_bytes + optimized_racer_lod_sprite_bytes,
