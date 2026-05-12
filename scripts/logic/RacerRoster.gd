@@ -25,6 +25,7 @@ const DEFAULT_RACER_ASSET_PROFILE := RACER_ASSET_PROFILE_SOURCE
 const RACER_MODEL_LOD0 := "lod0"
 const RACER_MODEL_LOD1 := "lod1"
 const RACER_MODEL_LOD2 := "lod2"
+const RACER_SPRITE_LOD2_RACERS := ["Rexx"]
 
 const ROSTER := {
 	"Rexx": {
@@ -165,6 +166,25 @@ static func get_racer_in_kart_model_path(racer_id: String) -> String:
 
 static func get_racer_in_kart_model_path_for_lod(racer_id: String, lod: String, allow_source_fallback: bool = true) -> String:
 	return get_racer_in_kart_model_path_for_profile_lod(racer_id, get_racer_asset_profile(), lod, allow_source_fallback)
+
+static func get_racer_lod2_sprite_sheet_path(racer_id: String, asset_profile: String = "") -> String:
+	var normalized := normalize_id(racer_id)
+	var normalized_profile := normalize_asset_profile(asset_profile if not asset_profile.strip_edges().is_empty() else get_racer_asset_profile())
+	if not has_sprite_lod2(normalized, normalized_profile):
+		return ""
+	var slug := _racer_asset_slug(normalized)
+	return "res://assets/optimized/racers/%s/%s_racer_in_kart_%s_lod2_sprites.png" % [slug, slug, normalized_profile]
+
+static func get_racer_lod2_sprite_manifest_path(racer_id: String, asset_profile: String = "") -> String:
+	var sheet_path := get_racer_lod2_sprite_sheet_path(racer_id, asset_profile)
+	return sheet_path.replace(".png", ".json") if not sheet_path.is_empty() else ""
+
+static func has_sprite_lod2(racer_id: String, asset_profile: String = "") -> bool:
+	var normalized := normalize_id(racer_id)
+	var normalized_profile := normalize_asset_profile(asset_profile if not asset_profile.strip_edges().is_empty() else get_racer_asset_profile())
+	if normalized_profile != RACER_ASSET_PROFILE_MOBILE_DETAIL_PHASE1:
+		return false
+	return normalized in RACER_SPRITE_LOD2_RACERS
 
 static func get_racer_in_kart_source_model_path(racer_id: String) -> String:
 	var normalized := normalize_id(racer_id)

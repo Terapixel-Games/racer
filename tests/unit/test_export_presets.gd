@@ -15,8 +15,15 @@ func test_web_export_includes_configured_optimized_racer_assets() -> void:
 		for lod in [RacerRoster.RACER_MODEL_LOD1, RacerRoster.RACER_MODEL_LOD2]:
 			var lod_glb_path := RacerRoster.get_racer_in_kart_model_path_for_profile_lod(racer_id, RacerRoster.RACER_ASSET_PROFILE_MOBILE_DETAIL_PHASE1, lod, false)
 			var lod_atlas_path := lod_glb_path.replace(".glb", "_Image_0.jpg")
-			assert_true(text.contains(lod_glb_path), "%s optimized %s GLB should be included in the Web export allowlist" % [racer_id, lod])
+			if racer_id == "Rexx" and lod == RacerRoster.RACER_MODEL_LOD2:
+				assert_true(not text.contains(lod_glb_path), "Rexx LOD2 GLB should stay out of the Web export because it is sprite-backed")
+			else:
+				assert_true(text.contains(lod_glb_path), "%s optimized %s GLB should be included in the Web export allowlist" % [racer_id, lod])
 			assert_true(not text.contains(lod_atlas_path), "%s optimized %s should reuse the LOD0 atlas instead of exporting a duplicate atlas source image" % [racer_id, lod])
+	var rexx_sprite_path := RacerRoster.get_racer_lod2_sprite_sheet_path("Rexx", RacerRoster.RACER_ASSET_PROFILE_MOBILE_DETAIL_PHASE1)
+	var rexx_sprite_manifest_path := RacerRoster.get_racer_lod2_sprite_manifest_path("Rexx", RacerRoster.RACER_ASSET_PROFILE_MOBILE_DETAIL_PHASE1)
+	assert_true(text.contains(rexx_sprite_path), "Rexx sprite-backed LOD2 atlas should be included in the Web export allowlist")
+	assert_true(text.contains(rexx_sprite_manifest_path), "Rexx sprite-backed LOD2 manifest should be included in the Web export allowlist")
 
 func test_android_export_excludes_source_asset_tree() -> void:
 	var text := FileAccess.get_file_as_string("res://export_presets.cfg")

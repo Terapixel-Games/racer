@@ -25,6 +25,9 @@ static func collect() -> Dictionary:
 	var optimized_racer_lod_atlas_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
 		return path.ends_with(".jpg") and _is_lod_path(path)
 	)
+	var optimized_racer_lod_sprite_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
+		return _is_lod_sprite_path(path)
+	)
 	var web_build_bytes := _sum_files(WEB_BUILD_ROOT, func(_path: String) -> bool:
 		return true
 	)
@@ -53,9 +56,10 @@ static func collect() -> Dictionary:
 		"optimized_racer_atlas_source_bytes": optimized_racer_atlas_bytes,
 		"optimized_racer_lod0_atlas_source_bytes": optimized_racer_lod0_atlas_bytes,
 		"optimized_racer_lod_atlas_source_bytes": optimized_racer_lod_atlas_bytes,
+		"optimized_racer_lod_sprite_bytes": optimized_racer_lod_sprite_bytes,
 		"optimized_racer_staged_source_bytes": optimized_racer_lod0_glb_bytes + optimized_racer_lod0_atlas_bytes,
 		"optimized_racer_staged_lod_bytes": optimized_racer_lod_glb_bytes + optimized_racer_lod_atlas_bytes,
-		"optimized_racer_total_staged_bytes": optimized_racer_runtime_glb_bytes + optimized_racer_atlas_bytes,
+		"optimized_racer_total_staged_bytes": optimized_racer_runtime_glb_bytes + optimized_racer_atlas_bytes + optimized_racer_lod_sprite_bytes,
 		"racer_glb_savings_bytes": racer_savings_bytes,
 		"optimized_glb_source_ratio": optimized_ratio,
 		"web_build_total_bytes": web_build_bytes,
@@ -99,6 +103,7 @@ static func web_export_resource_categories() -> Dictionary:
 	var category_bytes := {
 		"racer_lod0": 0,
 		"racer_lod": 0,
+		"racer_lod_sprites": 0,
 		"racer_textures": 0,
 		"environment_assets": 0,
 		"ui_assets": 0,
@@ -153,6 +158,8 @@ static func _web_export_resource_paths() -> Array[String]:
 
 static func _web_export_category_for_path(path: String) -> String:
 	if path.begins_with(OPTIMIZED_RACER_ROOT):
+		if _is_lod_sprite_path(path):
+			return "racer_lod_sprites"
 		if path.ends_with(".jpg") or path.ends_with(".png") or path.ends_with(".webp"):
 			return "racer_textures"
 		return "racer_lod" if _is_lod_path(path) else "racer_lod0"
@@ -170,6 +177,9 @@ static func _web_export_category_for_path(path: String) -> String:
 
 static func _is_lod_path(path: String) -> bool:
 	return path.contains("_lod1") or path.contains("_lod2")
+
+static func _is_lod_sprite_path(path: String) -> bool:
+	return path.contains("_lod2_sprites") and (path.ends_with(".png") or path.ends_with(".json"))
 
 static func _sum_files(root_path: String, predicate: Callable) -> int:
 	var total := 0

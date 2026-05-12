@@ -4,6 +4,7 @@ class_name CarController
 const DriftRules = preload("res://scripts/logic/DriftRules.gd")
 const KartPhysicsRules = preload("res://scripts/logic/KartPhysicsRules.gd")
 const RacerRoster = preload("res://scripts/logic/RacerRoster.gd")
+const RacerSpriteLodVisualScript = preload("res://scripts/RacerSpriteLodVisual.gd")
 
 const VISUAL_TARGET_FOOTPRINT := 1.75
 const VISUAL_BOTTOM_Y := -0.78
@@ -86,6 +87,8 @@ func set_racer_visual_lod(racer_id: String, lod: String) -> bool:
 	var normalized_lod := RacerRoster.normalize_model_lod(lod)
 	if _racer_visual_id == normalized and _racer_visual_lod == normalized_lod and has_racer_visual():
 		return true
+	if normalized_lod == RacerRoster.RACER_MODEL_LOD2 and _can_use_sprite_lod2(normalized):
+		return _apply_sprite_lod2_visual(normalized)
 	var model_path := RacerRoster.get_racer_in_kart_model_path_for_lod(normalized, normalized_lod)
 	if model_path.is_empty() or not ResourceLoader.exists(model_path) or not _is_scene_import_valid(model_path):
 		return _apply_portrait_visual(normalized)
@@ -128,6 +131,8 @@ func update_racer_visual_lod_for_camera(camera_position: Vector3) -> void:
 	var target_lod := _racer_visual_lod_for_camera_distance(distance)
 	if target_lod != _racer_visual_lod:
 		set_racer_visual_lod(_racer_visual_id, target_lod)
+	if _racer_visual_mode == "sprite_lod2":
+		_update_sprite_lod2_camera(camera_position)
 
 func _racer_visual_lod_for_camera_distance(distance: float) -> String:
 	match _racer_visual_lod:
@@ -446,6 +451,33 @@ func _apply_portrait_visual(racer_id: String) -> bool:
 	_racer_visual_mode = "portrait"
 	_racer_visual_lod = RacerRoster.RACER_MODEL_LOD0
 	return true
+
+func _can_use_sprite_lod2(racer_id: String) -> bool:
+	var sheet_path := RacerRoster.get_racer_lod2_sprite_sheet_path(racer_id)
+	var manifest_path := RacerRoster.get_racer_lod2_sprite_manifest_path(racer_id)
+	return not sheet_path.is_empty() and ResourceLoader.exists(sheet_path) and FileAccess.file_exists(manifest_path)
+
+func _apply_sprite_lod2_visual(racer_id: String) -> bool:
+	var sheet_path := RacerRoster.get_racer_lod2_sprite_sheet_path(racer_id)
+	var manifest_path := RacerRoster.get_racer_lod2_sprite_manifest_path(racer_id)
+	var texture := load(sheet_path)
+	if not (texture is Texture2D):
+		return _apply_portrait_visual(racer_id)
+	var visual := RacerSpriteLodVisualScript.new()
+	visual.name = "RacerInKartSpriteLod2"
+	visual.configure(texture as Texture2D, RacerSpriteLodVisualScript.manifest_for_path(manifest_path))
+	_clear_racer_visual()
+	_set_placeholder_visible(false)
+	_get_visual_mount().add_child(visual)
+	_active_visual_model = visual
+	_racer_visual_id = racer_id
+	_racer_visual_mode = "sprite_lod2"
+	_racer_visual_lod = RacerRoster.RACER_MODEL_LOD2
+	return true
+
+func _update_sprite_lod2_camera(camera_position: Vector3) -> void:
+	if _active_visual_model is RacerSpriteLodVisual:
+		(_active_visual_model as RacerSpriteLodVisual).update_for_camera(global_transform, camera_position)
 
 func _is_scene_import_valid(resource_path: String) -> bool:
 	var import_path := "%s.import" % resource_path
