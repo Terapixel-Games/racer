@@ -367,8 +367,21 @@ func _assert_home_yard_roof_and_attic_contract(root: Node, track_id: String) -> 
 		"UpperAtticRoofLeftPlane",
 		"UpperAtticRoofRightPlane",
 		"UpperAtticRoofRidgeCap",
+		"UpperDormerCheekLeft",
+		"UpperDormerCheekRight",
+		"UpperDormerFrontGableWall",
+		"UpperDormerBackGableWall",
+		"GarageValleyCoverFront",
+		"UpperDormerValleyCoverLeft",
 	]:
 		assert_true(roof.get_node_or_null(node_name) != null, "%s roof system should include measured assembly node %s" % [track_id, node_name])
+	var massing_contract := str(roof.get_meta("massing_contract", ""))
+	assert_true(massing_contract.contains("single craftsman primary gable"), "%s roof should record one cohesive massing hierarchy" % track_id)
+	assert_true(massing_contract.contains("no layer-cake"), "%s roof should reject layer-cake exposed boxes" % track_id)
+	_assert_ridge_axis(roof, "MainRoofRidgeCap", "z", track_id)
+	_assert_ridge_axis(roof, "UpperAtticRoofRidgeCap", "z", track_id)
+	_assert_ridge_axis(roof, "GarageCrossGableRidge", "x", track_id)
+	_assert_ridge_axis(roof, "FrontPorchGableRidge", "x", track_id)
 	var left_plane := roof.get_node_or_null("UpperAtticRoofLeftPlane")
 	var right_plane := roof.get_node_or_null("UpperAtticRoofRightPlane")
 	for plane in [left_plane, right_plane]:
@@ -382,6 +395,17 @@ func _assert_home_yard_roof_and_attic_contract(root: Node, track_id: String) -> 
 		assert_true(attic.get_node_or_null("AtticFrontTriangularGableWall") != null, "%s attic should include front triangular gable wall" % track_id)
 		assert_true(attic.get_node_or_null("AtticBackTriangularGableWall") != null, "%s attic should include back triangular gable wall" % track_id)
 	assert_true(root.find_child("RoofMassPlaceholder", true, false) == null, "%s should not keep a visible flat roof placeholder" % track_id)
+
+func _assert_ridge_axis(roof: Node, node_name: String, expected_axis: String, track_id: String) -> void:
+	var node := roof.get_node_or_null(node_name) as MeshInstance3D
+	assert_true(node != null, "%s roof should include ridge cap %s" % [track_id, node_name])
+	if node == null:
+		return
+	var bounds := _mesh_instance_global_aabb(node)
+	if expected_axis == "z":
+		assert_true(bounds.size.z > bounds.size.x, "%s %s should run along Z, not across the whole facade" % [track_id, node_name])
+	else:
+		assert_true(bounds.size.x > bounds.size.z, "%s %s should run along X, not float as a depth strip" % [track_id, node_name])
 
 func _assert_home_yard_landscape_and_assets(root: Node, track_id: String) -> void:
 	for node_path in [
@@ -551,6 +575,23 @@ func _find_authoring_road_grid(root: Node) -> Node:
 	if nested != null:
 		return nested
 	return null
+
+func _mesh_instance_global_aabb(mesh_instance: MeshInstance3D) -> AABB:
+	var local := mesh_instance.get_aabb()
+	var corners: Array[Vector3] = [
+		local.position,
+		local.position + Vector3(local.size.x, 0, 0),
+		local.position + Vector3(0, local.size.y, 0),
+		local.position + Vector3(0, 0, local.size.z),
+		local.position + Vector3(local.size.x, local.size.y, 0),
+		local.position + Vector3(local.size.x, 0, local.size.z),
+		local.position + Vector3(0, local.size.y, local.size.z),
+		local.end,
+	]
+	var bounds := AABB(mesh_instance.global_transform * corners[0], Vector3.ZERO)
+	for i in range(1, corners.size()):
+		bounds = bounds.expand(mesh_instance.global_transform * corners[i])
+	return bounds
 
 func _expected_definition_ground_size(track_id: String) -> Vector2:
 	return HOME_YARD_GROUND_SIZE

@@ -431,10 +431,10 @@ func _add_readable_route_segment(root: Node3D, parent: Node3D, node_name: String
 	_add_box(root, parent, "%sDirectionTickB" % node_name, mid + forward * (length * 0.34) + Vector3(0, 1.42, 0), Vector3(3.4, 0.7, 2.0), Color(1.0, 1.0, 0.86), false, yaw)
 
 func _add_upper_floor(root: Node3D, parent: Node3D) -> void:
-	var wall := Color(0.54, 0.45, 0.50)
-	_add_room_floor(root, parent, "UpperFloorDeck", Vector3(62, 63, 66), Vector3(250, 2, 118), Color(0.42, 0.36, 0.44))
-	_add_room_floor(root, parent, "BedroomZone", Vector3(0, 64, 66), Vector3(116, 1.2, 92), Color(0.56, 0.50, 0.66))
-	_add_room_floor(root, parent, "GlamClosetZone", Vector3(122, 64, 66), Vector3(112, 1.2, 92), Color(0.70, 0.43, 0.60))
+	var wall := Color(0.57, 0.51, 0.43)
+	_add_room_floor(root, parent, "UpperFloorDeck", Vector3(62, 63, 66), Vector3(250, 2, 118), Color(0.46, 0.40, 0.34))
+	_add_room_floor(root, parent, "BedroomZone", Vector3(0, 64, 66), Vector3(116, 1.2, 92), Color(0.58, 0.52, 0.43))
+	_add_room_floor(root, parent, "GlamClosetZone", Vector3(122, 64, 66), Vector3(112, 1.2, 92), Color(0.60, 0.52, 0.45))
 	_add_wall_z(root, parent, "UpperBackWall", 8, -64, 188, wall, true, 64, 48)
 	_add_wall_z(root, parent, "UpperFrontWallLeft", 124, -64, 34, wall, true, 64, 48)
 	_add_wall_z(root, parent, "UpperFrontWallRight", 124, 86, 188, wall, true, 64, 48)
@@ -530,31 +530,45 @@ func _add_garage_service_system(root: Node3D, parent: Node3D) -> void:
 
 func _add_roof_system(root: Node3D, parent: Node3D) -> void:
 	parent.set_meta("plan_role", "measured roof/attic companion plan")
+	parent.set_meta("massing_contract", "single craftsman primary gable with subordinate garage cross-gable, lower porch gable, and integrated upper dormer; no layer-cake exposed boxes or floating ridge strips")
 	parent.set_meta("roof_contract", {
-		"main_lower": {"span_axis": "x", "eave_y": 50.0, "ridge_y": 84.0, "ridge_x": -12.0, "overhang": 12.0},
-		"upper_attic": {"span_axis": "x", "eave_y": 134.0, "ridge_y": 166.0, "ridge_x": 60.0, "overhang": 12.0},
-		"garage_cross_gable": {"span_axis": "z", "eave_y": 50.0, "ridge_y": 78.0, "ridge_z": 70.0, "overhang": 10.0},
+		"main_lower": {"span_axis": "x", "eave_y": 50.0, "ridge_y": 82.0, "ridge_x": 0.0, "overhang": 12.0},
+		"upper_dormer": {"span_axis": "x", "eave_y": 112.0, "ridge_y": 142.0, "ridge_x": 60.0, "overhang": 10.0},
+		"garage_cross_gable": {"span_axis": "z", "eave_y": 50.0, "ridge_y": 70.0, "ridge_z": 92.0, "overhang": 8.0},
+		"porch_gable": {"span_axis": "z", "eave_y": 47.0, "ridge_y": 62.0, "ridge_z": 130.0, "overhang": 7.0},
 	})
 	var roof := Color(0.23, 0.18, 0.15)
 	var shadow := Color(0.16, 0.13, 0.12)
-	_add_roof_plane_x(root, parent, "MainRoofLeftPlane", -236, -12, -116, 138, 50, 84, roof)
-	_add_roof_plane_x(root, parent, "MainRoofRightPlane", -12, 236, -116, 138, 84, 50, roof)
-	_add_box(root, parent, "MainRoofRidgeCap", Vector3(-12, 85, 11), Vector3(12, 6, 258), shadow, false, 90)
-	_add_gable_wall_z(root, parent, "MainFrontGableWall", 126, -224, 200, 44, 50, 84, Color(0.48, 0.41, 0.34))
-	_add_gable_wall_z(root, parent, "MainBackGableWall", -104, -224, 200, 44, 50, 84, Color(0.48, 0.41, 0.34))
-	_add_roof_plane_z(root, parent, "GarageCrossGableFrontPlane", 92, 138, 102, 214, 50, 78, roof)
-	_add_roof_plane_z(root, parent, "GarageCrossGableBackPlane", 2, 92, 102, 214, 78, 50, roof)
-	_add_box(root, parent, "GarageCrossGableRidge", Vector3(158, 79, 92), Vector3(116, 5, 8), shadow, false)
-	_add_roof_plane_z(root, parent, "FrontPorchGableFrontPlane", 130, 158, -100, 4, 48, 64, roof)
-	_add_roof_plane_z(root, parent, "FrontPorchGableBackPlane", 102, 130, -100, 4, 64, 48, roof)
-	_add_box(root, parent, "FrontPorchGableRidge", Vector3(-48, 65, 130), Vector3(108, 5, 6), shadow, false)
-	_add_roof_plane_x(root, parent, "UpperAtticRoofLeftPlane", -72, 60, 0, 136, 134, 166, roof.darkened(0.03))
-	_add_roof_plane_x(root, parent, "UpperAtticRoofRightPlane", 60, 196, 0, 136, 166, 134, roof.darkened(0.03))
-	_add_box(root, parent, "UpperAtticRoofRidgeCap", Vector3(60, 167, 68), Vector3(12, 6, 140), shadow, false, 90)
-	_add_box(root, parent, "UpperRoofFrontFascia", Vector3(62, 135, 136), Vector3(286, 8, 6), shadow, false)
-	_add_box(root, parent, "UpperRoofBackFascia", Vector3(62, 135, 0), Vector3(286, 8, 6), shadow, false)
-	_add_box(root, parent, "MainRoofFrontFascia", Vector3(0, 51, 138), Vector3(476, 8, 6), shadow, false)
-	_add_box(root, parent, "MainRoofBackFascia", Vector3(0, 51, -116), Vector3(476, 8, 6), shadow, false)
+	var siding := Color(0.55, 0.49, 0.40)
+	_add_roof_plane_x(root, parent, "MainRoofLeftPlane", -236, 0, -116, 138, 50, 82, roof)
+	_add_roof_plane_x(root, parent, "MainRoofRightPlane", 0, 236, -116, 138, 82, 50, roof)
+	_add_box(root, parent, "MainRoofRidgeCap", Vector3(0, 83, 11), Vector3(8, 5, 248), shadow, false)
+	_add_gable_wall_z(root, parent, "MainFrontGableWall", 126, -224, 224, 44, 50, 82, siding)
+	_add_gable_wall_z(root, parent, "MainBackGableWall", -104, -224, 224, 44, 50, 82, siding.darkened(0.06))
+	_add_roof_plane_z(root, parent, "GarageCrossGableFrontPlane", 92, 138, 94, 222, 70, 50, roof.darkened(0.02))
+	_add_roof_plane_z(root, parent, "GarageCrossGableBackPlane", 46, 92, 94, 222, 50, 70, roof.darkened(0.02))
+	_add_box(root, parent, "GarageCrossGableRidge", Vector3(158, 71, 92), Vector3(124, 5, 7), shadow, false)
+	_add_box(root, parent, "GarageValleyCoverFront", Vector3(104, 58, 122), Vector3(4, 5, 52), shadow.lightened(0.06), false, -22)
+	_add_box(root, parent, "GarageValleyCoverBack", Vector3(104, 58, 62), Vector3(4, 5, 52), shadow.lightened(0.06), false, 22)
+	_add_roof_plane_z(root, parent, "FrontPorchGableFrontPlane", 130, 156, -104, 8, 62, 47, roof.darkened(0.04))
+	_add_roof_plane_z(root, parent, "FrontPorchGableBackPlane", 104, 130, -104, 8, 47, 62, roof.darkened(0.04))
+	_add_box(root, parent, "FrontPorchGableRidge", Vector3(-48, 63, 130), Vector3(108, 5, 6), shadow, false)
+	_add_box(root, parent, "FrontPorchRoofFascia", Vector3(-48, 48, 158), Vector3(118, 5, 5), shadow, false)
+	_add_box(root, parent, "UpperDormerCheekLeft", Vector3(-76, 94, 68), Vector3(6, 42, 128), siding.darkened(0.04), false)
+	_add_box(root, parent, "UpperDormerCheekRight", Vector3(196, 94, 68), Vector3(6, 42, 128), siding.darkened(0.04), false)
+	_add_gable_wall_z(root, parent, "UpperDormerFrontGableWall", 128, -66, 186, 86, 112, 142, siding.lightened(0.04))
+	_add_gable_wall_z(root, parent, "UpperDormerBackGableWall", 6, -66, 186, 86, 112, 142, siding.darkened(0.03))
+	_add_roof_plane_x(root, parent, "UpperAtticRoofLeftPlane", -76, 60, -2, 138, 112, 142, roof.darkened(0.03))
+	_add_roof_plane_x(root, parent, "UpperAtticRoofRightPlane", 60, 196, -2, 138, 142, 112, roof.darkened(0.03))
+	_add_box(root, parent, "UpperAtticRoofRidgeCap", Vector3(60, 143, 68), Vector3(8, 5, 136), shadow, false)
+	_add_box(root, parent, "UpperRoofFrontFascia", Vector3(60, 113, 138), Vector3(282, 6, 5), shadow, false)
+	_add_box(root, parent, "UpperRoofBackFascia", Vector3(60, 113, -2), Vector3(282, 6, 5), shadow, false)
+	_add_box(root, parent, "UpperDormerValleyCoverLeft", Vector3(-50, 78, 123), Vector3(56, 4, 5), shadow.lightened(0.05), false, -10)
+	_add_box(root, parent, "UpperDormerValleyCoverRight", Vector3(170, 78, 123), Vector3(56, 4, 5), shadow.lightened(0.05), false, 10)
+	_add_box(root, parent, "MainRoofFrontFascia", Vector3(0, 51, 138), Vector3(468, 7, 6), shadow, false)
+	_add_box(root, parent, "MainRoofBackFascia", Vector3(0, 51, -116), Vector3(468, 7, 6), shadow, false)
+	_add_box(root, parent, "MainRoofWestRakeFascia", Vector3(-236, 57, 11), Vector3(6, 7, 250), shadow, false)
+	_add_box(root, parent, "MainRoofEastRakeFascia", Vector3(236, 57, 11), Vector3(6, 7, 250), shadow, false)
 
 func _add_vertical_connectors(root: Node3D, parent: Node3D) -> void:
 	_add_box(root, parent, "MainToUpperToyRamp", Vector3(28, 31, 104), Vector3(24, 4, 130), Color(0.14, 0.36, 0.70), true, -28.0)
