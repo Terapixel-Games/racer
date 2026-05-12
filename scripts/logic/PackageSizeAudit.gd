@@ -179,7 +179,7 @@ static func _is_lod_path(path: String) -> bool:
 	return path.contains("_lod1") or path.contains("_lod2")
 
 static func _is_lod_sprite_path(path: String) -> bool:
-	return path.contains("_lod2_sprites") and (path.ends_with(".png") or path.ends_with(".json"))
+	return (path.contains("_lod1_sprites") or path.contains("_lod2_sprites")) and (path.ends_with(".png") or path.ends_with(".json"))
 
 static func _sum_files(root_path: String, predicate: Callable) -> int:
 	var total := 0

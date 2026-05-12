@@ -75,13 +75,14 @@ func test_mobile_detail_phase1_exposes_staged_lod_paths() -> void:
 
 func test_roster_exposes_sprite_backed_lod2_artifacts() -> void:
 	for racer_id in RacerRoster.select_order():
-		var sheet_path := RacerRoster.get_racer_lod2_sprite_sheet_path(racer_id, RacerRoster.RACER_ASSET_PROFILE_MOBILE_DETAIL_PHASE1)
-		var manifest_path := RacerRoster.get_racer_lod2_sprite_manifest_path(racer_id, RacerRoster.RACER_ASSET_PROFILE_MOBILE_DETAIL_PHASE1)
-		assert_true(RacerRoster.has_sprite_lod2(racer_id, RacerRoster.RACER_ASSET_PROFILE_MOBILE_DETAIL_PHASE1), "%s should opt into the sprite-backed LOD2 prototype" % racer_id)
-		assert_true(sheet_path.ends_with("_mobile_detail_phase1_lod2_sprites.png"), "%s sprite LOD2 should use the staged sprite atlas naming" % racer_id)
-		assert_true(manifest_path.ends_with("_mobile_detail_phase1_lod2_sprites.json"), "%s sprite LOD2 should use a staged manifest" % racer_id)
-		assert_true(ResourceLoader.exists(sheet_path), "%s sprite LOD2 atlas should be staged in res://" % racer_id)
-		assert_true(FileAccess.file_exists(manifest_path), "%s sprite LOD2 manifest should be staged in res://" % racer_id)
+		for lod in [RacerRoster.RACER_MODEL_LOD1, RacerRoster.RACER_MODEL_LOD2]:
+			var sheet_path := RacerRoster.get_racer_sprite_sheet_path(racer_id, lod, RacerRoster.RACER_ASSET_PROFILE_MOBILE_DETAIL_PHASE1)
+			var manifest_path := RacerRoster.get_racer_sprite_manifest_path(racer_id, lod, RacerRoster.RACER_ASSET_PROFILE_MOBILE_DETAIL_PHASE1)
+			assert_true(RacerRoster.has_sprite_lod(racer_id, lod, RacerRoster.RACER_ASSET_PROFILE_MOBILE_DETAIL_PHASE1), "%s should opt into sprite-backed %s" % [racer_id, lod])
+			assert_true(sheet_path.ends_with("_mobile_detail_phase1_%s_sprites.png" % lod), "%s sprite %s should use the staged sprite atlas naming" % [racer_id, lod])
+			assert_true(manifest_path.ends_with("_mobile_detail_phase1_%s_sprites.json" % lod), "%s sprite %s should use a staged manifest" % [racer_id, lod])
+			assert_true(ResourceLoader.exists(sheet_path), "%s sprite %s atlas should be staged in res://" % [racer_id, lod])
+			assert_true(FileAccess.file_exists(manifest_path), "%s sprite %s manifest should be staged in res://" % [racer_id, lod])
 
 func test_configured_racer_asset_profile_uses_staged_phase1_glbs() -> void:
 	assert_equal(RacerRoster.get_racer_asset_profile(), RacerRoster.RACER_ASSET_PROFILE_MOBILE_DETAIL_PHASE1, "The project should use the staged optimized racer profile")
