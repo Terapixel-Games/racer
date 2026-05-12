@@ -83,27 +83,28 @@ func test_car_visual_lod_switches_by_camera_distance() -> void:
 		assert_equal(controller.get_racer_visual_lod(), RacerRoster.RACER_MODEL_LOD0, "Close camera distance should restore LOD0")
 	car.queue_free()
 
-func test_rexx_far_lod_uses_directional_sprite() -> void:
+func test_far_lod_uses_directional_sprite_for_roster() -> void:
 	var car_scene := load("res://scenes/Car.tscn")
 	assert_true(car_scene is PackedScene, "Car scene should load")
-	var car := (car_scene as PackedScene).instantiate()
-	scene_tree.root.add_child(car)
-	var controller := car as CarController
-	assert_true(controller != null, "Car should be a CarController")
-	if controller != null:
-		assert_true(controller.set_racer_visual("Rexx"), "Rexx should start on the LOD0 model")
-		assert_equal(controller.get_racer_visual_mode(), "model", "Rexx should keep the model for close LOD0")
-		controller.update_racer_visual_lod_for_camera(controller.global_transform.origin + Vector3(0, 0, 78))
-		assert_equal(controller.get_racer_visual_lod(), RacerRoster.RACER_MODEL_LOD2, "Far race camera distance should switch Rexx to LOD2")
-		assert_equal(controller.get_racer_visual_mode(), "sprite_lod2", "Rexx LOD2 should use the directional sprite prototype")
-		var sprite := car.find_child("RacerInKartSpriteLod2", true, false) as RacerSpriteLodVisual
-		assert_true(sprite != null, "Rexx sprite-backed LOD2 node should be present")
-		if sprite != null:
-			assert_equal(sprite.current_frame_for_test(), 0, "Camera in front of Rexx should select the front sprite frame")
-		controller.update_racer_visual_lod_for_camera(controller.global_transform.origin + Vector3(78, 0, 0))
-		if sprite != null:
-			assert_equal(sprite.current_frame_for_test(), 4, "Camera to the side of Rexx should update the sprite frame")
-	car.queue_free()
+	for racer_id in RacerRoster.select_order():
+		var car := (car_scene as PackedScene).instantiate()
+		scene_tree.root.add_child(car)
+		var controller := car as CarController
+		assert_true(controller != null, "Car should be a CarController")
+		if controller != null:
+			assert_true(controller.set_racer_visual(racer_id), "%s should start on the LOD0 model" % racer_id)
+			assert_equal(controller.get_racer_visual_mode(), "model", "%s should keep the model for close LOD0" % racer_id)
+			controller.update_racer_visual_lod_for_camera(controller.global_transform.origin + Vector3(0, 0, 78))
+			assert_equal(controller.get_racer_visual_lod(), RacerRoster.RACER_MODEL_LOD2, "Far race camera distance should switch %s to LOD2" % racer_id)
+			assert_equal(controller.get_racer_visual_mode(), "sprite_lod2", "%s LOD2 should use the directional sprite prototype" % racer_id)
+			var sprite := car.find_child("RacerInKartSpriteLod2", true, false) as RacerSpriteLodVisual
+			assert_true(sprite != null, "%s sprite-backed LOD2 node should be present" % racer_id)
+			if sprite != null:
+				assert_equal(sprite.current_frame_for_test(), 0, "Camera in front of %s should select the front sprite frame" % racer_id)
+			controller.update_racer_visual_lod_for_camera(controller.global_transform.origin + Vector3(78, 0, 0))
+			if sprite != null:
+				assert_equal(sprite.current_frame_for_test(), 4, "Camera to the side of %s should update the sprite frame" % racer_id)
+		car.queue_free()
 
 func test_racer_visual_has_procedural_motion() -> void:
 	var car_scene := load("res://scenes/Car.tscn")

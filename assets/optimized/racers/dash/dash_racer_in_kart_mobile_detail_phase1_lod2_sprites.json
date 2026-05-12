@@ -1,0 +1,41 @@
+{
+  "source": "C:\\code\\TeraPixel\\games\\racer\\assets\\optimized\\racers\\dash\\dash_racer_in_kart_mobile_detail_phase1.glb",
+  "lod2_baseline": "C:\\code\\TeraPixel\\games\\racer\\assets\\optimized\\racers\\dash\\dash_racer_in_kart_mobile_detail_phase1_lod2.glb",
+  "sheet": "C:\\code\\TeraPixel\\asset-pipeline\\output\\racer_sprite_lod\\mobile_detail_phase1\\dash\\dash_racer_in_kart_mobile_detail_phase1_lod2_sprites.png",
+  "contact_sheet": "C:\\code\\TeraPixel\\asset-pipeline\\output\\racer_sprite_lod\\mobile_detail_phase1\\dash\\dash_racer_in_kart_mobile_detail_phase1_lod2_contact_sheet.png",
+  "frame_size": 256,
+  "frame_count": 16,
+  "columns": 4,
+  "rows": 4,
+  "atlas_size": [
+    1024,
+    1024
+  ],
+  "yaw_degrees": [
+    0.0,
+    22.5,
+    45.0,
+    67.5,
+    90.0,
+    112.5,
+    135.0,
+    157.5,
+    180.0,
+    202.5,
+    225.0,
+    247.5,
+    270.0,
+    292.5,
+    315.0,
+    337.5
+  ],
+  "source_bytes": 25346144,
+  "lod2_baseline_bytes": 2738132,
+  "sprite_sheet_bytes": 920120,
+  "settings": {
+    "camera": "orthographic race-distance pitch",
+    "transparent": true,
+    "view_transform": "Filmic",
+    "look": "Medium High Contrast"
+  }
+}

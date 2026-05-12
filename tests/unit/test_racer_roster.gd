@@ -73,15 +73,15 @@ func test_mobile_detail_phase1_exposes_staged_lod_paths() -> void:
 		assert_true(ResourceLoader.exists(lod1_path), "%s LOD1 optimized racer GLB should be staged in res://" % racer_id)
 		assert_true(ResourceLoader.exists(lod2_path), "%s LOD2 optimized racer GLB should be staged in res://" % racer_id)
 
-func test_rexx_exposes_sprite_backed_lod2_artifacts() -> void:
-	var sheet_path := RacerRoster.get_racer_lod2_sprite_sheet_path("Rexx", RacerRoster.RACER_ASSET_PROFILE_MOBILE_DETAIL_PHASE1)
-	var manifest_path := RacerRoster.get_racer_lod2_sprite_manifest_path("Rexx", RacerRoster.RACER_ASSET_PROFILE_MOBILE_DETAIL_PHASE1)
-	assert_true(RacerRoster.has_sprite_lod2("Rexx", RacerRoster.RACER_ASSET_PROFILE_MOBILE_DETAIL_PHASE1), "Rexx should opt into the sprite-backed LOD2 prototype")
-	assert_true(sheet_path.ends_with("_mobile_detail_phase1_lod2_sprites.png"), "Rexx sprite LOD2 should use the staged sprite atlas naming")
-	assert_true(manifest_path.ends_with("_mobile_detail_phase1_lod2_sprites.json"), "Rexx sprite LOD2 should use a staged manifest")
-	assert_true(ResourceLoader.exists(sheet_path), "Rexx sprite LOD2 atlas should be staged in res://")
-	assert_true(FileAccess.file_exists(manifest_path), "Rexx sprite LOD2 manifest should be staged in res://")
-	assert_true(not RacerRoster.has_sprite_lod2("Moko", RacerRoster.RACER_ASSET_PROFILE_MOBILE_DETAIL_PHASE1), "The prototype should not opt other racers into sprite LOD2 yet")
+func test_roster_exposes_sprite_backed_lod2_artifacts() -> void:
+	for racer_id in RacerRoster.select_order():
+		var sheet_path := RacerRoster.get_racer_lod2_sprite_sheet_path(racer_id, RacerRoster.RACER_ASSET_PROFILE_MOBILE_DETAIL_PHASE1)
+		var manifest_path := RacerRoster.get_racer_lod2_sprite_manifest_path(racer_id, RacerRoster.RACER_ASSET_PROFILE_MOBILE_DETAIL_PHASE1)
+		assert_true(RacerRoster.has_sprite_lod2(racer_id, RacerRoster.RACER_ASSET_PROFILE_MOBILE_DETAIL_PHASE1), "%s should opt into the sprite-backed LOD2 prototype" % racer_id)
+		assert_true(sheet_path.ends_with("_mobile_detail_phase1_lod2_sprites.png"), "%s sprite LOD2 should use the staged sprite atlas naming" % racer_id)
+		assert_true(manifest_path.ends_with("_mobile_detail_phase1_lod2_sprites.json"), "%s sprite LOD2 should use a staged manifest" % racer_id)
+		assert_true(ResourceLoader.exists(sheet_path), "%s sprite LOD2 atlas should be staged in res://" % racer_id)
+		assert_true(FileAccess.file_exists(manifest_path), "%s sprite LOD2 manifest should be staged in res://" % racer_id)
 
 func test_configured_racer_asset_profile_uses_staged_phase1_glbs() -> void:
 	assert_equal(RacerRoster.get_racer_asset_profile(), RacerRoster.RACER_ASSET_PROFILE_MOBILE_DETAIL_PHASE1, "The project should use the staged optimized racer profile")
