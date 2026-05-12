@@ -42,7 +42,7 @@ func test_kitchen_metadata_matches_server_shape() -> void:
 	assert_equal((metadata.get("sky_top_color", []) as Array).size(), 4, "Metadata should export Kitchen sky top color")
 	assert_equal(str(metadata.get("dressing_scene_path", "")), HOME_YARD_MAP_SCENE, "Metadata should expose the shared home-yard dressing scene")
 	assert_equal(str(metadata.get("preview_dressing_scene_path", "")), HOME_YARD_MAP_SCENE, "Kitchen should export the shared home-yard preview dressing scene")
-	assert_true(float(metadata.get("route_length", 0.0)) >= 440.0, "Metadata should include the compact MVP GridMap loop length")
+	assert_true(float(metadata.get("route_length", 0.0)) >= 240.0, "Metadata should include the room-contained GridMap loop length")
 
 func test_stage_sky_falls_back_without_definition_fields() -> void:
 	var definition := TrackDefinition.new()

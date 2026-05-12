@@ -21,23 +21,34 @@ const GRID_LIBRARY := TrackGridRoadBuilder.DEFAULT_MESH_LIBRARY_PATH
 const ROAD_TEXTURE := "res://assets/gameplay/materials/plastic/glossy_plastic_albedo.png"
 const CELL_SIZE := Vector3(16.0, 4.0, 16.0)
 const ROAD_WIDTH := 16.0
+const ROAD_FLOOR_CLEARANCE := 0.55
 const FLOOR_Y := -1.1
 const OUT_OF_BOUNDS_Y := -28.0
+const PLAN_CONTRACT := {
+	"source": "racer_house_yard_concept_floor_plan.png",
+	"selected_alternative": "Architecture-First",
+	"site_orientation": "front/street south, backyard north",
+	"style_contract": "toy-scale craftsman suburban house with legible porch, garage/service edge, patio-to-yard hinge, upper bedroom/glam inset, and gabled attic/storage volume",
+	"world_scale": "1 floor-plan foot ~= 4 Godot units; RoadGridMap cell is 16 x 16 units",
+	"floor_heights": {"main": 0.0, "upper": 64.0, "attic": 116.0},
+	"route_contract": "Each course declares zone bounds, route bounds, road-surface elevation, and obstacle exclusion before decor placement.",
+}
 
 const BACKYARD_PLAYGROUND_PATH := "res://assets/gameplay/tracks/shared/backyard_optimized/playground_structure_low.glb"
 const BACKYARD_SWING_PATH := "res://assets/gameplay/tracks/shared/backyard_optimized/swing_set_low.glb"
 const BACKYARD_FOSSIL_PATH := "res://assets/gameplay/tracks/shared/backyard_optimized/sandbox_fossil_low.glb"
 const BACKYARD_GARDEN_PATH := "res://assets/gameplay/tracks/shared/backyard_optimized/garden_log_bush_low.glb"
+const TOYBOX_TREE_SWING_PATH := "res://assets/gameplay/tracks/home_yard/props/toybox_tree_swing/stylized_realistic_tree_tire_swing.glb"
 
 const COURSES := [
-	{"id": "kitchen", "display_name": "Kitchen / Sir Clink", "sky": "noon_clear", "placement": Vector3(-125, 0, 10), "floor": 0, "color": Color(0.92, 0.78, 0.55), "texture": "res://assets/gameplay/materials/tile/kitchen_tile_albedo.png"},
-	{"id": "playroom", "display_name": "Playroom / Slammo", "sky": "party_evening", "placement": Vector3(-10, 0, 10), "floor": 0, "color": Color(0.92, 0.70, 0.38), "texture": "res://assets/gameplay/materials/plastic/glossy_plastic_albedo.png"},
-	{"id": "outdoor_playground", "display_name": "Outdoor Playground / Dash", "sky": "clear_afternoon", "placement": Vector3(-85, 0, -120), "floor": 0, "color": Color(0.36, 0.18, 0.08), "texture": "res://assets/gameplay/materials/playground/outdoor_playground_floor_albedo.png", "shader": "res://assets/gameplay/materials/grass/playground_grass.gdshader"},
-	{"id": "garden", "display_name": "Garden / Moko", "sky": "fresh_morning", "placement": Vector3(-155, 0, -235), "floor": 0, "color": Color(0.32, 0.43, 0.24), "texture": "res://assets/gameplay/materials/garden/garden_dirt_mud_albedo.png"},
-	{"id": "sandbox", "display_name": "Sandbox / Rexx", "sky": "hot_afternoon", "placement": Vector3(150, 0, -235), "floor": 0, "color": Color(0.82, 0.66, 0.42), "texture": "res://assets/gameplay/materials/sand/sandbox_sand_albedo.png"},
-	{"id": "bedroom", "display_name": "Bedroom / Tuggs", "sky": "soft_morning", "placement": Vector3(0, 64, 66), "floor": 1, "color": Color(0.55, 0.50, 0.66), "texture": "res://assets/gameplay/materials/fabric/plush_fabric_albedo.png"},
-	{"id": "glam_closet", "display_name": "Glam Closet / Velva", "sky": "night_city_glow", "placement": Vector3(120, 64, 66), "floor": 1, "color": Color(0.74, 0.42, 0.63), "texture": "res://assets/gameplay/materials/glam/glam_mirror_glitter_albedo.png"},
-	{"id": "attic", "display_name": "Attic Mayhem", "sky": "stormy_moonlight_night", "placement": Vector3(60, 116, 18), "floor": 2, "color": Color(0.45, 0.35, 0.25), "texture": "res://assets/gameplay/materials/attic/attic_cardboard_wood_albedo.png"},
+	{"id": "kitchen", "display_name": "Kitchen / Sir Clink", "sky": "noon_clear", "placement": Vector3(-150, 0.60, -38), "floor": 0, "color": Color(0.92, 0.78, 0.55), "texture": "res://assets/gameplay/materials/tile/kitchen_tile_albedo.png"},
+	{"id": "playroom", "display_name": "Playroom / Slammo", "sky": "party_evening", "placement": Vector3(-32, 0.60, -38), "floor": 0, "color": Color(0.92, 0.70, 0.38), "texture": "res://assets/gameplay/materials/plastic/glossy_plastic_albedo.png"},
+	{"id": "outdoor_playground", "display_name": "Outdoor Playground / Dash", "sky": "clear_afternoon", "placement": Vector3(-45, 0.90, -176), "floor": 0, "color": Color(0.36, 0.18, 0.08), "texture": "res://assets/gameplay/materials/playground/outdoor_playground_floor_albedo.png", "shader": "res://assets/gameplay/materials/grass/playground_grass.gdshader"},
+	{"id": "garden", "display_name": "Garden / Moko", "sky": "fresh_morning", "placement": Vector3(-164, 0.90, -270), "floor": 0, "color": Color(0.32, 0.43, 0.24), "texture": "res://assets/gameplay/materials/garden/garden_dirt_mud_albedo.png"},
+	{"id": "sandbox", "display_name": "Sandbox / Rexx", "sky": "hot_afternoon", "placement": Vector3(156, 0.90, -270), "floor": 0, "color": Color(0.82, 0.66, 0.42), "texture": "res://assets/gameplay/materials/sand/sandbox_sand_albedo.png"},
+	{"id": "bedroom", "display_name": "Bedroom / Tuggs", "sky": "soft_morning", "placement": Vector3(0, 65.20, 66), "floor": 1, "color": Color(0.55, 0.50, 0.66), "texture": "res://assets/gameplay/materials/fabric/plush_fabric_albedo.png"},
+	{"id": "glam_closet", "display_name": "Glam Closet / Velva", "sky": "night_city_glow", "placement": Vector3(122, 65.20, 66), "floor": 1, "color": Color(0.74, 0.42, 0.63), "texture": "res://assets/gameplay/materials/glam/glam_mirror_glitter_albedo.png"},
+	{"id": "attic", "display_name": "Attic Mayhem", "sky": "stormy_moonlight_night", "placement": Vector3(60, 117.20, 18), "floor": 2, "color": Color(0.45, 0.35, 0.25), "texture": "res://assets/gameplay/materials/attic/attic_cardboard_wood_albedo.png"},
 ]
 
 const MAIN_ZONE_RECTS := [
@@ -71,18 +82,27 @@ func _initialize() -> void:
 func _save_map_scene() -> void:
 	var root := Node3D.new()
 	root.name = "HomeYardMap"
+	root.set_meta("floor_plan_contract", PLAN_CONTRACT)
+	root.set_meta("route_envelopes", _all_route_envelopes())
+	root.set_meta("clearance_conflicts", [])
 	var holders := {}
-	for holder_name in ["Site", "MainFloor", "UpperFloor", "Attic", "Yard", "VerticalConnectors", "CourseRoutes", "ValidationCameras", "ConceptReference"]:
+	for holder_name in ["Site", "Foundation", "ExteriorShell", "Roof", "Openings", "PorchesDecks", "GarageService", "MainFloor", "UpperFloor", "Attic", "Yard", "VerticalConnectors", "CourseRoutes", "Collision", "ValidationCameras", "ConceptReference"]:
 		var holder := Node3D.new()
 		holder.name = holder_name
 		root.add_child(holder)
 		holders[holder_name] = holder
 
 	_add_site_base(root, holders)
+	_add_foundation(root, holders["Foundation"])
 	_add_floor_plan_zones(root, holders)
 	_add_main_floor_shell(root, holders["MainFloor"])
 	_add_upper_floor(root, holders["UpperFloor"])
 	_add_attic(root, holders["Attic"])
+	_add_exterior_architecture(root, holders["ExteriorShell"])
+	_add_opening_assemblies(root, holders["Openings"])
+	_add_porch_deck_system(root, holders["PorchesDecks"])
+	_add_garage_service_system(root, holders["GarageService"])
+	_add_roof_system(root, holders["Roof"])
 	_add_vertical_connectors(root, holders["VerticalConnectors"])
 	_add_decor(root, holders)
 	_add_course_route_markers(root, holders["CourseRoutes"])
@@ -273,21 +293,42 @@ func _add_site_base(root: Node3D, holders: Dictionary) -> void:
 	var site := holders["Site"] as Node3D
 	_add_box(root, site, "WholeSiteGround", Vector3(0, -1.15, -85), Vector3(520, 1, 610), Color(0.36, 0.48, 0.30), true)
 	_add_box(root, site, "StreetFrontYardEdge", Vector3(0, -0.65, 190), Vector3(520, 1, 34), Color(0.20, 0.22, 0.22), true)
+	_add_box(root, site, "ConcreteStreetCurb", Vector3(0, 0.1, 170), Vector3(520, 2.2, 4), Color(0.66, 0.66, 0.60), false)
+	_add_box(root, site, "PublicSidewalk", Vector3(0, -0.30, 158), Vector3(480, 1.0, 10), Color(0.62, 0.62, 0.57), true)
 	_add_box(root, site, "FrontWalkArrivalGarden", Vector3(-50, -0.55, 142), Vector3(170, 1, 18), Color(0.74, 0.74, 0.66), true)
 	_add_box(root, site, "FrontEntryWalk", Vector3(-50, -0.45, 114), Vector3(28, 1.1, 72), Color(0.68, 0.66, 0.60), true)
+	_add_box(root, site, "FrontWalkSteppingStoneA", Vector3(-50, 0.05, 132), Vector3(20, 0.4, 8), Color(0.52, 0.52, 0.48), false)
+	_add_box(root, site, "FrontWalkSteppingStoneB", Vector3(-50, 0.05, 106), Vector3(20, 0.4, 8), Color(0.54, 0.54, 0.49), false)
 	_add_box(root, site, "Driveway", Vector3(158, -0.45, 118), Vector3(112, 1.1, 126), Color(0.46, 0.46, 0.43), true)
 	_add_box(root, site, "DrivewayExpansionJointA", Vector3(158, 0.2, 92), Vector3(112, 0.14, 1.2), Color(0.27, 0.27, 0.25), false)
 	_add_box(root, site, "DrivewayExpansionJointB", Vector3(158, 0.2, 142), Vector3(112, 0.14, 1.2), Color(0.27, 0.27, 0.25), false)
 	_add_box(root, site, "FrontFoundationPlantingLeft", Vector3(-130, -0.35, 103), Vector3(120, 1.2, 14), Color(0.22, 0.42, 0.18), true)
 	_add_box(root, site, "FrontFoundationPlantingRight", Vector3(28, -0.35, 103), Vector3(72, 1.2, 14), Color(0.24, 0.44, 0.20), true)
+	_add_box(root, site, "MailboxPost", Vector3(104, 6, 154), Vector3(4, 12, 4), Color(0.20, 0.12, 0.08), false)
+	_add_box(root, site, "MailboxBox", Vector3(104, 14, 151), Vector3(14, 8, 8), Color(0.25, 0.27, 0.29), false)
+	_add_box(root, site, "ServiceTrashBinA", Vector3(222, 8, 46), Vector3(12, 16, 14), Color(0.12, 0.22, 0.18), false)
+	_add_box(root, site, "ServiceTrashBinB", Vector3(238, 8, 46), Vector3(12, 16, 14), Color(0.10, 0.16, 0.22), false)
 	_add_box(root, site, "NorthBackFence", Vector3(0, 12, -374), Vector3(500, 24, 7), Color(0.28, 0.20, 0.13), true)
 	_add_box(root, site, "SouthFrontFence", Vector3(0, 12, 206), Vector3(500, 24, 7), Color(0.28, 0.20, 0.13), true)
 	_add_box(root, site, "WestSideFence", Vector3(-250, 12, -84), Vector3(7, 24, 580), Color(0.28, 0.20, 0.13), true)
 	_add_box(root, site, "EastSideFence", Vector3(250, 12, -84), Vector3(7, 24, 580), Color(0.28, 0.20, 0.13), true)
+	for i in range(7):
+		var x := -210.0 + float(i) * 42.0
+		_add_box(root, site, "FrontShrubMass%02d" % i, Vector3(x, 2.2, 130 + float(i % 2) * 5.0), Vector3(20, 5, 12), Color(0.18, 0.38, 0.18).lightened(float(i % 3) * 0.04), false)
 
 func _add_floor_plan_zones(root: Node3D, holders: Dictionary) -> void:
 	var yard := holders["Yard"] as Node3D
 	_add_yard_plan(root, yard)
+
+func _add_foundation(root: Node3D, parent: Node3D) -> void:
+	parent.set_meta("plan_role", "foundation/plinth and grade contact from floor-plan contract")
+	var stone := Color(0.42, 0.39, 0.34)
+	_add_box(root, parent, "HouseContinuousFoundationPlinth", Vector3(0, 2.8, 10), Vector3(448, 7, 214), stone, false)
+	_add_box(root, parent, "GarageSlabApron", Vector3(154, 0.6, 124), Vector3(116, 2.0, 36), Color(0.52, 0.51, 0.47), true)
+	_add_box(root, parent, "FrontPorchPierLeft", Vector3(-96, 5, 130), Vector3(14, 10, 14), stone.darkened(0.04), false)
+	_add_box(root, parent, "FrontPorchPierRight", Vector3(-2, 5, 130), Vector3(14, 10, 14), stone.darkened(0.04), false)
+	_add_box(root, parent, "BackDeckPierWest", Vector3(-104, 5, -114), Vector3(10, 10, 10), stone.darkened(0.08), false)
+	_add_box(root, parent, "BackDeckPierEast", Vector3(20, 5, -114), Vector3(10, 10, 10), stone.darkened(0.08), false)
 
 func _add_main_floor_shell(root: Node3D, parent: Node3D) -> void:
 	var wall := Color(0.64, 0.58, 0.50)
@@ -326,7 +367,6 @@ func _add_main_floor_shell(root: Node3D, parent: Node3D) -> void:
 	_add_window(root, parent, "KitchenGardenWindow", Vector3(-214.5, 22, -30), Vector3(1.0, 22, 46))
 	_add_box(root, parent, "GarageDoorPanel", Vector3(154, 14, 108), Vector3(86, 28, 2.0), Color(0.32, 0.30, 0.27), false)
 	_add_box(root, parent, "MainCeilingPlane", Vector3(0, 44.5, 10), Vector3(430, 3, 200), Color(0.76, 0.72, 0.64), false)
-	_add_box(root, parent, "RoofMassPlaceholder", Vector3(0, 52, 10), Vector3(448, 12, 214), Color(0.30, 0.24, 0.19), false)
 	_add_box(root, parent, "FrontEaveFascia", Vector3(0, 47, 118), Vector3(450, 8, 8), trim, false)
 	_add_box(root, parent, "BackEaveFascia", Vector3(0, 47, -98), Vector3(450, 8, 8), trim, false)
 	_add_box(root, parent, "WestEaveFascia", Vector3(-224, 47, 10), Vector3(8, 8, 214), trim, false)
@@ -356,17 +396,111 @@ func _add_upper_floor(root: Node3D, parent: Node3D) -> void:
 	_add_box(root, parent, "UpperCeilingPlane", Vector3(62, 112, 66), Vector3(258, 3, 120), Color(0.68, 0.62, 0.68), false)
 
 func _add_attic(root: Node3D, parent: Node3D) -> void:
+	parent.set_meta("plan_role", "attic/storage under measured upper gable roof")
 	_add_room_floor(root, parent, "AtticDeck", Vector3(60, 115, 18), Vector3(230, 2, 104), Color(0.45, 0.33, 0.22))
 	_add_room_floor(root, parent, "AtticStorageZone", Vector3(60, 116, 18), Vector3(202, 1.2, 80), Color(0.48, 0.36, 0.24))
-	_add_wall_z(root, parent, "AtticBackWall", -36, -56, 176, Color(0.34, 0.27, 0.21), true, 116, 42)
-	_add_wall_z(root, parent, "AtticFrontWall", 72, -56, 176, Color(0.34, 0.27, 0.21), true, 116, 42)
-	_add_wall_x(root, parent, "AtticLeftGableWall", -56, -36, 72, Color(0.30, 0.24, 0.19), true, 116, 42)
-	_add_wall_x(root, parent, "AtticRightGableWall", 176, -36, 72, Color(0.30, 0.24, 0.19), true, 116, 42)
-	_add_box(root, parent, "AtticRoofPlaneLeft", Vector3(0, 151, 18), Vector3(124, 5, 112), Color(0.25, 0.20, 0.17), false, 0)
-	_add_box(root, parent, "AtticRoofPlaneRight", Vector3(120, 151, 18), Vector3(124, 5, 112), Color(0.25, 0.20, 0.17), false, 0)
-	_add_box(root, parent, "AtticRoofRidge", Vector3(60, 163, 18), Vector3(236, 7, 12), Color(0.20, 0.16, 0.14), false)
+	_add_wall_x(root, parent, "AtticWestKneeWall", -56, -36, 72, Color(0.34, 0.27, 0.21), true, 116, 18)
+	_add_wall_x(root, parent, "AtticEastKneeWall", 176, -36, 72, Color(0.34, 0.27, 0.21), true, 116, 18)
+	_add_gable_wall_z(root, parent, "AtticFrontTriangularGableWall", 72, -56, 176, 116, 134, 166, Color(0.30, 0.24, 0.19))
+	_add_gable_wall_z(root, parent, "AtticBackTriangularGableWall", -36, -56, 176, 116, 134, 166, Color(0.30, 0.24, 0.19))
+	_add_box(root, parent, "AtticRafterLeftA", Vector3(-4, 143, 18), Vector3(3, 5, 110), Color(0.20, 0.14, 0.10), false, 0, Vector3(0, 0, -17))
+	_add_box(root, parent, "AtticRafterRightA", Vector3(124, 143, 18), Vector3(3, 5, 110), Color(0.20, 0.14, 0.10), false, 0, Vector3(0, 0, 17))
+	_add_box(root, parent, "AtticRidgeBeamInterior", Vector3(60, 164, 18), Vector3(232, 5, 6), Color(0.18, 0.12, 0.08), false)
 	_add_box(root, parent, "AtticTrunkStack", Vector3(18, 122, 48), Vector3(44, 12, 18), Color(0.30, 0.18, 0.10), false)
 	_add_box(root, parent, "AtticBoxWall", Vector3(116, 123, -18), Vector3(62, 14, 20), Color(0.58, 0.42, 0.24), false)
+
+func _add_exterior_architecture(root: Node3D, parent: Node3D) -> void:
+	parent.set_meta("style_contract", "toy-scale craftsman suburban house: low porch, visible foundation, gabled roof hierarchy, warm siding, cream trim, practical garage and service side")
+	var siding := Color(0.55, 0.48, 0.39)
+	var siding_shadow := Color(0.43, 0.37, 0.31)
+	var trim := Color(0.88, 0.82, 0.67)
+	var stone := Color(0.42, 0.39, 0.34)
+	_add_box(root, parent, "ContinuousStoneFoundationPlinth", Vector3(0, 3.0, 9), Vector3(448, 6, 212), stone, false)
+	for column in [{"name": "Left", "x": -88.0}, {"name": "Right", "x": -8.0}]:
+		var column_x := float(column["x"])
+		var column_name := str(column["name"])
+		_add_box(root, parent, "FrontPorchTaperedColumn%sBase" % column_name, Vector3(column_x, 8, 123), Vector3(10, 16, 10), stone, false)
+		_add_box(root, parent, "FrontPorchTaperedColumn%sShaft" % column_name, Vector3(column_x, 26, 123), Vector3(6, 30, 6), trim, false)
+	_add_box(root, parent, "FrontPorchBeam", Vector3(-48, 42, 123), Vector3(106, 8, 10), trim.darkened(0.08), false)
+	_add_box(root, parent, "FrontPorchRailLeft", Vector3(-98, 15, 126), Vector3(4, 18, 28), trim, false)
+	_add_box(root, parent, "FrontPorchRailRight", Vector3(2, 15, 126), Vector3(4, 18, 28), trim, false)
+	_add_box(root, parent, "FrontDoorDeepJambLeft", Vector3(-69, 18, 110), Vector3(5, 34, 8), trim, false)
+	_add_box(root, parent, "FrontDoorDeepJambRight", Vector3(-27, 18, 110), Vector3(5, 34, 8), trim, false)
+	_add_box(root, parent, "FrontDoorLintelHeader", Vector3(-48, 36, 110), Vector3(48, 6, 8), trim, false)
+	_add_box(root, parent, "FrontGableSidingField", Vector3(-48, 57, 112), Vector3(112, 24, 6), siding, false)
+	_add_box(root, parent, "GarageFrontSidingField", Vector3(154, 36, 112), Vector3(126, 58, 6), siding_shadow, false)
+	_add_box(root, parent, "GarageDoorTrimHeader", Vector3(154, 31, 112), Vector3(96, 6, 8), trim, false)
+	_add_box(root, parent, "GarageDoorTrimLeft", Vector3(108, 16, 112), Vector3(5, 30, 8), trim, false)
+	_add_box(root, parent, "GarageDoorTrimRight", Vector3(200, 16, 112), Vector3(5, 30, 8), trim, false)
+	for i in range(4):
+		_add_box(root, parent, "GarageDoorHorizontalPanel%02d" % i, Vector3(154, 7 + i * 6, 113.4), Vector3(78, 1.2, 1), Color(0.18, 0.17, 0.15), false)
+	_add_window(root, parent, "UpperFrontBedroomWindow", Vector3(2, 88, 127), Vector3(38, 22, 1.0))
+	_add_window(root, parent, "UpperFrontGlamWindow", Vector3(132, 88, 127), Vector3(40, 22, 1.0))
+	_add_box(root, parent, "FrontGutterRun", Vector3(0, 47, 124), Vector3(452, 3, 4), Color(0.12, 0.12, 0.11), false)
+	_add_box(root, parent, "BackGutterRun", Vector3(0, 47, -104), Vector3(452, 3, 4), Color(0.12, 0.12, 0.11), false)
+	_add_box(root, parent, "ChimneyMasonryStack", Vector3(-168, 78, -12), Vector3(20, 52, 18), Color(0.35, 0.20, 0.15), false)
+	_add_box(root, parent, "ChimneyCap", Vector3(-168, 106, -12), Vector3(26, 6, 24), Color(0.16, 0.13, 0.12), false)
+	_add_box(root, parent, "ServiceElectricMeter", Vector3(218, 22, 22), Vector3(1.2, 14, 10), Color(0.14, 0.16, 0.16), false)
+	_add_box(root, parent, "ServiceUtilityPanel", Vector3(218, 16, -10), Vector3(1.2, 18, 14), Color(0.22, 0.24, 0.23), false)
+
+func _add_opening_assemblies(root: Node3D, parent: Node3D) -> void:
+	parent.set_meta("plan_role", "door/window/threshold schedule from floor-plan contract")
+	var trim := Color(0.88, 0.82, 0.67)
+	_add_box(root, parent, "FrontEntryThresholdStone", Vector3(-48, 2, 112), Vector3(48, 4, 10), Color(0.46, 0.43, 0.37), false)
+	_add_box(root, parent, "FrontEntrySidelightLeft", Vector3(-74, 20, 110), Vector3(8, 24, 2), Color(0.50, 0.75, 0.88, 0.55), false)
+	_add_box(root, parent, "FrontEntrySidelightRight", Vector3(-22, 20, 110), Vector3(8, 24, 2), Color(0.50, 0.75, 0.88, 0.55), false)
+	_add_box(root, parent, "KitchenPatioDoorFrame", Vector3(-48, 20, -91), Vector3(62, 40, 5), trim, false)
+	_add_box(root, parent, "KitchenPatioDoorGlass", Vector3(-48, 20, -94), Vector3(48, 30, 1.2), Color(0.48, 0.72, 0.86, 0.45), false)
+	_add_box(root, parent, "PlayroomPatioDoorFrame", Vector3(22, 20, -91), Vector3(48, 40, 5), trim, false)
+	_add_box(root, parent, "PlayroomPatioDoorGlass", Vector3(22, 20, -94), Vector3(34, 30, 1.2), Color(0.48, 0.72, 0.86, 0.45), false)
+	_add_box(root, parent, "GarageHouseServiceDoor", Vector3(62, 14, 54), Vector3(4, 28, 20), Color(0.22, 0.16, 0.10), false)
+	_add_box(root, parent, "AtticAccessHatchFrame", Vector3(94, 118, -16), Vector3(52, 5, 30), trim.darkened(0.20), false)
+
+func _add_porch_deck_system(root: Node3D, parent: Node3D) -> void:
+	parent.set_meta("plan_role", "front porch and backyard deck threshold system")
+	_add_box(root, parent, "FrontPorchDeck", Vector3(-48, 1.2, 124), Vector3(100, 3.0, 30), Color(0.44, 0.35, 0.26), true)
+	_add_box(root, parent, "FrontPorchStepLower", Vector3(-48, 0.2, 146), Vector3(112, 1.5, 12), Color(0.50, 0.45, 0.38), true)
+	_add_box(root, parent, "FrontPorchStepUpper", Vector3(-48, 1.8, 137), Vector3(98, 1.8, 10), Color(0.56, 0.50, 0.42), true)
+	_add_box(root, parent, "BackDeckLanding", Vector3(-42, 1.5, -104), Vector3(126, 3, 22), Color(0.46, 0.35, 0.24), true)
+	_add_box(root, parent, "BackDeckStairRun", Vector3(-42, 0.4, -126), Vector3(94, 1.6, 20), Color(0.54, 0.43, 0.30), true)
+	for i in range(5):
+		_add_box(root, parent, "BackDeckBoard%02d" % i, Vector3(-94 + i * 26, 3.2, -104), Vector3(2, 1, 22), Color(0.28, 0.20, 0.14), false)
+
+func _add_garage_service_system(root: Node3D, parent: Node3D) -> void:
+	parent.set_meta("plan_role", "garage/service zone connected to driveway and house")
+	_add_box(root, parent, "GarageToolBench", Vector3(196, 8, -22), Vector3(28, 16, 14), Color(0.28, 0.20, 0.13), false)
+	_add_box(root, parent, "GarageStorageShelves", Vector3(104, 12, -54), Vector3(42, 24, 12), Color(0.24, 0.22, 0.20), false)
+	_add_box(root, parent, "GarageWaterHeater", Vector3(198, 16, 34), Vector3(16, 32, 16), Color(0.38, 0.42, 0.44), false)
+	_add_box(root, parent, "ServiceHvacPad", Vector3(232, 1, 8), Vector3(26, 2, 26), Color(0.44, 0.44, 0.40), false)
+	_add_box(root, parent, "ServiceHvacUnit", Vector3(232, 12, 8), Vector3(22, 22, 22), Color(0.24, 0.28, 0.28), false)
+
+func _add_roof_system(root: Node3D, parent: Node3D) -> void:
+	parent.set_meta("plan_role", "measured roof/attic companion plan")
+	parent.set_meta("roof_contract", {
+		"main_lower": {"span_axis": "x", "eave_y": 50.0, "ridge_y": 84.0, "ridge_x": -12.0, "overhang": 12.0},
+		"upper_attic": {"span_axis": "x", "eave_y": 134.0, "ridge_y": 166.0, "ridge_x": 60.0, "overhang": 12.0},
+		"garage_cross_gable": {"span_axis": "z", "eave_y": 50.0, "ridge_y": 78.0, "ridge_z": 70.0, "overhang": 10.0},
+	})
+	var roof := Color(0.23, 0.18, 0.15)
+	var shadow := Color(0.16, 0.13, 0.12)
+	_add_roof_plane_x(root, parent, "MainRoofLeftPlane", -236, -12, -116, 138, 50, 84, roof)
+	_add_roof_plane_x(root, parent, "MainRoofRightPlane", -12, 236, -116, 138, 84, 50, roof)
+	_add_box(root, parent, "MainRoofRidgeCap", Vector3(-12, 85, 11), Vector3(12, 6, 258), shadow, false, 90)
+	_add_gable_wall_z(root, parent, "MainFrontGableWall", 126, -224, 200, 44, 50, 84, Color(0.48, 0.41, 0.34))
+	_add_gable_wall_z(root, parent, "MainBackGableWall", -104, -224, 200, 44, 50, 84, Color(0.48, 0.41, 0.34))
+	_add_roof_plane_z(root, parent, "GarageCrossGableFrontPlane", 92, 138, 102, 214, 50, 78, roof)
+	_add_roof_plane_z(root, parent, "GarageCrossGableBackPlane", 2, 92, 102, 214, 78, 50, roof)
+	_add_box(root, parent, "GarageCrossGableRidge", Vector3(158, 79, 92), Vector3(116, 5, 8), shadow, false)
+	_add_roof_plane_z(root, parent, "FrontPorchGableFrontPlane", 130, 158, -100, 4, 48, 64, roof)
+	_add_roof_plane_z(root, parent, "FrontPorchGableBackPlane", 102, 130, -100, 4, 64, 48, roof)
+	_add_box(root, parent, "FrontPorchGableRidge", Vector3(-48, 65, 130), Vector3(108, 5, 6), shadow, false)
+	_add_roof_plane_x(root, parent, "UpperAtticRoofLeftPlane", -72, 60, 0, 136, 134, 166, roof.darkened(0.03))
+	_add_roof_plane_x(root, parent, "UpperAtticRoofRightPlane", 60, 196, 0, 136, 166, 134, roof.darkened(0.03))
+	_add_box(root, parent, "UpperAtticRoofRidgeCap", Vector3(60, 167, 68), Vector3(12, 6, 140), shadow, false, 90)
+	_add_box(root, parent, "UpperRoofFrontFascia", Vector3(62, 135, 136), Vector3(286, 8, 6), shadow, false)
+	_add_box(root, parent, "UpperRoofBackFascia", Vector3(62, 135, 0), Vector3(286, 8, 6), shadow, false)
+	_add_box(root, parent, "MainRoofFrontFascia", Vector3(0, 51, 138), Vector3(476, 8, 6), shadow, false)
+	_add_box(root, parent, "MainRoofBackFascia", Vector3(0, 51, -116), Vector3(476, 8, 6), shadow, false)
 
 func _add_vertical_connectors(root: Node3D, parent: Node3D) -> void:
 	_add_box(root, parent, "MainToUpperToyRamp", Vector3(28, 31, 104), Vector3(24, 4, 130), Color(0.14, 0.36, 0.70), true, -28.0)
@@ -382,21 +516,32 @@ func _add_yard_plan(root: Node3D, parent: Node3D) -> void:
 	_add_box(root, parent, "PatioDeckTransition", Vector3(-36, -0.45, -110), Vector3(350, 1.2, 46), Color(0.48, 0.44, 0.38), true)
 	_add_box(root, parent, "PatioBoardLineA", Vector3(-36, 0.25, -122), Vector3(350, 0.12, 1.0), Color(0.27, 0.23, 0.18), false)
 	_add_box(root, parent, "PatioBoardLineB", Vector3(-36, 0.25, -98), Vector3(350, 0.12, 1.0), Color(0.27, 0.23, 0.18), false)
-	_add_box(root, parent, "OutdoorPlaygroundSetpieceZone", Vector3(-45, -0.45, -176), Vector3(300, 1.2, 74), Color(0.56, 0.42, 0.22), true)
-	_add_box(root, parent, "PlaygroundMulchBorderFront", Vector3(-45, 1.0, -138), Vector3(308, 3, 4), Color(0.22, 0.12, 0.06), false)
-	_add_box(root, parent, "PlaygroundMulchBorderBack", Vector3(-45, 1.0, -214), Vector3(308, 3, 4), Color(0.22, 0.12, 0.06), false)
+	for i in range(6):
+		_add_box(root, parent, "PatioDeckBoardSeam%02d" % i, Vector3(-184 + i * 58, 0.30, -110), Vector3(1.0, 0.16, 44), Color(0.25, 0.21, 0.16), false)
+	_add_box(root, parent, "OutdoorPlaygroundSetpieceZone", Vector3(-45, -0.45, -176), Vector3(300, 1.2, 90), Color(0.56, 0.42, 0.22), true)
+	_add_box(root, parent, "PlaygroundMulchBorderFront", Vector3(-45, 1.0, -130), Vector3(308, 3, 4), Color(0.22, 0.12, 0.06), false)
+	_add_box(root, parent, "PlaygroundMulchBorderBack", Vector3(-45, 1.0, -222), Vector3(308, 3, 4), Color(0.22, 0.12, 0.06), false)
+	_add_box(root, parent, "PlaygroundMulchBorderWest", Vector3(-201, 1.0, -176), Vector3(4, 3, 94), Color(0.22, 0.12, 0.06), false)
+	_add_box(root, parent, "PlaygroundMulchBorderEast", Vector3(111, 1.0, -176), Vector3(4, 3, 94), Color(0.22, 0.12, 0.06), false)
 	_add_box(root, parent, "GardenZone", Vector3(-164, -0.35, -270), Vector3(136, 1.4, 126), Color(0.24, 0.36, 0.18), true)
 	_add_box(root, parent, "GardenRaisedBedA", Vector3(-194, 3, -270), Vector3(46, 6, 88), Color(0.20, 0.12, 0.07), false)
 	_add_box(root, parent, "GardenRaisedBedB", Vector3(-138, 3, -270), Vector3(46, 6, 88), Color(0.20, 0.12, 0.07), false)
+	for i in range(5):
+		_add_box(root, parent, "GardenVegetableRow%02d" % i, Vector3(-194 + (i % 2) * 56, 7, -306 + i * 18), Vector3(34, 5, 6), Color(0.18, 0.44, 0.18).lightened(float(i) * 0.025), false)
 	_add_box(root, parent, "GardenPath", Vector3(-166, 0.05, -270), Vector3(16, 0.5, 116), Color(0.64, 0.56, 0.42), false)
 	_add_box(root, parent, "LawnRouteBuffer", Vector3(4, -0.55, -270), Vector3(190, 1.1, 126), Color(0.48, 0.62, 0.34), true)
-	_add_box(root, parent, "Sandbox", Vector3(156, -0.35, -270), Vector3(112, 1.4, 106), Color(0.82, 0.66, 0.42), true)
-	_add_box(root, parent, "SandboxTimberNorth", Vector3(156, 3, -324), Vector3(120, 6, 6), Color(0.30, 0.18, 0.08), false)
+	_add_box(root, parent, "ToyboxTreeSwingLandingPatch", Vector3(28, -0.30, -286), Vector3(86, 1.2, 70), Color(0.34, 0.56, 0.28), true)
+	for i in range(12):
+		_add_box(root, parent, "MixedGrassHeightClump%02d" % i, Vector3(-70 + i * 14, 1.4 + float(i % 3), -236 - float((i * 11) % 72)), Vector3(5, 3 + float(i % 4), 4), Color(0.22, 0.48, 0.18).lightened(float(i % 3) * 0.05), false)
+	_add_box(root, parent, "Sandbox", Vector3(156, -0.35, -270), Vector3(112, 1.4, 116), Color(0.82, 0.66, 0.42), true)
+	_add_box(root, parent, "SandboxTimberNorth", Vector3(156, 3, -329), Vector3(120, 6, 6), Color(0.30, 0.18, 0.08), false)
 	_add_box(root, parent, "SandboxTimberSouth", Vector3(156, 3, -216), Vector3(120, 6, 6), Color(0.30, 0.18, 0.08), false)
-	_add_box(root, parent, "SandboxTimberWest", Vector3(94, 3, -270), Vector3(6, 6, 112), Color(0.30, 0.18, 0.08), false)
-	_add_box(root, parent, "SandboxTimberEast", Vector3(218, 3, -270), Vector3(6, 6, 112), Color(0.30, 0.18, 0.08), false)
+	_add_box(root, parent, "SandboxTimberWest", Vector3(94, 3, -270), Vector3(6, 6, 122), Color(0.30, 0.18, 0.08), false)
+	_add_box(root, parent, "SandboxTimberEast", Vector3(218, 3, -270), Vector3(6, 6, 122), Color(0.30, 0.18, 0.08), false)
 	_add_box(root, parent, "TreeShrubScreen", Vector3(0, 2, -346), Vector3(430, 6, 18), Color(0.19, 0.36, 0.14), false)
 	_add_box(root, parent, "BackServiceGate", Vector3(218, 9, -346), Vector3(28, 18, 4), Color(0.22, 0.12, 0.06), false)
+	for i in range(8):
+		_add_box(root, parent, "BackFenceShrubMass%02d" % i, Vector3(-190 + i * 54, 5, -334 + float(i % 2) * 8), Vector3(26, 10, 18), Color(0.16, 0.34, 0.14).lightened(float(i % 4) * 0.035), false)
 
 func _add_decor(root: Node3D, holders: Dictionary) -> void:
 	var main := holders["MainFloor"] as Node3D
@@ -404,7 +549,7 @@ func _add_decor(root: Node3D, holders: Dictionary) -> void:
 	var attic := holders["Attic"] as Node3D
 	var yard := holders["Yard"] as Node3D
 	_add_scene(root, yard, BACKYARD_PLAYGROUND_PATH, Vector3(-85, 0, -120), 10, Vector3(10, 10, 10), "PlaygroundStructure")
-	_add_scene(root, yard, BACKYARD_SWING_PATH, Vector3(35, 0, -125), -12, Vector3(9, 9, 9), "SwingSet")
+	_add_scene(root, yard, TOYBOX_TREE_SWING_PATH, Vector3(42, 0, -286), 7, Vector3(15, 15, 15), "ToyboxTreeTireSwing")
 	_add_scene(root, yard, BACKYARD_FOSSIL_PATH, Vector3(150, 0, -235), -18, Vector3(11, 11, 11), "SandboxFossil")
 	_add_scene(root, yard, BACKYARD_GARDEN_PATH, Vector3(-155, 0, -235), 24, Vector3(12, 12, 12), "GardenLogBush")
 	_add_scene(root, main, "res://assets/source/kenney/furniture_kit/kitchenFridge.glb", Vector3(-196, 2.5, 18), 90, Vector3(8, 8, 8), "KitchenFridge")
@@ -420,9 +565,23 @@ func _add_course_route_markers(root: Node3D, parent: Node3D) -> void:
 	for course in COURSES:
 		var route_holder := Node3D.new()
 		route_holder.name = "%sRoutePreview" % str(course["id"]).capitalize().replace("_", "")
+		route_holder.set_meta("route_envelope", _route_envelope_for_course(course))
 		parent.add_child(route_holder)
 		route_holder.owner = root
 		var cells := _route_cells_for_course(str(course["id"]))
+		var envelope := _route_envelope_for_course(course)
+		var route_bounds := envelope["route_world_bounds"] as Dictionary
+		var min_bound := route_bounds["min"] as Vector3
+		var max_bound := route_bounds["max"] as Vector3
+		_add_box(
+			root,
+			route_holder,
+			"RouteContainmentAuditBox",
+			(min_bound + max_bound) * 0.5,
+			Vector3(max_bound.x - min_bound.x, 0.18, max_bound.z - min_bound.z),
+			(course["color"] as Color).lightened(0.38),
+			false
+		)
 		var previous := Vector3.ZERO
 		for i in range(cells.size()):
 			var point := _cell_center(course, cells[i])
@@ -439,6 +598,11 @@ func _add_validation_cameras(root: Node3D, parent: Node3D) -> void:
 	_add_camera(root, parent, "OverheadPlanCamera", Vector3(0, 520, -70), Vector3(-90, 0, 0), 115)
 	_add_camera(root, parent, "FrontArrivalCamera", Vector3(0, 95, 260), Vector3(-24, 0, 0), 70)
 	_add_camera(root, parent, "BackyardCamera", Vector3(-210, 80, -285), Vector3(-18, -38, 0), 72)
+	_add_camera(root, parent, "ExteriorRooflineCamera", Vector3(-260, 118, 210), Vector3(-22, -42, 0), 58)
+	_add_camera(root, parent, "AtticGableProfileCamera", Vector3(242, 146, 70), Vector3(-8, 88, 0), 50)
+	_add_camera(root, parent, "FrontPorchCloseupCamera", Vector3(-118, 34, 168), Vector3(-8, -25, 0), 48)
+	_add_camera(root, parent, "GarageServiceSideCamera", Vector3(286, 50, 88), Vector3(-11, 84, 0), 58)
+	_add_camera(root, parent, "ToyboxTreeSwingCamera", Vector3(-116, 48, -324), Vector3(-7, -63, 0), 54)
 	_add_camera(root, parent, "MainFloorRouteCamera", Vector3(-245, 54, 122), Vector3(-14, -62, 0), 70)
 	_add_camera(root, parent, "UpperFloorRouteCamera", Vector3(-100, 118, 158), Vector3(-20, -42, 0), 70)
 	_add_camera(root, parent, "AtticRouteCamera", Vector3(-45, 166, 92), Vector3(-18, -42, 0), 70)
@@ -464,25 +628,93 @@ func _add_lighting(root: Node3D) -> void:
 	world.environment = env
 	root.add_child(world)
 
+func _all_route_envelopes() -> Dictionary:
+	var envelopes := {}
+	for course in COURSES:
+		envelopes[str(course["id"])] = _route_envelope_for_course(course)
+	return envelopes
+
+func _route_envelope_for_course(course: Dictionary) -> Dictionary:
+	var course_id := str(course["id"])
+	var route_cells := _route_cells_for_course(course_id)
+	var min_cell := Vector3i(999999, 999999, 999999)
+	var max_cell := Vector3i(-999999, -999999, -999999)
+	for cell in route_cells:
+		min_cell.x = mini(min_cell.x, cell.x)
+		min_cell.y = mini(min_cell.y, cell.y)
+		min_cell.z = mini(min_cell.z, cell.z)
+		max_cell.x = maxi(max_cell.x, cell.x)
+		max_cell.y = maxi(max_cell.y, cell.y)
+		max_cell.z = maxi(max_cell.z, cell.z)
+	var origin := _grid_origin(course)
+	var route_min := origin + Vector3(float(min_cell.x) * CELL_SIZE.x, float(min_cell.y) * CELL_SIZE.y, float(min_cell.z) * CELL_SIZE.z)
+	var route_max := origin + Vector3(float(max_cell.x + 1) * CELL_SIZE.x, float(max_cell.y + 1) * CELL_SIZE.y, float(max_cell.z + 1) * CELL_SIZE.z)
+	var zone := _zone_contract_for_course(course_id)
+	var floor_top_y := float(zone["floor_top_y"])
+	return {
+		"course_id": course_id,
+		"zone_id": str(zone["zone_id"]),
+		"zone_center": zone["center"],
+		"zone_size": zone["size"],
+		"zone_world_bounds": _bounds_from_center_size(zone["center"] as Vector3, zone["size"] as Vector3),
+		"cell_size": CELL_SIZE,
+		"route_local_bounds": {"min": min_cell, "max": max_cell},
+		"route_world_bounds": {"min": route_min, "max": route_max},
+		"corridor_width": ROAD_WIDTH,
+		"floor_top_y": floor_top_y,
+		"road_surface_y": float((course["placement"] as Vector3).y),
+		"minimum_clearance_y": ROAD_FLOOR_CLEARANCE,
+		"forbidden_overlap": ["walls", "furniture", "fixtures", "plants", "porch_posts", "service_props", "collision_blockers"],
+		"confidence": "inferred_from_floor_plan_and_route_cell_budget",
+		"gate": "spatial_audit_%s_route_inside_%s" % [course_id, str(zone["zone_id"])],
+	}
+
+func _zone_contract_for_course(course_id: String) -> Dictionary:
+	match course_id:
+		"kitchen":
+			return {"zone_id": "kitchen_pantry", "center": Vector3(-150, 0, -38), "size": Vector3(118, 46, 96), "floor_top_y": 0.05}
+		"playroom":
+			return {"zone_id": "playroom", "center": Vector3(-32, 0, -38), "size": Vector3(118, 46, 96), "floor_top_y": 0.05}
+		"outdoor_playground":
+			return {"zone_id": "outdoor_playground_setpiece_zone", "center": Vector3(-45, 0, -176), "size": Vector3(300, 28, 90), "floor_top_y": 0.15}
+		"garden":
+			return {"zone_id": "garden_zone", "center": Vector3(-164, 0, -270), "size": Vector3(136, 24, 126), "floor_top_y": 0.35}
+		"sandbox":
+			return {"zone_id": "sandbox", "center": Vector3(156, 0, -270), "size": Vector3(112, 24, 116), "floor_top_y": 0.35}
+		"bedroom":
+			return {"zone_id": "bedroom_zone", "center": Vector3(0, 64, 66), "size": Vector3(116, 48, 92), "floor_top_y": 64.60}
+		"glam_closet":
+			return {"zone_id": "glam_closet_zone", "center": Vector3(122, 64, 66), "size": Vector3(112, 48, 92), "floor_top_y": 64.60}
+		"attic":
+			return {"zone_id": "attic_storage_zone", "center": Vector3(60, 116, 18), "size": Vector3(202, 50, 80), "floor_top_y": 116.60}
+	return {"zone_id": course_id, "center": Vector3.ZERO, "size": Vector3.ONE, "floor_top_y": 0.0}
+
+func _bounds_from_center_size(center: Vector3, size: Vector3) -> Dictionary:
+	var half := size * 0.5
+	return {"min": center - half, "max": center + half}
+
 func _route_cells_for_course(course_id: String) -> Array[Vector3i]:
 	match course_id:
 		"kitchen":
-			return _route_from_points([Vector3i(-4, 0, -2), Vector3i(3, 0, -2), Vector3i(3, 0, 2), Vector3i(-2, 0, 2), Vector3i(-2, 0, 4), Vector3i(-5, 0, 4), Vector3i(-5, 0, -1), Vector3i(-4, 0, -1)])
+			return _route_from_points([Vector3i(-2, 0, -2), Vector3i(2, 0, -2), Vector3i(2, 0, 2), Vector3i(-2, 0, 2)])
 		"playroom":
-			return _route_from_points([Vector3i(-4, 0, -2), Vector3i(4, 0, -2), Vector3i(4, 1, 1), Vector3i(1, 1, 1), Vector3i(1, 0, 4), Vector3i(-4, 0, 4), Vector3i(-4, 0, 1), Vector3i(-6, 0, 1), Vector3i(-6, 0, -2)])
+			return _compact_vertical_route()
 		"outdoor_playground":
-			return _route_from_points([Vector3i(-8, 0, -4), Vector3i(7, 0, -4), Vector3i(7, 1, -1), Vector3i(3, 1, -1), Vector3i(3, 0, 4), Vector3i(-7, 0, 4), Vector3i(-7, 0, 0), Vector3i(-9, 0, 0), Vector3i(-9, 0, -4)])
+			return _route_from_points([Vector3i(-6, 0, -2), Vector3i(6, 0, -2), Vector3i(6, 1, 2), Vector3i(-6, 1, 2)])
 		"garden":
-			return _route_from_points([Vector3i(-5, 0, -4), Vector3i(4, 0, -4), Vector3i(4, 1, -1), Vector3i(0, 1, -1), Vector3i(0, 0, 5), Vector3i(-6, 0, 5), Vector3i(-6, 0, 1), Vector3i(-8, 0, 1), Vector3i(-8, 0, -4)])
+			return _route_from_points([Vector3i(-3, 0, -3), Vector3i(3, 0, -3), Vector3i(3, 1, 2), Vector3i(-3, 1, 2)])
 		"sandbox":
-			return _route_from_points([Vector3i(-6, 0, -5), Vector3i(7, 0, -5), Vector3i(7, 1, -2), Vector3i(3, 1, -2), Vector3i(3, 0, 5), Vector3i(-7, 0, 5), Vector3i(-7, 0, 1), Vector3i(-9, 0, 1), Vector3i(-9, 0, -5)])
+			return _route_from_points([Vector3i(-2, 0, -3), Vector3i(3, 0, -3), Vector3i(3, 1, 2), Vector3i(-2, 1, 2)])
 		"bedroom":
-			return _route_from_points([Vector3i(-4, 0, -3), Vector3i(4, 0, -3), Vector3i(4, 1, 0), Vector3i(1, 1, 0), Vector3i(1, 0, 3), Vector3i(-5, 0, 3), Vector3i(-5, 0, -1), Vector3i(-6, 0, -1), Vector3i(-6, 0, -3)])
+			return _compact_vertical_route()
 		"glam_closet":
-			return _route_from_points([Vector3i(-4, 0, -3), Vector3i(5, 0, -3), Vector3i(5, 1, 0), Vector3i(2, 1, 0), Vector3i(2, 0, 3), Vector3i(-4, 0, 3), Vector3i(-4, 0, 1), Vector3i(-6, 0, 1), Vector3i(-6, 0, -3)])
+			return _compact_vertical_route()
 		"attic":
-			return _route_from_points([Vector3i(-6, 0, -3), Vector3i(5, 0, -3), Vector3i(5, 1, 0), Vector3i(1, 1, 0), Vector3i(1, 0, 3), Vector3i(-5, 0, 3), Vector3i(-5, 0, 1), Vector3i(-7, 0, 1), Vector3i(-7, 0, -3)])
+			return _route_from_points([Vector3i(-4, 0, -2), Vector3i(4, 0, -2), Vector3i(4, 1, 2), Vector3i(-4, 1, 2)])
 	return []
+
+func _compact_vertical_route() -> Array[Vector3i]:
+	return _route_from_points([Vector3i(-2, 0, -2), Vector3i(2, 0, -2), Vector3i(2, 1, 2), Vector3i(-2, 1, 2)])
 
 func _grid_layout_for_course(course: Dictionary, route_cells: Array[Vector3i]) -> Dictionary:
 	var cells: Array[Dictionary] = []
@@ -510,6 +742,7 @@ func _grid_layout_for_course(course: Dictionary, route_cells: Array[Vector3i]) -
 		"spawn_slots": _spawn_slot_data(),
 		"item_route_indices": [],
 		"hazard_route_indices": [],
+		"route_envelope": _route_envelope_for_course(course),
 	}
 
 func _route_from_points(points: Array) -> Array[Vector3i]:
@@ -718,6 +951,71 @@ func _orientation_index(basis: Basis) -> int:
 func _basis_to_array(basis: Basis) -> Array:
 	return [[basis.x.x, basis.x.y, basis.x.z], [basis.y.x, basis.y.y, basis.y.z], [basis.z.x, basis.z.y, basis.z.z]]
 
+func _add_roof_plane_x(root: Node3D, parent: Node3D, node_name: String, x0: float, x1: float, z0: float, z1: float, y0: float, y1: float, color: Color) -> MeshInstance3D:
+	var vertices := PackedVector3Array([
+		Vector3(x0, y0, z0),
+		Vector3(x0, y0, z1),
+		Vector3(x1, y1, z1),
+		Vector3(x1, y1, z0),
+	])
+	var mesh := _add_mesh(root, parent, node_name, vertices, PackedInt32Array([0, 1, 2, 0, 2, 3]), color)
+	mesh.set_meta("span_axis", "x")
+	mesh.set_meta("eave_y", minf(y0, y1))
+	mesh.set_meta("ridge_y", maxf(y0, y1))
+	mesh.set_meta("slope_delta_y", absf(y1 - y0))
+	return mesh
+
+func _add_roof_plane_z(root: Node3D, parent: Node3D, node_name: String, z0: float, z1: float, x0: float, x1: float, y0: float, y1: float, color: Color) -> MeshInstance3D:
+	var vertices := PackedVector3Array([
+		Vector3(x0, y0, z0),
+		Vector3(x1, y0, z0),
+		Vector3(x1, y1, z1),
+		Vector3(x0, y1, z1),
+	])
+	var mesh := _add_mesh(root, parent, node_name, vertices, PackedInt32Array([0, 1, 2, 0, 2, 3]), color)
+	mesh.set_meta("span_axis", "z")
+	mesh.set_meta("eave_y", minf(y0, y1))
+	mesh.set_meta("ridge_y", maxf(y0, y1))
+	mesh.set_meta("slope_delta_y", absf(y1 - y0))
+	return mesh
+
+func _add_gable_wall_z(root: Node3D, parent: Node3D, node_name: String, z: float, x0: float, x1: float, base_y: float, eave_y: float, ridge_y: float, color: Color) -> Node3D:
+	var holder := Node3D.new()
+	holder.name = node_name
+	holder.set_meta("gable_axis", "x")
+	holder.set_meta("base_y", base_y)
+	holder.set_meta("eave_y", eave_y)
+	holder.set_meta("ridge_y", ridge_y)
+	parent.add_child(holder)
+	holder.owner = root
+	_add_box(root, holder, "RectangularWallBelowEave", Vector3((x0 + x1) * 0.5, (base_y + eave_y) * 0.5, z), Vector3(absf(x1 - x0), eave_y - base_y, 6), color, false)
+	var vertices := PackedVector3Array([
+		Vector3(x0, eave_y, z),
+		Vector3(x1, eave_y, z),
+		Vector3((x0 + x1) * 0.5, ridge_y, z),
+	])
+	_add_mesh(root, holder, "TriangularGableAboveEave", vertices, PackedInt32Array([0, 1, 2]), color.darkened(0.06))
+	return holder
+
+func _add_mesh(root: Node3D, parent: Node3D, node_name: String, vertices: PackedVector3Array, indices: PackedInt32Array, color: Color) -> MeshInstance3D:
+	var mesh_instance := MeshInstance3D.new()
+	mesh_instance.name = node_name
+	var arrays := []
+	arrays.resize(Mesh.ARRAY_MAX)
+	arrays[Mesh.ARRAY_VERTEX] = vertices
+	arrays[Mesh.ARRAY_INDEX] = indices
+	var mesh := ArrayMesh.new()
+	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+	mesh_instance.mesh = mesh
+	var material := StandardMaterial3D.new()
+	material.albedo_color = color
+	material.roughness = 0.82
+	material.cull_mode = BaseMaterial3D.CULL_DISABLED
+	mesh_instance.material_override = material
+	parent.add_child(mesh_instance)
+	mesh_instance.owner = root
+	return mesh_instance
+
 func _add_room_floor(root: Node3D, parent: Node3D, node_name: String, position: Vector3, size: Vector3, color: Color) -> void:
 	_add_box(root, parent, node_name, position, size, color, true)
 	var trim_color := color.darkened(0.32)
@@ -774,10 +1072,11 @@ func _add_window(root: Node3D, parent: Node3D, node_name: String, position: Vect
 		_add_box(root, parent, "%sLeftJamb" % node_name, position + Vector3(0, 0, -size.z * 0.5 - 2.0), Vector3(3.0, size.y + 4.0, 4.0), trim_color, false)
 		_add_box(root, parent, "%sRightJamb" % node_name, position + Vector3(0, 0, size.z * 0.5 + 2.0), Vector3(3.0, size.y + 4.0, 4.0), trim_color, false)
 
-func _add_box(root: Node3D, parent: Node3D, node_name: String, position: Vector3, size: Vector3, color: Color, collision: bool, yaw_degrees := 0.0) -> MeshInstance3D:
+func _add_box(root: Node3D, parent: Node3D, node_name: String, position: Vector3, size: Vector3, color: Color, collision: bool, yaw_degrees := 0.0, rotation_degrees := Vector3.ZERO) -> MeshInstance3D:
 	var mesh := MeshInstance3D.new()
 	mesh.name = node_name
-	mesh.transform = Transform3D(Basis(Vector3.UP, deg_to_rad(yaw_degrees)), position)
+	var basis := Basis.from_euler(Vector3(deg_to_rad(rotation_degrees.x), deg_to_rad(rotation_degrees.y + yaw_degrees), deg_to_rad(rotation_degrees.z)))
+	mesh.transform = Transform3D(basis, position)
 	var box := BoxMesh.new()
 	box.size = size
 	mesh.mesh = box

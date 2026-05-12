@@ -1,0 +1,26 @@
+{
+  "asset": "stylized_realistic_tree_tire_swing",
+  "provider": "blender_first_text_to_glb",
+  "asset_class": "hero_environment_prop",
+  "triangles_approx": 13800,
+  "materials": 8,
+  "textures": 1,
+  "largest_texture_edge": 1024,
+  "texture_atlas": "C:\\code\\TeraPixel\\generated_assets\\stylized_realistic_tree_tire_swing\\textures\\stylized_realistic_tree_tire_swing_atlas.png",
+  "collision_strategy": "hidden trunk, branch, and tire primitive proxies",
+  "export_format": "glb",
+  "output_glb": "C:\\code\\TeraPixel\\generated_assets\\stylized_realistic_tree_tire_swing\\stylized_realistic_tree_tire_swing.glb",
+  "object_count": 324,
+  "style": "semi-realistic stylized modern game environment inspired by Fortnite, Pixar, and Studio Ghibli environmental assets",
+  "budget": {
+    "triangles_max": 25000,
+    "materials_guideline": "hero prop: 1-5 ideal; simple separated materials used for readable bark, leaves, rope, tire, and grass"
+  },
+  "screenshots": [
+    "C:\\code\\TeraPixel\\generated_assets\\stylized_realistic_tree_tire_swing\\screenshots\\stylized_realistic_tree_tire_swing_front.png",
+    "C:\\code\\TeraPixel\\generated_assets\\stylized_realistic_tree_tire_swing\\screenshots\\stylized_realistic_tree_tire_swing_left.png",
+    "C:\\code\\TeraPixel\\generated_assets\\stylized_realistic_tree_tire_swing\\screenshots\\stylized_realistic_tree_tire_swing_right.png",
+    "C:\\code\\TeraPixel\\generated_assets\\stylized_realistic_tree_tire_swing\\screenshots\\stylized_realistic_tree_tire_swing_top.png",
+    "C:\\code\\TeraPixel\\generated_assets\\stylized_realistic_tree_tire_swing\\screenshots\\stylized_realistic_tree_tire_swing_isometric.png"
+  ]
+}

@@ -188,6 +188,7 @@ func _assert_gridmap_contract(definition: TrackDefinition, track_id: String) -> 
 	if GENERATED_VERTICAL_TRACK_IDS.has(track_id):
 		_assert_generated_route_has_verticality(definition, track_id)
 	assert_equal((definition.road_grid_layout.get("spawn_slots", []) as Array).size(), 8, "%s should export expected RoadGridMap spawn slots" % track_id)
+	_assert_home_yard_route_envelope(definition, track_id)
 	_assert_two_by_four_start_slots(definition.road_grid_layout.get("spawn_slots", []) as Array, track_id)
 	assert_true(_spawn_grid_starts_at_route_origin(definition.spawn_points, definition.route_points), "%s runtime spawns should start at ordered_route_cells[0]" % track_id)
 	assert_equal(definition.sky_preset_id, str(EXPECTED_STAGE_SKY_PRESETS[track_id]), "%s should use its stage sky preset" % track_id)
@@ -227,6 +228,30 @@ func _assert_scene_text_excludes_old_backyard_resources(path: String) -> void:
 	file.close()
 	for marker in OLD_BACKYARD_RESOURCE_MARKERS:
 		assert_true(not text.contains(marker), "%s should not reference old heavy resource %s" % [path, marker])
+
+func _assert_home_yard_route_envelope(definition: TrackDefinition, track_id: String) -> void:
+	var envelope: Variant = definition.road_grid_layout.get("route_envelope", {})
+	assert_true(envelope is Dictionary, "%s should export a numeric route envelope" % track_id)
+	if not (envelope is Dictionary):
+		return
+	var data := envelope as Dictionary
+	assert_equal(str(data.get("course_id", "")), track_id, "%s route envelope should identify the course" % track_id)
+	assert_true(data.get("zone_world_bounds", {}) is Dictionary, "%s route envelope should include zone bounds" % track_id)
+	assert_true(data.get("route_world_bounds", {}) is Dictionary, "%s route envelope should include route bounds" % track_id)
+	var zone_bounds := data.get("zone_world_bounds", {}) as Dictionary
+	var route_bounds := data.get("route_world_bounds", {}) as Dictionary
+	var zone_min := zone_bounds.get("min", Vector3.ZERO) as Vector3
+	var zone_max := zone_bounds.get("max", Vector3.ZERO) as Vector3
+	var route_min := route_bounds.get("min", Vector3.ZERO) as Vector3
+	var route_max := route_bounds.get("max", Vector3.ZERO) as Vector3
+	assert_true(route_min.x >= zone_min.x - 0.01, "%s route should stay inside its assigned zone on min X" % track_id)
+	assert_true(route_max.x <= zone_max.x + 0.01, "%s route should stay inside its assigned zone on max X" % track_id)
+	assert_true(route_min.z >= zone_min.z - 0.01, "%s route should stay inside its assigned zone on min Z" % track_id)
+	assert_true(route_max.z <= zone_max.z + 0.01, "%s route should stay inside its assigned zone on max Z" % track_id)
+	assert_true(float(data.get("road_surface_y", 0.0)) > float(data.get("floor_top_y", 0.0)), "%s road surface should sit above the finished floor/ground" % track_id)
+	assert_true(float(data.get("road_surface_y", 0.0)) - float(data.get("floor_top_y", 0.0)) >= 0.14, "%s road surface should have a visible floor clearance" % track_id)
+	assert_true(float(data.get("corridor_width", 0.0)) >= definition.road_width, "%s route corridor should cover the road width" % track_id)
+	assert_true(data.get("forbidden_overlap", []) is Array and not (data.get("forbidden_overlap", []) as Array).is_empty(), "%s route envelope should declare obstacle exclusions" % track_id)
 
 func _assert_two_by_four_start_slots(slots: Array, track_id: String) -> void:
 	var lateral_offsets: Array[float] = []
@@ -279,11 +304,105 @@ func _assert_indoor_shell_seals(root: Node, track_id: String) -> void:
 		assert_true(shell.get_node_or_null(node_name) != null, "%s RoomShell should include seam/door seal node %s" % [track_id, node_name])
 
 func _assert_home_yard_scene_holders(root: Node, track_id: String) -> void:
-	for holder_name in ["Site", "MainFloor", "UpperFloor", "Attic", "Yard", "VerticalConnectors", "CourseRoutes", "ValidationCameras"]:
+	for holder_name in ["Site", "Foundation", "ExteriorShell", "Roof", "Openings", "PorchesDecks", "GarageService", "MainFloor", "UpperFloor", "Attic", "Yard", "VerticalConnectors", "CourseRoutes", "Collision", "ValidationCameras"]:
 		assert_true(root.get_node_or_null(holder_name) != null, "%s shared home-yard scene should include %s" % [track_id, holder_name])
+	_assert_home_yard_floor_plan_contract(root, track_id)
+	_assert_home_yard_exterior_shell(root, track_id)
+	_assert_home_yard_roof_and_attic_contract(root, track_id)
+	_assert_home_yard_landscape_and_assets(root, track_id)
 	assert_true(root.get_node_or_null("VerticalConnectors/MainToUpperToyRamp") != null, "%s should include a main-to-upper toy ramp" % track_id)
 	assert_true(root.get_node_or_null("VerticalConnectors/UpperToAtticToyRamp") != null, "%s should include an upper-to-attic toy ramp" % track_id)
 	assert_true(root.get_node_or_null("CourseRoutes/%sRoutePreview" % track_id.capitalize()) != null, "%s should include a route preview holder" % track_id)
+	assert_true(root.get_node_or_null("CourseRoutes/%sRoutePreview/RouteContainmentAuditBox" % track_id.capitalize()) != null, "%s should include a route containment audit box" % track_id)
+
+func _assert_home_yard_floor_plan_contract(root: Node, track_id: String) -> void:
+	var contract: Variant = root.get_meta("floor_plan_contract", {})
+	assert_true(contract is Dictionary, "%s shared home-yard scene should include a floor-plan contract" % track_id)
+	if not (contract is Dictionary):
+		return
+	var data := contract as Dictionary
+	assert_equal(str(data.get("selected_alternative", "")), "Architecture-First", "%s should record the selected floor-plan alternative" % track_id)
+	assert_true(str(data.get("site_orientation", "")).contains("front/street"), "%s should record front/street site orientation" % track_id)
+	assert_true(data.get("floor_heights", {}) is Dictionary, "%s should record vertical floor relationships" % track_id)
+	assert_true(str(data.get("route_contract", "")) != "", "%s should record route envelope contract requirements" % track_id)
+	var envelopes: Variant = root.get_meta("route_envelopes", {})
+	assert_true(envelopes is Dictionary and (envelopes as Dictionary).has(track_id), "%s shared home-yard scene should include numeric route envelopes" % track_id)
+	var conflicts: Variant = root.get_meta("clearance_conflicts", [])
+	assert_true(conflicts is Array and (conflicts as Array).is_empty(), "%s shared home-yard scene should export no known clearance conflicts" % track_id)
+
+func _assert_home_yard_exterior_shell(root: Node, track_id: String) -> void:
+	var shell := root.get_node_or_null("ExteriorShell")
+	assert_true(shell != null, "%s should include an exterior shell holder" % track_id)
+	if shell == null:
+		return
+	for node_name in [
+		"ContinuousStoneFoundationPlinth",
+		"FrontPorchTaperedColumnLeftBase",
+		"FrontPorchTaperedColumnRightShaft",
+		"FrontPorchBeam",
+		"FrontDoorDeepJambLeft",
+		"FrontDoorLintelHeader",
+		"FrontGutterRun",
+		"BackGutterRun",
+		"ChimneyMasonryStack",
+		"ServiceElectricMeter",
+	]:
+		assert_true(shell.get_node_or_null(node_name) != null, "%s exterior shell should include architectural assembly node %s" % [track_id, node_name])
+
+func _assert_home_yard_roof_and_attic_contract(root: Node, track_id: String) -> void:
+	var roof := root.get_node_or_null("Roof")
+	assert_true(roof != null, "%s should include a roof holder" % track_id)
+	if roof == null:
+		return
+	for node_name in [
+		"MainRoofLeftPlane",
+		"MainRoofRightPlane",
+		"MainRoofRidgeCap",
+		"MainFrontGableWall",
+		"MainBackGableWall",
+		"GarageCrossGableRidge",
+		"FrontPorchGableRidge",
+		"UpperAtticRoofLeftPlane",
+		"UpperAtticRoofRightPlane",
+		"UpperAtticRoofRidgeCap",
+	]:
+		assert_true(roof.get_node_or_null(node_name) != null, "%s roof system should include measured assembly node %s" % [track_id, node_name])
+	var left_plane := roof.get_node_or_null("UpperAtticRoofLeftPlane")
+	var right_plane := roof.get_node_or_null("UpperAtticRoofRightPlane")
+	for plane in [left_plane, right_plane]:
+		assert_true(plane != null and plane is MeshInstance3D, "%s attic roof plane should be real mesh geometry" % track_id)
+		if plane != null:
+			assert_equal(str(plane.get_meta("span_axis", "")), "x", "%s attic roof plane should slope across the declared span axis" % track_id)
+			assert_true(float(plane.get_meta("slope_delta_y", 0.0)) > 0.0, "%s attic roof plane should have visible rise" % track_id)
+	var attic := root.get_node_or_null("Attic")
+	assert_true(attic != null, "%s should include attic holder" % track_id)
+	if attic != null:
+		assert_true(attic.get_node_or_null("AtticFrontTriangularGableWall") != null, "%s attic should include front triangular gable wall" % track_id)
+		assert_true(attic.get_node_or_null("AtticBackTriangularGableWall") != null, "%s attic should include back triangular gable wall" % track_id)
+	assert_true(root.find_child("RoofMassPlaceholder", true, false) == null, "%s should not keep a visible flat roof placeholder" % track_id)
+
+func _assert_home_yard_landscape_and_assets(root: Node, track_id: String) -> void:
+	for node_path in [
+		"Foundation/HouseContinuousFoundationPlinth",
+		"Openings/KitchenPatioDoorFrame",
+		"PorchesDecks/FrontPorchDeck",
+		"PorchesDecks/BackDeckLanding",
+		"GarageService/GarageToolBench",
+		"Site/ConcreteStreetCurb",
+		"Site/PublicSidewalk",
+		"Site/MailboxBox",
+		"Site/ServiceTrashBinA",
+		"Yard/ToyboxTreeSwingLandingPatch",
+		"Yard/ToyboxTreeTireSwing",
+		"Yard/GardenVegetableRow00",
+		"Yard/MixedGrassHeightClump00",
+		"ValidationCameras/ExteriorRooflineCamera",
+		"ValidationCameras/AtticGableProfileCamera",
+		"ValidationCameras/FrontPorchCloseupCamera",
+		"ValidationCameras/GarageServiceSideCamera",
+		"ValidationCameras/ToyboxTreeSwingCamera",
+	]:
+		assert_true(root.get_node_or_null(node_path) != null, "%s shared home-yard scene should include %s" % [track_id, node_path])
 
 func _assert_closed_grid_route_visual_contract(definition: TrackDefinition, track_id: String) -> void:
 	assert_true(definition.closed_loop, "%s should be authored as a closed loop" % track_id)

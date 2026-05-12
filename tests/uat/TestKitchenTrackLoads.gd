@@ -445,7 +445,7 @@ func test_attic_mayhem_runtime_builds_redesigned_room() -> void:
 		assert_true(shared_track.get_node_or_null("Dressing/StageProps/attic_start_gate") != null, "Runtime attic should include shared route landmarks")
 		assert_true(shared_track.get_node_or_null("StageInteractions/attic_boost_pad") != null, "Runtime attic should build the shared boost interaction")
 		assert_true(shared_track.get_node_or_null("StageInteractions/attic_rumble_zone") != null, "Runtime attic should build the shared rumble interaction")
-		assert_true((built_shared.get("waypoints", []) as Array).size() >= 30, "Runtime attic should keep the full route")
+		assert_equal((built_shared.get("waypoints", []) as Array).size(), definition.route_points.size(), "Runtime attic should keep every resolved RoadGridMap waypoint")
 		assert_true((built_shared.get("spawns", []) as Array).size() >= 8, "Runtime attic should keep a full start grid")
 		shared_track.queue_free()
 		return
@@ -471,7 +471,7 @@ func test_attic_mayhem_runtime_builds_redesigned_room() -> void:
 	assert_true(track_node.get_node_or_null("StageInteractions/MarbleTrapRelease") != null, "Runtime attic should build the marble trap interaction")
 	assert_true(track_node.get_node_or_null("Dressing/EditableRoom/RoadGridMap") != null, "Runtime attic should include the source RoadGridMap in dressing")
 	assert_true(track_node.get_node_or_null("AudioZones/attic_window_wind_zone") != null, "Runtime attic should build the window wind audio zone")
-	assert_true((built.get("waypoints", []) as Array).size() >= 30, "Runtime attic should keep the full route")
+	assert_equal((built.get("waypoints", []) as Array).size(), definition.route_points.size(), "Runtime attic should keep every resolved RoadGridMap waypoint")
 	assert_true((built.get("spawns", []) as Array).size() >= 8, "Runtime attic should keep a full start grid")
 	assert_true(_enabled_collision_objects(track_node.get_node_or_null("Dressing/EditableRoom")) == 0, "Runtime editable attic dressing should not collide with racers")
 	track_node.queue_free()

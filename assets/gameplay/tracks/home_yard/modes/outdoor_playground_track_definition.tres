@@ -26,302 +26,232 @@ road_grid_layout = {
 "basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
 "cell_size": Vector3(16, 4, 16),
 "cells": Array[Dictionary]([{
-"cell": Vector3i(-8, 0, -4),
+"cell": Vector3i(-5, 0, -2),
 "item": 2,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-213, 0, -184)
+"position": Vector3(-125, 0.9, -208)
 }, {
-"cell": Vector3i(-7, 0, -4),
+"cell": Vector3i(-4, 0, -2),
 "item": 0,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-197, 0, -184)
+"position": Vector3(-109, 0.9, -208)
 }, {
-"cell": Vector3i(-6, 0, -4),
+"cell": Vector3i(-3, 0, -2),
 "item": 0,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-181, 0, -184)
+"position": Vector3(-93, 0.9, -208)
 }, {
-"cell": Vector3i(-5, 0, -4),
+"cell": Vector3i(-2, 0, -2),
 "item": 0,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-165, 0, -184)
+"position": Vector3(-77, 0.9, -208)
 }, {
-"cell": Vector3i(-4, 0, -4),
+"cell": Vector3i(-1, 0, -2),
 "item": 0,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-149, 0, -184)
+"position": Vector3(-61, 0.9, -208)
 }, {
-"cell": Vector3i(-3, 0, -4),
+"cell": Vector3i(0, 0, -2),
 "item": 0,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-133, 0, -184)
+"position": Vector3(-45, 0.9, -208)
 }, {
-"cell": Vector3i(-2, 0, -4),
+"cell": Vector3i(1, 0, -2),
 "item": 0,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-117, 0, -184)
+"position": Vector3(-29, 0.9, -208)
 }, {
-"cell": Vector3i(-1, 0, -4),
+"cell": Vector3i(2, 0, -2),
 "item": 0,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-101, 0, -184)
+"position": Vector3(-13, 0.9, -208)
 }, {
-"cell": Vector3i(0, 0, -4),
+"cell": Vector3i(3, 0, -2),
 "item": 0,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-85, 0, -184)
+"position": Vector3(3, 0.9, -208)
 }, {
-"cell": Vector3i(1, 0, -4),
+"cell": Vector3i(4, 0, -2),
 "item": 0,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-69, 0, -184)
+"position": Vector3(19, 0.9, -208)
 }, {
-"cell": Vector3i(2, 0, -4),
+"cell": Vector3i(5, 0, -2),
 "item": 0,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-53, 0, -184)
+"position": Vector3(35, 0.9, -208)
 }, {
-"cell": Vector3i(3, 0, -4),
-"item": 0,
-"orientation": 16,
-"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-37, 0, -184)
-}, {
-"cell": Vector3i(4, 0, -4),
-"item": 0,
-"orientation": 16,
-"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-21, 0, -184)
-}, {
-"cell": Vector3i(5, 0, -4),
-"item": 0,
-"orientation": 16,
-"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-5, 0, -184)
-}, {
-"cell": Vector3i(6, 0, -4),
-"item": 0,
-"orientation": 16,
-"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(11, 0, -184)
-}, {
-"cell": Vector3i(7, 0, -4),
+"cell": Vector3i(6, 0, -2),
 "item": 1,
 "orientation": 22,
 "orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(27, 0, -184)
+"position": Vector3(51, 0.9, -208)
 }, {
-"cell": Vector3i(7, 0, -3),
+"cell": Vector3i(6, 0, -1),
 "item": 5,
 "orientation": 10,
 "orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
-"position": Vector3(27, 0, -168)
+"position": Vector3(51, 0.9, -192)
 }, {
-"cell": Vector3i(7, 1, -2),
+"cell": Vector3i(6, 1, 0),
 "item": 0,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(27, 4, -152)
+"position": Vector3(51, 4.9, -176)
 }, {
-"cell": Vector3i(7, 1, -1),
+"cell": Vector3i(6, 1, 1),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(51, 4.9, -160)
+}, {
+"cell": Vector3i(6, 1, 2),
 "item": 1,
 "orientation": 10,
 "orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
-"position": Vector3(27, 4, -136)
+"position": Vector3(51, 4.9, -144)
 }, {
-"cell": Vector3i(6, 1, -1),
+"cell": Vector3i(5, 1, 2),
 "item": 0,
 "orientation": 22,
 "orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(11, 4, -136)
+"position": Vector3(35, 4.9, -144)
 }, {
-"cell": Vector3i(5, 1, -1),
+"cell": Vector3i(4, 1, 2),
 "item": 0,
 "orientation": 22,
 "orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-5, 4, -136)
+"position": Vector3(19, 4.9, -144)
 }, {
-"cell": Vector3i(4, 1, -1),
+"cell": Vector3i(3, 1, 2),
 "item": 0,
 "orientation": 22,
 "orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-21, 4, -136)
+"position": Vector3(3, 4.9, -144)
 }, {
-"cell": Vector3i(3, 1, -1),
+"cell": Vector3i(2, 1, 2),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-13, 4.9, -144)
+}, {
+"cell": Vector3i(1, 1, 2),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-29, 4.9, -144)
+}, {
+"cell": Vector3i(0, 1, 2),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-45, 4.9, -144)
+}, {
+"cell": Vector3i(-1, 1, 2),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-61, 4.9, -144)
+}, {
+"cell": Vector3i(-2, 1, 2),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-77, 4.9, -144)
+}, {
+"cell": Vector3i(-3, 1, 2),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-93, 4.9, -144)
+}, {
+"cell": Vector3i(-4, 1, 2),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-109, 4.9, -144)
+}, {
+"cell": Vector3i(-5, 1, 2),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-125, 4.9, -144)
+}, {
+"cell": Vector3i(-6, 1, 2),
 "item": 1,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-37, 4, -136)
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-141, 4.9, -144)
 }, {
-"cell": Vector3i(3, 1, 0),
+"cell": Vector3i(-6, 1, 1),
 "item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-37, 4, -120)
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(-141, 4.9, -160)
 }, {
-"cell": Vector3i(3, 0, 1),
+"cell": Vector3i(-6, 0, 0),
 "item": 5,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-37, 0, -104)
-}, {
-"cell": Vector3i(3, 0, 2),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-37, 0, -88)
-}, {
-"cell": Vector3i(3, 0, 3),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-37, 0, -72)
-}, {
-"cell": Vector3i(3, 0, 4),
-"item": 1,
 "orientation": 10,
 "orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
-"position": Vector3(-37, 0, -56)
+"position": Vector3(-141, 0.9, -176)
 }, {
-"cell": Vector3i(2, 0, 4),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-53, 0, -56)
-}, {
-"cell": Vector3i(1, 0, 4),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-69, 0, -56)
-}, {
-"cell": Vector3i(0, 0, 4),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-85, 0, -56)
-}, {
-"cell": Vector3i(-1, 0, 4),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-101, 0, -56)
-}, {
-"cell": Vector3i(-2, 0, 4),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-117, 0, -56)
-}, {
-"cell": Vector3i(-3, 0, 4),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-133, 0, -56)
-}, {
-"cell": Vector3i(-4, 0, 4),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-149, 0, -56)
-}, {
-"cell": Vector3i(-5, 0, 4),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-165, 0, -56)
-}, {
-"cell": Vector3i(-6, 0, 4),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-181, 0, -56)
-}, {
-"cell": Vector3i(-7, 0, 4),
-"item": 1,
-"orientation": 16,
-"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-197, 0, -56)
-}, {
-"cell": Vector3i(-7, 0, 3),
+"cell": Vector3i(-6, 0, -1),
 "item": 0,
 "orientation": 10,
 "orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
-"position": Vector3(-197, 0, -72)
+"position": Vector3(-141, 0.9, -192)
 }, {
-"cell": Vector3i(-7, 0, 2),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
-"position": Vector3(-197, 0, -88)
-}, {
-"cell": Vector3i(-7, 0, 1),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
-"position": Vector3(-197, 0, -104)
-}, {
-"cell": Vector3i(-7, 0, 0),
-"item": 1,
-"orientation": 22,
-"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-197, 0, -120)
-}, {
-"cell": Vector3i(-8, 0, 0),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-213, 0, -120)
-}, {
-"cell": Vector3i(-9, 0, 0),
-"item": 1,
-"orientation": 16,
-"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-229, 0, -120)
-}, {
-"cell": Vector3i(-9, 0, -1),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
-"position": Vector3(-229, 0, -136)
-}, {
-"cell": Vector3i(-9, 0, -2),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
-"position": Vector3(-229, 0, -152)
-}, {
-"cell": Vector3i(-9, 0, -3),
-"item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
-"position": Vector3(-229, 0, -168)
-}, {
-"cell": Vector3i(-9, 0, -4),
+"cell": Vector3i(-6, 0, -2),
 "item": 1,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-229, 0, -184)
+"position": Vector3(-141, 0.9, -208)
 }]),
-"checkpoint_route_indices": Array[int]([0, 8, 16, 24, 32, 40]),
+"checkpoint_route_indices": Array[int]([0, 5, 11, 16, 21, 27]),
 "hazard_route_indices": [],
 "item_route_indices": [],
 "mesh_library_path": "res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres",
-"ordered_route_cells": Array[Vector3i]([Vector3i(-8, 0, -4), Vector3i(-7, 0, -4), Vector3i(-6, 0, -4), Vector3i(-5, 0, -4), Vector3i(-4, 0, -4), Vector3i(-3, 0, -4), Vector3i(-2, 0, -4), Vector3i(-1, 0, -4), Vector3i(0, 0, -4), Vector3i(1, 0, -4), Vector3i(2, 0, -4), Vector3i(3, 0, -4), Vector3i(4, 0, -4), Vector3i(5, 0, -4), Vector3i(6, 0, -4), Vector3i(7, 0, -4), Vector3i(7, 0, -3), Vector3i(7, 1, -2), Vector3i(7, 1, -1), Vector3i(6, 1, -1), Vector3i(5, 1, -1), Vector3i(4, 1, -1), Vector3i(3, 1, -1), Vector3i(3, 1, 0), Vector3i(3, 0, 1), Vector3i(3, 0, 2), Vector3i(3, 0, 3), Vector3i(3, 0, 4), Vector3i(2, 0, 4), Vector3i(1, 0, 4), Vector3i(0, 0, 4), Vector3i(-1, 0, 4), Vector3i(-2, 0, 4), Vector3i(-3, 0, 4), Vector3i(-4, 0, 4), Vector3i(-5, 0, 4), Vector3i(-6, 0, 4), Vector3i(-7, 0, 4), Vector3i(-7, 0, 3), Vector3i(-7, 0, 2), Vector3i(-7, 0, 1), Vector3i(-7, 0, 0), Vector3i(-8, 0, 0), Vector3i(-9, 0, 0), Vector3i(-9, 0, -1), Vector3i(-9, 0, -2), Vector3i(-9, 0, -3), Vector3i(-9, 0, -4)]),
-"ordered_route_points": Array[Vector3]([Vector3(-213, 0, -184), Vector3(-197, 0, -184), Vector3(-181, 0, -184), Vector3(-165, 0, -184), Vector3(-149, 0, -184), Vector3(-133, 0, -184), Vector3(-117, 0, -184), Vector3(-101, 0, -184), Vector3(-85, 0, -184), Vector3(-69, 0, -184), Vector3(-53, 0, -184), Vector3(-37, 0, -184), Vector3(-21, 0, -184), Vector3(-5, 0, -184), Vector3(11, 0, -184), Vector3(27, 0, -184), Vector3(27, 0, -168), Vector3(27, 4, -152), Vector3(27, 4, -136), Vector3(11, 4, -136), Vector3(-5, 4, -136), Vector3(-21, 4, -136), Vector3(-37, 4, -136), Vector3(-37, 4, -120), Vector3(-37, 0, -104), Vector3(-37, 0, -88), Vector3(-37, 0, -72), Vector3(-37, 0, -56), Vector3(-53, 0, -56), Vector3(-69, 0, -56), Vector3(-85, 0, -56), Vector3(-101, 0, -56), Vector3(-117, 0, -56), Vector3(-133, 0, -56), Vector3(-149, 0, -56), Vector3(-165, 0, -56), Vector3(-181, 0, -56), Vector3(-197, 0, -56), Vector3(-197, 0, -72), Vector3(-197, 0, -88), Vector3(-197, 0, -104), Vector3(-197, 0, -120), Vector3(-213, 0, -120), Vector3(-229, 0, -120), Vector3(-229, 0, -136), Vector3(-229, 0, -152), Vector3(-229, 0, -168), Vector3(-229, 0, -184)]),
-"origin": Vector3(-93, -2, -128),
+"ordered_route_cells": Array[Vector3i]([Vector3i(-5, 0, -2), Vector3i(-4, 0, -2), Vector3i(-3, 0, -2), Vector3i(-2, 0, -2), Vector3i(-1, 0, -2), Vector3i(0, 0, -2), Vector3i(1, 0, -2), Vector3i(2, 0, -2), Vector3i(3, 0, -2), Vector3i(4, 0, -2), Vector3i(5, 0, -2), Vector3i(6, 0, -2), Vector3i(6, 0, -1), Vector3i(6, 1, 0), Vector3i(6, 1, 1), Vector3i(6, 1, 2), Vector3i(5, 1, 2), Vector3i(4, 1, 2), Vector3i(3, 1, 2), Vector3i(2, 1, 2), Vector3i(1, 1, 2), Vector3i(0, 1, 2), Vector3i(-1, 1, 2), Vector3i(-2, 1, 2), Vector3i(-3, 1, 2), Vector3i(-4, 1, 2), Vector3i(-5, 1, 2), Vector3i(-6, 1, 2), Vector3i(-6, 1, 1), Vector3i(-6, 0, 0), Vector3i(-6, 0, -1), Vector3i(-6, 0, -2)]),
+"ordered_route_points": Array[Vector3]([Vector3(-125, 0.9, -208), Vector3(-109, 0.9, -208), Vector3(-93, 0.9, -208), Vector3(-77, 0.9, -208), Vector3(-61, 0.9, -208), Vector3(-45, 0.9, -208), Vector3(-29, 0.9, -208), Vector3(-13, 0.9, -208), Vector3(3, 0.9, -208), Vector3(19, 0.9, -208), Vector3(35, 0.9, -208), Vector3(51, 0.9, -208), Vector3(51, 0.9, -192), Vector3(51, 4.9, -176), Vector3(51, 4.9, -160), Vector3(51, 4.9, -144), Vector3(35, 4.9, -144), Vector3(19, 4.9, -144), Vector3(3, 4.9, -144), Vector3(-13, 4.9, -144), Vector3(-29, 4.9, -144), Vector3(-45, 4.9, -144), Vector3(-61, 4.9, -144), Vector3(-77, 4.9, -144), Vector3(-93, 4.9, -144), Vector3(-109, 4.9, -144), Vector3(-125, 4.9, -144), Vector3(-141, 4.9, -144), Vector3(-141, 4.9, -160), Vector3(-141, 0.9, -176), Vector3(-141, 0.9, -192), Vector3(-141, 0.9, -208)]),
+"origin": Vector3(-53, -1.1, -184),
 "road_width": 16.0,
+"route_envelope": {
+"cell_size": Vector3(16, 4, 16),
+"confidence": "inferred_from_floor_plan_and_route_cell_budget",
+"corridor_width": 16.0,
+"course_id": "outdoor_playground",
+"floor_top_y": 0.15,
+"forbidden_overlap": ["walls", "furniture", "fixtures", "plants", "porch_posts", "service_props", "collision_blockers"],
+"gate": "spatial_audit_outdoor_playground_route_inside_outdoor_playground_setpiece_zone",
+"minimum_clearance_y": 0.55,
+"road_surface_y": 0.9,
+"route_local_bounds": {
+"max": Vector3i(6, 1, 2),
+"min": Vector3i(-6, 0, -2)
+},
+"route_world_bounds": {
+"max": Vector3(59, 6.9, -136),
+"min": Vector3(-149, -1.1, -216)
+},
+"zone_center": Vector3(-45, 0, -176),
+"zone_id": "outdoor_playground_setpiece_zone",
+"zone_size": Vector3(300, 28, 90),
+"zone_world_bounds": {
+"max": Vector3(105, 14, -131),
+"min": Vector3(-195, -14, -221)
+}
+},
 "spawn_slots": Array[Dictionary]([{
 "forward_offset": 0.0,
 "lateral_offset": -2.75,
@@ -380,16 +310,16 @@ sky_cloud_amount = 0.18
 sky_cloud_speed = 0.014
 sky_haze_amount = 0.1
 sky_light_energy = 2.5
-route_points = Array[Vector3]([Vector3(-213, 0, -184), Vector3(-197, 0, -184), Vector3(-181, 0, -184), Vector3(-165, 0, -184), Vector3(-149, 0, -184), Vector3(-133, 0, -184), Vector3(-117, 0, -184), Vector3(-101, 0, -184), Vector3(-85, 0, -184), Vector3(-69, 0, -184), Vector3(-53, 0, -184), Vector3(-37, 0, -184), Vector3(-21, 0, -184), Vector3(-5, 0, -184), Vector3(11, 0, -184), Vector3(27, 0, -184), Vector3(27, 0, -168), Vector3(27, 4, -152), Vector3(27, 4, -136), Vector3(11, 4, -136), Vector3(-5, 4, -136), Vector3(-21, 4, -136), Vector3(-37, 4, -136), Vector3(-37, 4, -120), Vector3(-37, 0, -104), Vector3(-37, 0, -88), Vector3(-37, 0, -72), Vector3(-37, 0, -56), Vector3(-53, 0, -56), Vector3(-69, 0, -56), Vector3(-85, 0, -56), Vector3(-101, 0, -56), Vector3(-117, 0, -56), Vector3(-133, 0, -56), Vector3(-149, 0, -56), Vector3(-165, 0, -56), Vector3(-181, 0, -56), Vector3(-197, 0, -56), Vector3(-197, 0, -72), Vector3(-197, 0, -88), Vector3(-197, 0, -104), Vector3(-197, 0, -120), Vector3(-213, 0, -120), Vector3(-229, 0, -120), Vector3(-229, 0, -136), Vector3(-229, 0, -152), Vector3(-229, 0, -168), Vector3(-229, 0, -184)])
-checkpoint_indices = Array[int]([0, 8, 16, 24, 32, 40])
-spawn_points = Array[Vector4]([Vector4(-213, 0.8, -181.25, 90), Vector4(-213, 0.8, -186.75, 90), Vector4(-208, 0.8, -181.25, 90), Vector4(-208, 0.8, -186.75, 90), Vector4(-203, 0.8, -181.25, 90), Vector4(-203, 0.8, -186.75, 90), Vector4(-198, 0.8, -181.25, 90), Vector4(-198, 0.8, -186.75, 90)])
+route_points = Array[Vector3]([Vector3(-125, 0.9, -208), Vector3(-109, 0.9, -208), Vector3(-93, 0.9, -208), Vector3(-77, 0.9, -208), Vector3(-61, 0.9, -208), Vector3(-45, 0.9, -208), Vector3(-29, 0.9, -208), Vector3(-13, 0.9, -208), Vector3(3, 0.9, -208), Vector3(19, 0.9, -208), Vector3(35, 0.9, -208), Vector3(51, 0.9, -208), Vector3(51, 0.9, -192), Vector3(51, 4.9, -176), Vector3(51, 4.9, -160), Vector3(51, 4.9, -144), Vector3(35, 4.9, -144), Vector3(19, 4.9, -144), Vector3(3, 4.9, -144), Vector3(-13, 4.9, -144), Vector3(-29, 4.9, -144), Vector3(-45, 4.9, -144), Vector3(-61, 4.9, -144), Vector3(-77, 4.9, -144), Vector3(-93, 4.9, -144), Vector3(-109, 4.9, -144), Vector3(-125, 4.9, -144), Vector3(-141, 4.9, -144), Vector3(-141, 4.9, -160), Vector3(-141, 0.9, -176), Vector3(-141, 0.9, -192), Vector3(-141, 0.9, -208)])
+checkpoint_indices = Array[int]([0, 5, 11, 16, 21, 27])
+spawn_points = Array[Vector4]([Vector4(-125, 1.7, -205.25, 90), Vector4(-125, 1.7, -210.75, 90), Vector4(-120, 1.7, -205.25, 90), Vector4(-120, 1.7, -210.75, 90), Vector4(-115, 1.7, -205.25, 90), Vector4(-115, 1.7, -210.75, 90), Vector4(-110, 1.7, -205.25, 90), Vector4(-110, 1.7, -210.75, 90)])
 stage_props = Array[Dictionary]([{
 "asset_path": "res://assets/source/kenney/toy_car_kit/gate.glb",
 "collision_mode": "visual",
 "gameplay_tag": "landmark",
 "id": "outdoor_playground_start_gate",
 "kind": "scene",
-"position": Vector3(-213, 2, -184),
+"position": Vector3(-125, 2.9, -208),
 "scale": Vector3(5, 5, 5),
 "yaw_degrees": 0.0
 }, {
@@ -399,7 +329,7 @@ stage_props = Array[Dictionary]([{
 "gameplay_tag": "start_finish",
 "id": "outdoor_playground_finish_language_panel",
 "kind": "box",
-"position": Vector3(-197, 5, -193),
+"position": Vector3(-109, 5.9, -217),
 "scale": Vector3(1, 1, 1),
 "yaw_degrees": 0.0
 }, {
@@ -409,7 +339,7 @@ stage_props = Array[Dictionary]([{
 "gameplay_tag": "landmark",
 "id": "outdoor_playground_landmark_box",
 "kind": "box",
-"position": Vector3(-67, 4, -102),
+"position": Vector3(-27, 4.9, -158),
 "scale": Vector3(1, 1, 1),
 "yaw_degrees": 0.0
 }, {
@@ -419,7 +349,7 @@ stage_props = Array[Dictionary]([{
 "gameplay_tag": "direction",
 "id": "outdoor_playground_route_arrow_left",
 "kind": "box",
-"position": Vector3(17, 3, -168),
+"position": Vector3(25, 3.9, -208),
 "scale": Vector3(1, 1, 1),
 "yaw_degrees": 20.0
 }, {
@@ -429,7 +359,7 @@ stage_props = Array[Dictionary]([{
 "gameplay_tag": "direction",
 "id": "outdoor_playground_route_arrow_right",
 "kind": "box",
-"position": Vector3(-107, 3, -56),
+"position": Vector3(-35, 7.9, -144),
 "scale": Vector3(1, 1, 1),
 "yaw_degrees": -20.0
 }])
@@ -440,7 +370,7 @@ stage_interactions = Array[Dictionary]([{
 "duration": 0.25,
 "id": "outdoor_playground_boost_pad",
 "note": "Home-yard mode boost beat.",
-"position": Vector3(-21, 1, -184),
+"position": Vector3(3, 1.9, -208),
 "shape": "box",
 "size": Vector3(12, 3, 12),
 "yaw_degrees": 0.0
@@ -451,7 +381,7 @@ stage_interactions = Array[Dictionary]([{
 "id": "outdoor_playground_rumble_zone",
 "intensity": 0.45,
 "note": "Home-yard mode texture beat.",
-"position": Vector3(-37, 1, -104),
+"position": Vector3(35, 5.9, -144),
 "shape": "box",
 "size": Vector3(14, 3, 14),
 "yaw_degrees": 0.0
