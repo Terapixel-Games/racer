@@ -419,6 +419,11 @@ func _assert_home_yard_roof_and_attic_contract(root: Node, track_id: String) -> 
 		"UpperAtticRoofRidgeCap",
 		"UpperDormerCheekLeft",
 		"UpperDormerCheekRight",
+		"UpperDormerLowerFrontWall",
+		"UpperDormerLowerBackWall",
+		"UpperDormerLowerLeftWall",
+		"UpperDormerLowerRightWall",
+		"UpperDormerStoryBeltCourseFront",
 		"UpperDormerFrontGableWall",
 		"UpperDormerBackGableWall",
 		"GarageValleyCoverFront",
@@ -432,6 +437,8 @@ func _assert_home_yard_roof_and_attic_contract(root: Node, track_id: String) -> 
 	_assert_ridge_axis(roof, "UpperAtticRoofRidgeCap", "z", track_id)
 	_assert_ridge_axis(roof, "GarageCrossGableRidge", "x", track_id)
 	_assert_ridge_axis(roof, "FrontPorchGableRidge", "x", track_id)
+	_assert_mesh_top_below(roof, "UpperDormerLowerFrontWall", 98.0, track_id)
+	_assert_mesh_top_below(roof, "UpperDormerLowerBackWall", 98.0, track_id)
 	var left_plane := roof.get_node_or_null("UpperAtticRoofLeftPlane")
 	var right_plane := roof.get_node_or_null("UpperAtticRoofRightPlane")
 	for plane in [left_plane, right_plane]:
@@ -444,7 +451,9 @@ func _assert_home_yard_roof_and_attic_contract(root: Node, track_id: String) -> 
 	if attic != null:
 		assert_true(attic.get_node_or_null("InteriorPartitions/AtticWestKneePartition") != null, "%s attic should include contract-owned west knee partition" % track_id)
 		assert_true(attic.get_node_or_null("InteriorPartitions/AtticEastKneePartition") != null, "%s attic should include contract-owned east knee partition" % track_id)
+		_assert_mesh_top_below(attic, "RoomFinishes/AtticRidgeBeamInterior", 143.0, track_id)
 	assert_true(root.find_child("RoofMassPlaceholder", true, false) == null, "%s should not keep a visible flat roof placeholder" % track_id)
+	assert_true(root.find_child("MainEnvelopeCeilingPlane", true, false) == null, "%s should not expose a flat ceiling plane as a visible roof placeholder" % track_id)
 
 func _assert_ridge_axis(roof: Node, node_name: String, expected_axis: String, track_id: String) -> void:
 	var node := roof.get_node_or_null(node_name) as MeshInstance3D
@@ -456,6 +465,14 @@ func _assert_ridge_axis(roof: Node, node_name: String, expected_axis: String, tr
 		assert_true(bounds.size.z > bounds.size.x, "%s %s should run along Z, not across the whole facade" % [track_id, node_name])
 	else:
 		assert_true(bounds.size.x > bounds.size.z, "%s %s should run along X, not float as a depth strip" % [track_id, node_name])
+
+func _assert_mesh_top_below(parent: Node, node_path: String, max_y: float, track_id: String) -> void:
+	var node := parent.get_node_or_null(node_path) as MeshInstance3D
+	assert_true(node != null, "%s should include %s for vertical roof-shell audit" % [track_id, node_path])
+	if node == null:
+		return
+	var bounds := _mesh_instance_global_aabb(node)
+	assert_true(bounds.position.y + bounds.size.y <= max_y + 0.01, "%s %s should not protrude above the measured roof/dormer datum" % [track_id, node_path])
 
 func _assert_home_yard_landscape_and_assets(root: Node, track_id: String) -> void:
 	for node_path in [
