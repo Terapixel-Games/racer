@@ -45,6 +45,12 @@ const OnlineRaceRules = preload("res://scripts/logic/OnlineRaceRules.gd")
 @onready var water_drops: ColorRect = %WaterDrops
 @onready var motion_blur: ColorRect = %MotionBlur
 
+var pause_button: Button
+var pause_overlay: Control
+var pause_resume_button: Button
+var pause_level_select_button: Button
+var race_is_paused := false
+var pause_was_mobile_controls_visible := false
 var match_id: String = ""
 var local_user_id: String = ""
 var cars: Dictionary = {}
@@ -206,6 +212,7 @@ const COUNTDOWN_OVERLAY_DURATION := 0.82
 func _ready() -> void:
 	item_rng.randomize()
 	_setup_countdown_overlay()
+	_setup_pause_controls()
 	_setup_audio_players()
 	camera.fov = CAMERA_FOV
 	camera.near = CAMERA_NEAR
@@ -233,6 +240,8 @@ func _ready() -> void:
 	await NakamaService.join_match(match_id, _race_join_metadata())
 
 func _exit_tree() -> void:
+	if race_is_paused:
+		get_tree().paused = false
 	_stop_race_audio()
 
 func _start_offline_race() -> void:
@@ -324,21 +333,26 @@ func _set_local_phase(next_phase: String) -> void:
 			player_input_enabled = false
 			_set_all_car_inputs(_empty_input())
 			_hide_race_hud_for_intro(true)
+			_set_pause_button_visible(false)
 		PHASE_GRID_ENTRY:
 			player_input_enabled = false
 			_set_all_car_inputs(_empty_input())
+			_set_pause_button_visible(false)
 			_show_message("Rivals rolling in")
 		PHASE_CAMERA_TRANSITION:
 			player_input_enabled = false
+			_set_pause_button_visible(false)
 			phase_camera_from = camera.global_transform
 			phase_camera_to = _player_follow_camera_transform()
 		PHASE_COUNTDOWN:
 			player_input_enabled = false
+			_set_pause_button_visible(false)
 			countdown_last_text = ""
 			_show_countdown_overlay("3")
 		PHASE_RACING:
 			player_input_enabled = true
 			_hide_race_hud_for_intro(false)
+			_set_pause_button_visible(true)
 			for rid in ai_racer_ids:
 				var car: CarController = cars.get(rid, null)
 				if car != null:
@@ -347,6 +361,7 @@ func _set_local_phase(next_phase: String) -> void:
 			_show_message("GO!")
 		PHASE_PLAYER_FINISH_FOLLOW:
 			player_input_enabled = false
+			_set_pause_button_visible(false)
 			finish_follow_timer = 0.0
 			camera_follow_target_id = local_user_id
 			var player: CarController = cars.get(local_user_id, null)
@@ -356,12 +371,14 @@ func _set_local_phase(next_phase: String) -> void:
 			_show_message("Finished!")
 		PHASE_WINNER_FOLLOW_RESULTS:
 			player_input_enabled = false
+			_set_pause_button_visible(false)
 			finish_follow_timer = 0.0
 			camera_follow_target_id = _leader_racer_id(true)
 			show_results(_sorted_local_result_entries(), false)
 			_show_message("Winner cam")
 		PHASE_RESULTS:
 			player_input_enabled = false
+			_set_pause_button_visible(false)
 
 func _physics_process_local_single(delta: float) -> void:
 	phase_timer += delta
@@ -959,6 +976,161 @@ func _hide_results_overlay() -> void:
 	if results_overlay != null and is_instance_valid(results_overlay):
 		results_overlay.visible = false
 
+func _setup_pause_controls() -> void:
+	if ui_canvas == null or hud_root == null:
+		return
+	pause_button = _make_hud_pause_button()
+	pause_button.name = "PauseButton"
+	pause_button.visible = false
+	pause_button.pressed.connect(_pause_race)
+	hud_root.add_child(pause_button)
+
+	pause_overlay = Control.new()
+	pause_overlay.name = "PauseOverlay"
+	pause_overlay.visible = false
+	pause_overlay.process_mode = Node.PROCESS_MODE_ALWAYS
+	pause_overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
+	pause_overlay.mouse_filter = Control.MOUSE_FILTER_STOP
+	ui_canvas.add_child(pause_overlay)
+
+	var scrim := ColorRect.new()
+	scrim.name = "PauseScrim"
+	scrim.color = Color(0.0, 0.0, 0.0, 0.5)
+	scrim.process_mode = Node.PROCESS_MODE_ALWAYS
+	scrim.set_anchors_preset(Control.PRESET_FULL_RECT)
+	scrim.mouse_filter = Control.MOUSE_FILTER_STOP
+	pause_overlay.add_child(scrim)
+
+	var panel := PanelContainer.new()
+	panel.name = "PausePanel"
+	panel.process_mode = Node.PROCESS_MODE_ALWAYS
+	panel.set_anchors_preset(Control.PRESET_CENTER)
+	panel.offset_left = -260.0
+	panel.offset_top = -160.0
+	panel.offset_right = 260.0
+	panel.offset_bottom = 160.0
+	panel.mouse_filter = Control.MOUSE_FILTER_STOP
+	panel.add_theme_stylebox_override("panel", _results_panel_style())
+	pause_overlay.add_child(panel)
+
+	var margin := MarginContainer.new()
+	margin.name = "PauseMargin"
+	margin.add_theme_constant_override("margin_left", 30)
+	margin.add_theme_constant_override("margin_top", 28)
+	margin.add_theme_constant_override("margin_right", 30)
+	margin.add_theme_constant_override("margin_bottom", 28)
+	panel.add_child(margin)
+
+	var box := VBoxContainer.new()
+	box.name = "PauseVBox"
+	box.alignment = BoxContainer.ALIGNMENT_CENTER
+	box.add_theme_constant_override("separation", 18)
+	margin.add_child(box)
+
+	var title := Label.new()
+	title.name = "PauseTitle"
+	title.text = "Paused"
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title.add_theme_font_size_override("font_size", 42)
+	title.add_theme_color_override("font_color", Color(1.0, 0.88, 0.35, 1.0))
+	box.add_child(title)
+
+	pause_resume_button = _make_pause_menu_button("Resume")
+	pause_resume_button.name = "ResumeButton"
+	pause_resume_button.pressed.connect(_resume_race)
+	box.add_child(pause_resume_button)
+
+	pause_level_select_button = _make_pause_menu_button("Level Select")
+	pause_level_select_button.name = "LevelSelectButton"
+	pause_level_select_button.pressed.connect(_go_to_level_select_from_pause)
+	box.add_child(pause_level_select_button)
+
+func _make_hud_pause_button() -> Button:
+	var button := _make_results_button("PAUSE")
+	button.custom_minimum_size = Vector2(140, 56)
+	button.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+	button.offset_left = -164.0
+	button.offset_top = 370.0
+	button.offset_right = -24.0
+	button.offset_bottom = 426.0
+	return button
+
+func _make_pause_menu_button(text: String) -> Button:
+	var button := _make_results_button(text)
+	button.process_mode = Node.PROCESS_MODE_ALWAYS
+	button.custom_minimum_size = Vector2(300, 62)
+	return button
+
+func _pause_race() -> void:
+	if race_is_paused or not _can_pause_race():
+		return
+	race_is_paused = true
+	_set_all_car_inputs(_empty_input())
+	pause_was_mobile_controls_visible = mobile_controls != null and mobile_controls.visible
+	if mobile_controls != null:
+		mobile_controls.visible = false
+	_set_pause_button_visible(false)
+	if pause_overlay != null:
+		pause_overlay.visible = true
+	_pause_race_audio(true)
+	get_tree().paused = true
+
+func _resume_race() -> void:
+	if not race_is_paused:
+		return
+	get_tree().paused = false
+	race_is_paused = false
+	_pause_race_audio(false)
+	if pause_overlay != null:
+		pause_overlay.visible = false
+	if mobile_controls != null:
+		mobile_controls.visible = pause_was_mobile_controls_visible and OS.has_feature("mobile")
+	_set_pause_button_visible(_can_pause_race())
+
+func _go_to_level_select_from_pause() -> void:
+	get_tree().paused = false
+	race_is_paused = false
+	_stop_race_audio()
+	get_tree().change_scene_to_file(_pause_level_select_target())
+
+func _can_pause_race() -> bool:
+	if results_overlay != null and results_overlay.visible:
+		return false
+	if not race_started:
+		return false
+	if local_single_race:
+		return race_phase == PHASE_RACING
+	return true
+
+func _set_pause_button_visible(visible: bool) -> void:
+	if pause_button != null:
+		pause_button.visible = visible
+
+func _pause_race_audio(paused: bool) -> void:
+	if music_player != null:
+		music_player.stream_paused = paused
+	for player in audio_zone_players.values():
+		if player is AudioStreamPlayer:
+			(player as AudioStreamPlayer).stream_paused = paused
+
+func _pause_level_select_target() -> String:
+	return "res://scenes/LevelSelect.tscn"
+
+func pause_button_is_visible_for_test() -> bool:
+	return pause_button != null and pause_button.visible
+
+func pause_overlay_is_visible_for_test() -> bool:
+	return pause_overlay != null and pause_overlay.visible
+
+func pause_race_for_test() -> void:
+	_pause_race()
+
+func resume_race_for_test() -> void:
+	_resume_race()
+
+func get_pause_level_select_target_for_test() -> String:
+	return _pause_level_select_target()
+
 func _add_results_header() -> void:
 	var row := HBoxContainer.new()
 	row.name = "Header"
@@ -1367,6 +1539,7 @@ func _physics_process(delta: float) -> void:
 	if local_single_race:
 		_physics_process_local_single(delta)
 		return
+	_set_pause_button_visible(_can_pause_race())
 	input_accum += delta
 	while input_accum >= INPUT_INTERVAL:
 		_send_input()
@@ -2127,6 +2300,7 @@ func _layout_mobile_hud() -> void:
 	_set_control_rect(top_left_panel, Vector2(margin, margin), Vector2(254.0, 196.0) * info_scale)
 	_set_center_top_rect(lap_pill, Vector2(236.0, 52.0) * info_scale, margin)
 	_set_control_rect(top_right_panel, Vector2(viewport_size.x - margin - 270.0 * info_scale, margin), Vector2(270.0, 196.0) * info_scale)
+	_set_control_rect(pause_button, Vector2(viewport_size.x - margin - 140.0 * info_scale, margin + 210.0 * info_scale), Vector2(140.0, 56.0) * info_scale)
 	_set_center_bottom_rect(speed_ui, Vector2(376.0, 84.0) * info_scale, maxf(bottom_margin, 22.0 * touch_scale))
 
 	var drift_size := Vector2(168.0, 168.0) * touch_scale

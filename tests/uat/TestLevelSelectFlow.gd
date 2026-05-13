@@ -771,6 +771,21 @@ func test_local_finish_shows_live_overlay_then_finalizes_without_scene_change() 
 		assert_true(float(input_state.get("throttle", 0.0)) > 0.0, "Winner AI should keep cruising after final results are shown")
 	race.queue_free()
 
+func test_race_pause_menu_can_resume_or_target_level_select() -> void:
+	var race: Node = _make_local_race()
+	race.call("_set_local_phase", "racing")
+	assert_true(bool(race.call("pause_button_is_visible_for_test")), "Race HUD should expose a pause button during gameplay")
+	race.call("pause_race_for_test")
+	assert_true(scene_tree.paused, "Pausing from the HUD should pause the active race scene tree")
+	assert_true(bool(race.call("pause_overlay_is_visible_for_test")), "Pause should show a menu overlay")
+	assert_true(not bool(race.call("pause_button_is_visible_for_test")), "Pause button should hide while the pause menu is open")
+	assert_equal(str(race.call("get_pause_level_select_target_for_test")), "res://scenes/LevelSelect.tscn", "Pause menu level-select action should return to unified level select")
+	race.call("resume_race_for_test")
+	assert_true(not scene_tree.paused, "Resume should unpause the scene tree")
+	assert_true(not bool(race.call("pause_overlay_is_visible_for_test")), "Resume should hide the pause overlay")
+	assert_true(bool(race.call("pause_button_is_visible_for_test")), "Pause button should return after resuming gameplay")
+	race.queue_free()
+
 func test_final_results_recovers_winner_if_they_fall_off_track() -> void:
 	var race: Node = _make_local_race()
 	race.call("_set_local_phase", "racing")
