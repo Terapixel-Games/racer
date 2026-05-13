@@ -232,11 +232,11 @@ var _last_readiness := ""
 
 ## Compute current editor readiness from live Godot state.
 static func get_readiness() -> String:
-	if EditorInterface.get_resource_filesystem().is_scanning():
-		return "importing"
 	if EditorInterface.is_playing_scene():
 		return "playing"
 	if EditorInterface.get_edited_scene_root() == null:
+		if EditorInterface.get_resource_filesystem().is_scanning():
+			return "importing"
 		return "no_scene"
 	return "ready"
 
