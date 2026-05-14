@@ -2,6 +2,7 @@ extends Node
 class_name ARKitFaceDriver
 
 const DEFAULT_PORT := 11111
+const PREFERRED_FACE_MESH_NAME := "ARKitFaceProxy"
 const ARKIT_BLEND_SHAPE_NAMES := [
 	"EyeBlinkLeft",
 	"EyeLookDownLeft",
@@ -130,6 +131,8 @@ func _rebind_face_mesh() -> void:
 		if explicit is MeshInstance3D:
 			_face_mesh = explicit as MeshInstance3D
 	if _face_mesh == null:
+		_face_mesh = _find_named_blend_shape_mesh(target_root, PREFERRED_FACE_MESH_NAME)
+	if _face_mesh == null:
 		_face_mesh = _find_first_blend_shape_mesh(target_root)
 	_cache_blend_shapes()
 	set_process(_face_mesh != null)
@@ -148,6 +151,16 @@ func _find_first_blend_shape_mesh(root: Node) -> MeshInstance3D:
 	for child in root.get_children():
 		if child is Node:
 			var found: MeshInstance3D = _find_first_blend_shape_mesh(child)
+			if found != null:
+				return found
+	return null
+
+func _find_named_blend_shape_mesh(root: Node, mesh_name: String) -> MeshInstance3D:
+	if root is MeshInstance3D and root.name == mesh_name and _mesh_has_blend_shapes((root as MeshInstance3D).mesh):
+		return root as MeshInstance3D
+	for child in root.get_children():
+		if child is Node:
+			var found: MeshInstance3D = _find_named_blend_shape_mesh(child, mesh_name)
 			if found != null:
 				return found
 	return null

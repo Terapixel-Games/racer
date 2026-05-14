@@ -38,6 +38,25 @@ func test_driver_ignores_models_without_blendshapes() -> void:
 	assert_equal(driver.apply_blendshape_dictionary({"JawOpen": 1.0}), 0, "Driver should no-op when no face mesh is available")
 	model.queue_free()
 
+func test_driver_prefers_named_arkit_face_proxy() -> void:
+	var model := Node3D.new()
+	var full_mesh := MeshInstance3D.new()
+	full_mesh.name = "Mesh_0_optimized"
+	full_mesh.mesh = _mesh_with_blend_shapes(["JawOpen"])
+	var proxy := MeshInstance3D.new()
+	proxy.name = "ARKitFaceProxy"
+	proxy.mesh = _mesh_with_blend_shapes(["JawOpen"])
+	model.add_child(full_mesh)
+	model.add_child(proxy)
+	var driver := ARKitFaceDriverScript.new()
+	model.add_child(driver)
+
+	assert_true(driver.bind_to_model(model), "Driver should bind to the authored ARKit face proxy")
+	assert_equal(driver.apply_blendshape_dictionary({"JawOpen": 1.0}), 1, "Driver should apply the packet to the proxy mesh")
+	assert_equal(full_mesh.get_blend_shape_value(0), 0.0, "Full model blendshapes should not be driven when ARKitFaceProxy exists")
+	assert_equal(proxy.get_blend_shape_value(0), 1.0, "Named ARKitFaceProxy should receive face weights")
+	model.queue_free()
+
 func _mesh_with_blend_shapes(names: Array[String]) -> ArrayMesh:
 	var mesh := ArrayMesh.new()
 	for shape_name in names:
