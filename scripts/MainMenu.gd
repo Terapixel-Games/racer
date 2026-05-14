@@ -5,6 +5,7 @@ const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
 const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd")
 const TrackRuntimeScene = preload("res://scripts/track/TrackRuntimeScene.gd")
 
+const ARKIT_FACE_PREVIEW_SCENE := "res://scenes/dev/ARKitFacePreview.tscn"
 const PREVIEW_CAMERA_ROUTE_SPEED := 0.03
 const PREVIEW_CAMERA_BLEND := 0.05
 
@@ -15,6 +16,7 @@ var _preview_time := 0.0
 var _preview_track_id := ""
 var _single_button: Button
 var _tournament_button: Button
+var _ar_face_button: Button
 var _quit_button: Button
 
 func _ready() -> void:
@@ -31,7 +33,10 @@ func get_preview_track_id_for_test() -> String:
 	return _preview_track_id
 
 func has_root_buttons_for_test() -> bool:
-	return _single_button != null and _tournament_button != null
+	return _single_button != null and _tournament_button != null and _ar_face_button != null
+
+func get_ar_face_preview_scene_for_test() -> String:
+	return ARKIT_FACE_PREVIEW_SCENE
 
 func start_single_race_for_test() -> void:
 	_prepare_single_race()
@@ -152,6 +157,11 @@ func _build_screen() -> void:
 	_tournament_button.pressed.connect(_on_tournament_pressed)
 	box.add_child(_tournament_button)
 
+	_ar_face_button = _make_button("AR Face Test", Vector2(380, 58), false)
+	_ar_face_button.name = "ARFaceTestButton"
+	_ar_face_button.pressed.connect(_on_ar_face_test_pressed)
+	box.add_child(_ar_face_button)
+
 	_quit_button = _make_button("Quit", Vector2(380, 58), false)
 	_quit_button.name = "QuitButton"
 	_quit_button.pressed.connect(func(): get_tree().quit())
@@ -164,6 +174,10 @@ func _on_single_race_pressed() -> void:
 func _on_tournament_pressed() -> void:
 	_prepare_tournament()
 	get_tree().change_scene_to_file("res://scenes/LevelSelect.tscn")
+
+func _on_ar_face_test_pressed() -> void:
+	NakamaService.set_meta_value("selected_racer_id", "Rexx")
+	get_tree().change_scene_to_file(ARKIT_FACE_PREVIEW_SCENE)
 
 func _prepare_single_race() -> void:
 	NavigationFlow.set_nav_flow_mode(NakamaService, NavigationFlow.FLOW_SINGLE_RACE)
