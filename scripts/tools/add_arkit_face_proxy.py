@@ -72,6 +72,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--face-forward-axis", default="+X")
     parser.add_argument("--proxy-offset", type=float, default=0.0035)
     parser.add_argument("--max-proxy-polygons", type=int, default=18000)
+    parser.add_argument("--proxy-source", default="")
     argv = sys.argv[sys.argv.index("--") + 1 :] if "--" in sys.argv else sys.argv[1:]
     return parser.parse_args(argv)
 
@@ -82,8 +83,9 @@ def clear_scene() -> None:
 
 
 def import_glb(path: Path) -> list[bpy.types.Object]:
+    before = set(bpy.context.scene.objects)
     bpy.ops.import_scene.gltf(filepath=str(path))
-    return [obj for obj in bpy.context.scene.objects if obj.type == "MESH"]
+    return [obj for obj in bpy.context.scene.objects if obj.type == "MESH" and obj not in before]
 
 
 def largest_mesh(objects: list[bpy.types.Object]) -> bpy.types.Object:
@@ -168,6 +170,39 @@ def decimate_proxy(proxy: bpy.types.Object, max_polygons: int) -> None:
     modifier = proxy.modifiers.new("ARKitProxyDecimate", "DECIMATE")
     modifier.ratio = max(0.02, min(1.0, max_polygons / max(len(proxy.data.polygons), 1)))
     bpy.ops.object.modifier_apply(modifier=modifier.name)
+
+
+def proxy_from_authored_source(path: Path) -> bpy.types.Object:
+    meshes = import_glb(path)
+    if not meshes:
+        raise RuntimeError(f"No mesh objects found in proxy source: {path}")
+    preferred = next((obj for obj in meshes if obj.name == "ARKitFaceProxy"), None)
+    proxy = preferred if preferred is not None else max(meshes, key=lambda obj: len(obj.data.polygons))
+    proxy.name = "ARKitFaceProxy"
+    proxy.data.name = "ARKitFaceProxyMesh"
+    for obj in meshes:
+        if obj != proxy:
+            bpy.data.objects.remove(obj, do_unlink=True)
+    return proxy
+
+
+def existing_shape_key_moved_counts(proxy: bpy.types.Object) -> dict[str, int]:
+    if proxy.data.shape_keys is None:
+        return {}
+    basis = proxy.data.shape_keys.key_blocks.get("Basis")
+    if basis is None:
+        return {}
+    moved_counts: dict[str, int] = {}
+    for shape_name in ARKIT_BLEND_SHAPE_NAMES:
+        key = proxy.data.shape_keys.key_blocks.get(shape_name)
+        if key is None:
+            continue
+        moved = 0
+        for i, point in enumerate(key.data):
+            if (point.co - basis.data[i].co).length > 0.00001:
+                moved += 1
+        moved_counts[shape_name] = moved
+    return moved_counts
 
 
 def clamp01(value: float) -> float:
@@ -355,9 +390,13 @@ def main() -> None:
     clear_scene()
     meshes = import_glb(input_path)
     source = largest_mesh(meshes)
-    proxy = carve_face_proxy(source, args.proxy_offset)
-    decimate_proxy(proxy, args.max_proxy_polygons)
-    moved_counts = add_shape_keys(proxy)
+    if args.proxy_source:
+        proxy = proxy_from_authored_source(Path(args.proxy_source))
+        moved_counts = add_shape_keys(proxy) if proxy.data.shape_keys is None else existing_shape_key_moved_counts(proxy)
+    else:
+        proxy = carve_face_proxy(source, args.proxy_offset)
+        decimate_proxy(proxy, args.max_proxy_polygons)
+        moved_counts = add_shape_keys(proxy)
     export_glb(output_path)
 
     source_min, source_max = world_bounds(source)
