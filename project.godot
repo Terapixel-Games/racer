@@ -25,6 +25,7 @@ StreakManager="*res://addons/arcade_core/StreakManager.gd"
 AudioManager="*res://addons/arcade_core/AudioManager.gd"
 Fx="*res://addons/arcade_core/Fx.gd"
 AdManager="*res://addons/arcade_core/AdManager.gd"
+ARKitSingleton="*res://addons/GodotARKit/arkit_autoload.gd"
 
 [display]
 
@@ -39,7 +40,7 @@ project/assembly_name="Racer"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gamedev_ai/plugin.cfg", "res://addons/godot_ai/plugin.cfg")
+enabled=PackedStringArray("res://addons/gamedev_ai/plugin.cfg", "res://addons/godot_ai/plugin.cfg", "res://addons/GodotARKit/plugin.cfg")
 
 [rendering]
 

@@ -490,6 +490,7 @@ func _update_sprite_lod_camera(camera_position: Vector3) -> void:
 func _attach_arkit_face_driver(model: Node3D) -> void:
 	var driver := ARKitFaceDriverScript.new()
 	driver.name = "ARKitFaceDriver"
+	driver.auto_start_server = true
 	model.add_child(driver)
 	if driver.bind_to_model(model):
 		_arkit_face_driver = driver
