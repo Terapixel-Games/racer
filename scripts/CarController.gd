@@ -4,6 +4,7 @@ class_name CarController
 const DriftRules = preload("res://scripts/logic/DriftRules.gd")
 const KartPhysicsRules = preload("res://scripts/logic/KartPhysicsRules.gd")
 const RacerRoster = preload("res://scripts/logic/RacerRoster.gd")
+const ARKitFaceDriverScript = preload("res://scripts/ARKitFaceDriver.gd")
 const RacerSpriteLodVisualScript = preload("res://scripts/RacerSpriteLodVisual.gd")
 
 const VISUAL_TARGET_FOOTPRINT := 1.75
@@ -64,6 +65,7 @@ var _racer_visual_id := ""
 var _racer_visual_mode := ""
 var _racer_visual_lod := RacerRoster.RACER_MODEL_LOD0
 var _active_visual_model: Node3D = null
+var _arkit_face_driver: ARKitFaceDriver = null
 var _visual_anim_time := 0.0
 var _visual_last_position := Vector3.ZERO
 var _visual_last_yaw := 0.0
@@ -109,6 +111,7 @@ func set_racer_visual_lod(racer_id: String, lod: String) -> bool:
 	_disable_gameplay_collision(_active_visual_model)
 	visual_mount.add_child(_active_visual_model)
 	_fit_visual_model(_active_visual_model, visual_mount)
+	_attach_arkit_face_driver(_active_visual_model)
 	_set_placeholder_visible(false)
 	_racer_visual_id = normalized
 	_racer_visual_mode = "model"
@@ -406,6 +409,7 @@ func _clear_racer_visual() -> void:
 	if _active_visual_model != null and is_instance_valid(_active_visual_model):
 		_active_visual_model.queue_free()
 	_active_visual_model = null
+	_arkit_face_driver = null
 	_racer_visual_id = ""
 	_racer_visual_mode = ""
 	_racer_visual_lod = RacerRoster.RACER_MODEL_LOD0
@@ -447,6 +451,7 @@ func _apply_portrait_visual(racer_id: String) -> bool:
 	badge.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	_get_visual_mount().add_child(badge)
 	_active_visual_model = badge
+	_arkit_face_driver = null
 	_racer_visual_id = racer_id
 	_racer_visual_mode = "portrait"
 	_racer_visual_lod = RacerRoster.RACER_MODEL_LOD0
@@ -472,6 +477,7 @@ func _apply_sprite_lod_visual(racer_id: String, lod: String) -> bool:
 	_set_placeholder_visible(false)
 	_get_visual_mount().add_child(visual)
 	_active_visual_model = visual
+	_arkit_face_driver = null
 	_racer_visual_id = racer_id
 	_racer_visual_mode = "sprite_%s" % normalized_lod
 	_racer_visual_lod = normalized_lod
@@ -480,6 +486,16 @@ func _apply_sprite_lod_visual(racer_id: String, lod: String) -> bool:
 func _update_sprite_lod_camera(camera_position: Vector3) -> void:
 	if _active_visual_model is RacerSpriteLodVisual:
 		(_active_visual_model as RacerSpriteLodVisual).update_for_camera(global_transform, camera_position)
+
+func _attach_arkit_face_driver(model: Node3D) -> void:
+	var driver := ARKitFaceDriverScript.new()
+	driver.name = "ARKitFaceDriver"
+	model.add_child(driver)
+	if driver.bind_to_model(model):
+		_arkit_face_driver = driver
+	else:
+		driver.queue_free()
+		_arkit_face_driver = null
 
 func _is_scene_import_valid(resource_path: String) -> bool:
 	var import_path := "%s.import" % resource_path
