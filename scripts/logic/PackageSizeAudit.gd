@@ -14,13 +14,16 @@ static func collect() -> Dictionary:
 		return path.ends_with("/racer_in_kart.glb")
 	)
 	var optimized_racer_lod0_glb_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
-		return path.ends_with("_mobile_detail_phase1.glb")
+		return path.ends_with("_mobile_detail_phase1.glb") and not _is_arkit_face_capture_path(path)
 	)
 	var optimized_racer_lod_glb_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
 		return path.ends_with("_mobile_detail_phase1_lod1.glb") or path.ends_with("_mobile_detail_phase1_lod2.glb")
 	)
 	var optimized_racer_lod0_atlas_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
-		return path.ends_with("_mobile_detail_phase1_Image_0.jpg")
+		return path.ends_with("_mobile_detail_phase1_Image_0.jpg") and not _is_arkit_face_capture_path(path)
+	)
+	var arkit_face_capture_glb_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
+		return _is_arkit_face_capture_path(path) and path.ends_with(".glb")
 	)
 	var optimized_racer_lod_atlas_bytes := _sum_files(OPTIMIZED_RACER_ROOT, func(path: String) -> bool:
 		return path.ends_with("_mobile_detail_phase1_lod1_Image_0.jpg") or path.ends_with("_mobile_detail_phase1_lod2_Image_0.jpg")
@@ -87,6 +90,7 @@ static func collect() -> Dictionary:
 		"optimized_racer_lod0_atlas_source_bytes": optimized_racer_lod0_atlas_bytes,
 		"optimized_racer_lod_atlas_source_bytes": optimized_racer_lod_atlas_bytes,
 		"optimized_racer_lod_sprite_bytes": optimized_racer_lod_sprite_bytes,
+		"arkit_face_capture_glb_bytes": arkit_face_capture_glb_bytes,
 		"optimized_racer_quantized_lod0_glb_bytes": optimized_racer_quantized_lod0_glb_bytes,
 		"optimized_racer_quantized_lod_glb_bytes": optimized_racer_quantized_lod_glb_bytes,
 		"optimized_racer_quantized_lod0_atlas_source_bytes": optimized_racer_quantized_lod0_atlas_bytes,
@@ -228,6 +232,9 @@ static func _is_lod_path(path: String) -> bool:
 
 static func _is_lod_sprite_path(path: String) -> bool:
 	return (path.contains("_lod1_sprites") or path.contains("_lod2_sprites")) and (path.ends_with(".png") or path.ends_with(".json"))
+
+static func _is_arkit_face_capture_path(path: String) -> bool:
+	return path.contains("/arkit/")
 
 static func _sum_files(root_path: String, predicate: Callable) -> int:
 	var total := 0

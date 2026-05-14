@@ -38,6 +38,24 @@ func test_valid_meshy_racer_model_faces_car_forward() -> void:
 		assert_true(yaw_error <= 0.1, "Meshy racer-in-kart model should be yaw-corrected to Velva's direction")
 	car.queue_free()
 
+func test_rexx_uses_arkit_face_proxy_when_available() -> void:
+	NakamaService.set_meta_value("selected_racer_id", "Rexx")
+	var car_scene := load("res://scenes/Car.tscn")
+	assert_true(car_scene is PackedScene, "Car scene should load")
+	var car := (car_scene as PackedScene).instantiate()
+	scene_tree.root.add_child(car)
+	await scene_tree.process_frame
+	assert_equal((car as CarController).get_racer_visual_id(), "Rexx", "Spawned car should apply Rexx visual")
+	var model := car.find_child("RacerInKartModel", true, false)
+	assert_true(model != null, "Rexx ARKit variant should load a model visual")
+	var driver := model.get_node_or_null("ARKitFaceDriver") as ARKitFaceDriver if model != null else null
+	assert_true(driver != null, "Rexx ARKit variant should attach the ARKit face driver")
+	if driver != null:
+		assert_true(driver.has_face_mesh(), "Rexx ARKit variant should expose a blendshape face mesh")
+		assert_equal(driver.get_mapped_blend_shape_count(), 52, "Rexx ARKit face proxy should expose all ARKit blendshape names")
+	NakamaService.set_meta_value("selected_racer_id", "")
+	car.queue_free()
+
 func test_all_loaded_meshy_racer_models_use_roster_direction() -> void:
 	var car_scene := load("res://scenes/Car.tscn")
 	assert_true(car_scene is PackedScene, "Car scene should load")

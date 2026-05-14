@@ -92,6 +92,7 @@ func set_racer_visual_lod(racer_id: String, lod: String) -> bool:
 	if _can_use_sprite_lod(normalized, normalized_lod):
 		return _apply_sprite_lod_visual(normalized, normalized_lod)
 	var model_path := RacerRoster.get_racer_in_kart_model_path_for_lod(normalized, normalized_lod)
+	model_path = _racer_arkit_face_model_path(model_path)
 	if model_path.is_empty() or not ResourceLoader.exists(model_path) or not _is_scene_import_valid(model_path):
 		return _apply_portrait_visual(normalized)
 	var packed := load(model_path)
@@ -486,6 +487,17 @@ func _apply_sprite_lod_visual(racer_id: String, lod: String) -> bool:
 func _update_sprite_lod_camera(camera_position: Vector3) -> void:
 	if _active_visual_model is RacerSpriteLodVisual:
 		(_active_visual_model as RacerSpriteLodVisual).update_for_camera(global_transform, camera_position)
+
+func _racer_arkit_face_model_path(model_path: String) -> String:
+	if model_path.is_empty() or not model_path.ends_with(".glb"):
+		return model_path
+	var slash := model_path.rfind("/")
+	if slash < 0:
+		return model_path
+	var directory := model_path.substr(0, slash)
+	var file_name := model_path.substr(slash + 1)
+	var arkit_path := "%s/arkit/%s" % [directory, file_name]
+	return arkit_path if ResourceLoader.exists(arkit_path) else model_path
 
 func _attach_arkit_face_driver(model: Node3D) -> void:
 	var driver := ARKitFaceDriverScript.new()

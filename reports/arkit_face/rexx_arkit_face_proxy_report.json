@@ -1,0 +1,90 @@
+{
+  "source": "assets\\optimized\\racers\\rexx\\rexx_racer_in_kart_mobile_detail_phase1.glb",
+  "output": "assets\\optimized\\racers\\rexx\\arkit\\rexx_racer_in_kart_mobile_detail_phase1.glb",
+  "target_mesh": "Mesh_0_optimized",
+  "proxy_mesh": "ARKitFaceProxy",
+  "source_vertex_count": 547873,
+  "source_polygon_count": 853759,
+  "proxy_vertex_count": 18895,
+  "proxy_polygon_count": 15786,
+  "source_bounds": {
+    "min": [
+      -0.8302545547485352,
+      -0.9485930800437927,
+      -0.6335316300392151
+    ],
+    "max": [
+      0.828419029712677,
+      0.9502301216125488,
+      0.6314210891723633
+    ]
+  },
+  "proxy_bounds": {
+    "min": [
+      -0.24030613899230957,
+      -0.28013885021209717,
+      -0.47069600224494934
+    ],
+    "max": [
+      0.7924960851669312,
+      0.9508308172225952,
+      0.4501248300075531
+    ]
+  },
+  "shape_key_count": 52,
+  "moved_vertex_counts": {
+    "EyeBlinkLeft": 4420,
+    "EyeLookDownLeft": 4420,
+    "EyeLookInLeft": 4420,
+    "EyeLookOutLeft": 4420,
+    "EyeLookUpLeft": 4420,
+    "EyeSquintLeft": 4420,
+    "EyeWideLeft": 4420,
+    "EyeBlinkRight": 7508,
+    "EyeLookDownRight": 7508,
+    "EyeLookInRight": 7508,
+    "EyeLookOutRight": 7508,
+    "EyeLookUpRight": 7508,
+    "EyeSquintRight": 7508,
+    "EyeWideRight": 7508,
+    "JawForward": 4947,
+    "JawRight": 4947,
+    "JawLeft": 4947,
+    "JawOpen": 4947,
+    "MouthClose": 8737,
+    "MouthFunnel": 8737,
+    "MouthPucker": 8737,
+    "MouthRight": 8452,
+    "MouthLeft": 4876,
+    "MouthSmileLeft": 4876,
+    "MouthSmileRight": 8452,
+    "MouthFrownLeft": 4876,
+    "MouthFrownRight": 8452,
+    "MouthDimpleLeft": 4876,
+    "MouthDimpleRight": 8452,
+    "MouthStretchLeft": 4876,
+    "MouthStretchRight": 8452,
+    "MouthRollLower": 8737,
+    "MouthRollUpper": 8737,
+    "MouthShrugLower": 8737,
+    "MouthShrugUpper": 8737,
+    "MouthPressLeft": 4876,
+    "MouthPressRight": 8452,
+    "MouthLowerDownLeft": 4876,
+    "MouthLowerDownRight": 8452,
+    "MouthUpperUpLeft": 4876,
+    "MouthUpperUpRight": 8452,
+    "BrowDownLeft": 4717,
+    "BrowDownRight": 6792,
+    "BrowInnerUp": 8226,
+    "BrowOuterUpLeft": 4717,
+    "BrowOuterUpRight": 6792,
+    "CheekPuff": 13556,
+    "CheekSquintLeft": 9098,
+    "CheekSquintRight": 11429,
+    "NoseSneerLeft": 1297,
+    "NoseSneerRight": 3203,
+    "TongueOut": 8737
+  },
+  "method": "Non-destructive face/head proxy carved from Rexx head region; original mesh preserved."
+}
