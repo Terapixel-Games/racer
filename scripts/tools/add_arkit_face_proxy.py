@@ -98,15 +98,11 @@ def world_bounds(obj: bpy.types.Object) -> tuple[Vector, Vector]:
 
 
 def keep_face_center(center: Vector, bounds_min: Vector, bounds_max: Vector) -> bool:
-    size = bounds_max - bounds_min
-    x = (center.x - bounds_min.x) / max(size.x, 0.0001)
-    y = (center.y - bounds_min.y) / max(size.y, 0.0001)
-    z = (center.z - bounds_min.z) / max(size.z, 0.0001)
-    centered_z = abs(z - 0.5)
     # Rexx ships as a single combined mesh, so the ARKit proxy needs an
-    # explicit head-volume gate. The previous broad front/upper-body gate
-    # selected kart and rear-wheel faces, which made morphs appear on tires.
-    return 0.22 < x < 0.72 and y > 0.57 and centered_z < 0.31
+    # explicit face-feature gate. These source-space bounds were calibrated
+    # from rendered landmarks on the real eye/mouth/teeth area; broader head
+    # boxes overlap rear kart hardware and put morphs on the tire/engine.
+    return -0.26 <= center.x <= 0.36 and -0.15 <= center.y <= 0.62 and 0.05 <= center.z <= 0.48
 
 
 def carve_face_proxy(source: bpy.types.Object, offset: float) -> bpy.types.Object:
