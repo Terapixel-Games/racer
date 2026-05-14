@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3 uid="uid://bytr0uatksbl7"]
 
-[ext_resource type="Script" path="res://scripts/dev/ARKitFacePreview.gd" id="1_preview"]
+[ext_resource type="Script" uid="uid://drw7pbiuioq6f" path="res://scripts/dev/ARKitFacePreview.gd" id="1_preview"]
 
 [sub_resource type="Environment" id="Environment_preview"]
 background_mode = 1
@@ -29,7 +29,6 @@ shadow_enabled = true
 [node name="FillLight" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1.8, 3)
 light_energy = 1.8
-omni_range = 5.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

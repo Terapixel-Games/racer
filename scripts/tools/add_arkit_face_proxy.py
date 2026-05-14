@@ -103,7 +103,10 @@ def keep_face_center(center: Vector, bounds_min: Vector, bounds_max: Vector) -> 
     y = (center.y - bounds_min.y) / max(size.y, 0.0001)
     z = (center.z - bounds_min.z) / max(size.z, 0.0001)
     centered_z = abs(z - 0.5)
-    return x > 0.37 and y > 0.36 and centered_z < 0.35
+    # Rexx ships as a single combined mesh, so the ARKit proxy needs an
+    # explicit head-volume gate. The previous broad front/upper-body gate
+    # selected kart and rear-wheel faces, which made morphs appear on tires.
+    return 0.22 < x < 0.72 and y > 0.57 and centered_z < 0.31
 
 
 def carve_face_proxy(source: bpy.types.Object, offset: float) -> bpy.types.Object:

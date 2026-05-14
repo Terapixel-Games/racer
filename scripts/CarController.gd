@@ -502,7 +502,7 @@ func _racer_arkit_face_model_path(model_path: String) -> String:
 func _attach_arkit_face_driver(model: Node3D) -> void:
 	var driver := ARKitFaceDriverScript.new()
 	driver.name = "ARKitFaceDriver"
-	driver.auto_start_server = true
+	driver.auto_start_server = DisplayServer.get_name() != "headless"
 	model.add_child(driver)
 	if driver.bind_to_model(model):
 		_arkit_face_driver = driver
