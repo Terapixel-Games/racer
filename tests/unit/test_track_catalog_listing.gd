@@ -779,16 +779,28 @@ func _assert_home_yard_front_facade_details_respect_openings_and_wall_plane(root
 func _assert_home_yard_gambrel_gable_wall_aligns_to_front_wall(root: Node, track_id: String) -> void:
 	var front_gable := root.get_node_or_null("Roof/DutchGambrelFrontGableWall/GambrelGableUpperWall") as MeshInstance3D
 	var back_gable := root.get_node_or_null("Roof/DutchGambrelBackGableWall/GambrelGableUpperWall") as MeshInstance3D
+	var front_left_wall := root.get_node_or_null("ExteriorShell/ExteriorFrontWallLeft") as MeshInstance3D
+	var front_right_wall := root.get_node_or_null("ExteriorShell/ExteriorFrontWallEntryHeader") as MeshInstance3D
+	var back_left_wall := root.get_node_or_null("ExteriorShell/ExteriorBackWallWest") as MeshInstance3D
+	var back_right_wall := root.get_node_or_null("ExteriorShell/ExteriorBackPatioHeader") as MeshInstance3D
 	assert_true(front_gable != null, "%s front gambrel gable wall should exist" % track_id)
 	assert_true(back_gable != null, "%s back gambrel gable wall should exist" % track_id)
-	if front_gable != null:
+	assert_true(front_left_wall != null and front_right_wall != null, "%s lower front walls should exist for gable wall plane flush validation" % track_id)
+	assert_true(back_left_wall != null and back_right_wall != null, "%s lower back walls should exist for gable wall plane flush validation" % track_id)
+	if front_gable != null and front_left_wall != null and front_right_wall != null:
 		var front_bounds := _mesh_instance_global_aabb(front_gable)
-		assert_true(front_bounds.position.x >= -201.0 and front_bounds.end.x <= 91.0, "%s front GambrelGableUpperWall should align to the main front wall span, not the old overwide roof helper span: %s" % [track_id, str(front_bounds)])
-		assert_true(absf(front_bounds.position.z - 148.4) <= 0.35 and absf(front_bounds.end.z - 148.4) <= 0.35, "%s front GambrelGableUpperWall should sit on the front exterior wall face datum: %s" % [track_id, str(front_bounds)])
-	if back_gable != null:
+		var front_left_bounds := _mesh_instance_global_aabb(front_left_wall)
+		var front_right_bounds := _mesh_instance_global_aabb(front_right_wall)
+		var front_wall_face_z := maxf(front_left_bounds.end.z, front_right_bounds.end.z)
+		assert_true(front_bounds.position.x >= front_left_bounds.position.x - 0.2 and front_bounds.end.x <= front_right_bounds.end.x + 0.2, "%s front GambrelGableUpperWall should align to the lower front wall span, not an overwide roof helper span: %s" % [track_id, str(front_bounds)])
+		assert_true(absf(front_bounds.position.z - front_wall_face_z) <= 0.05 and absf(front_bounds.end.z - front_wall_face_z) <= 0.05, "%s front GambrelGableUpperWall should be flush with the lower front wall face datum %f: %s" % [track_id, front_wall_face_z, str(front_bounds)])
+	if back_gable != null and back_left_wall != null and back_right_wall != null:
 		var back_bounds := _mesh_instance_global_aabb(back_gable)
-		assert_true(back_bounds.position.x >= -201.0 and back_bounds.end.x <= 91.0, "%s back GambrelGableUpperWall should align to the main back wall span, not the old overwide roof helper span: %s" % [track_id, str(back_bounds)])
-		assert_true(absf(back_bounds.position.z + 133.4) <= 0.35 and absf(back_bounds.end.z + 133.4) <= 0.35, "%s back GambrelGableUpperWall should sit on the back exterior wall face datum: %s" % [track_id, str(back_bounds)])
+		var back_left_bounds := _mesh_instance_global_aabb(back_left_wall)
+		var back_right_bounds := _mesh_instance_global_aabb(back_right_wall)
+		var back_wall_face_z := minf(back_left_bounds.position.z, back_right_bounds.position.z)
+		assert_true(back_bounds.position.x >= back_left_bounds.position.x - 0.2 and back_bounds.end.x <= back_right_bounds.end.x + 0.2, "%s back GambrelGableUpperWall should align to the lower back wall span, not an overwide roof helper span: %s" % [track_id, str(back_bounds)])
+		assert_true(absf(back_bounds.position.z - back_wall_face_z) <= 0.05 and absf(back_bounds.end.z - back_wall_face_z) <= 0.05, "%s back GambrelGableUpperWall should be flush with the lower back wall face datum %f: %s" % [track_id, back_wall_face_z, str(back_bounds)])
 
 func _assert_home_yard_yard_and_service_visual_completeness(root: Node, track_id: String) -> void:
 	for node_path in [
