@@ -711,6 +711,7 @@ func _add_exterior_architecture(root: Node3D, parent: Node3D) -> void:
 func _add_exterior_wall_system(root: Node3D, parent: Node3D) -> void:
 	var exterior := Color(0.54, 0.49, 0.42)
 	_add_wall_z(root, parent, "ExteriorFrontWallLeft", 145, -200, -90, exterior, true, 0.0, 104.0)
+	_add_wall_z(root, parent, "ExteriorFrontEntryUpperWall", 145, -90, -10, exterior, true, 62.0, 42.0, _provenance("ExteriorShell", "front_entry_bay", "upper_header_wall", "PLAN_CONTRACT.front_facade_opening_schedule", "front entry upper wall closes the second-floor span above the porch/door bay so the lower entry opening does not become a full-height shell void", "ExteriorFrontWallLeft and ExteriorFrontWallEntryHeader", "front entry wall face z=145", "x", Vector3(-90, 62, 145), Vector3(-10, 104, 145), ["DutchFrontEntrySidingField", "front porch trim reveal", "adjacent wall top trim"], ["daylight gap between second-floor front wall segments", "door/sidelight AABB", "floating decorative patch as sole closure"], "resize or split if the front entry rough opening changes", "test_home_yard_front_entry_upper_wall_closes_second_floor_gap", "ValidationCameras/FrontPorchCloseupCamera"))
 	_add_wall_z(root, parent, "ExteriorFrontWallEntryHeader", 145, -10, 90, exterior, true, 0.0, 104.0)
 	_add_wall_z(root, parent, "ExteriorFrontGarageWall", 145, 90, 220, exterior, true, 0.0, 52.0)
 	_add_wall_z(root, parent, "ExteriorBackWallWest", -130, -200, -55, exterior, true, 0.0, 104.0)

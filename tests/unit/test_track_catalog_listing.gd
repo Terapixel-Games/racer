@@ -683,6 +683,7 @@ func _assert_home_yard_exterior_visual_completeness(root: Node, track_id: String
 		assert_true(root.get_node_or_null(node_path) != null, "%s exterior should include whole-unit beta visual detail %s" % [track_id, node_path])
 	_assert_home_yard_front_facade_details_respect_openings_and_wall_plane(root, track_id)
 	_assert_home_yard_front_openings_have_clear_bays(root, track_id)
+	_assert_home_yard_front_entry_upper_wall_closes_second_floor_gap(root, track_id)
 	_assert_home_yard_gambrel_gable_wall_aligns_to_front_wall(root, track_id)
 	_assert_home_yard_front_entry_assembly_fits_doorway(root, track_id)
 	_assert_home_yard_back_facade_openings_are_provenance_audited(root, track_id)
@@ -720,6 +721,26 @@ func _assert_home_yard_front_openings_have_clear_bays(root: Node, track_id: Stri
 	if kitchen_backing != null:
 		var backing_bounds := _mesh_instance_global_aabb(kitchen_backing)
 		assert_true(backing_bounds.position.x > -203.0, "%s KitchenGardenWindowInteriorShadowBacking should be inside the west exterior wall plane, not outside the home: %s" % [track_id, str(backing_bounds)])
+
+func _assert_home_yard_front_entry_upper_wall_closes_second_floor_gap(root: Node, track_id: String) -> void:
+	var left_wall := root.get_node_or_null("ExteriorShell/ExteriorFrontWallLeft") as MeshInstance3D
+	var upper_wall := root.get_node_or_null("ExteriorShell/ExteriorFrontEntryUpperWall") as MeshInstance3D
+	var right_wall := root.get_node_or_null("ExteriorShell/ExteriorFrontWallEntryHeader") as MeshInstance3D
+	assert_true(left_wall != null and upper_wall != null and right_wall != null, "%s front entry bay should include left wall, upper/header wall, and right wall owners" % track_id)
+	if left_wall == null or upper_wall == null or right_wall == null:
+		return
+	var left_bounds := _mesh_instance_global_aabb(left_wall)
+	var upper_bounds := _mesh_instance_global_aabb(upper_wall)
+	var right_bounds := _mesh_instance_global_aabb(right_wall)
+	assert_true(absf(upper_bounds.position.z - left_bounds.position.z) <= 0.05 and absf(upper_bounds.end.z - left_bounds.end.z) <= 0.05, "%s front entry upper wall must be flush with the left front wall face: upper=%s left=%s" % [track_id, str(upper_bounds), str(left_bounds)])
+	assert_true(absf(upper_bounds.position.z - right_bounds.position.z) <= 0.05 and absf(upper_bounds.end.z - right_bounds.end.z) <= 0.05, "%s front entry upper wall must be flush with the right front wall face: upper=%s right=%s" % [track_id, str(upper_bounds), str(right_bounds)])
+	assert_true(upper_bounds.position.x <= left_bounds.end.x + 0.25 and upper_bounds.end.x >= right_bounds.position.x - 0.25, "%s front entry upper wall should bridge the full selected-piece gap: left=%s upper=%s right=%s" % [track_id, str(left_bounds), str(upper_bounds), str(right_bounds)])
+	assert_true(upper_bounds.position.y <= 62.5 and upper_bounds.end.y >= 103.5, "%s front entry upper wall should close from the entry siding/header band to the second-floor/eave datum: %s" % [track_id, str(upper_bounds)])
+	var provenance: Variant = upper_wall.get_meta("generated_scene_provenance", {})
+	assert_true(provenance is Dictionary, "%s ExteriorFrontEntryUpperWall should declare gap-closure provenance" % track_id)
+	if provenance is Dictionary:
+		assert_equal(str((provenance as Dictionary).get("validation_gate", "")), "test_home_yard_front_entry_upper_wall_closes_second_floor_gap", "%s ExteriorFrontEntryUpperWall should point at the second-floor front gap gate" % track_id)
+		assert_true(str((provenance as Dictionary).get("forbidden_intersections", "")).contains("daylight gap"), "%s ExteriorFrontEntryUpperWall provenance should forbid recurring selected-piece daylight gaps" % track_id)
 
 func _assert_home_yard_exterior_long_members_are_clipped_to_owner_runs(root: Node, track_id: String) -> void:
 	var back_skirt := root.get_node_or_null("ExteriorShell/ExteriorFoundationBackSkirt") as MeshInstance3D
