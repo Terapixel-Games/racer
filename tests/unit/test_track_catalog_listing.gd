@@ -748,14 +748,26 @@ func _assert_home_yard_back_facade_openings_are_provenance_audited(root: Node, t
 		"ExteriorShell/RearPatioLowerWallLeftInfill",
 		"ExteriorShell/RearPatioLowerWallBetweenDoorAndDoggie",
 		"ExteriorShell/RearPatioLowerWallRightInfill",
-		"Openings/PlayroomPatioDoorFrame",
+		"Openings/KitchenPatioDoorFrameHeader",
+		"Openings/KitchenPatioDoorFrameSill",
+		"Openings/KitchenPatioDoorFrameLeftJamb",
+		"Openings/KitchenPatioDoorFrameRightJamb",
+		"Openings/KitchenPatioDoorGlass",
+		"Openings/PlayroomPatioDoorFrameHeader",
+		"Openings/PlayroomPatioDoorFrameSill",
+		"Openings/PlayroomPatioDoorFrameLeftJamb",
+		"Openings/PlayroomPatioDoorFrameRightJamb",
 		"Openings/PlayroomPatioDoorGlass",
-		"Openings/OversizedDoggieDoorFrame",
+		"Openings/OversizedDoggieDoorFrameHeader",
+		"Openings/OversizedDoggieDoorFrameSill",
+		"Openings/OversizedDoggieDoorFrameLeftJamb",
+		"Openings/OversizedDoggieDoorFrameRightJamb",
 		"Openings/OversizedDoggieDoorFlap",
 	]
 	var rear_opening_paths := [
-		"Openings/PlayroomPatioDoorFrame",
-		"Openings/OversizedDoggieDoorFrame",
+		"Openings/KitchenPatioDoorGlass",
+		"Openings/PlayroomPatioDoorGlass",
+		"Openings/OversizedDoggieDoorFlap",
 	]
 	for node_path in rear_detail_paths:
 		var node := root.get_node_or_null(node_path) as MeshInstance3D
@@ -767,14 +779,17 @@ func _assert_home_yard_back_facade_openings_are_provenance_audited(root: Node, t
 		if provenance is Dictionary:
 			assert_equal(str((provenance as Dictionary).get("validation_gate", "")), "test_home_yard_back_facade_openings_are_provenance_audited", "%s %s should point at the rear facade audit gate" % [track_id, node_path])
 			assert_true(str((provenance as Dictionary).get("forbidden_intersections", "")).contains("yellow interior leak"), "%s %s should forbid the yellow rear-wall leak class" % [track_id, node_path])
-	var patio_frame := root.get_node_or_null("Openings/PlayroomPatioDoorFrame") as MeshInstance3D
-	var doggie_frame := root.get_node_or_null("Openings/OversizedDoggieDoorFrame") as MeshInstance3D
-	assert_true(patio_frame != null and doggie_frame != null, "%s rear facade should include separate patio and doggie-door openings" % track_id)
-	if patio_frame != null and doggie_frame != null:
-		var patio_bounds := _mesh_instance_global_aabb(patio_frame)
-		var doggie_bounds := _mesh_instance_global_aabb(doggie_frame)
-		assert_true(not _aabb_overlaps_on_axes(patio_bounds, doggie_bounds, ["x", "y"], 0.25), "%s playroom patio door and doggie door must not occupy the same rear opening: patio=%s doggie=%s" % [track_id, str(patio_bounds), str(doggie_bounds)])
-		assert_true(doggie_bounds.size.x <= 28.0 and doggie_bounds.size.y <= 24.0, "%s doggie door should read as a small route portal, not a broad loose wall panel: %s" % [track_id, str(doggie_bounds)])
+	var patio_glass := root.get_node_or_null("Openings/PlayroomPatioDoorGlass") as MeshInstance3D
+	var doggie_flap := root.get_node_or_null("Openings/OversizedDoggieDoorFlap") as MeshInstance3D
+	assert_true(patio_glass != null and doggie_flap != null, "%s rear facade should include separate patio glass and doggie-door flap panels" % track_id)
+	if patio_glass != null and doggie_flap != null:
+		var patio_bounds := _mesh_instance_global_aabb(patio_glass)
+		var doggie_bounds := _mesh_instance_global_aabb(doggie_flap)
+		assert_true(not _aabb_overlaps_on_axes(patio_bounds, doggie_bounds, ["x", "y"], 0.25), "%s playroom patio glass and doggie flap must not occupy the same rear opening: patio=%s doggie=%s" % [track_id, str(patio_bounds), str(doggie_bounds)])
+		assert_true(doggie_bounds.size.x <= 18.0 and doggie_bounds.size.y <= 16.0, "%s doggie flap should read as a small route portal panel, not a broad loose wall panel: %s" % [track_id, str(doggie_bounds)])
+	_assert_rear_frame_surrounds_panel_without_covering_center(root, track_id, "KitchenPatioDoor", "KitchenPatioDoorGlass")
+	_assert_rear_frame_surrounds_panel_without_covering_center(root, track_id, "PlayroomPatioDoor", "PlayroomPatioDoorGlass")
+	_assert_rear_frame_surrounds_panel_without_covering_center(root, track_id, "OversizedDoggieDoor", "OversizedDoggieDoorFlap")
 	for infill_path in [
 		"ExteriorShell/RearPatioLowerWallLeftInfill",
 		"ExteriorShell/RearPatioLowerWallBetweenDoorAndDoggie",
@@ -792,6 +807,21 @@ func _assert_home_yard_back_facade_openings_are_provenance_audited(root: Node, t
 				continue
 			var opening_bounds := _mesh_instance_global_aabb(opening)
 			assert_true(not _aabb_overlaps_on_axes(infill_bounds, opening_bounds, ["x", "y"], 0.25), "%s rear lower wall infill %s should not cover rear opening %s; infill=%s opening=%s" % [track_id, infill_path, opening_path, str(infill_bounds), str(opening_bounds)])
+
+func _assert_rear_frame_surrounds_panel_without_covering_center(root: Node, track_id: String, prefix: String, panel_name: String) -> void:
+	var panel := root.get_node_or_null("Openings/%s" % panel_name) as MeshInstance3D
+	assert_true(panel != null, "%s rear opening should include panel %s" % [track_id, panel_name])
+	if panel == null:
+		return
+	var panel_bounds := _mesh_instance_global_aabb(panel)
+	for suffix in ["Header", "Sill", "LeftJamb", "RightJamb"]:
+		var frame_path := "Openings/%sFrame%s" % [prefix, suffix]
+		var frame_member := root.get_node_or_null(frame_path) as MeshInstance3D
+		assert_true(frame_member != null, "%s rear opening should include frame member %s" % [track_id, frame_path])
+		if frame_member == null:
+			continue
+		var frame_bounds := _mesh_instance_global_aabb(frame_member)
+		assert_true(not _aabb_overlaps_on_axes(frame_bounds, panel_bounds, ["x", "y"], 0.25), "%s %s should surround, not cover, %s; frame=%s panel=%s" % [track_id, frame_path, panel_name, str(frame_bounds), str(panel_bounds)])
 
 func _assert_home_yard_front_entry_assembly_fits_doorway(root: Node, track_id: String) -> void:
 	var left_wall := root.get_node_or_null("ExteriorShell/ExteriorFrontWallLeft") as MeshInstance3D
@@ -1469,8 +1499,14 @@ func _assert_home_yard_landscape_and_assets(root: Node, track_id: String) -> voi
 		"Foundation/HouseFoundationBackPlinth",
 		"Foundation/HouseFoundationWestPlinth",
 		"Foundation/HouseFoundationEastPlinth",
-		"Openings/KitchenPatioDoorFrame",
-		"Openings/OversizedDoggieDoorFrame",
+		"Openings/KitchenPatioDoorFrameHeader",
+		"Openings/KitchenPatioDoorFrameSill",
+		"Openings/KitchenPatioDoorFrameLeftJamb",
+		"Openings/KitchenPatioDoorFrameRightJamb",
+		"Openings/OversizedDoggieDoorFrameHeader",
+		"Openings/OversizedDoggieDoorFrameSill",
+		"Openings/OversizedDoggieDoorFrameLeftJamb",
+		"Openings/OversizedDoggieDoorFrameRightJamb",
 		"PorchesDecks/FrontPorchDeck",
 		"PorchesDecks/BackDeckLanding",
 		"GarageService/GarageToolBench",

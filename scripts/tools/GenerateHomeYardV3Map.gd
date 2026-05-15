@@ -795,6 +795,13 @@ func _add_rear_patio_lower_infill(root: Node3D, parent: Node3D, color: Color) ->
 	for spec in specs:
 		_add_box(root, parent, str(spec["name"]), spec["position"], spec["size"], color, true, 0.0, Vector3.ZERO, _rear_facade_provenance(str(spec["name"]), str(spec["why"])))
 
+func _add_rear_opening_frame(root: Node3D, parent: Node3D, prefix: String, position: Vector3, size: Vector2, color: Color, member_width: float, provenance: Dictionary) -> void:
+	var frame_depth := 5.0
+	_add_box(root, parent, "%sFrameHeader" % prefix, position + Vector3(0, size.y * 0.5 - member_width * 0.5, 0), Vector3(size.x, member_width, frame_depth), color, false, 0.0, Vector3.ZERO, provenance)
+	_add_box(root, parent, "%sFrameSill" % prefix, position + Vector3(0, -size.y * 0.5 + member_width * 0.5, 0), Vector3(size.x, member_width, frame_depth), color, false, 0.0, Vector3.ZERO, provenance)
+	_add_box(root, parent, "%sFrameLeftJamb" % prefix, position + Vector3(-size.x * 0.5 + member_width * 0.5, 0, 0), Vector3(member_width, size.y, frame_depth), color, false, 0.0, Vector3.ZERO, provenance)
+	_add_box(root, parent, "%sFrameRightJamb" % prefix, position + Vector3(size.x * 0.5 - member_width * 0.5, 0, 0), Vector3(member_width, size.y, frame_depth), color, false, 0.0, Vector3.ZERO, provenance)
+
 func _add_opening_assemblies(root: Node3D, parent: Node3D) -> void:
 	parent.set_meta("plan_role", "door/window/threshold schedule from floor-plan contract")
 	var trim := Color(0.88, 0.82, 0.67)
@@ -806,12 +813,12 @@ func _add_opening_assemblies(root: Node3D, parent: Node3D) -> void:
 	_add_window(root, parent, "DiningFrontWindow", Vector3(-152, 25, 148), Vector3(48, 22, 1.0))
 	_add_window(root, parent, "LivingFrontWindow", Vector3(50, 25, 148.6), Vector3(46, 22, 1.0))
 	_add_window(root, parent, "KitchenGardenWindow", Vector3(-200.5, 24, -58), Vector3(1.0, 22, 52))
-	_add_box(root, parent, "KitchenPatioDoorFrame", Vector3(-128, 22, -132), Vector3(66, 42, 5), trim, false)
-	_add_box(root, parent, "KitchenPatioDoorGlass", Vector3(-128, 22, -135), Vector3(50, 32, 1.2), Color(0.48, 0.72, 0.86, 0.45), false)
-	_add_box(root, parent, "PlayroomPatioDoorFrame", Vector3(20, 22, -132), Vector3(48, 42, 5), trim, false, 0.0, Vector3.ZERO, _rear_facade_provenance("PlayroomPatioDoorFrame", "playroom patio door frame fills its own rear opening and must not share space with the doggie door"))
-	_add_box(root, parent, "PlayroomPatioDoorGlass", Vector3(20, 22, -135), Vector3(36, 32, 1.2), Color(0.48, 0.72, 0.86, 0.45), false, 0.0, Vector3.ZERO, _rear_facade_provenance("PlayroomPatioDoorGlass", "playroom patio glass is contained inside the patio frame and backed by a real rear opening"))
-	_add_box(root, parent, "OversizedDoggieDoorFrame", Vector3(68, 10, -132), Vector3(24, 20, 5), trim.darkened(0.05), false, 0.0, Vector3.ZERO, _rear_facade_provenance("OversizedDoggieDoorFrame", "oversized toy-racer doggie door has its own small bay beside the playroom patio door instead of overlapping it"))
-	_add_box(root, parent, "OversizedDoggieDoorFlap", Vector3(68, 9, -135), Vector3(16, 14, 1.2), Color(0.10, 0.08, 0.07, 0.62), false, 0.0, Vector3.ZERO, _rear_facade_provenance("OversizedDoggieDoorFlap", "dark flap sits within the doggie-door frame and reads as a route/freedrive portal instead of a loose exterior panel"))
+	_add_rear_opening_frame(root, parent, "KitchenPatioDoor", Vector3(-128, 22, -132), Vector2(66, 42), trim, 4.0, _rear_facade_provenance("KitchenPatioDoorFrame", "kitchen patio door frame is a header/sill/jamb ring around the glass, leaving the center open to show interior depth"))
+	_add_box(root, parent, "KitchenPatioDoorGlass", Vector3(-128, 22, -135), Vector3(50, 32, 1.2), Color(0.48, 0.72, 0.86, 0.45), false, 0.0, Vector3.ZERO, _rear_facade_provenance("KitchenPatioDoorGlass", "kitchen patio glass is inset behind the patio frame opening and backed by a real rear opening"))
+	_add_rear_opening_frame(root, parent, "PlayroomPatioDoor", Vector3(20, 22, -132), Vector2(48, 42), trim, 4.0, _rear_facade_provenance("PlayroomPatioDoorFrame", "playroom patio door frame is a header/sill/jamb ring around the glass, leaving the center open to show interior depth"))
+	_add_box(root, parent, "PlayroomPatioDoorGlass", Vector3(20, 22, -135), Vector3(36, 32, 1.2), Color(0.48, 0.72, 0.86, 0.45), false, 0.0, Vector3.ZERO, _rear_facade_provenance("PlayroomPatioDoorGlass", "playroom patio glass is inset behind the patio frame opening and backed by a real rear opening"))
+	_add_rear_opening_frame(root, parent, "OversizedDoggieDoor", Vector3(68, 10, -132), Vector2(24, 20), trim.darkened(0.05), 3.0, _rear_facade_provenance("OversizedDoggieDoorFrame", "oversized toy-racer doggie door frame is a small ring around the flap instead of a solid loose wall panel"))
+	_add_box(root, parent, "OversizedDoggieDoorFlap", Vector3(68, 10, -135), Vector3(14, 12, 1.2), Color(0.10, 0.08, 0.07, 0.62), false, 0.0, Vector3.ZERO, _rear_facade_provenance("OversizedDoggieDoorFlap", "dark flap is inset behind the doggie-door frame and reads as a route/freedrive portal instead of a loose exterior panel"))
 	_add_box(root, parent, "GarageDoorPanel", Vector3(155, 14, 148), Vector3(86, 28, 2.0), Color(0.32, 0.30, 0.27), false)
 	_add_box(root, parent, "GarageHouseServiceDoor", Vector3(92, 14, 68), Vector3(4, 28, 20), Color(0.22, 0.16, 0.10), false)
 	_add_box(root, parent, "AtticAccessHatchFrame", Vector3(18, 106, -72), Vector3(52, 5, 30), trim.darkened(0.20), false)
