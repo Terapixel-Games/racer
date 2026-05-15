@@ -8,6 +8,23 @@ var MAGIC_LINK_EMAIL_LOOKUP_KEY_PREFIX = "magic_link_email_lookup_";
 var MAGIC_LINK_PROFILE_LOOKUP_KEY_PREFIX = "magic_link_profile_lookup_";
 var MAGIC_LINK_NOTIFY_REPLAY_KEY = "magic_link_notify_replay";
 var USERNAME_STATE_KEY = "username_state";
+var RACER_BUILD_COLLECTION = "racer_builds";
+var RACER_BUILD_LOBBY_INDEX_COLLECTION = "racer_build_lobbies";
+var RACER_BUILD_SCHEMA_VERSION = 1;
+var RACER_BUILD_PIECE_LIBRARY_VERSION = "home_builder_v1";
+var RACER_BUILD_MAX_PIECES = 160;
+var RACER_BUILD_MAX_PAYLOAD_BYTES = 24000;
+var RACER_BUILD_ALLOWED_HOME_MAPS = ["home_yard_v3", "home_estate_v1"];
+var RACER_BUILD_ALLOWED_PIECES = [
+  "straight",
+  "corner",
+  "ramp",
+  "bridge",
+  "landing",
+  "guard",
+  "connector",
+  "endpoint",
+];
 var EMAIL_MAX_LENGTH = 320;
 var MAGIC_LINK_TOKEN_MAX_LENGTH = 512;
 var SYSTEM_USER_ID = "00000000-0000-0000-0000-000000000000";
@@ -70,6 +87,10 @@ function InitModule(ctx, logger, nk, initializer) {
   initializer.registerRpc("tpx_client_event_track", rpcClientEventTrack);
   initializer.registerRpc("racer_online_join_or_create", rpcRacerOnlineJoinOrCreate);
   initializer.registerRpc("racer_online_session_state", rpcRacerOnlineSessionState);
+  initializer.registerRpc("racer_build_publish", rpcRacerBuildPublish);
+  initializer.registerRpc("racer_build_get", rpcRacerBuildGet);
+  initializer.registerRpc("racer_build_list_lobby", rpcRacerBuildListLobby);
+  initializer.registerRpc("racer_build_delete", rpcRacerBuildDelete);
   initializer.registerMatch("racer_online_lobby", {
     matchInit: racerLobbyMatchInit,
     matchJoinAttempt: racerMatchJoinAttempt,
@@ -567,14 +588,113 @@ function rpcRacerOnlineSessionState(ctx, logger, nk, payload) {
   var data = parsePayload(payload);
   var sessionId = String(data.session_id || data.sessionId || "").trim();
   var roomCode = normalizeOnlineRoomCode(data.room_code || data.roomCode || "");
-  var session = sessionId ? ONLINE_SESSIONS[sessionId] : null;
-  if (!session && roomCode) {
-    session = ONLINE_SESSIONS[ONLINE_ROOM_INDEX[roomCode]];
-  }
+  var session = findOnlineSession(sessionId, roomCode);
   if (!session) {
     throw new Error("online session was not found");
   }
   return JSON.stringify(buildOnlineSessionPayload(session));
+}
+
+function rpcRacerBuildPublish(ctx, logger, nk, payload) {
+  assertAuthenticated(ctx);
+  var data = parsePayload(payload);
+  var session = findOnlineSession(
+    String(data.session_id || data.sessionId || "").trim(),
+    normalizeOnlineRoomCode(data.room_code || data.roomCode || "")
+  );
+  if (!session || !onlineSessionHasUser(session, ctx.userId)) {
+    throw new Error("lobby session membership is required");
+  }
+  var build = sanitizeRacerBuildDocument(data.build || data, ctx.userId, session.sessionId);
+  var validation = validateRacerBuildDocument(build);
+  if (!validation.ok) {
+    throw new Error(validation.errors[0] || "invalid build");
+  }
+  nk.storageWrite([
+    {
+      collection: RACER_BUILD_COLLECTION,
+      key: build.build_id,
+      userId: ctx.userId,
+      value: build,
+      permissionRead: 0,
+      permissionWrite: 0,
+    },
+  ]);
+  upsertRacerBuildLobbyIndex(nk, session.sessionId, {
+    build_id: build.build_id,
+    owner_user_id: ctx.userId,
+    display_name: build.display_name,
+    home_map_id: build.home_map_id,
+    navigation_status: build.navigation_status,
+    race_status: build.race_status,
+    updated_at: build.updated_at,
+  });
+  return JSON.stringify({ ok: true, build: racerBuildSummary(build) });
+}
+
+function rpcRacerBuildGet(ctx, logger, nk, payload) {
+  assertAuthenticated(ctx);
+  var data = parsePayload(payload);
+  var buildId = sanitizeRacerBuildId(data.build_id || data.buildId || "");
+  if (!buildId) {
+    throw new Error("build_id is required");
+  }
+  var session = findOnlineSession(
+    String(data.session_id || data.sessionId || "").trim(),
+    normalizeOnlineRoomCode(data.room_code || data.roomCode || "")
+  );
+  var ownerUserId = String(data.owner_user_id || data.ownerUserId || ctx.userId || "").trim();
+  var build = readRacerBuild(nk, ownerUserId, buildId);
+  if (!build && session) {
+    var index = readRacerBuildLobbyIndex(nk, session.sessionId);
+    for (var i = 0; i < index.length; i++) {
+      if (index[i].build_id === buildId) {
+        ownerUserId = index[i].owner_user_id;
+        build = readRacerBuild(nk, ownerUserId, buildId);
+        break;
+      }
+    }
+  }
+  if (!build) {
+    throw new Error("build was not found");
+  }
+  if (build.owner_user_id !== ctx.userId) {
+    if (!session || !onlineSessionHasUser(session, ctx.userId) || build.scope_session_id !== session.sessionId) {
+      throw new Error("build is not visible to this user");
+    }
+  }
+  return JSON.stringify({ ok: true, build: build });
+}
+
+function rpcRacerBuildListLobby(ctx, logger, nk, payload) {
+  assertAuthenticated(ctx);
+  var data = parsePayload(payload);
+  var session = findOnlineSession(
+    String(data.session_id || data.sessionId || "").trim(),
+    normalizeOnlineRoomCode(data.room_code || data.roomCode || "")
+  );
+  if (!session || !onlineSessionHasUser(session, ctx.userId)) {
+    throw new Error("lobby session membership is required");
+  }
+  return JSON.stringify({ ok: true, builds: readRacerBuildLobbyIndex(nk, session.sessionId) });
+}
+
+function rpcRacerBuildDelete(ctx, logger, nk, payload) {
+  assertAuthenticated(ctx);
+  var data = parsePayload(payload);
+  var buildId = sanitizeRacerBuildId(data.build_id || data.buildId || "");
+  if (!buildId) {
+    throw new Error("build_id is required");
+  }
+  var build = readRacerBuild(nk, ctx.userId, buildId);
+  if (!build) {
+    throw new Error("build was not found");
+  }
+  nk.storageDelete([{ collection: RACER_BUILD_COLLECTION, key: buildId, userId: ctx.userId }]);
+  if (build.scope_session_id) {
+    removeRacerBuildLobbyIndex(nk, build.scope_session_id, buildId);
+  }
+  return JSON.stringify({ ok: true, deleted: true, build_id: buildId });
 }
 
 function createOnlineSession(ctx, nk, mode, data) {
@@ -604,6 +724,21 @@ function createOnlineSession(ctx, nk, mode, data) {
   ONLINE_SESSIONS[sessionId] = session;
   ONLINE_ROOM_INDEX[roomCode] = sessionId;
   return session;
+}
+
+function findOnlineSession(sessionId, roomCode) {
+  var session = sessionId ? ONLINE_SESSIONS[sessionId] : null;
+  if (!session && roomCode) {
+    session = ONLINE_SESSIONS[ONLINE_ROOM_INDEX[roomCode]];
+  }
+  return session || null;
+}
+
+function onlineSessionHasUser(session, userId) {
+  if (!session || !session.players || !userId) {
+    return false;
+  }
+  return !!session.players[String(userId || "")];
 }
 
 function buildOnlineSessionPayload(session) {
@@ -1064,6 +1199,284 @@ function sanitizeTrackId(value) {
     }
   }
   return "";
+}
+
+function sanitizeRacerBuildId(value) {
+  var id = String(value || "").trim().toLowerCase().replace(/[^a-z0-9_-]/g, "_");
+  if (id.length > 64) {
+    id = id.substring(0, 64);
+  }
+  return id;
+}
+
+function sanitizeRacerBuildDocument(input, ownerUserId, sessionId) {
+  var data = input && typeof input === "object" && !Array.isArray(input) ? input : {};
+  var now = Math.floor(Date.now() / 1000);
+  var buildId = sanitizeRacerBuildId(data.build_id || data.buildId || "");
+  if (!buildId) {
+    buildId = "build_" + stableHashHex(String(ownerUserId || "") + ":" + now + ":" + JSON.stringify(data)).substring(0, 16);
+  }
+  var pieces = Array.isArray(data.pieces) ? data.pieces : [];
+  var sanitizedPieces = [];
+  for (var i = 0; i < pieces.length && i < RACER_BUILD_MAX_PIECES; i++) {
+    sanitizedPieces.push(sanitizeRacerBuildPiece(pieces[i], i));
+  }
+  return {
+    schema_version: toInt(data.schema_version || data.schemaVersion, RACER_BUILD_SCHEMA_VERSION),
+    build_id: buildId,
+    owner_user_id: String(ownerUserId || "").trim(),
+    scope: "lobby",
+    scope_session_id: String(sessionId || "").trim(),
+    home_map_id: sanitizeRacerBuildHomeMap(data.home_map_id || data.homeMapId || "home_yard_v3"),
+    home_map_version: sanitizeShortToken(data.home_map_version || data.homeMapVersion || ""),
+    display_name: sanitizeRacerBuildDisplayName(data.display_name || data.displayName || "Home Build"),
+    piece_library_version: sanitizeShortToken(data.piece_library_version || data.pieceLibraryVersion || RACER_BUILD_PIECE_LIBRARY_VERSION),
+    piece_inventory: sanitizeRacerBuildInventory(data.piece_inventory || data.pieceInventory || {}),
+    pieces: sanitizedPieces,
+    anchor_ids: sanitizeStringArray(data.anchor_ids || data.anchorIds || [], 64, 64),
+    route_cells: sanitizeVector3iArray(data.route_cells || data.routeCells || [], RACER_BUILD_MAX_PIECES),
+    route_points: sanitizeVector3Array(data.route_points || data.routePoints || [], RACER_BUILD_MAX_PIECES),
+    navigation_status: sanitizeRacerBuildStatus(data.navigation_status || data.navigationStatus || "unchecked", [
+      "unchecked",
+      "navigation_valid",
+      "invalid",
+    ]),
+    race_status: sanitizeRacerBuildStatus(data.race_status || data.raceStatus || "unchecked", [
+      "unchecked",
+      "race_valid",
+      "invalid",
+    ]),
+    validation_errors: sanitizeStringArray(data.validation_errors || data.validationErrors || [], 12, 160),
+    promotion_metadata: ensurePlainObject(data.promotion_metadata || data.promotionMetadata || {}, {}),
+    created_at: toInt(data.created_at || data.createdAt, now) || now,
+    updated_at: now,
+  };
+}
+
+function sanitizeRacerBuildPiece(value, index) {
+  var piece = value && typeof value === "object" && !Array.isArray(value) ? value : {};
+  var pieceId = String(piece.piece_id || piece.pieceId || piece.type || "straight").trim().toLowerCase();
+  if (RACER_BUILD_ALLOWED_PIECES.indexOf(pieceId) < 0) {
+    pieceId = "straight";
+  }
+  return {
+    id: sanitizeShortToken(piece.id || "piece_" + (index + 1)),
+    piece_id: pieceId,
+    cell: sanitizeVector3i(piece.cell || [0, 0, 0]),
+    yaw_steps: ((toInt(piece.yaw_steps || piece.yawSteps || piece.rotation, 0) % 4) + 4) % 4,
+    anchor_id: sanitizeShortToken(piece.anchor_id || piece.anchorId || ""),
+  };
+}
+
+function validateRacerBuildDocument(build) {
+  var errors = [];
+  if (!build || typeof build !== "object" || Array.isArray(build)) {
+    return { ok: false, errors: ["build must be an object"] };
+  }
+  var size = JSON.stringify(build).length;
+  if (size > RACER_BUILD_MAX_PAYLOAD_BYTES) {
+    errors.push("build payload is too large");
+  }
+  if (toInt(build.schema_version, 0) !== RACER_BUILD_SCHEMA_VERSION) {
+    errors.push("unsupported build schema version");
+  }
+  if (!build.owner_user_id) {
+    errors.push("owner user id is required");
+  }
+  if (RACER_BUILD_ALLOWED_HOME_MAPS.indexOf(String(build.home_map_id || "")) < 0) {
+    errors.push("home map is not publishable");
+  }
+  if (String(build.piece_library_version || "") !== RACER_BUILD_PIECE_LIBRARY_VERSION) {
+    errors.push("unsupported piece library version");
+  }
+  if (!Array.isArray(build.pieces) || build.pieces.length <= 0) {
+    errors.push("build must include at least one piece");
+  }
+  if (Array.isArray(build.pieces) && build.pieces.length > RACER_BUILD_MAX_PIECES) {
+    errors.push("build has too many pieces");
+  }
+  var occupied = {};
+  var counts = {};
+  var pieces = Array.isArray(build.pieces) ? build.pieces : [];
+  for (var i = 0; i < pieces.length; i++) {
+    var piece = pieces[i] || {};
+    var pieceId = String(piece.piece_id || "");
+    if (RACER_BUILD_ALLOWED_PIECES.indexOf(pieceId) < 0) {
+      errors.push("unsupported piece id: " + pieceId);
+    }
+    counts[pieceId] = (counts[pieceId] || 0) + 1;
+    var cell = Array.isArray(piece.cell) ? piece.cell : [0, 0, 0];
+    var key = toInt(cell[0], 0) + ":" + toInt(cell[1], 0) + ":" + toInt(cell[2], 0);
+    if (occupied[key]) {
+      errors.push("multiple pieces occupy cell " + key);
+    }
+    occupied[key] = true;
+    if (Math.abs(toInt(cell[0], 0)) > 64 || Math.abs(toInt(cell[1], 0)) > 64 || Math.abs(toInt(cell[2], 0)) > 64) {
+      errors.push("piece is outside the build grid");
+    }
+  }
+  if (build.race_status === "race_valid" && (!Array.isArray(build.route_cells) || build.route_cells.length < 4)) {
+    errors.push("race-valid builds require at least four route cells");
+  }
+  return { ok: errors.length === 0, errors: errors };
+}
+
+function racerBuildSummary(build) {
+  return {
+    build_id: build.build_id,
+    owner_user_id: build.owner_user_id,
+    display_name: build.display_name,
+    home_map_id: build.home_map_id,
+    piece_count: Array.isArray(build.pieces) ? build.pieces.length : 0,
+    navigation_status: build.navigation_status,
+    race_status: build.race_status,
+    updated_at: build.updated_at,
+  };
+}
+
+function readRacerBuild(nk, ownerUserId, buildId) {
+  var rows = nk.storageRead([{ collection: RACER_BUILD_COLLECTION, key: buildId, userId: ownerUserId }]);
+  if (rows && rows.length > 0 && rows[0].value) {
+    return rows[0].value;
+  }
+  return null;
+}
+
+function readRacerBuildLobbyIndex(nk, sessionId) {
+  var rows = nk.storageRead([{ collection: RACER_BUILD_LOBBY_INDEX_COLLECTION, key: sessionId, userId: SYSTEM_USER_ID }]);
+  if (rows && rows.length > 0 && rows[0].value && Array.isArray(rows[0].value.builds)) {
+    return rows[0].value.builds;
+  }
+  return [];
+}
+
+function upsertRacerBuildLobbyIndex(nk, sessionId, summary) {
+  var builds = readRacerBuildLobbyIndex(nk, sessionId);
+  var replaced = false;
+  for (var i = 0; i < builds.length; i++) {
+    if (builds[i].build_id === summary.build_id) {
+      builds[i] = summary;
+      replaced = true;
+      break;
+    }
+  }
+  if (!replaced) {
+    builds.push(summary);
+  }
+  nk.storageWrite([
+    {
+      collection: RACER_BUILD_LOBBY_INDEX_COLLECTION,
+      key: sessionId,
+      userId: SYSTEM_USER_ID,
+      value: { builds: builds.slice(-64), updatedAt: Math.floor(Date.now() / 1000) },
+      permissionRead: 0,
+      permissionWrite: 0,
+    },
+  ]);
+}
+
+function removeRacerBuildLobbyIndex(nk, sessionId, buildId) {
+  var builds = readRacerBuildLobbyIndex(nk, sessionId).filter(function (row) {
+    return row.build_id !== buildId;
+  });
+  nk.storageWrite([
+    {
+      collection: RACER_BUILD_LOBBY_INDEX_COLLECTION,
+      key: sessionId,
+      userId: SYSTEM_USER_ID,
+      value: { builds: builds, updatedAt: Math.floor(Date.now() / 1000) },
+      permissionRead: 0,
+      permissionWrite: 0,
+    },
+  ]);
+}
+
+function sanitizeRacerBuildHomeMap(value) {
+  var id = sanitizeShortToken(value || "home_yard_v3");
+  return RACER_BUILD_ALLOWED_HOME_MAPS.indexOf(id) >= 0 ? id : "";
+}
+
+function sanitizeRacerBuildInventory(value) {
+  var source = value && typeof value === "object" && !Array.isArray(value) ? value : {};
+  var out = {};
+  for (var i = 0; i < RACER_BUILD_ALLOWED_PIECES.length; i++) {
+    var id = RACER_BUILD_ALLOWED_PIECES[i];
+    if (source[id] && typeof source[id] === "object") {
+      out[id] = { limit: Math.max(0, Math.min(RACER_BUILD_MAX_PIECES, toInt(source[id].limit, RACER_BUILD_MAX_PIECES))) };
+    }
+  }
+  return out;
+}
+
+function sanitizeRacerBuildStatus(value, allowed) {
+  var status = String(value || "unchecked").trim().toLowerCase();
+  return allowed.indexOf(status) >= 0 ? status : "unchecked";
+}
+
+function sanitizeShortToken(value) {
+  var out = String(value || "").trim().toLowerCase().replace(/[^a-z0-9_.-]/g, "_");
+  if (out.length > 96) {
+    out = out.substring(0, 96);
+  }
+  return out;
+}
+
+function sanitizeRacerBuildDisplayName(value) {
+  var out = String(value || "Home Build").trim().replace(/\s+/g, " ");
+  if (!out) {
+    out = "Home Build";
+  }
+  if (out.length > 40) {
+    out = out.substring(0, 40);
+  }
+  return out;
+}
+
+function sanitizeStringArray(value, maxItems, maxLength) {
+  var out = [];
+  if (!Array.isArray(value)) {
+    return out;
+  }
+  for (var i = 0; i < value.length && i < maxItems; i++) {
+    var text = String(value[i] || "").trim();
+    if (text.length > maxLength) {
+      text = text.substring(0, maxLength);
+    }
+    out.push(text);
+  }
+  return out;
+}
+
+function sanitizeVector3iArray(value, maxItems) {
+  var out = [];
+  if (!Array.isArray(value)) {
+    return out;
+  }
+  for (var i = 0; i < value.length && i < maxItems; i++) {
+    out.push(sanitizeVector3i(value[i]));
+  }
+  return out;
+}
+
+function sanitizeVector3Array(value, maxItems) {
+  var out = [];
+  if (!Array.isArray(value)) {
+    return out;
+  }
+  for (var i = 0; i < value.length && i < maxItems; i++) {
+    out.push(sanitizeVector3(value[i]));
+  }
+  return out;
+}
+
+function sanitizeVector3i(value) {
+  var source = Array.isArray(value) ? value : [0, 0, 0];
+  return [toInt(source[0], 0), toInt(source[1], 0), toInt(source[2], 0)];
+}
+
+function sanitizeVector3(value) {
+  var source = Array.isArray(value) ? value : [0, 0, 0];
+  return [Number(source[0]) || 0, Number(source[1]) || 0, Number(source[2]) || 0];
 }
 
 function sanitizeOnlineId(value, fallback) {
@@ -1866,6 +2279,9 @@ if (typeof module !== "undefined" && module.exports) {
     sortedOnlineStandings: sortedOnlineStandings,
     acceptOnlineProgress: acceptOnlineProgress,
     onlineTrackMetadata: onlineTrackMetadata,
+    sanitizeRacerBuildDocument: sanitizeRacerBuildDocument,
+    validateRacerBuildDocument: validateRacerBuildDocument,
+    racerBuildSummary: racerBuildSummary,
     ONLINE_MODE_SINGLE_RACE: ONLINE_MODE_SINGLE_RACE,
     ONLINE_MODE_TOURNAMENT: ONLINE_MODE_TOURNAMENT,
     ONLINE_POINTS_BY_PLACE: ONLINE_POINTS_BY_PLACE,

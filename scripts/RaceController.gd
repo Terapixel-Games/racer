@@ -6,6 +6,7 @@ const TrackProgressRules = preload("res://scripts/track/TrackProgressRules.gd")
 const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd")
 const TrackRuntimeScene = preload("res://scripts/track/TrackRuntimeScene.gd")
 const TrackSourceRules = preload("res://scripts/track/TrackSourceRules.gd")
+const LiveHomeTrackBuilder = preload("res://scripts/track_builder/LiveHomeTrackBuilder.gd")
 const ItemRules = preload("res://scripts/logic/ItemRules.gd")
 const OutOfBoundsRules = preload("res://scripts/logic/OutOfBoundsRules.gd")
 const RacerRoster = preload("res://scripts/logic/RacerRoster.gd")
@@ -150,6 +151,7 @@ var track_audio_zones: Array = []
 var audio_zone_players: Dictionary = {}
 var audio_zone_active: Dictionary = {}
 var music_player: AudioStreamPlayer
+var live_home_track_builder: LiveHomeTrackBuilder = null
 var previous_boost_pressed := false
 var previous_drift_pressed := false
 var sfx_boost: AudioStream
@@ -438,6 +440,7 @@ func _physics_process_local_single(delta: float) -> void:
 	_update_ui()
 
 func _tick_local_race(delta: float) -> void:
+	_handle_live_home_build_actions()
 	input_accum += delta
 	while input_accum >= INPUT_INTERVAL:
 		_tick_local_input()
@@ -1432,6 +1435,8 @@ func _spawn_track() -> void:
 		_apply_track_reset_metadata(built.get("metadata", {}))
 		if track_checkpoint_total <= 0 and track_waypoints is Array and track_waypoints.size() > 0:
 			track_checkpoint_total = track_waypoints.size()
+		if track_instance != null:
+			_setup_live_home_track_builder(track_instance)
 		return
 
 	var recipe = NakamaService.get_meta_value("track_recipe", null)
@@ -1484,6 +1489,77 @@ func _load_track_scene(scene_path: String) -> Resource:
 		if threaded_resource != null:
 			return threaded_resource
 	return load(scene_path)
+
+func _setup_live_home_track_builder(track_instance: Node) -> void:
+	if live_home_track_builder != null:
+		return
+	var map_id := str(NakamaService.get_meta_value("track_map_id", ""))
+	var track_id := str(NakamaService.get_meta_value("track_id", ""))
+	var is_home_map := map_id.begins_with("home_") or track_id in ["kitchen", "attic", "bedroom", "garden", "glam_closet", "outdoor_playground", "playroom", "sandbox"]
+	if not is_home_map and track_instance != null:
+		is_home_map = str(track_instance.name).to_lower().contains("home")
+	if not is_home_map:
+		return
+	live_home_track_builder = LiveHomeTrackBuilder.new()
+	live_home_track_builder.name = "LiveHomeTrackBuilder"
+	live_home_track_builder.owner_user_id = local_user_id
+	live_home_track_builder.home_map_id = map_id if not map_id.is_empty() else "home_yard_v3"
+	add_child(live_home_track_builder)
+	if not live_home_track_builder.build_changed.is_connected(_on_live_home_build_changed):
+		live_home_track_builder.build_changed.connect(_on_live_home_build_changed)
+	if not live_home_track_builder.race_promotion_changed.is_connected(_on_live_home_build_promotion_changed):
+		live_home_track_builder.race_promotion_changed.connect(_on_live_home_build_promotion_changed)
+
+func _handle_live_home_build_actions() -> void:
+	if live_home_track_builder == null:
+		return
+	if Input.is_action_just_pressed("build_mode_toggle"):
+		var enabled := live_home_track_builder.toggle_enabled()
+		_show_message("Build mode on" if enabled else "Build mode off")
+	if not live_home_track_builder.enabled:
+		return
+	if Input.is_action_just_pressed("build_cycle_piece"):
+		_cycle_live_build_piece()
+	if Input.is_action_just_pressed("build_rotate_piece"):
+		live_home_track_builder.rotate_selection()
+		_show_message("Rotated build piece")
+	if Input.is_action_just_pressed("build_place_piece"):
+		var piece := live_home_track_builder.place_at_world(_live_build_cursor_position())
+		_show_message("Placed %s" % str(piece.get("piece_id", "track")))
+	if Input.is_action_just_pressed("build_remove_piece"):
+		var removed := live_home_track_builder.remove_at_world(_live_build_cursor_position())
+		_show_message("Removed build piece" if removed else "No build piece there")
+	if Input.is_action_just_pressed("build_promote_track"):
+		var result := live_home_track_builder.validate_race()
+		if str(result.get("status", "")) == "race_valid":
+			_show_message("Closed circuit ready")
+		else:
+			var errors := result.get("errors", []) as Array
+			_show_message(str(errors[0]) if not errors.is_empty() else "Build is not race-ready")
+
+func _live_build_cursor_position() -> Vector3:
+	var car: Node3D = cars.get(local_user_id, null)
+	if car != null:
+		return car.global_transform.origin - car.global_transform.basis.z.normalized() * 16.0
+	if not track_waypoints.is_empty() and track_waypoints[0] is Vector3:
+		return track_waypoints[0]
+	return Vector3.ZERO
+
+func _cycle_live_build_piece() -> void:
+	var ids: Array[String] = ["straight", "corner", "ramp", "bridge", "landing", "connector", "endpoint"]
+	var current := ids.find(live_home_track_builder.selected_piece_id)
+	var next_piece_id: String = ids[posmod(current + 1, ids.size())]
+	live_home_track_builder.set_selected_piece(next_piece_id)
+	_show_message("Build piece: %s" % next_piece_id)
+
+func _on_live_home_build_changed(summary: Dictionary) -> void:
+	if not bool(summary.get("enabled", false)):
+		return
+	ui_net.text = "BUILD %s  %s" % [str(summary.get("piece_count", 0)), str(summary.get("navigation_status", "unchecked")).to_upper()]
+
+func _on_live_home_build_promotion_changed(summary: Dictionary) -> void:
+	if str(summary.get("race_status", "")) == "race_valid":
+		ui_net.text = "BUILD RACE READY"
 
 func _setup_checkpoints() -> void:
 	if checkpoint_system and checkpoint_system.has_signal("checkpoint_valid"):
@@ -1539,6 +1615,7 @@ func _physics_process(delta: float) -> void:
 	if local_single_race:
 		_physics_process_local_single(delta)
 		return
+	_handle_live_home_build_actions()
 	_set_pause_button_visible(_can_pause_race())
 	input_accum += delta
 	while input_accum >= INPUT_INTERVAL:
@@ -2248,6 +2325,12 @@ func _ensure_input_actions() -> void:
 	_add_action_if_missing("boost")
 	_add_action_if_missing("use_item")
 	_add_action_if_missing("return_to_track")
+	_add_action_if_missing("build_mode_toggle")
+	_add_action_if_missing("build_place_piece")
+	_add_action_if_missing("build_remove_piece")
+	_add_action_if_missing("build_rotate_piece")
+	_add_action_if_missing("build_cycle_piece")
+	_add_action_if_missing("build_promote_track")
 	_add_key_event("accelerate", KEY_W)
 	_add_key_event("accelerate", KEY_UP)
 	_add_key_event("brake", KEY_CTRL)
@@ -2261,6 +2344,12 @@ func _ensure_input_actions() -> void:
 	_add_key_event("boost", KEY_SHIFT)
 	_add_key_event("use_item", KEY_E)
 	_add_key_event("return_to_track", KEY_R)
+	_add_key_event("build_mode_toggle", KEY_B)
+	_add_key_event("build_place_piece", KEY_F)
+	_add_key_event("build_remove_piece", KEY_G)
+	_add_key_event("build_rotate_piece", KEY_Q)
+	_add_key_event("build_cycle_piece", KEY_T)
+	_add_key_event("build_promote_track", KEY_P)
 
 func _add_action_if_missing(action:String) -> void:
 	if not InputMap.has_action(action):
