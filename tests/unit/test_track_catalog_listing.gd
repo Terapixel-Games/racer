@@ -75,9 +75,29 @@ const KITCHEN_EDITABLE_FLOOR_SIZE := Vector2(292.0, 190.0)
 const OUTDOOR_GRASS_SHADER := "res://assets/gameplay/materials/grass/playground_grass.gdshader"
 const OUTDOOR_PLAYGROUND_FLOOR_TEXTURE := "res://assets/gameplay/materials/playground/outdoor_playground_floor_albedo.png"
 const BACKYARD_PREVIEW_SHELL := "res://assets/gameplay/tracks/shared/backyard_optimized/backyard_preview_shell.tscn"
-const HOME_YARD_MAP_ID := "home_yard_v2"
-const HOME_YARD_MAP_SCENE := "res://assets/gameplay/tracks/home_yard_v2/home_yard_v2_map.tscn"
-const HOME_YARD_GROUND_SIZE := Vector2(520.0, 620.0)
+const HOME_YARD_MAP_ID := "home_yard_v3"
+const OLD_HOME_YARD_V2_MAP_ID := "home_yard_v2"
+const HOME_YARD_MAP_SCENE := "res://assets/gameplay/tracks/home_yard_v3/home_yard_v3_map.tscn"
+const GENERATED_PROVENANCE_REQUIRED_FIELDS := [
+	"node_path",
+	"visible_class",
+	"owner_volume",
+	"assembly",
+	"role",
+	"source_of_truth",
+	"why_exists",
+	"support_target",
+	"contact_face",
+	"span_axis",
+	"start_anchor",
+	"end_anchor",
+	"allowed_intersections",
+	"forbidden_intersections",
+	"deletion_rule",
+	"validation_gate",
+	"validation_camera",
+]
+const HOME_YARD_GROUND_SIZE := Vector2(720.0, 680.0)
 const OLD_BACKYARD_RESOURCE_MARKERS := [
 	"wooden_playground_set_static.glb",
 	"wooden_playground_set_swing.glb",
@@ -106,6 +126,7 @@ func test_catalog_exposes_only_gridmap_backed_tracks() -> void:
 	for expected_id in SELECTABLE_TRACK_IDS:
 		assert_true(listed_ids.has(expected_id), "%s should remain selectable" % expected_id)
 	assert_true(TrackCatalog.get_map_definition("home_yard") == null, "Old home_yard generated package should be hidden from normal catalog resolution")
+	assert_true(TrackCatalog.get_map_definition(OLD_HOME_YARD_V2_MAP_ID) == null, "Old home_yard_v2 generated package should be hidden from normal catalog resolution")
 
 func test_tracks_without_real_gridmap_metadata_fail_validation() -> void:
 	var definition := TrackDefinition.new()
@@ -164,6 +185,117 @@ func test_authoring_scenes_use_road_gridmap_without_legacy_gameplay_nodes() -> v
 		_assert_home_yard_scene_holders(root, track_id)
 		root.queue_free()
 
+func test_home_yard_start_validation_cameras_can_be_made_current() -> void:
+	var packed := load(HOME_YARD_MAP_SCENE) as PackedScene
+	assert_true(packed != null, "Home Yard shared map scene should load")
+	if packed == null:
+		return
+	var root := packed.instantiate() as Node3D
+	assert_true(root != null, "Home Yard shared map scene should instantiate")
+	if root == null:
+		return
+	scene_tree.root.add_child(root)
+	var camera_paths := {
+		"attic": "ValidationCameras/AtticStartPlayerCamera",
+		"bedroom": "ValidationCameras/BedroomStartPlayerCamera",
+		"garden": "ValidationCameras/GardenStartPlayerCamera",
+		"glam_closet": "ValidationCameras/GlamClosetStartPlayerCamera",
+		"kitchen": "ValidationCameras/KitchenStartPlayerCamera",
+		"outdoor_playground": "ValidationCameras/OutdoorPlaygroundStartPlayerCamera",
+		"playroom": "ValidationCameras/PlayroomStartPlayerCamera",
+		"sandbox": "ValidationCameras/SandboxStartPlayerCamera",
+	}
+	for track_id in SELECTABLE_TRACK_IDS:
+		var camera := root.get_node_or_null(str(camera_paths[track_id])) as Camera3D
+		assert_true(camera != null, "%s should have a start player validation camera" % track_id)
+		if camera == null:
+			continue
+		camera.make_current()
+		assert_equal(root.get_viewport().get_camera_3d(), camera, "%s start validation camera should be selectable as the current cinematic camera" % track_id)
+	root.queue_free()
+
+func test_home_yard_route_shell_validation_cameras_can_be_made_current() -> void:
+	var packed := load(HOME_YARD_MAP_SCENE) as PackedScene
+	assert_true(packed != null, "Home Yard shared map scene should load")
+	if packed == null:
+		return
+	var root := packed.instantiate() as Node3D
+	assert_true(root != null, "Home Yard shared map scene should instantiate")
+	if root == null:
+		return
+	scene_tree.root.add_child(root)
+	for camera_path in [
+		"ValidationCameras/ExteriorRooflineCamera",
+		"ValidationCameras/RoofGambrelSideProfileCamera",
+		"ValidationCameras/AtticGableProfileCamera",
+		"ValidationCameras/MainFloorRouteStartsCamera",
+		"ValidationCameras/UpperFloorRouteStartsCamera",
+		"ValidationCameras/YardCourseOverviewCamera",
+	]:
+		var camera := root.get_node_or_null(camera_path) as Camera3D
+		assert_true(camera != null, "Home Yard route/shell validation camera %s should exist" % camera_path)
+		if camera == null:
+			continue
+		camera.make_current()
+		assert_equal(root.get_viewport().get_camera_3d(), camera, "Home Yard route/shell validation camera %s should be selectable as the current cinematic camera" % camera_path)
+	root.queue_free()
+
+func test_home_yard_human_scale_reference_clears_first_floor_blockers() -> void:
+	var packed := load(HOME_YARD_MAP_SCENE) as PackedScene
+	assert_true(packed != null, "Home Yard shared map scene should load")
+	if packed == null:
+		return
+	var root := packed.instantiate() as Node3D
+	assert_true(root != null, "Home Yard shared map scene should instantiate")
+	if root == null:
+		return
+	scene_tree.root.add_child(root)
+	var human := root.get_node_or_null("ConceptReference/HumanScaleReference") as Node3D
+	assert_true(human != null, "Home Yard should include a human scale reference")
+	if human != null:
+		assert_true(human.is_visible_in_tree(), "Source-scene human scale reference should stay visible for editor/noclip scale review")
+		var proxy_size := human.get_meta("clearance_proxy_size", Vector3(16.0, 32.0, 16.0)) as Vector3
+		var proxy := AABB(human.global_transform.origin + Vector3(-proxy_size.x * 0.5, 0.0, -proxy_size.z * 0.5), proxy_size)
+		for holder_path in ["MainFloor/RoomFinishes", "MainFloor/InteriorWalls", "VerticalConnectors"]:
+			var holder := root.get_node_or_null(holder_path)
+			assert_true(holder != null, "Home Yard should include %s for human reference clearance audit" % holder_path)
+			if holder != null:
+				_assert_no_visible_mesh_intersects_aabb(holder, proxy, "ConceptReference", "Human scale reference should not intersect first-floor furniture, walls, or ramp geometry")
+	root.queue_free()
+
+func test_home_yard_scale_contract_separates_human_house_from_toy_racers() -> void:
+	var packed := load(HOME_YARD_MAP_SCENE) as PackedScene
+	assert_true(packed != null, "Home Yard shared map scene should load")
+	if packed == null:
+		return
+	var root := packed.instantiate() as Node3D
+	assert_true(root != null, "Home Yard shared map scene should instantiate")
+	if root == null:
+		return
+	var contract: Variant = root.get_meta("scale_contract", {})
+	assert_true(contract is Dictionary, "Home Yard should export a machine-readable scale contract")
+	if contract is Dictionary:
+		var data := contract as Dictionary
+		assert_equal(str(data.get("id", "")), "home_yard_v3_human_house_toy_racer_scale_v1", "Scale contract should have a stable id")
+		assert_equal(float(data.get("units_per_floor_plan_foot", 0.0)), 4.0, "Scale contract should lock 4 Godot units per floor-plan foot")
+		var human: Dictionary = data.get("human_house_scale", {})
+		assert_equal(float(human.get("reference_height_units", 0.0)), 25.0, "Human reference should be 6.25 ft / 25 units")
+		assert_equal(float(human.get("clearance_proxy_height_units", 0.0)), 32.0, "Human clearance proxy should remain 8 ft / 32 units")
+		assert_equal(float(human.get("occupied_ceiling_clearance_units", 0.0)), 40.0, "Occupied rooms should retain 10 ft / 40 unit ceiling clearances")
+		var racer: Dictionary = data.get("toy_racer_scale", {})
+		assert_true(float(racer.get("observed_visual_height_units_max", 999.0)) <= 1.5, "Runtime toy racers should remain under 1.5 units tall")
+		assert_true(float(racer.get("route_swept_width_units", 0.0)) >= 6.0, "Toy racer swept route width should include gameplay clearance beyond raw mesh size")
+		assert_true(float(racer.get("chase_camera_clearance_height_units", 0.0)) >= 12.0, "Scale contract should include third-person camera height clearance")
+		var road: Dictionary = data.get("road_scale", {})
+		assert_equal(float(road.get("road_width_units", 0.0)), 16.0, "Plastic road width should stay 16 units / 4 ft")
+	var human_ref := root.get_node_or_null("ConceptReference/HumanScaleReference") as Node3D
+	assert_true(human_ref != null, "Home Yard should include human scale reference metadata")
+	if human_ref != null:
+		assert_equal(str(human_ref.get_meta("scale_contract_id", "")), "home_yard_v3_human_house_toy_racer_scale_v1", "Human reference should point at the scale contract")
+		assert_equal(float(human_ref.get_meta("declared_human_height_units", 0.0)), 25.0, "Human reference should declare visual human height separately from clearance proxy")
+		assert_equal(float(human_ref.get_meta("clearance_proxy_height_ft", 0.0)), 8.0, "Human clearance proxy should be explicitly identified as an 8 ft envelope")
+	root.queue_free()
+
 func _assert_gridmap_contract(definition: TrackDefinition, track_id: String) -> void:
 	assert_equal(definition.validate(), [], "%s definition should validate" % track_id)
 	assert_equal(definition.track_source_id, "road_grid_map", "%s should resolve as a GridMap track" % track_id)
@@ -182,6 +314,7 @@ func _assert_gridmap_contract(definition: TrackDefinition, track_id: String) -> 
 	assert_equal(definition.item_sockets.size(), 0, "%s MVP metadata should not export item sockets" % track_id)
 	assert_equal(definition.hazard_sockets.size(), 0, "%s MVP metadata should not export hazard sockets" % track_id)
 	assert_true(definition.stage_props.size() >= 5, "%s should export named stage props" % track_id)
+	_assert_home_yard_stage_asset_manifest(definition, track_id)
 	assert_true(definition.stage_interactions.size() >= 2, "%s should export explicit stage interactions" % track_id)
 	assert_equal(str(definition.road_grid_layout.get("mesh_library_path", "")), "res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres", "%s should use the shared Kenney GridMap mesh library" % track_id)
 	assert_true((definition.road_grid_layout.get("ordered_route_cells", []) as Array).size() >= 12, "%s should export ordered GridMap route cells" % track_id)
@@ -199,7 +332,7 @@ func _assert_gridmap_contract(definition: TrackDefinition, track_id: String) -> 
 	if track_id == "outdoor_playground":
 		assert_equal(definition.ground_texture_path, OUTDOOR_PLAYGROUND_FLOOR_TEXTURE, "Outdoor Playground should use the authored floor texture")
 	assert_equal(definition.ground_size, _expected_definition_ground_size(track_id), "%s definition should match its runtime ground dimensions" % track_id)
-	assert_equal(str(definition.get_meta("track_map_id", "")), HOME_YARD_MAP_ID, "%s should resolve through the scratch-built home-yard v2 map" % track_id)
+	assert_equal(str(definition.get_meta("track_map_id", "")), HOME_YARD_MAP_ID, "%s should resolve through the scratch-built home-yard v3 map" % track_id)
 	assert_equal(definition.preview_dressing_scene_path, HOME_YARD_MAP_SCENE, "%s should use the shared home-yard preview dressing" % track_id)
 	var metadata: Dictionary = definition.to_metadata()
 	assert_equal(str(metadata.get("track_source_id", "")), "road_grid_map", "%s metadata should export GridMap source" % track_id)
@@ -211,6 +344,43 @@ func _assert_gridmap_contract(definition: TrackDefinition, track_id: String) -> 
 	assert_equal((metadata.get("stage_interactions", []) as Array).size(), definition.stage_interactions.size(), "%s metadata should export stage interactions from the definition" % track_id)
 	var package_metadata: Dictionary = TrackCatalog.get_metadata(track_id)
 	assert_equal((package_metadata.get("stage_interactions", []) as Array).size(), definition.stage_interactions.size(), "%s package metadata should include exported stage interactions" % track_id)
+	_assert_home_yard_metadata_stage_asset_manifest(metadata, track_id)
+	_assert_home_yard_metadata_stage_asset_manifest(package_metadata, track_id)
+
+func _assert_home_yard_stage_asset_manifest(definition: TrackDefinition, track_id: String) -> void:
+	var landmark_count := 0
+	for prop in definition.stage_props:
+		assert_equal(str(prop.get("kind", "")), "scene", "%s stage prop %s should be scene-backed, not a placeholder box" % [track_id, str(prop.get("id", ""))])
+		assert_true(ResourceLoader.exists(str(prop.get("asset_path", ""))), "%s stage prop %s should reference an existing asset" % [track_id, str(prop.get("id", ""))])
+		assert_equal(str(prop.get("collision_mode", "")), "visual", "%s stage prop %s should be visual-only by default" % [track_id, str(prop.get("id", ""))])
+		assert_equal(str(prop.get("route_clearance", "")), "outside_route_corridor", "%s stage prop %s should declare route clearance" % [track_id, str(prop.get("id", ""))])
+		assert_equal(str(prop.get("scale_contract_id", "")), "home_yard_v3_human_house_toy_racer_scale_v1", "%s stage prop %s should declare the scale contract" % [track_id, str(prop.get("id", ""))])
+		assert_true(not str(prop.get("scale_class", "")).is_empty(), "%s stage prop %s should declare whether it is human-scale furnishing, toy-scale cue, or yard landmark" % [track_id, str(prop.get("id", ""))])
+		assert_true(prop.get("target_dimensions_units", Vector3.ZERO) is Vector3, "%s stage prop %s should declare target dimensions for scale review" % [track_id, str(prop.get("id", ""))])
+		assert_equal(str(prop.get("scale_validation_status", "")), "declared_pending_import_aabb_review", "%s stage prop %s should require imported AABB scale review before production acceptance" % [track_id, str(prop.get("id", ""))])
+		assert_true(not str(prop.get("asset_source", "")).is_empty(), "%s stage prop %s should declare an asset source" % [track_id, str(prop.get("id", ""))])
+		assert_true(not str(prop.get("license_origin", "")).is_empty(), "%s stage prop %s should declare license/origin" % [track_id, str(prop.get("id", ""))])
+		assert_true(str(prop.get("validation_camera", "")).begins_with("ValidationCameras/"), "%s stage prop %s should declare a validation camera" % [track_id, str(prop.get("id", ""))])
+		if str(prop.get("gameplay_tag", "")) == "landmark":
+			landmark_count += 1
+	assert_true(landmark_count >= 3, "%s should include multiple themed landmark assets" % track_id)
+
+func _assert_home_yard_metadata_stage_asset_manifest(metadata: Dictionary, track_id: String) -> void:
+	var props := metadata.get("stage_props", []) as Array
+	assert_true(props.size() >= 5, "%s metadata should export the stage asset manifest" % track_id)
+	for prop_value in props:
+		assert_true(prop_value is Dictionary, "%s metadata stage prop should be a dictionary" % track_id)
+		if not (prop_value is Dictionary):
+			continue
+		var prop := prop_value as Dictionary
+		assert_equal(str(prop.get("kind", "")), "scene", "%s metadata stage prop %s should be scene-backed" % [track_id, str(prop.get("id", ""))])
+		assert_true(not str(prop.get("asset_path", "")).is_empty(), "%s metadata stage prop %s should export asset path" % [track_id, str(prop.get("id", ""))])
+		assert_true(not str(prop.get("asset_source", "")).is_empty(), "%s metadata stage prop %s should export asset source" % [track_id, str(prop.get("id", ""))])
+		assert_true(not str(prop.get("license_origin", "")).is_empty(), "%s metadata stage prop %s should export license/origin" % [track_id, str(prop.get("id", ""))])
+		assert_equal(str(prop.get("route_clearance", "")), "outside_route_corridor", "%s metadata stage prop %s should export route clearance" % [track_id, str(prop.get("id", ""))])
+		assert_equal(str(prop.get("scale_contract_id", "")), "home_yard_v3_human_house_toy_racer_scale_v1", "%s metadata stage prop %s should export scale contract id" % [track_id, str(prop.get("id", ""))])
+		assert_true(not str(prop.get("scale_class", "")).is_empty(), "%s metadata stage prop %s should export scale class" % [track_id, str(prop.get("id", ""))])
+		assert_true(prop.has("target_dimensions_units"), "%s metadata stage prop %s should export target dimensions" % [track_id, str(prop.get("id", ""))])
 
 func test_backyard_scenes_do_not_reference_old_meshy_landmarks() -> void:
 	for track_id in BACKYARD_TRACK_IDS:
@@ -220,6 +390,9 @@ func test_backyard_scenes_do_not_reference_old_meshy_landmarks() -> void:
 			continue
 		_assert_scene_text_excludes_old_backyard_resources(definition.dressing_scene_path)
 		_assert_scene_text_excludes_old_backyard_resources(definition.preview_dressing_scene_path)
+
+func test_home_yard_instanced_assets_are_not_flattened_into_map_scene() -> void:
+	_assert_scene_text_excludes_instanced_asset_descendants(HOME_YARD_MAP_SCENE)
 
 func _assert_scene_text_excludes_old_backyard_resources(path: String) -> void:
 	assert_true(ResourceLoader.exists(path), "%s should exist" % path)
@@ -231,6 +404,30 @@ func _assert_scene_text_excludes_old_backyard_resources(path: String) -> void:
 	file.close()
 	for marker in OLD_BACKYARD_RESOURCE_MARKERS:
 		assert_true(not text.contains(marker), "%s should not reference old heavy resource %s" % [path, marker])
+
+func _assert_scene_text_excludes_instanced_asset_descendants(path: String) -> void:
+	assert_true(ResourceLoader.exists(path), "%s should exist" % path)
+	var file := FileAccess.open(path, FileAccess.READ)
+	assert_true(file != null, "%s should be readable" % path)
+	if file == null:
+		return
+	var text := file.get_as_text()
+	file.close()
+	for parent_path in [
+		"MainFloor/KitchenFridge/",
+		"MainFloor/KitchenSink/",
+		"MainFloor/DiningTable/",
+		"MainFloor/PlayroomToyBear/",
+		"UpperFloor/BedroomBed/",
+		"UpperFloor/BedroomRug/",
+		"Attic/AtticOldChest/",
+		"Attic/AtticJackInTheBox/",
+		"Yard/PlaygroundStructure/",
+		"Yard/ToyboxTreeTireSwing/",
+		"Yard/SandboxFossil/",
+		"Yard/GardenLogBush/",
+	]:
+		assert_true(not text.contains("parent=\"%s" % parent_path), "Home Yard map should save %s as an external scene instance without flattened imported descendants" % parent_path.trim_suffix("/"))
 
 func _assert_home_yard_route_envelope(definition: TrackDefinition, track_id: String) -> void:
 	var envelope: Variant = definition.road_grid_layout.get("route_envelope", {})
@@ -251,9 +448,23 @@ func _assert_home_yard_route_envelope(definition: TrackDefinition, track_id: Str
 	assert_true(route_max.x <= zone_max.x + 0.01, "%s route should stay inside its assigned zone on max X" % track_id)
 	assert_true(route_min.z >= zone_min.z - 0.01, "%s route should stay inside its assigned zone on min Z" % track_id)
 	assert_true(route_max.z <= zone_max.z + 0.01, "%s route should stay inside its assigned zone on max Z" % track_id)
-	assert_true(float(data.get("road_surface_y", 0.0)) > float(data.get("floor_top_y", 0.0)), "%s road surface should sit above the finished floor/ground" % track_id)
-	assert_true(float(data.get("road_surface_y", 0.0)) - float(data.get("floor_top_y", 0.0)) >= 0.14, "%s road surface should have a visible floor clearance" % track_id)
+	var inset := float(data.get("usable_inset", 0.0))
+	assert_true(route_min.x >= zone_min.x + inset - 0.01, "%s route should keep the planned wall/furniture inset on min X" % track_id)
+	assert_true(route_max.x <= zone_max.x - inset + 0.01, "%s route should keep the planned wall/furniture inset on max X" % track_id)
+	assert_true(route_min.z >= zone_min.z + inset - 0.01, "%s route should keep the planned wall/furniture inset on min Z" % track_id)
+	assert_true(route_max.z <= zone_max.z - inset + 0.01, "%s route should keep the planned wall/furniture inset on max Z" % track_id)
+	var road_surface_y := float(data.get("road_surface_y", 0.0))
+	var floor_top_y := float(data.get("floor_top_y", 0.0))
+	var minimum_clearance_y := float(data.get("minimum_clearance_y", 0.0))
+	assert_true(road_surface_y > floor_top_y, "%s road surface should sit above the finished floor/ground" % track_id)
+	assert_true(minimum_clearance_y >= 0.5, "%s route envelope should declare toy-track floor clearance" % track_id)
+	assert_true(road_surface_y - floor_top_y >= minimum_clearance_y - 0.01, "%s road surface should have the declared floor clearance" % track_id)
 	assert_true(float(data.get("corridor_width", 0.0)) >= definition.road_width, "%s route corridor should cover the road width" % track_id)
+	assert_equal(str(data.get("scale_contract_id", "")), "home_yard_v3_human_house_toy_racer_scale_v1", "%s route envelope should point at the scale contract" % track_id)
+	assert_true(float(data.get("toy_racer_visual_height_units_max", 0.0)) <= 1.5, "%s route envelope should carry toy racer visual height, not human height" % track_id)
+	assert_true(float(data.get("toy_racer_route_swept_width_units", 0.0)) >= 6.0, "%s route envelope should reserve toy racer swept width" % track_id)
+	assert_true(float(data.get("toy_racer_drift_margin_units", 0.0)) >= 5.0, "%s route envelope should reserve drift margin" % track_id)
+	assert_true(float(data.get("third_person_camera_clearance_height_units", 0.0)) >= 12.0, "%s route envelope should reserve third-person camera height" % track_id)
 	if track_id == "attic":
 		assert_true(float(data.get("roof_clearance_max_y", 0.0)) >= route_max.y + 8.0, "attic route should stay below the Dutch gambrel roof clearance")
 	assert_true(data.get("forbidden_overlap", []) is Array and not (data.get("forbidden_overlap", []) as Array).is_empty(), "%s route envelope should declare obstacle exclusions" % track_id)
@@ -312,16 +523,35 @@ func _assert_home_yard_scene_holders(root: Node, track_id: String) -> void:
 	for holder_name in ["Site", "Foundation", "ExteriorShell", "Roof", "Openings", "PorchesDecks", "GarageService", "MainFloor", "UpperFloor", "Attic", "Yard", "VerticalConnectors", "CourseRoutes", "Collision", "ValidationCameras"]:
 		assert_true(root.get_node_or_null(holder_name) != null, "%s shared home-yard scene should include %s" % [track_id, holder_name])
 	_assert_home_yard_floor_plan_contract(root, track_id)
+	_assert_home_yard_generated_scene_provenance_contract(root, track_id)
+	_assert_home_yard_whole_unit_visual_contract(root, track_id)
+	_assert_home_yard_route_infrastructure_is_classified_and_dressed(root, track_id)
+	_assert_home_yard_validation_camera_matrix(root, track_id)
+	_assert_home_yard_exterior_visual_completeness(root, track_id)
+	_assert_home_yard_yard_and_service_visual_completeness(root, track_id)
 	_assert_home_yard_shared_shell_ownership(root, track_id)
 	_assert_home_yard_exterior_shell(root, track_id)
 	_assert_home_yard_roof_and_attic_contract(root, track_id)
 	_assert_home_yard_landscape_and_assets(root, track_id)
+	_assert_validation_only_nodes_are_non_rendered(root, track_id)
+	_assert_no_broad_foundation_slab_inside_first_floor(root, track_id)
+	_assert_no_roof_closure_blocks_attic(root, track_id)
+	_assert_no_visible_blockout_nodes(root, track_id)
 	if track_id == "kitchen":
 		_assert_home_yard_kitchen_readability(root)
-	assert_true(root.get_node_or_null("VerticalConnectors/MainToUpperToyRamp") != null, "%s should include a main-to-upper toy ramp" % track_id)
-	assert_true(root.get_node_or_null("VerticalConnectors/UpperToAtticToyRamp") != null, "%s should include an upper-to-attic toy ramp" % track_id)
+	assert_true(root.get_node_or_null("VerticalConnectors/MainStairLowerFlightKenneySteps") != null, "%s should include sourced main stair lower flight geometry" % track_id)
+	assert_true(root.get_node_or_null("VerticalConnectors/MainStairUpperFlightKenneySteps") != null, "%s should include sourced main stair upper flight geometry" % track_id)
+	assert_true(root.get_node_or_null("VerticalConnectors/AtticPullDownStairKenneySteps") != null, "%s should include sourced attic access stair geometry" % track_id)
+	_assert_home_yard_vertical_circulation_continuity(root, track_id)
+	assert_true(root.get_node_or_null("VerticalConnectors/MainToUpperToyRamp") == null, "%s should not keep the blue placeholder toy ramp as house circulation" % track_id)
+	assert_true(root.get_node_or_null("VerticalConnectors/UpperToAtticToyRamp") == null, "%s should not keep the red placeholder toy ramp as attic circulation" % track_id)
 	assert_true(root.get_node_or_null("CourseRoutes/%sRoutePreview" % track_id.capitalize()) != null, "%s should include a route preview holder" % track_id)
-	assert_true(root.get_node_or_null("CourseRoutes/%sRoutePreview/RouteContainmentAuditBox" % track_id.capitalize()) != null, "%s should include a route containment audit box" % track_id)
+	var audit_marker := root.get_node_or_null("CourseRoutes/%sRoutePreview/RouteContainmentAuditBox" % track_id.capitalize())
+	assert_true(audit_marker != null, "%s should include a route containment audit marker" % track_id)
+	if audit_marker != null:
+		assert_equal(str(audit_marker.get_meta("visual_state", "")), "metadata_only_non_rendered", "%s route containment audit should not render slab geometry" % track_id)
+	assert_true(root.find_child("PlasticTrackSegment00", true, false) == null, "%s shared scene should not render duplicate plastic slab route previews" % track_id)
+	assert_true(root.find_child("VerticalChangeMarker00", true, false) == null, "%s shared scene should not render duplicate vertical route markers through the roof" % track_id)
 
 func _assert_home_yard_floor_plan_contract(root: Node, track_id: String) -> void:
 	var contract: Variant = root.get_meta("floor_plan_contract", {})
@@ -329,9 +559,19 @@ func _assert_home_yard_floor_plan_contract(root: Node, track_id: String) -> void
 	if not (contract is Dictionary):
 		return
 	var data := contract as Dictionary
-	assert_equal(str(data.get("selected_alternative", "")), "Dutch Gambrel V2", "%s should record the selected floor-plan alternative" % track_id)
+	assert_equal(str(data.get("selected_alternative", "")), "Residential Open World V3", "%s should record the selected floor-plan alternative" % track_id)
 	assert_true(str(data.get("site_orientation", "")).contains("front/street"), "%s should record front/street site orientation" % track_id)
 	assert_true(data.get("floor_heights", {}) is Dictionary, "%s should record vertical floor relationships" % track_id)
+	assert_true(str(data.get("vertical_circulation_contract", "")).contains("architectural vertical circulation"), "%s should record architectural stair circulation" % track_id)
+	var vertical_links: Variant = data.get("vertical_links", [])
+	assert_true(vertical_links is Array and (vertical_links as Array).size() >= 2, "%s floor-plan contract should include main-to-upper and upper-to-attic vertical links" % track_id)
+	if vertical_links is Array:
+		assert_true(_vertical_link_has_id(vertical_links as Array, "MainStairEntryToUpperHall"), "%s floor-plan contract should include main stair vertical link" % track_id)
+		assert_true(_vertical_link_has_id(vertical_links as Array, "AtticPullDownStairUpperHallToAttic"), "%s floor-plan contract should include attic access vertical link" % track_id)
+	assert_equal(float(data.get("ceiling_clear_height", 0.0)), 40.0, "%s should record 10 ft / 40 unit occupied ceiling clearances" % track_id)
+	assert_true(data.get("lot_bounds", {}) is Dictionary, "%s should record the larger residential lot bounds" % track_id)
+	assert_true(str(data.get("free_drive_contract", "")).contains("doggie door"), "%s should record the free-drive doggie-door contract" % track_id)
+	assert_true(str(data.get("human_scale_reference", "")).contains("characterLargeMale.blend"), "%s should record the Kenney human scale reference" % track_id)
 	assert_true(str(data.get("route_contract", "")) != "", "%s should record route envelope contract requirements" % track_id)
 	assert_true(str(data.get("roof_contract", "")).contains("Dutch gambrel"), "%s should record the Dutch gambrel attic roof contract" % track_id)
 	assert_true(str(data.get("shell_ownership", "")).contains("ExteriorShell"), "%s should record shared shell ownership" % track_id)
@@ -340,12 +580,140 @@ func _assert_home_yard_floor_plan_contract(root: Node, track_id: String) -> void
 	if wall_schedule is Array:
 		var schedule := wall_schedule as Array
 		assert_true(schedule.size() >= 10, "%s interior wall schedule should cover connected room seams" % track_id)
-		for expected_wall_id in ["KitchenDiningCasedOpening", "KitchenPlayroomDivider", "PlayroomLivingCasedOpening", "GarageInteriorBackWall", "BedroomGlamCasedOpening", "AtticWestKneePartition"]:
+		for expected_wall_id in ["KitchenDiningCasedOpening", "KitchenPlayroomDivider", "PlayroomLivingCasedOpening", "GarageInteriorBackWall", "BedroomGlamCasedOpening", "DoggieDoorInteriorThreshold", "AtticWestKneePartition"]:
 			assert_true(_wall_schedule_has_id(schedule, expected_wall_id), "%s interior wall schedule should include %s" % [track_id, expected_wall_id])
 	var envelopes: Variant = root.get_meta("route_envelopes", {})
 	assert_true(envelopes is Dictionary and (envelopes as Dictionary).has(track_id), "%s shared home-yard scene should include numeric route envelopes" % track_id)
 	var conflicts: Variant = root.get_meta("clearance_conflicts", [])
 	assert_true(conflicts is Array and (conflicts as Array).is_empty(), "%s shared home-yard scene should export no known clearance conflicts" % track_id)
+
+func _assert_home_yard_generated_scene_provenance_contract(root: Node, track_id: String) -> void:
+	for holder_path in ["ExteriorShell", "Roof", "Foundation"]:
+		var holder := root.get_node_or_null(holder_path)
+		assert_true(holder != null, "%s should include %s for generated provenance audit" % [track_id, holder_path])
+		if holder != null:
+			_assert_visible_generated_meshes_have_provenance(holder, root, track_id)
+
+func _assert_home_yard_whole_unit_visual_contract(root: Node, track_id: String) -> void:
+	var contract: Variant = root.get_meta("whole_unit_visual_review_contract", {})
+	assert_true(contract is Dictionary, "%s should export a whole-unit visual review contract" % track_id)
+	if not (contract is Dictionary):
+		return
+	var data := contract as Dictionary
+	assert_equal(str(data.get("evidence_mode", "")), "clean_runtime_or_cinematic_no_editor_overlays", "%s final visual proof should require clean runtime/cinematic evidence" % track_id)
+	var diagnostic_overlays: Variant = data.get("diagnostic_only_overlays", [])
+	assert_true(diagnostic_overlays is Array and (diagnostic_overlays as Array).has("editor_camera_icons"), "%s should treat editor camera icons as diagnostic-only evidence" % track_id)
+	var course_requirements: Variant = data.get("course_view_requirements", [])
+	for requirement in ["start_player", "first_turn_player", "midpoint_route", "chase_readability"]:
+		assert_true(course_requirements is Array and (course_requirements as Array).has(requirement), "%s whole-unit contract should require %s course evidence" % [track_id, requirement])
+	var blockers: Variant = data.get("beta_blockers", [])
+	for blocker in ["flat tray yard", "weak window assembly", "weak porch hierarchy", "unclassified placeholder box", "route infrastructure without material/edge treatment"]:
+		assert_true(blockers is Array and (blockers as Array).has(blocker), "%s whole-unit contract should list beta blocker: %s" % [track_id, blocker])
+
+func _assert_home_yard_route_infrastructure_is_classified_and_dressed(root: Node, track_id: String) -> void:
+	for node_path in [
+		"Attic/RoomFinishes/PopperHighRampLaunchDeck",
+		"Attic/RoomFinishes/PopperHighRampLandingDeck",
+		"Attic/RoomFinishes/PopperBankedCardboardRamp",
+		"Attic/RoomFinishes/PopperCardboardGuardWall",
+	]:
+		var node := root.get_node_or_null(node_path) as MeshInstance3D
+		assert_true(node != null, "%s visible route infrastructure should include %s" % [track_id, node_path])
+		if node == null:
+			continue
+		var data: Variant = node.get_meta("generated_scene_provenance", {})
+		assert_true(data is Dictionary, "%s route infrastructure %s should declare generated provenance" % [track_id, node_path])
+		if data is Dictionary:
+			var provenance := data as Dictionary
+			assert_equal(str(provenance.get("visible_class", "")), "route_infrastructure", "%s %s must be classified as route_infrastructure, not generic blockout" % [track_id, node_path])
+			assert_true(str(provenance.get("role", "")).contains("route infrastructure"), "%s %s should explain its route-infrastructure role" % [track_id, node_path])
+			assert_true(str(provenance.get("forbidden_intersections", "")).contains("third-person chase camera"), "%s %s should forbid chase-camera obstruction" % [track_id, node_path])
+			assert_equal(str(provenance.get("validation_gate", "")), "test_home_yard_route_infrastructure_is_classified_and_dressed", "%s %s should point at the route infrastructure gate" % [track_id, node_path])
+			assert_true(str(provenance.get("validation_camera", "")).begins_with("ValidationCameras/"), "%s %s should name a validation camera" % [track_id, node_path])
+	for edge_path in [
+		"Attic/RoomFinishes/PopperHighRampLaunchDeckEdgeLeft",
+		"Attic/RoomFinishes/PopperHighRampLaunchDeckEdgeRight",
+		"Attic/RoomFinishes/PopperHighRampLandingDeckEdgeLeft",
+		"Attic/RoomFinishes/PopperHighRampLandingDeckEdgeRight",
+	]:
+		assert_true(root.get_node_or_null(edge_path) != null, "%s route infrastructure should include non-placeholder edge treatment %s" % [track_id, edge_path])
+	assert_true(root.find_child("AtticBoxWall", true, false) == null, "%s should not keep the old attic box wall blockout; use named route infrastructure instead" % track_id)
+
+func _assert_home_yard_validation_camera_matrix(root: Node, track_id: String) -> void:
+	var camera_prefixes := {
+		"attic": "Attic",
+		"bedroom": "Bedroom",
+		"garden": "Garden",
+		"glam_closet": "GlamCloset",
+		"kitchen": "Kitchen",
+		"outdoor_playground": "OutdoorPlayground",
+		"playroom": "Playroom",
+		"sandbox": "Sandbox",
+	}
+	assert_true(camera_prefixes.has(track_id), "%s should be a known home-yard public course for camera matrix validation" % track_id)
+	if not camera_prefixes.has(track_id):
+		return
+	var prefix := str(camera_prefixes[track_id])
+	for suffix in ["StartPlayerCamera", "FirstTurnPlayerCamera", "MidpointRouteCamera", "ChaseReadabilityCamera"]:
+		var camera_path := "ValidationCameras/%s%s" % [prefix, suffix]
+		var camera := root.get_node_or_null(camera_path) as Camera3D
+		assert_true(camera != null, "%s should include clean evidence camera %s" % [track_id, camera_path])
+		if camera == null:
+			continue
+		assert_equal(str(camera.get_meta("visual_evidence_mode", "")), "clean_runtime_or_cinematic_no_editor_overlays", "%s %s should reject editor-overlay screenshots as final proof" % [track_id, camera_path])
+		assert_true(str(camera.get_meta("review_contract", "")).contains("Camera3D path"), "%s %s should state that final proof must render through the named camera" % [track_id, camera_path])
+
+func _assert_home_yard_exterior_visual_completeness(root: Node, track_id: String) -> void:
+	for node_path in [
+		"ExteriorShell/FrontEntryPorchLightLeft",
+		"ExteriorShell/FrontEntryPorchLightRight",
+		"ExteriorShell/FrontEntryHouseNumberPlaque",
+		"ExteriorShell/FrontFacadeBatten00",
+		"ExteriorShell/FrontFacadeBatten07",
+		"ExteriorShell/FrontDownspoutWest",
+		"ExteriorShell/FrontDownspoutEast",
+		"ExteriorShell/BackDownspoutWest",
+		"ExteriorShell/BackDownspoutEast",
+		"PorchesDecks/FrontPorchWelcomeMat",
+		"ExteriorShell/UpperFrontBedroomWindowCenterMuntinVertical",
+		"ExteriorShell/UpperFrontBedroomWindowInteriorShadowBacking",
+		"Openings/DiningFrontWindowCenterMuntinHorizontal",
+		"Openings/KitchenGardenWindowInteriorShadowBacking",
+	]:
+		assert_true(root.get_node_or_null(node_path) != null, "%s exterior should include whole-unit beta visual detail %s" % [track_id, node_path])
+
+func _assert_home_yard_yard_and_service_visual_completeness(root: Node, track_id: String) -> void:
+	for node_path in [
+		"Site/ServiceTrashBinALid",
+		"Site/ServiceTrashBinAWheel00",
+		"Site/ServiceTrashBinAHandle",
+		"Site/ServiceTrashBinBLid",
+		"Site/ServiceTrashBinBWheel03",
+		"Site/ServiceTrashBinBHandle",
+		"Yard/BackyardStonePathToGarden",
+		"Yard/BackyardPatioPaverGridA",
+		"Yard/BackyardPatioPaverGridB",
+		"Yard/BackFenceShrubMass00",
+		"Yard/BackFenceShrubMass07",
+	]:
+		assert_true(root.get_node_or_null(node_path) != null, "%s yard/service side should include whole-unit beta visual detail %s" % [track_id, node_path])
+
+func _assert_visible_generated_meshes_have_provenance(node: Node, scene_root: Node, track_id: String) -> void:
+	if node is MeshInstance3D:
+		var mesh_instance := node as MeshInstance3D
+		if mesh_instance.visible:
+			var data: Variant = mesh_instance.get_meta("generated_scene_provenance", {})
+			var node_path := str(scene_root.get_path_to(mesh_instance))
+			assert_true(data is Dictionary, "%s visible generated mesh %s should have generated_scene_provenance metadata" % [track_id, node_path])
+			if data is Dictionary:
+				var dict := data as Dictionary
+				for field in GENERATED_PROVENANCE_REQUIRED_FIELDS:
+					assert_true(dict.has(field), "%s visible generated mesh %s should declare provenance field %s" % [track_id, node_path, field])
+					assert_true(str(dict.get(field, "")).length() > 0, "%s visible generated mesh %s provenance field %s should not be empty" % [track_id, node_path, field])
+				assert_true(str(dict.get("owner_volume", "")).length() > 0, "%s visible generated mesh %s should not be unowned geometry" % [track_id, node_path])
+				assert_true(not str(dict.get("role", "")).contains("unowned"), "%s visible generated mesh %s should not be classified as unowned geometry" % [track_id, node_path])
+	for child in node.get_children():
+		_assert_visible_generated_meshes_have_provenance(child, scene_root, track_id)
 
 func _wall_schedule_has_id(schedule: Array, wall_id: String) -> bool:
 	for item in schedule:
@@ -353,6 +721,150 @@ func _wall_schedule_has_id(schedule: Array, wall_id: String) -> bool:
 			var data := item as Dictionary
 			return str(data.get("owner", "")) == "interior_partition" and data.get("connected_zones", []) is Array and str(data.get("owner_skill", "")) == "floor-plan-architect"
 	return false
+
+func _vertical_link_has_id(links: Array, link_id: String) -> bool:
+	for item in links:
+		if item is Dictionary and str((item as Dictionary).get("id", "")) == link_id:
+			var data := item as Dictionary
+			return not str(data.get("source_asset", "")).is_empty() and str(data.get("validation_gate", "")).contains("must not intersect") and data.get("path_segments", []) is Array and not (data.get("path_segments", []) as Array).is_empty() and not str(data.get("continuity_gate", "")).is_empty()
+	return false
+
+func _assert_home_yard_vertical_circulation_continuity(root: Node, track_id: String) -> void:
+	var contract: Variant = root.get_meta("vertical_circulation_contract", {})
+	assert_true(contract is Dictionary, "%s should export a machine-readable vertical circulation continuity contract" % track_id)
+	if not (contract is Dictionary):
+		return
+	var data := contract as Dictionary
+	assert_equal(str(data.get("scale_contract_id", "")), "home_yard_v3_human_house_toy_racer_scale_v1", "%s vertical circulation should use the shared scale contract" % track_id)
+	assert_true(bool(data.get("continuity_required", false)), "%s vertical circulation should require floor-to-floor continuity" % track_id)
+	_assert_vertical_link_contract(data.get("main_stair", {}), "MainStairEntryToUpperHall", "main stair", MAIN_FLOOR_TOP_Y_FOR_TEST(), 52.60, track_id)
+	_assert_vertical_link_contract(data.get("attic_ladder", {}), "AtticPullDownStairUpperHallToAttic", "attic ladder", 52.60, 104.60, track_id)
+	for node_path in [
+		"VerticalConnectors/MainStairLowerLandingSurface",
+		"VerticalConnectors/MainStairSwitchbackLandingSurface",
+		"VerticalConnectors/MainStairUpperLandingSurface",
+		"VerticalConnectors/MainStairLowerFlightTread00",
+		"VerticalConnectors/MainStairLowerFlightTread10",
+		"VerticalConnectors/MainStairUpperFlightTread00",
+		"VerticalConnectors/MainStairUpperFlightTread10",
+		"VerticalConnectors/AtticPullDownLowerLandingSurface",
+		"VerticalConnectors/AtticPullDownUpperLandingSurface",
+		"VerticalConnectors/AtticPullDownLadderRailLeft",
+		"VerticalConnectors/AtticPullDownLadderRailRight",
+		"VerticalConnectors/AtticPullDownLadderRung00",
+		"VerticalConnectors/AtticPullDownLadderRung11",
+	]:
+		var node := root.get_node_or_null(node_path)
+		assert_true(node != null, "%s should include continuous vertical connector node %s" % [track_id, node_path])
+		if node != null:
+			assert_true(bool(node.get_meta("temporary_stand_in", false)), "%s %s should declare temporary lifecycle metadata until a final Meshy/Kenney/toybox stair asset replaces it" % [track_id, node_path])
+			assert_true(not str(node.get_meta("replacement_source", "")).is_empty(), "%s %s should declare the replacement asset source" % [track_id, node_path])
+			assert_true(str(node.get_meta("vertical_path_continuity", "")).contains("connects_"), "%s %s should state the floor-to-floor continuity it supports" % [track_id, node_path])
+	var upper_deck_holder := root.get_node_or_null("UpperFloor/RoomFinishes/UpperFloorDeck")
+	var glam_holder := root.get_node_or_null("UpperFloor/RoomFinishes/GlamDressing")
+	var main_ceiling_holder := root.get_node_or_null("MainFloor/RoomFinishes/MainFloorTenFootCeilingPlane")
+	assert_true(upper_deck_holder != null and not (upper_deck_holder is MeshInstance3D), "%s upper floor deck should be a split holder, not one broad mesh covering the stair opening" % track_id)
+	assert_true(glam_holder != null and not (glam_holder is MeshInstance3D), "%s glam floor should be a holder so front-hall stair changes cannot become one broad route-blocking mesh" % track_id)
+	assert_true(main_ceiling_holder != null and not (main_ceiling_holder is MeshInstance3D), "%s first-floor ceiling should be a split holder, not one broad mesh covering the stairwell shaft" % track_id)
+	assert_true(root.find_child("MainCeilingEastOfStairShaft", true, false) == null, "%s first-floor ceiling must not keep an east-of-stair broad patch outside the main interior shell; garage ceiling is a separate owned assembly" % track_id)
+	assert_true(root.find_child("UpperFloorDeckUpperHallEast", true, false) == null, "%s upper floor deck must not keep an east-of-stair patch because that space is either stair opening or one-story garage volume" % track_id)
+	for floor_path in [
+		"MainFloor/RoomFinishes/MainFloorTenFootCeilingPlane/MainCeilingWestOfStairShaft",
+		"MainFloor/RoomFinishes/MainFloorTenFootCeilingPlane/MainCeilingNorthOfStairShaft",
+		"MainFloor/RoomFinishes/MainFloorTenFootCeilingPlane/MainCeilingSouthOfStairShaft",
+		"MainFloor/RoomFinishes/MainFloorTenFootCeilingPlane/MainStairShaftReturnNorth",
+		"MainFloor/RoomFinishes/MainFloorTenFootCeilingPlane/MainStairShaftReturnSouth",
+		"MainFloor/RoomFinishes/MainFloorTenFootCeilingPlane/MainStairShaftReturnWest",
+		"MainFloor/RoomFinishes/MainFloorTenFootCeilingPlane/MainStairShaftReturnEast",
+		"UpperFloor/RoomFinishes/UpperFloorDeck/UpperFloorDeckBedroomBack",
+		"UpperFloor/RoomFinishes/UpperFloorDeck/UpperFloorDeckGlamBack",
+		"UpperFloor/RoomFinishes/UpperFloorDeck/UpperFloorDeckUpperHallWest",
+		"UpperFloor/RoomFinishes/GlamDressing/GlamDressingBackFloor",
+	]:
+		assert_true(root.get_node_or_null(floor_path) != null, "%s should include split floor/ceiling assembly piece %s around the stairwell shaft" % [track_id, floor_path])
+	var opening_volume := AABB(Vector3(54.0, 50.0, 106.0), Vector3(36.0, 4.0, 40.0))
+	var shaft_volume := AABB(Vector3(54.0, 39.5, 106.0), Vector3(36.0, 14.1, 40.0))
+	_assert_home_yard_stair_route_exclusion(root, shaft_volume, track_id)
+	_assert_home_yard_stair_is_front_hall_not_garage(root, shaft_volume, track_id)
+	if main_ceiling_holder != null:
+		_assert_no_visible_mesh_intersects_aabb(main_ceiling_holder, shaft_volume, "MainFloor/RoomFinishes/MainFloorTenFootCeilingPlane/MainStairShaftReturn", "%s first-floor ceiling and interstitial floor assembly must leave a clear stairwell shaft" % track_id)
+	if upper_deck_holder != null:
+		_assert_no_visible_mesh_intersects_aabb(upper_deck_holder, opening_volume, "NoExclusions/", "%s upper deck must leave a clear stairwell floor opening" % track_id)
+		_assert_upper_floor_deck_clear_of_garage_volume(upper_deck_holder, track_id)
+	if glam_holder != null:
+		_assert_no_visible_mesh_intersects_aabb(glam_holder, opening_volume, "NoExclusions/", "%s glam floor must leave a clear stairwell floor opening" % track_id)
+	for rail_path in ["UpperFloor/RoomFinishes/MainStairOpeningRailNorth", "UpperFloor/RoomFinishes/MainStairOpeningRailSouth", "UpperFloor/RoomFinishes/MainStairOpeningRailWest"]:
+		var rail := root.get_node_or_null(rail_path)
+		assert_true(rail != null, "%s should include stairwell guardrail %s" % [track_id, rail_path])
+		if rail != null:
+			assert_true(bool(rail.get_meta("stairwell_opening_part", false)), "%s %s should be tagged as part of the stairwell opening guardrail" % [track_id, rail_path])
+			assert_equal(str(rail.get_meta("collision_policy", "")), "visual_guardrail_no_gameplay_collision", "%s stairwell guardrail should not create gameplay collision until authored as a named boundary" % track_id)
+
+func _assert_upper_floor_deck_clear_of_garage_volume(upper_deck_holder: Node, track_id: String) -> void:
+	var garage_volume := AABB(Vector3(90.01, 0.0, -60.0), Vector3(129.99, 54.0, 205.0))
+	_assert_no_visible_mesh_intersects_aabb(upper_deck_holder, garage_volume, "NoExclusions/", "%s upper floor deck pieces must not occupy the garage/service bay; the garage is a one-story volume with its own ceiling and roof" % track_id)
+
+func _assert_home_yard_stair_route_exclusion(root: Node, shaft_volume: AABB, track_id: String) -> void:
+	var envelopes: Variant = root.get_meta("route_envelopes", {})
+	assert_true(envelopes is Dictionary, "%s shared map should expose route envelopes before placing vertical circulation" % track_id)
+	if not (envelopes is Dictionary):
+		return
+	for protected_course in ["bedroom", "glam_closet"]:
+		var envelope: Variant = (envelopes as Dictionary).get(protected_course, {})
+		assert_true(envelope is Dictionary, "%s main stair shaft exclusion should be checked against %s route envelope" % [track_id, protected_course])
+		if not (envelope is Dictionary):
+			continue
+		var route_bounds: Variant = (envelope as Dictionary).get("route_world_bounds", {})
+		assert_true(route_bounds is Dictionary, "%s %s route envelope should include route_world_bounds" % [track_id, protected_course])
+		if not (route_bounds is Dictionary):
+			continue
+		var route_min: Vector3 = (route_bounds as Dictionary).get("min", Vector3.ZERO) as Vector3
+		var route_max: Vector3 = (route_bounds as Dictionary).get("max", Vector3.ZERO) as Vector3
+		var route_volume := AABB(route_min, route_max - route_min)
+		assert_true(not route_volume.intersects(shaft_volume), "%s main stair shaft must stay outside %s route envelope" % [track_id, protected_course])
+
+func _assert_home_yard_stair_is_front_hall_not_garage(root: Node, shaft_volume: AABB, track_id: String) -> void:
+	var garage_volume := AABB(Vector3(90.01, 0.0, -60.0), Vector3(129.99, 54.0, 205.0))
+	var front_hall_volume := AABB(Vector3(35.0, 0.0, 100.0), Vector3(70.0, 54.0, 50.0))
+	assert_true(not shaft_volume.intersects(garage_volume), "%s main stair shaft must not be pushed into the garage/service bay" % track_id)
+	assert_true(shaft_volume.intersects(front_hall_volume), "%s main stair shaft should live in the front entry/upper-hall stair zone" % track_id)
+	var envelopes: Variant = root.get_meta("route_envelopes", {})
+	if envelopes is Dictionary:
+		for protected_course in ["bedroom", "glam_closet"]:
+			var envelope: Variant = (envelopes as Dictionary).get(protected_course, {})
+			if envelope is Dictionary and (envelope as Dictionary).get("zone_world_bounds", {}) is Dictionary:
+				var zone_bounds := (envelope as Dictionary).get("zone_world_bounds", {}) as Dictionary
+				var zone_min: Vector3 = zone_bounds.get("min", Vector3.ZERO) as Vector3
+				var zone_max: Vector3 = zone_bounds.get("max", Vector3.ZERO) as Vector3
+				assert_true(zone_min.z <= -129.0, "%s %s room zone should be pushed back to the rear upper-floor wall after carving the front hall" % [track_id, protected_course])
+				assert_true(zone_max.z <= 106.1, "%s %s room zone should leave the front band for upper-hall circulation" % [track_id, protected_course])
+	var contract: Variant = root.get_meta("floor_plan_contract", {})
+	if contract is Dictionary:
+		var links: Variant = (contract as Dictionary).get("vertical_links", [])
+		if links is Array:
+			for item in links:
+				if item is Dictionary and str((item as Dictionary).get("id", "")) == "MainStairEntryToUpperHall":
+					assert_equal(str((item as Dictionary).get("lower_zone", "")), "entry_stair_hall", "%s main stair lower zone should remain the entry stair hall" % track_id)
+					assert_equal(str((item as Dictionary).get("upper_zone", "")), "upper_front_hall", "%s main stair upper zone should remain the upper front hall" % track_id)
+
+func _assert_vertical_link_contract(value: Variant, expected_id: String, label: String, expected_lower_y: float, expected_upper_y: float, track_id: String) -> void:
+	assert_true(value is Dictionary, "%s should include a %s continuity contract" % [track_id, label])
+	if not (value is Dictionary):
+		return
+	var data := value as Dictionary
+	assert_equal(str(data.get("id", "")), expected_id, "%s %s continuity contract should have a stable id" % [track_id, label])
+	assert_true(bool(data.get("continuous_path_verified", false)), "%s %s should be marked continuous after segment checks" % [track_id, label])
+	assert_true(absf(float(data.get("lower_floor_datum_y", -999.0)) - expected_lower_y) <= 0.1, "%s %s lower datum should match the finished floor" % [track_id, label])
+	assert_true(absf(float(data.get("upper_floor_datum_y", -999.0)) - expected_upper_y) <= 0.1, "%s %s upper datum should match the finished floor" % [track_id, label])
+	assert_true(float(data.get("total_rise_units", 0.0)) >= 50.0, "%s %s should span a real floor-to-floor rise" % [track_id, label])
+	assert_true(data.get("path_segments", []) is Array and (data.get("path_segments", []) as Array).size() >= 3, "%s %s should declare solved path segments" % [track_id, label])
+	assert_true(bool(data.get("opening_overlap_required", false)), "%s %s should require floor-opening or hatch overlap with the landing" % [track_id, label])
+	if expected_id == "MainStairEntryToUpperHall":
+		assert_true(data.get("floor_assembly_shaft_void_bounds", {}) is Dictionary, "%s main stair should declare a shaft void through the ceiling/floor assembly" % track_id)
+		assert_true(data.get("floor_assembly_layers_cut", []) is Array and (data.get("floor_assembly_layers_cut", []) as Array).has("MainFloorTenFootCeilingPlane"), "%s main stair should cut through the first-floor ceiling layer" % track_id)
+
+func MAIN_FLOOR_TOP_Y_FOR_TEST() -> float:
+	return 0.05
 
 func _assert_home_yard_shared_shell_ownership(root: Node, track_id: String) -> void:
 	for node_path in [
@@ -378,6 +890,7 @@ func _assert_home_yard_shared_shell_ownership(root: Node, track_id: String) -> v
 		"ValidationCameras/AtticStorageSeamCamera",
 	]:
 		assert_true(root.get_node_or_null(node_path) != null, "%s shared home-yard scene should include seam validation camera %s" % [track_id, node_path])
+	_assert_home_yard_interior_exterior_aabb_separation(root, track_id)
 
 func _assert_no_stage_owned_exterior_nodes(node: Node, track_id: String, holder_name: String, path: String) -> void:
 	for child in node.get_children():
@@ -388,13 +901,90 @@ func _assert_no_stage_owned_exterior_nodes(node: Node, track_id: String, holder_
 		assert_true(not is_forbidden, "%s %s must not own exterior shell node %s" % [track_id, holder_name, child_path])
 		_assert_no_stage_owned_exterior_nodes(child, track_id, holder_name, child_path)
 
+func _assert_home_yard_interior_exterior_aabb_separation(root: Node, track_id: String) -> void:
+	var exterior_bounds: Array[Dictionary] = []
+	for holder_path in ["ExteriorShell", "Foundation"]:
+		var holder := root.get_node_or_null(holder_path)
+		assert_true(holder != null, "%s should include %s for interior/exterior AABB separation audit" % [track_id, holder_path])
+		if holder != null:
+			_collect_exterior_blocker_aabbs(holder, root, exterior_bounds)
+	assert_true(not exterior_bounds.is_empty(), "%s should expose exterior shell/foundation AABBs for interior separation audit" % track_id)
+	for interior_path in ["MainFloor", "UpperFloor", "Attic", "VerticalConnectors"]:
+		var interior_holder := root.get_node_or_null(interior_path)
+		assert_true(interior_holder != null, "%s should include %s for interior/exterior AABB separation audit" % [track_id, interior_path])
+		if interior_holder != null:
+			_assert_interior_meshes_clear_exterior_aabbs(interior_holder, root, exterior_bounds, track_id)
+
+func _collect_exterior_blocker_aabbs(node: Node, scene_root: Node, output: Array[Dictionary]) -> void:
+	if node is MeshInstance3D:
+		var mesh_instance := node as MeshInstance3D
+		if mesh_instance.visible and _is_exterior_blocker_for_interior_aabb_gate(mesh_instance):
+			var bounds := _mesh_instance_global_aabb(mesh_instance)
+			var shrunk := bounds.grow(-0.08)
+			if shrunk.size.x > 0.0 and shrunk.size.y > 0.0 and shrunk.size.z > 0.0:
+				bounds = shrunk
+			output.append({
+				"path": str(scene_root.get_path_to(mesh_instance)),
+				"bounds": bounds,
+			})
+	for child in node.get_children():
+		_collect_exterior_blocker_aabbs(child, scene_root, output)
+
+func _is_exterior_blocker_for_interior_aabb_gate(node: Node) -> bool:
+	var lower := str(node.name).to_lower()
+	return lower.contains("wall") or lower.contains("foundation") or lower.contains("plinth") or lower.contains("skirt") or lower.contains("gable") or lower.contains("soffit")
+
+func _assert_interior_meshes_clear_exterior_aabbs(node: Node, scene_root: Node, exterior_bounds: Array[Dictionary], track_id: String) -> void:
+	if node is MeshInstance3D:
+		var mesh_instance := node as MeshInstance3D
+		if mesh_instance.visible and not _is_boundary_tolerated_interior_mesh(mesh_instance):
+			var interior_bounds := _mesh_instance_global_aabb(mesh_instance)
+			var interior_path := str(scene_root.get_path_to(mesh_instance))
+			for exterior_item in exterior_bounds:
+				var exterior_aabb := exterior_item.get("bounds", AABB()) as AABB
+				if interior_bounds.intersects(exterior_aabb) and _aabb_overlap_is_blocking(interior_bounds, exterior_aabb):
+					assert_true(false, "%s interior mesh %s must not intersect exterior shell/foundation AABB %s" % [track_id, interior_path, str(exterior_item.get("path", ""))])
+	for child in node.get_children():
+		_assert_interior_meshes_clear_exterior_aabbs(child, scene_root, exterior_bounds, track_id)
+
+func _aabb_overlap_is_blocking(a: AABB, b: AABB) -> bool:
+	var x_overlap: float = min(a.end.x, b.end.x) - max(a.position.x, b.position.x)
+	var y_overlap: float = min(a.end.y, b.end.y) - max(a.position.y, b.position.y)
+	var z_overlap: float = min(a.end.z, b.end.z) - max(a.position.z, b.position.z)
+	if x_overlap <= 0.0 or y_overlap <= 0.0 or z_overlap <= 0.0:
+		return false
+	if y_overlap <= 0.25:
+		return false
+	var horizontal_penetration: float = min(x_overlap, z_overlap)
+	return horizontal_penetration > 2.25
+
+func _is_boundary_tolerated_interior_mesh(node: Node) -> bool:
+	var lower := str(node.name).to_lower()
+	if lower.contains("floor") or lower.contains("ceiling") or lower.contains("baseboard") or lower.contains("threshold") or lower.contains("rail") or lower.contains("post"):
+		return true
+	if lower.contains("trim") or lower.contains("return") or lower.contains("header") or lower.contains("opening"):
+		return true
+	if lower.contains("divider") or lower.contains("interiorbackwall"):
+		return true
+	return lower in [
+		"diningliving",
+		"entrystairhall",
+		"garageservice",
+		"kitchenbreakfast",
+		"playroomfamily",
+		"bedroomsuite",
+	]
+
 func _assert_home_yard_exterior_shell(root: Node, track_id: String) -> void:
 	var shell := root.get_node_or_null("ExteriorShell")
 	assert_true(shell != null, "%s should include an exterior shell holder" % track_id)
 	if shell == null:
 		return
 	for node_name in [
-		"ContinuousStoneFoundationPlinth",
+		"ExteriorFoundationFrontSkirt",
+		"ExteriorFoundationBackSkirt",
+		"ExteriorFoundationWestSkirt",
+		"ExteriorFoundationEastSkirt",
 		"FrontPorchTaperedColumnLeftBase",
 		"FrontPorchTaperedColumnRightShaft",
 		"FrontPorchBeam",
@@ -402,6 +992,7 @@ func _assert_home_yard_exterior_shell(root: Node, track_id: String) -> void:
 		"FrontDoorLintelHeader",
 		"FrontGutterRun",
 		"BackGutterRun",
+		"ExteriorEastUpperWallOverGarage",
 		"ChimneyMasonryStack",
 		"ServiceElectricMeter",
 	]:
@@ -424,9 +1015,10 @@ func _assert_home_yard_roof_and_attic_contract(root: Node, track_id: String) -> 
 		"DutchGambrelBackGableWall",
 		"GarageCrossGableRidge",
 		"FrontPorchGableRidge",
-		"GarageValleyCoverFront",
 		"GambrelFrontEaveFascia",
 		"GambrelBackEaveFascia",
+		"GambrelWestRakeFascia",
+		"GambrelEastRakeFascia",
 		"GambrelSoffitFront",
 		"GambrelSoffitBack",
 	]:
@@ -437,7 +1029,20 @@ func _assert_home_yard_roof_and_attic_contract(root: Node, track_id: String) -> 
 	_assert_ridge_axis(roof, "DutchGambrelRidgeCap", "z", track_id)
 	_assert_ridge_axis(roof, "GarageCrossGableRidge", "x", track_id)
 	_assert_ridge_axis(roof, "FrontPorchGableRidge", "x", track_id)
-	_assert_mesh_top_below(roof, "DutchGambrelRidgeCap", 154.0, track_id)
+	assert_true(root.find_child("MainRoofWestEaveClosure", true, false) == null, "%s should not keep the obsolete west eave closure support block after direct fascia seam validation" % track_id)
+	assert_true(root.find_child("MainRoofEastEaveClosure", true, false) == null, "%s should not keep the obsolete east eave closure support block after direct fascia seam validation" % track_id)
+	assert_true(root.find_child("GarageValleyCoverFront", true, false) == null, "%s should not keep obsolete floating garage valley cover bars when the lower garage roof is actually tied to a side wall" % track_id)
+	assert_true(root.find_child("GarageValleyCoverBack", true, false) == null, "%s should not keep obsolete floating garage valley cover bars when the lower garage roof is actually tied to a side wall" % track_id)
+	assert_true(root.find_child("GarageRoofSidewallFlashingFront", true, false) == null, "%s should not keep visible garage sidewall flashing bars; roof planes must prove direct wall contact instead" % track_id)
+	assert_true(root.find_child("GarageRoofSidewallFlashingBack", true, false) == null, "%s should not keep visible garage sidewall flashing bars; roof planes must prove direct wall contact instead" % track_id)
+	assert_true(root.find_child("WallBelowGambrelEave", true, false) == null, "%s gambrel gable helpers must not duplicate below-eave exterior wall surfaces" % track_id)
+	_assert_side_fascia_mitres_to_eave_fascia(root, "Roof/GambrelWestRakeFascia", "Roof/GambrelFrontEaveFascia", "Roof/GambrelBackEaveFascia", track_id)
+	_assert_side_fascia_mitres_to_eave_fascia(root, "Roof/GambrelEastRakeFascia", "Roof/GambrelFrontEaveFascia", "Roof/GambrelBackEaveFascia", track_id)
+	_assert_garage_roof_ridge_centered_on_owner_footprint(roof, track_id)
+	_assert_garage_roof_planes_contact_sidewall(root, track_id)
+	_assert_exterior_garage_side_infill(root, track_id)
+	_assert_garage_cross_gable_clear_of_main_house_volume(root, track_id)
+	_assert_mesh_top_below(roof, "DutchGambrelRidgeCap", 168.0, track_id)
 	var gambrel_planes := [
 		roof.get_node_or_null("DutchGambrelLowerLeftPlane"),
 		roof.get_node_or_null("DutchGambrelUpperLeftPlane"),
@@ -456,13 +1061,20 @@ func _assert_home_yard_roof_and_attic_contract(root: Node, track_id: String) -> 
 		assert_true(attic.get_node_or_null("InteriorPartitions/AtticEastKneePartition") != null, "%s attic should include contract-owned east knee partition" % track_id)
 		assert_true(attic.get_node_or_null("RoomFinishes/PopperHighRampLaunchDeck") != null, "%s attic should include Popper high-ramp launch deck" % track_id)
 		assert_true(attic.get_node_or_null("RoomFinishes/PopperHighRampLandingDeck") != null, "%s attic should include Popper high-ramp landing deck" % track_id)
-		_assert_mesh_top_below(attic, "RoomFinishes/AtticRidgeBeamInterior", 150.0, track_id)
+		assert_true(attic.get_node_or_null("RoomFinishes/AtticHumanClearanceMarker") != null, "%s attic should include a human-walkable clearance marker" % track_id)
+		var clearance_marker := attic.get_node_or_null("RoomFinishes/AtticHumanClearanceMarker")
+		assert_true(not (clearance_marker is MeshInstance3D), "%s attic clearance marker should remain validation-only metadata, not visible roof-penetrating geometry" % track_id)
+		if clearance_marker != null:
+			assert_true(bool(clearance_marker.get_meta("validation_only", false)), "%s attic clearance marker should be tagged as validation-only" % track_id)
+		_assert_mesh_top_below(attic, "RoomFinishes/AtticRidgeBeamInterior", 164.0, track_id)
+		_assert_attic_meshes_inside_gambrel_envelope(attic, root, track_id)
 	assert_true(root.find_child("RoofMassPlaceholder", true, false) == null, "%s should not keep a visible flat roof placeholder" % track_id)
 	assert_true(root.find_child("MainEnvelopeCeilingPlane", true, false) == null, "%s should not expose a flat ceiling plane as a visible roof placeholder" % track_id)
 	assert_true(root.find_child("UpperAtticRoofRidgeCap", true, false) == null, "%s should not keep the old stacked attic ridge cap" % track_id)
 	assert_true(root.find_child("UpperDormerFrontGableWall", true, false) == null, "%s should not keep old upper-dormer gable walls" % track_id)
 	assert_true(root.find_child("UpperRoofLeftRakeFascia", true, false) == null, "%s should not keep horizontal dormer side rake bars that read as floating rails" % track_id)
 	assert_true(root.find_child("UpperRoofRightRakeFascia", true, false) == null, "%s should not keep horizontal dormer side rake bars that read as floating rails" % track_id)
+	assert_true(root.find_child("MainRoofSoffitClosure", true, false) == null, "%s should not keep a broad full-footprint roof soffit closure inside the attic volume" % track_id)
 
 func _assert_ridge_axis(roof: Node, node_name: String, expected_axis: String, track_id: String) -> void:
 	var node := roof.get_node_or_null(node_name) as MeshInstance3D
@@ -483,10 +1095,154 @@ func _assert_mesh_top_below(parent: Node, node_path: String, max_y: float, track
 	var bounds := _mesh_instance_global_aabb(node)
 	assert_true(bounds.position.y + bounds.size.y <= max_y + 0.01, "%s %s should not protrude above the measured roof/dormer datum" % [track_id, node_path])
 
+func _assert_side_fascia_mitres_to_eave_fascia(root: Node, side_path: String, front_path: String, back_path: String, track_id: String) -> void:
+	var side := root.get_node_or_null(side_path) as MeshInstance3D
+	var front := root.get_node_or_null(front_path) as MeshInstance3D
+	var back := root.get_node_or_null(back_path) as MeshInstance3D
+	assert_true(side != null, "%s should include side fascia %s for direct eave seam audit" % [track_id, side_path])
+	assert_true(front != null, "%s should include front eave fascia %s for direct eave seam audit" % [track_id, front_path])
+	assert_true(back != null, "%s should include back eave fascia %s for direct eave seam audit" % [track_id, back_path])
+	if side == null or front == null or back == null:
+		return
+	var side_bounds := _mesh_instance_global_aabb(side)
+	var front_bounds := _mesh_instance_global_aabb(front)
+	var back_bounds := _mesh_instance_global_aabb(back)
+	assert_true(_aabb_overlaps_on_axes(side_bounds, front_bounds, ["x", "y", "z"], 0.25), "%s %s should directly meet/mitre with %s; an intermediate closure block must not be the only connection proof" % [track_id, side_path, front_path])
+	assert_true(_aabb_overlaps_on_axes(side_bounds, back_bounds, ["x", "y", "z"], 0.25), "%s %s should directly meet/mitre with %s; an intermediate closure block must not be the only connection proof" % [track_id, side_path, back_path])
+	assert_true(absf((side_bounds.position.y + side_bounds.size.y * 0.5) - (front_bounds.position.y + front_bounds.size.y * 0.5)) <= 2.0, "%s %s should share the eave fascia datum with %s" % [track_id, side_path, front_path])
+	assert_true(absf((side_bounds.position.y + side_bounds.size.y * 0.5) - (back_bounds.position.y + back_bounds.size.y * 0.5)) <= 2.0, "%s %s should share the eave fascia datum with %s" % [track_id, side_path, back_path])
+
+func _assert_garage_roof_ridge_centered_on_owner_footprint(roof: Node, track_id: String) -> void:
+	var contract: Variant = roof.get_meta("roof_contract", {})
+	assert_true(contract is Dictionary, "%s roof should export a roof_contract dictionary for ridge centering gates" % track_id)
+	if not (contract is Dictionary):
+		return
+	var garage_contract: Variant = (contract as Dictionary).get("garage_cross_gable", {})
+	assert_true(garage_contract is Dictionary, "%s roof contract should include garage_cross_gable footprint data" % track_id)
+	if not (garage_contract is Dictionary):
+		return
+	var data := garage_contract as Dictionary
+	var footprint_min := data.get("footprint_min", Vector3.ZERO) as Vector3
+	var footprint_max := data.get("footprint_max", Vector3.ZERO) as Vector3
+	var expected_z := (footprint_min.z + footprint_max.z) * 0.5
+	var declared_z := float(data.get("ridge_z", -999.0))
+	assert_true(absf(declared_z - expected_z) <= 0.1, "%s garage gable ridge_z should be centered on its owner footprint; declared=%f expected=%f" % [track_id, declared_z, expected_z])
+	var ridge := roof.get_node_or_null("GarageCrossGableRidge") as MeshInstance3D
+	assert_true(ridge != null, "%s should include GarageCrossGableRidge for owner-footprint centering gate" % track_id)
+	if ridge != null:
+		var bounds := _mesh_instance_global_aabb(ridge)
+		var actual_z := bounds.position.z + bounds.size.z * 0.5
+		assert_true(absf(actual_z - expected_z) <= 1.0, "%s GarageCrossGableRidge mesh should be centered on garage footprint Z; actual=%f expected=%f bounds=%s" % [track_id, actual_z, expected_z, str(bounds)])
+
+func _assert_garage_roof_planes_contact_sidewall(root: Node, track_id: String) -> void:
+	var upper_sidewall := root.get_node_or_null("ExteriorShell/ExteriorEastUpperWallOverGarage") as MeshInstance3D
+	assert_true(upper_sidewall != null, "%s should include ExteriorEastUpperWallOverGarage for garage roof sidewall contact proof" % track_id)
+	if upper_sidewall == null:
+		return
+	var upper_bounds := _mesh_instance_global_aabb(upper_sidewall)
+	for roof_path in ["Roof/GarageCrossGableFrontPlane", "Roof/GarageCrossGableBackPlane"]:
+		var roof_plane := root.get_node_or_null(roof_path) as MeshInstance3D
+		assert_true(roof_plane != null, "%s should include %s for direct sidewall contact proof" % [track_id, roof_path])
+		if roof_plane == null:
+			continue
+		var roof_bounds := _mesh_instance_global_aabb(roof_plane)
+		assert_true(roof_bounds.position.x >= upper_bounds.position.x - 0.25 and roof_bounds.position.x <= upper_bounds.end.x + 0.25, "%s %s west edge should terminate within the ExteriorEastUpperWallOverGarage wall thickness instead of needing a visible helper bar" % [track_id, roof_path])
+		assert_true(_aabb_overlaps_on_axes(roof_bounds, upper_bounds, ["z"], 8.0), "%s %s should overlap the upper sidewall run in Z enough to prove contact" % [track_id, roof_path])
+		var data: Variant = roof_plane.get_meta("generated_scene_provenance", {})
+		assert_true(data is Dictionary, "%s %s should declare generated provenance" % [track_id, roof_path])
+		if data is Dictionary:
+			var support := str((data as Dictionary).get("support_target", ""))
+			assert_true(support.contains("ExteriorEastUpperWallOverGarage"), "%s %s provenance should name the upper sidewall contact instead of outsourcing proof to a visible flashing bar" % [track_id, roof_path])
+			var forbidden := str((data as Dictionary).get("forbidden_intersections", ""))
+			assert_true(forbidden.contains("floating sidewall flashing bar"), "%s %s provenance should explicitly forbid recurrence of floating flashing bars" % [track_id, roof_path])
+
+func _assert_exterior_garage_side_infill(root: Node, track_id: String) -> void:
+	var wall := root.get_node_or_null("ExteriorShell/ExteriorEastGarageWall") as MeshInstance3D
+	var infill := root.get_node_or_null("ExteriorShell/ExteriorEastGarageGableInfill") as MeshInstance3D
+	assert_true(wall != null, "%s should include ExteriorEastGarageWall for side-wall closure gate" % track_id)
+	assert_true(infill != null, "%s should include ExteriorEastGarageGableInfill so the garage side wall does not stop below the roof" % track_id)
+	if wall == null or infill == null:
+		return
+	var wall_bounds := _mesh_instance_global_aabb(wall)
+	var infill_bounds := _mesh_instance_global_aabb(infill)
+	assert_true(infill_bounds.position.y <= wall_bounds.end.y + 0.25, "%s garage gable infill should begin at the top of ExteriorEastGarageWall" % track_id)
+	assert_true(infill_bounds.end.y > wall_bounds.end.y + 12.0, "%s garage gable infill should close visibly above ExteriorEastGarageWall toward the roof" % track_id)
+	assert_true(absf((infill_bounds.position.x + infill_bounds.size.x * 0.5) - (wall_bounds.position.x + wall_bounds.size.x * 0.5)) <= 1.0, "%s garage gable infill should share the east wall plane" % track_id)
+
+func _assert_garage_cross_gable_clear_of_main_house_volume(root: Node, track_id: String) -> void:
+	var protected_main_house := AABB(Vector3(-214.0, 40.0, -144.0), Vector3(306.0, 68.0, 303.0))
+	for roof_path in [
+		"Roof/GarageCrossGableFrontPlane",
+		"Roof/GarageCrossGableBackPlane",
+		"Roof/GarageCrossGableRidge",
+	]:
+		_assert_mesh_aabb_outside_or_barely_touching(root, roof_path, protected_main_house, 2.0, "%s garage cross-gable module must not intrude into the protected main-house roof/wall volume" % track_id)
+
+func _assert_mesh_aabb_outside_or_barely_touching(root: Node, node_path: String, forbidden: AABB, allowed_overlap_depth: float, message: String) -> void:
+	var mesh_instance := root.get_node_or_null(node_path) as MeshInstance3D
+	assert_true(mesh_instance != null, "%s; missing node: %s" % [message, node_path])
+	if mesh_instance == null:
+		return
+	var bounds := _mesh_instance_global_aabb(mesh_instance)
+	var overlap := _aabb_overlap_size(bounds, forbidden)
+	if overlap == Vector3.ZERO:
+		return
+	var intrusion_depth := minf(overlap.x, minf(overlap.y, overlap.z))
+	assert_true(intrusion_depth <= allowed_overlap_depth, "%s; %s intrusion=%f allowed=%f bounds=%s forbidden=%s" % [message, node_path, intrusion_depth, allowed_overlap_depth, str(bounds), str(forbidden)])
+
+func _aabb_overlap_size(a: AABB, b: AABB) -> Vector3:
+	var overlap := Vector3(
+		minf(a.end.x, b.end.x) - maxf(a.position.x, b.position.x),
+		minf(a.end.y, b.end.y) - maxf(a.position.y, b.position.y),
+		minf(a.end.z, b.end.z) - maxf(a.position.z, b.position.z)
+	)
+	if overlap.x <= 0.0 or overlap.y <= 0.0 or overlap.z <= 0.0:
+		return Vector3.ZERO
+	return overlap
+
+func _aabb_overlaps_on_axes(a: AABB, b: AABB, axes: Array[String], minimum_overlap: float) -> bool:
+	for axis in axes:
+		var overlap := 0.0
+		if axis == "x":
+			overlap = minf(a.end.x, b.end.x) - maxf(a.position.x, b.position.x)
+		elif axis == "y":
+			overlap = minf(a.end.y, b.end.y) - maxf(a.position.y, b.position.y)
+		elif axis == "z":
+			overlap = minf(a.end.z, b.end.z) - maxf(a.position.z, b.position.z)
+		if overlap < minimum_overlap:
+			return false
+	return true
+
+func _assert_attic_meshes_inside_gambrel_envelope(node: Node, scene_root: Node, track_id: String) -> void:
+	if node is MeshInstance3D:
+		var mesh_instance := node as MeshInstance3D
+		if mesh_instance.visible:
+			var bounds := _mesh_instance_global_aabb(mesh_instance)
+			var allowed_top: float = minf(_gambrel_roof_envelope_y(bounds.position.x), _gambrel_roof_envelope_y(bounds.end.x)) - 1.0
+			var node_path := str(scene_root.get_path_to(mesh_instance))
+			assert_true(bounds.end.y <= allowed_top + 0.01, "%s attic mesh %s should stay inside the gambrel roof envelope; top=%f allowed=%f bounds=%s" % [track_id, node_path, bounds.end.y, allowed_top, str(bounds)])
+	for child in node.get_children():
+		_assert_attic_meshes_inside_gambrel_envelope(child, scene_root, track_id)
+
+func _gambrel_roof_envelope_y(x: float) -> float:
+	if x <= -214.0 or x >= 104.0:
+		return 104.0
+	if x <= -155.0:
+		return lerpf(104.0, 136.0, (x + 214.0) / 59.0)
+	if x <= -55.0:
+		return lerpf(136.0, 164.0, (x + 155.0) / 100.0)
+	if x <= 45.0:
+		return lerpf(164.0, 136.0, (x + 55.0) / 100.0)
+	return lerpf(136.0, 104.0, (x - 45.0) / 59.0)
+
 func _assert_home_yard_landscape_and_assets(root: Node, track_id: String) -> void:
 	for node_path in [
-		"Foundation/HouseContinuousFoundationPlinth",
+		"Foundation/HouseFoundationFrontPlinth",
+		"Foundation/HouseFoundationBackPlinth",
+		"Foundation/HouseFoundationWestPlinth",
+		"Foundation/HouseFoundationEastPlinth",
 		"Openings/KitchenPatioDoorFrame",
+		"Openings/OversizedDoggieDoorFrame",
 		"PorchesDecks/FrontPorchDeck",
 		"PorchesDecks/BackDeckLanding",
 		"GarageService/GarageToolBench",
@@ -499,12 +1255,39 @@ func _assert_home_yard_landscape_and_assets(root: Node, track_id: String) -> voi
 		"Yard/GardenVegetableRow00",
 		"Yard/MixedGrassHeightClump00",
 		"ValidationCameras/ExteriorRooflineCamera",
+		"ValidationCameras/BackyardDoggieDoorCamera",
+		"ValidationCameras/RoofGambrelSideProfileCamera",
+		"ValidationCameras/MainFloorRouteStartsCamera",
+		"ValidationCameras/PlayroomStartPlayerCamera",
+		"ValidationCameras/OutdoorPlaygroundStartPlayerCamera",
+		"ValidationCameras/GardenStartPlayerCamera",
+		"ValidationCameras/SandboxStartPlayerCamera",
+		"ValidationCameras/UpperFloorRouteStartsCamera",
+		"ValidationCameras/BedroomStartPlayerCamera",
+		"ValidationCameras/GlamClosetStartPlayerCamera",
+		"ValidationCameras/AtticStartPlayerCamera",
+		"ValidationCameras/AtticRampSideProfileCamera",
+		"ValidationCameras/YardCourseOverviewCamera",
 		"ValidationCameras/AtticGableProfileCamera",
 		"ValidationCameras/FrontPorchCloseupCamera",
 		"ValidationCameras/GarageServiceSideCamera",
 		"ValidationCameras/ToyboxTreeSwingCamera",
+		"ConceptReference/HumanScaleReference",
 	]:
 		assert_true(root.get_node_or_null(node_path) != null, "%s shared home-yard scene should include %s" % [track_id, node_path])
+	_assert_home_yard_foundation_plinth_bounds(root, track_id)
+
+func _assert_home_yard_foundation_plinth_bounds(root: Node, track_id: String) -> void:
+	var foundation := root.get_node_or_null("Foundation")
+	assert_true(foundation != null, "%s should include Foundation for plinth footprint gates" % track_id)
+	if foundation == null:
+		return
+	var contract := str(foundation.get_meta("foundation_footprint_contract", ""))
+	assert_true(contract.contains("clipped to owning wall runs"), "%s foundation should document that plinths are clipped to owning wall runs" % track_id)
+	var main_house_bounds := AABB(Vector3(-205.0, -1.0, -135.0), Vector3(300.0, 12.0, 285.0))
+	var garage_bounds := AABB(Vector3(85.0, -1.0, -65.0), Vector3(140.0, 12.0, 215.0))
+	_assert_mesh_aabb_within(root, "Foundation/HouseFoundationBackPlinth", main_house_bounds, "%s back foundation plinth must stop at the main-house rear wall run instead of continuing behind the garage/yard void" % track_id)
+	_assert_mesh_aabb_within(root, "Foundation/HouseFoundationEastPlinth", garage_bounds, "%s east foundation plinth must stay on the garage/service wall run" % track_id)
 
 func _assert_home_yard_kitchen_readability(root: Node) -> void:
 	var kit := root.get_node_or_null("MainFloor/KitchenRaceReadabilityKit")
@@ -515,22 +1298,44 @@ func _assert_home_yard_kitchen_readability(root: Node) -> void:
 	assert_true(contract is Dictionary, "Kitchen readability kit should export a player readability contract")
 	if contract is Dictionary:
 		assert_equal(str((contract as Dictionary).get("course_id", "")), "kitchen", "Kitchen readability contract should identify the kitchen course")
-		assert_true(str((contract as Dictionary).get("surface", "")).contains("toy-track"), "Kitchen readability contract should name a readable driving surface")
+		assert_true(str((contract as Dictionary).get("surface", "")).contains("GridMap"), "Kitchen readability contract should defer the readable driving surface to the active GridMap route")
 	for node_name in [
 		"KitchenReadableRoute00Mat",
 		"KitchenReadableRoute00LeftEdge",
 		"KitchenReadableRoute00RightEdge",
-		"KitchenStartFinishFloorBand",
-		"KitchenStartFinishBanner",
+		"KitchenCornerCurb00",
+		"KitchenCornerArrow00",
+		"KitchenStartFinishLeftPost",
+		"KitchenStartFinishRightPost",
 		"KitchenFirstTurnBillboard",
 		"KitchenPantryStackLandmarkA",
+		"KitchenPantryStackLandmarkB",
 		"KitchenSinkIslandInfieldEdge",
 		"KitchenFridgeLandmarkPanel",
 		"KitchenWarmUndercabinetGlow",
+		"KitchenStartFinishFloorBand",
+		"KitchenStartFinishBanner",
 	]:
-		assert_true(kit.get_node_or_null(node_name) != null, "Kitchen readability kit should include %s" % node_name)
+		assert_true(kit.get_node_or_null(node_name) == null, "Kitchen shared readability kit should not render helper slab geometry %s" % node_name)
 	assert_true(root.get_node_or_null("ValidationCameras/KitchenStartPlayerCamera") != null, "Kitchen should include a start-grid player-height validation camera")
 	assert_true(root.get_node_or_null("ValidationCameras/KitchenFirstTurnPlayerCamera") != null, "Kitchen should include a first-turn player-height validation camera")
+
+func _assert_validation_only_nodes_are_non_rendered(node: Node, track_id: String, path := "") -> void:
+	var current_path := path if not path.is_empty() else "/%s" % str(node.name)
+	if bool(node.get_meta("validation_only", false)):
+		assert_true(not (node is MeshInstance3D), "%s validation-only node %s must not be a visible mesh" % [track_id, current_path])
+		assert_true(not (node is CSGShape3D), "%s validation-only node %s must not be visible CSG geometry" % [track_id, current_path])
+	for child in node.get_children():
+		if child is Node:
+			_assert_validation_only_nodes_are_non_rendered(child as Node, track_id, "%s/%s" % [current_path, str((child as Node).name)])
+
+func _assert_no_visible_blockout_nodes(node: Node, track_id: String, path := "") -> void:
+	var current_path := path if not path.is_empty() else "/%s" % str(node.name)
+	if str(node.name).to_lower().contains("blockout"):
+		assert_true(not (node is MeshInstance3D) and not (node is CSGShape3D), "%s must not ship visible blockout geometry at %s" % [track_id, current_path])
+	for child in node.get_children():
+		if child is Node:
+			_assert_no_visible_blockout_nodes(child as Node, track_id, "%s/%s" % [current_path, str((child as Node).name)])
 
 func _assert_closed_grid_route_visual_contract(definition: TrackDefinition, track_id: String) -> void:
 	assert_true(definition.closed_loop, "%s should be authored as a closed loop" % track_id)
@@ -669,6 +1474,58 @@ func _mesh_instance_global_aabb(mesh_instance: MeshInstance3D) -> AABB:
 	for i in range(1, corners.size()):
 		bounds = bounds.expand(xform * corners[i])
 	return bounds
+
+func _assert_mesh_aabb_within(root: Node, node_path: String, allowed: AABB, message: String) -> void:
+	var mesh_instance := root.get_node_or_null(node_path) as MeshInstance3D
+	assert_true(mesh_instance != null, "%s; missing node: %s" % [message, node_path])
+	if mesh_instance == null:
+		return
+	var bounds := _mesh_instance_global_aabb(mesh_instance)
+	var tolerance := 0.05
+	assert_true(bounds.position.x >= allowed.position.x - tolerance, "%s; %s min x %f should be >= %f" % [message, node_path, bounds.position.x, allowed.position.x])
+	assert_true(bounds.position.y >= allowed.position.y - tolerance, "%s; %s min y %f should be >= %f" % [message, node_path, bounds.position.y, allowed.position.y])
+	assert_true(bounds.position.z >= allowed.position.z - tolerance, "%s; %s min z %f should be >= %f" % [message, node_path, bounds.position.z, allowed.position.z])
+	assert_true(bounds.end.x <= allowed.end.x + tolerance, "%s; %s max x %f should be <= %f" % [message, node_path, bounds.end.x, allowed.end.x])
+	assert_true(bounds.end.y <= allowed.end.y + tolerance, "%s; %s max y %f should be <= %f" % [message, node_path, bounds.end.y, allowed.end.y])
+	assert_true(bounds.end.z <= allowed.end.z + tolerance, "%s; %s max z %f should be <= %f" % [message, node_path, bounds.end.z, allowed.end.z])
+
+func _assert_no_visible_mesh_intersects_aabb(node: Node, forbidden: AABB, excluded_path_prefix: String, message: String) -> void:
+	if node is MeshInstance3D:
+		var mesh_instance := node as MeshInstance3D
+		if mesh_instance.visible:
+			var scene_root := node.owner if node.owner != null else node.get_tree().edited_scene_root
+			var relative_path := str(scene_root.get_path_to(node)) if scene_root != null else str(node.get_path())
+			if not relative_path.begins_with(excluded_path_prefix):
+				var bounds := _mesh_instance_global_aabb(mesh_instance)
+				assert_true(not bounds.intersects(forbidden), "%s; intersecting node: %s" % [message, relative_path])
+	for child in node.get_children():
+		_assert_no_visible_mesh_intersects_aabb(child, forbidden, excluded_path_prefix, message)
+
+func _assert_no_broad_foundation_slab_inside_first_floor(root: Node, track_id: String) -> void:
+	var occupied_first_floor := AABB(Vector3(-205.0, -0.1, -135.0), Vector3(430.0, 7.5, 285.0))
+	for holder_path in ["Foundation", "ExteriorShell"]:
+		var holder := root.get_node_or_null(holder_path)
+		assert_true(holder != null, "%s should include %s for foundation false-floor audit" % [track_id, holder_path])
+		if holder != null:
+			_assert_no_broad_visible_mesh_intersects_aabb(holder, occupied_first_floor, 9000.0, "%s foundation/exterior shell must not render a broad false floor inside occupied first-floor space" % track_id)
+
+func _assert_no_roof_closure_blocks_attic(root: Node, track_id: String) -> void:
+	var attic_clear_volume := AABB(Vector3(-165.0, 103.5, -95.0), Vector3(230.0, 31.0, 215.0))
+	var shell := root.get_node_or_null("ExteriorShell")
+	assert_true(shell != null, "%s should include ExteriorShell for attic roof-closure audit" % track_id)
+	if shell != null:
+		_assert_no_broad_visible_mesh_intersects_aabb(shell, attic_clear_volume, 9000.0, "%s exterior shell roof closure must not span the playable attic clear volume" % track_id)
+
+func _assert_no_broad_visible_mesh_intersects_aabb(node: Node, forbidden: AABB, max_horizontal_area: float, message: String) -> void:
+	if node is MeshInstance3D:
+		var mesh_instance := node as MeshInstance3D
+		if mesh_instance.visible:
+			var bounds := _mesh_instance_global_aabb(mesh_instance)
+			var horizontal_area := bounds.size.x * bounds.size.z
+			if horizontal_area > max_horizontal_area:
+				assert_true(not bounds.intersects(forbidden), "%s; broad node: %s bounds=%s" % [message, str(node.name), str(bounds)])
+	for child in node.get_children():
+		_assert_no_broad_visible_mesh_intersects_aabb(child, forbidden, max_horizontal_area, message)
 
 func _expected_definition_ground_size(track_id: String) -> Vector2:
 	return HOME_YARD_GROUND_SIZE

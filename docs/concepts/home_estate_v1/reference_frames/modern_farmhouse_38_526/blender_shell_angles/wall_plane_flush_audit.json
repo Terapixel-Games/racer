@@ -1,0 +1,81 @@
+{
+  "gate": "wall_plane_flush_audit",
+  "acceptance": "all exterior wall slabs must match declared face planes and visible corners must have return covers plus close review cameras",
+  "close_flush_review_cameras": [
+    "RightWallFlushCloseCamera.png",
+    "MasterWingFrontReturnFlushCamera.png",
+    "GarageSideReturnFlushCamera.png"
+  ],
+  "wall_planes": [
+    {
+      "id": "main_house_right_wall_plane",
+      "owner_wall_id": "MainTwoStory_RightWall",
+      "axis": "x",
+      "face": "max",
+      "expected_plane": 103.0,
+      "flush_member_ids": [
+        "MainTwoStory_RightWall"
+      ],
+      "cover_mesh_ids": [
+        "MainHouseFrontRightCornerReturn"
+      ],
+      "review_camera_ids": [
+        "RightWallFlushCloseCamera"
+      ],
+      "tolerance": 0.05,
+      "measured_faces": {
+        "MainTwoStory_RightWall": 103.0
+      },
+      "cover_policy": "corner returns may stand proud only as measured seam covers; wall slabs must remain on the declared plane",
+      "status": "pass"
+    },
+    {
+      "id": "master_wing_right_wall_plane",
+      "owner_wall_id": "MasterSideWing_RightWall",
+      "axis": "x",
+      "face": "max",
+      "expected_plane": 157.0,
+      "flush_member_ids": [
+        "MasterSideWing_RightWall"
+      ],
+      "cover_mesh_ids": [
+        "MasterWingFrontRightCornerReturn",
+        "MasterWingRearRightCornerReturn"
+      ],
+      "review_camera_ids": [
+        "RightWallFlushCloseCamera",
+        "MasterWingFrontReturnFlushCamera"
+      ],
+      "tolerance": 0.05,
+      "measured_faces": {
+        "MasterSideWing_RightWall": 157.0
+      },
+      "cover_policy": "corner returns may stand proud only as measured seam covers; wall slabs must remain on the declared plane",
+      "status": "pass"
+    },
+    {
+      "id": "garage_left_wall_plane",
+      "owner_wall_id": "GarageWing_LeftWall",
+      "axis": "x",
+      "face": "min",
+      "expected_plane": -158.0,
+      "flush_member_ids": [
+        "GarageWing_LeftWall"
+      ],
+      "cover_mesh_ids": [
+        "GarageFrontLeftCornerReturn"
+      ],
+      "review_camera_ids": [
+        "GarageSideReturnFlushCamera"
+      ],
+      "tolerance": 0.05,
+      "measured_faces": {
+        "GarageWing_LeftWall": -158.0
+      },
+      "cover_policy": "corner returns may stand proud only as measured seam covers; wall slabs must remain on the declared plane",
+      "status": "pass"
+    }
+  ],
+  "failures": [],
+  "status": "pass"
+}

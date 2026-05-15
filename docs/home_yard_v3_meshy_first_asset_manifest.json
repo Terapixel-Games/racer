@@ -1,0 +1,871 @@
+{
+  "policy_version": "home_yard_v3_meshy_first_v1",
+  "map_id": "home_yard_v3",
+  "iterator_goal": "Complete home_yard_v3 as a production-ready home stage: a believable house, yard, street, interior, exterior, furnishing set, and racing course experience. Meshy is the preferred visible asset source, not the purpose of the loop.",
+  "primary_generator": "meshy",
+  "fallback_generator": "toybox",
+  "target_format": "glb",
+  "credit_budget": {
+    "provider": "meshy",
+    "available_start": 1800,
+    "spend_intent": "aggressive_until_exhausted",
+    "requires_confirmation_before_paid_batch": true
+  },
+  "approval_gate": {
+    "requires_confirmation": true,
+    "must_present": [
+      "exact planned asset list",
+      "target format",
+      "estimated credits",
+      "intended area",
+      "poly budgets",
+      "fallback plan"
+    ],
+    "paid_tools": [
+      "meshy_text_to_3d",
+      "meshy_text_to_3d_refine",
+      "meshy_remesh",
+      "meshy_retexture",
+      "meshy_process_multicolor"
+    ]
+  },
+  "source_policy": {
+    "visible_asset_default_source": "meshy",
+    "kenney_exception": "Kenney assets may remain only when visually strong, low-poly, licensed, and stage-role appropriate.",
+    "non_kenney_visible_default": "meshy_regenerate",
+    "toybox_fallback": "Use only after Meshy credits are exhausted or Meshy repeatedly fails the game-ready gate.",
+    "godot_primitive_visible_assets": "banned",
+    "prompt_records_required": true,
+    "prompt_record_template_path": "res://assets/source/meshy/home_yard_v3/_prompt_record_template.md"
+  },
+  "mesh_budget": {
+    "small_prop_triangles_max": 2000,
+    "medium_prop_triangles_max": 8000,
+    "hero_landmark_triangles_max": 20000,
+    "over_budget_action": "remesh_or_regenerate_before_integration"
+  },
+  "scoring_rubric": {
+    "scale": "0_to_5",
+    "minimum_score_per_category": 4,
+    "zero_score_blocks_gate": true,
+    "third_person_route_obstruction": {
+      "camera_model": "third_person_chase_camera",
+      "central_occlusion_fail_ratio": 0.35,
+      "fail_if_camera_reads_as_blocked_or_first_person": true,
+      "required_views": [
+        "start_grid",
+        "third_person_launch",
+        "first_turn_chase",
+        "camera_clearance",
+        "overhead_route",
+        "route_sample_25",
+        "route_sample_50",
+        "route_sample_75"
+      ]
+    },
+    "categories": [
+      "layout_clarity",
+      "route_readability",
+      "third_person_camera_clearance",
+      "central_view_occlusion",
+      "road_visibility",
+      "next_turn_readability",
+      "material_quality",
+      "scale_consistency",
+      "room_identity",
+      "shell_closure",
+      "yard_and_street_context",
+      "furnishing_quality",
+      "collision_risk",
+      "transparent_window_quality",
+      "placeholder_leak_check",
+      "performance_health"
+    ]
+  },
+  "per_domain_acceptance_tests": {
+    "requires_manifest_entry": true,
+    "requires_validation_cameras": true,
+    "requires_route_clearance_check": true,
+    "requires_screenshot_review_score": true,
+    "domains": [
+      "stage_concept_and_concept_art",
+      "site_and_street_context",
+      "front_yard",
+      "backyard",
+      "home_exterior_shell",
+      "transparent_openings",
+      "home_interior_layout",
+      "home_furnishing_and_room_identity",
+      "player_tracks_and_route_readability",
+      "course_area_identity",
+      "technical_import_and_generation_stability",
+      "critical_visual_review"
+    ]
+  },
+  "concept_reference_contract": {
+    "root": "res://docs/concepts/home_yard_v3/",
+    "blocks_paid_asset_batches_until_present": true,
+    "required_artifacts": [
+      "whole_house_reference.md",
+      "street_front_yard_reference.md",
+      "home_exterior_reference.md",
+      "interior_layout_reference.md",
+      "furnishings_reference.md",
+      "backyard_reference.md",
+      "course_identity_reference.md"
+    ],
+    "each_artifact_requires": [
+      "design_intent",
+      "reference_images_or_links",
+      "shape_language",
+      "material_palette",
+      "gameplay_readability_notes",
+      "asset_prompt_notes"
+    ]
+  },
+  "meshy_batch_protocol": {
+    "max_batch_scope": "one_course_or_one_production_domain",
+    "requires_prompt_review_before_paid_call": true,
+    "requires_cost_confirmation_before_paid_call": true,
+    "default_model": "meshy-6",
+    "default_mode": "preview_lowpoly",
+    "default_target_format": "glb",
+    "batch_record_required_fields": [
+      "planned_assets",
+      "area_or_domain",
+      "target_format",
+      "estimated_credits",
+      "poly_budgets",
+      "validation_cameras",
+      "fallback_plan"
+    ]
+  },
+  "shortcut_policy": {
+    "playable_shortcuts_this_pass": false,
+    "route_topology_changes_for_shortcuts": "forbidden",
+    "lap_or_progress_affecting_shortcut_gates": "forbidden",
+    "allowed_shortcut_treatment": "off_route_dressing_blocked_future_gate_or_non_playable_visual_hook",
+    "exception": "Only existing main-route geometry may remain playable; do not add new alternate paths in this production pass."
+  },
+  "asset_lifecycle_states": [
+    "planned",
+    "prompt_approved",
+    "generated",
+    "imported",
+    "optimized",
+    "placed",
+    "camera_validated",
+    "accepted",
+    "rejected",
+    "superseded"
+  ],
+  "replacement_provenance_contract": {
+    "required": true,
+    "mapping_path": "res://assets/source/meshy/home_yard_v3/replacement_provenance.json",
+    "each_mapping_requires": [
+      "old_asset_path",
+      "old_origin",
+      "replacement_asset_path",
+      "replacement_origin",
+      "replacement_reason",
+      "decision_state",
+      "validation_result"
+    ]
+  },
+  "route_collision_clearance_contract": {
+    "minimum_lateral_clearance_m": 0.75,
+    "minimum_vertical_clearance_m": 0.5,
+    "camera_model": "third_person_chase_camera",
+    "requires_runtime_aabb_measurement": true,
+    "chase_camera_swept_volume_required": true,
+    "visual_only_props_may_fail_occlusion": true,
+    "visual_only_collision": "disabled_or_isolated_from_gameplay",
+    "named_hazard_exception_requires": [
+      "hazard_id",
+      "route_cell_or_world_bounds",
+      "collision_shape",
+      "player_readability_camera",
+      "uat_coverage"
+    ],
+    "checks": [
+      "route_corridor_inside_zone_bounds",
+      "route_surface_above_floor_or_ground",
+      "no_unplanned_collision_intersections",
+      "no_unplanned_runtime_aabb_intersections",
+      "start_grid_clearance",
+      "third_person_launch_clearance",
+      "first_turn_readability",
+      "central_view_occlusion_under_threshold",
+      "chase_camera_swept_volume_clearance",
+      "checkpoint_clearance"
+    ]
+  },
+  "transparent_window_material_gate": {
+    "required": true,
+    "alpha_or_transmission_required": true,
+    "opaque_color_patch_blocks_gate": true,
+    "requires_closeup_camera": true,
+    "material_checks": [
+      "transparent_or_glass_readable_material",
+      "frame_depth_and_trim",
+      "interior_backdrop_or_curtain_when_needed",
+      "no_void_or_sky_leak_through_opening"
+    ]
+  },
+  "generator_scene_drift_guard": {
+    "final_scene_must_be_generator_driven": true,
+    "manual_visible_scene_edits_block_gate": true,
+    "visible_scene_nodes_require_manifest_or_generator_metadata": true,
+    "generated_scene_path": "res://assets/gameplay/tracks/home_yard_v3/home_yard_v3_map.tscn",
+    "generator_path": "res://scripts/tools/GenerateHomeYardV3Map.gd"
+  },
+  "performance_budget": {
+    "target_profile": "mobile_detail_phase1",
+    "total_stage_triangles_max": 250000,
+    "area_triangles_soft_max": 35000,
+    "visible_materials_soft_max": 96,
+    "unique_texture_size_max_px": 2048,
+    "prefer_texture_atlas": true,
+    "requires_import_compression_review": true
+  },
+  "import_instability_automation": {
+    "helper_script": "res://scripts/resolve-godot-editor-dialogs.ps1",
+    "headless_import_command": "godot_console.exe --headless --path <project> --import",
+    "recoverable_dialogs": {
+      "files_modified_outside_godot": "Reload from disk",
+      "load_errors": "OK"
+    },
+    "post_recovery_checks": [
+      "editor_state_readiness_ready",
+      "camera_manage_list",
+      "intended_camera_current_validation"
+    ]
+  },
+  "dependency_order": [
+    "concept_reference_before_asset_batches",
+    "floor_plan_before_shell",
+    "shell_before_windows_doors_and_trim",
+    "room_layout_before_furnishings",
+    "route_contract_before_prop_placement",
+    "collision_review_after_placement",
+    "validation_cameras_after_placement",
+    "screenshot_scoring_after_camera_validation",
+    "commit_after_tests_and_visual_gate"
+  ],
+  "meshy_failure_handling": {
+    "max_prompt_attempts_before_strategy_change": 2,
+    "max_remesh_attempts_before_reject": 1,
+    "fallback_after_repeated_failure": "toybox_or_kenney_keep_review",
+    "failure_states": [
+      "over_budget_geometry",
+      "poor_topology",
+      "bad_scale",
+      "bad_materials",
+      "unreadable_silhouette",
+      "import_failure",
+      "collision_unsuitable"
+    ],
+    "requires_rejection_notes": true
+  },
+  "commit_staging_plan": {
+    "commit_units": [
+      "concept_reference_docs",
+      "source_asset_batch_and_prompt_records",
+      "generator_and_manifest_placement",
+      "tests_and_validation_cameras",
+      "full_house_production_gate"
+    ],
+    "block_mixed_unrelated_dirty_work": true,
+    "requires_tests_before_commit": true,
+    "requires_visual_validation_before_production_commit": true
+  },
+  "production_domains": [
+    {
+      "id": "stage_concept_and_concept_art",
+      "gate": "The stage must have clear whole-house concept references for the home, street, front yard, backyard, interior course identity, and gameplay fantasy before large asset batches."
+    },
+    {
+      "id": "site_and_street_context",
+      "gate": "The front street, curb, driveway, sidewalk, mailbox, approach path, and neighboring context must explain where the home sits."
+    },
+    {
+      "id": "front_yard",
+      "gate": "The front yard must read as a coherent arrival space with planting, driveway, porch approach, property edges, and route-safe landmarks."
+    },
+    {
+      "id": "backyard",
+      "gate": "The backyard must read as a coherent play and garden space with patio or deck logic, fence or boundary logic, lawn, garden, sandbox, playground, and route-safe landmarks."
+    },
+    {
+      "id": "home_exterior_shell",
+      "gate": "Exterior walls, roof, windows, doors, trim, porch or deck transitions, gutters, vents, and service details must make a believable closed home shell."
+    },
+    {
+      "id": "transparent_openings",
+      "gate": "Windows need transparent or glass-readable materials and cannot look like opaque colored wall patches."
+    },
+    {
+      "id": "home_interior_layout",
+      "gate": "Interior spaces must have legible room boundaries, circulation, floor transitions, vertical connections, and no visual confusion about how the house is laid out."
+    },
+    {
+      "id": "home_furnishing_and_room_identity",
+      "gate": "Furniture and fixtures must identify each room at player height and cannot rely on generic boxes or unclear silhouettes."
+    },
+    {
+      "id": "player_tracks_and_route_readability",
+      "gate": "Routes must stay inside assigned zones, above floor or ground, clear of unplanned collisions, and readable through starts, first turns, intersections, and landmarks."
+    },
+    {
+      "id": "course_area_identity",
+      "gate": "Attic, playroom, bedroom, glam closet, outdoor playground, garden, sandbox, and kitchen must each read as distinct courses with coherent hazards and landmarks."
+    },
+    {
+      "id": "technical_import_and_generation_stability",
+      "gate": "Generated assets and scenes must pass headless import, safe editor dialog recovery, focused tests, and live Godot camera validation before production claims."
+    },
+    {
+      "id": "critical_visual_review",
+      "gate": "Codex must analyze screenshots as a critical game designer for layout clarity, realism, material quality, scale, route readability, collision risk, and placeholder leaks."
+    }
+  ],
+  "production_sequence": [
+    "concept_and_spatial_contract_review",
+    "domain_inventory_and_defect_ranking",
+    "neutral_scene_if_target_stage_is_open",
+    "generate_or_stage_assets",
+    "regenerate_stage_artifacts",
+    "godot_headless_import",
+    "safe_editor_dialog_recovery",
+    "wait_for_editor_ready",
+    "focused_tests",
+    "live_camera_validation",
+    "critical_screenshot_review",
+    "scoped_commit_if_verified"
+  ],
+  "safe_editor_dialog_recovery": {
+    "files_modified_outside_godot": "Reload from disk",
+    "load_errors": "OK",
+    "forbidden_actions": [
+      "discard",
+      "revert",
+      "ignore external changes for regenerated final scene"
+    ]
+  },
+  "phases": [
+    {
+      "id": "asset_inventory_and_replacement_triage",
+      "goal": "Classify every current visible and invisible stage component by production role, including route, shell, room layout, yards, street context, and asset replacement needs."
+    },
+    {
+      "id": "concept_reference",
+      "goal": "Create whole-house and per-area reference boards for the home, street, front yard, backyard, interior rooms, furnishings, course identity, and asset prompts."
+    },
+    {
+      "id": "street_front_yard",
+      "goal": "Make the street and front yard read as a believable site with curb, road edge, driveway, mailbox, sidewalk, porch approach, planting, arrival landmarks, and route-safe placement."
+    },
+    {
+      "id": "home_exterior",
+      "goal": "Finish the exterior shell as a believable closed house with transparent-window assemblies, doors, trim, porch or deck parts, gutters, fascia, vents, meters, fixtures, roof/wall closure, and no leaks."
+    },
+    {
+      "id": "interior_furnishings",
+      "goal": "Finish interior room layout and furnishings so every room is understandable at player height, with clear circulation, coherent furniture, fixtures, floors, walls, and route-safe placement."
+    },
+    {
+      "id": "backyard",
+      "goal": "Finish the backyard as a readable outdoor play space with patio, deck, fence, lawn, garden, playground, sandbox, planting, grade, boundaries, landmarks, and route-safe gameplay."
+    },
+    {
+      "id": "course_identity",
+      "goal": "Iterate attic, playroom, bedroom, glam closet, outdoor playground, garden, sandbox, then kitchen polish for course identity, route readability, hazard policy, room clarity, cameras, and themed assets."
+    },
+    {
+      "id": "full_house_gate",
+      "goal": "Regenerate the full stage, run import-stable validation, focused and broad tests, live camera proof, critical screenshot review, and commit only clean verified production work."
+    }
+  ],
+  "area_manifests": [
+    {
+      "area": "attic",
+      "manifest_path": "res://assets/source/meshy/home_yard_v3/attic/asset_manifest.json",
+      "required_reviews": [
+        "roof clearance",
+        "dusty storage identity",
+        "route-safe old furniture",
+        "no stacked box placeholder read"
+      ],
+      "validation_cameras": [
+        "AtticStartCamera",
+        "AtticRouteCamera",
+        "AtticAssetCloseupCamera",
+        "AtticRoofSeamCamera"
+      ]
+    },
+    {
+      "area": "playroom",
+      "manifest_path": "res://assets/source/meshy/home_yard_v3/playroom/asset_manifest.json",
+      "required_reviews": [
+        "toy scale clarity",
+        "route readability",
+        "furniture silhouette",
+        "collision isolation"
+      ],
+      "validation_cameras": [
+        "PlayroomStartCamera",
+        "PlayroomRouteCamera",
+        "PlayroomAssetCloseupCamera"
+      ]
+    },
+    {
+      "area": "bedroom",
+      "manifest_path": "res://assets/source/meshy/home_yard_v3/bedroom/asset_manifest.json",
+      "required_reviews": [
+        "bed and nightstand quality",
+        "walkable route clearance",
+        "window transparency",
+        "scale consistency"
+      ],
+      "validation_cameras": [
+        "BedroomStartCamera",
+        "BedroomRouteCamera",
+        "BedroomWindowCamera",
+        "BedroomAssetCloseupCamera"
+      ]
+    },
+    {
+      "area": "glam_closet",
+      "manifest_path": "res://assets/source/meshy/home_yard_v3/glam_closet/asset_manifest.json",
+      "required_reviews": [
+        "closet identity",
+        "mirror material readability",
+        "wardrobe route clearance",
+        "no box-like wardrobes"
+      ],
+      "validation_cameras": [
+        "GlamClosetStartCamera",
+        "GlamClosetRouteCamera",
+        "GlamClosetMirrorCamera",
+        "GlamClosetAssetCloseupCamera"
+      ]
+    },
+    {
+      "area": "outdoor_playground",
+      "manifest_path": "res://assets/source/meshy/home_yard_v3/outdoor_playground/asset_manifest.json",
+      "required_reviews": [
+        "play structure quality",
+        "yard boundary clarity",
+        "ground contact",
+        "route-safe supports"
+      ],
+      "validation_cameras": [
+        "OutdoorPlaygroundStartCamera",
+        "OutdoorPlaygroundRouteCamera",
+        "OutdoorPlaygroundAssetCloseupCamera",
+        "YardBoundaryCamera"
+      ]
+    },
+    {
+      "area": "garden",
+      "manifest_path": "res://assets/source/meshy/home_yard_v3/garden/asset_manifest.json",
+      "required_reviews": [
+        "planting mass realism",
+        "garden structure quality",
+        "route visibility through foliage",
+        "no collision on visual foliage"
+      ],
+      "validation_cameras": [
+        "GardenStartCamera",
+        "GardenRouteCamera",
+        "GardenPlantingCamera",
+        "GardenAssetCloseupCamera"
+      ]
+    },
+    {
+      "area": "sandbox",
+      "manifest_path": "res://assets/source/meshy/home_yard_v3/sandbox/asset_manifest.json",
+      "required_reviews": [
+        "sand material",
+        "toy fossil quality",
+        "edge containment",
+        "route-safe sandbox props"
+      ],
+      "validation_cameras": [
+        "SandboxStartCamera",
+        "SandboxRouteCamera",
+        "SandboxAssetCloseupCamera"
+      ]
+    },
+    {
+      "area": "backyard",
+      "manifest_path": "res://assets/source/meshy/home_yard_v3/backyard/asset_manifest.json",
+      "required_reviews": [
+        "shared yard coherence",
+        "fence and boundary clarity",
+        "deck patio transition",
+        "play garden sandbox relationship"
+      ],
+      "validation_cameras": [
+        "YardBoundaryCamera",
+        "ExteriorSideCamera",
+        "OutdoorPlaygroundRouteCamera",
+        "GardenRouteCamera",
+        "SandboxRouteCamera"
+      ]
+    },
+    {
+      "area": "kitchen",
+      "manifest_path": "res://assets/source/meshy/home_yard_v3/kitchen/asset_manifest.json",
+      "required_reviews": [
+        "Kenney appliance quality",
+        "counter route readability",
+        "floor material",
+        "no helper geometry"
+      ],
+      "validation_cameras": [
+        "KitchenStartCamera",
+        "KitchenRouteCamera",
+        "KitchenAssetCloseupCamera"
+      ]
+    },
+    {
+      "area": "street_front_yard",
+      "manifest_path": "res://assets/source/meshy/home_yard_v3/street_front_yard/asset_manifest.json",
+      "required_reviews": [
+        "street context",
+        "front yard arrival",
+        "driveway and sidewalk readability",
+        "curb and mailbox quality"
+      ],
+      "validation_cameras": [
+        "StreetArrivalCamera",
+        "FrontYardRouteCamera",
+        "DrivewayCamera",
+        "PorchApproachCamera"
+      ]
+    },
+    {
+      "area": "home_exterior",
+      "manifest_path": "res://assets/source/meshy/home_yard_v3/home_exterior/asset_manifest.json",
+      "required_reviews": [
+        "transparent windows",
+        "door and trim fidelity",
+        "roof and wall closure",
+        "porch deck integration"
+      ],
+      "validation_cameras": [
+        "ExteriorFrontCamera",
+        "ExteriorSideCamera",
+        "ExteriorWindowCloseupCamera",
+        "RoofSeamCamera"
+      ]
+    }
+  ],
+  "current_visible_asset_triage": [
+    {
+      "asset_id": "kenney_start_gate",
+      "asset_path": "res://assets/source/kenney/toy_car_kit/gate.glb",
+      "area": "shared_route",
+      "visible": true,
+      "current_source_family": "kenney",
+      "decision": "kenney_keep_review",
+      "replacement_default": false,
+      "target_prompt_slug": "start_gate_meshy_replacement_if_failed",
+      "validation_camera": "RouteStartCamera",
+      "route_clearance": "named_route_asset",
+      "notes": "Kenney source may remain if scale, material, and collision review pass."
+    },
+    {
+      "asset_id": "kenney_finish_gate",
+      "asset_path": "res://assets/source/kenney/toy_car_kit/gate-finish.glb",
+      "area": "shared_route",
+      "visible": true,
+      "current_source_family": "kenney",
+      "decision": "kenney_keep_review",
+      "replacement_default": false,
+      "target_prompt_slug": "finish_gate_meshy_replacement_if_failed",
+      "validation_camera": "RouteFinishCamera",
+      "route_clearance": "named_route_asset",
+      "notes": "Kenney source may remain if readable from player-height cameras."
+    },
+    {
+      "asset_id": "kenney_cone",
+      "asset_path": "res://assets/source/kenney/toy_car_kit/item-cone.glb",
+      "area": "shared_route",
+      "visible": true,
+      "current_source_family": "kenney",
+      "decision": "kenney_keep_review",
+      "replacement_default": false,
+      "target_prompt_slug": "traffic_cone_meshy_replacement_if_failed",
+      "validation_camera": "RouteHazardCamera",
+      "route_clearance": "named_route_asset",
+      "notes": "Kenney hazard may remain if explicitly authored and tested."
+    },
+    {
+      "asset_id": "kenney_checker_flag",
+      "asset_path": "res://assets/source/kenney/racing_kit/flagCheckersSmall.glb",
+      "area": "shared_route",
+      "visible": true,
+      "current_source_family": "kenney",
+      "decision": "kenney_keep_review",
+      "replacement_default": false,
+      "target_prompt_slug": "checker_flag_meshy_replacement_if_failed",
+      "validation_camera": "RouteFinishCamera",
+      "route_clearance": "outside_route_corridor",
+      "notes": "Kenney finish dressing may remain if it does not obstruct gameplay."
+    },
+    {
+      "asset_id": "kenney_kitchen_fridge",
+      "asset_path": "res://assets/source/kenney/furniture_kit/kitchenFridge.glb",
+      "area": "kitchen",
+      "visible": true,
+      "current_source_family": "kenney",
+      "decision": "kenney_keep_review",
+      "replacement_default": false,
+      "target_prompt_slug": "kitchen_fridge_meshy_replacement_if_failed",
+      "validation_camera": "KitchenAssetCloseupCamera",
+      "route_clearance": "outside_route_corridor",
+      "notes": "Kenney appliance can remain only if material and scale read clearly."
+    },
+    {
+      "asset_id": "kenney_kitchen_sink",
+      "asset_path": "res://assets/source/kenney/furniture_kit/kitchenSink.glb",
+      "area": "kitchen",
+      "visible": true,
+      "current_source_family": "kenney",
+      "decision": "kenney_keep_review",
+      "replacement_default": false,
+      "target_prompt_slug": "kitchen_sink_meshy_replacement_if_failed",
+      "validation_camera": "KitchenAssetCloseupCamera",
+      "route_clearance": "outside_route_corridor",
+      "notes": "Kenney fixture can remain if readable and route-safe."
+    },
+    {
+      "asset_id": "kenney_teddy_bear",
+      "asset_path": "res://assets/source/kenney/furniture_kit/bear.glb",
+      "area": "playroom",
+      "visible": true,
+      "current_source_family": "kenney",
+      "decision": "kenney_keep_review",
+      "replacement_default": false,
+      "target_prompt_slug": "playroom_teddy_bear_meshy_replacement_if_failed",
+      "validation_camera": "PlayroomAssetCloseupCamera",
+      "route_clearance": "outside_route_corridor",
+      "notes": "Kenney toy may remain if silhouette is strong at racing scale."
+    },
+    {
+      "asset_id": "kenney_single_bed",
+      "asset_path": "res://assets/source/kenney/furniture_kit/bedSingle.glb",
+      "area": "bedroom",
+      "visible": true,
+      "current_source_family": "kenney",
+      "decision": "kenney_keep_review",
+      "replacement_default": false,
+      "target_prompt_slug": "bedroom_single_bed_meshy_replacement_if_failed",
+      "validation_camera": "BedroomAssetCloseupCamera",
+      "route_clearance": "outside_route_corridor",
+      "notes": "Kenney bed may remain if it anchors the bedroom clearly."
+    },
+    {
+      "asset_id": "kenney_round_table_lamp",
+      "asset_path": "res://assets/source/kenney/furniture_kit/lampRoundTable.glb",
+      "area": "bedroom",
+      "visible": true,
+      "current_source_family": "kenney",
+      "decision": "kenney_keep_review",
+      "replacement_default": false,
+      "target_prompt_slug": "bedroom_round_table_lamp_meshy_replacement_if_failed",
+      "validation_camera": "BedroomAssetCloseupCamera",
+      "route_clearance": "outside_route_corridor",
+      "notes": "Kenney furnishing may remain if it does not read as a generic cylinder."
+    },
+    {
+      "asset_id": "kenney_bathroom_mirror",
+      "asset_path": "res://assets/source/kenney/furniture_kit/bathroomMirror.glb",
+      "area": "glam_closet",
+      "visible": true,
+      "current_source_family": "kenney",
+      "decision": "kenney_keep_review",
+      "replacement_default": false,
+      "target_prompt_slug": "glam_closet_mirror_meshy_replacement_if_failed",
+      "validation_camera": "GlamClosetMirrorCamera",
+      "route_clearance": "outside_route_corridor",
+      "notes": "Kenney mirror may remain only if material treatment supports glam closet identity."
+    },
+    {
+      "asset_id": "kenney_round_rug",
+      "asset_path": "res://assets/source/kenney/furniture_kit/rugRound.glb",
+      "area": "glam_closet",
+      "visible": true,
+      "current_source_family": "kenney",
+      "decision": "kenney_keep_review",
+      "replacement_default": false,
+      "target_prompt_slug": "glam_closet_round_rug_meshy_replacement_if_failed",
+      "validation_camera": "GlamClosetAssetCloseupCamera",
+      "route_clearance": "outside_route_corridor",
+      "notes": "Kenney rug can remain if visual-only collision is disabled."
+    },
+    {
+      "asset_id": "kenney_large_bush",
+      "asset_path": "res://assets/source/kenney/nature_kit/plant_bushLarge.glb",
+      "area": "garden",
+      "visible": true,
+      "current_source_family": "kenney",
+      "decision": "kenney_keep_review",
+      "replacement_default": false,
+      "target_prompt_slug": "garden_bush_meshy_replacement_if_failed",
+      "validation_camera": "GardenPlantingCamera",
+      "route_clearance": "outside_route_corridor",
+      "notes": "Kenney foliage may remain if massing and collision policy are clean."
+    },
+    {
+      "asset_id": "kenney_large_log",
+      "asset_path": "res://assets/source/kenney/nature_kit/log_large.glb",
+      "area": "garden",
+      "visible": true,
+      "current_source_family": "kenney",
+      "decision": "kenney_keep_review",
+      "replacement_default": false,
+      "target_prompt_slug": "garden_log_meshy_replacement_if_failed",
+      "validation_camera": "GardenAssetCloseupCamera",
+      "route_clearance": "outside_route_corridor",
+      "notes": "Kenney nature prop may remain if it looks intentional and does not obstruct route clearance."
+    },
+    {
+      "asset_id": "optimized_playground_structure",
+      "asset_path": "res://assets/gameplay/tracks/shared/backyard_optimized/playground_structure_low.glb",
+      "area": "outdoor_playground",
+      "visible": true,
+      "current_source_family": "optimized_existing",
+      "decision": "meshy_regenerate",
+      "replacement_default": true,
+      "target_prompt_slug": "low_poly_backyard_playground_structure",
+      "validation_camera": "OutdoorPlaygroundAssetCloseupCamera",
+      "route_clearance": "outside_route_corridor",
+      "notes": "Existing non-Kenney optimized asset is a replacement candidate by default."
+    },
+    {
+      "asset_id": "optimized_swing_set",
+      "asset_path": "res://assets/gameplay/tracks/shared/backyard_optimized/swing_set_low.glb",
+      "area": "outdoor_playground",
+      "visible": true,
+      "current_source_family": "optimized_existing",
+      "decision": "meshy_regenerate",
+      "replacement_default": true,
+      "target_prompt_slug": "low_poly_backyard_swing_set",
+      "validation_camera": "OutdoorPlaygroundAssetCloseupCamera",
+      "route_clearance": "outside_route_corridor",
+      "notes": "Existing non-Kenney visible asset needs strict Meshy-first review."
+    },
+    {
+      "asset_id": "optimized_sandbox_fossil",
+      "asset_path": "res://assets/gameplay/tracks/shared/backyard_optimized/sandbox_fossil_low.glb",
+      "area": "sandbox",
+      "visible": true,
+      "current_source_family": "optimized_existing",
+      "decision": "meshy_regenerate",
+      "replacement_default": true,
+      "target_prompt_slug": "low_poly_sandbox_dinosaur_fossil",
+      "validation_camera": "SandboxAssetCloseupCamera",
+      "route_clearance": "outside_route_corridor",
+      "notes": "Existing non-Kenney visible landmark should be regenerated unless it passes a strict gate."
+    },
+    {
+      "asset_id": "optimized_garden_log_bush",
+      "asset_path": "res://assets/gameplay/tracks/shared/backyard_optimized/garden_log_bush_low.glb",
+      "area": "garden",
+      "visible": true,
+      "current_source_family": "optimized_existing",
+      "decision": "meshy_regenerate",
+      "replacement_default": true,
+      "target_prompt_slug": "low_poly_garden_log_bush_cluster",
+      "validation_camera": "GardenAssetCloseupCamera",
+      "route_clearance": "outside_route_corridor",
+      "notes": "Existing non-Kenney cluster should be replaced or explicitly justified."
+    },
+    {
+      "asset_id": "toybox_tree_tire_swing",
+      "asset_path": "res://assets/gameplay/tracks/home_yard/props/toybox_tree_swing/stylized_realistic_tree_tire_swing.glb",
+      "area": "backyard",
+      "visible": true,
+      "current_source_family": "toybox",
+      "decision": "meshy_regenerate",
+      "replacement_default": true,
+      "target_prompt_slug": "low_poly_backyard_tree_tire_swing",
+      "validation_camera": "YardBoundaryCamera",
+      "route_clearance": "outside_route_corridor",
+      "notes": "Toybox remains fallback, not default, while Meshy credits are available."
+    },
+    {
+      "asset_id": "attic_old_chest",
+      "asset_path": "res://assets/gameplay/tracks/attic/props/old_chest.glb",
+      "area": "attic",
+      "visible": true,
+      "current_source_family": "custom",
+      "decision": "meshy_regenerate",
+      "replacement_default": true,
+      "target_prompt_slug": "low_poly_dusty_attic_trunk",
+      "validation_camera": "AtticAssetCloseupCamera",
+      "route_clearance": "outside_route_corridor",
+      "notes": "Custom visible attic prop is a Meshy replacement candidate."
+    },
+    {
+      "asset_id": "attic_jack_in_box_setpiece",
+      "asset_path": "res://assets/gameplay/tracks/attic/props/JackInTheBoxSetpiece.tscn",
+      "area": "attic",
+      "visible": true,
+      "current_source_family": "custom",
+      "decision": "meshy_regenerate",
+      "replacement_default": true,
+      "target_prompt_slug": "low_poly_attic_jack_in_the_box_setpiece",
+      "validation_camera": "AtticAssetCloseupCamera",
+      "route_clearance": "outside_route_corridor",
+      "notes": "Custom scene asset should be Meshy regenerated or strictly justified before carry-forward."
+    },
+    {
+      "asset_id": "existing_meshy_playground_wooden_set",
+      "asset_path": "res://assets/source/meshy/playground_wooden_set/wooden_playground_set_swing.glb",
+      "area": "outdoor_playground",
+      "visible": true,
+      "current_source_family": "existing_meshy",
+      "decision": "meshy_regenerate",
+      "replacement_default": true,
+      "target_prompt_slug": "low_poly_backyard_playground_set_v2",
+      "validation_camera": "OutdoorPlaygroundAssetCloseupCamera",
+      "route_clearance": "outside_route_corridor",
+      "notes": "Prior Meshy output is not automatically grandfathered; review against current low-poly and stage clarity gate."
+    },
+    {
+      "asset_id": "existing_meshy_sandbox_trex_skeleton",
+      "asset_path": "res://assets/source/meshy/sandbox_props/trex_skeleton.glb",
+      "area": "sandbox",
+      "visible": true,
+      "current_source_family": "existing_meshy",
+      "decision": "meshy_regenerate",
+      "replacement_default": true,
+      "target_prompt_slug": "low_poly_sandbox_trex_skeleton_v2",
+      "validation_camera": "SandboxAssetCloseupCamera",
+      "route_clearance": "outside_route_corridor",
+      "notes": "Prior Meshy output must still pass the new production asset gate."
+    }
+  ],
+  "screenshot_review_gate": {
+    "reviewer_role": "critical_game_designer",
+    "must_review": [
+      "layout clarity",
+      "home realism",
+      "front yard and backyard readability",
+      "street context",
+      "home exterior closure",
+      "interior room identity",
+      "furnishing quality",
+      "route readability",
+      "transparent windows",
+      "scale consistency",
+      "collision risk",
+      "visual confusion",
+      "placeholder leaks"
+    ]
+  }
+}

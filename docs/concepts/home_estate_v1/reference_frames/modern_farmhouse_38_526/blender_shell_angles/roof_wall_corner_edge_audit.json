@@ -1,0 +1,129 @@
+{
+  "gate": "roof_wall_corner_edge_audit",
+  "acceptance": "all exposed roof-wall corners and long eave edges must have trim, backer returns, and close edge-sweep cameras",
+  "close_edge_review_cameras": [
+    "RightFrontRoofWallEdgeCamera.png",
+    "RightRearRoofWallEdgeCamera.png",
+    "MasterWingOuterRoofWallEdgeCamera.png",
+    "GarageOuterRoofWallEdgeCamera.png",
+    "PorchRoofWallEdgeCamera.png"
+  ],
+  "roof_wall_edges": [
+    {
+      "id": "main_right_front_roof_wall_corner",
+      "wall_plane_id": "main_house_right_exterior_plane",
+      "roof_edge_id": "MainHouseGableRoof:front_right_rake",
+      "fascia_or_rake_ids": [
+        "MainHouseGableRoof_FrontRightRake",
+        "MainHouseGableRoof_RightEaveFascia"
+      ],
+      "soffit_or_backer_ids": [
+        "MainRightEaveWallTopBacker",
+        "MainRightFrontRakeCornerBacker"
+      ],
+      "review_camera_ids": [
+        "RightFrontRoofWallEdgeCamera"
+      ],
+      "minimum_overlap": 0.5,
+      "endpoint_tolerance": 0.1,
+      "edge_policy": "roof-wall perimeter must include fascia/rake plus soffit/backer return; visible black slits or floating edge bars fail visual review",
+      "status": "pass"
+    },
+    {
+      "id": "main_right_rear_roof_wall_corner",
+      "wall_plane_id": "main_house_right_exterior_plane",
+      "roof_edge_id": "MainHouseGableRoof:rear_right_rake",
+      "fascia_or_rake_ids": [
+        "MainHouseGableRoof_RearRightRake",
+        "MainHouseGableRoof_RightEaveFascia"
+      ],
+      "soffit_or_backer_ids": [
+        "MainRightEaveWallTopBacker",
+        "MainRightRearRakeCornerBacker"
+      ],
+      "review_camera_ids": [
+        "RightRearRoofWallEdgeCamera"
+      ],
+      "minimum_overlap": 0.5,
+      "endpoint_tolerance": 0.1,
+      "edge_policy": "roof-wall perimeter must include fascia/rake plus soffit/backer return; visible black slits or floating edge bars fail visual review",
+      "status": "pass"
+    },
+    {
+      "id": "master_wing_outer_eave_wall_edge",
+      "wall_plane_id": "master_wing_right_exterior_plane",
+      "roof_edge_id": "MasterWingGableRoof:right_eave",
+      "fascia_or_rake_ids": [
+        "MasterWingGableRoof_RightEaveFascia"
+      ],
+      "soffit_or_backer_ids": [
+        "MasterWingRightEaveWallTopBacker"
+      ],
+      "review_camera_ids": [
+        "MasterWingOuterRoofWallEdgeCamera"
+      ],
+      "minimum_overlap": 0.5,
+      "endpoint_tolerance": 0.1,
+      "edge_policy": "roof-wall perimeter must include fascia/rake plus soffit/backer return; visible black slits or floating edge bars fail visual review",
+      "status": "pass"
+    },
+    {
+      "id": "garage_outer_eave_wall_edge",
+      "wall_plane_id": "garage_left_exterior_plane",
+      "roof_edge_id": "GarageCrossGableRoof:left_eave",
+      "fascia_or_rake_ids": [
+        "GarageCrossGableRoof_LeftEaveFascia"
+      ],
+      "soffit_or_backer_ids": [
+        "GarageLeftEaveWallTopBacker"
+      ],
+      "review_camera_ids": [
+        "GarageOuterRoofWallEdgeCamera"
+      ],
+      "minimum_overlap": 0.5,
+      "endpoint_tolerance": 0.1,
+      "edge_policy": "roof-wall perimeter must include fascia/rake plus soffit/backer return; visible black slits or floating edge bars fail visual review",
+      "status": "pass"
+    },
+    {
+      "id": "front_porch_right_tie_in_edge",
+      "wall_plane_id": "front_porch_right_return_plane",
+      "roof_edge_id": "FrontPorchGableRoof:front_right_rake",
+      "fascia_or_rake_ids": [
+        "FrontPorchGableRoof_FrontRightRake",
+        "FrontPorchGableRoof_RightEaveFascia"
+      ],
+      "soffit_or_backer_ids": [
+        "FrontPorchRightReturnWall"
+      ],
+      "review_camera_ids": [
+        "PorchRoofWallEdgeCamera"
+      ],
+      "minimum_overlap": 0.5,
+      "endpoint_tolerance": 0.1,
+      "edge_policy": "roof-wall perimeter must include fascia/rake plus soffit/backer return; visible black slits or floating edge bars fail visual review",
+      "status": "pass"
+    },
+    {
+      "id": "front_porch_left_tie_in_edge",
+      "wall_plane_id": "front_porch_left_return_plane",
+      "roof_edge_id": "FrontPorchGableRoof:front_left_rake",
+      "fascia_or_rake_ids": [
+        "FrontPorchGableRoof_FrontLeftRake",
+        "FrontPorchGableRoof_LeftEaveFascia"
+      ],
+      "soffit_or_backer_ids": [
+        "FrontPorchLeftReturnWall"
+      ],
+      "review_camera_ids": [
+        "PorchRoofWallEdgeCamera"
+      ],
+      "minimum_overlap": 0.5,
+      "endpoint_tolerance": 0.1,
+      "edge_policy": "roof-wall perimeter must include fascia/rake plus soffit/backer return; visible black slits or floating edge bars fail visual review",
+      "status": "pass"
+    }
+  ],
+  "failures": [],
+  "status": "pass"
+}

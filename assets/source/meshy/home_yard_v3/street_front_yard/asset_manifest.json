@@ -1,0 +1,13 @@
+{
+  "schema_version": "home_yard_v3_area_asset_manifest_v1",
+  "area": "street_front_yard",
+  "concept_sources": ["res://docs/concepts/home_yard_v3/street_front_yard_reference.md", "res://docs/concepts/floor_plans/racer_house_yard_concept_floor_plan.png"],
+  "production_role": "Neighborhood arrival context and front-yard readability.",
+  "required_assets": [
+    {"asset_slug": "low_poly_suburban_mailbox", "source": "meshy_planned", "lifecycle_state": "planned", "supersedes": "", "poly_budget": 2000, "collision_policy": "visual_off_route", "route_clearance": "pending", "validation_cameras": ["StreetArrivalCamera"], "screenshot_score_status": "pending"},
+    {"asset_slug": "low_poly_driveway_sidewalk_curb_kit", "source": "meshy_planned_or_generator_mesh", "lifecycle_state": "planned", "supersedes": "", "poly_budget": 8000, "collision_policy": "ground_visual_no_gameplay_collision_unless_route", "route_clearance": "pending", "validation_cameras": ["DrivewayCamera", "FrontYardRouteCamera"], "screenshot_score_status": "pending"},
+    {"asset_slug": "low_poly_front_planting_bed_set", "source": "meshy_planned", "lifecycle_state": "planned", "supersedes": "", "poly_budget": 8000, "collision_policy": "visual_off_route", "route_clearance": "pending", "validation_cameras": ["PorchApproachCamera"], "screenshot_score_status": "pending"}
+  ],
+  "validation_requirements": ["street_context_reads", "front_yard_arrival_clear", "driveway_sidewalk_distinct", "route_safe_landmarks", "no_placeholder_boxes"],
+  "blocked_items": ["Need decide whether curb/sidewalk remains generator geometry or Meshy modular kit."]
+}

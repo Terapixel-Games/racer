@@ -1,0 +1,13 @@
+{
+  "schema_version": "home_yard_v3_area_asset_manifest_v1",
+  "area": "garden",
+  "concept_sources": ["res://assets/gameplay/tracks/garden/stage_concept.md", "res://assets/gameplay/tracks/garden/stage_build_spec.md", "res://assets/gameplay/tracks/garden/stage_key_art.png"],
+  "production_role": "Adaptive survival garden course for Moko's Green Claim.",
+  "required_assets": [
+    {"asset_slug": "low_poly_garden_root_gate", "source": "meshy_planned", "lifecycle_state": "planned", "supersedes": "", "poly_budget": 8000, "collision_policy": "route_frame_helper_collision", "route_clearance": "pending", "validation_cameras": ["GardenRouteCamera", "GardenAssetCloseupCamera"], "screenshot_score_status": "pending"},
+    {"asset_slug": "low_poly_garden_log_bush_cluster", "source": "meshy_planned", "lifecycle_state": "planned", "supersedes": "res://assets/gameplay/tracks/shared/backyard_optimized/garden_log_bush_low.glb", "poly_budget": 8000, "collision_policy": "visual_off_route_or_simple_static_log", "route_clearance": "pending", "validation_cameras": ["GardenPlantingCamera"], "screenshot_score_status": "pending"},
+    {"asset_slug": "low_poly_garden_stone_bridge_hose_crossing", "source": "meshy_planned", "lifecycle_state": "planned", "supersedes": "", "poly_budget": 8000, "collision_policy": "route_surface_or_visual_crossing", "route_clearance": "pending", "validation_cameras": ["GardenRouteCamera"], "screenshot_score_status": "pending"}
+  ],
+  "validation_requirements": ["foliage_not_camera_blocking", "terrain_route_readable", "planting_mass_unified", "hose_or_mud_effect_clear", "no_placeholder_boxes"],
+  "blocked_items": ["Need decide which foliage remains Kenney versus Meshy regeneration after screenshots."]
+}

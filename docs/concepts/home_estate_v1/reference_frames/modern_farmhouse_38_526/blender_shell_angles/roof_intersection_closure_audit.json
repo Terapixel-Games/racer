@@ -1,0 +1,78 @@
+{
+  "gate": "roof_intersection_closure_audit",
+  "acceptance": "all roof intersections must have closure meshes and close review cameras before shell acceptance",
+  "close_intersection_review_cameras": [
+    "RearMasterWingRoofClosureCamera.png",
+    "RearPorchRoofTieInClosureCamera.png",
+    "GarageRearRoofClosureCamera.png",
+    "FrontPorchRoofTieInClosureCamera.png"
+  ],
+  "intersections": [
+    {
+      "id": "master_wing_rear_gable_closure",
+      "owner_roof_ids": [
+        "MasterWingGableRoof",
+        "MainHouseGableRoof"
+      ],
+      "intersection_type": "side_wing_rear_gable_return",
+      "closure_mesh_ids": [
+        "MasterRearGableWall"
+      ],
+      "review_camera_ids": [
+        "RearMasterWingRoofClosureCamera"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "garage_rear_gable_closure",
+      "owner_roof_ids": [
+        "GarageCrossGableRoof",
+        "MainHouseGableRoof"
+      ],
+      "intersection_type": "garage_rear_gable_return",
+      "closure_mesh_ids": [
+        "GarageRearGableWall"
+      ],
+      "review_camera_ids": [
+        "GarageRearRoofClosureCamera"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "front_porch_roof_tie_in_closure",
+      "owner_roof_ids": [
+        "FrontPorchGableRoof",
+        "MainHouseGableRoof"
+      ],
+      "intersection_type": "porch_tie_in_gable_closure",
+      "closure_mesh_ids": [
+        "FrontPorchOuterGableWall",
+        "FrontPorchTieInGableWall",
+        "FrontPorchRightReturnWall",
+        "FrontPorchLeftReturnWall"
+      ],
+      "review_camera_ids": [
+        "FrontPorchRoofTieInClosureCamera"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "rear_porch_roof_tie_in_closure",
+      "owner_roof_ids": [
+        "RearPorchGableRoof",
+        "MainHouseGableRoof"
+      ],
+      "intersection_type": "porch_tie_in_gable_closure",
+      "closure_mesh_ids": [
+        "RearPorchOuterGableWall",
+        "RearPorchTieInGableWall"
+      ],
+      "review_camera_ids": [
+        "RearPorchRoofTieInClosureCamera"
+      ],
+      "status": "pass"
+    }
+  ],
+  "failures": [],
+  "status": "pass"
+}

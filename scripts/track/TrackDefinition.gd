@@ -1,3 +1,4 @@
+@tool
 extends Resource
 class_name TrackDefinition
 
@@ -361,6 +362,14 @@ func _stage_props_to_json(props: Array[Dictionary]) -> Array:
 			"collision_mode": str(prop.get("collision_mode", "visual")),
 			"audio_material_id": str(prop.get("audio_material_id", "")),
 			"gameplay_tag": str(prop.get("gameplay_tag", "")),
+			"asset_source": str(prop.get("asset_source", "")),
+			"license_origin": str(prop.get("license_origin", "")),
+			"route_clearance": str(prop.get("route_clearance", "")),
+			"scale_contract_id": str(prop.get("scale_contract_id", "")),
+			"scale_class": str(prop.get("scale_class", "")),
+			"target_dimensions_units": _point_value_to_array(prop.get("target_dimensions_units", Vector3.ZERO)),
+			"scale_validation_status": str(prop.get("scale_validation_status", "")),
+			"validation_camera": str(prop.get("validation_camera", "")),
 		})
 	return out
 

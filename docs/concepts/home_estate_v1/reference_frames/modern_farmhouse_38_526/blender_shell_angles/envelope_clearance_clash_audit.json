@@ -1,0 +1,1298 @@
+{
+  "gate": "envelope_clearance_clash_audit",
+  "acceptance": "shell closure fixes must be proven from both exterior and interior/camera clearance volumes before acceptance",
+  "clearance_volumes": [
+    {
+      "id": "main_two_story_finished_interior",
+      "description": "Finished main-house room volume inside the exterior wall faces and below the roof-wall closure zone.",
+      "min": [
+        -63.0,
+        -119.0,
+        4.0
+      ],
+      "max": [
+        101.0,
+        119.0,
+        53.0
+      ]
+    },
+    {
+      "id": "master_wing_finished_interior",
+      "description": "Finished master wing room volume inside the right exterior wall face.",
+      "min": [
+        99.0,
+        -10.0,
+        4.0
+      ],
+      "max": [
+        153.0,
+        99.0,
+        46.5
+      ]
+    },
+    {
+      "id": "garage_finished_interior",
+      "description": "Finished garage/service volume inside the left exterior wall face.",
+      "min": [
+        -154.0,
+        -119.0,
+        4.0
+      ],
+      "max": [
+        -54.0,
+        127.0,
+        44.5
+      ]
+    },
+    {
+      "id": "upper_route_camera_clearance",
+      "description": "Interior/route camera sweep near upper eave and wall top; exterior-only seals may not dominate this view.",
+      "min": [
+        -60.0,
+        -112.0,
+        38.0
+      ],
+      "max": [
+        100.0,
+        112.0,
+        57.0
+      ]
+    }
+  ],
+  "close_clash_review_cameras": [
+    "MainRightInteriorCeilingClashCamera.png",
+    "MasterWingInteriorCeilingClashCamera.png",
+    "GarageInteriorCeilingClashCamera.png",
+    "UpperEaveUndersideClashCamera.png"
+  ],
+  "audited_shell_pieces": [
+    {
+      "id": "MainHouseGableRoof_RidgeCap",
+      "closure_role": "MainHouseGableRoof:ridge",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        17.55,
+        -125.5,
+        81.9
+      ],
+      "bounds_max": [
+        18.45,
+        125.5,
+        82.8
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "MainHouseGableRoof_LeftEaveFascia",
+      "closure_role": "MainHouseGableRoof:left_eave",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        -70.0,
+        -125.5,
+        53.7
+      ],
+      "bounds_max": [
+        -69.0,
+        125.5,
+        54.7
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "MainHouseGableRoof_RightEaveFascia",
+      "closure_role": "MainHouseGableRoof:right_eave",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        105.0,
+        -125.5,
+        53.7
+      ],
+      "bounds_max": [
+        106.0,
+        125.5,
+        54.7
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "MainHouseGableRoof_FrontLeftRake",
+      "closure_role": "MainHouseGableRoof:front_left_rake",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        -69.634,
+        125.05,
+        54.37
+      ],
+      "bounds_max": [
+        18.134,
+        125.95,
+        82.58
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "MainHouseGableRoof_FrontRightRake",
+      "closure_role": "MainHouseGableRoof:front_right_rake",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        17.866,
+        125.05,
+        54.37
+      ],
+      "bounds_max": [
+        105.634,
+        125.95,
+        82.579
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "MainHouseGableRoof_RearLeftRake",
+      "closure_role": "MainHouseGableRoof:rear_left_rake",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        -69.634,
+        -125.95,
+        54.37
+      ],
+      "bounds_max": [
+        18.134,
+        -125.05,
+        82.58
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "MainHouseGableRoof_RearRightRake",
+      "closure_role": "MainHouseGableRoof:rear_right_rake",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        17.866,
+        -125.95,
+        54.37
+      ],
+      "bounds_max": [
+        105.634,
+        -125.05,
+        82.579
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "MainHouseGableRoof_FrontApexPointCap",
+      "closure_role": "gable_apex_point_cap",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        15.6,
+        125.05,
+        79.95
+      ],
+      "bounds_max": [
+        20.4,
+        125.95,
+        82.9
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "MainHouseGableRoof_RearApexPointCap",
+      "closure_role": "gable_apex_point_cap",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        15.6,
+        -125.95,
+        79.95
+      ],
+      "bounds_max": [
+        20.4,
+        -125.05,
+        82.9
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "GarageCrossGableRoof_RidgeCap",
+      "closure_role": "GarageCrossGableRoof:ridge",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        -104.45,
+        -125.0,
+        71.9
+      ],
+      "bounds_max": [
+        -103.55,
+        133.0,
+        72.8
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "GarageCrossGableRoof_LeftEaveFascia",
+      "closure_role": "GarageCrossGableRoof:left_eave",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        -160.5,
+        -125.0,
+        45.7
+      ],
+      "bounds_max": [
+        -159.5,
+        133.0,
+        46.7
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "GarageCrossGableRoof_RightEaveFascia",
+      "closure_role": "GarageCrossGableRoof:right_eave",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        -48.5,
+        -125.0,
+        45.7
+      ],
+      "bounds_max": [
+        -47.5,
+        133.0,
+        46.7
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "GarageCrossGableRoof_FrontLeftRake",
+      "closure_role": "GarageCrossGableRoof:front_left_rake",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        -160.186,
+        132.55,
+        46.39
+      ],
+      "bounds_max": [
+        -103.814,
+        133.45,
+        72.56
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "GarageCrossGableRoof_FrontRightRake",
+      "closure_role": "GarageCrossGableRoof:front_right_rake",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        -104.186,
+        132.55,
+        46.39
+      ],
+      "bounds_max": [
+        -47.814,
+        133.45,
+        72.56
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "GarageCrossGableRoof_RearLeftRake",
+      "closure_role": "GarageCrossGableRoof:rear_left_rake",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        -160.186,
+        -125.45,
+        46.39
+      ],
+      "bounds_max": [
+        -103.814,
+        -124.55,
+        72.56
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "GarageCrossGableRoof_RearRightRake",
+      "closure_role": "GarageCrossGableRoof:rear_right_rake",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        -104.186,
+        -125.45,
+        46.39
+      ],
+      "bounds_max": [
+        -47.814,
+        -124.55,
+        72.56
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "GarageCrossGableRoof_FrontApexPointCap",
+      "closure_role": "gable_apex_point_cap",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        -106.4,
+        132.55,
+        69.95
+      ],
+      "bounds_max": [
+        -101.6,
+        133.45,
+        72.9
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "GarageCrossGableRoof_RearApexPointCap",
+      "closure_role": "gable_apex_point_cap",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        -106.4,
+        -125.45,
+        69.95
+      ],
+      "bounds_max": [
+        -101.6,
+        -124.55,
+        72.9
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "MasterWingGableRoof_RidgeCap",
+      "closure_role": "MasterWingGableRoof:ridge",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        125.55,
+        -15.5,
+        69.9
+      ],
+      "bounds_max": [
+        126.45,
+        104.5,
+        70.8
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "MasterWingGableRoof_LeftEaveFascia",
+      "closure_role": "MasterWingGableRoof:left_eave",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        93.0,
+        -15.5,
+        47.7
+      ],
+      "bounds_max": [
+        94.0,
+        104.5,
+        48.7
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "MasterWingGableRoof_RightEaveFascia",
+      "closure_role": "MasterWingGableRoof:right_eave",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        158.0,
+        -15.5,
+        47.7
+      ],
+      "bounds_max": [
+        159.0,
+        104.5,
+        48.7
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "MasterWingGableRoof_FrontLeftRake",
+      "closure_role": "MasterWingGableRoof:front_left_rake",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        93.253,
+        104.05,
+        48.424
+      ],
+      "bounds_max": [
+        126.247,
+        104.95,
+        70.526
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "MasterWingGableRoof_FrontRightRake",
+      "closure_role": "MasterWingGableRoof:front_right_rake",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        125.753,
+        104.05,
+        48.424
+      ],
+      "bounds_max": [
+        158.747,
+        104.95,
+        70.526
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "MasterWingGableRoof_RearLeftRake",
+      "closure_role": "MasterWingGableRoof:rear_left_rake",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        93.253,
+        -15.95,
+        48.424
+      ],
+      "bounds_max": [
+        126.247,
+        -15.05,
+        70.526
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "MasterWingGableRoof_RearRightRake",
+      "closure_role": "MasterWingGableRoof:rear_right_rake",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        125.753,
+        -15.95,
+        48.424
+      ],
+      "bounds_max": [
+        158.747,
+        -15.05,
+        70.526
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "MasterWingGableRoof_FrontApexPointCap",
+      "closure_role": "gable_apex_point_cap",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        123.6,
+        104.05,
+        67.95
+      ],
+      "bounds_max": [
+        128.4,
+        104.95,
+        70.9
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "MasterWingGableRoof_RearApexPointCap",
+      "closure_role": "gable_apex_point_cap",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        123.6,
+        -15.95,
+        67.95
+      ],
+      "bounds_max": [
+        128.4,
+        -15.05,
+        70.9
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "FrontPorchGableRoof_RidgeCap",
+      "closure_role": "FrontPorchGableRoof:ridge",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        9.55,
+        113.5,
+        51.9
+      ],
+      "bounds_max": [
+        10.45,
+        156.5,
+        52.8
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [
+        "main_two_story_finished_interior"
+      ],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "FrontPorchGableRoof_LeftEaveFascia",
+      "closure_role": "FrontPorchGableRoof:left_eave",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        -27.0,
+        113.5,
+        35.7
+      ],
+      "bounds_max": [
+        -26.0,
+        156.5,
+        36.7
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [
+        "main_two_story_finished_interior"
+      ],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "FrontPorchGableRoof_RightEaveFascia",
+      "closure_role": "FrontPorchGableRoof:right_eave",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        46.0,
+        113.5,
+        35.7
+      ],
+      "bounds_max": [
+        47.0,
+        156.5,
+        36.7
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [
+        "main_two_story_finished_interior"
+      ],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "FrontPorchGableRoof_FrontLeftRake",
+      "closure_role": "FrontPorchGableRoof:front_left_rake",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        -26.674,
+        156.05,
+        36.385
+      ],
+      "bounds_max": [
+        10.174,
+        156.95,
+        52.565
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "FrontPorchGableRoof_FrontRightRake",
+      "closure_role": "FrontPorchGableRoof:front_right_rake",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        9.826,
+        156.05,
+        36.385
+      ],
+      "bounds_max": [
+        46.674,
+        156.95,
+        52.565
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "FrontPorchGableRoof_RearLeftRake",
+      "closure_role": "FrontPorchGableRoof:rear_left_rake",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        -26.674,
+        113.05,
+        36.385
+      ],
+      "bounds_max": [
+        10.174,
+        113.95,
+        52.565
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [
+        "main_two_story_finished_interior"
+      ],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "FrontPorchGableRoof_RearRightRake",
+      "closure_role": "FrontPorchGableRoof:rear_right_rake",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        9.826,
+        113.05,
+        36.385
+      ],
+      "bounds_max": [
+        46.674,
+        113.95,
+        52.565
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [
+        "main_two_story_finished_interior"
+      ],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "FrontPorchGableRoof_FrontApexPointCap",
+      "closure_role": "gable_apex_point_cap",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        7.6,
+        156.05,
+        49.95
+      ],
+      "bounds_max": [
+        12.4,
+        156.95,
+        52.9
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "FrontPorchGableRoof_RearApexPointCap",
+      "closure_role": "gable_apex_point_cap",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        7.6,
+        113.05,
+        49.95
+      ],
+      "bounds_max": [
+        12.4,
+        113.95,
+        52.9
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [
+        "main_two_story_finished_interior"
+      ],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "RearPorchGableRoof_RidgeCap",
+      "closure_role": "RearPorchGableRoof:ridge",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        -14.5,
+        -135.45,
+        51.9
+      ],
+      "bounds_max": [
+        108.5,
+        -134.55,
+        52.8
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "RearPorchGableRoof_FrontEaveFascia",
+      "closure_role": "RearPorchGableRoof:front_eave",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        -14.5,
+        -114.0,
+        35.7
+      ],
+      "bounds_max": [
+        108.5,
+        -113.0,
+        36.7
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [
+        "main_two_story_finished_interior"
+      ],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "RearPorchGableRoof_RearEaveFascia",
+      "closure_role": "RearPorchGableRoof:rear_eave",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        -14.5,
+        -157.0,
+        35.7
+      ],
+      "bounds_max": [
+        108.5,
+        -156.0,
+        36.7
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "RearPorchGableRoof_LeftRake",
+      "closure_role": "RearPorchGableRoof:left_rake",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        -14.95,
+        -156.761,
+        36.434
+      ],
+      "bounds_max": [
+        -14.05,
+        -134.739,
+        52.516
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "RearPorchGableRoof_RightRake",
+      "closure_role": "RearPorchGableRoof:right_rake",
+      "clearance_class": "roof_edge_trim",
+      "bounds_min": [
+        108.05,
+        -156.761,
+        36.434
+      ],
+      "bounds_max": [
+        108.95,
+        -134.739,
+        52.516
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "MasterWingFrontRightCornerReturn",
+      "closure_role": "wall_corner_return",
+      "clearance_class": "exterior_only",
+      "bounds_min": [
+        156.8,
+        98.4,
+        4.0
+      ],
+      "bounds_max": [
+        158.0,
+        101.6,
+        48.0
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "MasterWingRearRightCornerReturn",
+      "closure_role": "wall_corner_return",
+      "clearance_class": "exterior_only",
+      "bounds_min": [
+        156.8,
+        -13.6,
+        4.0
+      ],
+      "bounds_max": [
+        158.0,
+        -10.4,
+        48.0
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "MainHouseFrontRightCornerReturn",
+      "closure_role": "wall_corner_return",
+      "clearance_class": "exterior_only",
+      "bounds_min": [
+        102.8,
+        119.4,
+        4.0
+      ],
+      "bounds_max": [
+        104.0,
+        122.6,
+        54.0
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "GarageFrontLeftCornerReturn",
+      "closure_role": "wall_corner_return",
+      "clearance_class": "exterior_only",
+      "bounds_min": [
+        -159.0,
+        126.4,
+        4.0
+      ],
+      "bounds_max": [
+        -157.8,
+        129.6,
+        44.0
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "MainRightEaveWallTopBacker",
+      "closure_role": "roof_wall_edge_backer",
+      "clearance_class": "exterior_only",
+      "bounds_min": [
+        104.1,
+        -121.0,
+        53.0
+      ],
+      "bounds_max": [
+        105.1,
+        121.0,
+        54.6
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "MainRightFrontRakeCornerBacker",
+      "closure_role": "roof_wall_edge_backer",
+      "clearance_class": "exterior_only",
+      "bounds_min": [
+        104.1,
+        119.6,
+        52.8
+      ],
+      "bounds_max": [
+        105.1,
+        123.2,
+        57.6
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "MainRightRearRakeCornerBacker",
+      "closure_role": "roof_wall_edge_backer",
+      "clearance_class": "exterior_only",
+      "bounds_min": [
+        104.1,
+        -123.2,
+        52.8
+      ],
+      "bounds_max": [
+        105.1,
+        -119.6,
+        57.6
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "MasterWingRightEaveWallTopBacker",
+      "closure_role": "roof_wall_edge_backer",
+      "clearance_class": "exterior_only",
+      "bounds_min": [
+        158.1,
+        -14.0,
+        47.0
+      ],
+      "bounds_max": [
+        159.1,
+        102.0,
+        48.6
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    },
+    {
+      "id": "GarageLeftEaveWallTopBacker",
+      "closure_role": "roof_wall_edge_backer",
+      "clearance_class": "exterior_only",
+      "bounds_min": [
+        -160.1,
+        -123.0,
+        45.0
+      ],
+      "bounds_max": [
+        -159.1,
+        131.0,
+        46.6
+      ],
+      "checked_clearance_volume_ids": [
+        "main_two_story_finished_interior",
+        "master_wing_finished_interior",
+        "garage_finished_interior",
+        "upper_route_camera_clearance"
+      ],
+      "overlapping_clearance_volume_ids": [],
+      "overlap_policy": "exterior_only shell seal pieces must not intersect finished room, ceiling, route, or camera-clearance volumes",
+      "status": "pass"
+    }
+  ],
+  "failures": [],
+  "status": "pass"
+}

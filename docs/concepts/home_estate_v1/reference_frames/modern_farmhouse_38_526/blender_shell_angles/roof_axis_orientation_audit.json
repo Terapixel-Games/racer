@@ -1,0 +1,86 @@
+{
+  "gate": "roof_axis_orientation_audit",
+  "acceptance": "roof modules must use the ridge/span axis declared by the house reference and floor-plan role",
+  "roof_modules": [
+    {
+      "id": "MainHouseGableRoof",
+      "expected_ridge_axis": "y",
+      "expected_span_axis": "x",
+      "review_camera_ids": [
+        "FrontThreeQuarterReviewCamera",
+        "RightSideReviewCamera"
+      ],
+      "measured_ridge_axis": "y",
+      "measured_span_axis": "x",
+      "measured_width": 175.0,
+      "measured_depth": 251.0,
+      "reference_rationale": "main and cross gables use a front/rear ridge line with gable faces at front and rear",
+      "status": "pass"
+    },
+    {
+      "id": "GarageCrossGableRoof",
+      "expected_ridge_axis": "y",
+      "expected_span_axis": "x",
+      "review_camera_ids": [
+        "FrontStreetReviewCamera",
+        "LeftSideReviewCamera"
+      ],
+      "measured_ridge_axis": "y",
+      "measured_span_axis": "x",
+      "measured_width": 112.0,
+      "measured_depth": 258.0,
+      "reference_rationale": "main and cross gables use a front/rear ridge line with gable faces at front and rear",
+      "status": "pass"
+    },
+    {
+      "id": "MasterWingGableRoof",
+      "expected_ridge_axis": "y",
+      "expected_span_axis": "x",
+      "review_camera_ids": [
+        "RightSideReviewCamera",
+        "RearThreeQuarterReviewCamera"
+      ],
+      "measured_ridge_axis": "y",
+      "measured_span_axis": "x",
+      "measured_width": 65.0,
+      "measured_depth": 120.0,
+      "reference_rationale": "main and cross gables use a front/rear ridge line with gable faces at front and rear",
+      "status": "pass"
+    },
+    {
+      "id": "FrontPorchGableRoof",
+      "expected_ridge_axis": "y",
+      "expected_span_axis": "x",
+      "module_role": "front_entry_gable",
+      "max_span_width": 82.0,
+      "review_camera_ids": [
+        "FrontStreetReviewCamera",
+        "RightSideReviewCamera",
+        "FrontPorchRoofTieInClosureCamera"
+      ],
+      "measured_ridge_axis": "y",
+      "measured_span_axis": "x",
+      "measured_width": 73.0,
+      "measured_depth": 43.0,
+      "reference_rationale": "main and cross gables use a front/rear ridge line with gable faces at front and rear",
+      "status": "pass"
+    },
+    {
+      "id": "RearPorchGableRoof",
+      "expected_ridge_axis": "x",
+      "expected_span_axis": "y",
+      "review_camera_ids": [
+        "RearYardReviewCamera",
+        "RightSideReviewCamera"
+      ],
+      "measured_ridge_axis": "x",
+      "measured_span_axis": "y",
+      "measured_width": 123.0,
+      "measured_depth": 43.0,
+      "reference_rationale": "covered porch/patio roofs run along the facade only when the reference calls for a lateral porch roof",
+      "status": "pass"
+    }
+  ],
+  "failures": [],
+  "status": "pass"
+}

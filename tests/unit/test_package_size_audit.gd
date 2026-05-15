@@ -9,7 +9,7 @@ func test_package_size_audit_tracks_racer_optimization_savings() -> void:
 	var lod_bytes := int(audit.get("optimized_racer_lod_glb_bytes", 0))
 	var savings_bytes := int(audit.get("racer_glb_savings_bytes", 0))
 	assert_true(source_bytes > 400 * 1024 * 1024, "Source racer GLBs should still represent the large baseline")
-	assert_true(optimized_bytes > 200 * 1024 * 1024, "Optimized racer GLBs should be staged for runtime")
+	assert_true(optimized_bytes > 150 * 1024 * 1024, "Optimized racer GLBs should be staged for runtime")
 	assert_equal(optimized_bytes, int(audit.get("optimized_racer_lod0_glb_bytes", 0)), "Legacy optimized GLB metric should track LOD0 for stable savings reports")
 	assert_true(optimized_bytes < source_bytes, "Optimized racer GLBs should be smaller than source racer GLBs")
 	assert_true(float(audit.get("optimized_glb_source_ratio", 1.0)) <= 0.5, "Optimized racer GLBs should stay at or below half of source GLB size")

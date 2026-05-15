@@ -1,0 +1,13 @@
+{
+  "schema_version": "home_yard_v3_area_asset_manifest_v1",
+  "area": "bedroom",
+  "concept_sources": ["res://assets/gameplay/tracks/bedroom/stage_concept.md", "res://assets/gameplay/tracks/bedroom/stage_build_spec.md", "res://assets/gameplay/tracks/bedroom/stage_key_art.png"],
+  "production_role": "Warm protected refuge course for Tuggs and The Soft Room.",
+  "required_assets": [
+    {"asset_slug": "low_poly_bedroom_blanket_tunnel", "source": "meshy_planned", "lifecycle_state": "planned", "supersedes": "", "poly_budget": 8000, "collision_policy": "tunnel_helper_collision_camera_safe", "route_clearance": "pending", "validation_cameras": ["BedroomRouteCamera", "BedroomAssetCloseupCamera"], "screenshot_score_status": "pending"},
+    {"asset_slug": "low_poly_bedroom_lamp_beacon", "source": "meshy_planned", "lifecycle_state": "planned", "supersedes": "kenney_keep_review_if_passes", "poly_budget": 2000, "collision_policy": "visual_off_route", "route_clearance": "pending", "validation_cameras": ["BedroomAssetCloseupCamera"], "screenshot_score_status": "pending"},
+    {"asset_slug": "low_poly_bedroom_toy_triage_corner", "source": "meshy_planned", "lifecycle_state": "planned", "supersedes": "", "poly_budget": 8000, "collision_policy": "visual_off_route", "route_clearance": "pending", "validation_cameras": ["BedroomAssetCloseupCamera"], "screenshot_score_status": "pending"}
+  ],
+  "validation_requirements": ["bedroom_identity", "soft_restrictive_route", "window_transparency", "under_bed_or_blanket_clearance", "no_placeholder_boxes"],
+  "blocked_items": ["Need review of Kenney bed/lamp keep quality after close-up screenshots."]
+}

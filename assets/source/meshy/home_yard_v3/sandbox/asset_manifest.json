@@ -1,0 +1,13 @@
+{
+  "schema_version": "home_yard_v3_area_asset_manifest_v1",
+  "area": "sandbox",
+  "concept_sources": ["res://assets/gameplay/tracks/sandbox/stage_concept.md", "res://assets/gameplay/tracks/sandbox/stage_build_spec.md", "res://assets/gameplay/tracks/sandbox/stage_key_art.png"],
+  "production_role": "Exposed conquered sand territory course for Rexx's Sand Throne.",
+  "required_assets": [
+    {"asset_slug": "low_poly_sandbox_dinosaur_fossil", "source": "meshy_planned", "lifecycle_state": "planned", "supersedes": "res://assets/gameplay/tracks/shared/backyard_optimized/sandbox_fossil_low.glb", "poly_budget": 8000, "collision_policy": "route_frame_or_visual_off_route", "route_clearance": "pending", "validation_cameras": ["SandboxAssetCloseupCamera"], "screenshot_score_status": "pending"},
+    {"asset_slug": "low_poly_sandbox_trex_skeleton_v2", "source": "meshy_planned", "lifecycle_state": "planned", "supersedes": "res://assets/source/meshy/sandbox_props/trex_skeleton.glb", "poly_budget": 8000, "collision_policy": "route_frame_or_visual_off_route", "route_clearance": "pending", "validation_cameras": ["SandboxAssetCloseupCamera"], "screenshot_score_status": "pending"},
+    {"asset_slug": "low_poly_sandbox_bucket_tunnel_shovel_ramp", "source": "meshy_planned", "lifecycle_state": "planned", "supersedes": "", "poly_budget": 8000, "collision_policy": "camera_safe_tunnel_and_ramp_helpers", "route_clearance": "pending", "validation_cameras": ["SandboxRouteCamera"], "screenshot_score_status": "pending"}
+  ],
+  "validation_requirements": ["bucket_tunnel_camera_safe", "sand_material_readable", "fossil_not_snaggy", "route_edges_clear", "no_placeholder_boxes"],
+  "blocked_items": ["Need Meshy generation and sand material validation."]
+}

@@ -1,0 +1,131 @@
+[gd_resource type="Resource" script_class="TrackMapDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/track/TrackMapDefinition.gd" id="1_1n0pq"]
+
+[resource]
+script = ExtResource("1_1n0pq")
+id = "home_estate_v1"
+display_name = "Modern Farmhouse Estate"
+version = "home_estate_floorplan_v1_2026_05_13"
+map_scene_path = "res://assets/gameplay/tracks/home_estate_v1/home_estate_v1_map.tscn"
+default_mode_id = "estate_kitchen"
+mode_configs = {
+"estate_garage": {
+"definition_path": "res://assets/gameplay/tracks/home_estate_v1/modes/estate_garage_track_definition.tres",
+"display_name": "Estate Garage",
+"ground_color": Color(0.46, 0.55, 0.38, 1),
+"ground_size": Vector2(420, 420),
+"id": "estate_garage",
+"kind": "race",
+"laps": 3,
+"map_scene_path": "res://assets/gameplay/tracks/home_estate_v1/home_estate_v1_map.tscn",
+"metadata_path": "res://assets/gameplay/tracks/home_estate_v1/modes/estate_garage_track_metadata.json",
+"reset_mode": "instant_pop",
+"road_source": "road_grid_map",
+"road_visual_style": "kenney_gridmap",
+"road_width": 16.0,
+"runtime_scene_path": "res://assets/gameplay/tracks/home_estate_v1/modes/estate_garage_track.tscn",
+"sky_preset_id": "clear_afternoon",
+"version": "home_estate_floorplan_v1_2026_05_13"
+},
+"estate_great_room": {
+"definition_path": "res://assets/gameplay/tracks/home_estate_v1/modes/estate_great_room_track_definition.tres",
+"display_name": "Estate Great Room",
+"ground_color": Color(0.46, 0.55, 0.38, 1),
+"ground_size": Vector2(420, 420),
+"id": "estate_great_room",
+"kind": "race",
+"laps": 3,
+"map_scene_path": "res://assets/gameplay/tracks/home_estate_v1/home_estate_v1_map.tscn",
+"metadata_path": "res://assets/gameplay/tracks/home_estate_v1/modes/estate_great_room_track_metadata.json",
+"reset_mode": "instant_pop",
+"road_source": "road_grid_map",
+"road_visual_style": "kenney_gridmap",
+"road_width": 16.0,
+"runtime_scene_path": "res://assets/gameplay/tracks/home_estate_v1/modes/estate_great_room_track.tscn",
+"sky_preset_id": "soft_morning",
+"version": "home_estate_floorplan_v1_2026_05_13"
+},
+"estate_kitchen": {
+"definition_path": "res://assets/gameplay/tracks/home_estate_v1/modes/estate_kitchen_track_definition.tres",
+"display_name": "Estate Kitchen",
+"ground_color": Color(0.46, 0.55, 0.38, 1),
+"ground_size": Vector2(420, 420),
+"id": "estate_kitchen",
+"kind": "race",
+"laps": 3,
+"map_scene_path": "res://assets/gameplay/tracks/home_estate_v1/home_estate_v1_map.tscn",
+"metadata_path": "res://assets/gameplay/tracks/home_estate_v1/modes/estate_kitchen_track_metadata.json",
+"reset_mode": "instant_pop",
+"road_source": "road_grid_map",
+"road_visual_style": "kenney_gridmap",
+"road_width": 16.0,
+"runtime_scene_path": "res://assets/gameplay/tracks/home_estate_v1/modes/estate_kitchen_track.tscn",
+"sky_preset_id": "noon_clear",
+"version": "home_estate_floorplan_v1_2026_05_13"
+},
+"estate_master_suite": {
+"definition_path": "res://assets/gameplay/tracks/home_estate_v1/modes/estate_master_suite_track_definition.tres",
+"display_name": "Estate Master Suite",
+"ground_color": Color(0.46, 0.55, 0.38, 1),
+"ground_size": Vector2(420, 420),
+"id": "estate_master_suite",
+"kind": "race",
+"laps": 3,
+"map_scene_path": "res://assets/gameplay/tracks/home_estate_v1/home_estate_v1_map.tscn",
+"metadata_path": "res://assets/gameplay/tracks/home_estate_v1/modes/estate_master_suite_track_metadata.json",
+"reset_mode": "instant_pop",
+"road_source": "road_grid_map",
+"road_visual_style": "kenney_gridmap",
+"road_width": 16.0,
+"runtime_scene_path": "res://assets/gameplay/tracks/home_estate_v1/modes/estate_master_suite_track.tscn",
+"sky_preset_id": "soft_morning",
+"version": "home_estate_floorplan_v1_2026_05_13"
+},
+"estate_patio": {
+"definition_path": "res://assets/gameplay/tracks/home_estate_v1/modes/estate_patio_track_definition.tres",
+"display_name": "Estate Patio",
+"ground_color": Color(0.46, 0.55, 0.38, 1),
+"ground_size": Vector2(420, 420),
+"id": "estate_patio",
+"kind": "race",
+"laps": 3,
+"map_scene_path": "res://assets/gameplay/tracks/home_estate_v1/home_estate_v1_map.tscn",
+"metadata_path": "res://assets/gameplay/tracks/home_estate_v1/modes/estate_patio_track_metadata.json",
+"reset_mode": "instant_pop",
+"road_source": "road_grid_map",
+"road_visual_style": "kenney_gridmap",
+"road_width": 16.0,
+"runtime_scene_path": "res://assets/gameplay/tracks/home_estate_v1/modes/estate_patio_track.tscn",
+"sky_preset_id": "clear_afternoon",
+"version": "home_estate_floorplan_v1_2026_05_13"
+},
+"estate_upper_loft": {
+"definition_path": "res://assets/gameplay/tracks/home_estate_v1/modes/estate_upper_loft_track_definition.tres",
+"display_name": "Estate Upper Loft",
+"ground_color": Color(0.46, 0.55, 0.38, 1),
+"ground_size": Vector2(420, 420),
+"id": "estate_upper_loft",
+"kind": "race",
+"laps": 3,
+"map_scene_path": "res://assets/gameplay/tracks/home_estate_v1/home_estate_v1_map.tscn",
+"metadata_path": "res://assets/gameplay/tracks/home_estate_v1/modes/estate_upper_loft_track_metadata.json",
+"reset_mode": "instant_pop",
+"road_source": "road_grid_map",
+"road_visual_style": "kenney_gridmap",
+"road_width": 16.0,
+"runtime_scene_path": "res://assets/gameplay/tracks/home_estate_v1/modes/estate_upper_loft_track.tscn",
+"sky_preset_id": "party_evening",
+"version": "home_estate_floorplan_v1_2026_05_13"
+}
+}
+sky_preset_id = "clear_afternoon"
+sky_weather = "clear"
+sky_top_color = Color(0.52, 0.74, 0.96, 1)
+sky_horizon_color = Color(0.78, 0.88, 0.96, 1)
+sky_cloud_amount = 0.18
+sky_cloud_speed = 0.015
+sky_haze_amount = 0.12
+sky_light_energy = 2.45
+ground_size = Vector2(420, 420)
+ground_color = Color(0.46, 0.55, 0.38, 1)

@@ -1,0 +1,13 @@
+{
+  "schema_version": "home_yard_v3_area_asset_manifest_v1",
+  "area": "backyard",
+  "concept_sources": ["res://docs/concepts/home_yard_v3/backyard_reference.md", "res://assets/gameplay/tracks/outdoor_playground/stage_concept.md", "res://assets/gameplay/tracks/garden/stage_concept.md", "res://assets/gameplay/tracks/sandbox/stage_concept.md"],
+  "production_role": "Shared yard system connecting playground, garden, sandbox, lawn, patio/deck, and boundaries.",
+  "required_assets": [
+    {"asset_slug": "low_poly_backyard_tree_tire_swing", "source": "meshy_planned", "lifecycle_state": "planned", "supersedes": "res://assets/gameplay/tracks/home_yard/props/toybox_tree_swing/stylized_realistic_tree_tire_swing.glb", "poly_budget": 20000, "collision_policy": "visual_or_named_hazard_if_route_adjacent", "route_clearance": "pending", "validation_cameras": ["YardBoundaryCamera"], "screenshot_score_status": "pending"},
+    {"asset_slug": "low_poly_backyard_fence_gate_kit", "source": "meshy_planned", "lifecycle_state": "planned", "supersedes": "", "poly_budget": 8000, "collision_policy": "boundary_visual_and_containment_if_needed", "route_clearance": "pending", "validation_cameras": ["YardBoundaryCamera"], "screenshot_score_status": "pending"},
+    {"asset_slug": "low_poly_deck_patio_transition_kit", "source": "meshy_planned", "lifecycle_state": "planned", "supersedes": "", "poly_budget": 8000, "collision_policy": "ground_visual_or_route_surface_if_authored", "route_clearance": "pending", "validation_cameras": ["ExteriorSideCamera", "YardBoundaryCamera"], "screenshot_score_status": "pending"}
+  ],
+  "validation_requirements": ["outdoor_room_coherence", "fence_boundary_clear", "deck_house_transition", "play_garden_sandbox_relationship", "no_placeholder_boxes"],
+  "blocked_items": ["Need shared yard screenshot review before Meshy batch sizing."]
+}

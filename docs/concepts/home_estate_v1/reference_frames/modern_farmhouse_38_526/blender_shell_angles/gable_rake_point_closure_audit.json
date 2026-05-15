@@ -1,0 +1,154 @@
+{
+  "gate": "gable_rake_point_closure_audit",
+  "acceptance": "all gable apexes must converge and include a visible point cap or mitred closure mesh",
+  "close_apex_review_cameras": [
+    "MainFrontGableApexCamera.png",
+    "MainRearGableApexCamera.png",
+    "GarageFrontGableApexCamera.png",
+    "GarageRearGableApexCamera.png",
+    "MasterFrontGableApexCamera.png",
+    "MasterRearGableApexCamera.png",
+    "FrontPorchStreetGableApexCamera.png",
+    "FrontPorchTieInGableApexCamera.png"
+  ],
+  "gable_apexes": [
+    {
+      "id": "MainHouseGableRoof_front_apex",
+      "roof_id": "MainHouseGableRoof",
+      "rake_ids": [
+        "MainHouseGableRoof_FrontLeftRake",
+        "MainHouseGableRoof_FrontRightRake"
+      ],
+      "ridge_cap_id": "MainHouseGableRoof_RidgeCap",
+      "apex_cap_id": "MainHouseGableRoof_FrontApexPointCap",
+      "review_camera_ids": [
+        "MainFrontGableApexCamera"
+      ],
+      "endpoint_convergence_tolerance": 0.1,
+      "measured_rake_endpoint_spread": 0.0,
+      "point_closure_policy": "gable apex must include a cap/mitre mesh so squared rake and ridge bars resolve as a visible point",
+      "status": "pass"
+    },
+    {
+      "id": "MainHouseGableRoof_rear_apex",
+      "roof_id": "MainHouseGableRoof",
+      "rake_ids": [
+        "MainHouseGableRoof_RearLeftRake",
+        "MainHouseGableRoof_RearRightRake"
+      ],
+      "ridge_cap_id": "MainHouseGableRoof_RidgeCap",
+      "apex_cap_id": "MainHouseGableRoof_RearApexPointCap",
+      "review_camera_ids": [
+        "MainRearGableApexCamera"
+      ],
+      "endpoint_convergence_tolerance": 0.1,
+      "measured_rake_endpoint_spread": 0.0,
+      "point_closure_policy": "gable apex must include a cap/mitre mesh so squared rake and ridge bars resolve as a visible point",
+      "status": "pass"
+    },
+    {
+      "id": "GarageCrossGableRoof_front_apex",
+      "roof_id": "GarageCrossGableRoof",
+      "rake_ids": [
+        "GarageCrossGableRoof_FrontLeftRake",
+        "GarageCrossGableRoof_FrontRightRake"
+      ],
+      "ridge_cap_id": "GarageCrossGableRoof_RidgeCap",
+      "apex_cap_id": "GarageCrossGableRoof_FrontApexPointCap",
+      "review_camera_ids": [
+        "GarageFrontGableApexCamera"
+      ],
+      "endpoint_convergence_tolerance": 0.1,
+      "measured_rake_endpoint_spread": 0.0,
+      "point_closure_policy": "gable apex must include a cap/mitre mesh so squared rake and ridge bars resolve as a visible point",
+      "status": "pass"
+    },
+    {
+      "id": "GarageCrossGableRoof_rear_apex",
+      "roof_id": "GarageCrossGableRoof",
+      "rake_ids": [
+        "GarageCrossGableRoof_RearLeftRake",
+        "GarageCrossGableRoof_RearRightRake"
+      ],
+      "ridge_cap_id": "GarageCrossGableRoof_RidgeCap",
+      "apex_cap_id": "GarageCrossGableRoof_RearApexPointCap",
+      "review_camera_ids": [
+        "GarageRearGableApexCamera"
+      ],
+      "endpoint_convergence_tolerance": 0.1,
+      "measured_rake_endpoint_spread": 0.0,
+      "point_closure_policy": "gable apex must include a cap/mitre mesh so squared rake and ridge bars resolve as a visible point",
+      "status": "pass"
+    },
+    {
+      "id": "MasterWingGableRoof_front_apex",
+      "roof_id": "MasterWingGableRoof",
+      "rake_ids": [
+        "MasterWingGableRoof_FrontLeftRake",
+        "MasterWingGableRoof_FrontRightRake"
+      ],
+      "ridge_cap_id": "MasterWingGableRoof_RidgeCap",
+      "apex_cap_id": "MasterWingGableRoof_FrontApexPointCap",
+      "review_camera_ids": [
+        "MasterFrontGableApexCamera"
+      ],
+      "endpoint_convergence_tolerance": 0.1,
+      "measured_rake_endpoint_spread": 0.0,
+      "point_closure_policy": "gable apex must include a cap/mitre mesh so squared rake and ridge bars resolve as a visible point",
+      "status": "pass"
+    },
+    {
+      "id": "MasterWingGableRoof_rear_apex",
+      "roof_id": "MasterWingGableRoof",
+      "rake_ids": [
+        "MasterWingGableRoof_RearLeftRake",
+        "MasterWingGableRoof_RearRightRake"
+      ],
+      "ridge_cap_id": "MasterWingGableRoof_RidgeCap",
+      "apex_cap_id": "MasterWingGableRoof_RearApexPointCap",
+      "review_camera_ids": [
+        "MasterRearGableApexCamera"
+      ],
+      "endpoint_convergence_tolerance": 0.1,
+      "measured_rake_endpoint_spread": 0.0,
+      "point_closure_policy": "gable apex must include a cap/mitre mesh so squared rake and ridge bars resolve as a visible point",
+      "status": "pass"
+    },
+    {
+      "id": "FrontPorchGableRoof_front_apex",
+      "roof_id": "FrontPorchGableRoof",
+      "rake_ids": [
+        "FrontPorchGableRoof_FrontLeftRake",
+        "FrontPorchGableRoof_FrontRightRake"
+      ],
+      "ridge_cap_id": "FrontPorchGableRoof_RidgeCap",
+      "apex_cap_id": "FrontPorchGableRoof_FrontApexPointCap",
+      "review_camera_ids": [
+        "FrontPorchStreetGableApexCamera"
+      ],
+      "endpoint_convergence_tolerance": 0.1,
+      "measured_rake_endpoint_spread": 0.0,
+      "point_closure_policy": "gable apex must include a cap/mitre mesh so squared rake and ridge bars resolve as a visible point",
+      "status": "pass"
+    },
+    {
+      "id": "FrontPorchGableRoof_rear_apex",
+      "roof_id": "FrontPorchGableRoof",
+      "rake_ids": [
+        "FrontPorchGableRoof_RearLeftRake",
+        "FrontPorchGableRoof_RearRightRake"
+      ],
+      "ridge_cap_id": "FrontPorchGableRoof_RidgeCap",
+      "apex_cap_id": "FrontPorchGableRoof_RearApexPointCap",
+      "review_camera_ids": [
+        "FrontPorchTieInGableApexCamera"
+      ],
+      "endpoint_convergence_tolerance": 0.1,
+      "measured_rake_endpoint_spread": 0.0,
+      "point_closure_policy": "gable apex must include a cap/mitre mesh so squared rake and ridge bars resolve as a visible point",
+      "status": "pass"
+    }
+  ],
+  "failures": [],
+  "status": "pass"
+}

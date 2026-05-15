@@ -1,0 +1,78 @@
+{
+  "spec_version": "home_yard_v3_beta_gate_specs_v1",
+  "map_id": "home_yard_v3",
+  "executable_validators_to_add": [
+    {
+      "id": "concept_artifacts",
+      "test_path": "res://tests/unit/test_home_yard_v3_concept_artifacts.gd",
+      "inputs": ["res://docs/concepts/home_yard_v3/*.md"],
+      "pass": "All required concept artifacts exist and include intent, references, shape language, material palette, gameplay readability notes, and asset prompt notes."
+    },
+    {
+      "id": "area_manifests",
+      "test_path": "res://tests/unit/test_home_yard_v3_area_manifests.gd",
+      "inputs": ["res://assets/source/meshy/home_yard_v3/*/asset_manifest.json"],
+      "pass": "Every production area has lifecycle, source policy, route clearance, collision policy, validation cameras, screenshot score fields, and blocked items."
+    },
+    {
+      "id": "replacement_provenance",
+      "test_path": "res://tests/unit/test_home_yard_v3_replacement_provenance.gd",
+      "inputs": ["res://assets/source/meshy/home_yard_v3/replacement_provenance.json"],
+      "pass": "Every old non-Kenney visible asset has a replacement, rejection, or keep-review decision with validation result."
+    },
+    {
+      "id": "no_visible_placeholders",
+      "test_path": "res://tests/unit/test_home_yard_v3_no_visible_placeholders.gd",
+      "inputs": ["res://assets/gameplay/tracks/home_yard_v3/home_yard_v3_map.tscn", "res://docs/home_yard_v3_meshy_first_asset_manifest.json"],
+      "pass": "No final visible stage prop, wall dressing, window, door, furniture item, street detail, yard object, or route landmark is an uncovered Godot primitive."
+    },
+    {
+      "id": "route_collision_clearance",
+      "test_path": "res://tests/unit/test_home_yard_v3_route_collision_clearance.gd",
+      "inputs": ["res://assets/gameplay/tracks/home_yard_v3/modes/*_track_definition.tres", "res://assets/gameplay/tracks/home_yard_v3/home_yard_v3_map.tscn"],
+      "pass": "Route corridors stay inside zones, above floor/ground, clear of unplanned collision, and maintain configured lateral and vertical clearances."
+    },
+    {
+      "id": "runtime_route_aabb_swept_clearance",
+      "test_path": "res://tests/unit/test_home_yard_v3_runtime_route_aabb_swept_clearance.gd",
+      "inputs": ["res://assets/gameplay/tracks/home_yard_v3/modes/*_track_definition.tres", "res://assets/gameplay/tracks/home_yard_v3/home_yard_v3_map.tscn"],
+      "pass": "Every public course instantiates through the runtime builder and proves wall, furniture, prop, shell, and imported asset AABBs stay outside the route corridor, spawn grid, drift margin, and third-person chase-camera swept volume unless declared as intentional named hazards."
+    },
+    {
+      "id": "third_person_route_obstruction_screenshots",
+      "test_path": "res://tests/unit/test_home_yard_v3_third_person_route_obstruction_screenshots.gd",
+      "inputs": ["res://tools/capture/StageVisualDiffCapture.gd", "res://scripts/logic/HomeYardVisualGateContract.gd", "res://docs/validation/home_yard_v3/screenshot_reviews/*.md"],
+      "pass": "Each public course has start_grid, third_person_launch, first_turn_chase, camera_clearance, overhead_route, and route_sample screenshots with critical review scores proving the road, next turn, and chase camera are not blocked."
+    },
+    {
+      "id": "transparent_windows",
+      "test_path": "res://tests/unit/test_home_yard_v3_transparent_windows.gd",
+      "inputs": ["res://assets/gameplay/tracks/home_yard_v3/home_yard_v3_map.tscn"],
+      "pass": "Exterior windows use transparent or glass-readable materials and close-up cameras validate no opaque patches or void leaks."
+    },
+    {
+      "id": "scene_drift",
+      "test_path": "res://tests/unit/test_home_yard_v3_scene_drift.gd",
+      "inputs": ["res://scripts/tools/GenerateHomeYardV3Map.gd", "res://assets/gameplay/tracks/home_yard_v3/home_yard_v3_map.tscn"],
+      "pass": "Generated visible nodes are represented by generator metadata, mode metadata, area manifests, or replacement provenance."
+    },
+    {
+      "id": "performance_budget",
+      "test_path": "res://tests/unit/test_home_yard_v3_performance_budget.gd",
+      "inputs": ["res://assets/gameplay/tracks/home_yard_v3/home_yard_v3_map.tscn", "res://assets/source/meshy/home_yard_v3/*/asset_manifest.json"],
+      "pass": "Triangle, material, texture, and import-compression budgets stay inside the manifest target profile."
+    },
+    {
+      "id": "camera_screenshot_scores",
+      "test_path": "res://tests/unit/test_home_yard_v3_camera_screenshot_scores.gd",
+      "inputs": ["res://docs/validation/home_yard_v3/screenshot_reviews/*.md"],
+      "pass": "Every required camera has a critical designer score record and no category is below the production threshold."
+    },
+    {
+      "id": "import_recovery",
+      "test_path": "res://tests/unit/test_home_yard_v3_import_recovery_contract.gd",
+      "inputs": ["res://scripts/resolve-godot-editor-dialogs.ps1", "res://docs/home_yard_v3_meshy_first_asset_manifest.json"],
+      "pass": "The import recovery helper contract covers Reload from disk, Load Errors OK, editor readiness, camera list, and camera-current validation."
+    }
+  ]
+}

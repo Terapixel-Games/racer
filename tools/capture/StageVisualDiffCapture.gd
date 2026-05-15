@@ -4,6 +4,7 @@ extends SceneTree
 const TrackCatalog = preload("res://scripts/track/TrackCatalog.gd")
 const TrackRuntimeBuilder = preload("res://scripts/track/TrackRuntimeBuilder.gd")
 const TrackSceneAuthoringData = preload("res://scripts/track/TrackSceneAuthoringData.gd")
+const HomeYardVisualGateContract = preload("res://scripts/logic/HomeYardVisualGateContract.gd")
 
 const DEFAULT_OUTPUT_DIR := "res://tmp/visual_diffs/stages"
 const DEFAULT_WIDTH := 1600
@@ -12,6 +13,7 @@ const DEFAULT_TRACK_IDS := [
 	"attic",
 	"bedroom",
 	"glam_closet",
+	"kitchen",
 	"playroom",
 	"outdoor_playground",
 	"garden",
@@ -21,6 +23,7 @@ const INDOOR_TRACK_IDS := [
 	"attic",
 	"bedroom",
 	"glam_closet",
+	"kitchen",
 	"playroom",
 ]
 
@@ -107,8 +110,11 @@ func _camera_views(track_id: String, definition) -> Array[Dictionary]:
 	var size := bounds.size
 	var start := route[0] if not route.is_empty() else Vector3.ZERO
 	var second := route[1] if route.size() > 1 else start + Vector3.FORWARD
+	var third := route[2] if route.size() > 2 else second + (second - start)
 	var start_forward := _flat_forward(second - start)
+	var second_forward := _flat_forward(third - second)
 	var start_right := Vector3(start_forward.z, 0.0, -start_forward.x).normalized()
+	var second_right := Vector3(second_forward.z, 0.0, -second_forward.x).normalized()
 	var overhead_hidden: Array[String] = []
 	if INDOOR_TRACK_IDS.has(track_id):
 		overhead_hidden.append("Dressing/EditableRoom/RoomShell/Ceiling")
@@ -125,7 +131,21 @@ func _camera_views(track_id: String, definition) -> Array[Dictionary]:
 			"position": start - start_forward * 30.0 + start_right * 7.0 + Vector3.UP * 5.0,
 			"target": start + start_forward * 44.0 + Vector3.UP * 4.0,
 			"fov": 68.0,
-			"note": "Kart-height read for leaks, clutter, and first-ten-second route clarity.",
+			"note": "Low kart-height read for leaks, clutter, and first-ten-second route clarity.",
+		},
+		{
+			"id": "third_person_launch",
+			"position": start - start_forward * HomeYardVisualGateContract.CHASE_CAMERA_DISTANCE + Vector3.UP * HomeYardVisualGateContract.CHASE_CAMERA_HEIGHT,
+			"target": start + Vector3.UP * HomeYardVisualGateContract.CHASE_CAMERA_LOOK_HEIGHT,
+			"fov": 58.0,
+			"note": "Third-person chase-camera launch view; fails if props, walls, or shell pieces fill the central view or make the kart read as blocked.",
+		},
+		{
+			"id": "first_turn_chase",
+			"position": second - second_forward * HomeYardVisualGateContract.CHASE_CAMERA_DISTANCE + second_right * 0.75 + Vector3.UP * HomeYardVisualGateContract.CHASE_CAMERA_HEIGHT,
+			"target": second + Vector3.UP * HomeYardVisualGateContract.CHASE_CAMERA_LOOK_HEIGHT,
+			"fov": 58.0,
+			"note": "Third-person first-turn chase view; road, next turn, and exit lane must remain readable.",
 		},
 		{
 			"id": "overhead_route",
@@ -148,7 +168,7 @@ func _camera_views(track_id: String, definition) -> Array[Dictionary]:
 			"position": center - start_forward * 72.0 + Vector3.UP * 34.0,
 			"target": center + start_forward * 36.0 + Vector3.UP * 12.0,
 			"fov": 58.0,
-			"note": "Worst-case stage ceiling/landmark clearance from chase-camera height.",
+			"note": "Worst-case stage ceiling/landmark clearance from third-person chase-camera height.",
 		},
 		{
 			"id": "envelope_seams",
@@ -167,6 +187,9 @@ func _camera_views(track_id: String, definition) -> Array[Dictionary]:
 		views.append(view)
 	for view in _interaction_views(definition):
 		views.append(view)
+	for i in range(views.size()):
+		var view := views[i]
+		views[i] = _with_visual_gate_metadata(view)
 	return views
 
 func _route_sample_view(route: Array[Vector3], ratio: float) -> Dictionary:
@@ -186,8 +209,16 @@ func _route_sample_view(route: Array[Vector3], ratio: float) -> Dictionary:
 		"position": point - forward * 38.0 + right * 14.0 + Vector3.UP * 18.0,
 		"target": point + forward * 36.0 + Vector3.UP * 5.0,
 		"fov": 62.0,
-		"note": "Representative playable route sample at %d percent." % int(ratio * 100.0),
+		"note": "Representative third-person playable route sample at %d percent; route corridor and chase-camera view must stay clear." % int(ratio * 100.0),
 	}
+
+func _with_visual_gate_metadata(view: Dictionary) -> Dictionary:
+	var out := view.duplicate(true)
+	var view_id := str(out.get("id", "view"))
+	var gate_metadata := HomeYardVisualGateContract.gate_metadata(view_id)
+	for key in gate_metadata.keys():
+		out[key] = gate_metadata[key]
+	return out
 
 func _elevation_transition_views(route: Array[Vector3]) -> Array[Dictionary]:
 	var views: Array[Dictionary] = []

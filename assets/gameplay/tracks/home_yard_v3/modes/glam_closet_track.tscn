@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/track/TrackRuntimeScene.gd" id="1_lh8ds"]
+[ext_resource type="Resource" path="res://assets/gameplay/tracks/home_yard_v3/modes/glam_closet_track_definition.tres" id="2_dej02"]
+
+[node name="Glam ClosetHomeYardTrack" type="Node3D"]
+script = ExtResource("1_lh8ds")
+definition = ExtResource("2_dej02")

@@ -35,6 +35,7 @@ func _run() -> void:
 	print("[TestRunner] suite=%s files=%d tests=%d failures=%d" % [suite, scripts.size(), total_methods, total_failures])
 	_dispose_gdunit_runtime()
 	_unregister_project_autoloads()
+	await _drain_shutdown_cleanup()
 	quit(1 if total_failures > 0 else 0)
 
 func _suite_from_args() -> String:
@@ -234,6 +235,11 @@ func _free_node_now(node: Node) -> void:
 	if node.get_parent() != null:
 		node.get_parent().remove_child(node)
 	node.free()
+
+func _drain_shutdown_cleanup() -> void:
+	for i in range(3):
+		await process_frame
+		await physics_frame
 
 func _autoload_entries_from_project_file() -> Array[Dictionary]:
 	var entries: Array[Dictionary] = []

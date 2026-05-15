@@ -10,6 +10,16 @@ const TrackProgressRules = preload("res://scripts/track/TrackProgressRules.gd")
 const OUTDOOR_GRASS_SHADER := "res://assets/gameplay/materials/grass/playground_grass.gdshader"
 const OUTDOOR_GRASS_BLADE_SHADER := "res://assets/gameplay/materials/grass/playground_grass_blades.gdshader"
 const OUTDOOR_PLAYGROUND_FLOOR_TEXTURE := "res://assets/gameplay/materials/playground/outdoor_playground_floor_albedo.png"
+const HOME_YARD_PUBLIC_COURSE_IDS := [
+	"attic",
+	"bedroom",
+	"garden",
+	"glam_closet",
+	"kitchen",
+	"outdoor_playground",
+	"playroom",
+	"sandbox",
+]
 
 func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	var package := TrackCatalog.get_package("kitchen")
@@ -67,12 +77,29 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Site") != null, "Kitchen shared runtime should include the full site holder")
 		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/MainFloor") != null, "Kitchen shared runtime should include the main-floor holder")
 		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/Yard") != null, "Kitchen shared runtime should include the yard holder")
-		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/VerticalConnectors/MainToUpperToyRamp") != null, "Kitchen shared runtime should include toy-ramp vertical connectors")
+		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/VerticalConnectors/MainStairLowerFlightKenneySteps") != null, "Kitchen shared runtime should include sourced main stair vertical circulation")
+		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/VerticalConnectors/MainStairLowerLandingSurface") != null, "Kitchen shared runtime should include measured main stair lower landing continuity geometry")
+		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/VerticalConnectors/MainStairUpperLandingSurface") != null, "Kitchen shared runtime should include measured main stair upper landing continuity geometry")
+		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/VerticalConnectors/MainStairUpperFlightTread10") != null, "Kitchen shared runtime should include a continuous upper stair flight, not disconnected stair props")
+		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/MainFloor/RoomFinishes/MainFloorTenFootCeilingPlane/MainCeilingNorthOfStairShaft") != null, "Kitchen shared runtime should split the first-floor ceiling around the stairwell shaft")
+		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/MainFloor/RoomFinishes/MainFloorTenFootCeilingPlane/MainStairShaftReturnNorth") != null, "Kitchen shared runtime should add soffit returns around the ceiling-to-floor stairwell shaft")
+		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/UpperFloor/RoomFinishes/UpperFloorDeck/UpperFloorDeckUpperHallEast") == null, "Kitchen shared runtime should not keep an east-of-stair floor patch because that space is stair opening or garage volume")
+		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/UpperFloor/RoomFinishes/GlamDressing/GlamDressingBackFloor") != null, "Kitchen shared runtime should keep the glam route floor clear after moving the stairwell into the front hall")
+		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/UpperFloor/RoomFinishes/MainStairOpeningRailNorth") != null, "Kitchen shared runtime should include a guardrail around the stairwell opening")
+		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/VerticalConnectors/MainToUpperToyRamp") == null, "Kitchen shared runtime should not include the old blue placeholder toy-ramp connector")
+		assert_true(instance.get_node_or_null("BuiltTrack/FloorVisual") == null, "Kitchen shared runtime should not render a generic floor plane over the authored home floors")
+		assert_true(instance.get_node_or_null("BuiltTrack/GroundVisual") == null, "Kitchen shared runtime should not render a generic ground plane over the authored home floors")
+		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/MainFloor/KitchenRaceReadabilityKit/KitchenStartFinishLeftPost") == null, "Kitchen shared runtime should not include oversized start posts in the player opening view")
+		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/MainFloor/KitchenRaceReadabilityKit/KitchenFirstTurnBillboard") == null, "Kitchen shared runtime should not include a first-turn helper billboard wall")
+		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/MainFloor/KitchenRaceReadabilityKit/KitchenSinkIslandInfieldEdge") == null, "Kitchen shared runtime should not include an abstract sink-island readability block")
+		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/MainFloor/KitchenRaceReadabilityKit/KitchenStartFinishFloorBand") == null, "Kitchen shared runtime should not include a floor-band slab in the player opening view")
+		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/MainFloor/KitchenRaceReadabilityKit/KitchenStartFinishBanner") == null, "Kitchen shared runtime should not include a banner mesh in the player opening view")
 		assert_true(instance.get_node_or_null("BuiltTrack/Dressing/StageProps/kitchen_start_gate") != null, "Kitchen shared runtime should include metadata route landmarks")
 		assert_true(instance.get_node_or_null("BuiltTrack/StageInteractions/kitchen_boost_pad") != null, "Kitchen shared runtime should build the boost interaction")
 		assert_equal((definition.road_grid_layout.get("spawn_slots", []) as Array).size(), 8, "Kitchen definition should export authored home-yard spawn slots")
 		assert_true(_runtime_spawn_matches_socket(instance, "BuiltTrack/SpawnPoints/Start01", definition.spawn_points[0]), "Generated Start01 should match the first authored home-yard spawn")
 		assert_true(_runtime_spawn_matches_socket(instance, "BuiltTrack/SpawnPoints/Start08", definition.spawn_points[7]), "Generated Start08 should match the eighth authored home-yard spawn")
+		assert_true(_kitchen_player_camera_corridor_clear(instance, definition), "Kitchen start player camera corridor should stay clear of runtime route dressing")
 		instance.queue_free()
 		return
 	assert_true(instance.get_node_or_null("BuiltTrack/AudioZones/SinkSplashZone") != null, "Kitchen track should include authored audio zone markers")
@@ -87,6 +114,7 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom") != null, "Kitchen track should include the directly editable room scene")
 	assert_true(_node_scale(instance, "BuiltTrack/Dressing/EditableRoom/Track").is_equal_approx(Vector3(2.0, 2.0, 2.0)), "Kitchen dressing should be scaled around the fixed 16-wide toy track")
 	assert_true(instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoadGridMap") != null, "Editable room scene should expose the authored RoadGridMap")
+
 	var road_grid_map := instance.get_node_or_null("BuiltTrack/Dressing/EditableRoom/RoadGridMap")
 	assert_true(road_grid_map is Node3D and not (road_grid_map as Node3D).visible, "Runtime dressing should hide the authoring RoadGridMap so only generated GridRoad is visible")
 	assert_equal((road_grid_map.get("spawn_slots") as Array).size() if road_grid_map != null else -1, 0, "Editable room RoadGridMap should rely on route-start fallback spawns")
@@ -175,6 +203,90 @@ func test_kitchen_track_scene_loads_with_runtime_nodes() -> void:
 	assert_true(_spawn_grid_starts_at_route_origin(definition.spawn_points, definition.route_points), "Kitchen fallback start grid should align to ordered_route_cells[0]")
 	instance.queue_free()
 
+func test_playroom_runtime_start_corridor_is_readable() -> void:
+	var definition := TrackSceneAuthoringData.apply_to_definition(TrackCatalog.get_definition("playroom"))
+	assert_true(definition != null, "Playroom definition should load")
+	assert_equal(definition.track_source_id, "road_grid_map", "Playroom should resolve from RoadGridMap metadata")
+	assert_equal(definition.road_visual_style, "kenney_gridmap", "Playroom should use GridMap road visuals")
+	assert_true(definition.boundary_walls_enabled, "Playroom should use invisible boundary wall containment")
+	var built := TrackRuntimeBuilder.build(definition)
+	var track_node := built.get("node", null) as Node3D
+	scene_tree.root.add_child(track_node)
+	assert_true(track_node.get_node_or_null("GridRoad") is GridMap, "Runtime playroom should include visible GridRoad tiles")
+	assert_true(track_node.get_node_or_null("Dressing/EditableRoom/MainFloor") != null, "Runtime playroom should include the shared main-floor holder")
+	assert_true(track_node.get_node_or_null("Dressing/StageProps/playroom_start_gate") != null, "Runtime playroom should include shared route landmarks")
+	assert_true(_playroom_player_camera_corridor_clear(track_node, definition), "Playroom start player camera corridor should stay clear of route dressing")
+	track_node.queue_free()
+
+func test_home_yard_first_floor_runtime_hides_overhead_camera_blockers() -> void:
+	var blocker_paths: Array[String] = [
+		"Dressing/EditableRoom/MainFloor/RoomFinishes/MainFloorTenFootCeilingPlane",
+		"Dressing/EditableRoom/MainFloor/RoomFinishes/GarageTenFootCeilingPlane",
+		"Dressing/EditableRoom/UpperFloor/RoomFinishes/UpperFloorDeck",
+		"Dressing/EditableRoom/UpperFloor/RoomFinishes/BedroomSuite",
+		"Dressing/EditableRoom/UpperFloor/RoomFinishes/GlamDressing",
+		"Dressing/EditableRoom/UpperFloor/RoomFinishes/UpperFloorTenFootCeilingPlane",
+		"Dressing/EditableRoom/Attic/RoomFinishes/AtticDeck",
+		"Dressing/EditableRoom/Attic/RoomFinishes/AtticStorageZone",
+	]
+	for track_id in ["kitchen", "playroom"]:
+		var definition := TrackSceneAuthoringData.apply_to_definition(TrackCatalog.get_definition(track_id))
+		assert_true(definition != null, "%s definition should load" % track_id)
+		var built := TrackRuntimeBuilder.build(definition)
+		var track_node := built.get("node", null) as Node3D
+		scene_tree.root.add_child(track_node)
+		var concept_reference := track_node.get_node_or_null("Dressing/EditableRoom/ConceptReference") as Node3D
+		assert_true(concept_reference != null and not concept_reference.visible and not concept_reference.is_visible_in_tree(), "%s should hide authoring scale references during runtime races" % track_id)
+		for path in blocker_paths:
+			var blocker := track_node.get_node_or_null(NodePath(path)) as Node3D
+			assert_true(blocker != null, "%s should include authored overhead slab %s so runtime can explicitly cull it" % [track_id, path])
+			if blocker != null:
+				assert_true(not blocker.visible and not blocker.is_visible_in_tree(), "%s should hide %s so third-person cameras cannot be blocked by an inactive floor or ceiling slab" % [track_id, path])
+				assert_equal(str(blocker.get_meta("active_floor_hidden_for_mode", "")), track_id, "%s should record why %s was hidden" % [track_id, path])
+		track_node.queue_free()
+
+func test_bedroom_runtime_start_corridor_is_readable() -> void:
+	var definition := TrackSceneAuthoringData.apply_to_definition(TrackCatalog.get_definition("bedroom"))
+	assert_true(definition != null, "Bedroom definition should load")
+	assert_equal(definition.track_source_id, "road_grid_map", "Bedroom should resolve from RoadGridMap metadata")
+	assert_equal(definition.road_visual_style, "kenney_gridmap", "Bedroom should use GridMap road visuals")
+	assert_true(definition.boundary_walls_enabled, "Bedroom should use invisible boundary wall containment")
+	var built := TrackRuntimeBuilder.build(definition)
+	var track_node := built.get("node", null) as Node3D
+	scene_tree.root.add_child(track_node)
+	assert_true(track_node.get_node_or_null("GridRoad") is GridMap, "Runtime bedroom should include visible GridRoad tiles")
+	assert_true(track_node.get_node_or_null("Dressing/EditableRoom/UpperFloor") != null, "Runtime bedroom should include the shared upper-floor holder")
+	assert_true(track_node.get_node_or_null("Dressing/StageProps/bedroom_start_gate") != null, "Runtime bedroom should include shared route landmarks")
+	assert_true(_bedroom_player_camera_corridor_clear(track_node, definition), "Bedroom start player camera corridor should stay clear of route dressing")
+	track_node.queue_free()
+
+func test_glam_closet_runtime_start_corridor_is_readable() -> void:
+	var definition := TrackSceneAuthoringData.apply_to_definition(TrackCatalog.get_definition("glam_closet"))
+	assert_true(definition != null, "Glam closet definition should load")
+	assert_equal(definition.track_source_id, "road_grid_map", "Glam closet should resolve from RoadGridMap metadata")
+	assert_equal(definition.road_visual_style, "kenney_gridmap", "Glam closet should use GridMap road visuals")
+	assert_true(definition.boundary_walls_enabled, "Glam closet should use invisible boundary wall containment")
+	var built := TrackRuntimeBuilder.build(definition)
+	var track_node := built.get("node", null) as Node3D
+	scene_tree.root.add_child(track_node)
+	assert_true(track_node.get_node_or_null("GridRoad") is GridMap, "Runtime glam closet should include visible GridRoad tiles")
+	assert_true(track_node.get_node_or_null("Dressing/EditableRoom/UpperFloor") != null, "Runtime glam closet should include the shared upper-floor holder")
+	assert_true(track_node.get_node_or_null("Dressing/StageProps/glam_closet_start_gate") != null, "Runtime glam closet should include shared route landmarks")
+	assert_true(_glam_closet_player_camera_corridor_clear(track_node, definition), "Glam closet start player camera corridor should stay clear of route dressing")
+	track_node.queue_free()
+
+func test_home_yard_visual_stage_props_do_not_collide_with_racers() -> void:
+	for track_id in HOME_YARD_PUBLIC_COURSE_IDS:
+		var definition := TrackSceneAuthoringData.apply_to_definition(TrackCatalog.get_definition(track_id))
+		assert_true(definition != null, "%s definition should load" % track_id)
+		var built := TrackRuntimeBuilder.build(definition)
+		var track_node := built.get("node", null) as Node3D
+		scene_tree.root.add_child(track_node)
+		var stage_props := track_node.get_node_or_null("Dressing/StageProps")
+		assert_true(stage_props != null, "%s runtime should include stage props for route identity" % track_id)
+		assert_equal(_enabled_collision_objects(stage_props), 0, "%s visual stage props should not collide with racers or occlude the chase camera" % track_id)
+		track_node.queue_free()
+
 func test_kitchen_road_gridmap_route_metadata_matches_painted_track() -> void:
 	var public_definition := TrackCatalog.get_definition("kitchen")
 	if str(public_definition.get_meta("track_map_id", "")).begins_with("home_yard"):
@@ -222,10 +334,11 @@ func test_outdoor_playground_runtime_uses_shared_backyard_gridmap_shell() -> voi
 		assert_true(shared_track.get_node_or_null("BoundaryWalls") != null, "Outdoor Playground should build invisible boundary walls")
 		assert_true(shared_track.get_node_or_null("Dressing/EditableRoom/Yard") != null, "Outdoor Playground should instance the shared home-yard scene")
 		assert_true(shared_track.get_node_or_null("Dressing/StageProps/outdoor_playground_start_gate") != null, "Outdoor Playground should include the shared start-gate landmark")
+		assert_true(_outdoor_playground_player_camera_corridor_clear(shared_track, definition), "Outdoor Playground start player camera corridor should stay clear of route dressing")
 		assert_true(shared_track.get_node_or_null("StageInteractions/outdoor_playground_boost_pad") != null, "Outdoor Playground should build the shared boost interaction")
 		assert_true(shared_track.get_node_or_null("StageInteractions/outdoor_playground_rumble_zone") != null, "Outdoor Playground should build the shared rumble interaction")
-		assert_equal(_mesh_shader_path(shared_track, "FloorVisual"), OUTDOOR_GRASS_SHADER, "Outdoor Playground generated floor should use the grass shader")
-		assert_equal(_shader_texture_path(shared_track, "FloorVisual", "floor_texture"), OUTDOOR_PLAYGROUND_FLOOR_TEXTURE, "Outdoor Playground generated floor should use the authored floor texture")
+		assert_true(shared_track.get_node_or_null("FloorVisual") == null, "Outdoor Playground shared runtime should not render a generic floor plane over the authored yard")
+		assert_true(shared_track.get_node_or_null("GroundVisual") == null, "Outdoor Playground shared runtime should not render a generic ground plane over the authored yard")
 		shared_track.queue_free()
 		return
 	assert_true(_has_stage_interaction(definition, "SlideDropBoostZone"), "Outdoor Playground should export the slide boost interaction")
@@ -259,6 +372,52 @@ func test_outdoor_playground_runtime_uses_shared_backyard_gridmap_shell() -> voi
 	assert_true(_first_multimesh_instance_y(track_node, "PlaygroundGrassBlades") > -INF, "Outdoor Playground grass blades should expose sampled instance positions")
 	assert_true(_multimesh_instances_inside_grass_zones(track_node, "PlaygroundGrassBlades", definition.grass_zones, 300), "Outdoor Playground grass blades should be scattered inside authored grass zones")
 	track_node.queue_free()
+
+func test_garden_runtime_start_corridor_is_readable() -> void:
+	var definition := TrackSceneAuthoringData.apply_to_definition(TrackCatalog.get_definition("garden"))
+	assert_true(definition != null, "Garden definition should load")
+	assert_equal(definition.track_source_id, "road_grid_map", "Garden should resolve from RoadGridMap metadata")
+	assert_equal(definition.road_visual_style, "kenney_gridmap", "Garden should use GridMap road visuals")
+	assert_true(definition.boundary_walls_enabled, "Garden should use invisible boundary wall containment")
+	if str(definition.get_meta("track_map_id", "")).begins_with("home_yard"):
+		assert_true(_has_stage_interaction(definition, "garden_boost_pad"), "Garden should export the shared boost interaction")
+		assert_true(_has_stage_interaction(definition, "garden_rumble_zone"), "Garden should export the shared rumble interaction")
+		var built_shared := TrackRuntimeBuilder.build(definition)
+		var shared_track := built_shared.get("node", null) as Node3D
+		scene_tree.root.add_child(shared_track)
+		assert_true(shared_track.get_node_or_null("GridRoad") is GridMap, "Garden should build visible GridRoad tiles")
+		assert_true(shared_track.get_node_or_null("BoundaryWalls") != null, "Garden should build invisible boundary walls")
+		assert_true(shared_track.get_node_or_null("Dressing/EditableRoom/Yard") != null, "Garden should instance the shared home-yard scene")
+		assert_true(shared_track.get_node_or_null("Dressing/StageProps/garden_start_gate") != null, "Garden should include the shared start-gate landmark")
+		assert_true(_garden_player_camera_corridor_clear(shared_track, definition), "Garden start player camera corridor should stay clear of route dressing")
+		assert_true(shared_track.get_node_or_null("StageInteractions/garden_boost_pad") != null, "Garden should build the shared boost interaction")
+		assert_true(shared_track.get_node_or_null("StageInteractions/garden_rumble_zone") != null, "Garden should build the shared rumble interaction")
+		shared_track.queue_free()
+		return
+	assert_true(false, "Garden should currently resolve through the shared home-yard map")
+
+func test_sandbox_runtime_start_corridor_is_readable() -> void:
+	var definition := TrackSceneAuthoringData.apply_to_definition(TrackCatalog.get_definition("sandbox"))
+	assert_true(definition != null, "Sandbox definition should load")
+	assert_equal(definition.track_source_id, "road_grid_map", "Sandbox should resolve from RoadGridMap metadata")
+	assert_equal(definition.road_visual_style, "kenney_gridmap", "Sandbox should use GridMap road visuals")
+	assert_true(definition.boundary_walls_enabled, "Sandbox should use invisible boundary wall containment")
+	if str(definition.get_meta("track_map_id", "")).begins_with("home_yard"):
+		assert_true(_has_stage_interaction(definition, "sandbox_boost_pad"), "Sandbox should export the shared boost interaction")
+		assert_true(_has_stage_interaction(definition, "sandbox_rumble_zone"), "Sandbox should export the shared rumble interaction")
+		var built_shared := TrackRuntimeBuilder.build(definition)
+		var shared_track := built_shared.get("node", null) as Node3D
+		scene_tree.root.add_child(shared_track)
+		assert_true(shared_track.get_node_or_null("GridRoad") is GridMap, "Sandbox should build visible GridRoad tiles")
+		assert_true(shared_track.get_node_or_null("BoundaryWalls") != null, "Sandbox should build invisible boundary walls")
+		assert_true(shared_track.get_node_or_null("Dressing/EditableRoom/Yard") != null, "Sandbox should instance the shared home-yard scene")
+		assert_true(shared_track.get_node_or_null("Dressing/StageProps/sandbox_start_gate") != null, "Sandbox should include the shared start-gate landmark")
+		assert_true(_sandbox_player_camera_corridor_clear(shared_track, definition), "Sandbox start player camera corridor should stay clear of route dressing")
+		assert_true(shared_track.get_node_or_null("StageInteractions/sandbox_boost_pad") != null, "Sandbox should build the shared boost interaction")
+		assert_true(shared_track.get_node_or_null("StageInteractions/sandbox_rumble_zone") != null, "Sandbox should build the shared rumble interaction")
+		shared_track.queue_free()
+		return
+	assert_true(false, "Sandbox should currently resolve through the shared home-yard map")
 
 func test_attic_mayhem_authoring_scene_contains_gridmap_mvp_assets() -> void:
 	assert_true(FileAccess.file_exists("res://assets/gameplay/tracks/attic/reference/attic_mayhem_reference.png"), "Attic Mayhem reference image should be copied into the repo")
@@ -441,12 +600,17 @@ func test_attic_mayhem_runtime_builds_redesigned_room() -> void:
 		assert_true(shared_track.get_node_or_null("GridRoad") is GridMap, "Runtime attic should include visible GridRoad tiles")
 		assert_true(shared_track.get_node_or_null("BoundaryWalls") != null, "Runtime attic should include invisible boundary walls")
 		assert_true(shared_track.get_node_or_null("Dressing/EditableRoom/Attic") != null, "Runtime attic should include the shared attic holder")
-		assert_true(shared_track.get_node_or_null("Dressing/EditableRoom/VerticalConnectors/UpperToAtticToyRamp") != null, "Runtime attic should include the toy ramp connector")
+		assert_true(shared_track.get_node_or_null("Dressing/EditableRoom/VerticalConnectors/AtticPullDownStairKenneySteps") != null, "Runtime attic should include sourced attic stair vertical circulation")
+		assert_true(shared_track.get_node_or_null("Dressing/EditableRoom/VerticalConnectors/AtticPullDownLowerLandingSurface") != null, "Runtime attic should include measured lower landing continuity geometry")
+		assert_true(shared_track.get_node_or_null("Dressing/EditableRoom/VerticalConnectors/AtticPullDownUpperLandingSurface") != null, "Runtime attic should include measured attic hatch landing continuity geometry")
+		assert_true(shared_track.get_node_or_null("Dressing/EditableRoom/VerticalConnectors/AtticPullDownLadderRung11") != null, "Runtime attic should include ladder rungs spanning to the attic, not disconnected stair props")
+		assert_true(shared_track.get_node_or_null("Dressing/EditableRoom/VerticalConnectors/UpperToAtticToyRamp") == null, "Runtime attic should not include the old red placeholder toy-ramp connector")
 		assert_true(shared_track.get_node_or_null("Dressing/StageProps/attic_start_gate") != null, "Runtime attic should include shared route landmarks")
 		assert_true(shared_track.get_node_or_null("StageInteractions/attic_boost_pad") != null, "Runtime attic should build the shared boost interaction")
 		assert_true(shared_track.get_node_or_null("StageInteractions/attic_rumble_zone") != null, "Runtime attic should build the shared rumble interaction")
 		assert_equal((built_shared.get("waypoints", []) as Array).size(), definition.route_points.size(), "Runtime attic should keep every resolved RoadGridMap waypoint")
 		assert_true((built_shared.get("spawns", []) as Array).size() >= 8, "Runtime attic should keep a full start grid")
+		assert_true(_attic_player_camera_corridor_clear(shared_track, definition), "Attic start player camera corridor should stay clear of route dressing under the gambrel roof")
 		shared_track.queue_free()
 		return
 	assert_true(_has_stage_interaction(definition, "PrankTriggerZone"), "Attic definition should export the prank trigger interaction")
@@ -491,6 +655,7 @@ func test_car_can_be_placed_on_kitchen_start_grid() -> void:
 		if spawn is Transform3D:
 			var distance := _distance_to_route_xz((spawn as Transform3D).origin, route_points, definition.closed_loop)
 			assert_true(distance <= definition.road_width * 0.5 + 0.1, "Kitchen start grid should place every spawn on the road")
+	assert_true(_spawn_forward_aligns_with_route((spawns[0] as Transform3D), route_points[0], route_points[1]), "Kitchen lead spawn should face down the authored first straight")
 	var car_scene := load("res://scenes/Car.tscn")
 	assert_true(car_scene is PackedScene, "Car scene should load")
 	var car := (car_scene as PackedScene).instantiate() as Node3D
@@ -532,6 +697,252 @@ func _distance_to_route_xz(point: Vector3, route_points: Array[Vector3], closed_
 	for i in range(segment_count):
 		best = minf(best, _distance_to_segment_xz(point, route_points[i], route_points[(i + 1) % route_points.size()]))
 	return best
+
+func _spawn_forward_aligns_with_route(spawn: Transform3D, route_start: Vector3, route_next: Vector3) -> bool:
+	var forward := (-spawn.basis.z).normalized()
+	var tangent := (route_next - route_start).normalized()
+	return forward.dot(tangent) >= 0.9
+
+func _kitchen_player_camera_corridor_clear(root: Node, definition) -> bool:
+	var camera := root.get_node_or_null("BuiltTrack/Dressing/EditableRoom/ValidationCameras/KitchenStartPlayerCamera") as Camera3D
+	if camera == null or definition == null:
+		return false
+	var route_points: Array[Vector3] = definition.route_points
+	if route_points.size() < 3:
+		return false
+	var corridor_start := camera.global_transform.origin
+	if _distance_to_route_xz(corridor_start, route_points, bool(definition.closed_loop)) > 36.0:
+		return false
+	var camera_forward := (-camera.global_transform.basis.z).normalized()
+	var first_straight := (route_points[2] - route_points[0]).normalized()
+	if camera_forward.dot(first_straight) < 0.85:
+		return false
+	var corridor_end := route_points[2] + Vector3.UP * 1.0
+	var blocking_paths: Array[NodePath] = [
+		NodePath("BuiltTrack/Dressing/StageProps/kitchen_start_gate"),
+		NodePath("BuiltTrack/Dressing/StageProps/kitchen_finish_language_panel"),
+		NodePath("BuiltTrack/Dressing/StageProps/kitchen_landmark_box"),
+		NodePath("BuiltTrack/Dressing/StageProps/kitchen_route_arrow_left"),
+		NodePath("BuiltTrack/Dressing/EditableRoom/MainFloor/KitchenRaceReadabilityKit/KitchenStartFinishFloorBand"),
+		NodePath("BuiltTrack/Dressing/EditableRoom/MainFloor/KitchenRaceReadabilityKit/KitchenStartFinishBanner"),
+	]
+	for path in blocking_paths:
+		var bounds := _node_global_mesh_aabb(root, path)
+		if bounds.size != Vector3.ZERO and _aabb_blocks_view_corridor(bounds, corridor_start, corridor_end, 4.0, 3.0):
+			return false
+	return true
+
+func _attic_player_camera_corridor_clear(root: Node, definition) -> bool:
+	var camera := root.get_node_or_null("Dressing/EditableRoom/ValidationCameras/AtticStartPlayerCamera") as Camera3D
+	if camera == null or definition == null:
+		return false
+	var route_points: Array[Vector3] = definition.route_points
+	if route_points.size() < 3:
+		return false
+	var corridor_start := camera.global_transform.origin
+	if _distance_to_route_xz(corridor_start, route_points, bool(definition.closed_loop)) > 36.0:
+		return false
+	var camera_forward := (-camera.global_transform.basis.z).normalized()
+	var first_straight := (route_points[2] - route_points[0]).normalized()
+	if camera_forward.dot(first_straight) < 0.85:
+		return false
+	var corridor_end := route_points[2] + Vector3.UP * 1.0
+	var blocking_paths: Array[NodePath] = [
+		NodePath("Dressing/StageProps/attic_start_gate"),
+		NodePath("Dressing/StageProps/attic_finish_language_panel"),
+		NodePath("Dressing/StageProps/attic_landmark_box"),
+		NodePath("Dressing/StageProps/attic_route_arrow_left"),
+		NodePath("Dressing/StageProps/attic_route_arrow_right"),
+	]
+	for path in blocking_paths:
+		var bounds := _node_global_mesh_aabb(root, path)
+		if bounds.size != Vector3.ZERO and _aabb_blocks_view_corridor(bounds, corridor_start, corridor_end, 4.0, 3.0):
+			return false
+	return true
+
+func _playroom_player_camera_corridor_clear(root: Node, definition) -> bool:
+	var camera := root.get_node_or_null("Dressing/EditableRoom/ValidationCameras/PlayroomStartPlayerCamera") as Camera3D
+	if camera == null or definition == null:
+		return false
+	var route_points: Array[Vector3] = definition.route_points
+	if route_points.size() < 3:
+		return false
+	var corridor_start := camera.global_transform.origin
+	if _distance_to_route_xz(corridor_start, route_points, bool(definition.closed_loop)) > 36.0:
+		return false
+	var camera_forward := (-camera.global_transform.basis.z).normalized()
+	var first_straight := (route_points[2] - route_points[0]).normalized()
+	if camera_forward.dot(first_straight) < 0.85:
+		return false
+	var corridor_end := route_points[2] + Vector3.UP * 1.0
+	var blocking_paths: Array[NodePath] = [
+		NodePath("Dressing/StageProps/playroom_start_gate"),
+		NodePath("Dressing/StageProps/playroom_finish_language_panel"),
+		NodePath("Dressing/StageProps/playroom_landmark_box"),
+		NodePath("Dressing/StageProps/playroom_route_arrow_left"),
+		NodePath("Dressing/StageProps/playroom_route_arrow_right"),
+	]
+	for path in blocking_paths:
+		var bounds := _node_global_mesh_aabb(root, path)
+		if bounds.size != Vector3.ZERO and _aabb_blocks_view_corridor(bounds, corridor_start, corridor_end, 4.0, 3.0):
+			return false
+	return true
+
+func _outdoor_playground_player_camera_corridor_clear(root: Node, definition) -> bool:
+	var camera := root.get_node_or_null("Dressing/EditableRoom/ValidationCameras/OutdoorPlaygroundStartPlayerCamera") as Camera3D
+	if camera == null or definition == null:
+		return false
+	var route_points: Array[Vector3] = definition.route_points
+	if route_points.size() < 3:
+		return false
+	var corridor_start := camera.global_transform.origin
+	if _distance_to_route_xz(corridor_start, route_points, bool(definition.closed_loop)) > 36.0:
+		return false
+	var camera_forward := (-camera.global_transform.basis.z).normalized()
+	var first_straight := (route_points[2] - route_points[0]).normalized()
+	if camera_forward.dot(first_straight) < 0.85:
+		return false
+	var corridor_end := route_points[2] + Vector3.UP * 1.0
+	var blocking_paths: Array[NodePath] = [
+		NodePath("Dressing/StageProps/outdoor_playground_start_gate"),
+		NodePath("Dressing/StageProps/outdoor_playground_finish_language_panel"),
+		NodePath("Dressing/StageProps/outdoor_playground_landmark_box"),
+		NodePath("Dressing/StageProps/outdoor_playground_route_arrow_left"),
+		NodePath("Dressing/StageProps/outdoor_playground_route_arrow_right"),
+	]
+	for path in blocking_paths:
+		var bounds := _node_global_mesh_aabb(root, path)
+		if bounds.size != Vector3.ZERO and _aabb_blocks_view_corridor(bounds, corridor_start, corridor_end, 4.0, 3.0):
+			return false
+	return true
+
+func _garden_player_camera_corridor_clear(root: Node, definition) -> bool:
+	var camera := root.get_node_or_null("Dressing/EditableRoom/ValidationCameras/GardenStartPlayerCamera") as Camera3D
+	if camera == null or definition == null:
+		return false
+	var route_points: Array[Vector3] = definition.route_points
+	if route_points.size() < 3:
+		return false
+	var corridor_start := camera.global_transform.origin
+	if _distance_to_route_xz(corridor_start, route_points, bool(definition.closed_loop)) > 36.0:
+		return false
+	var camera_forward := (-camera.global_transform.basis.z).normalized()
+	var first_straight := (route_points[2] - route_points[0]).normalized()
+	if camera_forward.dot(first_straight) < 0.85:
+		return false
+	var corridor_end := route_points[2] + Vector3.UP * 1.0
+	var blocking_paths: Array[NodePath] = [
+		NodePath("Dressing/StageProps/garden_start_gate"),
+		NodePath("Dressing/StageProps/garden_finish_language_panel"),
+		NodePath("Dressing/StageProps/garden_landmark_box"),
+		NodePath("Dressing/StageProps/garden_route_arrow_left"),
+		NodePath("Dressing/StageProps/garden_route_arrow_right"),
+	]
+	for path in blocking_paths:
+		var bounds := _node_global_mesh_aabb(root, path)
+		if bounds.size != Vector3.ZERO and _aabb_blocks_view_corridor(bounds, corridor_start, corridor_end, 4.0, 3.0):
+			return false
+	return true
+
+func _sandbox_player_camera_corridor_clear(root: Node, definition) -> bool:
+	var camera := root.get_node_or_null("Dressing/EditableRoom/ValidationCameras/SandboxStartPlayerCamera") as Camera3D
+	if camera == null or definition == null:
+		return false
+	var route_points: Array[Vector3] = definition.route_points
+	if route_points.size() < 3:
+		return false
+	var corridor_start := camera.global_transform.origin
+	if _distance_to_route_xz(corridor_start, route_points, bool(definition.closed_loop)) > 36.0:
+		return false
+	var camera_forward := (-camera.global_transform.basis.z).normalized()
+	var first_straight := (route_points[2] - route_points[0]).normalized()
+	if camera_forward.dot(first_straight) < 0.85:
+		return false
+	var corridor_end := route_points[2] + Vector3.UP * 1.0
+	var blocking_paths: Array[NodePath] = [
+		NodePath("Dressing/StageProps/sandbox_start_gate"),
+		NodePath("Dressing/StageProps/sandbox_finish_language_panel"),
+		NodePath("Dressing/StageProps/sandbox_landmark_box"),
+		NodePath("Dressing/StageProps/sandbox_route_arrow_left"),
+		NodePath("Dressing/StageProps/sandbox_route_arrow_right"),
+	]
+	for path in blocking_paths:
+		var bounds := _node_global_mesh_aabb(root, path)
+		if bounds.size != Vector3.ZERO and _aabb_blocks_view_corridor(bounds, corridor_start, corridor_end, 4.0, 3.0):
+			return false
+	return true
+
+func _bedroom_player_camera_corridor_clear(root: Node, definition) -> bool:
+	var camera := root.get_node_or_null("Dressing/EditableRoom/ValidationCameras/BedroomStartPlayerCamera") as Camera3D
+	if camera == null or definition == null:
+		return false
+	var route_points: Array[Vector3] = definition.route_points
+	if route_points.size() < 3:
+		return false
+	var corridor_start := camera.global_transform.origin
+	if _distance_to_route_xz(corridor_start, route_points, bool(definition.closed_loop)) > 36.0:
+		return false
+	var camera_forward := (-camera.global_transform.basis.z).normalized()
+	var first_straight := (route_points[2] - route_points[0]).normalized()
+	if camera_forward.dot(first_straight) < 0.85:
+		return false
+	var corridor_end := route_points[2] + Vector3.UP * 1.0
+	var blocking_paths: Array[NodePath] = [
+		NodePath("Dressing/StageProps/bedroom_start_gate"),
+		NodePath("Dressing/StageProps/bedroom_finish_language_panel"),
+		NodePath("Dressing/StageProps/bedroom_landmark_box"),
+		NodePath("Dressing/StageProps/bedroom_route_arrow_left"),
+		NodePath("Dressing/StageProps/bedroom_route_arrow_right"),
+	]
+	for path in blocking_paths:
+		var bounds := _node_global_mesh_aabb(root, path)
+		if bounds.size != Vector3.ZERO and _aabb_blocks_view_corridor(bounds, corridor_start, corridor_end, 4.0, 3.0):
+			return false
+	return true
+
+func _glam_closet_player_camera_corridor_clear(root: Node, definition) -> bool:
+	var camera := root.get_node_or_null("Dressing/EditableRoom/ValidationCameras/GlamClosetStartPlayerCamera") as Camera3D
+	if camera == null or definition == null:
+		return false
+	var route_points: Array[Vector3] = definition.route_points
+	if route_points.size() < 3:
+		return false
+	var corridor_start := camera.global_transform.origin
+	if _distance_to_route_xz(corridor_start, route_points, bool(definition.closed_loop)) > 36.0:
+		return false
+	var camera_forward := (-camera.global_transform.basis.z).normalized()
+	var first_straight := (route_points[2] - route_points[0]).normalized()
+	if camera_forward.dot(first_straight) < 0.85:
+		return false
+	var corridor_end := route_points[2] + Vector3.UP * 1.0
+	var blocking_paths: Array[NodePath] = [
+		NodePath("Dressing/StageProps/glam_closet_start_gate"),
+		NodePath("Dressing/StageProps/glam_closet_finish_language_panel"),
+		NodePath("Dressing/StageProps/glam_closet_landmark_box"),
+		NodePath("Dressing/StageProps/glam_closet_route_arrow_left"),
+		NodePath("Dressing/StageProps/glam_closet_route_arrow_right"),
+	]
+	for path in blocking_paths:
+		var bounds := _node_global_mesh_aabb(root, path)
+		if bounds.size != Vector3.ZERO and _aabb_blocks_view_corridor(bounds, corridor_start, corridor_end, 4.0, 3.0):
+			return false
+	return true
+
+func _aabb_blocks_view_corridor(bounds: AABB, start: Vector3, end: Vector3, lateral_clearance: float, vertical_clearance: float) -> bool:
+	var segment := end - start
+	var segment_length_squared := segment.length_squared()
+	if segment_length_squared <= 0.001:
+		return false
+	var center := bounds.position + bounds.size * 0.5
+	var t := clampf((center - start).dot(segment) / segment_length_squared, 0.0, 1.0)
+	if t <= 0.05 or t >= 0.95:
+		return false
+	var closest := start + segment * t
+	var lateral := Vector2(center.x - closest.x, center.z - closest.z).length()
+	var vertical := absf(center.y - closest.y)
+	var half_width := maxf(bounds.size.x, bounds.size.z) * 0.5
+	var half_height := bounds.size.y * 0.5
+	return lateral <= lateral_clearance + half_width and vertical <= vertical_clearance + half_height
 
 func _distance_to_segment_xz(point: Vector3, a3: Vector3, b3: Vector3) -> float:
 	var point_2d := Vector2(point.x, point.z)

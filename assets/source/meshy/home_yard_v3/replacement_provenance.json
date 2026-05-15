@@ -1,0 +1,102 @@
+{
+  "schema_version": "home_yard_v3_replacement_provenance_v1",
+  "map_id": "home_yard_v3",
+  "default_policy": "Existing non-Kenney visible assets are replacement candidates by default. Kenney assets may remain only after keep-review validation.",
+  "mappings": [
+    {
+      "old_asset_path": "res://assets/source/kenney/furniture_kit/bear.glb",
+      "old_origin": "kenney_keep_review_candidate",
+      "replacement_asset_path": "res://assets/source/meshy/home_yard_v3/playroom/low_poly_playroom_plush_landmark/low_poly_playroom_plush_landmark.glb",
+      "replacement_origin": "meshy_6_preview",
+      "replacement_reason": "Kenney bear remains acceptable only after strict keep-review; Meshy plush landmark is staged to improve playroom arena identity.",
+      "decision_state": "imported_generator_integrated_pending_visual_validation",
+      "validation_result": "Headless Godot import created valid GLB import metadata; generator now instantiates the Meshy plush landmark in home_yard_v3. Route clearance, screenshot review, and production acceptance remain pending."
+    },
+    {
+      "old_asset_path": "res://assets/gameplay/tracks/shared/backyard_optimized/playground_structure_low.glb",
+      "old_origin": "optimized_existing",
+      "replacement_asset_path": "res://assets/source/meshy/home_yard_v3/outdoor_playground/low_poly_backyard_playground_structure/low_poly_backyard_playground_structure.glb",
+      "replacement_origin": "meshy_planned",
+      "replacement_reason": "Non-Kenney visible playground landmark should be regenerated for current Meshy-first production gate.",
+      "decision_state": "planned",
+      "validation_result": "pending"
+    },
+    {
+      "old_asset_path": "res://assets/gameplay/tracks/shared/backyard_optimized/swing_set_low.glb",
+      "old_origin": "optimized_existing",
+      "replacement_asset_path": "res://assets/source/meshy/home_yard_v3/outdoor_playground/low_poly_backyard_swing_set/low_poly_backyard_swing_set.glb",
+      "replacement_origin": "meshy_planned",
+      "replacement_reason": "Non-Kenney swing landmark needs current game-ready review and likely replacement.",
+      "decision_state": "planned",
+      "validation_result": "pending"
+    },
+    {
+      "old_asset_path": "res://assets/gameplay/tracks/shared/backyard_optimized/sandbox_fossil_low.glb",
+      "old_origin": "optimized_existing",
+      "replacement_asset_path": "res://assets/source/meshy/home_yard_v3/sandbox/low_poly_sandbox_dinosaur_fossil/low_poly_sandbox_dinosaur_fossil.glb",
+      "replacement_origin": "meshy_planned",
+      "replacement_reason": "Sandbox fossil is visible course identity and should meet the new production art bar.",
+      "decision_state": "planned",
+      "validation_result": "pending"
+    },
+    {
+      "old_asset_path": "res://assets/gameplay/tracks/shared/backyard_optimized/garden_log_bush_low.glb",
+      "old_origin": "optimized_existing",
+      "replacement_asset_path": "res://assets/source/meshy/home_yard_v3/garden/low_poly_garden_log_bush_cluster/low_poly_garden_log_bush_cluster.glb",
+      "replacement_origin": "meshy_planned",
+      "replacement_reason": "Garden cluster needs route-readable silhouette and current provenance.",
+      "decision_state": "planned",
+      "validation_result": "pending"
+    },
+    {
+      "old_asset_path": "res://assets/gameplay/tracks/home_yard/props/toybox_tree_swing/stylized_realistic_tree_tire_swing.glb",
+      "old_origin": "toybox",
+      "replacement_asset_path": "res://assets/source/meshy/home_yard_v3/backyard/low_poly_backyard_tree_tire_swing/low_poly_backyard_tree_tire_swing.glb",
+      "replacement_origin": "meshy_planned",
+      "replacement_reason": "Toybox remains fallback while Meshy credits are available.",
+      "decision_state": "planned",
+      "validation_result": "pending"
+    },
+    {
+      "old_asset_path": "res://assets/gameplay/tracks/attic/props/old_chest.glb",
+      "old_origin": "custom",
+      "replacement_asset_path": "res://assets/source/meshy/home_yard_v3/attic/low_poly_dusty_attic_trunk/low_poly_dusty_attic_trunk.glb",
+      "replacement_origin": "meshy_6_preview",
+      "replacement_reason": "Custom visible attic trunk should be replaced with prompt-recorded Meshy source unless strict review passes.",
+      "decision_state": "imported_generator_integrated_pending_visual_validation",
+      "validation_result": "Headless Godot import created valid GLB import metadata; generator now instantiates the Meshy trunk in home_yard_v3. Route clearance, screenshot review, and production acceptance remain pending."
+    },
+    {
+      "old_asset_path": "res://assets/gameplay/tracks/attic/props/JackInTheBoxSetpiece.tscn",
+      "old_origin": "custom",
+      "replacement_asset_path": "res://assets/source/meshy/home_yard_v3/attic/low_poly_attic_jack_in_the_box_setpiece/low_poly_attic_jack_in_the_box_setpiece.glb",
+      "replacement_origin": "meshy_6_refined",
+      "replacement_reason": "Custom setpiece should be re-authored or strictly justified against current production gate.",
+      "decision_state": "imported_generator_integrated_pending_visual_validation",
+      "validation_result": "Headless Godot import created valid GLB and texture import files after stale import metadata was regenerated; generator now instantiates the Meshy GLB in home_yard_v3. Route clearance, screenshot review, and production acceptance remain pending."
+    },
+    {
+      "old_asset_path": "res://assets/source/meshy/playground_wooden_set/wooden_playground_set_swing.glb",
+      "old_origin": "existing_meshy",
+      "replacement_asset_path": "res://assets/source/meshy/home_yard_v3/outdoor_playground/low_poly_backyard_playground_set_v2/low_poly_backyard_playground_set_v2.glb",
+      "replacement_origin": "meshy_planned",
+      "replacement_reason": "Prior Meshy output is not grandfathered without current prompt, budget, and camera validation.",
+      "decision_state": "planned",
+      "validation_result": "pending"
+    },
+    {
+      "old_asset_path": "res://assets/source/meshy/sandbox_props/trex_skeleton.glb",
+      "old_origin": "existing_meshy",
+      "replacement_asset_path": "res://assets/source/meshy/home_yard_v3/sandbox/low_poly_sandbox_trex_skeleton_v2/low_poly_sandbox_trex_skeleton_v2.glb",
+      "replacement_origin": "meshy_planned",
+      "replacement_reason": "Prior Meshy output must pass current low-poly and player-height readability gate.",
+      "decision_state": "planned",
+      "validation_result": "pending"
+    }
+  ],
+  "blocked_items": [
+    "Fill in final Meshy task ids after paid generation approval and completion.",
+    "Replace planned paths with accepted asset paths after import and validation.",
+    "Add explicit keep-review records for Kenney assets after screenshot and performance validation."
+  ]
+}

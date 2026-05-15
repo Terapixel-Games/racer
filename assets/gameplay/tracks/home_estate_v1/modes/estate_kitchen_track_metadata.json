@@ -1,0 +1,1086 @@
+{
+	"alternate_routes": [],
+	"audio_ids": {
+
+	},
+	"audio_zones": [],
+	"boundary_wall_debug_visible": false,
+	"boundary_walls_enabled": true,
+	"checkpoint_radius": 10.4,
+	"checkpoints": [
+		{
+			"index": 0,
+			"is_lap_gate": true,
+			"position": [
+				-70.0,
+				0.600000023841858,
+				-12.0
+			],
+			"route_index": 0
+		},
+		{
+			"index": 1,
+			"is_lap_gate": false,
+			"position": [
+				-22.0,
+				0.600000023841858,
+				-12.0
+			],
+			"route_index": 3
+		},
+		{
+			"index": 2,
+			"is_lap_gate": false,
+			"position": [
+				-22.0,
+				0.600000023841858,
+				36.0
+			],
+			"route_index": 6
+		},
+		{
+			"index": 3,
+			"is_lap_gate": false,
+			"position": [
+				-54.0,
+				0.600000023841858,
+				52.0
+			],
+			"route_index": 9
+		},
+		{
+			"index": 4,
+			"is_lap_gate": false,
+			"position": [
+				-86.0,
+				0.600000023841858,
+				52.0
+			],
+			"route_index": 11
+		},
+		{
+			"index": 5,
+			"is_lap_gate": false,
+			"position": [
+				-86.0,
+				0.600000023841858,
+				4.0
+			],
+			"route_index": 14
+		}
+	],
+	"closed_loop": true,
+	"display_name": "Estate Kitchen",
+	"dressing_scene_path": "res://assets/gameplay/tracks/home_estate_v1/home_estate_v1_map.tscn",
+	"floor_visual_y": -1.1,
+	"grass_zones": [],
+	"ground_shader_path": "",
+	"ground_texture_path": "",
+	"hazard_sockets": [],
+	"id": "estate_kitchen",
+	"item_sockets": [],
+	"lap_gate_checkpoint_index": 0,
+	"laps": 3,
+	"out_of_bounds_y": -36.0,
+	"preview_dressing_scene_path": "res://assets/gameplay/tracks/home_estate_v1/home_estate_v1_map.tscn",
+	"progress_rule_id": "route_lap_progress",
+	"rail_texture_path": "",
+	"rail_texture_uv_scale": 1.0,
+	"rails_enabled": false,
+	"reset_mode": "instant_pop",
+	"road_grid_layout": {
+		"basis": [
+			[
+				1.0,
+				0.0,
+				0.0
+			],
+			[
+				0.0,
+				1.0,
+				0.0
+			],
+			[
+				0.0,
+				0.0,
+				1.0
+			]
+		],
+		"cell_size": [
+			16.0,
+			4.0,
+			16.0
+		],
+		"cells": [
+			{
+				"cell": [
+					-1,
+					0,
+					-2
+				],
+				"item": 2,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-70.0,
+					0.600000023841858,
+					-12.0
+				]
+			},
+			{
+				"cell": [
+					0,
+					0,
+					-2
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-54.0,
+					0.600000023841858,
+					-12.0
+				]
+			},
+			{
+				"cell": [
+					1,
+					0,
+					-2
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-38.0,
+					0.600000023841858,
+					-12.0
+				]
+			},
+			{
+				"cell": [
+					2,
+					0,
+					-2
+				],
+				"item": 1,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-22.0,
+					0.600000023841858,
+					-12.0
+				]
+			},
+			{
+				"cell": [
+					2,
+					0,
+					-1
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					-22.0,
+					0.600000023841858,
+					4.0
+				]
+			},
+			{
+				"cell": [
+					2,
+					0,
+					0
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					-22.0,
+					0.600000023841858,
+					20.0
+				]
+			},
+			{
+				"cell": [
+					2,
+					0,
+					1
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					-22.0,
+					0.600000023841858,
+					36.0
+				]
+			},
+			{
+				"cell": [
+					2,
+					0,
+					2
+				],
+				"item": 1,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-22.0,
+					0.600000023841858,
+					52.0
+				]
+			},
+			{
+				"cell": [
+					1,
+					0,
+					2
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-38.0,
+					0.600000023841858,
+					52.0
+				]
+			},
+			{
+				"cell": [
+					0,
+					0,
+					2
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-54.0,
+					0.600000023841858,
+					52.0
+				]
+			},
+			{
+				"cell": [
+					-1,
+					0,
+					2
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-70.0,
+					0.600000023841858,
+					52.0
+				]
+			},
+			{
+				"cell": [
+					-2,
+					0,
+					2
+				],
+				"item": 1,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-86.0,
+					0.600000023841858,
+					52.0
+				]
+			},
+			{
+				"cell": [
+					-2,
+					0,
+					1
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-86.0,
+					0.600000023841858,
+					36.0
+				]
+			},
+			{
+				"cell": [
+					-2,
+					0,
+					0
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-86.0,
+					0.600000023841858,
+					20.0
+				]
+			},
+			{
+				"cell": [
+					-2,
+					0,
+					-1
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-86.0,
+					0.600000023841858,
+					4.0
+				]
+			},
+			{
+				"cell": [
+					-2,
+					0,
+					-2
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					-86.0,
+					0.600000023841858,
+					-12.0
+				]
+			},
+			{
+				"cell": [
+					-2,
+					0,
+					-2
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-86.0,
+					0.600000023841858,
+					-12.0
+				]
+			}
+		],
+		"checkpoint_route_indices": [
+			0,
+			3,
+			6,
+			9,
+			11,
+			14
+		],
+		"hazard_route_indices": [],
+		"item_route_indices": [],
+		"mesh_library_path": "res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres",
+		"ordered_route_cells": [
+			[
+				-1,
+				0,
+				-2
+			],
+			[
+				0,
+				0,
+				-2
+			],
+			[
+				1,
+				0,
+				-2
+			],
+			[
+				2,
+				0,
+				-2
+			],
+			[
+				2,
+				0,
+				-1
+			],
+			[
+				2,
+				0,
+				0
+			],
+			[
+				2,
+				0,
+				1
+			],
+			[
+				2,
+				0,
+				2
+			],
+			[
+				1,
+				0,
+				2
+			],
+			[
+				0,
+				0,
+				2
+			],
+			[
+				-1,
+				0,
+				2
+			],
+			[
+				-2,
+				0,
+				2
+			],
+			[
+				-2,
+				0,
+				1
+			],
+			[
+				-2,
+				0,
+				0
+			],
+			[
+				-2,
+				0,
+				-1
+			],
+			[
+				-2,
+				0,
+				-2
+			],
+			[
+				-2,
+				0,
+				-2
+			]
+		],
+		"ordered_route_points": [
+			[
+				-70.0,
+				0.600000023841858,
+				-12.0
+			],
+			[
+				-54.0,
+				0.600000023841858,
+				-12.0
+			],
+			[
+				-38.0,
+				0.600000023841858,
+				-12.0
+			],
+			[
+				-22.0,
+				0.600000023841858,
+				-12.0
+			],
+			[
+				-22.0,
+				0.600000023841858,
+				4.0
+			],
+			[
+				-22.0,
+				0.600000023841858,
+				20.0
+			],
+			[
+				-22.0,
+				0.600000023841858,
+				36.0
+			],
+			[
+				-22.0,
+				0.600000023841858,
+				52.0
+			],
+			[
+				-38.0,
+				0.600000023841858,
+				52.0
+			],
+			[
+				-54.0,
+				0.600000023841858,
+				52.0
+			],
+			[
+				-70.0,
+				0.600000023841858,
+				52.0
+			],
+			[
+				-86.0,
+				0.600000023841858,
+				52.0
+			],
+			[
+				-86.0,
+				0.600000023841858,
+				36.0
+			],
+			[
+				-86.0,
+				0.600000023841858,
+				20.0
+			],
+			[
+				-86.0,
+				0.600000023841858,
+				4.0
+			],
+			[
+				-86.0,
+				0.600000023841858,
+				-12.0
+			],
+			[
+				-86.0,
+				0.600000023841858,
+				-12.0
+			]
+		],
+		"origin": [
+			-62.0,
+			-1.39999997615814,
+			12.0
+		],
+		"road_width": 16.0,
+		"route_envelope": {
+			"max": "(5.0, 12.6, 79.0)",
+			"min": "(-113.0, -11.4, -39.0)"
+		},
+		"spawn_slots": [
+			{
+				"forward_offset": 0.0,
+				"lateral_offset": -2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 180.0
+			},
+			{
+				"forward_offset": 0.0,
+				"lateral_offset": 2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 180.0
+			},
+			{
+				"forward_offset": 5.0,
+				"lateral_offset": -2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 180.0
+			},
+			{
+				"forward_offset": 5.0,
+				"lateral_offset": 2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 180.0
+			},
+			{
+				"forward_offset": 10.0,
+				"lateral_offset": -2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 180.0
+			},
+			{
+				"forward_offset": 10.0,
+				"lateral_offset": 2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 180.0
+			},
+			{
+				"forward_offset": 15.0,
+				"lateral_offset": -2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 180.0
+			},
+			{
+				"forward_offset": 15.0,
+				"lateral_offset": 2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 180.0
+			}
+		]
+	},
+	"road_segment_layout": [],
+	"road_segment_material_style": "toy_plastic",
+	"road_segment_profile": "kenney_racing_kit",
+	"road_visual_style": "kenney_gridmap",
+	"road_width": 16.0,
+	"route_length": 256.0,
+	"route_points": [
+		[
+			-70.0,
+			0.600000023841858,
+			-12.0
+		],
+		[
+			-54.0,
+			0.600000023841858,
+			-12.0
+		],
+		[
+			-38.0,
+			0.600000023841858,
+			-12.0
+		],
+		[
+			-22.0,
+			0.600000023841858,
+			-12.0
+		],
+		[
+			-22.0,
+			0.600000023841858,
+			4.0
+		],
+		[
+			-22.0,
+			0.600000023841858,
+			20.0
+		],
+		[
+			-22.0,
+			0.600000023841858,
+			36.0
+		],
+		[
+			-22.0,
+			0.600000023841858,
+			52.0
+		],
+		[
+			-38.0,
+			0.600000023841858,
+			52.0
+		],
+		[
+			-54.0,
+			0.600000023841858,
+			52.0
+		],
+		[
+			-70.0,
+			0.600000023841858,
+			52.0
+		],
+		[
+			-86.0,
+			0.600000023841858,
+			52.0
+		],
+		[
+			-86.0,
+			0.600000023841858,
+			36.0
+		],
+		[
+			-86.0,
+			0.600000023841858,
+			20.0
+		],
+		[
+			-86.0,
+			0.600000023841858,
+			4.0
+		],
+		[
+			-86.0,
+			0.600000023841858,
+			-12.0
+		],
+		[
+			-86.0,
+			0.600000023841858,
+			-12.0
+		]
+	],
+	"runtime_scene_path": "res://assets/gameplay/tracks/home_estate_v1/modes/estate_kitchen_track.tscn",
+	"shortcut_gates": [],
+	"sky_cloud_amount": 0.16,
+	"sky_cloud_speed": 0.014,
+	"sky_haze_amount": 0.1,
+	"sky_horizon_color": [
+		0.779999971389771,
+		0.899999976158142,
+		1.0,
+		1.0
+	],
+	"sky_light_energy": 2.45,
+	"sky_preset_id": "noon_clear",
+	"sky_time_of_day": 0.5,
+	"sky_top_color": [
+		0.439999997615814,
+		0.720000028610229,
+		1.0,
+		1.0
+	],
+	"sky_weather": "clear",
+	"spawn_points": [
+		{
+			"position": [
+				-70.0,
+				1.40000009536743,
+				-9.25
+			],
+			"yaw_degrees": 270.0
+		},
+		{
+			"position": [
+				-70.0,
+				1.40000009536743,
+				-14.75
+			],
+			"yaw_degrees": 270.0
+		},
+		{
+			"position": [
+				-65.0,
+				1.40000009536743,
+				-9.25
+			],
+			"yaw_degrees": 270.0
+		},
+		{
+			"position": [
+				-65.0,
+				1.40000009536743,
+				-14.75
+			],
+			"yaw_degrees": 270.0
+		},
+		{
+			"position": [
+				-60.0,
+				1.40000009536743,
+				-9.25
+			],
+			"yaw_degrees": 270.0
+		},
+		{
+			"position": [
+				-60.0,
+				1.40000009536743,
+				-14.75
+			],
+			"yaw_degrees": 270.0
+		},
+		{
+			"position": [
+				-55.0,
+				1.40000009536743,
+				-9.25
+			],
+			"yaw_degrees": 270.0
+		},
+		{
+			"position": [
+				-55.0,
+				1.40000009536743,
+				-14.75
+			],
+			"yaw_degrees": 270.0
+		}
+	],
+	"stage_interactions": [],
+	"stage_props": [],
+	"surface_segments": [],
+	"track_id": "estate_kitchen",
+	"track_source_id": "road_grid_map",
+	"version": "home_estate_floorplan_v1_2026_05_13",
+	"wall_height": 3.0,
+	"wall_thickness": 0.6,
+	"win_condition_id": "checkpoint_laps"
+}

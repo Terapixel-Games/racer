@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/track/TrackRuntimeScene.gd" id="1_ojbxm"]
+[ext_resource type="Resource" path="res://assets/gameplay/tracks/home_yard_v3/modes/garden_track_definition.tres" id="2_yjqjr"]
+
+[node name="GardenHomeYardTrack" type="Node3D"]
+script = ExtResource("1_ojbxm")
+definition = ExtResource("2_yjqjr")

@@ -1,0 +1,2399 @@
+{
+	"alternate_routes": [],
+	"audio_ids": {
+		"music": "res://assets/source/audio/canva/tracks/sandbox/sandbox_grit_slide_canva_01.wav",
+		"sandbox_primary": "res://assets/source/audio/canva/tracks/sandbox/sandbox_grit_slide_canva_01.wav",
+		"sandbox_secondary": "res://assets/source/audio/canva/tracks/sandbox/sandbox_bucket_bonk_canva_01.mp3"
+	},
+	"audio_zones": [
+		{
+			"audio_id": "sandbox_secondary",
+			"audio_path": "",
+			"id": "sandbox_feature_zone",
+			"position": [
+				60.0,
+				4.35,
+				36.0
+			],
+			"radius": 28.0,
+			"volume_db": -6.0,
+			"zone_kind": "oneshot"
+		},
+		{
+			"audio_id": "music",
+			"audio_path": "",
+			"id": "sandbox_music_zone",
+			"position": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"radius": 120.0,
+			"volume_db": -14.0,
+			"zone_kind": "ambient"
+		}
+	],
+	"boundary_wall_debug_visible": false,
+	"boundary_walls_enabled": true,
+	"checkpoint_radius": 10.4,
+	"checkpoints": [
+		{
+			"index": 0,
+			"is_lap_gate": true,
+			"position": [
+				169.0,
+				0.899999976158142,
+				-398.0
+			],
+			"route_index": 0
+		},
+		{
+			"index": 1,
+			"is_lap_gate": false,
+			"position": [
+				265.0,
+				0.899999976158142,
+				-398.0
+			],
+			"route_index": 6
+		},
+		{
+			"index": 2,
+			"is_lap_gate": false,
+			"position": [
+				281.0,
+				4.90000009536743,
+				-318.0
+			],
+			"route_index": 12
+		},
+		{
+			"index": 3,
+			"is_lap_gate": false,
+			"position": [
+				265.0,
+				4.90000009536743,
+				-238.0
+			],
+			"route_index": 18
+		},
+		{
+			"index": 4,
+			"is_lap_gate": false,
+			"position": [
+				169.0,
+				4.90000009536743,
+				-238.0
+			],
+			"route_index": 24
+		},
+		{
+			"index": 5,
+			"is_lap_gate": false,
+			"position": [
+				153.0,
+				0.899999976158142,
+				-318.0
+			],
+			"route_index": 30
+		}
+	],
+	"closed_loop": true,
+	"display_name": "Sandbox / Rexx",
+	"dressing_scene_path": "res://assets/gameplay/tracks/home_yard_v3/home_yard_v3_map.tscn",
+	"floor_visual_y": -1.1,
+	"grass_zones": [
+		{
+			"density": 0.75,
+			"enabled": true,
+			"id": "sandbox_back_grass",
+			"position": [
+				0.0,
+				-8.5,
+				76.0
+			],
+			"size": [
+				240.0,
+				34.0
+			],
+			"yaw_degrees": 0.0
+		}
+	],
+	"ground_shader_path": "",
+	"ground_texture_path": "res://assets/gameplay/materials/sand/sandbox_sand_albedo.png",
+	"hazard_sockets": [],
+	"id": "sandbox",
+	"item_sockets": [],
+	"lap_gate_checkpoint_index": 0,
+	"laps": 3,
+	"out_of_bounds_y": -28.0,
+	"preview_dressing_scene_path": "res://assets/gameplay/tracks/home_yard_v3/home_yard_v3_map.tscn",
+	"progress_rule_id": "route_lap_progress",
+	"rail_texture_path": "",
+	"rail_texture_uv_scale": 1.0,
+	"rails_enabled": false,
+	"reset_mode": "instant_pop",
+	"road_grid_layout": {
+		"basis": [
+			[
+				1.0,
+				0.0,
+				0.0
+			],
+			[
+				0.0,
+				1.0,
+				0.0
+			],
+			[
+				0.0,
+				0.0,
+				1.0
+			]
+		],
+		"cell_size": [
+			16.0,
+			4.0,
+			16.0
+		],
+		"cells": [
+			{
+				"cell": [
+					-3,
+					0,
+					-5
+				],
+				"item": 2,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					169.0,
+					0.899999976158142,
+					-398.0
+				]
+			},
+			{
+				"cell": [
+					-2,
+					0,
+					-5
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					185.0,
+					0.899999976158142,
+					-398.0
+				]
+			},
+			{
+				"cell": [
+					-1,
+					0,
+					-5
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					201.0,
+					0.899999976158142,
+					-398.0
+				]
+			},
+			{
+				"cell": [
+					0,
+					0,
+					-5
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					217.0,
+					0.899999976158142,
+					-398.0
+				]
+			},
+			{
+				"cell": [
+					1,
+					0,
+					-5
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					233.0,
+					0.899999976158142,
+					-398.0
+				]
+			},
+			{
+				"cell": [
+					2,
+					0,
+					-5
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					249.0,
+					0.899999976158142,
+					-398.0
+				]
+			},
+			{
+				"cell": [
+					3,
+					0,
+					-5
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					265.0,
+					0.899999976158142,
+					-398.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					0,
+					-5
+				],
+				"item": 1,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					281.0,
+					0.899999976158142,
+					-398.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					0,
+					-4
+				],
+				"item": 5,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					281.0,
+					0.899999976158142,
+					-382.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					1,
+					-3
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					281.0,
+					4.90000009536743,
+					-366.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					1,
+					-2
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					281.0,
+					4.90000009536743,
+					-350.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					1,
+					-1
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					281.0,
+					4.90000009536743,
+					-334.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					1,
+					0
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					281.0,
+					4.90000009536743,
+					-318.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					1,
+					1
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					281.0,
+					4.90000009536743,
+					-302.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					1,
+					2
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					281.0,
+					4.90000009536743,
+					-286.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					1,
+					3
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					281.0,
+					4.90000009536743,
+					-270.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					1,
+					4
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					281.0,
+					4.90000009536743,
+					-254.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					1,
+					5
+				],
+				"item": 1,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					281.0,
+					4.90000009536743,
+					-238.0
+				]
+			},
+			{
+				"cell": [
+					3,
+					1,
+					5
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					265.0,
+					4.90000009536743,
+					-238.0
+				]
+			},
+			{
+				"cell": [
+					2,
+					1,
+					5
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					249.0,
+					4.90000009536743,
+					-238.0
+				]
+			},
+			{
+				"cell": [
+					1,
+					1,
+					5
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					233.0,
+					4.90000009536743,
+					-238.0
+				]
+			},
+			{
+				"cell": [
+					0,
+					1,
+					5
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					217.0,
+					4.90000009536743,
+					-238.0
+				]
+			},
+			{
+				"cell": [
+					-1,
+					1,
+					5
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					201.0,
+					4.90000009536743,
+					-238.0
+				]
+			},
+			{
+				"cell": [
+					-2,
+					1,
+					5
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					185.0,
+					4.90000009536743,
+					-238.0
+				]
+			},
+			{
+				"cell": [
+					-3,
+					1,
+					5
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					169.0,
+					4.90000009536743,
+					-238.0
+				]
+			},
+			{
+				"cell": [
+					-4,
+					1,
+					5
+				],
+				"item": 1,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					153.0,
+					4.90000009536743,
+					-238.0
+				]
+			},
+			{
+				"cell": [
+					-4,
+					1,
+					4
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					153.0,
+					4.90000009536743,
+					-254.0
+				]
+			},
+			{
+				"cell": [
+					-4,
+					0,
+					3
+				],
+				"item": 5,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					153.0,
+					0.899999976158142,
+					-270.0
+				]
+			},
+			{
+				"cell": [
+					-4,
+					0,
+					2
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					153.0,
+					0.899999976158142,
+					-286.0
+				]
+			},
+			{
+				"cell": [
+					-4,
+					0,
+					1
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					153.0,
+					0.899999976158142,
+					-302.0
+				]
+			},
+			{
+				"cell": [
+					-4,
+					0,
+					0
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					153.0,
+					0.899999976158142,
+					-318.0
+				]
+			},
+			{
+				"cell": [
+					-4,
+					0,
+					-1
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					153.0,
+					0.899999976158142,
+					-334.0
+				]
+			},
+			{
+				"cell": [
+					-4,
+					0,
+					-2
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					153.0,
+					0.899999976158142,
+					-350.0
+				]
+			},
+			{
+				"cell": [
+					-4,
+					0,
+					-3
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					153.0,
+					0.899999976158142,
+					-366.0
+				]
+			},
+			{
+				"cell": [
+					-4,
+					0,
+					-4
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					153.0,
+					0.899999976158142,
+					-382.0
+				]
+			},
+			{
+				"cell": [
+					-4,
+					0,
+					-5
+				],
+				"item": 1,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					153.0,
+					0.899999976158142,
+					-398.0
+				]
+			}
+		],
+		"checkpoint_route_indices": [
+			0,
+			6,
+			12,
+			18,
+			24,
+			30
+		],
+		"hazard_route_indices": [],
+		"item_route_indices": [],
+		"mesh_library_path": "res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres",
+		"ordered_route_cells": [
+			[
+				-3,
+				0,
+				-5
+			],
+			[
+				-2,
+				0,
+				-5
+			],
+			[
+				-1,
+				0,
+				-5
+			],
+			[
+				0,
+				0,
+				-5
+			],
+			[
+				1,
+				0,
+				-5
+			],
+			[
+				2,
+				0,
+				-5
+			],
+			[
+				3,
+				0,
+				-5
+			],
+			[
+				4,
+				0,
+				-5
+			],
+			[
+				4,
+				0,
+				-4
+			],
+			[
+				4,
+				1,
+				-3
+			],
+			[
+				4,
+				1,
+				-2
+			],
+			[
+				4,
+				1,
+				-1
+			],
+			[
+				4,
+				1,
+				0
+			],
+			[
+				4,
+				1,
+				1
+			],
+			[
+				4,
+				1,
+				2
+			],
+			[
+				4,
+				1,
+				3
+			],
+			[
+				4,
+				1,
+				4
+			],
+			[
+				4,
+				1,
+				5
+			],
+			[
+				3,
+				1,
+				5
+			],
+			[
+				2,
+				1,
+				5
+			],
+			[
+				1,
+				1,
+				5
+			],
+			[
+				0,
+				1,
+				5
+			],
+			[
+				-1,
+				1,
+				5
+			],
+			[
+				-2,
+				1,
+				5
+			],
+			[
+				-3,
+				1,
+				5
+			],
+			[
+				-4,
+				1,
+				5
+			],
+			[
+				-4,
+				1,
+				4
+			],
+			[
+				-4,
+				0,
+				3
+			],
+			[
+				-4,
+				0,
+				2
+			],
+			[
+				-4,
+				0,
+				1
+			],
+			[
+				-4,
+				0,
+				0
+			],
+			[
+				-4,
+				0,
+				-1
+			],
+			[
+				-4,
+				0,
+				-2
+			],
+			[
+				-4,
+				0,
+				-3
+			],
+			[
+				-4,
+				0,
+				-4
+			],
+			[
+				-4,
+				0,
+				-5
+			]
+		],
+		"ordered_route_points": [
+			[
+				169.0,
+				0.899999976158142,
+				-398.0
+			],
+			[
+				185.0,
+				0.899999976158142,
+				-398.0
+			],
+			[
+				201.0,
+				0.899999976158142,
+				-398.0
+			],
+			[
+				217.0,
+				0.899999976158142,
+				-398.0
+			],
+			[
+				233.0,
+				0.899999976158142,
+				-398.0
+			],
+			[
+				249.0,
+				0.899999976158142,
+				-398.0
+			],
+			[
+				265.0,
+				0.899999976158142,
+				-398.0
+			],
+			[
+				281.0,
+				0.899999976158142,
+				-398.0
+			],
+			[
+				281.0,
+				0.899999976158142,
+				-382.0
+			],
+			[
+				281.0,
+				4.90000009536743,
+				-366.0
+			],
+			[
+				281.0,
+				4.90000009536743,
+				-350.0
+			],
+			[
+				281.0,
+				4.90000009536743,
+				-334.0
+			],
+			[
+				281.0,
+				4.90000009536743,
+				-318.0
+			],
+			[
+				281.0,
+				4.90000009536743,
+				-302.0
+			],
+			[
+				281.0,
+				4.90000009536743,
+				-286.0
+			],
+			[
+				281.0,
+				4.90000009536743,
+				-270.0
+			],
+			[
+				281.0,
+				4.90000009536743,
+				-254.0
+			],
+			[
+				281.0,
+				4.90000009536743,
+				-238.0
+			],
+			[
+				265.0,
+				4.90000009536743,
+				-238.0
+			],
+			[
+				249.0,
+				4.90000009536743,
+				-238.0
+			],
+			[
+				233.0,
+				4.90000009536743,
+				-238.0
+			],
+			[
+				217.0,
+				4.90000009536743,
+				-238.0
+			],
+			[
+				201.0,
+				4.90000009536743,
+				-238.0
+			],
+			[
+				185.0,
+				4.90000009536743,
+				-238.0
+			],
+			[
+				169.0,
+				4.90000009536743,
+				-238.0
+			],
+			[
+				153.0,
+				4.90000009536743,
+				-238.0
+			],
+			[
+				153.0,
+				4.90000009536743,
+				-254.0
+			],
+			[
+				153.0,
+				0.899999976158142,
+				-270.0
+			],
+			[
+				153.0,
+				0.899999976158142,
+				-286.0
+			],
+			[
+				153.0,
+				0.899999976158142,
+				-302.0
+			],
+			[
+				153.0,
+				0.899999976158142,
+				-318.0
+			],
+			[
+				153.0,
+				0.899999976158142,
+				-334.0
+			],
+			[
+				153.0,
+				0.899999976158142,
+				-350.0
+			],
+			[
+				153.0,
+				0.899999976158142,
+				-366.0
+			],
+			[
+				153.0,
+				0.899999976158142,
+				-382.0
+			],
+			[
+				153.0,
+				0.899999976158142,
+				-398.0
+			]
+		],
+		"origin": [
+			209.0,
+			-1.10000002384186,
+			-326.0
+		],
+		"road_width": 16.0,
+		"route_envelope": {
+			"cell_size": "(16.0, 4.0, 16.0)",
+			"confidence": "inferred_from_floor_plan_and_route_cell_budget",
+			"corridor_width": 16.0,
+			"course_id": "sandbox",
+			"floor_top_y": 0.35,
+			"forbidden_overlap": [
+				"walls",
+				"furniture",
+				"fixtures",
+				"plants",
+				"porch_posts",
+				"service_props",
+				"collision_blockers"
+			],
+			"gate": "spatial_audit_sandbox_route_inside_sandbox",
+			"minimum_clearance_y": 0.55,
+			"road_surface_y": 0.899999976158142,
+			"roof_clearance_max_y": 9999.0,
+			"route_local_bounds": {
+				"max": "(4, 1, 5)",
+				"min": "(-4, 0, -5)"
+			},
+			"route_world_bounds": {
+				"max": "(289.0, 6.9, -230.0)",
+				"min": "(145.0, -1.1, -406.0)"
+			},
+			"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+			"third_person_camera_clearance_height_units": 12.0,
+			"third_person_camera_clearance_width_units": 14.0,
+			"toy_racer_drift_margin_units": 5.0,
+			"toy_racer_route_swept_width_units": 6.0,
+			"toy_racer_visual_height_units_max": 1.4,
+			"usable_inset": 10.0,
+			"zone_center": "(217.5, 0.0, -320.0)",
+			"zone_id": "sandbox",
+			"zone_size": "(185.0, 24.0, 200.0)",
+			"zone_world_bounds": {
+				"max": "(310.0, 12.0, -220.0)",
+				"min": "(125.0, -12.0, -420.0)"
+			}
+		},
+		"spawn_slots": [
+			{
+				"forward_offset": 0.0,
+				"lateral_offset": -2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 180.0
+			},
+			{
+				"forward_offset": 0.0,
+				"lateral_offset": 2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 180.0
+			},
+			{
+				"forward_offset": 5.0,
+				"lateral_offset": -2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 180.0
+			},
+			{
+				"forward_offset": 5.0,
+				"lateral_offset": 2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 180.0
+			},
+			{
+				"forward_offset": 10.0,
+				"lateral_offset": -2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 180.0
+			},
+			{
+				"forward_offset": 10.0,
+				"lateral_offset": 2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 180.0
+			},
+			{
+				"forward_offset": 15.0,
+				"lateral_offset": -2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 180.0
+			},
+			{
+				"forward_offset": 15.0,
+				"lateral_offset": 2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 180.0
+			}
+		]
+	},
+	"road_segment_layout": [],
+	"road_segment_material_style": "toy_plastic",
+	"road_segment_profile": "kenney_racing_kit",
+	"road_visual_style": "kenney_gridmap",
+	"road_width": 16.0,
+	"route_length": 576.984844207764,
+	"route_points": [
+		[
+			169.0,
+			0.899999976158142,
+			-398.0
+		],
+		[
+			185.0,
+			0.899999976158142,
+			-398.0
+		],
+		[
+			201.0,
+			0.899999976158142,
+			-398.0
+		],
+		[
+			217.0,
+			0.899999976158142,
+			-398.0
+		],
+		[
+			233.0,
+			0.899999976158142,
+			-398.0
+		],
+		[
+			249.0,
+			0.899999976158142,
+			-398.0
+		],
+		[
+			265.0,
+			0.899999976158142,
+			-398.0
+		],
+		[
+			281.0,
+			0.899999976158142,
+			-398.0
+		],
+		[
+			281.0,
+			0.899999976158142,
+			-382.0
+		],
+		[
+			281.0,
+			4.90000009536743,
+			-366.0
+		],
+		[
+			281.0,
+			4.90000009536743,
+			-350.0
+		],
+		[
+			281.0,
+			4.90000009536743,
+			-334.0
+		],
+		[
+			281.0,
+			4.90000009536743,
+			-318.0
+		],
+		[
+			281.0,
+			4.90000009536743,
+			-302.0
+		],
+		[
+			281.0,
+			4.90000009536743,
+			-286.0
+		],
+		[
+			281.0,
+			4.90000009536743,
+			-270.0
+		],
+		[
+			281.0,
+			4.90000009536743,
+			-254.0
+		],
+		[
+			281.0,
+			4.90000009536743,
+			-238.0
+		],
+		[
+			265.0,
+			4.90000009536743,
+			-238.0
+		],
+		[
+			249.0,
+			4.90000009536743,
+			-238.0
+		],
+		[
+			233.0,
+			4.90000009536743,
+			-238.0
+		],
+		[
+			217.0,
+			4.90000009536743,
+			-238.0
+		],
+		[
+			201.0,
+			4.90000009536743,
+			-238.0
+		],
+		[
+			185.0,
+			4.90000009536743,
+			-238.0
+		],
+		[
+			169.0,
+			4.90000009536743,
+			-238.0
+		],
+		[
+			153.0,
+			4.90000009536743,
+			-238.0
+		],
+		[
+			153.0,
+			4.90000009536743,
+			-254.0
+		],
+		[
+			153.0,
+			0.899999976158142,
+			-270.0
+		],
+		[
+			153.0,
+			0.899999976158142,
+			-286.0
+		],
+		[
+			153.0,
+			0.899999976158142,
+			-302.0
+		],
+		[
+			153.0,
+			0.899999976158142,
+			-318.0
+		],
+		[
+			153.0,
+			0.899999976158142,
+			-334.0
+		],
+		[
+			153.0,
+			0.899999976158142,
+			-350.0
+		],
+		[
+			153.0,
+			0.899999976158142,
+			-366.0
+		],
+		[
+			153.0,
+			0.899999976158142,
+			-382.0
+		],
+		[
+			153.0,
+			0.899999976158142,
+			-398.0
+		]
+	],
+	"runtime_scene_path": "res://assets/gameplay/tracks/home_yard_v3/modes/sandbox_track.tscn",
+	"shortcut_gates": [],
+	"sky_cloud_amount": 0.08,
+	"sky_cloud_speed": 0.014,
+	"sky_haze_amount": 0.1,
+	"sky_horizon_color": [
+		1.0,
+		0.860000014305115,
+		0.579999983310699,
+		1.0
+	],
+	"sky_light_energy": 2.65,
+	"sky_preset_id": "hot_afternoon",
+	"sky_time_of_day": 0.5,
+	"sky_top_color": [
+		0.579999983310699,
+		0.740000009536743,
+		0.959999978542328,
+		1.0
+	],
+	"sky_weather": "hot",
+	"spawn_points": [
+		{
+			"position": [
+				169.0,
+				1.70000004768372,
+				-395.25
+			],
+			"yaw_degrees": 270.0
+		},
+		{
+			"position": [
+				169.0,
+				1.70000004768372,
+				-400.75
+			],
+			"yaw_degrees": 270.0
+		},
+		{
+			"position": [
+				174.0,
+				1.70000004768372,
+				-395.25
+			],
+			"yaw_degrees": 270.0
+		},
+		{
+			"position": [
+				174.0,
+				1.70000004768372,
+				-400.75
+			],
+			"yaw_degrees": 270.0
+		},
+		{
+			"position": [
+				179.0,
+				1.70000004768372,
+				-395.25
+			],
+			"yaw_degrees": 270.0
+		},
+		{
+			"position": [
+				179.0,
+				1.70000004768372,
+				-400.75
+			],
+			"yaw_degrees": 270.0
+		},
+		{
+			"position": [
+				184.0,
+				1.70000004768372,
+				-395.25
+			],
+			"yaw_degrees": 270.0
+		},
+		{
+			"position": [
+				184.0,
+				1.70000004768372,
+				-400.75
+			],
+			"yaw_degrees": 270.0
+		}
+	],
+	"stage_interactions": [
+		{
+			"action": "boost",
+			"boost_force": 24.0,
+			"cooldown": 1.0,
+			"duration": 0.25,
+			"id": "sandbox_boost_pad",
+			"impulse": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"intensity": 0.0,
+			"note": "Home-yard mode boost beat.",
+			"position": [
+				281.0,
+				5.90000009536743,
+				-366.0
+			],
+			"radius": 0.0,
+			"shape": "box",
+			"size": [
+				12.0,
+				3.0,
+				12.0
+			],
+			"speed_multiplier": 1.0,
+			"target_method": "trigger",
+			"target_node_path": "",
+			"yaw_degrees": 0.0
+		},
+		{
+			"action": "rumble",
+			"boost_force": 0.0,
+			"cooldown": 1.2,
+			"duration": 0.4,
+			"id": "sandbox_rumble_zone",
+			"impulse": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"intensity": 0.45,
+			"note": "Home-yard mode texture beat.",
+			"position": [
+				265.0,
+				5.90000009536743,
+				-238.0
+			],
+			"radius": 0.0,
+			"shape": "box",
+			"size": [
+				14.0,
+				3.0,
+				14.0
+			],
+			"speed_multiplier": 1.0,
+			"target_method": "trigger",
+			"target_node_path": "",
+			"yaw_degrees": 0.0
+		}
+	],
+	"stage_props": [
+		{
+			"asset_path": "res://assets/source/kenney/toy_car_kit/gate.glb",
+			"asset_source": "Kenney Toy Car Kit",
+			"audio_material_id": "",
+			"box_color": [
+				1.0,
+				1.0,
+				1.0,
+				1.0
+			],
+			"box_size": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "start_finish",
+			"id": "sandbox_start_gate",
+			"kind": "scene",
+			"license_origin": "CC0/Kenney",
+			"position": [
+				169.0,
+				4.09999990463257,
+				-373.0
+			],
+			"route_clearance": "outside_route_corridor",
+			"scale": [
+				9.0,
+				9.0,
+				9.0
+			],
+			"scale_class": "toy_route_cue",
+			"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+			"scale_validation_status": "declared_pending_import_aabb_review",
+			"target_dimensions_units": [
+				6.0,
+				6.0,
+				6.0
+			],
+			"validation_camera": "ValidationCameras/SandboxStartPlayerCamera",
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "res://assets/source/kenney/toy_car_kit/gate-finish.glb",
+			"asset_source": "Kenney Toy Car Kit",
+			"audio_material_id": "",
+			"box_color": [
+				1.0,
+				1.0,
+				1.0,
+				1.0
+			],
+			"box_size": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "start_finish",
+			"id": "sandbox_finish_language_panel",
+			"kind": "scene",
+			"license_origin": "CC0/Kenney",
+			"position": [
+				185.0,
+				4.09999990463257,
+				-373.0
+			],
+			"route_clearance": "outside_route_corridor",
+			"scale": [
+				9.0,
+				9.0,
+				9.0
+			],
+			"scale_class": "toy_route_cue",
+			"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+			"scale_validation_status": "declared_pending_import_aabb_review",
+			"target_dimensions_units": [
+				6.0,
+				6.0,
+				6.0
+			],
+			"validation_camera": "ValidationCameras/SandboxStartPlayerCamera",
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "res://assets/source/kenney/toy_car_kit/item-cone.glb",
+			"asset_source": "Kenney Toy Car Kit",
+			"audio_material_id": "",
+			"box_color": [
+				1.0,
+				1.0,
+				1.0,
+				1.0
+			],
+			"box_size": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "direction",
+			"id": "sandbox_route_cone_left",
+			"kind": "scene",
+			"license_origin": "CC0/Kenney",
+			"position": [
+				281.0,
+				6.0,
+				-300.0
+			],
+			"route_clearance": "outside_route_corridor",
+			"scale": [
+				5.30000019073486,
+				5.30000019073486,
+				5.30000019073486
+			],
+			"scale_class": "toy_route_cue",
+			"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+			"scale_validation_status": "declared_pending_import_aabb_review",
+			"target_dimensions_units": [
+				6.0,
+				6.0,
+				6.0
+			],
+			"validation_camera": "ValidationCameras/SandboxStartPlayerCamera",
+			"yaw_degrees": 20.0
+		},
+		{
+			"asset_path": "res://assets/source/kenney/toy_car_kit/item-cone.glb",
+			"asset_source": "Kenney Toy Car Kit",
+			"audio_material_id": "",
+			"box_color": [
+				1.0,
+				1.0,
+				1.0,
+				1.0
+			],
+			"box_size": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "direction",
+			"id": "sandbox_route_cone_right",
+			"kind": "scene",
+			"license_origin": "CC0/Kenney",
+			"position": [
+				169.0,
+				6.0,
+				-220.0
+			],
+			"route_clearance": "outside_route_corridor",
+			"scale": [
+				5.30000019073486,
+				5.30000019073486,
+				5.30000019073486
+			],
+			"scale_class": "toy_route_cue",
+			"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+			"scale_validation_status": "declared_pending_import_aabb_review",
+			"target_dimensions_units": [
+				6.0,
+				6.0,
+				6.0
+			],
+			"validation_camera": "ValidationCameras/SandboxStartPlayerCamera",
+			"yaw_degrees": -20.0
+		},
+		{
+			"asset_path": "res://assets/gameplay/tracks/shared/backyard_optimized/sandbox_fossil_low.glb",
+			"asset_source": "existing optimized backyard asset",
+			"audio_material_id": "",
+			"box_color": [
+				1.0,
+				1.0,
+				1.0,
+				1.0
+			],
+			"box_size": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "landmark",
+			"id": "sandbox_sandbox_fossil_landmark",
+			"kind": "scene",
+			"license_origin": "repo-tracked asset",
+			"position": [
+				259.0,
+				5.09999990463257,
+				-272.0
+			],
+			"route_clearance": "outside_route_corridor",
+			"scale": [
+				4.5,
+				4.5,
+				4.5
+			],
+			"scale_class": "yard_landmark",
+			"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+			"scale_validation_status": "declared_pending_import_aabb_review",
+			"target_dimensions_units": [
+				24.0,
+				18.0,
+				24.0
+			],
+			"validation_camera": "ValidationCameras/SandboxStartPlayerCamera",
+			"yaw_degrees": -18.0
+		},
+		{
+			"asset_path": "res://assets/source/meshy/sandbox_props/trex_skeleton.glb",
+			"asset_source": "Meshy batch, existing repo asset",
+			"audio_material_id": "",
+			"box_color": [
+				1.0,
+				1.0,
+				1.0,
+				1.0
+			],
+			"box_size": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "landmark",
+			"id": "sandbox_trex_skeleton_landmark",
+			"kind": "scene",
+			"license_origin": "project-generated asset",
+			"position": [
+				169.0,
+				4.40000009536743,
+				-280.0
+			],
+			"route_clearance": "outside_route_corridor",
+			"scale": [
+				4.0,
+				4.0,
+				4.0
+			],
+			"scale_class": "toy_scale_landmark",
+			"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+			"scale_validation_status": "declared_pending_import_aabb_review",
+			"target_dimensions_units": [
+				10.0,
+				8.0,
+				10.0
+			],
+			"validation_camera": "ValidationCameras/SandboxStartPlayerCamera",
+			"yaw_degrees": 22.0
+		},
+		{
+			"asset_path": "res://assets/source/kenney/toy_car_kit/item-cone.glb",
+			"asset_source": "Kenney Toy Car Kit",
+			"audio_material_id": "",
+			"box_color": [
+				1.0,
+				1.0,
+				1.0,
+				1.0
+			],
+			"box_size": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "landmark",
+			"id": "sandbox_sand_cone_landmark",
+			"kind": "scene",
+			"license_origin": "CC0/Kenney",
+			"position": [
+				265.0,
+				3.40000009536743,
+				-358.0
+			],
+			"route_clearance": "outside_route_corridor",
+			"scale": [
+				5.5,
+				5.5,
+				5.5
+			],
+			"scale_class": "toy_route_cue",
+			"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+			"scale_validation_status": "declared_pending_import_aabb_review",
+			"target_dimensions_units": [
+				6.0,
+				6.0,
+				6.0
+			],
+			"validation_camera": "ValidationCameras/SandboxStartPlayerCamera",
+			"yaw_degrees": 35.0
+		}
+	],
+	"surface_segments": [],
+	"track_id": "sandbox",
+	"track_source_id": "road_grid_map",
+	"version": "home_yard_residential_openworld_v3_2026_05_12",
+	"wall_height": 3.0,
+	"wall_thickness": 0.6,
+	"win_condition_id": "checkpoint_laps"
+}

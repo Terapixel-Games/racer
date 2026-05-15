@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/track/TrackRuntimeScene.gd" id="1_cg7p4"]
+[ext_resource type="Resource" path="res://assets/gameplay/tracks/home_estate_v1/modes/estate_upper_loft_track_definition.tres" id="2_ipwlo"]
+
+[node name="EstateUpperLoftHomeEstateTrack" type="Node3D"]
+script = ExtResource("1_cg7p4")
+definition = ExtResource("2_ipwlo")

@@ -30,6 +30,8 @@ const RAIL_CURVE_RADIUS_SCALE := 0.48
 const PLAYGROUND_GRASS_BLADE_SHADER := "res://assets/gameplay/materials/grass/playground_grass_blades.gdshader"
 const PLAYGROUND_GRASS_BLADE_COUNT := 18000
 const PLAYGROUND_GRASS_FLOOR_CLEARANCE := 0.68
+const ROUTE_BOUNDARY_COLLISION_LAYER := 2
+const ROUTE_BOUNDARY_COLLISION_MASK := 2
 
 static func build(definition: TrackDefinition) -> Dictionary:
 	if definition == null:
@@ -81,6 +83,9 @@ static func _build_ground(root: Node3D, definition: TrackDefinition) -> void:
 		ground.add_child(shape_node)
 		root.add_child(ground)
 
+	if _uses_home_yard_shared_map(definition):
+		return
+
 	var visual := MeshInstance3D.new()
 	visual.name = "FloorVisual" if floor_is_out_of_bounds else "GroundVisual"
 	var plane := PlaneMesh.new()
@@ -93,6 +98,13 @@ static func _build_ground(root: Node3D, definition: TrackDefinition) -> void:
 		_build_playground_grass_blades(root, definition)
 	if floor_is_out_of_bounds and definition.id == "kitchen":
 		_build_floor_tile_grid(root, definition)
+
+static func _uses_home_yard_shared_map(definition: TrackDefinition) -> bool:
+	if definition == null:
+		return false
+	if str(definition.get_meta("track_map_id", "")).begins_with("home_yard"):
+		return true
+	return str(definition.dressing_scene_path).contains("home_yard_v3")
 
 static func _ground_material(definition: TrackDefinition) -> Material:
 	var shader_path := definition.ground_shader_path.strip_edges()
@@ -354,8 +366,8 @@ static func _add_boundary_wall_segment(parent: Node3D, segment: Dictionary, inde
 	mid += outward * (thickness * 0.5 - edge_overlap)
 	var body := StaticBody3D.new()
 	body.name = "BoundaryWall%04d" % index
-	body.collision_layer = 1
-	body.collision_mask = 2
+	body.collision_layer = ROUTE_BOUNDARY_COLLISION_LAYER
+	body.collision_mask = ROUTE_BOUNDARY_COLLISION_MASK
 	body.set_meta("grid_cell", segment.get("cell", Vector3i.ZERO))
 	body.set_meta("grid_direction", segment.get("direction", Vector3i.ZERO))
 	body.set_meta("grid_item", int(segment.get("item", -1)))
@@ -691,8 +703,8 @@ static func _add_rail_segment_pieces(parent: Node3D, a: Vector3, b: Vector3, sid
 static func _add_rail_collision(parent: Node3D, body_name: String, center: Vector3, length: float, segment_dir: Vector3) -> void:
 	var body := StaticBody3D.new()
 	body.name = body_name
-	body.collision_layer = 1
-	body.collision_mask = 2
+	body.collision_layer = ROUTE_BOUNDARY_COLLISION_LAYER
+	body.collision_mask = ROUTE_BOUNDARY_COLLISION_MASK
 	var physics_material := PhysicsMaterial.new()
 	physics_material.friction = 0.02
 	physics_material.bounce = 0.0
@@ -904,9 +916,40 @@ static func _add_dressing_scene(parent: Node3D, definition: TrackDefinition) -> 
 	if definition.id == "kitchen":
 		_make_kitchen_window_glass_transparent(instance)
 	_apply_ground_shader_to_editable_floor(instance, definition)
+	_apply_home_yard_active_floor_visibility(instance, definition)
 	_disable_gameplay_collision(instance)
 	parent.add_child(instance)
 	_disable_gameplay_collision(instance)
+
+static func _apply_home_yard_active_floor_visibility(instance: Node3D, definition: TrackDefinition) -> void:
+	var dressing_path := str(definition.dressing_scene_path)
+	if not dressing_path.contains("home_yard_v3"):
+		return
+	var mode_id := str(definition.get_meta("track_mode_id", definition.id)).trim_suffix("_preview")
+	var hidden_paths: Array[String] = []
+	if mode_id in ["kitchen", "playroom"]:
+		hidden_paths = [
+			"MainFloor/RoomFinishes/MainFloorTenFootCeilingPlane",
+			"MainFloor/RoomFinishes/GarageTenFootCeilingPlane",
+			"UpperFloor/RoomFinishes/UpperFloorDeck",
+			"UpperFloor/RoomFinishes/BedroomSuite",
+			"UpperFloor/RoomFinishes/GlamDressing",
+			"UpperFloor/RoomFinishes/UpperFloorTenFootCeilingPlane",
+			"Attic/RoomFinishes/AtticDeck",
+			"Attic/RoomFinishes/AtticStorageZone",
+		]
+	elif mode_id in ["bedroom", "glam_closet"]:
+		hidden_paths = [
+			"UpperFloor/RoomFinishes/UpperFloorTenFootCeilingPlane",
+			"Attic/RoomFinishes/AtticDeck",
+			"Attic/RoomFinishes/AtticStorageZone",
+		]
+	for path in hidden_paths:
+		var blocker := instance.get_node_or_null(NodePath(path)) as Node3D
+		if blocker == null:
+			continue
+		blocker.visible = false
+		blocker.set_meta("active_floor_hidden_for_mode", mode_id)
 
 static func _remove_embedded_runtime_environment(parent: Node) -> void:
 	if parent == null:
@@ -945,6 +988,10 @@ static func _hide_runtime_authoring_nodes(parent: Node) -> void:
 	var road_grid := parent.find_child("RoadGridMap", true, false) as Node3D
 	if road_grid != null:
 		road_grid.visible = false
+	var concept_reference := parent.find_child("ConceptReference", true, false) as Node3D
+	if concept_reference != null:
+		concept_reference.visible = false
+		concept_reference.set_meta("runtime_hidden_reason", "authoring scale references must not render during races")
 
 static func _disable_gameplay_collision(node: Node) -> void:
 	if node is CollisionShape3D:
@@ -987,6 +1034,8 @@ static func _add_stage_prop(parent: Node3D, prop: Dictionary) -> void:
 		scene_node.transform = Transform3D(Basis(Vector3.UP, deg_to_rad(yaw_degrees)).scaled(scale), position)
 		scene_node.set_meta("audio_material_id", audio_material_id)
 		scene_node.set_meta("gameplay_tag", gameplay_tag)
+		if str(prop.get("collision_mode", "visual")) != "static":
+			_disable_gameplay_collision(scene_node)
 		parent.add_child(scene_node)
 		return
 	var body := StaticBody3D.new()

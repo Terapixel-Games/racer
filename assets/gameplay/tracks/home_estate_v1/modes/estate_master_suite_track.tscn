@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/track/TrackRuntimeScene.gd" id="1_lru7i"]
+[ext_resource type="Resource" path="res://assets/gameplay/tracks/home_estate_v1/modes/estate_master_suite_track_definition.tres" id="2_tcfja"]
+
+[node name="EstateMasterSuiteHomeEstateTrack" type="Node3D"]
+script = ExtResource("1_lru7i")
+definition = ExtResource("2_tcfja")

@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="TrackDefinition" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="TrackDefinition" load_steps=2 format=3 uid="uid://bo6m6gtcuq04m"]
 
-[ext_resource type="Script" path="res://scripts/track/TrackDefinition.gd" id="1"]
+[ext_resource type="Script" uid="uid://dndccbxb7m7sa" path="res://scripts/track/TrackDefinition.gd" id="1"]
 
 [resource]
 script = ExtResource("1")
@@ -1098,3 +1098,4 @@ metadata/resolved_race_layout_source = "road_grid_map"
 metadata/resolved_track_source = "road_grid_map"
 metadata/progress_rule_id = "route_lap_progress"
 metadata/win_condition_id = "checkpoint_laps"
+metadata/definition_grid_dressing_scene_path = "res://assets/gameplay/tracks/kitchen/kitchen_editable_room.tscn"

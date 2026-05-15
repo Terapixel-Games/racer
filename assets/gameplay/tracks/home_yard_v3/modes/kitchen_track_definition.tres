@@ -1,0 +1,468 @@
+[gd_resource type="Resource" script_class="TrackDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/track/TrackDefinition.gd" id="1_aktj7"]
+
+[resource]
+script = ExtResource("1_aktj7")
+id = "kitchen"
+display_name = "Kitchen / Sir Clink"
+version = "home_yard_residential_openworld_v3_2026_05_12"
+laps = 3
+track_source_id = "road_grid_map"
+road_width = 16.0
+out_of_bounds_y = -28.0
+reset_mode = "instant_pop"
+floor_visual_y = -1.1
+runtime_scene_path = "res://assets/gameplay/tracks/home_yard_v3/modes/kitchen_track.tscn"
+dressing_scene_path = "res://assets/gameplay/tracks/home_yard_v3/home_yard_v3_map.tscn"
+preview_dressing_scene_path = "res://assets/gameplay/tracks/home_yard_v3/home_yard_v3_map.tscn"
+ground_size = Vector2(720, 680)
+ground_color = Color(0.48, 0.58, 0.38, 1)
+ground_texture_path = "res://assets/gameplay/materials/tile/kitchen_tile_albedo.png"
+road_texture_path = "res://assets/gameplay/materials/plastic/glossy_plastic_albedo.png"
+road_visual_style = "kenney_gridmap"
+road_grid_layout = {
+"basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"cell_size": Vector3(16, 4, 16),
+"cells": Array[Dictionary]([{
+"cell": Vector3i(-2, 0, -3),
+"item": 2,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-160, 0.6, -105)
+}, {
+"cell": Vector3i(-1, 0, -3),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-144, 0.6, -105)
+}, {
+"cell": Vector3i(0, 0, -3),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-128, 0.6, -105)
+}, {
+"cell": Vector3i(1, 0, -3),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-112, 0.6, -105)
+}, {
+"cell": Vector3i(2, 0, -3),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-96, 0.6, -105)
+}, {
+"cell": Vector3i(3, 0, -3),
+"item": 1,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-80, 0.6, -105)
+}, {
+"cell": Vector3i(3, 0, -2),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-80, 0.6, -89)
+}, {
+"cell": Vector3i(3, 0, -1),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-80, 0.6, -73)
+}, {
+"cell": Vector3i(3, 0, 0),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-80, 0.6, -57)
+}, {
+"cell": Vector3i(3, 0, 1),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-80, 0.6, -41)
+}, {
+"cell": Vector3i(3, 0, 2),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-80, 0.6, -25)
+}, {
+"cell": Vector3i(3, 0, 3),
+"item": 1,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(-80, 0.6, -9)
+}, {
+"cell": Vector3i(2, 0, 3),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-96, 0.6, -9)
+}, {
+"cell": Vector3i(1, 0, 3),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-112, 0.6, -9)
+}, {
+"cell": Vector3i(0, 0, 3),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-128, 0.6, -9)
+}, {
+"cell": Vector3i(-1, 0, 3),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-144, 0.6, -9)
+}, {
+"cell": Vector3i(-2, 0, 3),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-160, 0.6, -9)
+}, {
+"cell": Vector3i(-3, 0, 3),
+"item": 1,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(-176, 0.6, -9)
+}, {
+"cell": Vector3i(-3, 0, 2),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(-176, 0.6, -25)
+}, {
+"cell": Vector3i(-3, 0, 1),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(-176, 0.6, -41)
+}, {
+"cell": Vector3i(-3, 0, 0),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(-176, 0.6, -57)
+}, {
+"cell": Vector3i(-3, 0, -1),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(-176, 0.6, -73)
+}, {
+"cell": Vector3i(-3, 0, -2),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(-176, 0.6, -89)
+}, {
+"cell": Vector3i(-3, 0, -3),
+"item": 1,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(-176, 0.6, -105)
+}]),
+"checkpoint_route_indices": Array[int]([0, 4, 8, 12, 16, 20]),
+"hazard_route_indices": [],
+"item_route_indices": [],
+"mesh_library_path": "res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres",
+"ordered_route_cells": Array[Vector3i]([Vector3i(-2, 0, -3), Vector3i(-1, 0, -3), Vector3i(0, 0, -3), Vector3i(1, 0, -3), Vector3i(2, 0, -3), Vector3i(3, 0, -3), Vector3i(3, 0, -2), Vector3i(3, 0, -1), Vector3i(3, 0, 0), Vector3i(3, 0, 1), Vector3i(3, 0, 2), Vector3i(3, 0, 3), Vector3i(2, 0, 3), Vector3i(1, 0, 3), Vector3i(0, 0, 3), Vector3i(-1, 0, 3), Vector3i(-2, 0, 3), Vector3i(-3, 0, 3), Vector3i(-3, 0, 2), Vector3i(-3, 0, 1), Vector3i(-3, 0, 0), Vector3i(-3, 0, -1), Vector3i(-3, 0, -2), Vector3i(-3, 0, -3)]),
+"ordered_route_points": Array[Vector3]([Vector3(-160, 0.6, -105), Vector3(-144, 0.6, -105), Vector3(-128, 0.6, -105), Vector3(-112, 0.6, -105), Vector3(-96, 0.6, -105), Vector3(-80, 0.6, -105), Vector3(-80, 0.6, -89), Vector3(-80, 0.6, -73), Vector3(-80, 0.6, -57), Vector3(-80, 0.6, -41), Vector3(-80, 0.6, -25), Vector3(-80, 0.6, -9), Vector3(-96, 0.6, -9), Vector3(-112, 0.6, -9), Vector3(-128, 0.6, -9), Vector3(-144, 0.6, -9), Vector3(-160, 0.6, -9), Vector3(-176, 0.6, -9), Vector3(-176, 0.6, -25), Vector3(-176, 0.6, -41), Vector3(-176, 0.6, -57), Vector3(-176, 0.6, -73), Vector3(-176, 0.6, -89), Vector3(-176, 0.6, -105)]),
+"origin": Vector3(-136, -1.4, -65),
+"road_width": 16.0,
+"route_envelope": {
+"cell_size": Vector3(16, 4, 16),
+"confidence": "inferred_from_floor_plan_and_route_cell_budget",
+"corridor_width": 16.0,
+"course_id": "kitchen",
+"floor_top_y": 0.05,
+"forbidden_overlap": ["walls", "furniture", "fixtures", "plants", "porch_posts", "service_props", "collision_blockers"],
+"gate": "spatial_audit_kitchen_route_inside_kitchen_breakfast",
+"minimum_clearance_y": 0.55,
+"road_surface_y": 0.6,
+"roof_clearance_max_y": 9999.0,
+"route_local_bounds": {
+"max": Vector3i(3, 0, 3),
+"min": Vector3i(-3, 0, -3)
+},
+"route_world_bounds": {
+"max": Vector3(-72, 2.6, -1),
+"min": Vector3(-184, -1.4, -113)
+},
+"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+"third_person_camera_clearance_height_units": 12.0,
+"third_person_camera_clearance_width_units": 14.0,
+"toy_racer_drift_margin_units": 5.0,
+"toy_racer_route_swept_width_units": 6.0,
+"toy_racer_visual_height_units_max": 1.4,
+"usable_inset": 14.0,
+"zone_center": Vector3(-127.5, 0, -57.5),
+"zone_id": "kitchen_breakfast",
+"zone_size": Vector3(145, 40, 145),
+"zone_world_bounds": {
+"max": Vector3(-55, 20, 15),
+"min": Vector3(-200, -20, -130)
+}
+},
+"spawn_slots": Array[Dictionary]([{
+"forward_offset": 0.0,
+"lateral_offset": -2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 180.0
+}, {
+"forward_offset": 0.0,
+"lateral_offset": 2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 180.0
+}, {
+"forward_offset": 5.0,
+"lateral_offset": -2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 180.0
+}, {
+"forward_offset": 5.0,
+"lateral_offset": 2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 180.0
+}, {
+"forward_offset": 10.0,
+"lateral_offset": -2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 180.0
+}, {
+"forward_offset": 10.0,
+"lateral_offset": 2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 180.0
+}, {
+"forward_offset": 15.0,
+"lateral_offset": -2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 180.0
+}, {
+"forward_offset": 15.0,
+"lateral_offset": 2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 180.0
+}])
+}
+sky_preset_id = "noon_clear"
+sky_weather = "clear"
+sky_top_color = Color(0.44, 0.72, 1, 1)
+sky_horizon_color = Color(0.78, 0.9, 1, 1)
+sky_cloud_amount = 0.16
+sky_cloud_speed = 0.014
+sky_haze_amount = 0.1
+sky_light_energy = 2.45
+route_points = Array[Vector3]([Vector3(-160, 0.6, -105), Vector3(-144, 0.6, -105), Vector3(-128, 0.6, -105), Vector3(-112, 0.6, -105), Vector3(-96, 0.6, -105), Vector3(-80, 0.6, -105), Vector3(-80, 0.6, -89), Vector3(-80, 0.6, -73), Vector3(-80, 0.6, -57), Vector3(-80, 0.6, -41), Vector3(-80, 0.6, -25), Vector3(-80, 0.6, -9), Vector3(-96, 0.6, -9), Vector3(-112, 0.6, -9), Vector3(-128, 0.6, -9), Vector3(-144, 0.6, -9), Vector3(-160, 0.6, -9), Vector3(-176, 0.6, -9), Vector3(-176, 0.6, -25), Vector3(-176, 0.6, -41), Vector3(-176, 0.6, -57), Vector3(-176, 0.6, -73), Vector3(-176, 0.6, -89), Vector3(-176, 0.6, -105)])
+checkpoint_indices = Array[int]([0, 4, 8, 12, 16, 20])
+spawn_points = Array[Vector4]([Vector4(-160, 1.4000001, -102.25, 270), Vector4(-160, 1.4000001, -107.75, 270), Vector4(-155, 1.4000001, -102.25, 270), Vector4(-155, 1.4000001, -107.75, 270), Vector4(-150, 1.4000001, -102.25, 270), Vector4(-150, 1.4000001, -107.75, 270), Vector4(-145, 1.4000001, -102.25, 270), Vector4(-145, 1.4000001, -107.75, 270)])
+stage_props = Array[Dictionary]([{
+"asset_path": "res://assets/source/kenney/toy_car_kit/gate.glb",
+"asset_source": "Kenney Toy Car Kit",
+"audio_material_id": "",
+"collision_mode": "visual",
+"gameplay_tag": "start_finish",
+"id": "kitchen_start_gate",
+"kind": "scene",
+"license_origin": "CC0/Kenney",
+"position": Vector3(-160, 3.8000002, -80),
+"route_clearance": "outside_route_corridor",
+"scale": Vector3(7, 7, 7),
+"scale_class": "toy_route_cue",
+"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+"scale_validation_status": "declared_pending_import_aabb_review",
+"target_dimensions_units": Vector3(6, 6, 6),
+"validation_camera": "ValidationCameras/KitchenStartPlayerCamera",
+"yaw_degrees": 0.0
+}, {
+"asset_path": "res://assets/source/kenney/toy_car_kit/gate-finish.glb",
+"asset_source": "Kenney Toy Car Kit",
+"audio_material_id": "",
+"collision_mode": "visual",
+"gameplay_tag": "start_finish",
+"id": "kitchen_finish_language_panel",
+"kind": "scene",
+"license_origin": "CC0/Kenney",
+"position": Vector3(-144, 3.8000002, -80),
+"route_clearance": "outside_route_corridor",
+"scale": Vector3(7, 7, 7),
+"scale_class": "toy_route_cue",
+"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+"scale_validation_status": "declared_pending_import_aabb_review",
+"target_dimensions_units": Vector3(6, 6, 6),
+"validation_camera": "ValidationCameras/KitchenStartPlayerCamera",
+"yaw_degrees": 0.0
+}, {
+"asset_path": "res://assets/source/kenney/toy_car_kit/item-cone.glb",
+"asset_source": "Kenney Toy Car Kit",
+"audio_material_id": "",
+"collision_mode": "visual",
+"gameplay_tag": "direction",
+"id": "kitchen_route_cone_left",
+"kind": "scene",
+"license_origin": "CC0/Kenney",
+"position": Vector3(-80, 1.7, -39),
+"route_clearance": "outside_route_corridor",
+"scale": Vector3(4.2, 4.2, 4.2),
+"scale_class": "toy_route_cue",
+"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+"scale_validation_status": "declared_pending_import_aabb_review",
+"target_dimensions_units": Vector3(6, 6, 6),
+"validation_camera": "ValidationCameras/KitchenStartPlayerCamera",
+"yaw_degrees": 20.0
+}, {
+"asset_path": "res://assets/source/kenney/toy_car_kit/item-cone.glb",
+"asset_source": "Kenney Toy Car Kit",
+"audio_material_id": "",
+"collision_mode": "visual",
+"gameplay_tag": "direction",
+"id": "kitchen_route_cone_right",
+"kind": "scene",
+"license_origin": "CC0/Kenney",
+"position": Vector3(-160, 1.7, 9),
+"route_clearance": "outside_route_corridor",
+"scale": Vector3(4.2, 4.2, 4.2),
+"scale_class": "toy_route_cue",
+"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+"scale_validation_status": "declared_pending_import_aabb_review",
+"target_dimensions_units": Vector3(6, 6, 6),
+"validation_camera": "ValidationCameras/KitchenStartPlayerCamera",
+"yaw_degrees": -20.0
+}, {
+"asset_path": "res://assets/source/kenney/furniture_kit/kitchenFridge.glb",
+"asset_source": "Kenney Furniture Kit",
+"audio_material_id": "",
+"collision_mode": "visual",
+"gameplay_tag": "landmark",
+"id": "kitchen_fridge_landmark",
+"kind": "scene",
+"license_origin": "CC0/Kenney",
+"position": Vector3(-94, 3.1999998, -13),
+"route_clearance": "outside_route_corridor",
+"scale": Vector3(9, 9, 9),
+"scale_class": "human_room_furnishing",
+"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+"scale_validation_status": "declared_pending_import_aabb_review",
+"target_dimensions_units": Vector3(24, 16, 24),
+"validation_camera": "ValidationCameras/KitchenStartPlayerCamera",
+"yaw_degrees": 90.0
+}, {
+"asset_path": "res://assets/source/kenney/furniture_kit/kitchenSink.glb",
+"asset_source": "Kenney Furniture Kit",
+"audio_material_id": "",
+"collision_mode": "visual",
+"gameplay_tag": "landmark",
+"id": "kitchen_sink_landmark",
+"kind": "scene",
+"license_origin": "CC0/Kenney",
+"position": Vector3(-170, 3, -21),
+"route_clearance": "outside_route_corridor",
+"scale": Vector3(8, 8, 8),
+"scale_class": "human_room_furnishing",
+"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+"scale_validation_status": "declared_pending_import_aabb_review",
+"target_dimensions_units": Vector3(24, 16, 24),
+"validation_camera": "ValidationCameras/KitchenStartPlayerCamera",
+"yaw_degrees": 180.0
+}, {
+"asset_path": "res://assets/source/kenney/racing_kit/flagCheckersSmall.glb",
+"asset_source": "Kenney Racing Kit",
+"audio_material_id": "",
+"collision_mode": "visual",
+"gameplay_tag": "landmark",
+"id": "kitchen_checkered_flag",
+"kind": "scene",
+"license_origin": "CC0/Kenney",
+"position": Vector3(-80, 4.6, -99),
+"route_clearance": "outside_route_corridor",
+"scale": Vector3(5, 5, 5),
+"scale_class": "toy_route_cue",
+"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+"scale_validation_status": "declared_pending_import_aabb_review",
+"target_dimensions_units": Vector3(6, 6, 6),
+"validation_camera": "ValidationCameras/KitchenStartPlayerCamera",
+"yaw_degrees": 35.0
+}])
+stage_interactions = Array[Dictionary]([{
+"action": "boost",
+"boost_force": 24.0,
+"cooldown": 1.0,
+"duration": 0.25,
+"id": "kitchen_boost_pad",
+"note": "Home-yard mode boost beat.",
+"position": Vector3(-80, 1.6, -89),
+"shape": "box",
+"size": Vector3(12, 3, 12),
+"yaw_degrees": 0.0
+}, {
+"action": "rumble",
+"cooldown": 1.2,
+"duration": 0.4,
+"id": "kitchen_rumble_zone",
+"intensity": 0.45,
+"note": "Home-yard mode texture beat.",
+"position": Vector3(-96, 1.6, -9),
+"shape": "box",
+"size": Vector3(14, 3, 14),
+"yaw_degrees": 0.0
+}])
+audio_zones = Array[Dictionary]([{
+"audio_id": "clatter",
+"audio_path": "",
+"id": "FridgeHumZone",
+"position": [126.0, 3.8, 34.0],
+"radius": 26.0,
+"volume_db": -16.0,
+"zone_kind": "ambient"
+}, {
+"audio_id": "clatter",
+"audio_path": "",
+"id": "KitchenClatterZone",
+"position": [0.0, 5.0, 0.0],
+"radius": 120.0,
+"volume_db": -12.0,
+"zone_kind": "ambient"
+}, {
+"audio_id": "sink_splash",
+"audio_path": "",
+"id": "SinkSplashZone",
+"position": [-8.0, 4.45, 74.0],
+"radius": 18.0,
+"volume_db": -5.0,
+"zone_kind": "oneshot"
+}, {
+"audio_id": "stove_sizzle",
+"audio_path": "",
+"id": "StoveSizzleZone",
+"position": [-121.48029, -8.806137, -12.746695],
+"radius": 30.0,
+"volume_db": -6.0,
+"zone_kind": "ambient"
+}])
+audio_ids = {
+"clatter": "res://assets/source/audio/canva/tracks/kitchen/kitchen_clatter_canva_01.mp3",
+"music": "res://assets/source/audio/suno/tracks/kitchen/kitchen_loop_suno_01.mp3",
+"sink_splash": "res://assets/source/audio/canva/tracks/kitchen/kitchen_sink_water.mp3",
+"stove_sizzle": "res://assets/source/audio/canva/tracks/kitchen/kitchen_oven_sizzle.mp3",
+"utensil_clink": "res://assets/source/audio/canva/tracks/kitchen/kitchen_utensil_clink_canva_01.wav"
+}
+metadata/track_map_id = "home_yard_v3"
+metadata/track_mode_id = "kitchen"
+metadata/track_mode_kind = "race"
+metadata/road_source = "road_grid_map"

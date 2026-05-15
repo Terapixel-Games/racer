@@ -1,0 +1,752 @@
+{
+  "gate": "roof_trim_seam_audit",
+  "acceptance": "all close seam cameras must exist and be reviewed as pass before production shell acceptance",
+  "close_seam_review_cameras": [
+    "FrontLeftEaveSeamCamera.png",
+    "FrontRightEaveSeamCamera.png",
+    "RearLeftEaveSeamCamera.png",
+    "RearRightEaveSeamCamera.png",
+    "UndersideLeftEaveSeamCamera.png",
+    "UndersideRightEaveSeamCamera.png"
+  ],
+  "trim_entries": [
+    {
+      "id": "MainHouseGableRoof_RidgeCap",
+      "support_edge_id": "MainHouseGableRoof:ridge",
+      "support_edge_start": [
+        18.0,
+        -125.5,
+        82.35
+      ],
+      "support_edge_end": [
+        18.0,
+        125.5,
+        82.35
+      ],
+      "neighbor_ids": [
+        "MainHouseGableRoof_RearLeftRake",
+        "MainHouseGableRoof_RearRightRake",
+        "MainHouseGableRoof_FrontLeftRake",
+        "MainHouseGableRoof_FrontRightRake"
+      ],
+      "mitre_rule": "overlap_or_mitre_into_rake_caps",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.405,
+      "status": "pass"
+    },
+    {
+      "id": "MainHouseGableRoof_LeftEaveFascia",
+      "support_edge_id": "MainHouseGableRoof:left_eave",
+      "support_edge_start": [
+        -69.5,
+        -125.5,
+        54.2
+      ],
+      "support_edge_end": [
+        -69.5,
+        125.5,
+        54.2
+      ],
+      "neighbor_ids": [
+        "MainHouseGableRoof_RearLeftRake",
+        "MainHouseGableRoof_FrontLeftRake"
+      ],
+      "mitre_rule": "return_into_rake_boards",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.45,
+      "status": "pass"
+    },
+    {
+      "id": "MainHouseGableRoof_RightEaveFascia",
+      "support_edge_id": "MainHouseGableRoof:right_eave",
+      "support_edge_start": [
+        105.5,
+        -125.5,
+        54.2
+      ],
+      "support_edge_end": [
+        105.5,
+        125.5,
+        54.2
+      ],
+      "neighbor_ids": [
+        "MainHouseGableRoof_RearRightRake",
+        "MainHouseGableRoof_FrontRightRake"
+      ],
+      "mitre_rule": "return_into_rake_boards",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.45,
+      "status": "pass"
+    },
+    {
+      "id": "MainHouseGableRoof_FrontLeftRake",
+      "support_edge_id": "MainHouseGableRoof:front_left_rake",
+      "support_edge_start": [
+        -69.5,
+        125.5,
+        54.8
+      ],
+      "support_edge_end": [
+        18.0,
+        125.5,
+        82.15
+      ],
+      "neighbor_ids": [
+        "MainHouseGableRoof_LeftEaveFascia",
+        "MainHouseGableRoof_RidgeCap"
+      ],
+      "mitre_rule": "mitre_to_eave_and_ridge",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.405,
+      "status": "pass"
+    },
+    {
+      "id": "MainHouseGableRoof_FrontRightRake",
+      "support_edge_id": "MainHouseGableRoof:front_right_rake",
+      "support_edge_start": [
+        105.5,
+        125.5,
+        54.8
+      ],
+      "support_edge_end": [
+        18.0,
+        125.5,
+        82.15
+      ],
+      "neighbor_ids": [
+        "MainHouseGableRoof_RightEaveFascia",
+        "MainHouseGableRoof_RidgeCap"
+      ],
+      "mitre_rule": "mitre_to_eave_and_ridge",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.405,
+      "status": "pass"
+    },
+    {
+      "id": "MainHouseGableRoof_RearLeftRake",
+      "support_edge_id": "MainHouseGableRoof:rear_left_rake",
+      "support_edge_start": [
+        -69.5,
+        -125.5,
+        54.8
+      ],
+      "support_edge_end": [
+        18.0,
+        -125.5,
+        82.15
+      ],
+      "neighbor_ids": [
+        "MainHouseGableRoof_LeftEaveFascia",
+        "MainHouseGableRoof_RidgeCap"
+      ],
+      "mitre_rule": "mitre_to_eave_and_ridge",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.405,
+      "status": "pass"
+    },
+    {
+      "id": "MainHouseGableRoof_RearRightRake",
+      "support_edge_id": "MainHouseGableRoof:rear_right_rake",
+      "support_edge_start": [
+        105.5,
+        -125.5,
+        54.8
+      ],
+      "support_edge_end": [
+        18.0,
+        -125.5,
+        82.15
+      ],
+      "neighbor_ids": [
+        "MainHouseGableRoof_RightEaveFascia",
+        "MainHouseGableRoof_RidgeCap"
+      ],
+      "mitre_rule": "mitre_to_eave_and_ridge",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.405,
+      "status": "pass"
+    },
+    {
+      "id": "GarageCrossGableRoof_RidgeCap",
+      "support_edge_id": "GarageCrossGableRoof:ridge",
+      "support_edge_start": [
+        -104.0,
+        -125.0,
+        72.35
+      ],
+      "support_edge_end": [
+        -104.0,
+        133.0,
+        72.35
+      ],
+      "neighbor_ids": [
+        "GarageCrossGableRoof_RearLeftRake",
+        "GarageCrossGableRoof_RearRightRake",
+        "GarageCrossGableRoof_FrontLeftRake",
+        "GarageCrossGableRoof_FrontRightRake"
+      ],
+      "mitre_rule": "overlap_or_mitre_into_rake_caps",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.405,
+      "status": "pass"
+    },
+    {
+      "id": "GarageCrossGableRoof_LeftEaveFascia",
+      "support_edge_id": "GarageCrossGableRoof:left_eave",
+      "support_edge_start": [
+        -160.0,
+        -125.0,
+        46.2
+      ],
+      "support_edge_end": [
+        -160.0,
+        133.0,
+        46.2
+      ],
+      "neighbor_ids": [
+        "GarageCrossGableRoof_RearLeftRake",
+        "GarageCrossGableRoof_FrontLeftRake"
+      ],
+      "mitre_rule": "return_into_rake_boards",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.45,
+      "status": "pass"
+    },
+    {
+      "id": "GarageCrossGableRoof_RightEaveFascia",
+      "support_edge_id": "GarageCrossGableRoof:right_eave",
+      "support_edge_start": [
+        -48.0,
+        -125.0,
+        46.2
+      ],
+      "support_edge_end": [
+        -48.0,
+        133.0,
+        46.2
+      ],
+      "neighbor_ids": [
+        "GarageCrossGableRoof_RearRightRake",
+        "GarageCrossGableRoof_FrontRightRake"
+      ],
+      "mitre_rule": "return_into_rake_boards",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.45,
+      "status": "pass"
+    },
+    {
+      "id": "GarageCrossGableRoof_FrontLeftRake",
+      "support_edge_id": "GarageCrossGableRoof:front_left_rake",
+      "support_edge_start": [
+        -160.0,
+        133.0,
+        46.8
+      ],
+      "support_edge_end": [
+        -104.0,
+        133.0,
+        72.15
+      ],
+      "neighbor_ids": [
+        "GarageCrossGableRoof_LeftEaveFascia",
+        "GarageCrossGableRoof_RidgeCap"
+      ],
+      "mitre_rule": "mitre_to_eave_and_ridge",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.405,
+      "status": "pass"
+    },
+    {
+      "id": "GarageCrossGableRoof_FrontRightRake",
+      "support_edge_id": "GarageCrossGableRoof:front_right_rake",
+      "support_edge_start": [
+        -48.0,
+        133.0,
+        46.8
+      ],
+      "support_edge_end": [
+        -104.0,
+        133.0,
+        72.15
+      ],
+      "neighbor_ids": [
+        "GarageCrossGableRoof_RightEaveFascia",
+        "GarageCrossGableRoof_RidgeCap"
+      ],
+      "mitre_rule": "mitre_to_eave_and_ridge",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.405,
+      "status": "pass"
+    },
+    {
+      "id": "GarageCrossGableRoof_RearLeftRake",
+      "support_edge_id": "GarageCrossGableRoof:rear_left_rake",
+      "support_edge_start": [
+        -160.0,
+        -125.0,
+        46.8
+      ],
+      "support_edge_end": [
+        -104.0,
+        -125.0,
+        72.15
+      ],
+      "neighbor_ids": [
+        "GarageCrossGableRoof_LeftEaveFascia",
+        "GarageCrossGableRoof_RidgeCap"
+      ],
+      "mitre_rule": "mitre_to_eave_and_ridge",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.405,
+      "status": "pass"
+    },
+    {
+      "id": "GarageCrossGableRoof_RearRightRake",
+      "support_edge_id": "GarageCrossGableRoof:rear_right_rake",
+      "support_edge_start": [
+        -48.0,
+        -125.0,
+        46.8
+      ],
+      "support_edge_end": [
+        -104.0,
+        -125.0,
+        72.15
+      ],
+      "neighbor_ids": [
+        "GarageCrossGableRoof_RightEaveFascia",
+        "GarageCrossGableRoof_RidgeCap"
+      ],
+      "mitre_rule": "mitre_to_eave_and_ridge",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.405,
+      "status": "pass"
+    },
+    {
+      "id": "MasterWingGableRoof_RidgeCap",
+      "support_edge_id": "MasterWingGableRoof:ridge",
+      "support_edge_start": [
+        126.0,
+        -15.5,
+        70.35
+      ],
+      "support_edge_end": [
+        126.0,
+        104.5,
+        70.35
+      ],
+      "neighbor_ids": [
+        "MasterWingGableRoof_RearLeftRake",
+        "MasterWingGableRoof_RearRightRake",
+        "MasterWingGableRoof_FrontLeftRake",
+        "MasterWingGableRoof_FrontRightRake"
+      ],
+      "mitre_rule": "overlap_or_mitre_into_rake_caps",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.405,
+      "status": "pass"
+    },
+    {
+      "id": "MasterWingGableRoof_LeftEaveFascia",
+      "support_edge_id": "MasterWingGableRoof:left_eave",
+      "support_edge_start": [
+        93.5,
+        -15.5,
+        48.2
+      ],
+      "support_edge_end": [
+        93.5,
+        104.5,
+        48.2
+      ],
+      "neighbor_ids": [
+        "MasterWingGableRoof_RearLeftRake",
+        "MasterWingGableRoof_FrontLeftRake"
+      ],
+      "mitre_rule": "return_into_rake_boards",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.45,
+      "status": "pass"
+    },
+    {
+      "id": "MasterWingGableRoof_RightEaveFascia",
+      "support_edge_id": "MasterWingGableRoof:right_eave",
+      "support_edge_start": [
+        158.5,
+        -15.5,
+        48.2
+      ],
+      "support_edge_end": [
+        158.5,
+        104.5,
+        48.2
+      ],
+      "neighbor_ids": [
+        "MasterWingGableRoof_RearRightRake",
+        "MasterWingGableRoof_FrontRightRake"
+      ],
+      "mitre_rule": "return_into_rake_boards",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.45,
+      "status": "pass"
+    },
+    {
+      "id": "MasterWingGableRoof_FrontLeftRake",
+      "support_edge_id": "MasterWingGableRoof:front_left_rake",
+      "support_edge_start": [
+        93.5,
+        104.5,
+        48.8
+      ],
+      "support_edge_end": [
+        126.0,
+        104.5,
+        70.15
+      ],
+      "neighbor_ids": [
+        "MasterWingGableRoof_LeftEaveFascia",
+        "MasterWingGableRoof_RidgeCap"
+      ],
+      "mitre_rule": "mitre_to_eave_and_ridge",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.405,
+      "status": "pass"
+    },
+    {
+      "id": "MasterWingGableRoof_FrontRightRake",
+      "support_edge_id": "MasterWingGableRoof:front_right_rake",
+      "support_edge_start": [
+        158.5,
+        104.5,
+        48.8
+      ],
+      "support_edge_end": [
+        126.0,
+        104.5,
+        70.15
+      ],
+      "neighbor_ids": [
+        "MasterWingGableRoof_RightEaveFascia",
+        "MasterWingGableRoof_RidgeCap"
+      ],
+      "mitre_rule": "mitre_to_eave_and_ridge",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.405,
+      "status": "pass"
+    },
+    {
+      "id": "MasterWingGableRoof_RearLeftRake",
+      "support_edge_id": "MasterWingGableRoof:rear_left_rake",
+      "support_edge_start": [
+        93.5,
+        -15.5,
+        48.8
+      ],
+      "support_edge_end": [
+        126.0,
+        -15.5,
+        70.15
+      ],
+      "neighbor_ids": [
+        "MasterWingGableRoof_LeftEaveFascia",
+        "MasterWingGableRoof_RidgeCap"
+      ],
+      "mitre_rule": "mitre_to_eave_and_ridge",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.405,
+      "status": "pass"
+    },
+    {
+      "id": "MasterWingGableRoof_RearRightRake",
+      "support_edge_id": "MasterWingGableRoof:rear_right_rake",
+      "support_edge_start": [
+        158.5,
+        -15.5,
+        48.8
+      ],
+      "support_edge_end": [
+        126.0,
+        -15.5,
+        70.15
+      ],
+      "neighbor_ids": [
+        "MasterWingGableRoof_RightEaveFascia",
+        "MasterWingGableRoof_RidgeCap"
+      ],
+      "mitre_rule": "mitre_to_eave_and_ridge",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.405,
+      "status": "pass"
+    },
+    {
+      "id": "FrontPorchGableRoof_RidgeCap",
+      "support_edge_id": "FrontPorchGableRoof:ridge",
+      "support_edge_start": [
+        10.0,
+        113.5,
+        52.35
+      ],
+      "support_edge_end": [
+        10.0,
+        156.5,
+        52.35
+      ],
+      "neighbor_ids": [
+        "FrontPorchGableRoof_RearLeftRake",
+        "FrontPorchGableRoof_RearRightRake",
+        "FrontPorchGableRoof_FrontLeftRake",
+        "FrontPorchGableRoof_FrontRightRake"
+      ],
+      "mitre_rule": "overlap_or_mitre_into_rake_caps",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.405,
+      "status": "pass"
+    },
+    {
+      "id": "FrontPorchGableRoof_LeftEaveFascia",
+      "support_edge_id": "FrontPorchGableRoof:left_eave",
+      "support_edge_start": [
+        -26.5,
+        113.5,
+        36.2
+      ],
+      "support_edge_end": [
+        -26.5,
+        156.5,
+        36.2
+      ],
+      "neighbor_ids": [
+        "FrontPorchGableRoof_RearLeftRake",
+        "FrontPorchGableRoof_FrontLeftRake"
+      ],
+      "mitre_rule": "return_into_rake_boards",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.45,
+      "status": "pass"
+    },
+    {
+      "id": "FrontPorchGableRoof_RightEaveFascia",
+      "support_edge_id": "FrontPorchGableRoof:right_eave",
+      "support_edge_start": [
+        46.5,
+        113.5,
+        36.2
+      ],
+      "support_edge_end": [
+        46.5,
+        156.5,
+        36.2
+      ],
+      "neighbor_ids": [
+        "FrontPorchGableRoof_RearRightRake",
+        "FrontPorchGableRoof_FrontRightRake"
+      ],
+      "mitre_rule": "return_into_rake_boards",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.45,
+      "status": "pass"
+    },
+    {
+      "id": "FrontPorchGableRoof_FrontLeftRake",
+      "support_edge_id": "FrontPorchGableRoof:front_left_rake",
+      "support_edge_start": [
+        -26.5,
+        156.5,
+        36.8
+      ],
+      "support_edge_end": [
+        10.0,
+        156.5,
+        52.15
+      ],
+      "neighbor_ids": [
+        "FrontPorchGableRoof_LeftEaveFascia",
+        "FrontPorchGableRoof_RidgeCap"
+      ],
+      "mitre_rule": "mitre_to_eave_and_ridge",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.405,
+      "status": "pass"
+    },
+    {
+      "id": "FrontPorchGableRoof_FrontRightRake",
+      "support_edge_id": "FrontPorchGableRoof:front_right_rake",
+      "support_edge_start": [
+        46.5,
+        156.5,
+        36.8
+      ],
+      "support_edge_end": [
+        10.0,
+        156.5,
+        52.15
+      ],
+      "neighbor_ids": [
+        "FrontPorchGableRoof_RightEaveFascia",
+        "FrontPorchGableRoof_RidgeCap"
+      ],
+      "mitre_rule": "mitre_to_eave_and_ridge",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.405,
+      "status": "pass"
+    },
+    {
+      "id": "FrontPorchGableRoof_RearLeftRake",
+      "support_edge_id": "FrontPorchGableRoof:rear_left_rake",
+      "support_edge_start": [
+        -26.5,
+        113.5,
+        36.8
+      ],
+      "support_edge_end": [
+        10.0,
+        113.5,
+        52.15
+      ],
+      "neighbor_ids": [
+        "FrontPorchGableRoof_LeftEaveFascia",
+        "FrontPorchGableRoof_RidgeCap"
+      ],
+      "mitre_rule": "mitre_to_eave_and_ridge",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.405,
+      "status": "pass"
+    },
+    {
+      "id": "FrontPorchGableRoof_RearRightRake",
+      "support_edge_id": "FrontPorchGableRoof:rear_right_rake",
+      "support_edge_start": [
+        46.5,
+        113.5,
+        36.8
+      ],
+      "support_edge_end": [
+        10.0,
+        113.5,
+        52.15
+      ],
+      "neighbor_ids": [
+        "FrontPorchGableRoof_RightEaveFascia",
+        "FrontPorchGableRoof_RidgeCap"
+      ],
+      "mitre_rule": "mitre_to_eave_and_ridge",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.405,
+      "status": "pass"
+    },
+    {
+      "id": "RearPorchGableRoof_RidgeCap",
+      "support_edge_id": "RearPorchGableRoof:ridge",
+      "support_edge_start": [
+        -14.5,
+        -135.0,
+        52.35
+      ],
+      "support_edge_end": [
+        108.5,
+        -135.0,
+        52.35
+      ],
+      "neighbor_ids": [
+        "RearPorchGableRoof_LeftRake",
+        "RearPorchGableRoof_RightRake"
+      ],
+      "mitre_rule": "overlap_or_mitre_into_rake_caps",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.405,
+      "status": "pass"
+    },
+    {
+      "id": "RearPorchGableRoof_FrontEaveFascia",
+      "support_edge_id": "RearPorchGableRoof:front_eave",
+      "support_edge_start": [
+        -14.5,
+        -113.5,
+        36.2
+      ],
+      "support_edge_end": [
+        108.5,
+        -113.5,
+        36.2
+      ],
+      "neighbor_ids": [
+        "RearPorchGableRoof_LeftRake",
+        "RearPorchGableRoof_RightRake"
+      ],
+      "mitre_rule": "return_into_rake_boards",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.45,
+      "status": "pass"
+    },
+    {
+      "id": "RearPorchGableRoof_RearEaveFascia",
+      "support_edge_id": "RearPorchGableRoof:rear_eave",
+      "support_edge_start": [
+        -14.5,
+        -156.5,
+        36.2
+      ],
+      "support_edge_end": [
+        108.5,
+        -156.5,
+        36.2
+      ],
+      "neighbor_ids": [
+        "RearPorchGableRoof_LeftRake",
+        "RearPorchGableRoof_RightRake"
+      ],
+      "mitre_rule": "return_into_rake_boards",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.45,
+      "status": "pass"
+    },
+    {
+      "id": "RearPorchGableRoof_LeftRake",
+      "support_edge_id": "RearPorchGableRoof:left_rake",
+      "support_edge_start": [
+        -14.5,
+        -156.5,
+        36.8
+      ],
+      "support_edge_end": [
+        -14.5,
+        -135.0,
+        52.15
+      ],
+      "neighbor_ids": [
+        "RearPorchGableRoof_RearEaveFascia",
+        "RearPorchGableRoof_RidgeCap",
+        "RearPorchGableRoof_FrontEaveFascia"
+      ],
+      "mitre_rule": "mitre_to_eave_and_ridge",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.405,
+      "status": "pass"
+    },
+    {
+      "id": "RearPorchGableRoof_RightRake",
+      "support_edge_id": "RearPorchGableRoof:right_rake",
+      "support_edge_start": [
+        108.5,
+        -156.5,
+        36.8
+      ],
+      "support_edge_end": [
+        108.5,
+        -135.0,
+        52.15
+      ],
+      "neighbor_ids": [
+        "RearPorchGableRoof_RearEaveFascia",
+        "RearPorchGableRoof_RidgeCap",
+        "RearPorchGableRoof_FrontEaveFascia"
+      ],
+      "mitre_rule": "mitre_to_eave_and_ridge",
+      "overrun_tolerance": 0.0,
+      "minimum_neighbor_overlap": 0.405,
+      "status": "pass"
+    }
+  ],
+  "failures": [],
+  "status": "pass"
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": "home_yard_v3_area_asset_manifest_v1",
+  "area": "glam_closet",
+  "concept_sources": ["res://assets/gameplay/tracks/glam_closet/stage_concept.md", "res://assets/gameplay/tracks/glam_closet/stage_build_spec.md", "res://assets/gameplay/tracks/glam_closet/stage_key_art.png"],
+  "production_role": "Dazzling display court course for Velva's Mirror Court.",
+  "required_assets": [
+    {"asset_slug": "low_poly_glam_closet_mirror_arch", "source": "meshy_planned", "lifecycle_state": "planned", "supersedes": "kenney_keep_review_if_passes", "poly_budget": 8000, "collision_policy": "route_frame_helper_collision", "route_clearance": "pending", "validation_cameras": ["GlamClosetMirrorCamera", "GlamClosetAssetCloseupCamera"], "screenshot_score_status": "pending"},
+    {"asset_slug": "low_poly_glam_closet_vanity_runway", "source": "meshy_planned", "lifecycle_state": "planned", "supersedes": "", "poly_budget": 8000, "collision_policy": "visual_or_route_surface_if_authored", "route_clearance": "pending", "validation_cameras": ["GlamClosetRouteCamera"], "screenshot_score_status": "pending"},
+    {"asset_slug": "low_poly_glam_closet_perfume_bottle_emitter", "source": "meshy_planned", "lifecycle_state": "planned", "supersedes": "", "poly_budget": 2000, "collision_policy": "visual_off_route_particle_source", "route_clearance": "pending", "validation_cameras": ["GlamClosetAssetCloseupCamera"], "screenshot_score_status": "pending"}
+  ],
+  "validation_requirements": ["gloss_without_noise", "mirror_material_readability", "mist_readability", "route_safe_pedestals", "no_placeholder_boxes"],
+  "blocked_items": ["Need final decision on fake mirror material versus shader cost."]
+}

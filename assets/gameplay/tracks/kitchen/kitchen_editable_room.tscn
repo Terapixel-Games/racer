@@ -66,6 +66,9 @@ shader_parameter/wave_strength = 0.12
 shader_parameter/wave_speed = 1.25
 shader_parameter/foam_cutoff = 0.64
 shader_parameter/foam_scale = 18.0
+shader_parameter/edge_clarity = 0.45
+shader_parameter/highlight_strength = 0.22
+shader_parameter/normal_tilt = 0.18
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_water"]
 size = Vector2(1, 1)
@@ -340,9 +343,6 @@ transform = Transform3D(-2.1855694e-06, 0, 35.915, 0, 50, 0, -50, 0, -1.5701696e
 [node name="washer" parent="Track/RoomShell" instance=ExtResource("13_ft60m")]
 transform = Transform3D(-50, 0, -4.371139e-06, 0, 50, 0, 4.371139e-06, 0, -50, 25.167244, -10, 75.66078)
 script = ExtResource("18_rumbler")
-
-[node name="washerDoor" parent="Track/RoomShell/washer/washer(Clone)" index="0"]
-surface_material_override/1 = SubResource("Material_washer_water")
 
 [node name="dryer" parent="Track/RoomShell" instance=ExtResource("14_452dl")]
 transform = Transform3D(-50, 0, -4.371139e-06, 0, 50, 0, 4.371139e-06, 0, -50, 4.3795013, -10, 74.78266)

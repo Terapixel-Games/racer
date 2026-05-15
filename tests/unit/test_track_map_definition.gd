@@ -17,9 +17,71 @@ const HOME_YARD_MODE_IDS := [
 	"playroom",
 	"sandbox",
 ]
-const HOME_YARD_MAP_ID := "home_yard_v2"
+const HOME_YARD_MAP_ID := "home_yard_v3"
 const OLD_HOME_YARD_MAP_ID := "home_yard"
-const HOME_YARD_MAP_SCENE := "res://assets/gameplay/tracks/home_yard_v2/home_yard_v2_map.tscn"
+const OLD_HOME_YARD_V2_MAP_ID := "home_yard_v2"
+const HOME_YARD_MAP_SCENE := "res://assets/gameplay/tracks/home_yard_v3/home_yard_v3_map.tscn"
+const HOME_ESTATE_MAP_ID := "home_estate_v1"
+const HOME_ESTATE_MAP_SCENE := "res://assets/gameplay/tracks/home_estate_v1/home_estate_v1_map.tscn"
+const HOME_ESTATE_VISIBLE_SHELL := "res://assets/gameplay/tracks/home_estate_v1/meshes/modern_farmhouse_shell.glb"
+const HOME_ESTATE_SHELL_REVIEW_DIR := "res://docs/concepts/home_estate_v1/reference_frames/modern_farmhouse_38_526/blender_shell_angles"
+const HOME_ESTATE_ROOF_TRIM_AUDIT := "%s/roof_trim_seam_audit.json" % HOME_ESTATE_SHELL_REVIEW_DIR
+const HOME_ESTATE_GABLE_POINT_AUDIT := "%s/gable_rake_point_closure_audit.json" % HOME_ESTATE_SHELL_REVIEW_DIR
+const HOME_ESTATE_ROOF_AXIS_AUDIT := "%s/roof_axis_orientation_audit.json" % HOME_ESTATE_SHELL_REVIEW_DIR
+const HOME_ESTATE_ROOF_INTERSECTION_AUDIT := "%s/roof_intersection_closure_audit.json" % HOME_ESTATE_SHELL_REVIEW_DIR
+const HOME_ESTATE_WALL_FLUSH_AUDIT := "%s/wall_plane_flush_audit.json" % HOME_ESTATE_SHELL_REVIEW_DIR
+const HOME_ESTATE_ROOF_WALL_EDGE_AUDIT := "%s/roof_wall_corner_edge_audit.json" % HOME_ESTATE_SHELL_REVIEW_DIR
+const HOME_ESTATE_ENVELOPE_CLASH_AUDIT := "%s/envelope_clearance_clash_audit.json" % HOME_ESTATE_SHELL_REVIEW_DIR
+const HOME_ESTATE_CLOSE_SEAM_REVIEW_RENDERS := [
+	"FrontLeftEaveSeamCamera.png",
+	"FrontRightEaveSeamCamera.png",
+	"RearLeftEaveSeamCamera.png",
+	"RearRightEaveSeamCamera.png",
+	"UndersideLeftEaveSeamCamera.png",
+	"UndersideRightEaveSeamCamera.png",
+]
+const HOME_ESTATE_GABLE_POINT_REVIEW_RENDERS := [
+	"MainFrontGableApexCamera.png",
+	"MainRearGableApexCamera.png",
+	"GarageFrontGableApexCamera.png",
+	"GarageRearGableApexCamera.png",
+	"MasterFrontGableApexCamera.png",
+	"MasterRearGableApexCamera.png",
+	"FrontPorchStreetGableApexCamera.png",
+	"FrontPorchTieInGableApexCamera.png",
+]
+const HOME_ESTATE_ROOF_INTERSECTION_REVIEW_RENDERS := [
+	"RearMasterWingRoofClosureCamera.png",
+	"RearPorchRoofTieInClosureCamera.png",
+	"GarageRearRoofClosureCamera.png",
+	"FrontPorchRoofTieInClosureCamera.png",
+]
+const HOME_ESTATE_WALL_FLUSH_REVIEW_RENDERS := [
+	"RightWallFlushCloseCamera.png",
+	"MasterWingFrontReturnFlushCamera.png",
+	"GarageSideReturnFlushCamera.png",
+]
+const HOME_ESTATE_ROOF_WALL_EDGE_REVIEW_RENDERS := [
+	"RightFrontRoofWallEdgeCamera.png",
+	"RightRearRoofWallEdgeCamera.png",
+	"MasterWingOuterRoofWallEdgeCamera.png",
+	"GarageOuterRoofWallEdgeCamera.png",
+	"PorchRoofWallEdgeCamera.png",
+]
+const HOME_ESTATE_ENVELOPE_CLASH_REVIEW_RENDERS := [
+	"MainRightInteriorCeilingClashCamera.png",
+	"MasterWingInteriorCeilingClashCamera.png",
+	"GarageInteriorCeilingClashCamera.png",
+	"UpperEaveUndersideClashCamera.png",
+]
+const HOME_ESTATE_MODE_IDS := [
+	"estate_garage",
+	"estate_great_room",
+	"estate_kitchen",
+	"estate_master_suite",
+	"estate_patio",
+	"estate_upper_loft",
+]
 
 func test_kitchen_map_definition_exposes_race_mode() -> void:
 	var map_definition := TrackCatalog.get_map_definition("kitchen")
@@ -35,20 +97,297 @@ func test_kitchen_map_definition_exposes_race_mode() -> void:
 func test_home_yard_map_exposes_all_concept_course_modes() -> void:
 	var map_definition := TrackCatalog.get_map_definition(HOME_YARD_MAP_ID)
 	assert_true(map_definition is TrackMapDefinition, "Home Yard should load as a track map definition")
-	assert_equal(map_definition.id, HOME_YARD_MAP_ID, "Home Yard v2 map id should be stable")
+	assert_equal(map_definition.id, HOME_YARD_MAP_ID, "Home Yard v3 map id should be stable")
 	assert_equal(map_definition.map_scene_path, HOME_YARD_MAP_SCENE, "Home Yard should own the shared floor-plan scene")
 	var mode_ids := map_definition.list_mode_ids()
 	assert_equal(mode_ids, HOME_YARD_MODE_IDS, "Home Yard should expose the eight concept course modes")
 	for mode_id in HOME_YARD_MODE_IDS:
 		var mode_summary := map_definition.mode_summary(mode_id)
-		assert_equal(str(mode_summary.get("map_id", "")), HOME_YARD_MAP_ID, "%s should belong to the Home Yard v2 map" % mode_id)
+		assert_equal(str(mode_summary.get("map_id", "")), HOME_YARD_MAP_ID, "%s should belong to the Home Yard v3 map" % mode_id)
 		assert_equal(str(mode_summary.get("road_source", "")), "road_grid_map", "%s should use RoadGridMap mode metadata" % mode_id)
+
+func test_home_estate_map_uses_user_floor_plan_scaffold() -> void:
+	var map_definition := TrackCatalog.get_map_definition(HOME_ESTATE_MAP_ID)
+	assert_true(map_definition is TrackMapDefinition, "Home Estate should load as a track map definition")
+	if map_definition == null:
+		return
+	assert_equal(map_definition.id, HOME_ESTATE_MAP_ID, "Home Estate map id should be stable")
+	assert_equal(map_definition.map_scene_path, HOME_ESTATE_MAP_SCENE, "Home Estate should own its generated floor-plan scene")
+	assert_equal(map_definition.default_mode_id, "estate_kitchen", "Home Estate should default to the kitchen scaffold mode")
+	assert_equal(map_definition.list_mode_ids(), HOME_ESTATE_MODE_IDS, "Home Estate should expose the first-pass plan-derived course modes")
+	assert_true(ResourceLoader.exists(HOME_ESTATE_VISIBLE_SHELL), "Home Estate should have a Blender-authored visible shell GLB")
+	var packed := load(HOME_ESTATE_MAP_SCENE) as PackedScene
+	assert_true(packed != null, "Home Estate generated map scene should load")
+	if packed == null:
+		return
+	var root := packed.instantiate()
+	assert_true(root != null, "Home Estate generated map scene should instantiate")
+	if root == null:
+		return
+	for holder_name in ["Site", "Foundation", "ExteriorShell", "Roof", "Openings", "MainFloor", "UpperFloor", "Basement", "PatioPool", "VerticalConnectors", "CourseRoutes", "ValidationCameras"]:
+		assert_true(root.get_node_or_null(holder_name) != null, "Home Estate scene should include holder %s" % holder_name)
+	for room_path in [
+		"MainFloor/ThreeCarGarage",
+		"MainFloor/KitchenDining",
+		"MainFloor/GreatRoom",
+		"MainFloor/MasterSuite",
+		"UpperFloor/UpperLoft",
+		"UpperFloor/FutureBonusRoom",
+		"Basement/BasementPlayableShell",
+		"PatioPool/RearPatio",
+	]:
+		assert_true(root.get_node_or_null(room_path) != null, "Home Estate scene should include floor-plan node %s" % room_path)
+	var contract: Dictionary = root.get_meta("floor_plan_contract", {})
+	assert_equal(str(contract.get("source", "")), "user_provided_estate_plan_three_sheets", "Home Estate should record the user-provided plan source")
+	assert_true(str(contract.get("style_reference", "")).contains("modern farmhouse"), "Home Estate should record the modern farmhouse style source")
+	assert_true(str(contract.get("production_policy", "")).contains("no plan labels"), "Home Estate should reject visible floor-plan labels")
+	for production_path in [
+		"ExteriorShell/ModernFarmhouseShellAsset",
+		"ExteriorShell/ModernFarmhouseShellScaleEnvelope",
+		"MainFloor/KitchenCabinetRunBack",
+		"MainFloor/GreatRoomSofa",
+		"MainFloor/MasterBed",
+		"UpperFloor/UpperLoftSofa",
+		"UpperFloor/FutureBonusStorageTrunks",
+	]:
+		assert_true(root.get_node_or_null(production_path) != null, "Home Estate should include production world node %s" % production_path)
+	var shell_asset := root.get_node_or_null("ExteriorShell/ModernFarmhouseShellAsset")
+	assert_equal(str(shell_asset.get_meta("asset_source", "")) if shell_asset != null else "", HOME_ESTATE_VISIBLE_SHELL, "Home Estate visible shell should come from the Blender GLB")
+	assert_equal((root.get_node_or_null("Roof") as Node).get_child_count(), 0, "Home Estate should not layer primitive roof slabs over the Blender shell")
+	assert_equal(_visible_label3d_count(root), 0, "Home Estate should not render literal floor-plan labels in the stage scene")
+	for review_name in [
+		"FrontStreetReviewCamera.png",
+		"RearYardReviewCamera.png",
+		"LeftSideReviewCamera.png",
+		"RightSideReviewCamera.png",
+		"FrontThreeQuarterReviewCamera.png",
+		"RearThreeQuarterReviewCamera.png",
+		"RooflineReviewCamera.png",
+		"UndersideOverhangReviewCamera.png",
+	]:
+		assert_true(FileAccess.file_exists("%s/%s" % [HOME_ESTATE_SHELL_REVIEW_DIR, review_name]), "Home Estate shell should keep all-angle review render %s" % review_name)
+	for review_name in HOME_ESTATE_CLOSE_SEAM_REVIEW_RENDERS:
+		assert_true(FileAccess.file_exists("%s/%s" % [HOME_ESTATE_SHELL_REVIEW_DIR, review_name]), "Home Estate shell should keep close roof-seam review render %s" % review_name)
+	for review_name in HOME_ESTATE_GABLE_POINT_REVIEW_RENDERS:
+		assert_true(FileAccess.file_exists("%s/%s" % [HOME_ESTATE_SHELL_REVIEW_DIR, review_name]), "Home Estate shell should keep close gable-point review render %s" % review_name)
+	for review_name in HOME_ESTATE_ROOF_INTERSECTION_REVIEW_RENDERS:
+		assert_true(FileAccess.file_exists("%s/%s" % [HOME_ESTATE_SHELL_REVIEW_DIR, review_name]), "Home Estate shell should keep roof-intersection review render %s" % review_name)
+	for review_name in HOME_ESTATE_WALL_FLUSH_REVIEW_RENDERS:
+		assert_true(FileAccess.file_exists("%s/%s" % [HOME_ESTATE_SHELL_REVIEW_DIR, review_name]), "Home Estate shell should keep wall-flush review render %s" % review_name)
+	for review_name in HOME_ESTATE_ROOF_WALL_EDGE_REVIEW_RENDERS:
+		assert_true(FileAccess.file_exists("%s/%s" % [HOME_ESTATE_SHELL_REVIEW_DIR, review_name]), "Home Estate shell should keep roof-wall edge review render %s" % review_name)
+	for review_name in HOME_ESTATE_ENVELOPE_CLASH_REVIEW_RENDERS:
+		assert_true(FileAccess.file_exists("%s/%s" % [HOME_ESTATE_SHELL_REVIEW_DIR, review_name]), "Home Estate shell should keep envelope clash review render %s" % review_name)
+	root.queue_free()
+
+func test_home_estate_roof_trim_seam_audit_blocks_uncontracted_edges() -> void:
+	assert_true(FileAccess.file_exists(HOME_ESTATE_ROOF_TRIM_AUDIT), "Home Estate shell should emit a roof trim seam audit artifact")
+	var parsed = JSON.parse_string(FileAccess.get_file_as_string(HOME_ESTATE_ROOF_TRIM_AUDIT))
+	assert_true(parsed is Dictionary, "Roof trim seam audit should be parseable JSON")
+	if not (parsed is Dictionary):
+		return
+	var audit := parsed as Dictionary
+	assert_equal(str(audit.get("gate", "")), "roof_trim_seam_audit", "Roof seam audit should identify the seam gate")
+	assert_equal(str(audit.get("status", "")), "pass", "Roof seam audit should pass before the generated shell is accepted")
+	var close_cameras: Array = audit.get("close_seam_review_cameras", [])
+	for review_name in HOME_ESTATE_CLOSE_SEAM_REVIEW_RENDERS:
+		assert_true(close_cameras.has(review_name), "Roof seam audit should require close camera %s" % review_name)
+	var entries: Array = audit.get("trim_entries", [])
+	assert_true(entries.size() > 0, "Roof seam audit should include trim entries")
+	for raw_entry in entries:
+		var entry: Dictionary = raw_entry
+		assert_true(str(entry.get("id", "")) != "", "Each trim audit entry should have an id")
+		assert_true(str(entry.get("support_edge_id", "")) != "", "%s should declare its support edge" % str(entry.get("id", "")))
+		assert_true((entry.get("neighbor_ids", []) as Array).size() > 0, "%s should declare neighboring trim or wall targets" % str(entry.get("id", "")))
+		assert_true(str(entry.get("mitre_rule", "")) != "", "%s should declare a mitre or return rule" % str(entry.get("id", "")))
+		assert_true(float(entry.get("minimum_neighbor_overlap", 0.0)) > 0.0, "%s should declare a positive overlap budget" % str(entry.get("id", "")))
+		assert_equal(str(entry.get("status", "")), "pass", "%s should pass the numeric seam contract" % str(entry.get("id", "")))
+
+func test_home_estate_gable_rake_point_closure_audit_blocks_flat_apexes() -> void:
+	assert_true(FileAccess.file_exists(HOME_ESTATE_GABLE_POINT_AUDIT), "Home Estate shell should emit a gable/rake point-closure audit artifact")
+	var parsed = JSON.parse_string(FileAccess.get_file_as_string(HOME_ESTATE_GABLE_POINT_AUDIT))
+	assert_true(parsed is Dictionary, "Gable/rake point-closure audit should be parseable JSON")
+	if not (parsed is Dictionary):
+		return
+	var audit := parsed as Dictionary
+	assert_equal(str(audit.get("gate", "")), "gable_rake_point_closure_audit", "Gable point audit should identify the point-closure gate")
+	assert_equal(str(audit.get("status", "")), "pass", "Gable/rake point-closure audit should pass before the generated shell is accepted")
+	var close_cameras: Array = audit.get("close_apex_review_cameras", [])
+	for review_name in HOME_ESTATE_GABLE_POINT_REVIEW_RENDERS:
+		assert_true(close_cameras.has(review_name), "Gable point audit should require close camera %s" % review_name)
+	var apexes: Array = audit.get("gable_apexes", [])
+	assert_true(apexes.size() > 0, "Gable point audit should include gable apex entries")
+	for raw_entry in apexes:
+		var entry: Dictionary = raw_entry
+		assert_true(str(entry.get("id", "")) != "", "Each gable point entry should have an id")
+		assert_true(str(entry.get("roof_id", "")) != "", "%s should declare its roof id" % str(entry.get("id", "")))
+		assert_true((entry.get("rake_ids", []) as Array).size() == 2, "%s should declare two rake ids" % str(entry.get("id", "")))
+		assert_true(str(entry.get("ridge_cap_id", "")) != "", "%s should declare a ridge cap id" % str(entry.get("id", "")))
+		assert_true(str(entry.get("apex_cap_id", "")) != "", "%s should declare an apex cap or mitre mesh id" % str(entry.get("id", "")))
+		assert_true(float(entry.get("endpoint_convergence_tolerance", 999.0)) <= 0.1, "%s should use a strict endpoint convergence tolerance" % str(entry.get("id", "")))
+		assert_true(float(entry.get("measured_rake_endpoint_spread", 999.0)) <= float(entry.get("endpoint_convergence_tolerance", 0.0)), "%s rake endpoints should converge at the apex" % str(entry.get("id", "")))
+		assert_equal(str(entry.get("status", "")), "pass", "%s should pass the gable/rake point-closure contract" % str(entry.get("id", "")))
+
+func test_home_estate_roof_axis_audit_blocks_wrong_porch_gable_direction() -> void:
+	assert_true(FileAccess.file_exists(HOME_ESTATE_ROOF_AXIS_AUDIT), "Home Estate shell should emit a roof-axis orientation audit artifact")
+	var parsed = JSON.parse_string(FileAccess.get_file_as_string(HOME_ESTATE_ROOF_AXIS_AUDIT))
+	assert_true(parsed is Dictionary, "Roof-axis orientation audit should be parseable JSON")
+	if not (parsed is Dictionary):
+		return
+	var audit := parsed as Dictionary
+	assert_equal(str(audit.get("gate", "")), "roof_axis_orientation_audit", "Roof-axis audit should identify the orientation gate")
+	assert_equal(str(audit.get("status", "")), "pass", "Roof-axis orientation audit should pass before the generated shell is accepted")
+	var modules: Array = audit.get("roof_modules", [])
+	assert_true(modules.size() >= 5, "Roof-axis audit should include all major roof modules")
+	var front_porch_seen := false
+	for raw_entry in modules:
+		var entry: Dictionary = raw_entry
+		assert_true(str(entry.get("id", "")) != "", "Each roof-axis entry should have an id")
+		assert_true(str(entry.get("expected_ridge_axis", "")) != "", "%s should declare expected ridge axis" % str(entry.get("id", "")))
+		assert_true(str(entry.get("expected_span_axis", "")) != "", "%s should declare expected span axis" % str(entry.get("id", "")))
+		assert_equal(str(entry.get("measured_ridge_axis", "")), str(entry.get("expected_ridge_axis", "")), "%s should match the expected ridge axis" % str(entry.get("id", "")))
+		assert_equal(str(entry.get("measured_span_axis", "")), str(entry.get("expected_span_axis", "")), "%s should match the expected span axis" % str(entry.get("id", "")))
+		assert_true((entry.get("review_camera_ids", []) as Array).size() > 0, "%s should declare roof-axis review cameras" % str(entry.get("id", "")))
+		assert_equal(str(entry.get("status", "")), "pass", "%s should pass the roof-axis contract" % str(entry.get("id", "")))
+		if str(entry.get("id", "")) == "FrontPorchGableRoof":
+			front_porch_seen = true
+			assert_equal(str(entry.get("expected_ridge_axis", "")), "y", "Front porch entry gable should face the street and project front/back for the selected farmhouse reference")
+			assert_equal(str(entry.get("expected_span_axis", "")), "x", "Front porch entry gable should span across the entry bay, not stretch as a long lateral porch roof")
+			assert_equal(str(entry.get("module_role", "")), "front_entry_gable", "Front porch roof audit should classify the module as the entry gable, not a broad porch cover")
+			assert_true(float(entry.get("measured_width", 999.0)) <= float(entry.get("max_span_width", 0.0)), "Front porch entry gable should stay entry-bay sized instead of stretching across the porch facade")
+	assert_true(front_porch_seen, "Roof-axis audit should explicitly cover the front porch roof")
+
+func test_home_estate_roof_intersection_closure_audit_blocks_missing_backside_envelope() -> void:
+	assert_true(FileAccess.file_exists(HOME_ESTATE_ROOF_INTERSECTION_AUDIT), "Home Estate shell should emit a roof intersection closure audit artifact")
+	var parsed = JSON.parse_string(FileAccess.get_file_as_string(HOME_ESTATE_ROOF_INTERSECTION_AUDIT))
+	assert_true(parsed is Dictionary, "Roof intersection closure audit should be parseable JSON")
+	if not (parsed is Dictionary):
+		return
+	var audit := parsed as Dictionary
+	assert_equal(str(audit.get("gate", "")), "roof_intersection_closure_audit", "Roof intersection audit should identify the closure gate")
+	assert_equal(str(audit.get("status", "")), "pass", "Roof intersection closure audit should pass before the generated shell is accepted")
+	var close_cameras: Array = audit.get("close_intersection_review_cameras", [])
+	for review_name in HOME_ESTATE_ROOF_INTERSECTION_REVIEW_RENDERS:
+		assert_true(close_cameras.has(review_name), "Roof intersection audit should require close camera %s" % review_name)
+	var intersections: Array = audit.get("intersections", [])
+	assert_true(intersections.size() > 0, "Roof intersection audit should include required roof tie-ins")
+	for raw_entry in intersections:
+		var entry: Dictionary = raw_entry
+		assert_true(str(entry.get("id", "")) != "", "Each roof intersection entry should have an id")
+		assert_true((entry.get("owner_roof_ids", []) as Array).size() >= 2, "%s should declare owner roof ids" % str(entry.get("id", "")))
+		assert_true(str(entry.get("intersection_type", "")) != "", "%s should declare the intersection type" % str(entry.get("id", "")))
+		assert_true((entry.get("closure_mesh_ids", []) as Array).size() > 0, "%s should declare closure mesh ids" % str(entry.get("id", "")))
+		if str(entry.get("id", "")) == "front_porch_roof_tie_in_closure":
+			var closure_mesh_ids: Array = entry.get("closure_mesh_ids", [])
+			assert_true(closure_mesh_ids.has("FrontPorchOuterGableWall"), "Front porch closure should include the street-facing gable infill")
+			assert_true(closure_mesh_ids.has("FrontPorchTieInGableWall"), "Front porch closure should include the tie-in gable infill")
+			assert_true(closure_mesh_ids.has("FrontPorchRightReturnWall"), "Front porch closure should include the right return wall that seals the side void")
+			assert_true(closure_mesh_ids.has("FrontPorchLeftReturnWall"), "Front porch closure should include the left return wall that seals the side void")
+		assert_true((entry.get("review_camera_ids", []) as Array).size() > 0, "%s should declare close review cameras" % str(entry.get("id", "")))
+		assert_equal(str(entry.get("status", "")), "pass", "%s should pass the roof intersection closure contract" % str(entry.get("id", "")))
+
+func test_home_estate_wall_plane_flush_audit_blocks_proud_or_recessed_walls() -> void:
+	assert_true(FileAccess.file_exists(HOME_ESTATE_WALL_FLUSH_AUDIT), "Home Estate shell should emit a wall-plane flush audit artifact")
+	var parsed = JSON.parse_string(FileAccess.get_file_as_string(HOME_ESTATE_WALL_FLUSH_AUDIT))
+	assert_true(parsed is Dictionary, "Wall-plane flush audit should be parseable JSON")
+	if not (parsed is Dictionary):
+		return
+	var audit := parsed as Dictionary
+	assert_equal(str(audit.get("gate", "")), "wall_plane_flush_audit", "Wall-plane audit should identify the flush gate")
+	assert_equal(str(audit.get("status", "")), "pass", "Wall-plane flush audit should pass before the generated shell is accepted")
+	var close_cameras: Array = audit.get("close_flush_review_cameras", [])
+	for review_name in HOME_ESTATE_WALL_FLUSH_REVIEW_RENDERS:
+		assert_true(close_cameras.has(review_name), "Wall-plane flush audit should require close camera %s" % review_name)
+	var wall_planes: Array = audit.get("wall_planes", [])
+	assert_true(wall_planes.size() > 0, "Wall-plane flush audit should include exterior wall planes")
+	for raw_entry in wall_planes:
+		var entry: Dictionary = raw_entry
+		assert_true(str(entry.get("id", "")) != "", "Each wall-plane entry should have an id")
+		assert_true(str(entry.get("owner_wall_id", "")) != "", "%s should declare owner wall id" % str(entry.get("id", "")))
+		assert_true(str(entry.get("axis", "")) != "", "%s should declare the measured axis" % str(entry.get("id", "")))
+		assert_true(str(entry.get("face", "")) != "", "%s should declare the measured face" % str(entry.get("id", "")))
+		assert_true((entry.get("flush_member_ids", []) as Array).size() > 0, "%s should declare flush member meshes" % str(entry.get("id", "")))
+		assert_true((entry.get("cover_mesh_ids", []) as Array).size() > 0, "%s should declare corner/return cover meshes" % str(entry.get("id", "")))
+		assert_true((entry.get("review_camera_ids", []) as Array).size() > 0, "%s should declare close review cameras" % str(entry.get("id", "")))
+		assert_true((entry.get("measured_faces", {}) as Dictionary).size() > 0, "%s should record measured mesh faces" % str(entry.get("id", "")))
+		assert_true(float(entry.get("tolerance", 999.0)) <= 0.1, "%s should use a strict flush tolerance" % str(entry.get("id", "")))
+		assert_equal(str(entry.get("status", "")), "pass", "%s should pass the wall-plane flush contract" % str(entry.get("id", "")))
+
+func test_home_estate_roof_wall_corner_edge_audit_blocks_exposed_eave_slits() -> void:
+	assert_true(FileAccess.file_exists(HOME_ESTATE_ROOF_WALL_EDGE_AUDIT), "Home Estate shell should emit a roof-wall corner edge audit artifact")
+	var parsed = JSON.parse_string(FileAccess.get_file_as_string(HOME_ESTATE_ROOF_WALL_EDGE_AUDIT))
+	assert_true(parsed is Dictionary, "Roof-wall corner edge audit should be parseable JSON")
+	if not (parsed is Dictionary):
+		return
+	var audit := parsed as Dictionary
+	assert_equal(str(audit.get("gate", "")), "roof_wall_corner_edge_audit", "Roof-wall edge audit should identify the corner/edge gate")
+	assert_equal(str(audit.get("status", "")), "pass", "Roof-wall corner edge audit should pass before the generated shell is accepted")
+	var close_cameras: Array = audit.get("close_edge_review_cameras", [])
+	for review_name in HOME_ESTATE_ROOF_WALL_EDGE_REVIEW_RENDERS:
+		assert_true(close_cameras.has(review_name), "Roof-wall edge audit should require close camera %s" % review_name)
+	var edges: Array = audit.get("roof_wall_edges", [])
+	assert_true(edges.size() > 0, "Roof-wall edge audit should include exposed perimeter edges")
+	for raw_entry in edges:
+		var entry: Dictionary = raw_entry
+		assert_true(str(entry.get("id", "")) != "", "Each roof-wall edge entry should have an id")
+		assert_true(str(entry.get("wall_plane_id", "")) != "", "%s should declare wall plane id" % str(entry.get("id", "")))
+		assert_true(str(entry.get("roof_edge_id", "")) != "", "%s should declare roof edge id" % str(entry.get("id", "")))
+		assert_true((entry.get("fascia_or_rake_ids", []) as Array).size() > 0, "%s should declare fascia or rake meshes" % str(entry.get("id", "")))
+		assert_true((entry.get("soffit_or_backer_ids", []) as Array).size() > 0, "%s should declare soffit or backer return meshes" % str(entry.get("id", "")))
+		assert_true((entry.get("review_camera_ids", []) as Array).size() > 0, "%s should declare close review cameras" % str(entry.get("id", "")))
+		assert_true(float(entry.get("minimum_overlap", 0.0)) > 0.0, "%s should declare a positive overlap budget" % str(entry.get("id", "")))
+		assert_true(float(entry.get("endpoint_tolerance", 999.0)) <= 0.1, "%s should use a strict endpoint tolerance" % str(entry.get("id", "")))
+		assert_equal(str(entry.get("status", "")), "pass", "%s should pass the roof-wall edge contract" % str(entry.get("id", "")))
+
+func test_home_estate_envelope_clearance_audit_blocks_interior_clashes() -> void:
+	assert_true(FileAccess.file_exists(HOME_ESTATE_ENVELOPE_CLASH_AUDIT), "Home Estate shell should emit an envelope clearance clash audit artifact")
+	var parsed = JSON.parse_string(FileAccess.get_file_as_string(HOME_ESTATE_ENVELOPE_CLASH_AUDIT))
+	assert_true(parsed is Dictionary, "Envelope clearance clash audit should be parseable JSON")
+	if not (parsed is Dictionary):
+		return
+	var audit := parsed as Dictionary
+	assert_equal(str(audit.get("gate", "")), "envelope_clearance_clash_audit", "Envelope clash audit should identify the clearance gate")
+	assert_equal(str(audit.get("status", "")), "pass", "Envelope clearance clash audit should pass before the generated shell is accepted")
+	var close_cameras: Array = audit.get("close_clash_review_cameras", [])
+	for review_name in HOME_ESTATE_ENVELOPE_CLASH_REVIEW_RENDERS:
+		assert_true(close_cameras.has(review_name), "Envelope clash audit should require close camera %s" % review_name)
+	var clearance_volumes: Array = audit.get("clearance_volumes", [])
+	assert_true(clearance_volumes.size() >= 3, "Envelope clash audit should declare named interior and camera clearance volumes")
+	var shell_pieces: Array = audit.get("audited_shell_pieces", [])
+	assert_true(shell_pieces.size() > 0, "Envelope clash audit should include clearance-classified shell pieces")
+	for raw_entry in shell_pieces:
+		var entry: Dictionary = raw_entry
+		assert_true(str(entry.get("id", "")) != "", "Each shell clash audit entry should have an id")
+		assert_true(str(entry.get("clearance_class", "")) != "", "%s should declare a clearance class" % str(entry.get("id", "")))
+		assert_true((entry.get("bounds_min", []) as Array).size() == 3, "%s should record a world-space bounds_min" % str(entry.get("id", "")))
+		assert_true((entry.get("bounds_max", []) as Array).size() == 3, "%s should record a world-space bounds_max" % str(entry.get("id", "")))
+		assert_true((entry.get("checked_clearance_volume_ids", []) as Array).size() > 0, "%s should record checked clearance volumes" % str(entry.get("id", "")))
+		if str(entry.get("clearance_class", "")) == "exterior_only":
+			assert_equal((entry.get("overlapping_clearance_volume_ids", []) as Array).size(), 0, "%s should not overlap interior or route/camera clearance volumes" % str(entry.get("id", "")))
+		assert_equal(str(entry.get("status", "")), "pass", "%s should pass the envelope clearance clash contract" % str(entry.get("id", "")))
+
+func test_home_estate_modes_are_gridmap_definitions_without_public_track_remap() -> void:
+	var listed_ids: Array[String] = []
+	for summary in TrackCatalog.list_tracks():
+		listed_ids.append(str(summary.get("id", "")))
+	for mode_id in HOME_ESTATE_MODE_IDS:
+		assert_true(not listed_ids.has(mode_id), "%s should not become a public track id in the scaffold pass" % mode_id)
+		var definition := TrackCatalog.get_mode_definition(HOME_ESTATE_MAP_ID, mode_id)
+		assert_true(definition is TrackDefinition, "%s should load through the Home Estate map" % mode_id)
+		if definition == null:
+			continue
+		assert_equal(str(definition.get_meta("track_map_id", "")), HOME_ESTATE_MAP_ID, "%s should resolve through home_estate_v1" % mode_id)
+		assert_equal(str(definition.get_meta("track_mode_id", "")), mode_id, "%s should preserve its mode id" % mode_id)
+		assert_equal(definition.dressing_scene_path, HOME_ESTATE_MAP_SCENE, "%s should use the shared Home Estate scene" % mode_id)
+		assert_true(not definition.road_grid_layout.is_empty(), "%s should expose RoadGridMap layout metadata" % mode_id)
+		assert_equal((definition.road_grid_layout.get("spawn_slots", []) as Array).size(), 8, "%s should export eight spawn slots" % mode_id)
+		assert_equal(definition.validate(), [], "%s Home Estate definition should validate" % mode_id)
 
 func test_public_home_course_ids_resolve_to_home_yard_modes() -> void:
 	for mode_id in HOME_YARD_MODE_IDS:
 		var definition := TrackCatalog.get_definition(mode_id)
 		assert_true(definition is TrackDefinition, "%s public course id should resolve to a definition" % mode_id)
-		assert_equal(str(definition.get_meta("track_map_id", "")), HOME_YARD_MAP_ID, "%s should resolve through the Home Yard v2 map" % mode_id)
+		assert_equal(str(definition.get_meta("track_map_id", "")), HOME_YARD_MAP_ID, "%s should resolve through the Home Yard v3 map" % mode_id)
 		assert_equal(str(definition.get_meta("track_mode_id", "")), mode_id, "%s should resolve to its matching Home Yard mode" % mode_id)
 		assert_equal(definition.dressing_scene_path, HOME_YARD_MAP_SCENE, "%s should use the shared Home Yard scene" % mode_id)
 		assert_true(not definition.road_grid_layout.is_empty(), "%s should keep mode-specific RoadGridMap metadata" % mode_id)
@@ -56,13 +395,15 @@ func test_public_home_course_ids_resolve_to_home_yard_modes() -> void:
 
 func test_old_home_yard_map_is_hidden_from_catalog() -> void:
 	assert_true(TrackCatalog.get_map_definition(OLD_HOME_YARD_MAP_ID) == null, "Old home_yard generated map should stay hidden from the runtime catalog")
+	assert_true(TrackCatalog.get_map_definition(OLD_HOME_YARD_V2_MAP_ID) == null, "Old home_yard_v2 generated map should stay hidden from the runtime catalog")
 	assert_true(ResourceLoader.exists("res://assets/gameplay/tracks/home_yard/home_yard_map.tscn"), "Old home_yard scene should remain loadable by path for fallback/reference")
+	assert_true(ResourceLoader.exists("res://assets/gameplay/tracks/home_yard_v2/home_yard_v2_map.tscn"), "Old home_yard_v2 scene should remain loadable by path for fallback/reference")
 
 func test_legacy_kitchen_definition_adapter_returns_race_definition() -> void:
 	var definition := TrackCatalog.get_definition("kitchen")
 	assert_true(definition is TrackDefinition, "Legacy get_definition should still return a TrackDefinition")
 	assert_equal(definition.id, "kitchen", "Legacy adapter should preserve the Kitchen track id")
-	assert_equal(str(definition.get_meta("track_map_id", "")), HOME_YARD_MAP_ID, "Adapted Kitchen definition should resolve through the shared Home Yard v2 map")
+	assert_equal(str(definition.get_meta("track_map_id", "")), HOME_YARD_MAP_ID, "Adapted Kitchen definition should resolve through the shared Home Yard v3 map")
 	assert_equal(str(definition.get_meta("track_mode_id", "")), "kitchen", "Adapted Kitchen definition should remember its Home Yard mode")
 	assert_equal(str(definition.get_meta("road_source", "")), "road_grid_map", "Adapted Kitchen race should use grid road authoring")
 	assert_equal(definition.validate(), [], "Adapted Kitchen race definition should validate")
@@ -181,8 +522,17 @@ func _spawn_grid_starts_at_route_origin(spawns: Array[Vector4], route_points: Ar
 	if forward.length_squared() <= 0.001:
 		return false
 	forward = forward.normalized()
-	var yaw := rad_to_deg(atan2(forward.x, forward.z))
 	for spawn in spawns:
-		if absf(angle_difference(deg_to_rad(spawn.w), deg_to_rad(yaw))) > 0.01:
+		var spawn_basis := Basis(Vector3.UP, deg_to_rad(spawn.w))
+		var spawn_forward := (-spawn_basis.z).normalized()
+		if spawn_forward.dot(forward) < 0.9:
 			return false
 	return true
+
+func _visible_label3d_count(node: Node) -> int:
+	var count := 0
+	if node is Label3D and (node as Label3D).visible:
+		count += 1
+	for child in node.get_children():
+		count += _visible_label3d_count(child)
+	return count

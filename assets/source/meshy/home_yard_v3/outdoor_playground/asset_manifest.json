@@ -1,0 +1,13 @@
+{
+  "schema_version": "home_yard_v3_area_asset_manifest_v1",
+  "area": "outdoor_playground",
+  "concept_sources": ["res://assets/gameplay/tracks/outdoor_playground/stage_concept.md", "res://assets/gameplay/tracks/outdoor_playground/stage_build_spec.md", "res://assets/gameplay/tracks/outdoor_playground/stage_key_art.png"],
+  "production_role": "Fast exposed open-route backyard course for Dash.",
+  "required_assets": [
+    {"asset_slug": "low_poly_backyard_playground_structure", "source": "meshy_planned", "lifecycle_state": "planned", "supersedes": "res://assets/gameplay/tracks/shared/backyard_optimized/playground_structure_low.glb", "poly_budget": 20000, "collision_policy": "support_collision_route_safe", "route_clearance": "pending", "validation_cameras": ["OutdoorPlaygroundAssetCloseupCamera", "YardBoundaryCamera"], "screenshot_score_status": "pending"},
+    {"asset_slug": "low_poly_backyard_swing_set", "source": "meshy_planned", "lifecycle_state": "planned", "supersedes": "res://assets/gameplay/tracks/shared/backyard_optimized/swing_set_low.glb", "poly_budget": 8000, "collision_policy": "named_hazard_if_moving", "route_clearance": "pending", "validation_cameras": ["OutdoorPlaygroundAssetCloseupCamera"], "screenshot_score_status": "pending"},
+    {"asset_slug": "low_poly_playground_slide_drop", "source": "meshy_planned", "lifecycle_state": "planned", "supersedes": "", "poly_budget": 8000, "collision_policy": "route_surface_with_landing_clearance", "route_clearance": "pending", "validation_cameras": ["OutdoorPlaygroundRouteCamera"], "screenshot_score_status": "pending"}
+  ],
+  "validation_requirements": ["landing_zone_visible", "swing_not_snaggy", "yard_boundary_clear", "route_safe_supports", "no_placeholder_boxes"],
+  "blocked_items": ["Need Meshy generation approval and actual slide/swing collision validation."]
+}

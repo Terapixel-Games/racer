@@ -1,6 +1,6 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=3]
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cygokmrenu44t"]
 
-[ext_resource type="Texture2D" path="res://assets/gameplay/tracks/shared/backyard_optimized/backyard_atlas.png" id="1_4p4hw"]
+[ext_resource type="Texture2D" uid="uid://b88f5tjykhdro" path="res://assets/gameplay/tracks/shared/backyard_optimized/backyard_atlas.png" id="1_4p4hw"]
 
 [resource]
 resource_name = "BackyardAtlasMaterial"

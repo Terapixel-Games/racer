@@ -1,0 +1,2383 @@
+{
+	"alternate_routes": [],
+	"audio_ids": {
+		"bedroom_primary": "res://assets/source/audio/canva/tracks/bedroom/bedroom_blanket_slide_canva_01.mp3",
+		"bedroom_secondary": "res://assets/source/audio/canva/tracks/bedroom/bedroom_plush_thump_canva_01.wav",
+		"music": "res://assets/source/audio/suno/tracks/bedroom/bedroom_loop_suno_01.mp3"
+	},
+	"audio_zones": [
+		{
+			"audio_id": "bedroom_secondary",
+			"audio_path": "",
+			"id": "bedroom_feature_zone",
+			"position": [
+				60.0,
+				4.35,
+				36.0
+			],
+			"radius": 28.0,
+			"volume_db": -6.0,
+			"zone_kind": "oneshot"
+		},
+		{
+			"audio_id": "music",
+			"audio_path": "",
+			"id": "bedroom_music_zone",
+			"position": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"radius": 120.0,
+			"volume_db": -14.0,
+			"zone_kind": "ambient"
+		}
+	],
+	"boundary_wall_debug_visible": false,
+	"boundary_walls_enabled": true,
+	"checkpoint_radius": 10.4,
+	"checkpoints": [
+		{
+			"index": 0,
+			"is_lap_gate": true,
+			"position": [
+				-146.0,
+				53.1500015258789,
+				-92.0
+			],
+			"route_index": 0
+		},
+		{
+			"index": 1,
+			"is_lap_gate": false,
+			"position": [
+				-50.0,
+				53.1500015258789,
+				-92.0
+			],
+			"route_index": 6
+		},
+		{
+			"index": 2,
+			"is_lap_gate": false,
+			"position": [
+				-34.0,
+				57.1500015258789,
+				-12.0
+			],
+			"route_index": 12
+		},
+		{
+			"index": 3,
+			"is_lap_gate": false,
+			"position": [
+				-50.0,
+				57.1500015258789,
+				68.0
+			],
+			"route_index": 18
+		},
+		{
+			"index": 4,
+			"is_lap_gate": false,
+			"position": [
+				-146.0,
+				57.1500015258789,
+				68.0
+			],
+			"route_index": 24
+		},
+		{
+			"index": 5,
+			"is_lap_gate": false,
+			"position": [
+				-162.0,
+				53.1500015258789,
+				-12.0
+			],
+			"route_index": 30
+		}
+	],
+	"closed_loop": true,
+	"display_name": "Bedroom / Tuggs",
+	"dressing_scene_path": "res://assets/gameplay/tracks/home_yard_v3/home_yard_v3_map.tscn",
+	"floor_visual_y": -1.1,
+	"grass_zones": [],
+	"ground_shader_path": "",
+	"ground_texture_path": "res://assets/gameplay/materials/fabric/plush_fabric_albedo.png",
+	"hazard_sockets": [],
+	"id": "bedroom",
+	"item_sockets": [],
+	"lap_gate_checkpoint_index": 0,
+	"laps": 3,
+	"out_of_bounds_y": -28.0,
+	"preview_dressing_scene_path": "res://assets/gameplay/tracks/home_yard_v3/home_yard_v3_map.tscn",
+	"progress_rule_id": "route_lap_progress",
+	"rail_texture_path": "",
+	"rail_texture_uv_scale": 1.0,
+	"rails_enabled": false,
+	"reset_mode": "instant_pop",
+	"road_grid_layout": {
+		"basis": [
+			[
+				1.0,
+				0.0,
+				0.0
+			],
+			[
+				0.0,
+				1.0,
+				0.0
+			],
+			[
+				0.0,
+				0.0,
+				1.0
+			]
+		],
+		"cell_size": [
+			16.0,
+			4.0,
+			16.0
+		],
+		"cells": [
+			{
+				"cell": [
+					-3,
+					0,
+					-5
+				],
+				"item": 2,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-146.0,
+					53.1500015258789,
+					-92.0
+				]
+			},
+			{
+				"cell": [
+					-2,
+					0,
+					-5
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-130.0,
+					53.1500015258789,
+					-92.0
+				]
+			},
+			{
+				"cell": [
+					-1,
+					0,
+					-5
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-114.0,
+					53.1500015258789,
+					-92.0
+				]
+			},
+			{
+				"cell": [
+					0,
+					0,
+					-5
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-98.0,
+					53.1500015258789,
+					-92.0
+				]
+			},
+			{
+				"cell": [
+					1,
+					0,
+					-5
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-82.0,
+					53.1500015258789,
+					-92.0
+				]
+			},
+			{
+				"cell": [
+					2,
+					0,
+					-5
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-66.0,
+					53.1500015258789,
+					-92.0
+				]
+			},
+			{
+				"cell": [
+					3,
+					0,
+					-5
+				],
+				"item": 0,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-50.0,
+					53.1500015258789,
+					-92.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					0,
+					-5
+				],
+				"item": 1,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-34.0,
+					53.1500015258789,
+					-92.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					0,
+					-4
+				],
+				"item": 5,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-34.0,
+					53.1500015258789,
+					-76.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					1,
+					-3
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					-34.0,
+					57.1500015258789,
+					-60.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					1,
+					-2
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					-34.0,
+					57.1500015258789,
+					-44.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					1,
+					-1
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					-34.0,
+					57.1500015258789,
+					-28.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					1,
+					0
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					-34.0,
+					57.1500015258789,
+					-12.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					1,
+					1
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					-34.0,
+					57.1500015258789,
+					4.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					1,
+					2
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					-34.0,
+					57.1500015258789,
+					20.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					1,
+					3
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					-34.0,
+					57.1500015258789,
+					36.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					1,
+					4
+				],
+				"item": 0,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					-34.0,
+					57.1500015258789,
+					52.0
+				]
+			},
+			{
+				"cell": [
+					4,
+					1,
+					5
+				],
+				"item": 1,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-34.0,
+					57.1500015258789,
+					68.0
+				]
+			},
+			{
+				"cell": [
+					3,
+					1,
+					5
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-50.0,
+					57.1500015258789,
+					68.0
+				]
+			},
+			{
+				"cell": [
+					2,
+					1,
+					5
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-66.0,
+					57.1500015258789,
+					68.0
+				]
+			},
+			{
+				"cell": [
+					1,
+					1,
+					5
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-82.0,
+					57.1500015258789,
+					68.0
+				]
+			},
+			{
+				"cell": [
+					0,
+					1,
+					5
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-98.0,
+					57.1500015258789,
+					68.0
+				]
+			},
+			{
+				"cell": [
+					-1,
+					1,
+					5
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-114.0,
+					57.1500015258789,
+					68.0
+				]
+			},
+			{
+				"cell": [
+					-2,
+					1,
+					5
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-130.0,
+					57.1500015258789,
+					68.0
+				]
+			},
+			{
+				"cell": [
+					-3,
+					1,
+					5
+				],
+				"item": 0,
+				"orientation": 22,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-146.0,
+					57.1500015258789,
+					68.0
+				]
+			},
+			{
+				"cell": [
+					-4,
+					1,
+					5
+				],
+				"item": 1,
+				"orientation": 16,
+				"orientation_basis": [
+					[
+						-0.0000000437113882867379,
+						0.0,
+						-1.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						1.0,
+						0.0,
+						-0.0000000437113882867379
+					]
+				],
+				"position": [
+					-162.0,
+					57.1500015258789,
+					68.0
+				]
+			},
+			{
+				"cell": [
+					-4,
+					1,
+					4
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-162.0,
+					57.1500015258789,
+					52.0
+				]
+			},
+			{
+				"cell": [
+					-4,
+					0,
+					3
+				],
+				"item": 5,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-162.0,
+					53.1500015258789,
+					36.0
+				]
+			},
+			{
+				"cell": [
+					-4,
+					0,
+					2
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-162.0,
+					53.1500015258789,
+					20.0
+				]
+			},
+			{
+				"cell": [
+					-4,
+					0,
+					1
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-162.0,
+					53.1500015258789,
+					4.0
+				]
+			},
+			{
+				"cell": [
+					-4,
+					0,
+					0
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-162.0,
+					53.1500015258789,
+					-12.0
+				]
+			},
+			{
+				"cell": [
+					-4,
+					0,
+					-1
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-162.0,
+					53.1500015258789,
+					-28.0
+				]
+			},
+			{
+				"cell": [
+					-4,
+					0,
+					-2
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-162.0,
+					53.1500015258789,
+					-44.0
+				]
+			},
+			{
+				"cell": [
+					-4,
+					0,
+					-3
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-162.0,
+					53.1500015258789,
+					-60.0
+				]
+			},
+			{
+				"cell": [
+					-4,
+					0,
+					-4
+				],
+				"item": 0,
+				"orientation": 10,
+				"orientation_basis": [
+					[
+						-1.0,
+						0.0,
+						0.0000000874227765734759
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						-0.0000000874227765734759,
+						0.0,
+						-1.0
+					]
+				],
+				"position": [
+					-162.0,
+					53.1500015258789,
+					-76.0
+				]
+			},
+			{
+				"cell": [
+					-4,
+					0,
+					-5
+				],
+				"item": 1,
+				"orientation": 0,
+				"orientation_basis": [
+					[
+						1.0,
+						0.0,
+						0.0
+					],
+					[
+						0.0,
+						1.0,
+						0.0
+					],
+					[
+						0.0,
+						0.0,
+						1.0
+					]
+				],
+				"position": [
+					-162.0,
+					53.1500015258789,
+					-92.0
+				]
+			}
+		],
+		"checkpoint_route_indices": [
+			0,
+			6,
+			12,
+			18,
+			24,
+			30
+		],
+		"hazard_route_indices": [],
+		"item_route_indices": [],
+		"mesh_library_path": "res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres",
+		"ordered_route_cells": [
+			[
+				-3,
+				0,
+				-5
+			],
+			[
+				-2,
+				0,
+				-5
+			],
+			[
+				-1,
+				0,
+				-5
+			],
+			[
+				0,
+				0,
+				-5
+			],
+			[
+				1,
+				0,
+				-5
+			],
+			[
+				2,
+				0,
+				-5
+			],
+			[
+				3,
+				0,
+				-5
+			],
+			[
+				4,
+				0,
+				-5
+			],
+			[
+				4,
+				0,
+				-4
+			],
+			[
+				4,
+				1,
+				-3
+			],
+			[
+				4,
+				1,
+				-2
+			],
+			[
+				4,
+				1,
+				-1
+			],
+			[
+				4,
+				1,
+				0
+			],
+			[
+				4,
+				1,
+				1
+			],
+			[
+				4,
+				1,
+				2
+			],
+			[
+				4,
+				1,
+				3
+			],
+			[
+				4,
+				1,
+				4
+			],
+			[
+				4,
+				1,
+				5
+			],
+			[
+				3,
+				1,
+				5
+			],
+			[
+				2,
+				1,
+				5
+			],
+			[
+				1,
+				1,
+				5
+			],
+			[
+				0,
+				1,
+				5
+			],
+			[
+				-1,
+				1,
+				5
+			],
+			[
+				-2,
+				1,
+				5
+			],
+			[
+				-3,
+				1,
+				5
+			],
+			[
+				-4,
+				1,
+				5
+			],
+			[
+				-4,
+				1,
+				4
+			],
+			[
+				-4,
+				0,
+				3
+			],
+			[
+				-4,
+				0,
+				2
+			],
+			[
+				-4,
+				0,
+				1
+			],
+			[
+				-4,
+				0,
+				0
+			],
+			[
+				-4,
+				0,
+				-1
+			],
+			[
+				-4,
+				0,
+				-2
+			],
+			[
+				-4,
+				0,
+				-3
+			],
+			[
+				-4,
+				0,
+				-4
+			],
+			[
+				-4,
+				0,
+				-5
+			]
+		],
+		"ordered_route_points": [
+			[
+				-146.0,
+				53.1500015258789,
+				-92.0
+			],
+			[
+				-130.0,
+				53.1500015258789,
+				-92.0
+			],
+			[
+				-114.0,
+				53.1500015258789,
+				-92.0
+			],
+			[
+				-98.0,
+				53.1500015258789,
+				-92.0
+			],
+			[
+				-82.0,
+				53.1500015258789,
+				-92.0
+			],
+			[
+				-66.0,
+				53.1500015258789,
+				-92.0
+			],
+			[
+				-50.0,
+				53.1500015258789,
+				-92.0
+			],
+			[
+				-34.0,
+				53.1500015258789,
+				-92.0
+			],
+			[
+				-34.0,
+				53.1500015258789,
+				-76.0
+			],
+			[
+				-34.0,
+				57.1500015258789,
+				-60.0
+			],
+			[
+				-34.0,
+				57.1500015258789,
+				-44.0
+			],
+			[
+				-34.0,
+				57.1500015258789,
+				-28.0
+			],
+			[
+				-34.0,
+				57.1500015258789,
+				-12.0
+			],
+			[
+				-34.0,
+				57.1500015258789,
+				4.0
+			],
+			[
+				-34.0,
+				57.1500015258789,
+				20.0
+			],
+			[
+				-34.0,
+				57.1500015258789,
+				36.0
+			],
+			[
+				-34.0,
+				57.1500015258789,
+				52.0
+			],
+			[
+				-34.0,
+				57.1500015258789,
+				68.0
+			],
+			[
+				-50.0,
+				57.1500015258789,
+				68.0
+			],
+			[
+				-66.0,
+				57.1500015258789,
+				68.0
+			],
+			[
+				-82.0,
+				57.1500015258789,
+				68.0
+			],
+			[
+				-98.0,
+				57.1500015258789,
+				68.0
+			],
+			[
+				-114.0,
+				57.1500015258789,
+				68.0
+			],
+			[
+				-130.0,
+				57.1500015258789,
+				68.0
+			],
+			[
+				-146.0,
+				57.1500015258789,
+				68.0
+			],
+			[
+				-162.0,
+				57.1500015258789,
+				68.0
+			],
+			[
+				-162.0,
+				57.1500015258789,
+				52.0
+			],
+			[
+				-162.0,
+				53.1500015258789,
+				36.0
+			],
+			[
+				-162.0,
+				53.1500015258789,
+				20.0
+			],
+			[
+				-162.0,
+				53.1500015258789,
+				4.0
+			],
+			[
+				-162.0,
+				53.1500015258789,
+				-12.0
+			],
+			[
+				-162.0,
+				53.1500015258789,
+				-28.0
+			],
+			[
+				-162.0,
+				53.1500015258789,
+				-44.0
+			],
+			[
+				-162.0,
+				53.1500015258789,
+				-60.0
+			],
+			[
+				-162.0,
+				53.1500015258789,
+				-76.0
+			],
+			[
+				-162.0,
+				53.1500015258789,
+				-92.0
+			]
+		],
+		"origin": [
+			-106.0,
+			51.1500015258789,
+			-20.0
+		],
+		"road_width": 16.0,
+		"route_envelope": {
+			"cell_size": "(16.0, 4.0, 16.0)",
+			"confidence": "inferred_from_floor_plan_and_route_cell_budget",
+			"corridor_width": 16.0,
+			"course_id": "bedroom",
+			"floor_top_y": 52.6,
+			"forbidden_overlap": [
+				"walls",
+				"furniture",
+				"fixtures",
+				"plants",
+				"porch_posts",
+				"service_props",
+				"collision_blockers"
+			],
+			"gate": "spatial_audit_bedroom_route_inside_bedroom_suite",
+			"minimum_clearance_y": 0.55,
+			"road_surface_y": 53.1500015258789,
+			"roof_clearance_max_y": 9999.0,
+			"route_local_bounds": {
+				"max": "(4, 1, 5)",
+				"min": "(-4, 0, -5)"
+			},
+			"route_world_bounds": {
+				"max": "(-26.0, 59.15, 76.0)",
+				"min": "(-170.0, 51.15, -100.0)"
+			},
+			"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+			"third_person_camera_clearance_height_units": 12.0,
+			"third_person_camera_clearance_width_units": 14.0,
+			"toy_racer_drift_margin_units": 5.0,
+			"toy_racer_route_swept_width_units": 6.0,
+			"toy_racer_visual_height_units_max": 1.4,
+			"usable_inset": 10.0,
+			"zone_center": "(-97.5, 52.0, -12.0)",
+			"zone_id": "bedroom_suite",
+			"zone_size": "(165.0, 40.0, 236.0)",
+			"zone_world_bounds": {
+				"max": "(-15.0, 72.0, 106.0)",
+				"min": "(-180.0, 32.0, -130.0)"
+			}
+		},
+		"spawn_slots": [
+			{
+				"forward_offset": 0.0,
+				"lateral_offset": -2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 180.0
+			},
+			{
+				"forward_offset": 0.0,
+				"lateral_offset": 2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 180.0
+			},
+			{
+				"forward_offset": 5.0,
+				"lateral_offset": -2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 180.0
+			},
+			{
+				"forward_offset": 5.0,
+				"lateral_offset": 2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 180.0
+			},
+			{
+				"forward_offset": 10.0,
+				"lateral_offset": -2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 180.0
+			},
+			{
+				"forward_offset": 10.0,
+				"lateral_offset": 2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 180.0
+			},
+			{
+				"forward_offset": 15.0,
+				"lateral_offset": -2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 180.0
+			},
+			{
+				"forward_offset": 15.0,
+				"lateral_offset": 2.75,
+				"route_index": 0,
+				"y_offset": 0.8,
+				"yaw_offset_degrees": 180.0
+			}
+		]
+	},
+	"road_segment_layout": [],
+	"road_segment_material_style": "toy_plastic",
+	"road_segment_profile": "kenney_racing_kit",
+	"road_visual_style": "kenney_gridmap",
+	"road_width": 16.0,
+	"route_length": 576.984844207764,
+	"route_points": [
+		[
+			-146.0,
+			53.1500015258789,
+			-92.0
+		],
+		[
+			-130.0,
+			53.1500015258789,
+			-92.0
+		],
+		[
+			-114.0,
+			53.1500015258789,
+			-92.0
+		],
+		[
+			-98.0,
+			53.1500015258789,
+			-92.0
+		],
+		[
+			-82.0,
+			53.1500015258789,
+			-92.0
+		],
+		[
+			-66.0,
+			53.1500015258789,
+			-92.0
+		],
+		[
+			-50.0,
+			53.1500015258789,
+			-92.0
+		],
+		[
+			-34.0,
+			53.1500015258789,
+			-92.0
+		],
+		[
+			-34.0,
+			53.1500015258789,
+			-76.0
+		],
+		[
+			-34.0,
+			57.1500015258789,
+			-60.0
+		],
+		[
+			-34.0,
+			57.1500015258789,
+			-44.0
+		],
+		[
+			-34.0,
+			57.1500015258789,
+			-28.0
+		],
+		[
+			-34.0,
+			57.1500015258789,
+			-12.0
+		],
+		[
+			-34.0,
+			57.1500015258789,
+			4.0
+		],
+		[
+			-34.0,
+			57.1500015258789,
+			20.0
+		],
+		[
+			-34.0,
+			57.1500015258789,
+			36.0
+		],
+		[
+			-34.0,
+			57.1500015258789,
+			52.0
+		],
+		[
+			-34.0,
+			57.1500015258789,
+			68.0
+		],
+		[
+			-50.0,
+			57.1500015258789,
+			68.0
+		],
+		[
+			-66.0,
+			57.1500015258789,
+			68.0
+		],
+		[
+			-82.0,
+			57.1500015258789,
+			68.0
+		],
+		[
+			-98.0,
+			57.1500015258789,
+			68.0
+		],
+		[
+			-114.0,
+			57.1500015258789,
+			68.0
+		],
+		[
+			-130.0,
+			57.1500015258789,
+			68.0
+		],
+		[
+			-146.0,
+			57.1500015258789,
+			68.0
+		],
+		[
+			-162.0,
+			57.1500015258789,
+			68.0
+		],
+		[
+			-162.0,
+			57.1500015258789,
+			52.0
+		],
+		[
+			-162.0,
+			53.1500015258789,
+			36.0
+		],
+		[
+			-162.0,
+			53.1500015258789,
+			20.0
+		],
+		[
+			-162.0,
+			53.1500015258789,
+			4.0
+		],
+		[
+			-162.0,
+			53.1500015258789,
+			-12.0
+		],
+		[
+			-162.0,
+			53.1500015258789,
+			-28.0
+		],
+		[
+			-162.0,
+			53.1500015258789,
+			-44.0
+		],
+		[
+			-162.0,
+			53.1500015258789,
+			-60.0
+		],
+		[
+			-162.0,
+			53.1500015258789,
+			-76.0
+		],
+		[
+			-162.0,
+			53.1500015258789,
+			-92.0
+		]
+	],
+	"runtime_scene_path": "res://assets/gameplay/tracks/home_yard_v3/modes/bedroom_track.tscn",
+	"shortcut_gates": [],
+	"sky_cloud_amount": 0.32,
+	"sky_cloud_speed": 0.014,
+	"sky_haze_amount": 0.1,
+	"sky_horizon_color": [
+		0.980000019073486,
+		0.860000014305115,
+		0.759999990463257,
+		1.0
+	],
+	"sky_light_energy": 2.05,
+	"sky_preset_id": "soft_morning",
+	"sky_time_of_day": 0.5,
+	"sky_top_color": [
+		0.720000028610229,
+		0.779999971389771,
+		0.949999988079071,
+		1.0
+	],
+	"sky_weather": "soft",
+	"spawn_points": [
+		{
+			"position": [
+				-146.0,
+				53.9500007629395,
+				-89.25
+			],
+			"yaw_degrees": 270.0
+		},
+		{
+			"position": [
+				-146.0,
+				53.9500007629395,
+				-94.75
+			],
+			"yaw_degrees": 270.0
+		},
+		{
+			"position": [
+				-141.0,
+				53.9500007629395,
+				-89.25
+			],
+			"yaw_degrees": 270.0
+		},
+		{
+			"position": [
+				-141.0,
+				53.9500007629395,
+				-94.75
+			],
+			"yaw_degrees": 270.0
+		},
+		{
+			"position": [
+				-136.0,
+				53.9500007629395,
+				-89.25
+			],
+			"yaw_degrees": 270.0
+		},
+		{
+			"position": [
+				-136.0,
+				53.9500007629395,
+				-94.75
+			],
+			"yaw_degrees": 270.0
+		},
+		{
+			"position": [
+				-131.0,
+				53.9500007629395,
+				-89.25
+			],
+			"yaw_degrees": 270.0
+		},
+		{
+			"position": [
+				-131.0,
+				53.9500007629395,
+				-94.75
+			],
+			"yaw_degrees": 270.0
+		}
+	],
+	"stage_interactions": [
+		{
+			"action": "boost",
+			"boost_force": 24.0,
+			"cooldown": 1.0,
+			"duration": 0.25,
+			"id": "bedroom_boost_pad",
+			"impulse": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"intensity": 0.0,
+			"note": "Home-yard mode boost beat.",
+			"position": [
+				-34.0,
+				58.1500015258789,
+				-60.0
+			],
+			"radius": 0.0,
+			"shape": "box",
+			"size": [
+				12.0,
+				3.0,
+				12.0
+			],
+			"speed_multiplier": 1.0,
+			"target_method": "trigger",
+			"target_node_path": "",
+			"yaw_degrees": 0.0
+		},
+		{
+			"action": "rumble",
+			"boost_force": 0.0,
+			"cooldown": 1.2,
+			"duration": 0.4,
+			"id": "bedroom_rumble_zone",
+			"impulse": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"intensity": 0.45,
+			"note": "Home-yard mode texture beat.",
+			"position": [
+				-50.0,
+				58.1500015258789,
+				68.0
+			],
+			"radius": 0.0,
+			"shape": "box",
+			"size": [
+				14.0,
+				3.0,
+				14.0
+			],
+			"speed_multiplier": 1.0,
+			"target_method": "trigger",
+			"target_node_path": "",
+			"yaw_degrees": 0.0
+		}
+	],
+	"stage_props": [
+		{
+			"asset_path": "res://assets/source/kenney/toy_car_kit/gate.glb",
+			"asset_source": "Kenney Toy Car Kit",
+			"audio_material_id": "",
+			"box_color": [
+				1.0,
+				1.0,
+				1.0,
+				1.0
+			],
+			"box_size": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "start_finish",
+			"id": "bedroom_start_gate",
+			"kind": "scene",
+			"license_origin": "CC0/Kenney",
+			"position": [
+				-146.0,
+				56.3500022888184,
+				-67.0
+			],
+			"route_clearance": "outside_route_corridor",
+			"scale": [
+				9.0,
+				9.0,
+				9.0
+			],
+			"scale_class": "toy_route_cue",
+			"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+			"scale_validation_status": "declared_pending_import_aabb_review",
+			"target_dimensions_units": [
+				6.0,
+				6.0,
+				6.0
+			],
+			"validation_camera": "ValidationCameras/BedroomStartPlayerCamera",
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "res://assets/source/kenney/toy_car_kit/gate-finish.glb",
+			"asset_source": "Kenney Toy Car Kit",
+			"audio_material_id": "",
+			"box_color": [
+				1.0,
+				1.0,
+				1.0,
+				1.0
+			],
+			"box_size": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "start_finish",
+			"id": "bedroom_finish_language_panel",
+			"kind": "scene",
+			"license_origin": "CC0/Kenney",
+			"position": [
+				-130.0,
+				56.3500022888184,
+				-67.0
+			],
+			"route_clearance": "outside_route_corridor",
+			"scale": [
+				9.0,
+				9.0,
+				9.0
+			],
+			"scale_class": "toy_route_cue",
+			"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+			"scale_validation_status": "declared_pending_import_aabb_review",
+			"target_dimensions_units": [
+				6.0,
+				6.0,
+				6.0
+			],
+			"validation_camera": "ValidationCameras/BedroomStartPlayerCamera",
+			"yaw_degrees": 0.0
+		},
+		{
+			"asset_path": "res://assets/source/kenney/toy_car_kit/item-cone.glb",
+			"asset_source": "Kenney Toy Car Kit",
+			"audio_material_id": "",
+			"box_color": [
+				1.0,
+				1.0,
+				1.0,
+				1.0
+			],
+			"box_size": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "direction",
+			"id": "bedroom_route_cone_left",
+			"kind": "scene",
+			"license_origin": "CC0/Kenney",
+			"position": [
+				-34.0,
+				58.25,
+				6.0
+			],
+			"route_clearance": "outside_route_corridor",
+			"scale": [
+				5.30000019073486,
+				5.30000019073486,
+				5.30000019073486
+			],
+			"scale_class": "toy_route_cue",
+			"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+			"scale_validation_status": "declared_pending_import_aabb_review",
+			"target_dimensions_units": [
+				6.0,
+				6.0,
+				6.0
+			],
+			"validation_camera": "ValidationCameras/BedroomStartPlayerCamera",
+			"yaw_degrees": 20.0
+		},
+		{
+			"asset_path": "res://assets/source/kenney/toy_car_kit/item-cone.glb",
+			"asset_source": "Kenney Toy Car Kit",
+			"audio_material_id": "",
+			"box_color": [
+				1.0,
+				1.0,
+				1.0,
+				1.0
+			],
+			"box_size": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "direction",
+			"id": "bedroom_route_cone_right",
+			"kind": "scene",
+			"license_origin": "CC0/Kenney",
+			"position": [
+				-146.0,
+				58.25,
+				86.0
+			],
+			"route_clearance": "outside_route_corridor",
+			"scale": [
+				5.30000019073486,
+				5.30000019073486,
+				5.30000019073486
+			],
+			"scale_class": "toy_route_cue",
+			"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+			"scale_validation_status": "declared_pending_import_aabb_review",
+			"target_dimensions_units": [
+				6.0,
+				6.0,
+				6.0
+			],
+			"validation_camera": "ValidationCameras/BedroomStartPlayerCamera",
+			"yaw_degrees": -20.0
+		},
+		{
+			"asset_path": "res://assets/source/kenney/furniture_kit/bedSingle.glb",
+			"asset_source": "Kenney Furniture Kit",
+			"audio_material_id": "",
+			"box_color": [
+				1.0,
+				1.0,
+				1.0,
+				1.0
+			],
+			"box_size": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "landmark",
+			"id": "bedroom_bed_landmark",
+			"kind": "scene",
+			"license_origin": "CC0/Kenney",
+			"position": [
+				-64.0,
+				57.3500022888184,
+				32.0
+			],
+			"route_clearance": "outside_route_corridor",
+			"scale": [
+				10.5,
+				10.5,
+				10.5
+			],
+			"scale_class": "human_room_furnishing",
+			"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+			"scale_validation_status": "declared_pending_import_aabb_review",
+			"target_dimensions_units": [
+				24.0,
+				16.0,
+				24.0
+			],
+			"validation_camera": "ValidationCameras/BedroomStartPlayerCamera",
+			"yaw_degrees": 90.0
+		},
+		{
+			"asset_path": "res://assets/source/kenney/furniture_kit/lampRoundTable.glb",
+			"asset_source": "Kenney Furniture Kit",
+			"audio_material_id": "",
+			"box_color": [
+				1.0,
+				1.0,
+				1.0,
+				1.0
+			],
+			"box_size": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "landmark",
+			"id": "bedroom_lamp_landmark",
+			"kind": "scene",
+			"license_origin": "CC0/Kenney",
+			"position": [
+				-140.0,
+				57.1500015258789,
+				26.0
+			],
+			"route_clearance": "outside_route_corridor",
+			"scale": [
+				8.5,
+				8.5,
+				8.5
+			],
+			"scale_class": "human_room_furnishing",
+			"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+			"scale_validation_status": "declared_pending_import_aabb_review",
+			"target_dimensions_units": [
+				24.0,
+				16.0,
+				24.0
+			],
+			"validation_camera": "ValidationCameras/BedroomStartPlayerCamera",
+			"yaw_degrees": -20.0
+		},
+		{
+			"asset_path": "res://assets/source/kenney/racing_kit/flagCheckersSmall.glb",
+			"asset_source": "Kenney Racing Kit",
+			"audio_material_id": "",
+			"box_color": [
+				1.0,
+				1.0,
+				1.0,
+				1.0
+			],
+			"box_size": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"collision_mode": "visual",
+			"gameplay_tag": "landmark",
+			"id": "bedroom_soft_flag_landmark",
+			"kind": "scene",
+			"license_origin": "CC0/Kenney",
+			"position": [
+				-52.0,
+				57.1500015258789,
+				-56.0
+			],
+			"route_clearance": "outside_route_corridor",
+			"scale": [
+				5.0,
+				5.0,
+				5.0
+			],
+			"scale_class": "toy_route_cue",
+			"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+			"scale_validation_status": "declared_pending_import_aabb_review",
+			"target_dimensions_units": [
+				6.0,
+				6.0,
+				6.0
+			],
+			"validation_camera": "ValidationCameras/BedroomStartPlayerCamera",
+			"yaw_degrees": 30.0
+		}
+	],
+	"surface_segments": [],
+	"track_id": "bedroom",
+	"track_source_id": "road_grid_map",
+	"version": "home_yard_residential_openworld_v3_2026_05_12",
+	"wall_height": 3.0,
+	"wall_thickness": 0.6,
+	"win_condition_id": "checkpoint_laps"
+}

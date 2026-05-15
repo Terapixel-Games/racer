@@ -1,0 +1,13 @@
+{
+  "schema_version": "home_yard_v3_area_asset_manifest_v1",
+  "area": "kitchen",
+  "concept_sources": ["res://assets/gameplay/tracks/kitchen/stage_concept.md", "res://assets/gameplay/tracks/kitchen/stage_build_spec.md", "res://assets/gameplay/tracks/kitchen/stage_key_art.png"],
+  "production_role": "Lawful domestic tournament court for Sir Clink.",
+  "required_assets": [
+    {"asset_slug": "kitchen_fridge_kenney_keep_review", "source": "kenney_keep_review", "lifecycle_state": "planned", "supersedes": "res://assets/source/kenney/furniture_kit/kitchenFridge.glb", "poly_budget": 8000, "collision_policy": "visual_off_route", "route_clearance": "pending", "validation_cameras": ["KitchenAssetCloseupCamera"], "screenshot_score_status": "pending"},
+    {"asset_slug": "kitchen_sink_kenney_keep_review", "source": "kenney_keep_review", "lifecycle_state": "planned", "supersedes": "res://assets/source/kenney/furniture_kit/kitchenSink.glb", "poly_budget": 8000, "collision_policy": "visual_off_route", "route_clearance": "pending", "validation_cameras": ["KitchenAssetCloseupCamera"], "screenshot_score_status": "pending"},
+    {"asset_slug": "low_poly_kitchen_tournament_arch_if_needed", "source": "meshy_planned", "lifecycle_state": "planned", "supersedes": "", "poly_budget": 8000, "collision_policy": "route_landmark_visual", "route_clearance": "pending", "validation_cameras": ["KitchenRouteCamera"], "screenshot_score_status": "pending"}
+  ],
+  "validation_requirements": ["transparent_window_quality", "helper_geometry_removed", "start_first_turn_readability", "decor_visual_only", "no_placeholder_boxes"],
+  "blocked_items": ["Kitchen has partial prior validation but still needs live screenshot proof and Kenney keep-review scores."]
+}

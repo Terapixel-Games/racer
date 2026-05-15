@@ -24,6 +24,7 @@ func test_wall_lab_builds_invisible_boundary_walls_without_rails() -> void:
 	var boundary_walls := track.get_node_or_null("BoundaryWalls")
 	assert_true(boundary_walls != null, "Wall lab should build BoundaryWalls")
 	assert_true(_enabled_collision_objects(boundary_walls) > 0, "BoundaryWalls should have enabled collision")
+	assert_true(_boundary_walls_use_car_only_layer(boundary_walls), "BoundaryWalls should collide with karts without acting as camera occluders")
 	assert_equal(_mesh_instance_count(boundary_walls), 0, "BoundaryWalls should not render meshes by default")
 	track.queue_free()
 
@@ -36,6 +37,7 @@ func test_wall_lab_debug_boundary_walls_are_transparent_meshes_when_enabled() ->
 	var boundary_walls := track.get_node_or_null("BoundaryWalls")
 	assert_true(boundary_walls != null, "Debug wall lab should build BoundaryWalls")
 	assert_true(_enabled_collision_objects(boundary_walls) > 0, "Debug boundary walls should keep collision")
+	assert_true(_boundary_walls_use_car_only_layer(boundary_walls), "Debug boundary walls should keep car-only collision layers")
 	assert_true(_mesh_instance_count(boundary_walls) > 0, "Debug boundary walls should render transparent meshes")
 	assert_true(_first_mesh_alpha(boundary_walls) < 1.0, "Debug boundary meshes should be transparent")
 	track.queue_free()
@@ -60,6 +62,27 @@ func test_wall_lab_player_kart_crosses_valid_gridmap_connections() -> void:
 		assert_true(_ray_hits_road(track, car.global_position + Vector3.UP * 8.0, 20.0), "Probe kart should remain over road collision after route seam %d" % route_index)
 		car.queue_free()
 		await _settle_physics(2)
+	track.queue_free()
+
+func test_wall_lab_boundary_walls_do_not_occlude_follow_camera() -> void:
+	var context := _build_wall_lab_runtime(false)
+	var track := context.get("track", null) as Node3D
+	var definition = context.get("definition", null)
+	scene_tree.root.add_child(track)
+	await _settle_physics()
+
+	var cases := _representative_boundary_segments(track, definition, 3)
+	assert_true(cases.size() >= 3, "Wall lab should expose representative camera clearance cases")
+	var space_state := track.get_world_3d().direct_space_state
+	for segment in cases:
+		var transform := _inside_edge_transform(track, segment as Dictionary, 0.0)
+		var look_target := transform.origin + Vector3.UP * 0.8
+		var desired := transform.origin + (-transform.basis.z * 3.75) + Vector3.UP * 1.35
+		var query := PhysicsRayQueryParameters3D.create(look_target, desired, 1)
+		query.collide_with_areas = false
+		query.collide_with_bodies = true
+		var result := space_state.intersect_ray(query)
+		assert_true(not _ray_result_is_boundary_wall(track, result), "Boundary wall should not be on the camera occlusion layer")
 	track.queue_free()
 
 func test_wall_lab_player_kart_cannot_escape_exposed_edges_at_angles_and_speeds() -> void:
@@ -233,6 +256,13 @@ func _boundary_wall_rids(track: Node3D) -> Array[RID]:
 			out.append((child as CollisionObject3D).get_rid())
 	return out
 
+func _ray_result_is_boundary_wall(track: Node3D, result: Dictionary) -> bool:
+	if not result.has("collider"):
+		return false
+	var collider := result.get("collider", null) as Node
+	var walls := track.get_node_or_null("BoundaryWalls")
+	return collider != null and walls != null and walls.is_ancestor_of(collider)
+
 func _signed_edge_distance(point: Vector3, segment: Dictionary) -> float:
 	var a := segment.get("a", Vector3.ZERO) as Vector3
 	var b := segment.get("b", Vector3.ZERO) as Vector3
@@ -257,6 +287,21 @@ func _enabled_collision_objects(node: Node) -> int:
 	for child in node.get_children():
 		count += _enabled_collision_objects(child)
 	return count
+
+func _boundary_walls_use_car_only_layer(node: Node) -> bool:
+	if node == null:
+		return false
+	var found := false
+	for child in node.find_children("*", "CollisionObject3D", true, false):
+		var collision_object := child as CollisionObject3D
+		if collision_object == null:
+			continue
+		if collision_object.collision_layer == 0 and collision_object.collision_mask == 0:
+			continue
+		found = true
+		if collision_object.collision_layer != 2 or collision_object.collision_mask != 2:
+			return false
+	return found
 
 func _mesh_instance_count(node: Node) -> int:
 	if node == null:

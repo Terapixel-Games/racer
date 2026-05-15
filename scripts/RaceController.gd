@@ -2342,11 +2342,11 @@ func _update_racer_visual_lods() -> void:
 			(car as CarController).update_racer_visual_lod_for_camera(reference_position)
 
 func _racer_lod_reference_position() -> Vector3:
+	if camera != null:
+		return camera.global_transform.origin
 	var viewport_camera := get_viewport().get_camera_3d()
 	if viewport_camera != null:
 		return viewport_camera.global_transform.origin
-	if camera != null:
-		return camera.global_transform.origin
 	return Vector3.ZERO
 
 func _update_motion_blur(delta: float) -> void:

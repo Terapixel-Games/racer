@@ -1,0 +1,474 @@
+[gd_resource type="Resource" script_class="TrackDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/track/TrackDefinition.gd" id="1_6mblw"]
+
+[resource]
+script = ExtResource("1_6mblw")
+id = "glam_closet"
+display_name = "Glam Closet / Velva"
+version = "home_yard_residential_openworld_v3_2026_05_12"
+laps = 3
+track_source_id = "road_grid_map"
+road_width = 16.0
+out_of_bounds_y = -28.0
+reset_mode = "instant_pop"
+floor_visual_y = -1.1
+runtime_scene_path = "res://assets/gameplay/tracks/home_yard_v3/modes/glam_closet_track.tscn"
+dressing_scene_path = "res://assets/gameplay/tracks/home_yard_v3/home_yard_v3_map.tscn"
+preview_dressing_scene_path = "res://assets/gameplay/tracks/home_yard_v3/home_yard_v3_map.tscn"
+ground_size = Vector2(720, 680)
+ground_color = Color(0.48, 0.58, 0.38, 1)
+ground_texture_path = "res://assets/gameplay/materials/glam/glam_mirror_glitter_albedo.png"
+road_texture_path = "res://assets/gameplay/materials/plastic/glossy_plastic_albedo.png"
+road_visual_style = "kenney_gridmap"
+road_grid_layout = {
+"basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"cell_size": Vector3(16, 4, 16),
+"cells": Array[Dictionary]([{
+"cell": Vector3i(-1, 0, -5),
+"item": 2,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(21, 53.15, -92)
+}, {
+"cell": Vector3i(0, 0, -5),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(37, 53.15, -92)
+}, {
+"cell": Vector3i(1, 0, -5),
+"item": 0,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(53, 53.15, -92)
+}, {
+"cell": Vector3i(2, 0, -5),
+"item": 1,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(69, 53.15, -92)
+}, {
+"cell": Vector3i(2, 0, -4),
+"item": 5,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(69, 53.15, -76)
+}, {
+"cell": Vector3i(2, 1, -3),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(69, 57.15, -60)
+}, {
+"cell": Vector3i(2, 1, -2),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(69, 57.15, -44)
+}, {
+"cell": Vector3i(2, 1, -1),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(69, 57.15, -28)
+}, {
+"cell": Vector3i(2, 1, 0),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(69, 57.15, -12)
+}, {
+"cell": Vector3i(2, 1, 1),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(69, 57.15, 4)
+}, {
+"cell": Vector3i(2, 1, 2),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(69, 57.15, 20)
+}, {
+"cell": Vector3i(2, 1, 3),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(69, 57.15, 36)
+}, {
+"cell": Vector3i(2, 1, 4),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(69, 57.15, 52)
+}, {
+"cell": Vector3i(2, 1, 5),
+"item": 1,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(69, 57.15, 68)
+}, {
+"cell": Vector3i(1, 1, 5),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(53, 57.15, 68)
+}, {
+"cell": Vector3i(0, 1, 5),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(37, 57.15, 68)
+}, {
+"cell": Vector3i(-1, 1, 5),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(21, 57.15, 68)
+}, {
+"cell": Vector3i(-2, 1, 5),
+"item": 1,
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(5, 57.15, 68)
+}, {
+"cell": Vector3i(-2, 1, 4),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(5, 57.15, 52)
+}, {
+"cell": Vector3i(-2, 0, 3),
+"item": 5,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(5, 53.15, 36)
+}, {
+"cell": Vector3i(-2, 0, 2),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(5, 53.15, 20)
+}, {
+"cell": Vector3i(-2, 0, 1),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(5, 53.15, 4)
+}, {
+"cell": Vector3i(-2, 0, 0),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(5, 53.15, -12)
+}, {
+"cell": Vector3i(-2, 0, -1),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(5, 53.15, -28)
+}, {
+"cell": Vector3i(-2, 0, -2),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(5, 53.15, -44)
+}, {
+"cell": Vector3i(-2, 0, -3),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(5, 53.15, -60)
+}, {
+"cell": Vector3i(-2, 0, -4),
+"item": 0,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(5, 53.15, -76)
+}, {
+"cell": Vector3i(-2, 0, -5),
+"item": 1,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(5, 53.15, -92)
+}]),
+"checkpoint_route_indices": Array[int]([0, 5, 9, 14, 19, 23]),
+"hazard_route_indices": [],
+"item_route_indices": [],
+"mesh_library_path": "res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres",
+"ordered_route_cells": Array[Vector3i]([Vector3i(-1, 0, -5), Vector3i(0, 0, -5), Vector3i(1, 0, -5), Vector3i(2, 0, -5), Vector3i(2, 0, -4), Vector3i(2, 1, -3), Vector3i(2, 1, -2), Vector3i(2, 1, -1), Vector3i(2, 1, 0), Vector3i(2, 1, 1), Vector3i(2, 1, 2), Vector3i(2, 1, 3), Vector3i(2, 1, 4), Vector3i(2, 1, 5), Vector3i(1, 1, 5), Vector3i(0, 1, 5), Vector3i(-1, 1, 5), Vector3i(-2, 1, 5), Vector3i(-2, 1, 4), Vector3i(-2, 0, 3), Vector3i(-2, 0, 2), Vector3i(-2, 0, 1), Vector3i(-2, 0, 0), Vector3i(-2, 0, -1), Vector3i(-2, 0, -2), Vector3i(-2, 0, -3), Vector3i(-2, 0, -4), Vector3i(-2, 0, -5)]),
+"ordered_route_points": Array[Vector3]([Vector3(21, 53.15, -92), Vector3(37, 53.15, -92), Vector3(53, 53.15, -92), Vector3(69, 53.15, -92), Vector3(69, 53.15, -76), Vector3(69, 57.15, -60), Vector3(69, 57.15, -44), Vector3(69, 57.15, -28), Vector3(69, 57.15, -12), Vector3(69, 57.15, 4), Vector3(69, 57.15, 20), Vector3(69, 57.15, 36), Vector3(69, 57.15, 52), Vector3(69, 57.15, 68), Vector3(53, 57.15, 68), Vector3(37, 57.15, 68), Vector3(21, 57.15, 68), Vector3(5, 57.15, 68), Vector3(5, 57.15, 52), Vector3(5, 53.15, 36), Vector3(5, 53.15, 20), Vector3(5, 53.15, 4), Vector3(5, 53.15, -12), Vector3(5, 53.15, -28), Vector3(5, 53.15, -44), Vector3(5, 53.15, -60), Vector3(5, 53.15, -76), Vector3(5, 53.15, -92)]),
+"origin": Vector3(29, 51.15, -20),
+"road_width": 16.0,
+"route_envelope": {
+"cell_size": Vector3(16, 4, 16),
+"confidence": "inferred_from_floor_plan_and_route_cell_budget",
+"corridor_width": 16.0,
+"course_id": "glam_closet",
+"floor_top_y": 52.6,
+"forbidden_overlap": ["walls", "furniture", "fixtures", "plants", "porch_posts", "service_props", "collision_blockers"],
+"gate": "spatial_audit_glam_closet_route_inside_glam_dressing",
+"minimum_clearance_y": 0.55,
+"road_surface_y": 53.15,
+"roof_clearance_max_y": 9999.0,
+"route_local_bounds": {
+"max": Vector3i(2, 1, 5),
+"min": Vector3i(-2, 0, -5)
+},
+"route_world_bounds": {
+"max": Vector3(77, 59.15, 76),
+"min": Vector3(-3, 51.15, -100)
+},
+"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+"third_person_camera_clearance_height_units": 12.0,
+"third_person_camera_clearance_width_units": 14.0,
+"toy_racer_drift_margin_units": 5.0,
+"toy_racer_route_swept_width_units": 6.0,
+"toy_racer_visual_height_units_max": 1.4,
+"usable_inset": 10.0,
+"zone_center": Vector3(37.5, 52, -12),
+"zone_id": "glam_dressing",
+"zone_size": Vector3(105, 40, 236),
+"zone_world_bounds": {
+"max": Vector3(90, 72, 106),
+"min": Vector3(-15, 32, -130)
+}
+},
+"spawn_slots": Array[Dictionary]([{
+"forward_offset": 0.0,
+"lateral_offset": -2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 180.0
+}, {
+"forward_offset": 0.0,
+"lateral_offset": 2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 180.0
+}, {
+"forward_offset": 5.0,
+"lateral_offset": -2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 180.0
+}, {
+"forward_offset": 5.0,
+"lateral_offset": 2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 180.0
+}, {
+"forward_offset": 10.0,
+"lateral_offset": -2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 180.0
+}, {
+"forward_offset": 10.0,
+"lateral_offset": 2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 180.0
+}, {
+"forward_offset": 15.0,
+"lateral_offset": -2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 180.0
+}, {
+"forward_offset": 15.0,
+"lateral_offset": 2.75,
+"route_index": 0,
+"y_offset": 0.8,
+"yaw_offset_degrees": 180.0
+}])
+}
+sky_preset_id = "night_city_glow"
+sky_weather = "night"
+sky_top_color = Color(0.08, 0.07, 0.16, 1)
+sky_horizon_color = Color(0.36, 0.16, 0.46, 1)
+sky_cloud_amount = 0.12
+sky_cloud_speed = 0.014
+sky_haze_amount = 0.1
+sky_light_energy = 1.35
+route_points = Array[Vector3]([Vector3(21, 53.15, -92), Vector3(37, 53.15, -92), Vector3(53, 53.15, -92), Vector3(69, 53.15, -92), Vector3(69, 53.15, -76), Vector3(69, 57.15, -60), Vector3(69, 57.15, -44), Vector3(69, 57.15, -28), Vector3(69, 57.15, -12), Vector3(69, 57.15, 4), Vector3(69, 57.15, 20), Vector3(69, 57.15, 36), Vector3(69, 57.15, 52), Vector3(69, 57.15, 68), Vector3(53, 57.15, 68), Vector3(37, 57.15, 68), Vector3(21, 57.15, 68), Vector3(5, 57.15, 68), Vector3(5, 57.15, 52), Vector3(5, 53.15, 36), Vector3(5, 53.15, 20), Vector3(5, 53.15, 4), Vector3(5, 53.15, -12), Vector3(5, 53.15, -28), Vector3(5, 53.15, -44), Vector3(5, 53.15, -60), Vector3(5, 53.15, -76), Vector3(5, 53.15, -92)])
+checkpoint_indices = Array[int]([0, 5, 9, 14, 19, 23])
+spawn_points = Array[Vector4]([Vector4(21, 53.95, -89.25, 270), Vector4(21, 53.95, -94.75, 270), Vector4(26, 53.95, -89.25, 270), Vector4(26, 53.95, -94.75, 270), Vector4(31, 53.95, -89.25, 270), Vector4(31, 53.95, -94.75, 270), Vector4(36, 53.95, -89.25, 270), Vector4(36, 53.95, -94.75, 270)])
+stage_props = Array[Dictionary]([{
+"asset_path": "res://assets/source/kenney/toy_car_kit/gate.glb",
+"asset_source": "Kenney Toy Car Kit",
+"audio_material_id": "",
+"collision_mode": "visual",
+"gameplay_tag": "start_finish",
+"id": "glam_closet_start_gate",
+"kind": "scene",
+"license_origin": "CC0/Kenney",
+"position": Vector3(21, 56.350002, -67),
+"route_clearance": "outside_route_corridor",
+"scale": Vector3(9, 9, 9),
+"scale_class": "toy_route_cue",
+"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+"scale_validation_status": "declared_pending_import_aabb_review",
+"target_dimensions_units": Vector3(6, 6, 6),
+"validation_camera": "ValidationCameras/GlamClosetStartPlayerCamera",
+"yaw_degrees": 0.0
+}, {
+"asset_path": "res://assets/source/kenney/toy_car_kit/gate-finish.glb",
+"asset_source": "Kenney Toy Car Kit",
+"audio_material_id": "",
+"collision_mode": "visual",
+"gameplay_tag": "start_finish",
+"id": "glam_closet_finish_language_panel",
+"kind": "scene",
+"license_origin": "CC0/Kenney",
+"position": Vector3(37, 56.350002, -67),
+"route_clearance": "outside_route_corridor",
+"scale": Vector3(9, 9, 9),
+"scale_class": "toy_route_cue",
+"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+"scale_validation_status": "declared_pending_import_aabb_review",
+"target_dimensions_units": Vector3(6, 6, 6),
+"validation_camera": "ValidationCameras/GlamClosetStartPlayerCamera",
+"yaw_degrees": 0.0
+}, {
+"asset_path": "res://assets/source/kenney/toy_car_kit/item-cone.glb",
+"asset_source": "Kenney Toy Car Kit",
+"audio_material_id": "",
+"collision_mode": "visual",
+"gameplay_tag": "direction",
+"id": "glam_closet_route_cone_left",
+"kind": "scene",
+"license_origin": "CC0/Kenney",
+"position": Vector3(69, 58.25, 22),
+"route_clearance": "outside_route_corridor",
+"scale": Vector3(5.3, 5.3, 5.3),
+"scale_class": "toy_route_cue",
+"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+"scale_validation_status": "declared_pending_import_aabb_review",
+"target_dimensions_units": Vector3(6, 6, 6),
+"validation_camera": "ValidationCameras/GlamClosetStartPlayerCamera",
+"yaw_degrees": 20.0
+}, {
+"asset_path": "res://assets/source/kenney/toy_car_kit/item-cone.glb",
+"asset_source": "Kenney Toy Car Kit",
+"audio_material_id": "",
+"collision_mode": "visual",
+"gameplay_tag": "direction",
+"id": "glam_closet_route_cone_right",
+"kind": "scene",
+"license_origin": "CC0/Kenney",
+"position": Vector3(5, 58.25, 70),
+"route_clearance": "outside_route_corridor",
+"scale": Vector3(5.3, 5.3, 5.3),
+"scale_class": "toy_route_cue",
+"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+"scale_validation_status": "declared_pending_import_aabb_review",
+"target_dimensions_units": Vector3(6, 6, 6),
+"validation_camera": "ValidationCameras/GlamClosetStartPlayerCamera",
+"yaw_degrees": -20.0
+}, {
+"asset_path": "res://assets/source/kenney/furniture_kit/bathroomMirror.glb",
+"asset_source": "Kenney Furniture Kit",
+"audio_material_id": "",
+"collision_mode": "visual",
+"gameplay_tag": "landmark",
+"id": "glam_closet_mirror_landmark",
+"kind": "scene",
+"license_origin": "CC0/Kenney",
+"position": Vector3(63, 57.350002, 32),
+"route_clearance": "outside_route_corridor",
+"scale": Vector3(10, 10, 10),
+"scale_class": "human_room_furnishing",
+"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+"scale_validation_status": "declared_pending_import_aabb_review",
+"target_dimensions_units": Vector3(24, 16, 24),
+"validation_camera": "ValidationCameras/GlamClosetStartPlayerCamera",
+"yaw_degrees": 180.0
+}, {
+"asset_path": "res://assets/source/kenney/furniture_kit/rugRound.glb",
+"asset_source": "Kenney Furniture Kit",
+"audio_material_id": "",
+"collision_mode": "visual",
+"gameplay_tag": "landmark",
+"id": "glam_closet_round_rug_landmark",
+"kind": "scene",
+"license_origin": "CC0/Kenney",
+"position": Vector3(-5, 54.15, 26),
+"route_clearance": "outside_route_corridor",
+"scale": Vector3(11, 11, 11),
+"scale_class": "human_room_furnishing",
+"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+"scale_validation_status": "declared_pending_import_aabb_review",
+"target_dimensions_units": Vector3(24, 16, 24),
+"validation_camera": "ValidationCameras/GlamClosetStartPlayerCamera",
+"yaw_degrees": 0.0
+}, {
+"asset_path": "res://assets/source/kenney/racing_kit/flagCheckersSmall.glb",
+"asset_source": "Kenney Racing Kit",
+"audio_material_id": "",
+"collision_mode": "visual",
+"gameplay_tag": "landmark",
+"id": "glam_closet_sparkle_flag_landmark",
+"kind": "scene",
+"license_origin": "CC0/Kenney",
+"position": Vector3(81, 57.15, -50),
+"route_clearance": "outside_route_corridor",
+"scale": Vector3(5, 5, 5),
+"scale_class": "toy_route_cue",
+"scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
+"scale_validation_status": "declared_pending_import_aabb_review",
+"target_dimensions_units": Vector3(6, 6, 6),
+"validation_camera": "ValidationCameras/GlamClosetStartPlayerCamera",
+"yaw_degrees": 24.0
+}])
+stage_interactions = Array[Dictionary]([{
+"action": "boost",
+"boost_force": 24.0,
+"cooldown": 1.0,
+"duration": 0.25,
+"id": "glam_closet_boost_pad",
+"note": "Home-yard mode boost beat.",
+"position": Vector3(69, 58.15, -28),
+"shape": "box",
+"size": Vector3(12, 3, 12),
+"yaw_degrees": 0.0
+}, {
+"action": "rumble",
+"cooldown": 1.2,
+"duration": 0.4,
+"id": "glam_closet_rumble_zone",
+"intensity": 0.45,
+"note": "Home-yard mode texture beat.",
+"position": Vector3(53, 58.15, 68),
+"shape": "box",
+"size": Vector3(14, 3, 14),
+"yaw_degrees": 0.0
+}])
+audio_zones = Array[Dictionary]([{
+"audio_id": "glam_closet_secondary",
+"audio_path": "",
+"id": "glam_closet_feature_zone",
+"position": [60.0, 4.35, 36.0],
+"radius": 28.0,
+"volume_db": -6.0,
+"zone_kind": "oneshot"
+}, {
+"audio_id": "music",
+"audio_path": "",
+"id": "glam_closet_music_zone",
+"position": [0.0, 0.0, 0.0],
+"radius": 120.0,
+"volume_db": -14.0,
+"zone_kind": "ambient"
+}])
+audio_ids = {
+"glam_closet_primary": "res://assets/source/audio/canva/tracks/glam_closet/glam_perfume_puff_canva_01.mp3",
+"glam_closet_secondary": "res://assets/source/audio/canva/tracks/glam_closet/glam_sparkle_whoosh_canva_01.mp3",
+"music": "res://assets/source/audio/suno/tracks/glam_closet/glam_closet_loop_suno_01.mp3"
+}
+metadata/track_map_id = "home_yard_v3"
+metadata/track_mode_id = "glam_closet"
+metadata/track_mode_kind = "race"
+metadata/road_source = "road_grid_map"
