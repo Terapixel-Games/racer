@@ -73,6 +73,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--proxy-offset", type=float, default=0.0035)
     parser.add_argument("--max-proxy-polygons", type=int, default=18000)
     parser.add_argument("--proxy-source", default="")
+    parser.add_argument("--proxy-source-mode", choices=["auto", "proxy", "parts"], default="auto")
     argv = sys.argv[sys.argv.index("--") + 1 :] if "--" in sys.argv else sys.argv[1:]
     return parser.parse_args(argv)
 
@@ -184,6 +185,78 @@ def proxy_from_authored_source(path: Path) -> bpy.types.Object:
         if obj != proxy:
             bpy.data.objects.remove(obj, do_unlink=True)
     return proxy
+
+
+def normalized_name(name: str) -> str:
+    return name.lower().replace("_", " ").replace("-", " ").strip()
+
+
+def is_face_part(obj: bpy.types.Object) -> bool:
+    name = normalized_name(obj.name)
+    if name in {"mesh 0", "arkitfaceproxy"}:
+        return False
+    tokens = ["eye", "lid", "brow", "nose", "lip", "mouth", "jaw", "cheek", "chin"]
+    return any(token in name for token in tokens)
+
+
+def proxy_from_authored_parts(path: Path) -> tuple[bpy.types.Object, list[str]]:
+    meshes = import_glb(path)
+    if not meshes:
+        raise RuntimeError(f"No mesh objects found in proxy source: {path}")
+    parts = [obj for obj in meshes if is_face_part(obj)]
+    if not parts:
+        raise RuntimeError(f"No named face parts found in proxy source: {path}")
+
+    material_slots: list[bpy.types.Material] = []
+    material_lookup: dict[str, int] = {}
+    vertices: list[Vector] = []
+    faces: list[list[int]] = []
+    material_indices: list[int] = []
+    part_names_by_vertex: list[str] = []
+    uv_by_loop: list[list[tuple[float, float]]] = []
+    has_uvs = any(part.data.uv_layers.active is not None for part in parts)
+
+    for part in parts:
+        mesh = part.data
+        vertex_offset = len(vertices)
+        part_name = normalized_name(part.name)
+        for vertex in mesh.vertices:
+            vertices.append(part.matrix_world @ vertex.co)
+            part_names_by_vertex.append(part_name)
+
+        for polygon in mesh.polygons:
+            faces.append([vertex_offset + vertex_index for vertex_index in polygon.vertices])
+            material = mesh.materials[polygon.material_index] if polygon.material_index < len(mesh.materials) else None
+            material_key = material.name if material is not None else ""
+            if material_key not in material_lookup:
+                material_lookup[material_key] = len(material_slots)
+                material_slots.append(material)
+            material_indices.append(material_lookup[material_key])
+            if has_uvs:
+                active_uv = mesh.uv_layers.active
+                if active_uv is None:
+                    uv_by_loop.append([(0.0, 0.0) for _vertex_index in polygon.vertices])
+                else:
+                    uv_by_loop.append([tuple(active_uv.data[loop_index].uv) for loop_index in polygon.loop_indices])
+
+    proxy_mesh = bpy.data.meshes.new("ARKitFaceProxyMesh")
+    proxy_mesh.from_pydata([tuple(vertex) for vertex in vertices], [], faces)
+    proxy_mesh.update()
+    proxy = bpy.data.objects.new("ARKitFaceProxy", proxy_mesh)
+    bpy.context.collection.objects.link(proxy)
+    for material in material_slots:
+        proxy_mesh.materials.append(material)
+    for index, polygon in enumerate(proxy_mesh.polygons):
+        polygon.material_index = material_indices[index]
+    if has_uvs:
+        target_uv = proxy_mesh.uv_layers.new(name="UVMap")
+        for polygon_index, polygon in enumerate(proxy_mesh.polygons):
+            for offset_index, loop_index in enumerate(polygon.loop_indices):
+                target_uv.data[loop_index].uv = uv_by_loop[polygon_index][offset_index]
+
+    for obj in meshes:
+        bpy.data.objects.remove(obj, do_unlink=True)
+    return proxy, part_names_by_vertex
 
 
 def existing_shape_key_moved_counts(proxy: bpy.types.Object) -> dict[str, int]:
@@ -339,7 +412,127 @@ def displacement_for_shape(name: str, coord: tuple[float, float, float]) -> Vect
     return Vector((0.0, 0.0, 0.0))
 
 
-def add_shape_keys(proxy: bpy.types.Object) -> dict[str, int]:
+def part_weight(shape_name: str, part_name: str, coord: tuple[float, float, float]) -> float:
+    x, _y, z = coord
+    is_left = "left" in part_name
+    is_right = "right" in part_name
+    side_match = (shape_name.endswith("Left") and is_left) or (shape_name.endswith("Right") and is_right)
+    if shape_name.startswith("Eye"):
+        if "eye" not in part_name and "lid" not in part_name:
+            return 0.0
+        if shape_name.endswith("Left") or shape_name.endswith("Right"):
+            return 1.0 if side_match else 0.0
+        return 1.0
+    if shape_name.startswith("Brow"):
+        if "brow" not in part_name:
+            return 0.0
+        if shape_name == "BrowInnerUp":
+            return 1.0 - abs(x - 0.5) * 1.5
+        if shape_name.endswith("Left") or shape_name.endswith("Right"):
+            return 1.0 if side_match else 0.0
+        return 1.0
+    if shape_name.startswith("Nose"):
+        if "nose" not in part_name:
+            return 0.0
+        if shape_name.endswith("Left"):
+            return clamp01((x - 0.30) * 4.0)
+        if shape_name.endswith("Right"):
+            return clamp01((0.70 - x) * 4.0)
+        return 1.0
+    if shape_name.startswith("Cheek"):
+        if "cheek" in part_name:
+            if shape_name.endswith("Left") or shape_name.endswith("Right"):
+                return 1.0 if side_match else 0.0
+            return 1.0
+        if "mouth corner" in part_name:
+            return 0.35 if side_match else 0.0
+        if shape_name == "CheekPuff" and ("jaw" in part_name or "lip" in part_name or "nose" in part_name):
+            return 0.25
+        return 0.0
+    if shape_name.startswith("Jaw"):
+        return 1.0 if "jaw" in part_name else 0.25 if "lower lip" in part_name else 0.0
+    if shape_name.startswith("Mouth") or shape_name == "TongueOut":
+        if "mouth corner" in part_name and (shape_name.endswith("Left") or shape_name.endswith("Right")):
+            return 1.0 if side_match else 0.0
+        if "lip" in part_name or "jaw" in part_name or "mouth" in part_name:
+            if shape_name.endswith("Left") or shape_name.endswith("Right"):
+                return 0.5 if side_match else 0.0
+            if "upper" in part_name and ("Lower" in shape_name or shape_name == "MouthShrugLower"):
+                return 0.0
+            if "lower" in part_name and ("Upper" in shape_name or shape_name == "MouthShrugUpper"):
+                return 0.0
+            return 1.0
+    return region_weight(shape_name, coord)
+
+
+def part_displacement_for_shape(name: str, coord: tuple[float, float, float]) -> Vector:
+    x, _y, _z = coord
+    side = "Left" if name.endswith("Left") else "Right"
+    side_out = 1.0 if side == "Left" else -1.0
+    if name == "JawOpen":
+        return Vector((0.000, -0.025, -0.075))
+    if name == "JawForward":
+        return Vector((0.000, -0.055, 0.000))
+    if name in ["JawLeft", "JawRight"]:
+        return Vector((0.045 * (1.0 if name == "JawLeft" else -1.0), 0.000, 0.000))
+    if name == "MouthClose":
+        return Vector((0.000, 0.000, 0.028))
+    if name in ["MouthFunnel", "MouthPucker"]:
+        return Vector(((0.5 - x) * 0.055, -0.030, 0.000))
+    if name in ["MouthLeft", "MouthRight"]:
+        return Vector((0.050 * (1.0 if name == "MouthLeft" else -1.0), 0.000, 0.000))
+    if name.startswith("MouthSmile"):
+        return Vector((0.030 * side_out, 0.000, 0.045))
+    if name.startswith("MouthFrown"):
+        return Vector((0.020 * side_out, 0.000, -0.045))
+    if name.startswith("MouthDimple"):
+        return Vector((0.020 * side_out, 0.025, 0.000))
+    if name.startswith("MouthStretch"):
+        return Vector((0.060 * side_out, 0.000, 0.000))
+    if name == "MouthRollLower":
+        return Vector((0.000, -0.015, 0.025))
+    if name == "MouthRollUpper":
+        return Vector((0.000, -0.015, -0.020))
+    if name == "MouthShrugLower":
+        return Vector((0.000, 0.000, 0.040))
+    if name == "MouthShrugUpper":
+        return Vector((0.000, 0.000, -0.030))
+    if name.startswith("MouthPress"):
+        return Vector((-0.018 * side_out, 0.020, -0.010))
+    if name.startswith("MouthLowerDown"):
+        return Vector((0.010 * side_out, 0.000, -0.050))
+    if name.startswith("MouthUpperUp"):
+        return Vector((0.010 * side_out, 0.000, 0.050))
+    if name.startswith("EyeBlink") or name.startswith("EyeSquint"):
+        return Vector((0.000, 0.000, -0.042))
+    if name.startswith("EyeWide"):
+        return Vector((0.000, 0.000, 0.040))
+    if "EyeLookDown" in name:
+        return Vector((0.000, 0.000, -0.020))
+    if "EyeLookUp" in name:
+        return Vector((0.000, 0.000, 0.020))
+    if "EyeLookIn" in name:
+        return Vector((-0.018 * side_out, 0.000, 0.000))
+    if "EyeLookOut" in name:
+        return Vector((0.018 * side_out, 0.000, 0.000))
+    if name.startswith("BrowDown"):
+        return Vector((0.000, 0.000, -0.045))
+    if name == "BrowInnerUp":
+        return Vector(((0.5 - x) * 0.020, 0.000, 0.055))
+    if name.startswith("BrowOuterUp"):
+        return Vector((0.010 * side_out, 0.000, 0.055))
+    if name == "CheekPuff":
+        return Vector(((x - 0.5) * 0.075, -0.020, 0.020))
+    if name.startswith("CheekSquint"):
+        return Vector((0.018 * side_out, 0.000, 0.035))
+    if name.startswith("NoseSneer"):
+        return Vector((0.012 * side_out, -0.012, 0.035))
+    if name == "TongueOut":
+        return Vector((0.000, -0.060, -0.010))
+    return Vector((0.0, 0.0, 0.0))
+
+
+def add_shape_keys(proxy: bpy.types.Object, part_names_by_vertex: list[str] | None = None) -> dict[str, int]:
     bpy.context.view_layer.objects.active = proxy
     proxy.select_set(True)
     if proxy.data.shape_keys:
@@ -355,10 +548,14 @@ def add_shape_keys(proxy: bpy.types.Object) -> dict[str, int]:
         for i, base in enumerate(basis_coords):
             world = proxy.matrix_world @ base
             coord = normalized_coord(world, bounds_min, bounds_max)
-            weight = region_weight(shape_name, coord)
+            if part_names_by_vertex is not None:
+                weight = part_weight(shape_name, part_names_by_vertex[i], coord)
+                delta = part_displacement_for_shape(shape_name, coord) * weight
+            else:
+                weight = region_weight(shape_name, coord)
+                delta = displacement_for_shape(shape_name, coord) * weight
             if weight <= 0.002:
                 continue
-            delta = displacement_for_shape(shape_name, coord) * weight
             key.data[i].co = base + delta
             moved += 1
         moved_counts[shape_name] = moved
@@ -391,8 +588,19 @@ def main() -> None:
     meshes = import_glb(input_path)
     source = largest_mesh(meshes)
     if args.proxy_source:
-        proxy = proxy_from_authored_source(Path(args.proxy_source))
-        moved_counts = add_shape_keys(proxy) if proxy.data.shape_keys is None else existing_shape_key_moved_counts(proxy)
+        proxy_source_path = Path(args.proxy_source)
+        source_meshes = import_glb(proxy_source_path)
+        has_proxy = any(obj.name == "ARKitFaceProxy" for obj in source_meshes)
+        face_parts = [obj for obj in source_meshes if is_face_part(obj)]
+        for obj in source_meshes:
+            bpy.data.objects.remove(obj, do_unlink=True)
+        use_parts = args.proxy_source_mode == "parts" or (args.proxy_source_mode == "auto" and not has_proxy and len(face_parts) > 1)
+        if use_parts:
+            proxy, part_names_by_vertex = proxy_from_authored_parts(proxy_source_path)
+            moved_counts = add_shape_keys(proxy, part_names_by_vertex)
+        else:
+            proxy = proxy_from_authored_source(proxy_source_path)
+            moved_counts = add_shape_keys(proxy) if proxy.data.shape_keys is None else existing_shape_key_moved_counts(proxy)
     else:
         proxy = carve_face_proxy(source, args.proxy_offset)
         decimate_proxy(proxy, args.max_proxy_polygons)
@@ -414,7 +622,7 @@ def main() -> None:
         "proxy_bounds": {"min": list(proxy_min), "max": list(proxy_max)},
         "shape_key_count": len(ARKIT_BLEND_SHAPE_NAMES),
         "moved_vertex_counts": moved_counts,
-        "method": "Non-destructive face/head proxy carved from Rexx head region; original mesh preserved.",
+        "method": "Named face-part proxy with generated ARKit shape keys." if args.proxy_source else "Non-destructive face/head proxy carved from Rexx head region; original mesh preserved.",
     }
     report_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
     print(json.dumps(report, indent=2))
