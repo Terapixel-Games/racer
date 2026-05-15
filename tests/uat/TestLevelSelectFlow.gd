@@ -140,6 +140,20 @@ func test_local_single_race_spawns_full_roster_and_blocks_input_during_intro() -
 		assert_true(float(input_state.get("throttle", 0.0)) > 0.0, "CPU racers should drive through CarController input")
 	race.queue_free()
 
+func test_home_free_roam_floor_keeps_foyer_spawn_supported() -> void:
+	var race: Node = _make_home_free_roam()
+	var floor := race.get_node_or_null("HomeFreeRoamFloor")
+	assert_true(floor != null, "Free roam should add runtime home floor collision")
+	var cars: Dictionary = race.get("cars")
+	var car: CarController = cars.get("local_player", null)
+	assert_true(car != null, "Free roam should spawn the local car")
+	if car != null:
+		var start_y := car.global_transform.origin.y
+		for i in range(20):
+			car.call("_physics_process", 0.016)
+		assert_true(car.global_transform.origin.y >= start_y - 1.0, "Foyer free-roam spawn should stay supported by runtime floor collision")
+	race.queue_free()
+
 func test_local_single_countdown_uses_large_overlay() -> void:
 	var race: Node = _make_local_race()
 	race.call("_set_local_phase", "countdown")
