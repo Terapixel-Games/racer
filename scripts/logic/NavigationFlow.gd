@@ -26,10 +26,14 @@ const RACE_FLOW_SINGLE_MULTIPLAYER := "single_multiplayer"
 const RACE_FLOW_TOURNAMENT_MULTIPLAYER := "tournament_multiplayer"
 const RACE_MODE_LOCAL_SINGLE := "local_single"
 const RACE_MODE_LOCAL_TOURNAMENT := "local_tournament"
+const RACE_MODE_HOME_FREE_ROAM := "home_free_roam"
 const RACE_MODE_ONLINE_SINGLE := OnlineRaceRules.RACE_MODE_ONLINE_SINGLE
 const RACE_MODE_ONLINE_TOURNAMENT := OnlineRaceRules.RACE_MODE_ONLINE_TOURNAMENT
 const LOCAL_SINGLE_MATCH_ID := "local-single-race"
 const LOCAL_TOURNAMENT_MATCH_ID := "local-tournament-race"
+const HOME_FREE_ROAM_MATCH_ID := "home-free-roam"
+const HOME_FREE_ROAM_MAP_ID := "home_yard_v3"
+const HOME_FREE_ROAM_TRACK_ID := "kitchen"
 
 const WIN_PLACEHOLDER_SCENE := "res://scenes/endings/WinPlaceholderEnding.tscn"
 const LOSS_PLACEHOLDER_SCENE := "res://scenes/endings/FrontDoorLossPlaceholder.tscn"
@@ -62,6 +66,18 @@ static func prepare_local_single_track(service: Node, track_id: String) -> void:
 	_set_meta(service, KEY_TRACK_RECIPE, TrackCatalog.get_metadata(track_id))
 	_set_meta(service, KEY_RACE_MATCH_ID, LOCAL_SINGLE_MATCH_ID)
 	_set_meta(service, KEY_RACE_MODE, RACE_MODE_LOCAL_SINGLE)
+
+static func prepare_home_free_roam(service: Node, map_id: String = HOME_FREE_ROAM_MAP_ID) -> void:
+	var resolved_track_id := HOME_FREE_ROAM_TRACK_ID
+	if map_id.strip_edges().to_lower() != HOME_FREE_ROAM_MAP_ID:
+		resolved_track_id = TrackCatalog.get_default_track_id()
+	_set_meta(service, KEY_NAV_FLOW_MODE, FLOW_SINGLE_RACE)
+	_set_meta(service, KEY_TRACK_ID, resolved_track_id)
+	_set_meta(service, KEY_TRACK_RECIPE, TrackCatalog.get_metadata(resolved_track_id))
+	_set_meta(service, "track_map_id", map_id)
+	_set_meta(service, "home_free_roam_spawn_id", "front_foyer")
+	_set_meta(service, KEY_RACE_MATCH_ID, HOME_FREE_ROAM_MATCH_ID)
+	_set_meta(service, KEY_RACE_MODE, RACE_MODE_HOME_FREE_ROAM)
 
 static func prepare_local_tournament(service: Node, rng: RandomNumberGenerator = null, first_track_id: String = "") -> Array[String]:
 	var track_ids := random_tournament_track_ids(rng, first_track_id)

@@ -2,6 +2,16 @@ extends "res://tests/framework/TestCase.gd"
 
 const NavigationFlow = preload("res://scripts/logic/NavigationFlow.gd")
 
+func test_home_free_roam_writes_home_mode_metadata() -> void:
+	NakamaService.set_meta_value("selected_racer_id", "Dash")
+	NavigationFlow.prepare_home_free_roam(NakamaService)
+	assert_equal(NakamaService.get_meta_value("race_mode", ""), NavigationFlow.RACE_MODE_HOME_FREE_ROAM, "Home free roam should use its own non-race mode")
+	assert_equal(NakamaService.get_meta_value("race_match_id", ""), NavigationFlow.HOME_FREE_ROAM_MATCH_ID, "Home free roam should use a local home match id")
+	assert_equal(NakamaService.get_meta_value("track_map_id", ""), NavigationFlow.HOME_FREE_ROAM_MAP_ID, "Home free roam should target the shared home map")
+	assert_equal(NakamaService.get_meta_value("track_id", ""), NavigationFlow.HOME_FREE_ROAM_TRACK_ID, "Home free roam should use the home map entry track for runtime loading")
+	assert_equal(NakamaService.get_meta_value("home_free_roam_spawn_id", ""), "front_foyer", "Home free roam should store the foyer spawn contract")
+	assert_true(NakamaService.get_meta_value("track_recipe", {}) is Dictionary, "Home free roam should write track metadata for Race.tscn")
+
 func test_local_tournament_selects_unique_tracks_and_first_track_metadata() -> void:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = 42

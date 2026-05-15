@@ -23,13 +23,16 @@ var _preview_cache: Dictionary = {}
 var _threaded_scene_requests: Dictionary = {}
 var _racer_preview_anchor: Node3D
 var _racer_preview_model: Node3D
+var _preview_is_home_yard := false
 
 var _title_label: Label
 var _track_name_label: Label
 var _meta_label: Label
 var _racer_name_label: Label
 var _racer_meta_label: Label
+var _free_roam_button: Button
 var _select_button: Button
+var _tournament_button: Button
 var _multiplayer_button: Button
 var _prev_button: Button
 var _next_button: Button
@@ -109,8 +112,12 @@ func get_back_target_for_test() -> String:
 func get_flow_action_labels_for_test() -> Array[String]:
 	_refresh_flow_actions()
 	var labels: Array[String] = []
+	if _free_roam_button != null and _free_roam_button.visible:
+		labels.append(_free_roam_button.text)
 	if _select_button != null and _select_button.visible:
 		labels.append(_select_button.text)
+	if _tournament_button != null and _tournament_button.visible:
+		labels.append(_tournament_button.text)
 	if _multiplayer_button != null and _multiplayer_button.visible:
 		labels.append(_multiplayer_button.text)
 	return labels
@@ -118,14 +125,26 @@ func get_flow_action_labels_for_test() -> Array[String]:
 func prepare_local_flow_for_test() -> String:
 	return _prepare_local_flow()
 
+func prepare_free_roam_flow_for_test() -> String:
+	return _prepare_free_roam_flow()
+
+func prepare_tournament_flow_for_test() -> String:
+	return _prepare_tournament_flow()
+
 func prepare_multiplayer_flow_for_test() -> String:
 	return _prepare_multiplayer_flow()
 
 func preview_has_visible_road_edges_for_test() -> bool:
 	return _has_visible_preview_road_edges(_preview_root)
 
+func preview_has_visible_grid_road_for_test() -> bool:
+	return _has_visible_named_node(_preview_root, "GridRoad")
+
 func preview_has_visible_rails_for_test() -> bool:
 	return _has_visible_named_node(_preview_root, "Rails")
+
+func preview_camera_height_for_test() -> float:
+	return _camera.global_position.y if _camera != null else 0.0
 
 func preview_has_backyard_dressing_for_test() -> bool:
 	return (
@@ -316,11 +335,23 @@ func _build_screen() -> void:
 	_track_name_label.add_theme_color_override("font_color", Color(1.0, 0.95, 0.78, 1.0))
 	info_box.add_child(_track_name_label)
 
-	_select_button = _make_button("Race This Track", Vector2(0, 54))
+	_free_roam_button = _make_button("Free Roam", Vector2(0, 54))
+	_free_roam_button.name = "FreeRoamButton"
+	_free_roam_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_free_roam_button.pressed.connect(_start_free_roam_flow)
+	info_box.add_child(_free_roam_button)
+
+	_select_button = _make_button("Race This Stage", Vector2(0, 54))
 	_select_button.name = "SelectButton"
 	_select_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_select_button.pressed.connect(_start_local_flow)
 	info_box.add_child(_select_button)
+
+	_tournament_button = _make_button("Tournament", Vector2(0, 48))
+	_tournament_button.name = "TournamentButton"
+	_tournament_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_tournament_button.pressed.connect(_start_tournament_flow)
+	info_box.add_child(_tournament_button)
 
 	_multiplayer_button = _make_button("Multiplayer Lobby", Vector2(0, 48))
 	_multiplayer_button.name = "MultiplayerButton"
@@ -393,7 +424,11 @@ func _cycle_racer(step: int) -> void:
 func _show_selected_track(animated: bool) -> void:
 	if _tracks.is_empty():
 		_track_name_label.text = "No tracks available"
+		if _free_roam_button != null:
+			_free_roam_button.disabled = false
 		_select_button.disabled = true
+		if _tournament_button != null:
+			_tournament_button.disabled = true
 		if _multiplayer_button != null:
 			_multiplayer_button.disabled = true
 		return
@@ -404,6 +439,10 @@ func _show_selected_track(animated: bool) -> void:
 	_prev_button.disabled = _tracks.size() <= 1
 	_next_button.disabled = _tracks.size() <= 1
 	_select_button.disabled = false
+	if _free_roam_button != null:
+		_free_roam_button.disabled = false
+	if _tournament_button != null:
+		_tournament_button.disabled = false
 	if _multiplayer_button != null:
 		_multiplayer_button.disabled = false
 	_refresh_flow_actions()
@@ -513,6 +552,7 @@ func _rebuild_preview(track_id: String) -> void:
 	_attach_preview_build(track_id, built)
 
 func _attach_preview_build(track_id: String, built: Dictionary) -> void:
+	_preview_is_home_yard = str(built.get("preview_dressing_scene_path", "")).contains("home_yard_v3")
 	var node := built.get("node", null) as Node
 	if node != null:
 		if node.get_parent() != null:
@@ -528,10 +568,12 @@ func _attach_preview_build(track_id: String, built: Dictionary) -> void:
 func _build_lightweight_preview(definition) -> Dictionary:
 	var preview_definition = definition.duplicate(true)
 	preview_definition.id = "%s_preview" % definition.id
-	preview_definition.dressing_scene_path = str(definition.dressing_scene_path)
+	preview_definition.dressing_scene_path = str(definition.preview_dressing_scene_path if not str(definition.preview_dressing_scene_path).is_empty() else definition.dressing_scene_path)
 	var empty_stage_props: Array[Dictionary] = []
 	preview_definition.stage_props = empty_stage_props
-	return TrackRuntimeBuilder.build(preview_definition)
+	var built := TrackRuntimeBuilder.build(preview_definition)
+	built["preview_dressing_scene_path"] = preview_definition.dressing_scene_path
+	return built
 
 func _detach_preview_children() -> void:
 	for child in _preview_root.get_children():
@@ -544,6 +586,9 @@ func _update_preview_camera(snap: bool = false) -> void:
 	if count < 2:
 		_camera.global_transform.origin = Vector3(0, 48, -72)
 		_camera.look_at(Vector3.ZERO, Vector3.UP)
+		return
+	if _preview_is_home_yard:
+		_update_home_yard_preview_camera(snap)
 		return
 	var segment_count := count
 	var travel: float = fposmod(_preview_time * PREVIEW_CAMERA_ROUTE_SPEED, 1.0) * float(segment_count)
@@ -564,6 +609,23 @@ func _update_preview_camera(snap: bool = false) -> void:
 	else:
 		_camera.global_transform.origin = _camera.global_transform.origin.lerp(desired, PREVIEW_CAMERA_BLEND)
 	_camera.look_at(point + Vector3.UP * 2.0, Vector3.UP)
+
+func _update_home_yard_preview_camera(snap: bool = false) -> void:
+	var bounds := AABB(_route_points[0], Vector3.ZERO)
+	for point in _route_points:
+		bounds = bounds.expand(point)
+	var center := bounds.get_center()
+	var size := bounds.size
+	var longest := maxf(size.x, size.z)
+	var orbit_angle := _preview_time * 0.16 + 0.72
+	var radius := clampf(longest * 0.78, 110.0, 190.0)
+	var height := clampf(longest * 0.52, 70.0, 108.0)
+	var desired := center + Vector3(cos(orbit_angle) * radius, height, sin(orbit_angle) * radius)
+	if snap:
+		_camera.global_transform.origin = desired
+	else:
+		_camera.global_transform.origin = _camera.global_transform.origin.lerp(desired, PREVIEW_CAMERA_BLEND)
+	_camera.look_at(center + Vector3.UP * 8.0, Vector3.UP)
 
 func _hide_preview_road_edges(node: Node) -> void:
 	if _is_preview_road_edge_node(node) and node is Node3D:
@@ -599,8 +661,18 @@ func _has_visible_named_node(node: Node, target_name: String) -> bool:
 			return true
 	return false
 
+func _start_free_roam_flow() -> void:
+	var target := _prepare_free_roam_flow()
+	if target != "":
+		get_tree().change_scene_to_file(target)
+
 func _start_local_flow() -> void:
 	var target := _prepare_local_flow()
+	if target != "":
+		get_tree().change_scene_to_file(target)
+
+func _start_tournament_flow() -> void:
+	var target := _prepare_tournament_flow()
 	if target != "":
 		get_tree().change_scene_to_file(target)
 
@@ -609,14 +681,21 @@ func _start_multiplayer_flow() -> void:
 	if target != "":
 		get_tree().change_scene_to_file(target)
 
+func _prepare_free_roam_flow() -> String:
+	NakamaService.set_meta_value("selected_racer_id", _selected_racer_id)
+	NavigationFlow.prepare_home_free_roam(NakamaService)
+	NakamaService.set_meta_value("prepared_track_package", {})
+	return "res://scenes/Race.tscn"
+
 func _prepare_local_flow() -> String:
 	_apply_selected_track_metadata()
-	match NavigationFlow.get_nav_flow_mode(NakamaService):
-		NavigationFlow.FLOW_TOURNAMENT:
-			NavigationFlow.prepare_local_tournament(NakamaService, null, get_selected_track_id())
-		_:
-			NakamaService.set_meta_value("race_match_id", NavigationFlow.LOCAL_SINGLE_MATCH_ID)
-			NakamaService.set_meta_value("race_mode", NavigationFlow.RACE_MODE_LOCAL_SINGLE)
+	NakamaService.set_meta_value("race_match_id", NavigationFlow.LOCAL_SINGLE_MATCH_ID)
+	NakamaService.set_meta_value("race_mode", NavigationFlow.RACE_MODE_LOCAL_SINGLE)
+	return "res://scenes/Race.tscn"
+
+func _prepare_tournament_flow() -> String:
+	_apply_selected_track_metadata()
+	NavigationFlow.prepare_local_tournament(NakamaService, null, get_selected_track_id())
 	return "res://scenes/Race.tscn"
 
 func _prepare_multiplayer_flow() -> String:
@@ -669,11 +748,21 @@ func _refresh_flow_actions() -> void:
 	match NavigationFlow.get_nav_flow_mode(NakamaService):
 		NavigationFlow.FLOW_TOURNAMENT:
 			_title_label.text = "Select Cup"
-			_select_button.text = "Start Cup"
+			if _free_roam_button != null:
+				_free_roam_button.text = "Free Roam"
+			_select_button.text = "Race This Stage"
+			if _tournament_button != null:
+				_tournament_button.visible = true
+				_tournament_button.text = "Start Cup"
 			_multiplayer_button.text = "Tournament Lobby"
 		_:
-			_title_label.text = "Select Track"
-			_select_button.text = "Race This Track"
+			_title_label.text = "Choose Racer / Stage"
+			if _free_roam_button != null:
+				_free_roam_button.text = "Free Roam"
+			_select_button.text = "Race This Stage"
+			if _tournament_button != null:
+				_tournament_button.visible = true
+				_tournament_button.text = "Tournament"
 			_multiplayer_button.text = "Multiplayer Lobby"
 
 func _make_button(text: String, min_size: Vector2) -> Button:

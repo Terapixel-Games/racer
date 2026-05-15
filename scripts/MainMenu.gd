@@ -8,41 +8,51 @@ const TrackRuntimeScene = preload("res://scripts/track/TrackRuntimeScene.gd")
 const ARKIT_FACE_PREVIEW_SCENE := "res://scenes/dev/ARKitFacePreview.tscn"
 const PREVIEW_CAMERA_ROUTE_SPEED := 0.03
 const PREVIEW_CAMERA_BLEND := 0.05
+const HOME_HUB_TRACK_ID := "kitchen"
+const FRONT_DOOR_ENTRY_DURATION := 0.9
 
 var _preview_root: Node3D
 var _camera: Camera3D
 var _route_points: Array[Vector3] = []
 var _preview_time := 0.0
 var _preview_track_id := ""
-var _single_button: Button
-var _tournament_button: Button
+var _start_button: Button
 var _ar_face_button: Button
 var _quit_button: Button
+var _entering_home := false
 
 func _ready() -> void:
 	_clear_scene_children()
 	_build_screen()
-	_pick_random_preview_track()
-	_quit_button.visible = OS.has_feature("pc") or OS.has_feature("desktop")
+	_rebuild_preview(HOME_HUB_TRACK_ID)
+	if _quit_button != null:
+		_quit_button.visible = false
 
 func _process(delta: float) -> void:
 	_preview_time += delta
 	_update_preview_camera()
 
 func get_preview_track_id_for_test() -> String:
-	return _preview_track_id
+	return HOME_HUB_TRACK_ID if _preview_track_id.is_empty() else _preview_track_id
 
 func has_root_buttons_for_test() -> bool:
-	return _single_button != null and _tournament_button != null and _ar_face_button != null
+	return _start_button != null and _start_button.visible
 
 func get_ar_face_preview_scene_for_test() -> String:
 	return ARKIT_FACE_PREVIEW_SCENE
 
+func get_title_text_for_test() -> String:
+	var title := find_child("Title", true, false) as Label
+	return title.text if title != null else ""
+
+func start_game_for_test() -> void:
+	_prepare_home_selection()
+
 func start_single_race_for_test() -> void:
-	_prepare_single_race()
+	NavigationFlow.set_nav_flow_mode(NakamaService, NavigationFlow.FLOW_SINGLE_RACE)
 
 func start_tournament_for_test() -> void:
-	_prepare_tournament()
+	NavigationFlow.set_nav_flow_mode(NakamaService, NavigationFlow.FLOW_TOURNAMENT)
 
 func _clear_scene_children() -> void:
 	for child in get_children():
@@ -107,25 +117,29 @@ func _build_screen() -> void:
 	var header := VBoxContainer.new()
 	header.name = "Header"
 	header.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	header.alignment = BoxContainer.ALIGNMENT_CENTER
 	root.add_child(header)
 
 	var kicker := Label.new()
 	kicker.name = "Kicker"
-	kicker.text = "TERAPIXEL CIRCUIT"
+	kicker.text = "TERAPIXEL"
+	kicker.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	kicker.add_theme_font_size_override("font_size", 18)
 	kicker.add_theme_color_override("font_color", Color(0.68, 0.94, 1.0, 0.92))
 	header.add_child(kicker)
 
 	var title := Label.new()
 	title.name = "Title"
-	title.text = "Circuit Collapse Racer"
+	title.text = "Toy Dominion"
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_font_size_override("font_size", 58)
 	title.add_theme_color_override("font_color", Color(1.0, 0.96, 0.78, 1.0))
 	header.add_child(title)
 
 	var subtitle := Label.new()
 	subtitle.name = "Subtitle"
-	subtitle.text = "Pick a circuit format, lock a racer, then hit the track."
+	subtitle.text = "Tiny racers. One giant home."
+	subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	subtitle.add_theme_font_size_override("font_size", 19)
 	subtitle.add_theme_color_override("font_color", Color(0.82, 0.9, 1.0, 0.92))
 	header.add_child(subtitle)
@@ -147,19 +161,15 @@ func _build_screen() -> void:
 	box.add_theme_constant_override("separation", 12)
 	panel.add_child(box)
 
-	_single_button = _make_button("Single Race", Vector2(380, 68))
-	_single_button.name = "SingleRaceButton"
-	_single_button.pressed.connect(_on_single_race_pressed)
-	box.add_child(_single_button)
-
-	_tournament_button = _make_button("Tournament", Vector2(380, 68))
-	_tournament_button.name = "TournamentButton"
-	_tournament_button.pressed.connect(_on_tournament_pressed)
-	box.add_child(_tournament_button)
+	_start_button = _make_button("Start", Vector2(380, 68))
+	_start_button.name = "StartButton"
+	_start_button.pressed.connect(_on_start_pressed)
+	box.add_child(_start_button)
 
 	_ar_face_button = _make_button("AR Face Test", Vector2(380, 58), false)
 	_ar_face_button.name = "ARFaceTestButton"
 	_ar_face_button.pressed.connect(_on_ar_face_test_pressed)
+	_ar_face_button.visible = false
 	box.add_child(_ar_face_button)
 
 	_quit_button = _make_button("Quit", Vector2(380, 58), false)
@@ -167,36 +177,40 @@ func _build_screen() -> void:
 	_quit_button.pressed.connect(func(): get_tree().quit())
 	box.add_child(_quit_button)
 
-func _on_single_race_pressed() -> void:
-	_prepare_single_race()
-	get_tree().change_scene_to_file("res://scenes/LevelSelect.tscn")
-
-func _on_tournament_pressed() -> void:
-	_prepare_tournament()
-	get_tree().change_scene_to_file("res://scenes/LevelSelect.tscn")
+func _on_start_pressed() -> void:
+	if _entering_home:
+		return
+	_entering_home = true
+	if _start_button != null:
+		_start_button.disabled = true
+	_play_front_door_entry()
 
 func _on_ar_face_test_pressed() -> void:
 	NakamaService.set_meta_value("selected_racer_id", "Rexx")
 	get_tree().change_scene_to_file(ARKIT_FACE_PREVIEW_SCENE)
 
-func _prepare_single_race() -> void:
+func _prepare_home_selection() -> void:
 	NavigationFlow.set_nav_flow_mode(NakamaService, NavigationFlow.FLOW_SINGLE_RACE)
 
-func _prepare_tournament() -> void:
-	NavigationFlow.set_nav_flow_mode(NakamaService, NavigationFlow.FLOW_TOURNAMENT)
+func _play_front_door_entry() -> void:
+	_prepare_home_selection()
+	if _camera == null:
+		get_tree().change_scene_to_file("res://scenes/LevelSelect.tscn")
+		return
+	var tween := create_tween()
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_ease(Tween.EASE_IN_OUT)
+	tween.tween_method(_set_menu_camera_entry_pose, 0.0, 1.0, FRONT_DOOR_ENTRY_DURATION)
+	tween.finished.connect(func(): get_tree().change_scene_to_file("res://scenes/LevelSelect.tscn"))
 
-func _pick_random_preview_track() -> void:
-	var tracks := TrackCatalog.list_tracks()
-	if tracks.is_empty():
-		_preview_track_id = TrackCatalog.get_default_track_id()
-	else:
-		var rng := RandomNumberGenerator.new()
-		rng.randomize()
-		var selected: Dictionary = tracks[rng.randi_range(0, tracks.size() - 1)]
-		_preview_track_id = str(selected.get("id", TrackCatalog.get_default_track_id()))
-	_rebuild_preview(_preview_track_id)
+func _set_menu_camera_entry_pose(ratio: float) -> void:
+	var start := _camera.global_transform.origin
+	var end := Vector3(-50.0, 10.0, 176.0).lerp(Vector3(-50.0, 4.5, 130.0), ratio)
+	_camera.global_transform.origin = start.lerp(end, clampf(ratio, 0.0, 1.0))
+	_camera.look_at(Vector3(-50.0, 5.0, 118.0), Vector3.UP)
 
 func _rebuild_preview(track_id: String) -> void:
+	_preview_track_id = track_id
 	for child in _preview_root.get_children():
 		child.queue_free()
 	_route_points.clear()
@@ -234,30 +248,24 @@ func _instantiate_track_package(track_id: String, definition) -> Dictionary:
 func _update_preview_camera(snap: bool = false) -> void:
 	if _camera == null:
 		return
+	if _entering_home:
+		return
 	var count := _route_points.size()
 	if count < 2:
-		_camera.global_transform.origin = Vector3(0, 48, -72)
-		_camera.look_at(Vector3.ZERO, Vector3.UP)
+		_camera.global_transform.origin = Vector3(-88, 92, 282)
+		_camera.look_at(Vector3(-35, 24, 45), Vector3.UP)
 		return
-	var segment_count := count
-	var travel: float = fposmod(_preview_time * PREVIEW_CAMERA_ROUTE_SPEED, 1.0) * float(segment_count)
-	var index := int(floor(travel)) % count
-	var next_index := (index + 1) % count
-	var ratio: float = travel - floor(travel)
-	var point: Vector3 = _route_points[index].lerp(_route_points[next_index], ratio)
-	var next_point := _route_points[next_index]
-	var forward: Vector3 = next_point - point
-	forward.y = 0.0
-	if forward.length_squared() <= 0.001:
-		forward = Vector3.FORWARD
-	forward = forward.normalized()
-	var side := forward.cross(Vector3.UP).normalized()
-	var desired: Vector3 = point - forward * 22.0 + side * 11.0 + Vector3.UP * 14.0
+	var bounds := AABB(_route_points[0], Vector3.ZERO)
+	for route_point in _route_points:
+		bounds = bounds.expand(route_point)
+	var center := bounds.get_center()
+	var orbit_angle := _preview_time * 0.12 + 0.4
+	var desired := center + Vector3(cos(orbit_angle) * 185.0, 96.0, sin(orbit_angle) * 185.0 + 72.0)
 	if snap:
 		_camera.global_transform.origin = desired
 	else:
 		_camera.global_transform.origin = _camera.global_transform.origin.lerp(desired, PREVIEW_CAMERA_BLEND)
-	_camera.look_at(point + Vector3.UP * 2.2, Vector3.UP)
+	_camera.look_at(center + Vector3.UP * 18.0, Vector3.UP)
 
 func _hide_preview_road_edges(node: Node) -> void:
 	if _is_preview_road_edge_node(node) and node is Node3D:

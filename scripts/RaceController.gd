@@ -48,8 +48,12 @@ const OnlineRaceRules = preload("res://scripts/logic/OnlineRaceRules.gd")
 
 var pause_button: Button
 var pause_overlay: Control
+var pause_title_label: Label
 var pause_resume_button: Button
 var pause_level_select_button: Button
+var pause_start_race_button: Button
+var pause_return_free_roam_button: Button
+var pause_main_menu_button: Button
 var race_is_paused := false
 var pause_was_mobile_controls_visible := false
 var match_id: String = ""
@@ -94,10 +98,13 @@ const CAMERA_OCCLUSION_CLEARANCE := 0.7
 const CAMERA_OCCLUSION_MIN_DISTANCE := 1.1
 const RACE_MODE_LOCAL_SINGLE := "local_single"
 const RACE_MODE_LOCAL_TOURNAMENT := "local_tournament"
+const RACE_MODE_HOME_FREE_ROAM := NavigationFlow.RACE_MODE_HOME_FREE_ROAM
 const RACE_MODE_ONLINE_SINGLE := OnlineRaceRules.RACE_MODE_ONLINE_SINGLE
 const RACE_MODE_ONLINE_TOURNAMENT := OnlineRaceRules.RACE_MODE_ONLINE_TOURNAMENT
 const LOCAL_SINGLE_MATCH_ID := "local-single-race"
 const LOCAL_TOURNAMENT_MATCH_ID := "local-tournament-race"
+const HOME_FREE_ROAM_MATCH_ID := NavigationFlow.HOME_FREE_ROAM_MATCH_ID
+const HOME_FREE_ROAM_SPAWN_POSITION := Vector3(-50.0, 1.0, 128.0)
 const PHASE_INTRO := "intro"
 const PHASE_GRID_ENTRY := "grid_entry"
 const PHASE_CAMERA_TRANSITION := "camera_transition"
@@ -158,6 +165,7 @@ var sfx_boost: AudioStream
 var sfx_drift: AudioStream
 var sfx_item_pickup: AudioStream
 var local_single_race := false
+var home_free_roam := false
 var race_phase := ""
 var phase_timer := 0.0
 var race_elapsed := 0.0
@@ -222,6 +230,9 @@ func _ready() -> void:
 	_setup_mobile_controls()
 	_ensure_input_actions()
 	_configure_mvp_item_controls()
+	if _is_home_free_roam_mode():
+		_start_home_free_roam()
+		return
 	if _is_local_arcade_race_mode():
 		_start_local_single_race()
 		return
@@ -249,7 +260,40 @@ func _exit_tree() -> void:
 func _start_offline_race() -> void:
 	_start_local_single_race()
 
+func _start_home_free_roam() -> void:
+	home_free_roam = true
+	local_single_race = false
+	local_user_id = "local_player"
+	match_id = HOME_FREE_ROAM_MATCH_ID
+	race_started = true
+	player_input_enabled = true
+	local_results_submitted = false
+	local_results_final = false
+	race_elapsed = 0.0
+	finish_follow_timer = 0.0
+	cars.clear()
+	racer_states.clear()
+	racer_visual_ids.clear()
+	ai_route_targets.clear()
+	ai_driver_state.clear()
+	lap_map.clear()
+	local_racer_ids.clear()
+	ai_racer_ids.clear()
+	camera_follow_target_id = local_user_id
+	_hide_results_overlay()
+	_spawn_track()
+	var selected_racer := RacerRoster.normalize_id(str(NakamaService.get_meta_value("selected_racer_id", RacerRoster.DEFAULT_RACER_ID)))
+	local_racer_ids.append(local_user_id)
+	racer_visual_ids[local_user_id] = selected_racer
+	var player_car := _spawn_car(local_user_id)
+	player_car.controlled_locally = true
+	player_car.set_input(_empty_input())
+	_init_local_racer_state(local_user_id, selected_racer, false, player_car.global_transform)
+	_set_pause_button_visible(true)
+	_show_message("Free roam")
+
 func _start_local_single_race() -> void:
+	home_free_roam = false
 	local_single_race = true
 	local_user_id = "local_player"
 	match_id = LOCAL_TOURNAMENT_MATCH_ID if _is_local_tournament_mode() else LOCAL_SINGLE_MATCH_ID
@@ -1009,9 +1053,9 @@ func _setup_pause_controls() -> void:
 	panel.process_mode = Node.PROCESS_MODE_ALWAYS
 	panel.set_anchors_preset(Control.PRESET_CENTER)
 	panel.offset_left = -260.0
-	panel.offset_top = -160.0
+	panel.offset_top = -230.0
 	panel.offset_right = 260.0
-	panel.offset_bottom = 160.0
+	panel.offset_bottom = 230.0
 	panel.mouse_filter = Control.MOUSE_FILTER_STOP
 	panel.add_theme_stylebox_override("panel", _results_panel_style())
 	pause_overlay.add_child(panel)
@@ -1037,6 +1081,7 @@ func _setup_pause_controls() -> void:
 	title.add_theme_font_size_override("font_size", 42)
 	title.add_theme_color_override("font_color", Color(1.0, 0.88, 0.35, 1.0))
 	box.add_child(title)
+	pause_title_label = title
 
 	pause_resume_button = _make_pause_menu_button("Resume")
 	pause_resume_button.name = "ResumeButton"
@@ -1047,6 +1092,22 @@ func _setup_pause_controls() -> void:
 	pause_level_select_button.name = "LevelSelectButton"
 	pause_level_select_button.pressed.connect(_go_to_level_select_from_pause)
 	box.add_child(pause_level_select_button)
+
+	pause_start_race_button = _make_pause_menu_button("Start Race")
+	pause_start_race_button.name = "StartRaceButton"
+	pause_start_race_button.pressed.connect(_go_to_level_select_from_pause)
+	box.add_child(pause_start_race_button)
+
+	pause_return_free_roam_button = _make_pause_menu_button("Return to Free Roam")
+	pause_return_free_roam_button.name = "ReturnFreeRoamButton"
+	pause_return_free_roam_button.pressed.connect(_return_to_free_roam_from_pause)
+	box.add_child(pause_return_free_roam_button)
+
+	pause_main_menu_button = _make_pause_menu_button("Main Menu")
+	pause_main_menu_button.name = "MainMenuButton"
+	pause_main_menu_button.pressed.connect(_go_to_main_menu_from_pause)
+	box.add_child(pause_main_menu_button)
+	_refresh_pause_menu_actions()
 
 func _make_hud_pause_button() -> Button:
 	var button := _make_results_button("PAUSE")
@@ -1074,6 +1135,7 @@ func _pause_race() -> void:
 		mobile_controls.visible = false
 	_set_pause_button_visible(false)
 	if pause_overlay != null:
+		_refresh_pause_menu_actions()
 		pause_overlay.visible = true
 	_pause_race_audio(true)
 	get_tree().paused = true
@@ -1096,11 +1158,26 @@ func _go_to_level_select_from_pause() -> void:
 	_stop_race_audio()
 	get_tree().change_scene_to_file(_pause_level_select_target())
 
+func _go_to_main_menu_from_pause() -> void:
+	get_tree().paused = false
+	race_is_paused = false
+	_stop_race_audio()
+	get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
+
+func _return_to_free_roam_from_pause() -> void:
+	get_tree().paused = false
+	race_is_paused = false
+	_stop_race_audio()
+	NavigationFlow.prepare_home_free_roam(NakamaService)
+	get_tree().change_scene_to_file("res://scenes/Race.tscn")
+
 func _can_pause_race() -> bool:
 	if results_overlay != null and results_overlay.visible:
 		return false
 	if not race_started:
 		return false
+	if home_free_roam:
+		return true
 	if local_single_race:
 		return race_phase == PHASE_RACING
 	return true
@@ -1119,6 +1196,19 @@ func _pause_race_audio(paused: bool) -> void:
 func _pause_level_select_target() -> String:
 	return "res://scenes/LevelSelect.tscn"
 
+func _refresh_pause_menu_actions() -> void:
+	if pause_title_label != null:
+		pause_title_label.text = "Home" if home_free_roam else "Paused"
+	if pause_level_select_button != null:
+		pause_level_select_button.text = "Change Character / Stage" if home_free_roam else "Level Select"
+		pause_level_select_button.visible = true
+	if pause_start_race_button != null:
+		pause_start_race_button.visible = home_free_roam
+	if pause_return_free_roam_button != null:
+		pause_return_free_roam_button.visible = not home_free_roam
+	if pause_main_menu_button != null:
+		pause_main_menu_button.visible = home_free_roam
+
 func pause_button_is_visible_for_test() -> bool:
 	return pause_button != null and pause_button.visible
 
@@ -1133,6 +1223,17 @@ func resume_race_for_test() -> void:
 
 func get_pause_level_select_target_for_test() -> String:
 	return _pause_level_select_target()
+
+func get_pause_menu_labels_for_test() -> Array[String]:
+	_refresh_pause_menu_actions()
+	var labels: Array[String] = []
+	for button in [pause_resume_button, pause_level_select_button, pause_start_race_button, pause_return_free_roam_button, pause_main_menu_button]:
+		if button is Button and (button as Button).visible:
+			labels.append((button as Button).text)
+	return labels
+
+func live_builder_exists_for_test() -> bool:
+	return live_home_track_builder != null
 
 func _add_results_header() -> void:
 	var row := HBoxContainer.new()
@@ -1299,6 +1400,9 @@ func _update_results_buttons_for_mode() -> void:
 func _is_local_arcade_race_mode() -> bool:
 	var mode := str(NakamaService.get_meta_value("race_mode", ""))
 	return mode == RACE_MODE_LOCAL_SINGLE or mode == RACE_MODE_LOCAL_TOURNAMENT
+
+func _is_home_free_roam_mode() -> bool:
+	return str(NakamaService.get_meta_value("race_mode", "")) == RACE_MODE_HOME_FREE_ROAM
 
 func _is_local_tournament_mode() -> bool:
 	return str(NakamaService.get_meta_value("race_mode", "")) == RACE_MODE_LOCAL_TOURNAMENT
@@ -1491,6 +1595,8 @@ func _load_track_scene(scene_path: String) -> Resource:
 	return load(scene_path)
 
 func _setup_live_home_track_builder(track_instance: Node) -> void:
+	if not home_free_roam:
+		return
 	if live_home_track_builder != null:
 		return
 	var map_id := str(NakamaService.get_meta_value("track_map_id", ""))
@@ -1511,6 +1617,8 @@ func _setup_live_home_track_builder(track_instance: Node) -> void:
 		live_home_track_builder.race_promotion_changed.connect(_on_live_home_build_promotion_changed)
 
 func _handle_live_home_build_actions() -> void:
+	if not home_free_roam:
+		return
 	if live_home_track_builder == null:
 		return
 	if Input.is_action_just_pressed("build_mode_toggle"):
@@ -1612,6 +1720,9 @@ func _area_sphere_radius(node: Node, fallback: float) -> float:
 func _physics_process(delta: float) -> void:
 	if not race_started:
 		return
+	if home_free_roam:
+		_physics_process_home_free_roam(delta)
+		return
 	if local_single_race:
 		_physics_process_local_single(delta)
 		return
@@ -1633,6 +1744,26 @@ func _physics_process(delta: float) -> void:
 	_update_audio_zone_players()
 	_update_game_sounds()
 	_tick_countdown_overlay(delta)
+	_tick_message(delta)
+
+func _physics_process_home_free_roam(delta: float) -> void:
+	_handle_live_home_build_actions()
+	_set_pause_button_visible(_can_pause_race())
+	input_accum += delta
+	while input_accum >= INPUT_INTERVAL:
+		_tick_local_input()
+		input_accum -= INPUT_INTERVAL
+	_update_local_track_return_point()
+	_handle_manual_return_to_track()
+	_handle_local_out_of_bounds()
+	_update_ui()
+	_update_camera(delta)
+	_update_racer_visual_lods()
+	_update_heat_distortion(delta)
+	_update_water_drops(delta)
+	_update_motion_blur(delta)
+	_update_audio_zone_players()
+	_update_game_sounds()
 	_tick_message(delta)
 
 func _on_match_state(match_state: NakamaRTAPI.MatchData) -> void:
@@ -1802,7 +1933,9 @@ func _spawn_car(racer_id:String) -> CarController:
 	cars[racer_id] = car
 	var spawn_index := cars.size() - 1
 	var spawn_xform := Transform3D.IDENTITY
-	if spawn_index < spawn_points.size():
+	if home_free_roam and racer_id == local_user_id:
+		spawn_xform = Transform3D(Basis.IDENTITY, HOME_FREE_ROAM_SPAWN_POSITION)
+	elif spawn_index < spawn_points.size():
 		spawn_xform = spawn_points[spawn_index]
 	else:
 		spawn_xform.origin = Vector3(spawn_index * 2.0, 1.0, spawn_index * 1.5)
@@ -2128,20 +2261,23 @@ func _update_ui() -> void:
 		if ui_speed_bar:
 			ui_speed_bar.value = clampf(speed, 0.0, float(ui_speed_bar.max_value))
 		var lap: int = lap_map.get(local_user_id, 1 if race_started else 0)
-		ui_lap.text = "LAP %d/%d" % [lap, track_laps]
+		ui_lap.text = "HOME" if home_free_roam else "LAP %d/%d" % [lap, track_laps]
 		var drift_ratio := car.get_drift_charge_ratio()
 		ui_drift.text = "DRIFT T%d  %d%%" % [car.get_drift_tier(), int(round(drift_ratio * 100.0))]
 		if ui_drift_bar:
 			ui_drift_bar.value = clampf(drift_ratio * 100.0, 0.0, 100.0)
 	if ui_time:
-		ui_time.text = "TIME %s" % format_race_time(race_elapsed)
+		ui_time.text = "FREE ROAM" if home_free_roam else "TIME %s" % format_race_time(race_elapsed)
 	var display_item := local_item_slot if local_item_slot != "" else "OFF"
 	ui_item.text = "ITEM\n%s" % display_item.to_upper()
 	if local_item_slot != "" and local_item_slot != last_displayed_item_slot:
 		_pulse_control(ui_item, Vector2(1.08, 1.08), 0.16)
 	last_displayed_item_slot = local_item_slot
 	_update_return_button_state()
-	if local_single_race:
+	if home_free_roam:
+		if live_home_track_builder == null or not live_home_track_builder.enabled:
+			ui_net.text = "HOME FREE ROAM"
+	elif local_single_race:
 		ui_net.text = "SOLO RACE"
 	else:
 		ui_net.text = "LOCAL RACE" if NakamaService.offline_mode else ("ONLINE" if NakamaService.is_online_socket_ready() else "CONNECTING")
