@@ -73,6 +73,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--report", required=True)
     parser.add_argument("--mask-margin", type=float, default=0.018)
     parser.add_argument("--proxy-margin", type=float, default=0.012)
+    parser.add_argument("--target-mode", choices=["proxy", "full"], default="proxy")
     argv = sys.argv[sys.argv.index("--") + 1 :] if "--" in sys.argv else sys.argv[1:]
     return parser.parse_args(argv)
 
@@ -317,20 +318,20 @@ def normalized_coord(point: Vector, min_v: Vector, max_v: Vector) -> tuple[float
     )
 
 
-def add_shape_keys(proxy: bpy.types.Object, masks: list[dict], mask_margin: float) -> dict[str, int]:
-    bpy.context.view_layer.objects.active = proxy
-    proxy.select_set(True)
-    if proxy.data.shape_keys:
-        proxy.shape_key_clear()
-    proxy.shape_key_add(name="Basis", from_mix=False)
-    proxy_min, proxy_max = world_bounds(proxy)
-    basis_coords = [vertex.co.copy() for vertex in proxy.data.vertices]
+def add_shape_keys(target: bpy.types.Object, masks: list[dict], mask_margin: float) -> dict[str, int]:
+    bpy.context.view_layer.objects.active = target
+    target.select_set(True)
+    if target.data.shape_keys:
+        target.shape_key_clear()
+    target.shape_key_add(name="Basis", from_mix=False)
+    target_min, target_max = world_bounds(target)
+    basis_coords = [vertex.co.copy() for vertex in target.data.vertices]
     moved_counts: dict[str, int] = {}
     for shape_name in ARKIT_BLEND_SHAPE_NAMES:
-        key = proxy.shape_key_add(name=shape_name, from_mix=False)
+        key = target.shape_key_add(name=shape_name, from_mix=False)
         moved = 0
         for index, base in enumerate(basis_coords):
-            world = proxy.matrix_world @ base
+            world = target.matrix_world @ base
             weight = 0.0
             for mask in masks:
                 relevance = mask_relevance(shape_name, mask["name"])
@@ -339,7 +340,7 @@ def add_shape_keys(proxy: bpy.types.Object, masks: list[dict], mask_margin: floa
                 weight = max(weight, relevance * bbox_weight(world, mask["min"], mask["max"], mask_margin))
             if weight <= 0.002:
                 continue
-            coord = normalized_coord(world, proxy_min, proxy_max)
+            coord = normalized_coord(world, target_min, target_max)
             key.data[index].co = base + displacement_for_shape(shape_name, coord) * weight
             moved += 1
         key.value = 0.0
@@ -364,28 +365,33 @@ def main() -> None:
     args = parse_args()
     masks = mask_bounds_from_blend(Path(args.mask_blend))
     source = import_source_mesh(Path(args.input))
-    proxy = carve_connected_proxy(source, masks, args.proxy_margin)
-    moved_counts = add_shape_keys(proxy, masks, args.mask_margin)
+    if args.target_mode == "full":
+        target = source
+        moved_counts = add_shape_keys(source, masks, args.mask_margin)
+    else:
+        target = carve_connected_proxy(source, masks, args.proxy_margin)
+        moved_counts = add_shape_keys(target, masks, args.mask_margin)
     export_glb(Path(args.output))
 
     source_min, source_max = world_bounds(source)
-    proxy_min, proxy_max = world_bounds(proxy)
+    target_min, target_max = world_bounds(target)
     report = {
         "source": args.input,
         "mask_blend": args.mask_blend,
         "output": args.output,
         "target_mesh": source.name,
-        "proxy_mesh": proxy.name,
+        "animated_mesh": target.name,
+        "target_mode": args.target_mode,
         "source_vertex_count": len(source.data.vertices),
         "source_polygon_count": len(source.data.polygons),
-        "proxy_vertex_count": len(proxy.data.vertices),
-        "proxy_polygon_count": len(proxy.data.polygons),
+        "animated_vertex_count": len(target.data.vertices),
+        "animated_polygon_count": len(target.data.polygons),
         "source_bounds": {"min": list(source_min), "max": list(source_max)},
-        "proxy_bounds": {"min": list(proxy_min), "max": list(proxy_max)},
+        "animated_bounds": {"min": list(target_min), "max": list(target_max)},
         "shape_key_count": len(ARKIT_BLEND_SHAPE_NAMES),
         "moved_vertex_counts": moved_counts,
         "mask_names": [mask["name"] for mask in masks],
-        "method": "Connected face proxy carved from optimized Rexx mesh; vertex-group blend file used as morph masks.",
+        "method": "Full Rexx mesh ARKit shape keys from vertex-group blend masks." if args.target_mode == "full" else "Connected face proxy carved from optimized Rexx mesh; vertex-group blend file used as morph masks.",
     }
     report_path = Path(args.report)
     report_path.parent.mkdir(parents=True, exist_ok=True)

@@ -3,11 +3,12 @@
   "mask_blend": "C:\\Users\\john_\\Desktop\\rexx_face_vertex_groups.blend",
   "output": "assets\\optimized\\racers\\rexx\\arkit\\rexx_racer_in_kart_mobile_detail_phase1.glb",
   "target_mesh": "Mesh_0_optimized",
-  "proxy_mesh": "ARKitFaceProxy",
+  "animated_mesh": "Mesh_0_optimized",
+  "target_mode": "full",
   "source_vertex_count": 547873,
   "source_polygon_count": 853759,
-  "proxy_vertex_count": 31972,
-  "proxy_polygon_count": 51307,
+  "animated_vertex_count": 547873,
+  "animated_polygon_count": 853759,
   "source_bounds": {
     "min": [
       -0.8302545547485352,
@@ -20,16 +21,16 @@
       0.6314210891723633
     ]
   },
-  "proxy_bounds": {
+  "animated_bounds": {
     "min": [
-      -0.2951585352420807,
-      -0.3097180724143982,
-      0.04564322903752327
+      -0.8302545547485352,
+      -0.9485930800437927,
+      -0.6335316300392151
     ],
     "max": [
-      0.2938629984855652,
-      0.19628499448299408,
-      0.5759156942367554
+      0.828419029712677,
+      0.9502301216125488,
+      0.6314210891723633
     ]
   },
   "shape_key_count": 52,
@@ -41,20 +42,20 @@
     "EyeLookUpLeft": 1553,
     "EyeSquintLeft": 1553,
     "EyeWideLeft": 1553,
-    "EyeBlinkRight": 4680,
-    "EyeLookDownRight": 4680,
-    "EyeLookInRight": 4680,
-    "EyeLookOutRight": 4680,
-    "EyeLookUpRight": 4680,
-    "EyeSquintRight": 4680,
-    "EyeWideRight": 4680,
-    "JawForward": 20293,
-    "JawRight": 20293,
-    "JawLeft": 20293,
-    "JawOpen": 20293,
-    "MouthClose": 24362,
-    "MouthFunnel": 24362,
-    "MouthPucker": 24362,
+    "EyeBlinkRight": 4917,
+    "EyeLookDownRight": 4917,
+    "EyeLookInRight": 4917,
+    "EyeLookOutRight": 4917,
+    "EyeLookUpRight": 4917,
+    "EyeSquintRight": 4917,
+    "EyeWideRight": 4917,
+    "JawForward": 20474,
+    "JawRight": 20474,
+    "JawLeft": 20474,
+    "JawOpen": 20474,
+    "MouthClose": 24543,
+    "MouthFunnel": 24543,
+    "MouthPucker": 24543,
     "MouthRight": 1368,
     "MouthLeft": 1604,
     "MouthSmileLeft": 1604,
@@ -65,27 +66,27 @@
     "MouthDimpleRight": 1368,
     "MouthStretchLeft": 1604,
     "MouthStretchRight": 1368,
-    "MouthRollLower": 24362,
-    "MouthRollUpper": 24362,
-    "MouthShrugLower": 24362,
-    "MouthShrugUpper": 24362,
+    "MouthRollLower": 24543,
+    "MouthRollUpper": 24543,
+    "MouthShrugLower": 24543,
+    "MouthShrugUpper": 24543,
     "MouthPressLeft": 1604,
     "MouthPressRight": 1368,
     "MouthLowerDownLeft": 1604,
     "MouthLowerDownRight": 1368,
     "MouthUpperUpLeft": 1604,
     "MouthUpperUpRight": 1368,
-    "BrowDownLeft": 3022,
-    "BrowDownRight": 12607,
-    "BrowInnerUp": 15629,
-    "BrowOuterUpLeft": 3022,
-    "BrowOuterUpRight": 12607,
-    "CheekPuff": 24553,
+    "BrowDownLeft": 3065,
+    "BrowDownRight": 49739,
+    "BrowInnerUp": 52804,
+    "BrowOuterUpLeft": 3065,
+    "BrowOuterUpRight": 49739,
+    "CheekPuff": 24733,
     "CheekSquintLeft": 1604,
     "CheekSquintRight": 1368,
     "NoseSneerLeft": 2553,
     "NoseSneerRight": 2553,
-    "TongueOut": 24362
+    "TongueOut": 24543
   },
   "mask_names": [
     "eye left upper lid",
@@ -101,5 +102,5 @@
     "nose",
     "jaw"
   ],
-  "method": "Connected face proxy carved from optimized Rexx mesh; vertex-group blend file used as morph masks."
+  "method": "Full Rexx mesh ARKit shape keys from vertex-group blend masks."
 }
