@@ -1266,14 +1266,14 @@ albedo_color = Color(0.62956, 0.580168, 0.50608003, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_nrsai"]
-size = Vector3(5, 4, 7)
+size = Vector3(65.22777, 4, 17)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xn33n"]
 albedo_color = Color(0.62956, 0.580168, 0.50608003, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_hhyb4"]
-size = Vector3(5, 4, 7)
+size = Vector3(65.22777, 4, 17)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2t6q2"]
 cull_mode = 2
@@ -1297,14 +1297,14 @@ albedo_color = Color(0.59428, 0.546904, 0.47584, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_v4lbe"]
-size = Vector3(5, 4, 7)
+size = Vector3(65.22777, 4, 17)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d5c3u"]
 albedo_color = Color(0.59428, 0.546904, 0.47584, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_aq02x"]
-size = Vector3(5, 4, 7)
+size = Vector3(65.22777, 4, 17)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ky60"]
 cull_mode = 2
@@ -11204,84 +11204,84 @@ metadata/validation_camera = "ValidationCameras/RoofGambrelSideProfileCamera"
 metadata/node_path = "Roof/DutchGambrelFrontGableWall/GambrelGableUpperWall"
 
 [node name="GambrelLeftRakeTrim" type="MeshInstance3D" parent="Roof/DutchGambrelFrontGableWall"]
-transform = Transform3D(0.88294756, 0.46947157, 0, -0.46947157, 0.88294756, 0, 0, 0, 1, -173.9, 120, 148.4)
+transform = Transform3D(0.8525543, -0.5226387, 0, 0.5226387, 0.8525543, 0, 0, 0, 1, -173.9, 120, 153.5)
 material_override = SubResource("StandardMaterial3D_upsxc")
 mesh = SubResource("BoxMesh_nrsai")
 metadata/generated_scene_provenance = {
-"allowed_intersections": ["gable wall", "roof plane edge"],
+"allowed_intersections": ["gable wall", "roof plane edge", "eave fascia return"],
 "assembly": "dutch_gambrel_gable_infill",
-"contact_face": "left rake edge",
+"contact_face": "left rake edge plus eave fascia corner",
 "deletion_rule": "delete if edge is superseded by a mitred rake asset",
 "end_anchor": Vector3(-147.8, 136, 148),
-"forbidden_intersections": ["floating support block", "below-eave wall duplicate"],
+"forbidden_intersections": ["floating support block", "below-eave wall duplicate", "open roof corner gap"],
 "node_path": "Roof/DutchGambrelFrontGableWall/GambrelLeftRakeTrim",
 "owner_volume": "Roof",
 "role": "rake_trim",
 "source_of_truth": "PLAN_CONTRACT.roof_contract.dutch_gambrel",
 "span_axis": "x",
 "start_anchor": Vector3(-200, 104, 148),
-"support_target": "GambrelGableUpperWall and DutchGambrelLowerLeftPlane",
+"support_target": "GambrelGableUpperWall, DutchGambrelLowerLeftPlane, and front/back eave fascia",
 "validation_camera": "ValidationCameras/RoofGambrelSideProfileCamera",
-"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"validation_gate": "test_home_yard_gambrel_gable_rake_trim_contacts_eave_fascia",
 "visible_class": "architectural_mesh",
-"why_exists": "left rake trim covers the left lower gambrel edge at the gable end"
+"why_exists": "left rake trim covers the left lower gambrel edge at the gable end and extends to the eave fascia return"
 }
 metadata/visible_class = "architectural_mesh"
 metadata/owner_volume = "Roof"
 metadata/assembly = "dutch_gambrel_gable_infill"
 metadata/role = "rake_trim"
 metadata/source_of_truth = "PLAN_CONTRACT.roof_contract.dutch_gambrel"
-metadata/why_exists = "left rake trim covers the left lower gambrel edge at the gable end"
-metadata/support_target = "GambrelGableUpperWall and DutchGambrelLowerLeftPlane"
-metadata/contact_face = "left rake edge"
+metadata/why_exists = "left rake trim covers the left lower gambrel edge at the gable end and extends to the eave fascia return"
+metadata/support_target = "GambrelGableUpperWall, DutchGambrelLowerLeftPlane, and front/back eave fascia"
+metadata/contact_face = "left rake edge plus eave fascia corner"
 metadata/span_axis = "x"
 metadata/start_anchor = Vector3(-200, 104, 148)
 metadata/end_anchor = Vector3(-147.8, 136, 148)
-metadata/allowed_intersections = ["gable wall", "roof plane edge"]
-metadata/forbidden_intersections = ["floating support block", "below-eave wall duplicate"]
+metadata/allowed_intersections = ["gable wall", "roof plane edge", "eave fascia return"]
+metadata/forbidden_intersections = ["floating support block", "below-eave wall duplicate", "open roof corner gap"]
 metadata/deletion_rule = "delete if edge is superseded by a mitred rake asset"
-metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_gate = "test_home_yard_gambrel_gable_rake_trim_contacts_eave_fascia"
 metadata/validation_camera = "ValidationCameras/RoofGambrelSideProfileCamera"
 metadata/node_path = "Roof/DutchGambrelFrontGableWall/GambrelLeftRakeTrim"
 
 [node name="GambrelRightRakeTrim" type="MeshInstance3D" parent="Roof/DutchGambrelFrontGableWall"]
-transform = Transform3D(0.88294756, -0.46947157, 0, 0.46947157, 0.88294756, 0, 0, 0, 1, 63.9, 120, 148.4)
+transform = Transform3D(0.8525543, 0.5226387, 0, -0.5226387, 0.8525543, 0, 0, 0, 1, 63.9, 120, 153.5)
 material_override = SubResource("StandardMaterial3D_xn33n")
 mesh = SubResource("BoxMesh_hhyb4")
 metadata/generated_scene_provenance = {
-"allowed_intersections": ["gable wall", "roof plane edge"],
+"allowed_intersections": ["gable wall", "roof plane edge", "eave fascia return"],
 "assembly": "dutch_gambrel_gable_infill",
-"contact_face": "right rake edge",
+"contact_face": "right rake edge plus eave fascia corner",
 "deletion_rule": "delete if edge is superseded by a mitred rake asset",
 "end_anchor": Vector3(90, 104, 148),
-"forbidden_intersections": ["floating support block", "below-eave wall duplicate"],
+"forbidden_intersections": ["floating support block", "below-eave wall duplicate", "open roof corner gap"],
 "node_path": "Roof/DutchGambrelFrontGableWall/GambrelRightRakeTrim",
 "owner_volume": "Roof",
 "role": "rake_trim",
 "source_of_truth": "PLAN_CONTRACT.roof_contract.dutch_gambrel",
 "span_axis": "x",
 "start_anchor": Vector3(37.8, 136, 148),
-"support_target": "GambrelGableUpperWall and DutchGambrelLowerRightPlane",
+"support_target": "GambrelGableUpperWall, DutchGambrelLowerRightPlane, and front/back eave fascia",
 "validation_camera": "ValidationCameras/RoofGambrelSideProfileCamera",
-"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"validation_gate": "test_home_yard_gambrel_gable_rake_trim_contacts_eave_fascia",
 "visible_class": "architectural_mesh",
-"why_exists": "right rake trim covers the right lower gambrel edge at the gable end"
+"why_exists": "right rake trim covers the right lower gambrel edge at the gable end and extends to the eave fascia return"
 }
 metadata/visible_class = "architectural_mesh"
 metadata/owner_volume = "Roof"
 metadata/assembly = "dutch_gambrel_gable_infill"
 metadata/role = "rake_trim"
 metadata/source_of_truth = "PLAN_CONTRACT.roof_contract.dutch_gambrel"
-metadata/why_exists = "right rake trim covers the right lower gambrel edge at the gable end"
-metadata/support_target = "GambrelGableUpperWall and DutchGambrelLowerRightPlane"
-metadata/contact_face = "right rake edge"
+metadata/why_exists = "right rake trim covers the right lower gambrel edge at the gable end and extends to the eave fascia return"
+metadata/support_target = "GambrelGableUpperWall, DutchGambrelLowerRightPlane, and front/back eave fascia"
+metadata/contact_face = "right rake edge plus eave fascia corner"
 metadata/span_axis = "x"
 metadata/start_anchor = Vector3(37.8, 136, 148)
 metadata/end_anchor = Vector3(90, 104, 148)
-metadata/allowed_intersections = ["gable wall", "roof plane edge"]
-metadata/forbidden_intersections = ["floating support block", "below-eave wall duplicate"]
+metadata/allowed_intersections = ["gable wall", "roof plane edge", "eave fascia return"]
+metadata/forbidden_intersections = ["floating support block", "below-eave wall duplicate", "open roof corner gap"]
 metadata/deletion_rule = "delete if edge is superseded by a mitred rake asset"
-metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_gate = "test_home_yard_gambrel_gable_rake_trim_contacts_eave_fascia"
 metadata/validation_camera = "ValidationCameras/RoofGambrelSideProfileCamera"
 metadata/node_path = "Roof/DutchGambrelFrontGableWall/GambrelRightRakeTrim"
 
@@ -11337,84 +11337,84 @@ metadata/validation_camera = "ValidationCameras/RoofGambrelSideProfileCamera"
 metadata/node_path = "Roof/DutchGambrelBackGableWall/GambrelGableUpperWall"
 
 [node name="GambrelLeftRakeTrim" type="MeshInstance3D" parent="Roof/DutchGambrelBackGableWall"]
-transform = Transform3D(0.88294756, 0.46947157, 0, -0.46947157, 0.88294756, 0, 0, 0, 1, -173.9, 120, -132.6)
+transform = Transform3D(0.8525543, -0.5226387, 0, 0.5226387, 0.8525543, 0, 0, 0, 1, -173.9, 120, -138.5)
 material_override = SubResource("StandardMaterial3D_6fh5k")
 mesh = SubResource("BoxMesh_v4lbe")
 metadata/generated_scene_provenance = {
-"allowed_intersections": ["gable wall", "roof plane edge"],
+"allowed_intersections": ["gable wall", "roof plane edge", "eave fascia return"],
 "assembly": "dutch_gambrel_gable_infill",
-"contact_face": "left rake edge",
+"contact_face": "left rake edge plus eave fascia corner",
 "deletion_rule": "delete if edge is superseded by a mitred rake asset",
 "end_anchor": Vector3(-147.8, 136, -133),
-"forbidden_intersections": ["floating support block", "below-eave wall duplicate"],
+"forbidden_intersections": ["floating support block", "below-eave wall duplicate", "open roof corner gap"],
 "node_path": "Roof/DutchGambrelBackGableWall/GambrelLeftRakeTrim",
 "owner_volume": "Roof",
 "role": "rake_trim",
 "source_of_truth": "PLAN_CONTRACT.roof_contract.dutch_gambrel",
 "span_axis": "x",
 "start_anchor": Vector3(-200, 104, -133),
-"support_target": "GambrelGableUpperWall and DutchGambrelLowerLeftPlane",
+"support_target": "GambrelGableUpperWall, DutchGambrelLowerLeftPlane, and front/back eave fascia",
 "validation_camera": "ValidationCameras/RoofGambrelSideProfileCamera",
-"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"validation_gate": "test_home_yard_gambrel_gable_rake_trim_contacts_eave_fascia",
 "visible_class": "architectural_mesh",
-"why_exists": "left rake trim covers the left lower gambrel edge at the gable end"
+"why_exists": "left rake trim covers the left lower gambrel edge at the gable end and extends to the eave fascia return"
 }
 metadata/visible_class = "architectural_mesh"
 metadata/owner_volume = "Roof"
 metadata/assembly = "dutch_gambrel_gable_infill"
 metadata/role = "rake_trim"
 metadata/source_of_truth = "PLAN_CONTRACT.roof_contract.dutch_gambrel"
-metadata/why_exists = "left rake trim covers the left lower gambrel edge at the gable end"
-metadata/support_target = "GambrelGableUpperWall and DutchGambrelLowerLeftPlane"
-metadata/contact_face = "left rake edge"
+metadata/why_exists = "left rake trim covers the left lower gambrel edge at the gable end and extends to the eave fascia return"
+metadata/support_target = "GambrelGableUpperWall, DutchGambrelLowerLeftPlane, and front/back eave fascia"
+metadata/contact_face = "left rake edge plus eave fascia corner"
 metadata/span_axis = "x"
 metadata/start_anchor = Vector3(-200, 104, -133)
 metadata/end_anchor = Vector3(-147.8, 136, -133)
-metadata/allowed_intersections = ["gable wall", "roof plane edge"]
-metadata/forbidden_intersections = ["floating support block", "below-eave wall duplicate"]
+metadata/allowed_intersections = ["gable wall", "roof plane edge", "eave fascia return"]
+metadata/forbidden_intersections = ["floating support block", "below-eave wall duplicate", "open roof corner gap"]
 metadata/deletion_rule = "delete if edge is superseded by a mitred rake asset"
-metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_gate = "test_home_yard_gambrel_gable_rake_trim_contacts_eave_fascia"
 metadata/validation_camera = "ValidationCameras/RoofGambrelSideProfileCamera"
 metadata/node_path = "Roof/DutchGambrelBackGableWall/GambrelLeftRakeTrim"
 
 [node name="GambrelRightRakeTrim" type="MeshInstance3D" parent="Roof/DutchGambrelBackGableWall"]
-transform = Transform3D(0.88294756, -0.46947157, 0, 0.46947157, 0.88294756, 0, 0, 0, 1, 63.9, 120, -132.6)
+transform = Transform3D(0.8525543, 0.5226387, 0, -0.5226387, 0.8525543, 0, 0, 0, 1, 63.9, 120, -138.5)
 material_override = SubResource("StandardMaterial3D_d5c3u")
 mesh = SubResource("BoxMesh_aq02x")
 metadata/generated_scene_provenance = {
-"allowed_intersections": ["gable wall", "roof plane edge"],
+"allowed_intersections": ["gable wall", "roof plane edge", "eave fascia return"],
 "assembly": "dutch_gambrel_gable_infill",
-"contact_face": "right rake edge",
+"contact_face": "right rake edge plus eave fascia corner",
 "deletion_rule": "delete if edge is superseded by a mitred rake asset",
 "end_anchor": Vector3(90, 104, -133),
-"forbidden_intersections": ["floating support block", "below-eave wall duplicate"],
+"forbidden_intersections": ["floating support block", "below-eave wall duplicate", "open roof corner gap"],
 "node_path": "Roof/DutchGambrelBackGableWall/GambrelRightRakeTrim",
 "owner_volume": "Roof",
 "role": "rake_trim",
 "source_of_truth": "PLAN_CONTRACT.roof_contract.dutch_gambrel",
 "span_axis": "x",
 "start_anchor": Vector3(37.8, 136, -133),
-"support_target": "GambrelGableUpperWall and DutchGambrelLowerRightPlane",
+"support_target": "GambrelGableUpperWall, DutchGambrelLowerRightPlane, and front/back eave fascia",
 "validation_camera": "ValidationCameras/RoofGambrelSideProfileCamera",
-"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"validation_gate": "test_home_yard_gambrel_gable_rake_trim_contacts_eave_fascia",
 "visible_class": "architectural_mesh",
-"why_exists": "right rake trim covers the right lower gambrel edge at the gable end"
+"why_exists": "right rake trim covers the right lower gambrel edge at the gable end and extends to the eave fascia return"
 }
 metadata/visible_class = "architectural_mesh"
 metadata/owner_volume = "Roof"
 metadata/assembly = "dutch_gambrel_gable_infill"
 metadata/role = "rake_trim"
 metadata/source_of_truth = "PLAN_CONTRACT.roof_contract.dutch_gambrel"
-metadata/why_exists = "right rake trim covers the right lower gambrel edge at the gable end"
-metadata/support_target = "GambrelGableUpperWall and DutchGambrelLowerRightPlane"
-metadata/contact_face = "right rake edge"
+metadata/why_exists = "right rake trim covers the right lower gambrel edge at the gable end and extends to the eave fascia return"
+metadata/support_target = "GambrelGableUpperWall, DutchGambrelLowerRightPlane, and front/back eave fascia"
+metadata/contact_face = "right rake edge plus eave fascia corner"
 metadata/span_axis = "x"
 metadata/start_anchor = Vector3(37.8, 136, -133)
 metadata/end_anchor = Vector3(90, 104, -133)
-metadata/allowed_intersections = ["gable wall", "roof plane edge"]
-metadata/forbidden_intersections = ["floating support block", "below-eave wall duplicate"]
+metadata/allowed_intersections = ["gable wall", "roof plane edge", "eave fascia return"]
+metadata/forbidden_intersections = ["floating support block", "below-eave wall duplicate", "open roof corner gap"]
 metadata/deletion_rule = "delete if edge is superseded by a mitred rake asset"
-metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_gate = "test_home_yard_gambrel_gable_rake_trim_contacts_eave_fascia"
 metadata/validation_camera = "ValidationCameras/RoofGambrelSideProfileCamera"
 metadata/node_path = "Roof/DutchGambrelBackGableWall/GambrelRightRakeTrim"
 

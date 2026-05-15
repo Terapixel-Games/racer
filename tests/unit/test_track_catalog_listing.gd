@@ -1316,6 +1316,8 @@ func _assert_home_yard_roof_and_attic_contract(root: Node, track_id: String) -> 
 	assert_true(root.find_child("WallBelowGambrelEave", true, false) == null, "%s gambrel gable helpers must not duplicate below-eave exterior wall surfaces" % track_id)
 	_assert_side_fascia_mitres_to_eave_fascia(root, "Roof/GambrelWestRakeFascia", "Roof/GambrelFrontEaveFascia", "Roof/GambrelBackEaveFascia", track_id)
 	_assert_side_fascia_mitres_to_eave_fascia(root, "Roof/GambrelEastRakeFascia", "Roof/GambrelFrontEaveFascia", "Roof/GambrelBackEaveFascia", track_id)
+	_assert_gambrel_gable_rake_trim_contacts_eave_fascia(root, "Roof/DutchGambrelFrontGableWall", "Roof/GambrelFrontEaveFascia", track_id)
+	_assert_gambrel_gable_rake_trim_contacts_eave_fascia(root, "Roof/DutchGambrelBackGableWall", "Roof/GambrelBackEaveFascia", track_id)
 	_assert_garage_roof_ridge_centered_on_owner_footprint(roof, track_id)
 	_assert_garage_roof_planes_contact_sidewall(root, track_id)
 	_assert_exterior_garage_side_infill(root, track_id)
@@ -1389,6 +1391,27 @@ func _assert_side_fascia_mitres_to_eave_fascia(root: Node, side_path: String, fr
 	assert_true(_aabb_overlaps_on_axes(side_bounds, back_bounds, ["x", "y", "z"], 0.25), "%s %s should directly meet/mitre with %s; an intermediate closure block must not be the only connection proof" % [track_id, side_path, back_path])
 	assert_true(absf((side_bounds.position.y + side_bounds.size.y * 0.5) - (front_bounds.position.y + front_bounds.size.y * 0.5)) <= 2.0, "%s %s should share the eave fascia datum with %s" % [track_id, side_path, front_path])
 	assert_true(absf((side_bounds.position.y + side_bounds.size.y * 0.5) - (back_bounds.position.y + back_bounds.size.y * 0.5)) <= 2.0, "%s %s should share the eave fascia datum with %s" % [track_id, side_path, back_path])
+
+func _assert_gambrel_gable_rake_trim_contacts_eave_fascia(root: Node, gable_path: String, eave_path: String, track_id: String) -> void:
+	var gable := root.get_node_or_null(gable_path)
+	var eave := root.get_node_or_null(eave_path) as MeshInstance3D
+	assert_true(gable != null, "%s should include gable assembly %s for rake/eave corner audit" % [track_id, gable_path])
+	assert_true(eave != null, "%s should include eave fascia %s for rake/eave corner audit" % [track_id, eave_path])
+	if gable == null or eave == null:
+		return
+	var eave_bounds := _mesh_instance_global_aabb(eave)
+	for trim_name in ["GambrelLeftRakeTrim", "GambrelRightRakeTrim"]:
+		var trim := gable.get_node_or_null(trim_name) as MeshInstance3D
+		assert_true(trim != null, "%s %s should include %s for complete roof-corner closure" % [track_id, gable_path, trim_name])
+		if trim == null:
+			continue
+		var trim_bounds := _mesh_instance_global_aabb(trim)
+		assert_true(_aabb_overlaps_on_axes(trim_bounds, eave_bounds, ["x", "y", "z"], 0.25), "%s %s/%s should terminate into %s; gap=%s eave=%s" % [track_id, gable_path, trim_name, eave_path, str(trim_bounds), str(eave_bounds)])
+		var provenance: Variant = trim.get_meta("generated_scene_provenance", {})
+		assert_true(provenance is Dictionary, "%s %s/%s should declare rake/eave corner provenance" % [track_id, gable_path, trim_name])
+		if provenance is Dictionary:
+			assert_equal(str((provenance as Dictionary).get("validation_gate", "")), "test_home_yard_gambrel_gable_rake_trim_contacts_eave_fascia", "%s %s/%s should point at the rake/eave corner closure gate" % [track_id, gable_path, trim_name])
+			assert_true(str((provenance as Dictionary).get("forbidden_intersections", "")).contains("open roof corner gap"), "%s %s/%s provenance should forbid recurring second-floor corner gaps" % [track_id, gable_path, trim_name])
 
 func _assert_garage_roof_ridge_centered_on_owner_footprint(roof: Node, track_id: String) -> void:
 	var contract: Variant = roof.get_meta("roof_contract", {})
