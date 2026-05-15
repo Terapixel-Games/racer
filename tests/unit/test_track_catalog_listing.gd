@@ -681,6 +681,71 @@ func _assert_home_yard_exterior_visual_completeness(root: Node, track_id: String
 		"Openings/KitchenGardenWindowInteriorShadowBacking",
 	]:
 		assert_true(root.get_node_or_null(node_path) != null, "%s exterior should include whole-unit beta visual detail %s" % [track_id, node_path])
+	_assert_home_yard_front_facade_details_respect_openings_and_wall_plane(root, track_id)
+	_assert_home_yard_gambrel_gable_wall_aligns_to_front_wall(root, track_id)
+
+func _assert_home_yard_front_facade_details_respect_openings_and_wall_plane(root: Node, track_id: String) -> void:
+	var detail_paths := [
+		"ExteriorShell/DutchFrontEntrySidingField",
+		"ExteriorShell/GarageFrontSidingField",
+		"ExteriorShell/FrontFacadeBatten00",
+		"ExteriorShell/FrontFacadeBatten01",
+		"ExteriorShell/FrontFacadeBatten02",
+		"ExteriorShell/FrontFacadeBatten03",
+		"ExteriorShell/FrontFacadeBatten04",
+		"ExteriorShell/FrontFacadeBatten05",
+		"ExteriorShell/FrontFacadeBatten06",
+		"ExteriorShell/FrontFacadeBatten07",
+		"ExteriorShell/GarageFacadeBattenLeft",
+		"ExteriorShell/GarageFacadeBattenRight",
+		"ExteriorShell/GarageFacadeBattenUpperLeft",
+		"ExteriorShell/GarageFacadeBattenUpperCenter",
+		"ExteriorShell/GarageFacadeBattenUpperRight",
+	]
+	var opening_paths := [
+		"Openings/DiningFrontWindow",
+		"Openings/LivingFrontWindow",
+		"Openings/FrontDoorPanel",
+		"Openings/FrontEntrySidelightLeft",
+		"Openings/FrontEntrySidelightRight",
+		"Openings/GarageDoorPanel",
+		"ExteriorShell/UpperFrontBedroomWindow",
+		"ExteriorShell/UpperFrontGlamWindow",
+	]
+	for detail_path in detail_paths:
+		var detail := root.get_node_or_null(detail_path) as MeshInstance3D
+		assert_true(detail != null, "%s front facade detail should exist: %s" % [track_id, detail_path])
+		if detail == null:
+			continue
+		var detail_bounds := _mesh_instance_global_aabb(detail)
+		assert_true(detail_bounds.size.z <= 3.2, "%s %s should be shallow facade dressing, not a proud wall patch: %s" % [track_id, detail_path, str(detail_bounds)])
+		assert_true(detail_bounds.position.z >= 147.5 and detail_bounds.end.z <= 150.2, "%s %s should stay snapped to the front wall face plane: %s" % [track_id, detail_path, str(detail_bounds)])
+		var provenance: Variant = detail.get_meta("generated_scene_provenance", {})
+		assert_true(provenance is Dictionary, "%s %s should declare facade provenance" % [track_id, detail_path])
+		if provenance is Dictionary:
+			assert_equal(str((provenance as Dictionary).get("validation_gate", "")), "test_home_yard_front_facade_details_respect_openings_and_wall_plane", "%s %s should point at the front facade opening gate" % [track_id, detail_path])
+			assert_true(str((provenance as Dictionary).get("forbidden_intersections", "")).contains("window glass AABB"), "%s %s should forbid window/door AABB intersections" % [track_id, detail_path])
+		for opening_path in opening_paths:
+			var opening := root.get_node_or_null(opening_path) as MeshInstance3D
+			assert_true(opening != null, "%s facade opening schedule should include %s" % [track_id, opening_path])
+			if opening == null:
+				continue
+			var opening_bounds := _mesh_instance_global_aabb(opening)
+			assert_true(not _aabb_overlaps_on_axes(detail_bounds, opening_bounds, ["x", "y"], 0.25), "%s front facade detail %s should not cross opening %s; detail=%s opening=%s" % [track_id, detail_path, opening_path, str(detail_bounds), str(opening_bounds)])
+
+func _assert_home_yard_gambrel_gable_wall_aligns_to_front_wall(root: Node, track_id: String) -> void:
+	var front_gable := root.get_node_or_null("Roof/DutchGambrelFrontGableWall/GambrelGableUpperWall") as MeshInstance3D
+	var back_gable := root.get_node_or_null("Roof/DutchGambrelBackGableWall/GambrelGableUpperWall") as MeshInstance3D
+	assert_true(front_gable != null, "%s front gambrel gable wall should exist" % track_id)
+	assert_true(back_gable != null, "%s back gambrel gable wall should exist" % track_id)
+	if front_gable != null:
+		var front_bounds := _mesh_instance_global_aabb(front_gable)
+		assert_true(front_bounds.position.x >= -201.0 and front_bounds.end.x <= 91.0, "%s front GambrelGableUpperWall should align to the main front wall span, not the old overwide roof helper span: %s" % [track_id, str(front_bounds)])
+		assert_true(absf(front_bounds.position.z - 148.4) <= 0.35 and absf(front_bounds.end.z - 148.4) <= 0.35, "%s front GambrelGableUpperWall should sit on the front exterior wall face datum: %s" % [track_id, str(front_bounds)])
+	if back_gable != null:
+		var back_bounds := _mesh_instance_global_aabb(back_gable)
+		assert_true(back_bounds.position.x >= -201.0 and back_bounds.end.x <= 91.0, "%s back GambrelGableUpperWall should align to the main back wall span, not the old overwide roof helper span: %s" % [track_id, str(back_bounds)])
+		assert_true(absf(back_bounds.position.z + 133.4) <= 0.35 and absf(back_bounds.end.z + 133.4) <= 0.35, "%s back GambrelGableUpperWall should sit on the back exterior wall face datum: %s" % [track_id, str(back_bounds)])
 
 func _assert_home_yard_yard_and_service_visual_completeness(root: Node, track_id: String) -> void:
 	for node_path in [

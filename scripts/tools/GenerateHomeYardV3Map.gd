@@ -683,10 +683,10 @@ func _add_exterior_architecture(root: Node3D, parent: Node3D) -> void:
 	_add_box(root, parent, "FrontEntryPorchLightLeft", Vector3(-82, 30, 150), Vector3(4, 8, 3), Color(1.0, 0.82, 0.42), false)
 	_add_box(root, parent, "FrontEntryPorchLightRight", Vector3(-18, 30, 150), Vector3(4, 8, 3), Color(1.0, 0.82, 0.42), false)
 	_add_box(root, parent, "FrontEntryHouseNumberPlaque", Vector3(-50, 48, 149), Vector3(28, 5, 2), Color(0.12, 0.10, 0.08), false)
-	_add_box(root, parent, "DutchFrontEntrySidingField", Vector3(-50, 73, 147), Vector3(126, 30, 6), siding, false)
-	for i in range(8):
-		_add_box(root, parent, "FrontFacadeBatten%02d" % i, Vector3(-186 + i * 52, 56, 148.8), Vector3(2.2, 84, 2.0), trim.darkened(0.08), false)
-	_add_box(root, parent, "GarageFrontSidingField", Vector3(155, 28, 147), Vector3(126, 48, 6), siding_shadow, false)
+	_add_box(root, parent, "DutchFrontEntrySidingField", Vector3(-50, 73, 148.7), Vector3(80, 20, 1.6), siding, false, 0.0, Vector3.ZERO, _front_facade_provenance("DutchFrontEntrySidingField", "front entry upper siding field snapped to the front wall face between upper windows and porch roof; it cannot act as a floating patch over openings"))
+	_add_front_facade_battens(root, parent, trim.darkened(0.08))
+	_add_box(root, parent, "GarageFrontSidingField", Vector3(155, 43, 148.7), Vector3(126, 14, 1.6), siding_shadow, false, 0.0, Vector3.ZERO, _front_facade_provenance("GarageFrontSidingField", "garage front siding field is clipped to the wall band above the garage door so it cannot cover the door opening"))
+	_add_garage_facade_battens(root, parent, trim.darkened(0.10))
 	_add_box(root, parent, "GarageDoorTrimHeader", Vector3(155, 31, 147), Vector3(98, 6, 8), trim, false)
 	_add_box(root, parent, "GarageDoorTrimLeft", Vector3(109, 16, 147), Vector3(5, 30, 8), trim, false)
 	_add_box(root, parent, "GarageDoorTrimRight", Vector3(201, 16, 147), Vector3(5, 30, 8), trim, false)
@@ -719,6 +719,50 @@ func _add_exterior_wall_system(root: Node3D, parent: Node3D) -> void:
 	_add_wall_x(root, parent, "ExteriorEastGarageWall", 220, -60, 145, exterior, true, 0.0, 52.0, _provenance("ExteriorShell", "garage_exterior_wall", "bearing_exterior_wall", "PLAN_CONTRACT.house_footprint.garage", "east garage wall defines the garage/service exterior side and supports the lower garage roof eave", "HouseFoundationEastPlinth and GarageCrossGable roof", "east exterior wall plane", "z", Vector3(220, 0, -60), Vector3(220, 52, 145), ["ExteriorEastGarageGableInfill", "windows/opening trim"], ["interior upper-floor deck", "unowned roof closure"], "delete only if garage footprint changes and replacement wall/infill is generated", "test_home_yard_exterior_garage_side_infill", "ValidationCameras/GarageServiceSeamCamera"))
 	_add_gable_wall_x(root, parent, "ExteriorEastGarageGableInfill", 220, -68, 159, 52, garage_center_z(), 76, exterior.lightened(0.04), _provenance("ExteriorShell", "garage_exterior_wall", "gable_cheek_infill", "PLAN_CONTRACT.house_footprint.garage + roof_contract.garage_cross_gable", "gable infill closes the visible siding above ExteriorEastGarageWall up to the garage cross-gable roof instead of leaving the service-side wall open", "ExteriorEastGarageWall and GarageCrossGableFrontPlane/GarageCrossGableBackPlane", "east garage gable end plane", "z", Vector3(220, 52, -68), Vector3(220, 52, 159), ["ExteriorEastGarageWall top edge", "garage roof planes"], ["attic route", "main-house side wall"], "delete if a sourced garage gable wall asset replaces it", "test_home_yard_exterior_garage_side_infill", "ValidationCameras/GarageServiceSeamCamera"))
 	_add_wall_x(root, parent, "ExteriorMainGarageStepWall", 90, -130, -60, exterior.darkened(0.04), true, 0.0, 104.0)
+
+func _front_facade_provenance(node_name: String, why_exists: String) -> Dictionary:
+	return _provenance(
+		"ExteriorShell",
+		"front_facade_board_and_batten",
+		"facade_detail",
+		"PLAN_CONTRACT.front_facade_opening_schedule + whole_unit_visual_review_contract",
+		why_exists,
+		"ExteriorFrontWallLeft/ExteriorFrontWallEntryHeader/ExteriorFrontGarageWall",
+		"front exterior wall face z=148.7",
+		"x",
+		"%s opening-safe start anchor" % node_name,
+		"%s opening-safe end anchor" % node_name,
+		["front wall face", "opening trim returns", "siding reveal offset"],
+		["window glass AABB", "door/sidelight AABB", "garage door AABB", "floating proud wall patch"],
+		"delete or split if it intersects an opening or no longer aligns to the front wall face",
+		"test_home_yard_front_facade_details_respect_openings_and_wall_plane",
+		"ValidationCameras/FrontPorchCloseupCamera"
+	)
+
+func _add_front_facade_battens(root: Node3D, parent: Node3D, color: Color) -> void:
+	var specs := [
+		{"name": "FrontFacadeBatten00", "position": Vector3(-198, 52, 148.9), "size": Vector3(2.2, 104, 2.0), "why": "left front corner batten is outside all front openings and closes the main wall corner board rhythm"},
+		{"name": "FrontFacadeBatten01", "position": Vector3(-92, 58, 148.9), "size": Vector3(2.2, 32, 2.0), "why": "short entry-side batten sits between the dining upper zone and front door assembly without crossing glass"},
+		{"name": "FrontFacadeBatten02", "position": Vector3(-70, 76, 148.9), "size": Vector3(2.2, 30, 2.0), "why": "upper entry batten is clipped above the sidelights so it reads as siding rhythm rather than a window blocker"},
+		{"name": "FrontFacadeBatten03", "position": Vector3(-32, 76, 148.9), "size": Vector3(2.2, 30, 2.0), "why": "upper entry batten is clipped above the right sidelight and below the porch eave"},
+		{"name": "FrontFacadeBatten04", "position": Vector3(78, 58, 148.9), "size": Vector3(2.2, 32, 2.0), "why": "right entry batten stays between the upper glam window and garage transition"},
+		{"name": "FrontFacadeBatten05", "position": Vector3(90, 52, 148.9), "size": Vector3(2.2, 104, 2.0), "why": "front facade batten marks the transition from main house wall to garage wall without crossing an opening"},
+		{"name": "FrontFacadeBatten06", "position": Vector3(-50, 94, 148.9), "size": Vector3(2.2, 18, 2.0), "why": "short center batten fills the wall field above the entry and between upper windows"},
+		{"name": "FrontFacadeBatten07", "position": Vector3(104, 38, 148.9), "size": Vector3(2.2, 28, 2.0), "why": "garage-left batten terminates above the garage door trim instead of crossing the garage opening"},
+	]
+	for spec in specs:
+		_add_box(root, parent, str(spec["name"]), spec["position"], spec["size"], color, false, 0.0, Vector3.ZERO, _front_facade_provenance(str(spec["name"]), str(spec["why"])))
+
+func _add_garage_facade_battens(root: Node3D, parent: Node3D, color: Color) -> void:
+	var specs := [
+		{"name": "GarageFacadeBattenLeft", "position": Vector3(96, 28, 148.9), "size": Vector3(2.2, 48, 2.0), "why": "garage left corner batten is outside the overhead door opening and flush to the front garage wall"},
+		{"name": "GarageFacadeBattenRight", "position": Vector3(214, 28, 148.9), "size": Vector3(2.2, 48, 2.0), "why": "garage right corner batten is outside the overhead door opening and closes the garage facade rhythm"},
+		{"name": "GarageFacadeBattenUpperLeft", "position": Vector3(126, 43, 148.9), "size": Vector3(2.2, 14, 2.0), "why": "short garage upper batten sits above the garage door header and does not cross the moving door panels"},
+		{"name": "GarageFacadeBattenUpperCenter", "position": Vector3(155, 43, 148.9), "size": Vector3(2.2, 14, 2.0), "why": "short garage upper batten adds board-and-batten rhythm only in the wall field above the garage door"},
+		{"name": "GarageFacadeBattenUpperRight", "position": Vector3(184, 43, 148.9), "size": Vector3(2.2, 14, 2.0), "why": "short garage upper batten stops above the garage door trim and remains on the wall field"},
+	]
+	for spec in specs:
+		_add_box(root, parent, str(spec["name"]), spec["position"], spec["size"], color, false, 0.0, Vector3.ZERO, _front_facade_provenance(str(spec["name"]), str(spec["why"])))
 
 func _add_opening_assemblies(root: Node3D, parent: Node3D) -> void:
 	parent.set_meta("plan_role", "door/window/threshold schedule from floor-plan contract")
@@ -781,8 +825,8 @@ func _add_roof_system(root: Node3D, parent: Node3D) -> void:
 	_add_box(root, parent, "DutchGambrelRidgeCap", Vector3(-55, 165, 7.5), Vector3(8, 5, 303), shadow, false)
 	_add_box(root, parent, "DutchGambrelLeftBreakCap", Vector3(-155, 137, 7.5), Vector3(8, 4, 303), shadow.lightened(0.04), false)
 	_add_box(root, parent, "DutchGambrelRightBreakCap", Vector3(45, 137, 7.5), Vector3(8, 4, 303), shadow.lightened(0.04), false)
-	_add_gambrel_gable_wall_z(root, parent, "DutchGambrelFrontGableWall", 159, -214, 104, 92, 104, 136, 164, siding.lightened(0.02))
-	_add_gambrel_gable_wall_z(root, parent, "DutchGambrelBackGableWall", -144, -214, 104, 92, 104, 136, 164, siding.darkened(0.06))
+	_add_gambrel_gable_wall_z(root, parent, "DutchGambrelFrontGableWall", 148.4, -200, 90, 92, 104, 136, 164, siding.lightened(0.02))
+	_add_gambrel_gable_wall_z(root, parent, "DutchGambrelBackGableWall", -133.4, -200, 90, 92, 104, 136, 164, siding.darkened(0.06))
 	_add_roof_plane_z(root, parent, "GarageCrossGableFrontPlane", garage_ridge_z, garage_roof_z1, 90, 228, 76, 52, roof.darkened(0.02), _provenance("Roof", "garage_cross_gable", "roof_plane", "PLAN_CONTRACT.roof_contract.garage_cross_gable", "front garage roof plane slopes from the centered garage ridge to the front eave and terminates directly into the upper garage side wall without a visible helper bar", "ExteriorEastUpperWallOverGarage, ExteriorFrontGarageWall, and ExteriorEastGarageWall", "front/east garage wall top plates and upper sidewall edge", "z", Vector3(90, 76, garage_ridge_z), Vector3(228, 52, garage_roof_z1), ["GarageCrossGableRidge", "ExteriorEastUpperWallOverGarage sidewall contact"], ["main attic playable volume", "unowned wall closure", "floating sidewall flashing bar"], "delete if garage roof footprint or centered ridge contract changes", "test_home_yard_garage_roof_sidewall_contact", "ValidationCameras/GarageServiceSeamCamera"))
 	_add_roof_plane_z(root, parent, "GarageCrossGableBackPlane", garage_roof_z0, garage_ridge_z, 90, 228, 52, 76, roof.darkened(0.02), _provenance("Roof", "garage_cross_gable", "roof_plane", "PLAN_CONTRACT.roof_contract.garage_cross_gable", "back garage roof plane slopes from the back eave to the centered garage ridge and terminates directly into the upper garage side wall without a visible helper bar", "ExteriorEastUpperWallOverGarage, ExteriorMainGarageStepWall, ExteriorBackGarageWall, and ExteriorEastGarageWall", "back/east garage wall top plates and upper sidewall edge", "z", Vector3(90, 52, garage_roof_z0), Vector3(228, 76, garage_ridge_z), ["GarageCrossGableRidge", "ExteriorEastUpperWallOverGarage sidewall contact", "ExteriorMainGarageStepWall short return"], ["main attic playable volume", "unowned wall closure", "floating sidewall flashing bar"], "delete if garage roof footprint or centered ridge contract changes", "test_home_yard_garage_roof_sidewall_contact", "ValidationCameras/GarageServiceSeamCamera"))
 	_add_box(root, parent, "GarageCrossGableRidge", Vector3(159, 77, garage_ridge_z), Vector3(138, 5, 7), shadow, false, 0.0, Vector3.ZERO, _provenance("Roof", "garage_cross_gable", "ridge_cap", "PLAN_CONTRACT.roof_contract.garage_cross_gable", "ridge cap marks the centered high line of the garage cross gable", "GarageCrossGableFrontPlane and GarageCrossGableBackPlane", "shared ridge edge", "x", Vector3(90, 77, garage_ridge_z), Vector3(228, 77, garage_ridge_z), ["front/back garage roof planes"], ["main gambrel roof plane AABB", "garage wall interior"], "delete if the roof module is removed; recenter if garage footprint changes", "test_home_yard_garage_roof_ridge_centering", "ValidationCameras/GarageServiceSeamCamera"))
