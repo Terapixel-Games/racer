@@ -715,6 +715,7 @@ func _add_exterior_wall_system(root: Node3D, parent: Node3D) -> void:
 	_add_wall_z(root, parent, "ExteriorFrontGarageWall", 145, 90, 220, exterior, true, 0.0, 52.0)
 	_add_wall_z(root, parent, "ExteriorBackWallWest", -130, -200, -55, exterior, true, 0.0, 104.0)
 	_add_wall_z(root, parent, "ExteriorBackPatioHeader", -130, -55, 90, exterior, true, 22.0, 82.0)
+	_add_rear_patio_lower_infill(root, parent, exterior)
 	_add_wall_z(root, parent, "ExteriorBackGarageWall", -60, 90, 220, exterior, true, 0.0, 52.0)
 	_add_wall_x(root, parent, "ExteriorWestWall", -200, -130, 145, exterior, true, 0.0, 104.0)
 	_add_wall_x(root, parent, "ExteriorEastUpperWallOverGarage", 90, -60, 145, exterior, true, 52.0, 52.0)
@@ -766,6 +767,34 @@ func _add_garage_facade_battens(root: Node3D, parent: Node3D, color: Color) -> v
 	for spec in specs:
 		_add_box(root, parent, str(spec["name"]), spec["position"], spec["size"], color, false, 0.0, Vector3.ZERO, _front_facade_provenance(str(spec["name"]), str(spec["why"])))
 
+func _rear_facade_provenance(node_name: String, why_exists: String) -> Dictionary:
+	return _provenance(
+		"ExteriorShell",
+		"rear_deck_opening_assembly",
+		"rear_facade_infill_or_opening_detail",
+		"PLAN_CONTRACT.back_deck_free_drive + generated-scene-provenance-auditor screenshot review",
+		why_exists,
+		"ExteriorBackPatioHeader and back deck threshold system",
+		"back exterior wall face z=-133.0",
+		"x",
+		"%s rear opening-safe start anchor" % node_name,
+		"%s rear opening-safe end anchor" % node_name,
+		["back wall face", "patio door return", "doggie door return", "deck threshold"],
+		["patio door AABB", "doggie door AABB", "floating loose panel", "yellow interior leak"],
+		"delete or split if it overlaps a rear opening or leaves the lower rear wall band visually open",
+		"test_home_yard_back_facade_openings_are_provenance_audited",
+		"ValidationCameras/BackyardDoggieDoorCamera"
+	)
+
+func _add_rear_patio_lower_infill(root: Node3D, parent: Node3D, color: Color) -> void:
+	var specs := [
+		{"name": "RearPatioLowerWallLeftInfill", "position": Vector3(-34, 11, -130), "size": Vector3(42, 22, 6), "why": "lower rear wall infill closes the broad yellow leak left of the playroom patio door"},
+		{"name": "RearPatioLowerWallBetweenDoorAndDoggie", "position": Vector3(51, 11, -130), "size": Vector3(10, 22, 6), "why": "narrow rear wall post separates the playroom patio door from the doggie-door opening"},
+		{"name": "RearPatioLowerWallRightInfill", "position": Vector3(85.5, 11, -130), "size": Vector3(9, 22, 6), "why": "right rear wall return closes the doggie-door bay before the garage/service wall step"},
+	]
+	for spec in specs:
+		_add_box(root, parent, str(spec["name"]), spec["position"], spec["size"], color, true, 0.0, Vector3.ZERO, _rear_facade_provenance(str(spec["name"]), str(spec["why"])))
+
 func _add_opening_assemblies(root: Node3D, parent: Node3D) -> void:
 	parent.set_meta("plan_role", "door/window/threshold schedule from floor-plan contract")
 	var trim := Color(0.88, 0.82, 0.67)
@@ -779,10 +808,10 @@ func _add_opening_assemblies(root: Node3D, parent: Node3D) -> void:
 	_add_window(root, parent, "KitchenGardenWindow", Vector3(-200.5, 24, -58), Vector3(1.0, 22, 52))
 	_add_box(root, parent, "KitchenPatioDoorFrame", Vector3(-128, 22, -132), Vector3(66, 42, 5), trim, false)
 	_add_box(root, parent, "KitchenPatioDoorGlass", Vector3(-128, 22, -135), Vector3(50, 32, 1.2), Color(0.48, 0.72, 0.86, 0.45), false)
-	_add_box(root, parent, "PlayroomPatioDoorFrame", Vector3(18, 22, -132), Vector3(58, 42, 5), trim, false)
-	_add_box(root, parent, "PlayroomPatioDoorGlass", Vector3(18, 22, -135), Vector3(42, 32, 1.2), Color(0.48, 0.72, 0.86, 0.45), false)
-	_add_box(root, parent, "OversizedDoggieDoorFrame", Vector3(4, 12, -136), Vector3(56, 24, 5), trim.darkened(0.05), false)
-	_add_box(root, parent, "OversizedDoggieDoorFlap", Vector3(4, 11, -139), Vector3(42, 20, 1.2), Color(0.10, 0.08, 0.07, 0.62), false)
+	_add_box(root, parent, "PlayroomPatioDoorFrame", Vector3(20, 22, -132), Vector3(48, 42, 5), trim, false, 0.0, Vector3.ZERO, _rear_facade_provenance("PlayroomPatioDoorFrame", "playroom patio door frame fills its own rear opening and must not share space with the doggie door"))
+	_add_box(root, parent, "PlayroomPatioDoorGlass", Vector3(20, 22, -135), Vector3(36, 32, 1.2), Color(0.48, 0.72, 0.86, 0.45), false, 0.0, Vector3.ZERO, _rear_facade_provenance("PlayroomPatioDoorGlass", "playroom patio glass is contained inside the patio frame and backed by a real rear opening"))
+	_add_box(root, parent, "OversizedDoggieDoorFrame", Vector3(68, 10, -132), Vector3(24, 20, 5), trim.darkened(0.05), false, 0.0, Vector3.ZERO, _rear_facade_provenance("OversizedDoggieDoorFrame", "oversized toy-racer doggie door has its own small bay beside the playroom patio door instead of overlapping it"))
+	_add_box(root, parent, "OversizedDoggieDoorFlap", Vector3(68, 9, -135), Vector3(16, 14, 1.2), Color(0.10, 0.08, 0.07, 0.62), false, 0.0, Vector3.ZERO, _rear_facade_provenance("OversizedDoggieDoorFlap", "dark flap sits within the doggie-door frame and reads as a route/freedrive portal instead of a loose exterior panel"))
 	_add_box(root, parent, "GarageDoorPanel", Vector3(155, 14, 148), Vector3(86, 28, 2.0), Color(0.32, 0.30, 0.27), false)
 	_add_box(root, parent, "GarageHouseServiceDoor", Vector3(92, 14, 68), Vector3(4, 28, 20), Color(0.22, 0.16, 0.10), false)
 	_add_box(root, parent, "AtticAccessHatchFrame", Vector3(18, 106, -72), Vector3(52, 5, 30), trim.darkened(0.20), false)

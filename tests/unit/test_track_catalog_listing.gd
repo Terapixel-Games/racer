@@ -684,6 +684,57 @@ func _assert_home_yard_exterior_visual_completeness(root: Node, track_id: String
 	_assert_home_yard_front_facade_details_respect_openings_and_wall_plane(root, track_id)
 	_assert_home_yard_gambrel_gable_wall_aligns_to_front_wall(root, track_id)
 	_assert_home_yard_front_entry_assembly_fits_doorway(root, track_id)
+	_assert_home_yard_back_facade_openings_are_provenance_audited(root, track_id)
+
+func _assert_home_yard_back_facade_openings_are_provenance_audited(root: Node, track_id: String) -> void:
+	var rear_detail_paths := [
+		"ExteriorShell/RearPatioLowerWallLeftInfill",
+		"ExteriorShell/RearPatioLowerWallBetweenDoorAndDoggie",
+		"ExteriorShell/RearPatioLowerWallRightInfill",
+		"Openings/PlayroomPatioDoorFrame",
+		"Openings/PlayroomPatioDoorGlass",
+		"Openings/OversizedDoggieDoorFrame",
+		"Openings/OversizedDoggieDoorFlap",
+	]
+	var rear_opening_paths := [
+		"Openings/PlayroomPatioDoorFrame",
+		"Openings/OversizedDoggieDoorFrame",
+	]
+	for node_path in rear_detail_paths:
+		var node := root.get_node_or_null(node_path) as MeshInstance3D
+		assert_true(node != null, "%s rear facade auditor should find %s" % [track_id, node_path])
+		if node == null:
+			continue
+		var provenance: Variant = node.get_meta("generated_scene_provenance", {})
+		assert_true(provenance is Dictionary, "%s %s should declare rear facade provenance" % [track_id, node_path])
+		if provenance is Dictionary:
+			assert_equal(str((provenance as Dictionary).get("validation_gate", "")), "test_home_yard_back_facade_openings_are_provenance_audited", "%s %s should point at the rear facade audit gate" % [track_id, node_path])
+			assert_true(str((provenance as Dictionary).get("forbidden_intersections", "")).contains("yellow interior leak"), "%s %s should forbid the yellow rear-wall leak class" % [track_id, node_path])
+	var patio_frame := root.get_node_or_null("Openings/PlayroomPatioDoorFrame") as MeshInstance3D
+	var doggie_frame := root.get_node_or_null("Openings/OversizedDoggieDoorFrame") as MeshInstance3D
+	assert_true(patio_frame != null and doggie_frame != null, "%s rear facade should include separate patio and doggie-door openings" % track_id)
+	if patio_frame != null and doggie_frame != null:
+		var patio_bounds := _mesh_instance_global_aabb(patio_frame)
+		var doggie_bounds := _mesh_instance_global_aabb(doggie_frame)
+		assert_true(not _aabb_overlaps_on_axes(patio_bounds, doggie_bounds, ["x", "y"], 0.25), "%s playroom patio door and doggie door must not occupy the same rear opening: patio=%s doggie=%s" % [track_id, str(patio_bounds), str(doggie_bounds)])
+		assert_true(doggie_bounds.size.x <= 28.0 and doggie_bounds.size.y <= 24.0, "%s doggie door should read as a small route portal, not a broad loose wall panel: %s" % [track_id, str(doggie_bounds)])
+	for infill_path in [
+		"ExteriorShell/RearPatioLowerWallLeftInfill",
+		"ExteriorShell/RearPatioLowerWallBetweenDoorAndDoggie",
+		"ExteriorShell/RearPatioLowerWallRightInfill",
+	]:
+		var infill := root.get_node_or_null(infill_path) as MeshInstance3D
+		assert_true(infill != null, "%s lower rear wall should include infill %s" % [track_id, infill_path])
+		if infill == null:
+			continue
+		var infill_bounds := _mesh_instance_global_aabb(infill)
+		assert_true(infill_bounds.position.z <= -133.0 and infill_bounds.end.z >= -127.0, "%s %s should occupy the lower rear wall plane, not float behind the deck: %s" % [track_id, infill_path, str(infill_bounds)])
+		for opening_path in rear_opening_paths:
+			var opening := root.get_node_or_null(opening_path) as MeshInstance3D
+			if opening == null:
+				continue
+			var opening_bounds := _mesh_instance_global_aabb(opening)
+			assert_true(not _aabb_overlaps_on_axes(infill_bounds, opening_bounds, ["x", "y"], 0.25), "%s rear lower wall infill %s should not cover rear opening %s; infill=%s opening=%s" % [track_id, infill_path, opening_path, str(infill_bounds), str(opening_bounds)])
 
 func _assert_home_yard_front_entry_assembly_fits_doorway(root: Node, track_id: String) -> void:
 	var left_wall := root.get_node_or_null("ExteriorShell/ExteriorFrontWallLeft") as MeshInstance3D
