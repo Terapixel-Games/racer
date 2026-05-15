@@ -677,9 +677,11 @@ func _add_exterior_architecture(root: Node3D, parent: Node3D) -> void:
 	_add_box(root, parent, "FrontPorchBeam", Vector3(-50, 44, 160), Vector3(190, 8, 10), trim.darkened(0.08), false)
 	_add_box(root, parent, "FrontPorchRailLeft", Vector3(-150, 15, 162), Vector3(4, 18, 32), trim, false)
 	_add_box(root, parent, "FrontPorchRailRight", Vector3(50, 15, 162), Vector3(4, 18, 32), trim, false)
-	_add_box(root, parent, "FrontDoorDeepJambLeft", Vector3(-73, 20, 146), Vector3(5, 38, 8), trim, false)
-	_add_box(root, parent, "FrontDoorDeepJambRight", Vector3(-27, 20, 146), Vector3(5, 38, 8), trim, false)
-	_add_box(root, parent, "FrontDoorLintelHeader", Vector3(-50, 40, 146), Vector3(52, 6, 8), trim, false)
+	_add_box(root, parent, "FrontDoorDeepJambLeft", Vector3(-86, 20, 146), Vector3(5, 40, 8), trim, false)
+	_add_box(root, parent, "FrontDoorDeepJambRight", Vector3(-14, 20, 146), Vector3(5, 40, 8), trim, false)
+	_add_box(root, parent, "FrontDoorCenterMullionLeft", Vector3(-66, 20, 147.4), Vector3(3, 38, 4), trim.darkened(0.06), false)
+	_add_box(root, parent, "FrontDoorCenterMullionRight", Vector3(-34, 20, 147.4), Vector3(3, 38, 4), trim.darkened(0.06), false)
+	_add_box(root, parent, "FrontDoorLintelHeader", Vector3(-50, 42, 146), Vector3(78, 6, 8), trim, false)
 	_add_box(root, parent, "FrontEntryPorchLightLeft", Vector3(-82, 30, 150), Vector3(4, 8, 3), Color(1.0, 0.82, 0.42), false)
 	_add_box(root, parent, "FrontEntryPorchLightRight", Vector3(-18, 30, 150), Vector3(4, 8, 3), Color(1.0, 0.82, 0.42), false)
 	_add_box(root, parent, "FrontEntryHouseNumberPlaque", Vector3(-50, 48, 149), Vector3(28, 5, 2), Color(0.12, 0.10, 0.08), false)
@@ -708,8 +710,8 @@ func _add_exterior_architecture(root: Node3D, parent: Node3D) -> void:
 
 func _add_exterior_wall_system(root: Node3D, parent: Node3D) -> void:
 	var exterior := Color(0.54, 0.49, 0.42)
-	_add_wall_z(root, parent, "ExteriorFrontWallLeft", 145, -200, -78, exterior, true, 0.0, 104.0)
-	_add_wall_z(root, parent, "ExteriorFrontWallEntryHeader", 145, -24, 90, exterior, true, 0.0, 104.0)
+	_add_wall_z(root, parent, "ExteriorFrontWallLeft", 145, -200, -90, exterior, true, 0.0, 104.0)
+	_add_wall_z(root, parent, "ExteriorFrontWallEntryHeader", 145, -10, 90, exterior, true, 0.0, 104.0)
 	_add_wall_z(root, parent, "ExteriorFrontGarageWall", 145, 90, 220, exterior, true, 0.0, 52.0)
 	_add_wall_z(root, parent, "ExteriorBackWallWest", -130, -200, -55, exterior, true, 0.0, 104.0)
 	_add_wall_z(root, parent, "ExteriorBackPatioHeader", -130, -55, 90, exterior, true, 22.0, 82.0)
@@ -742,9 +744,9 @@ func _front_facade_provenance(node_name: String, why_exists: String) -> Dictiona
 func _add_front_facade_battens(root: Node3D, parent: Node3D, color: Color) -> void:
 	var specs := [
 		{"name": "FrontFacadeBatten00", "position": Vector3(-198, 52, 148.9), "size": Vector3(2.2, 104, 2.0), "why": "left front corner batten is outside all front openings and closes the main wall corner board rhythm"},
-		{"name": "FrontFacadeBatten01", "position": Vector3(-92, 58, 148.9), "size": Vector3(2.2, 32, 2.0), "why": "short entry-side batten sits between the dining upper zone and front door assembly without crossing glass"},
-		{"name": "FrontFacadeBatten02", "position": Vector3(-70, 76, 148.9), "size": Vector3(2.2, 30, 2.0), "why": "upper entry batten is clipped above the sidelights so it reads as siding rhythm rather than a window blocker"},
-		{"name": "FrontFacadeBatten03", "position": Vector3(-32, 76, 148.9), "size": Vector3(2.2, 30, 2.0), "why": "upper entry batten is clipped above the right sidelight and below the porch eave"},
+		{"name": "FrontFacadeBatten01", "position": Vector3(-94, 58, 148.9), "size": Vector3(2.2, 32, 2.0), "why": "short entry-side batten sits outside the widened front entry assembly without crossing glass"},
+		{"name": "FrontFacadeBatten02", "position": Vector3(-70, 82, 148.9), "size": Vector3(2.2, 18, 2.0), "why": "upper entry batten is clipped above the sidelight/header zone so it reads as siding rhythm rather than a window blocker"},
+		{"name": "FrontFacadeBatten03", "position": Vector3(-30, 82, 148.9), "size": Vector3(2.2, 18, 2.0), "why": "upper entry batten is clipped above the right sidelight/header zone and below the porch eave"},
 		{"name": "FrontFacadeBatten04", "position": Vector3(78, 58, 148.9), "size": Vector3(2.2, 32, 2.0), "why": "right entry batten stays between the upper glam window and garage transition"},
 		{"name": "FrontFacadeBatten05", "position": Vector3(90, 52, 148.9), "size": Vector3(2.2, 104, 2.0), "why": "front facade batten marks the transition from main house wall to garage wall without crossing an opening"},
 		{"name": "FrontFacadeBatten06", "position": Vector3(-50, 94, 148.9), "size": Vector3(2.2, 18, 2.0), "why": "short center batten fills the wall field above the entry and between upper windows"},
@@ -767,11 +769,11 @@ func _add_garage_facade_battens(root: Node3D, parent: Node3D, color: Color) -> v
 func _add_opening_assemblies(root: Node3D, parent: Node3D) -> void:
 	parent.set_meta("plan_role", "door/window/threshold schedule from floor-plan contract")
 	var trim := Color(0.88, 0.82, 0.67)
-	_add_box(root, parent, "FrontDoorPanel", Vector3(-50, 14, 146.5), Vector3(38, 28, 2.4), Color(0.24, 0.13, 0.07), false)
-	_add_box(root, parent, "FrontDoorGlass", Vector3(-50, 20, 147.9), Vector3(22, 12, 0.6), Color(0.45, 0.72, 0.88, 0.45), false)
-	_add_box(root, parent, "FrontEntryThresholdStone", Vector3(-50, 2, 151), Vector3(54, 4, 10), Color(0.46, 0.43, 0.37), false)
-	_add_box(root, parent, "FrontEntrySidelightLeft", Vector3(-78, 22, 148), Vector3(8, 26, 2), Color(0.50, 0.75, 0.88, 0.55), false)
-	_add_box(root, parent, "FrontEntrySidelightRight", Vector3(-22, 22, 148), Vector3(8, 26, 2), Color(0.50, 0.75, 0.88, 0.55), false)
+	_add_box(root, parent, "FrontDoorPanel", Vector3(-50, 17, 146.6), Vector3(28, 34, 2.4), Color(0.24, 0.13, 0.07), false)
+	_add_box(root, parent, "FrontDoorGlass", Vector3(-50, 24, 147.9), Vector3(16, 14, 0.6), Color(0.45, 0.72, 0.88, 0.45), false)
+	_add_box(root, parent, "FrontEntryThresholdStone", Vector3(-50, 2, 151), Vector3(82, 4, 10), Color(0.46, 0.43, 0.37), false)
+	_add_box(root, parent, "FrontEntrySidelightLeft", Vector3(-76, 20, 148), Vector3(10, 32, 2), Color(0.50, 0.75, 0.88, 0.55), false)
+	_add_box(root, parent, "FrontEntrySidelightRight", Vector3(-24, 20, 148), Vector3(10, 32, 2), Color(0.50, 0.75, 0.88, 0.55), false)
 	_add_window(root, parent, "DiningFrontWindow", Vector3(-152, 25, 148), Vector3(48, 22, 1.0))
 	_add_window(root, parent, "LivingFrontWindow", Vector3(-6, 25, 148), Vector3(46, 22, 1.0))
 	_add_window(root, parent, "KitchenGardenWindow", Vector3(-200.5, 24, -58), Vector3(1.0, 22, 52))

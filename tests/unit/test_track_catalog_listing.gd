@@ -683,6 +683,49 @@ func _assert_home_yard_exterior_visual_completeness(root: Node, track_id: String
 		assert_true(root.get_node_or_null(node_path) != null, "%s exterior should include whole-unit beta visual detail %s" % [track_id, node_path])
 	_assert_home_yard_front_facade_details_respect_openings_and_wall_plane(root, track_id)
 	_assert_home_yard_gambrel_gable_wall_aligns_to_front_wall(root, track_id)
+	_assert_home_yard_front_entry_assembly_fits_doorway(root, track_id)
+
+func _assert_home_yard_front_entry_assembly_fits_doorway(root: Node, track_id: String) -> void:
+	var left_wall := root.get_node_or_null("ExteriorShell/ExteriorFrontWallLeft") as MeshInstance3D
+	var right_wall := root.get_node_or_null("ExteriorShell/ExteriorFrontWallEntryHeader") as MeshInstance3D
+	var door := root.get_node_or_null("Openings/FrontDoorPanel") as MeshInstance3D
+	var sidelight_left := root.get_node_or_null("Openings/FrontEntrySidelightLeft") as MeshInstance3D
+	var sidelight_right := root.get_node_or_null("Openings/FrontEntrySidelightRight") as MeshInstance3D
+	var jamb_left := root.get_node_or_null("ExteriorShell/FrontDoorDeepJambLeft") as MeshInstance3D
+	var jamb_right := root.get_node_or_null("ExteriorShell/FrontDoorDeepJambRight") as MeshInstance3D
+	var mullion_left := root.get_node_or_null("ExteriorShell/FrontDoorCenterMullionLeft") as MeshInstance3D
+	var mullion_right := root.get_node_or_null("ExteriorShell/FrontDoorCenterMullionRight") as MeshInstance3D
+	for node in [left_wall, right_wall, door, sidelight_left, sidelight_right, jamb_left, jamb_right, mullion_left, mullion_right]:
+		assert_true(node != null, "%s front entry should include complete doorway, sidelight, jamb, and mullion assembly" % track_id)
+	if left_wall == null or right_wall == null or door == null or sidelight_left == null or sidelight_right == null or jamb_left == null or jamb_right == null or mullion_left == null or mullion_right == null:
+		return
+	var left_wall_bounds := _mesh_instance_global_aabb(left_wall)
+	var right_wall_bounds := _mesh_instance_global_aabb(right_wall)
+	var rough_opening_min_x := left_wall_bounds.end.x
+	var rough_opening_max_x := right_wall_bounds.position.x
+	var door_bounds := _mesh_instance_global_aabb(door)
+	var sidelight_left_bounds := _mesh_instance_global_aabb(sidelight_left)
+	var sidelight_right_bounds := _mesh_instance_global_aabb(sidelight_right)
+	var jamb_left_bounds := _mesh_instance_global_aabb(jamb_left)
+	var jamb_right_bounds := _mesh_instance_global_aabb(jamb_right)
+	var mullion_left_bounds := _mesh_instance_global_aabb(mullion_left)
+	var mullion_right_bounds := _mesh_instance_global_aabb(mullion_right)
+	assert_true(rough_opening_max_x - rough_opening_min_x >= 72.0, "%s front entry rough opening should be wide enough for a narrower door plus two sidelights" % track_id)
+	for item in [
+		{"name": "door", "bounds": door_bounds},
+		{"name": "left sidelight", "bounds": sidelight_left_bounds},
+		{"name": "right sidelight", "bounds": sidelight_right_bounds},
+		{"name": "left mullion", "bounds": mullion_left_bounds},
+		{"name": "right mullion", "bounds": mullion_right_bounds},
+	]:
+		var bounds := item["bounds"] as AABB
+		assert_true(bounds.position.x >= rough_opening_min_x - 2.0 and bounds.end.x <= rough_opening_max_x + 2.0, "%s front entry %s should fit inside the rough opening instead of clipping adjacent wall: opening=[%f,%f] bounds=%s" % [track_id, str(item["name"]), rough_opening_min_x, rough_opening_max_x, str(bounds)])
+	assert_true(door_bounds.size.x < 34.0, "%s front door should be a narrower residential panel so sidelights have real width: %s" % [track_id, str(door_bounds)])
+	assert_true(door_bounds.size.y >= 32.0, "%s front door should fill the doorway height instead of reading squat/short: %s" % [track_id, str(door_bounds)])
+	assert_true(sidelight_left_bounds.size.x >= 8.0 and sidelight_right_bounds.size.x >= 8.0, "%s front sidelights need visible width after the door is placed" % track_id)
+	assert_true(sidelight_left_bounds.end.x < mullion_left_bounds.position.x and mullion_left_bounds.end.x < door_bounds.position.x, "%s left sidelight, mullion, and door should be ordered without overlap" % track_id)
+	assert_true(door_bounds.end.x < mullion_right_bounds.position.x and mullion_right_bounds.end.x < sidelight_right_bounds.position.x, "%s door, right mullion, and right sidelight should be ordered without overlap" % track_id)
+	assert_true(jamb_left_bounds.position.x <= rough_opening_min_x + 6.0 and jamb_right_bounds.end.x >= rough_opening_max_x - 6.0, "%s front entry jambs should frame the full rough opening, not only the door panel" % track_id)
 
 func _assert_home_yard_front_facade_details_respect_openings_and_wall_plane(root: Node, track_id: String) -> void:
 	var detail_paths := [
