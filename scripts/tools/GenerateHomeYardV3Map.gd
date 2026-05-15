@@ -666,7 +666,7 @@ func _add_exterior_architecture(root: Node3D, parent: Node3D) -> void:
 	var trim := Color(0.88, 0.82, 0.67)
 	var stone := Color(0.42, 0.39, 0.34)
 	_add_box(root, parent, "ExteriorFoundationFrontSkirt", Vector3(10, 3.0, 145), Vector3(430, 6, 8), stone, false)
-	_add_box(root, parent, "ExteriorFoundationBackSkirt", Vector3(10, 3.0, -130), Vector3(430, 6, 8), stone, false)
+	_add_box(root, parent, "ExteriorFoundationBackSkirt", Vector3(-55, 3.0, -130), Vector3(290, 6, 8), stone, false, 0.0, Vector3.ZERO, _provenance("ExteriorShell", "foundation_perimeter", "back_foundation_skirt", "PLAN_CONTRACT.house_footprint.primary_back_wall", "back foundation skirt is clipped to the actual main-house rear wall run instead of the whole-house bounding box", "ExteriorBackWallWest/ExteriorBackPatioHeader", "back foundation face z=-130", "x", Vector3(-200, 0, -130), Vector3(90, 0, -130), ["rear wall foundation contact", "corner overlap tolerance"], ["garage void", "yard/deck void", "overlong broad bar"], "resize or split when the rear wall footprint changes", "test_home_yard_exterior_long_members_are_clipped_to_owner_runs", "ValidationCameras/BackyardDoggieDoorCamera"))
 	_add_box(root, parent, "ExteriorFoundationWestSkirt", Vector3(-200, 3.0, 7.5), Vector3(8, 6, 285), stone, false)
 	_add_box(root, parent, "ExteriorFoundationEastSkirt", Vector3(220, 3.0, 42.5), Vector3(8, 6, 205), stone, false)
 	for column in [{"name": "Left", "x": -120.0}, {"name": "Right", "x": 20.0}]:
@@ -685,7 +685,7 @@ func _add_exterior_architecture(root: Node3D, parent: Node3D) -> void:
 	_add_box(root, parent, "FrontEntryPorchLightLeft", Vector3(-82, 30, 150), Vector3(4, 8, 3), Color(1.0, 0.82, 0.42), false)
 	_add_box(root, parent, "FrontEntryPorchLightRight", Vector3(-18, 30, 150), Vector3(4, 8, 3), Color(1.0, 0.82, 0.42), false)
 	_add_box(root, parent, "FrontEntryHouseNumberPlaque", Vector3(-50, 48, 149), Vector3(28, 5, 2), Color(0.12, 0.10, 0.08), false)
-	_add_box(root, parent, "DutchFrontEntrySidingField", Vector3(-50, 73, 148.7), Vector3(80, 20, 1.6), siding, false, 0.0, Vector3.ZERO, _front_facade_provenance("DutchFrontEntrySidingField", "front entry upper siding field snapped to the front wall face between upper windows and porch roof; it cannot act as a floating patch over openings"))
+	_add_box(root, parent, "DutchFrontEntrySidingField", Vector3(-50, 53, 148.7), Vector3(78, 18, 1.6), siding, false, 0.0, Vector3.ZERO, _front_facade_provenance("DutchFrontEntrySidingField", "front entry siding field fills the bay between the door header and upper-window band without leaving a daylight hole into the house"))
 	_add_front_facade_battens(root, parent, trim.darkened(0.08))
 	_add_box(root, parent, "GarageFrontSidingField", Vector3(155, 43, 148.7), Vector3(126, 14, 1.6), siding_shadow, false, 0.0, Vector3.ZERO, _front_facade_provenance("GarageFrontSidingField", "garage front siding field is clipped to the wall band above the garage door so it cannot cover the door opening"))
 	_add_garage_facade_battens(root, parent, trim.darkened(0.10))
@@ -694,9 +694,9 @@ func _add_exterior_architecture(root: Node3D, parent: Node3D) -> void:
 	_add_box(root, parent, "GarageDoorTrimRight", Vector3(201, 16, 147), Vector3(5, 30, 8), trim, false)
 	for i in range(4):
 		_add_box(root, parent, "GarageDoorHorizontalPanel%02d" % i, Vector3(155, 7 + i * 6, 148.4), Vector3(78, 1.2, 1), Color(0.18, 0.17, 0.15), false)
-	_add_window(root, parent, "UpperFrontBedroomWindow", Vector3(-120, 75, 150), Vector3(40, 22, 1.0))
-	_add_window(root, parent, "UpperFrontGlamWindow", Vector3(42, 75, 150), Vector3(40, 22, 1.0))
-	_add_window(root, parent, "GambrelAtticFrontVentWindow", Vector3(-50, 140, 160), Vector3(34, 18, 1.0))
+	_add_window(root, parent, "UpperFrontBedroomWindow", Vector3(-120, 75, 148.6), Vector3(40, 22, 1.0))
+	_add_window(root, parent, "UpperFrontGlamWindow", Vector3(42, 75, 148.6), Vector3(40, 22, 1.0))
+	_add_window(root, parent, "GambrelAtticFrontVentWindow", Vector3(-50, 140, 148.6), Vector3(34, 18, 1.0))
 	_add_box(root, parent, "FrontGutterRun", Vector3(-55, 103, 159), Vector3(328, 3, 4), Color(0.12, 0.12, 0.11), false)
 	_add_box(root, parent, "BackGutterRun", Vector3(-55, 103, -144), Vector3(328, 3, 4), Color(0.12, 0.12, 0.11), false)
 	_add_box(root, parent, "FrontDownspoutWest", Vector3(-202, 51, 158), Vector3(3, 102, 3), Color(0.10, 0.10, 0.10), false)
@@ -804,7 +804,7 @@ func _add_opening_assemblies(root: Node3D, parent: Node3D) -> void:
 	_add_box(root, parent, "FrontEntrySidelightLeft", Vector3(-76, 20, 148), Vector3(10, 32, 2), Color(0.50, 0.75, 0.88, 0.55), false)
 	_add_box(root, parent, "FrontEntrySidelightRight", Vector3(-24, 20, 148), Vector3(10, 32, 2), Color(0.50, 0.75, 0.88, 0.55), false)
 	_add_window(root, parent, "DiningFrontWindow", Vector3(-152, 25, 148), Vector3(48, 22, 1.0))
-	_add_window(root, parent, "LivingFrontWindow", Vector3(-6, 25, 148), Vector3(46, 22, 1.0))
+	_add_window(root, parent, "LivingFrontWindow", Vector3(50, 25, 148.6), Vector3(46, 22, 1.0))
 	_add_window(root, parent, "KitchenGardenWindow", Vector3(-200.5, 24, -58), Vector3(1.0, 22, 52))
 	_add_box(root, parent, "KitchenPatioDoorFrame", Vector3(-128, 22, -132), Vector3(66, 42, 5), trim, false)
 	_add_box(root, parent, "KitchenPatioDoorGlass", Vector3(-128, 22, -135), Vector3(50, 32, 1.2), Color(0.48, 0.72, 0.86, 0.45), false)
@@ -862,7 +862,7 @@ func _add_roof_system(root: Node3D, parent: Node3D) -> void:
 	_add_roof_plane_z(root, parent, "GarageCrossGableBackPlane", garage_roof_z0, garage_ridge_z, 90, 228, 52, 76, roof.darkened(0.02), _provenance("Roof", "garage_cross_gable", "roof_plane", "PLAN_CONTRACT.roof_contract.garage_cross_gable", "back garage roof plane slopes from the back eave to the centered garage ridge and terminates directly into the upper garage side wall without a visible helper bar", "ExteriorEastUpperWallOverGarage, ExteriorMainGarageStepWall, ExteriorBackGarageWall, and ExteriorEastGarageWall", "back/east garage wall top plates and upper sidewall edge", "z", Vector3(90, 52, garage_roof_z0), Vector3(228, 76, garage_ridge_z), ["GarageCrossGableRidge", "ExteriorEastUpperWallOverGarage sidewall contact", "ExteriorMainGarageStepWall short return"], ["main attic playable volume", "unowned wall closure", "floating sidewall flashing bar"], "delete if garage roof footprint or centered ridge contract changes", "test_home_yard_garage_roof_sidewall_contact", "ValidationCameras/GarageServiceSeamCamera"))
 	_add_box(root, parent, "GarageCrossGableRidge", Vector3(159, 77, garage_ridge_z), Vector3(138, 5, 7), shadow, false, 0.0, Vector3.ZERO, _provenance("Roof", "garage_cross_gable", "ridge_cap", "PLAN_CONTRACT.roof_contract.garage_cross_gable", "ridge cap marks the centered high line of the garage cross gable", "GarageCrossGableFrontPlane and GarageCrossGableBackPlane", "shared ridge edge", "x", Vector3(90, 77, garage_ridge_z), Vector3(228, 77, garage_ridge_z), ["front/back garage roof planes"], ["main gambrel roof plane AABB", "garage wall interior"], "delete if the roof module is removed; recenter if garage footprint changes", "test_home_yard_garage_roof_ridge_centering", "ValidationCameras/GarageServiceSeamCamera"))
 	_add_roof_plane_z(root, parent, "FrontPorchGableFrontPlane", 164, 187, -162, 62, 60, 44, roof.darkened(0.04))
-	_add_roof_plane_z(root, parent, "FrontPorchGableBackPlane", 141, 164, -162, 62, 44, 60, roof.darkened(0.04))
+	_add_roof_plane_z(root, parent, "FrontPorchGableBackPlane", 145, 164, -162, 62, 44, 60, roof.darkened(0.04))
 	_add_box(root, parent, "FrontPorchGableRidge", Vector3(-50, 61, 164), Vector3(224, 5, 6), shadow, false)
 	_add_box(root, parent, "FrontPorchRoofFascia", Vector3(-50, 45, 187), Vector3(232, 5, 5), shadow, false)
 	_add_box(root, parent, "GambrelFrontEaveFascia", Vector3(-55, 105, 159), Vector3(328, 6, 6), shadow, false)
@@ -1957,24 +1957,35 @@ func _add_wall_x(
 	_add_box(root, parent, "%sTopTrim" % node_name, Vector3(x, base_y + height + 2.0, center_z), Vector3(8.0, 4.0, depth + 2.0), color.darkened(0.20), false, 0.0, Vector3.ZERO, _wall_trim_provenance(node_name, "x", Vector2(z0, z1), x, base_y + height))
 
 func _add_window(root: Node3D, parent: Node3D, node_name: String, position: Vector3, size: Vector3) -> void:
-	_add_box(root, parent, node_name, position, size, Color(0.55, 0.77, 0.92, 0.48), false)
 	var trim_color := Color(0.92, 0.86, 0.72)
 	if size.x >= size.z:
-		_add_box(root, parent, "%sHeader" % node_name, position + Vector3(0, size.y * 0.5 + 2.0, 0), Vector3(size.x + 8.0, 4.0, 3.0), trim_color, false)
-		_add_box(root, parent, "%sSill" % node_name, position + Vector3(0, -size.y * 0.5 - 2.0, 0), Vector3(size.x + 10.0, 4.0, 4.0), trim_color, false)
-		_add_box(root, parent, "%sLeftJamb" % node_name, position + Vector3(-size.x * 0.5 - 2.0, 0, 0), Vector3(4.0, size.y + 4.0, 3.0), trim_color, false)
-		_add_box(root, parent, "%sRightJamb" % node_name, position + Vector3(size.x * 0.5 + 2.0, 0, 0), Vector3(4.0, size.y + 4.0, 3.0), trim_color, false)
-		_add_box(root, parent, "%sCenterMuntinVertical" % node_name, position + Vector3(0, 0, -1.0), Vector3(2.2, size.y + 1.0, 2.6), trim_color.darkened(0.08), false)
-		_add_box(root, parent, "%sCenterMuntinHorizontal" % node_name, position + Vector3(0, 0, -1.0), Vector3(size.x + 2.0, 2.2, 2.6), trim_color.darkened(0.08), false)
-		_add_box(root, parent, "%sInteriorShadowBacking" % node_name, position + Vector3(0, 0, -2.8), Vector3(size.x * 0.82, size.y * 0.70, 1.4), Color(0.07, 0.12, 0.16, 0.55), false)
+		var outward_z := 1.0 if position.z >= 0.0 else -1.0
+		var normal := Vector3(0, 0, outward_z)
+		var glass_pos := position + normal * 0.60
+		var trim_pos := position + normal * 0.45
+		var backing_pos := position - normal * 0.15
+		_add_box(root, parent, node_name, glass_pos, size, Color(0.55, 0.77, 0.92, 0.48), false)
+		_add_box(root, parent, "%sHeader" % node_name, trim_pos + Vector3(0, size.y * 0.5 + 2.0, 0), Vector3(size.x + 8.0, 4.0, 3.0), trim_color, false)
+		_add_box(root, parent, "%sSill" % node_name, trim_pos + Vector3(0, -size.y * 0.5 - 2.0, 0), Vector3(size.x + 10.0, 4.0, 4.0), trim_color, false)
+		_add_box(root, parent, "%sLeftJamb" % node_name, trim_pos + Vector3(-size.x * 0.5 - 2.0, 0, 0), Vector3(4.0, size.y + 4.0, 3.0), trim_color, false)
+		_add_box(root, parent, "%sRightJamb" % node_name, trim_pos + Vector3(size.x * 0.5 + 2.0, 0, 0), Vector3(4.0, size.y + 4.0, 3.0), trim_color, false)
+		_add_box(root, parent, "%sCenterMuntinVertical" % node_name, glass_pos + normal * 0.15, Vector3(2.2, size.y + 1.0, 2.6), trim_color.darkened(0.08), false)
+		_add_box(root, parent, "%sCenterMuntinHorizontal" % node_name, glass_pos + normal * 0.15, Vector3(size.x + 2.0, 2.2, 2.6), trim_color.darkened(0.08), false)
+		_add_box(root, parent, "%sInteriorShadowBacking" % node_name, backing_pos, Vector3(size.x * 0.82, size.y * 0.70, 1.4), Color(0.07, 0.12, 0.16, 0.55), false)
 	else:
-		_add_box(root, parent, "%sHeader" % node_name, position + Vector3(0, size.y * 0.5 + 2.0, 0), Vector3(3.0, 4.0, size.z + 8.0), trim_color, false)
-		_add_box(root, parent, "%sSill" % node_name, position + Vector3(0, -size.y * 0.5 - 2.0, 0), Vector3(4.0, 4.0, size.z + 10.0), trim_color, false)
-		_add_box(root, parent, "%sLeftJamb" % node_name, position + Vector3(0, 0, -size.z * 0.5 - 2.0), Vector3(3.0, size.y + 4.0, 4.0), trim_color, false)
-		_add_box(root, parent, "%sRightJamb" % node_name, position + Vector3(0, 0, size.z * 0.5 + 2.0), Vector3(3.0, size.y + 4.0, 4.0), trim_color, false)
-		_add_box(root, parent, "%sCenterMuntinVertical" % node_name, position + Vector3(-1.0, 0, 0), Vector3(2.6, size.y + 1.0, 2.2), trim_color.darkened(0.08), false)
-		_add_box(root, parent, "%sCenterMuntinHorizontal" % node_name, position + Vector3(-1.0, 0, 0), Vector3(2.6, 2.2, size.z + 2.0), trim_color.darkened(0.08), false)
-		_add_box(root, parent, "%sInteriorShadowBacking" % node_name, position + Vector3(-2.8, 0, 0), Vector3(1.4, size.y * 0.70, size.z * 0.82), Color(0.07, 0.12, 0.16, 0.55), false)
+		var outward_x := 1.0 if position.x >= 0.0 else -1.0
+		var normal := Vector3(outward_x, 0, 0)
+		var glass_pos := position + normal * 0.60
+		var trim_pos := position + normal * 0.45
+		var backing_pos := position - normal * 0.15
+		_add_box(root, parent, node_name, glass_pos, size, Color(0.55, 0.77, 0.92, 0.48), false)
+		_add_box(root, parent, "%sHeader" % node_name, trim_pos + Vector3(0, size.y * 0.5 + 2.0, 0), Vector3(3.0, 4.0, size.z + 8.0), trim_color, false)
+		_add_box(root, parent, "%sSill" % node_name, trim_pos + Vector3(0, -size.y * 0.5 - 2.0, 0), Vector3(4.0, 4.0, size.z + 10.0), trim_color, false)
+		_add_box(root, parent, "%sLeftJamb" % node_name, trim_pos + Vector3(0, 0, -size.z * 0.5 - 2.0), Vector3(3.0, size.y + 4.0, 4.0), trim_color, false)
+		_add_box(root, parent, "%sRightJamb" % node_name, trim_pos + Vector3(0, 0, size.z * 0.5 + 2.0), Vector3(3.0, size.y + 4.0, 4.0), trim_color, false)
+		_add_box(root, parent, "%sCenterMuntinVertical" % node_name, glass_pos + normal * 0.15, Vector3(2.6, size.y + 1.0, 2.2), trim_color.darkened(0.08), false)
+		_add_box(root, parent, "%sCenterMuntinHorizontal" % node_name, glass_pos + normal * 0.15, Vector3(2.6, 2.2, size.z + 2.0), trim_color.darkened(0.08), false)
+		_add_box(root, parent, "%sInteriorShadowBacking" % node_name, backing_pos, Vector3(1.4, size.y * 0.70, size.z * 0.82), Color(0.07, 0.12, 0.16, 0.55), false)
 
 func _add_box(root: Node3D, parent: Node3D, node_name: String, position: Vector3, size: Vector3, color: Color, collision: bool, yaw_degrees := 0.0, rotation_degrees := Vector3.ZERO, provenance := {}) -> MeshInstance3D:
 	var mesh := MeshInstance3D.new()

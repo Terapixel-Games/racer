@@ -419,7 +419,7 @@ albedo_color = Color(0.42, 0.39, 0.34, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_e84r1"]
-size = Vector3(430, 6, 8)
+size = Vector3(290, 6, 8)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_is27f"]
 albedo_color = Color(0.42, 0.39, 0.34, 1)
@@ -545,7 +545,7 @@ albedo_color = Color(0.55, 0.48, 0.39, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_b77sd"]
-size = Vector3(80, 20, 1.6)
+size = Vector3(78, 18, 1.6)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qpmb2"]
 albedo_color = Color(0.8096, 0.7544, 0.6164, 1)
@@ -1371,14 +1371,14 @@ roughness = 0.82
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_riuas"]
 _surfaces = [{
-"aabb": AABB(-162, 44, 141, 224, 16, 23),
+"aabb": AABB(-162, 44, 145, 224, 16, 19),
 "format": 34359742465,
 "index_count": 6,
 "index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 0, 0, 2, 0, 3, 0),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 4,
-"vertex_data": PackedByteArray(0, 0, 34, 195, 0, 0, 48, 66, 0, 0, 13, 67, 0, 0, 120, 66, 0, 0, 48, 66, 0, 0, 13, 67, 0, 0, 120, 66, 0, 0, 112, 66, 0, 0, 36, 67, 0, 0, 34, 195, 0, 0, 112, 66, 0, 0, 36, 67)
+"vertex_data": PackedByteArray(0, 0, 34, 195, 0, 0, 48, 66, 0, 0, 17, 67, 0, 0, 120, 66, 0, 0, 48, 66, 0, 0, 17, 67, 0, 0, 120, 66, 0, 0, 112, 66, 0, 0, 36, 67, 0, 0, 34, 195, 0, 0, 112, 66, 0, 0, 36, 67)
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ks1bf"]
@@ -6514,44 +6514,44 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "ExteriorShell/ExteriorFoundationFrontSkirt"
 
 [node name="ExteriorFoundationBackSkirt" type="MeshInstance3D" parent="ExteriorShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 3, -130)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55, 3, -130)
 material_override = SubResource("StandardMaterial3D_7mjn1")
 mesh = SubResource("BoxMesh_e84r1")
 metadata/generated_scene_provenance = {
-"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
-"assembly": "exteriorshell_generated_assembly",
-"contact_face": "owner_volume_local_face_or_support_surface",
-"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
-"end_anchor": "generated_transform_end",
-"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"allowed_intersections": ["rear wall foundation contact", "corner overlap tolerance"],
+"assembly": "foundation_perimeter",
+"contact_face": "back foundation face z=-130",
+"deletion_rule": "resize or split when the rear wall footprint changes",
+"end_anchor": Vector3(90, 0, -130),
+"forbidden_intersections": ["garage void", "yard/deck void", "overlong broad bar"],
 "node_path": "ExteriorShell/ExteriorFoundationBackSkirt",
 "owner_volume": "ExteriorShell",
-"role": "generated_visible_part",
-"source_of_truth": "home_yard_v3 scratch generator contract",
-"span_axis": "inherited_from_node_transform",
-"start_anchor": "generated_transform_start",
-"support_target": "ExteriorShell",
-"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
-"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"role": "back_foundation_skirt",
+"source_of_truth": "PLAN_CONTRACT.house_footprint.primary_back_wall",
+"span_axis": "x",
+"start_anchor": Vector3(-200, 0, -130),
+"support_target": "ExteriorBackWallWest/ExteriorBackPatioHeader",
+"validation_camera": "ValidationCameras/BackyardDoggieDoorCamera",
+"validation_gate": "test_home_yard_exterior_long_members_are_clipped_to_owner_runs",
 "visible_class": "architectural_mesh",
-"why_exists": "ExteriorFoundationBackSkirt is emitted by the home_yard_v3 generator as part of ExteriorShell and must be validated by provenance coverage gates."
+"why_exists": "back foundation skirt is clipped to the actual main-house rear wall run instead of the whole-house bounding box"
 }
 metadata/visible_class = "architectural_mesh"
 metadata/owner_volume = "ExteriorShell"
-metadata/assembly = "exteriorshell_generated_assembly"
-metadata/role = "generated_visible_part"
-metadata/source_of_truth = "home_yard_v3 scratch generator contract"
-metadata/why_exists = "ExteriorFoundationBackSkirt is emitted by the home_yard_v3 generator as part of ExteriorShell and must be validated by provenance coverage gates."
-metadata/support_target = "ExteriorShell"
-metadata/contact_face = "owner_volume_local_face_or_support_surface"
-metadata/span_axis = "inherited_from_node_transform"
-metadata/start_anchor = "generated_transform_start"
-metadata/end_anchor = "generated_transform_end"
-metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
-metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
-metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
-metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
-metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/assembly = "foundation_perimeter"
+metadata/role = "back_foundation_skirt"
+metadata/source_of_truth = "PLAN_CONTRACT.house_footprint.primary_back_wall"
+metadata/why_exists = "back foundation skirt is clipped to the actual main-house rear wall run instead of the whole-house bounding box"
+metadata/support_target = "ExteriorBackWallWest/ExteriorBackPatioHeader"
+metadata/contact_face = "back foundation face z=-130"
+metadata/span_axis = "x"
+metadata/start_anchor = Vector3(-200, 0, -130)
+metadata/end_anchor = Vector3(90, 0, -130)
+metadata/allowed_intersections = ["rear wall foundation contact", "corner overlap tolerance"]
+metadata/forbidden_intersections = ["garage void", "yard/deck void", "overlong broad bar"]
+metadata/deletion_rule = "resize or split when the rear wall footprint changes"
+metadata/validation_gate = "test_home_yard_exterior_long_members_are_clipped_to_owner_runs"
+metadata/validation_camera = "ValidationCameras/BackyardDoggieDoorCamera"
 metadata/node_path = "ExteriorShell/ExteriorFoundationBackSkirt"
 
 [node name="ExteriorFoundationWestSkirt" type="MeshInstance3D" parent="ExteriorShell"]
@@ -7252,7 +7252,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "ExteriorShell/FrontEntryHouseNumberPlaque"
 
 [node name="DutchFrontEntrySidingField" type="MeshInstance3D" parent="ExteriorShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 73, 148.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 53, 148.7)
 material_override = SubResource("StandardMaterial3D_n3gpg")
 mesh = SubResource("BoxMesh_b77sd")
 metadata/generated_scene_provenance = {
@@ -7272,14 +7272,14 @@ metadata/generated_scene_provenance = {
 "validation_camera": "ValidationCameras/FrontPorchCloseupCamera",
 "validation_gate": "test_home_yard_front_facade_details_respect_openings_and_wall_plane",
 "visible_class": "architectural_mesh",
-"why_exists": "front entry upper siding field snapped to the front wall face between upper windows and porch roof; it cannot act as a floating patch over openings"
+"why_exists": "front entry siding field fills the bay between the door header and upper-window band without leaving a daylight hole into the house"
 }
 metadata/visible_class = "architectural_mesh"
 metadata/owner_volume = "ExteriorShell"
 metadata/assembly = "front_facade_board_and_batten"
 metadata/role = "facade_detail"
 metadata/source_of_truth = "PLAN_CONTRACT.front_facade_opening_schedule + whole_unit_visual_review_contract"
-metadata/why_exists = "front entry upper siding field snapped to the front wall face between upper windows and porch roof; it cannot act as a floating patch over openings"
+metadata/why_exists = "front entry siding field fills the bay between the door header and upper-window band without leaving a daylight hole into the house"
 metadata/support_target = "ExteriorFrontWallLeft/ExteriorFrontWallEntryHeader/ExteriorFrontGarageWall"
 metadata/contact_face = "front exterior wall face z=148.7"
 metadata/span_axis = "x"
@@ -8154,7 +8154,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "ExteriorShell/GarageDoorHorizontalPanel03"
 
 [node name="UpperFrontBedroomWindow" type="MeshInstance3D" parent="ExteriorShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 75, 150)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 75, 149.20001)
 material_override = SubResource("StandardMaterial3D_g0kdd")
 mesh = SubResource("BoxMesh_678x8")
 metadata/generated_scene_provenance = {
@@ -8195,7 +8195,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "ExteriorShell/UpperFrontBedroomWindow"
 
 [node name="UpperFrontBedroomWindowHeader" type="MeshInstance3D" parent="ExteriorShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 88, 150)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 88, 149.05)
 material_override = SubResource("StandardMaterial3D_gbgyh")
 mesh = SubResource("BoxMesh_adf0c")
 metadata/generated_scene_provenance = {
@@ -8236,7 +8236,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "ExteriorShell/UpperFrontBedroomWindowHeader"
 
 [node name="UpperFrontBedroomWindowSill" type="MeshInstance3D" parent="ExteriorShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 62, 150)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 62, 149.05)
 material_override = SubResource("StandardMaterial3D_7k6ps")
 mesh = SubResource("BoxMesh_0bo8l")
 metadata/generated_scene_provenance = {
@@ -8277,7 +8277,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "ExteriorShell/UpperFrontBedroomWindowSill"
 
 [node name="UpperFrontBedroomWindowLeftJamb" type="MeshInstance3D" parent="ExteriorShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -142, 75, 150)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -142, 75, 149.05)
 material_override = SubResource("StandardMaterial3D_ihbfg")
 mesh = SubResource("BoxMesh_mg437")
 metadata/generated_scene_provenance = {
@@ -8318,7 +8318,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "ExteriorShell/UpperFrontBedroomWindowLeftJamb"
 
 [node name="UpperFrontBedroomWindowRightJamb" type="MeshInstance3D" parent="ExteriorShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -98, 75, 150)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -98, 75, 149.05)
 material_override = SubResource("StandardMaterial3D_wqf0m")
 mesh = SubResource("BoxMesh_v5wru")
 metadata/generated_scene_provenance = {
@@ -8359,7 +8359,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "ExteriorShell/UpperFrontBedroomWindowRightJamb"
 
 [node name="UpperFrontBedroomWindowCenterMuntinVertical" type="MeshInstance3D" parent="ExteriorShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 75, 149)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 75, 149.35)
 material_override = SubResource("StandardMaterial3D_trjt8")
 mesh = SubResource("BoxMesh_usetv")
 metadata/generated_scene_provenance = {
@@ -8400,7 +8400,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "ExteriorShell/UpperFrontBedroomWindowCenterMuntinVertical"
 
 [node name="UpperFrontBedroomWindowCenterMuntinHorizontal" type="MeshInstance3D" parent="ExteriorShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 75, 149)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 75, 149.35)
 material_override = SubResource("StandardMaterial3D_277ru")
 mesh = SubResource("BoxMesh_xbjer")
 metadata/generated_scene_provenance = {
@@ -8441,7 +8441,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "ExteriorShell/UpperFrontBedroomWindowCenterMuntinHorizontal"
 
 [node name="UpperFrontBedroomWindowInteriorShadowBacking" type="MeshInstance3D" parent="ExteriorShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 75, 147.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 75, 148.45001)
 material_override = SubResource("StandardMaterial3D_thogv")
 mesh = SubResource("BoxMesh_5305k")
 metadata/generated_scene_provenance = {
@@ -8482,7 +8482,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "ExteriorShell/UpperFrontBedroomWindowInteriorShadowBacking"
 
 [node name="UpperFrontGlamWindow" type="MeshInstance3D" parent="ExteriorShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 75, 150)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 75, 149.20001)
 material_override = SubResource("StandardMaterial3D_rv8hs")
 mesh = SubResource("BoxMesh_vp3pq")
 metadata/generated_scene_provenance = {
@@ -8523,7 +8523,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "ExteriorShell/UpperFrontGlamWindow"
 
 [node name="UpperFrontGlamWindowHeader" type="MeshInstance3D" parent="ExteriorShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 88, 150)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 88, 149.05)
 material_override = SubResource("StandardMaterial3D_5abx8")
 mesh = SubResource("BoxMesh_krau1")
 metadata/generated_scene_provenance = {
@@ -8564,7 +8564,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "ExteriorShell/UpperFrontGlamWindowHeader"
 
 [node name="UpperFrontGlamWindowSill" type="MeshInstance3D" parent="ExteriorShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 62, 150)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 62, 149.05)
 material_override = SubResource("StandardMaterial3D_c1qh8")
 mesh = SubResource("BoxMesh_2p3r5")
 metadata/generated_scene_provenance = {
@@ -8605,7 +8605,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "ExteriorShell/UpperFrontGlamWindowSill"
 
 [node name="UpperFrontGlamWindowLeftJamb" type="MeshInstance3D" parent="ExteriorShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 75, 150)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 75, 149.05)
 material_override = SubResource("StandardMaterial3D_1dxia")
 mesh = SubResource("BoxMesh_soxdu")
 metadata/generated_scene_provenance = {
@@ -8646,7 +8646,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "ExteriorShell/UpperFrontGlamWindowLeftJamb"
 
 [node name="UpperFrontGlamWindowRightJamb" type="MeshInstance3D" parent="ExteriorShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 75, 150)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 75, 149.05)
 material_override = SubResource("StandardMaterial3D_gxdi1")
 mesh = SubResource("BoxMesh_qna61")
 metadata/generated_scene_provenance = {
@@ -8687,7 +8687,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "ExteriorShell/UpperFrontGlamWindowRightJamb"
 
 [node name="UpperFrontGlamWindowCenterMuntinVertical" type="MeshInstance3D" parent="ExteriorShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 75, 149)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 75, 149.35)
 material_override = SubResource("StandardMaterial3D_h231e")
 mesh = SubResource("BoxMesh_o11jf")
 metadata/generated_scene_provenance = {
@@ -8728,7 +8728,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "ExteriorShell/UpperFrontGlamWindowCenterMuntinVertical"
 
 [node name="UpperFrontGlamWindowCenterMuntinHorizontal" type="MeshInstance3D" parent="ExteriorShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 75, 149)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 75, 149.35)
 material_override = SubResource("StandardMaterial3D_elu5y")
 mesh = SubResource("BoxMesh_p2foe")
 metadata/generated_scene_provenance = {
@@ -8769,7 +8769,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "ExteriorShell/UpperFrontGlamWindowCenterMuntinHorizontal"
 
 [node name="UpperFrontGlamWindowInteriorShadowBacking" type="MeshInstance3D" parent="ExteriorShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 75, 147.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 75, 148.45001)
 material_override = SubResource("StandardMaterial3D_jteab")
 mesh = SubResource("BoxMesh_pmhh8")
 metadata/generated_scene_provenance = {
@@ -8810,7 +8810,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "ExteriorShell/UpperFrontGlamWindowInteriorShadowBacking"
 
 [node name="GambrelAtticFrontVentWindow" type="MeshInstance3D" parent="ExteriorShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 140, 160)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 140, 149.20001)
 material_override = SubResource("StandardMaterial3D_6lkvc")
 mesh = SubResource("BoxMesh_a73i3")
 metadata/generated_scene_provenance = {
@@ -8851,7 +8851,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "ExteriorShell/GambrelAtticFrontVentWindow"
 
 [node name="GambrelAtticFrontVentWindowHeader" type="MeshInstance3D" parent="ExteriorShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 151, 160)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 151, 149.05)
 material_override = SubResource("StandardMaterial3D_5361v")
 mesh = SubResource("BoxMesh_xb8ar")
 metadata/generated_scene_provenance = {
@@ -8892,7 +8892,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "ExteriorShell/GambrelAtticFrontVentWindowHeader"
 
 [node name="GambrelAtticFrontVentWindowSill" type="MeshInstance3D" parent="ExteriorShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 129, 160)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 129, 149.05)
 material_override = SubResource("StandardMaterial3D_6n7rn")
 mesh = SubResource("BoxMesh_csbjp")
 metadata/generated_scene_provenance = {
@@ -8933,7 +8933,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "ExteriorShell/GambrelAtticFrontVentWindowSill"
 
 [node name="GambrelAtticFrontVentWindowLeftJamb" type="MeshInstance3D" parent="ExteriorShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69, 140, 160)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69, 140, 149.05)
 material_override = SubResource("StandardMaterial3D_uhmng")
 mesh = SubResource("BoxMesh_ff6pt")
 metadata/generated_scene_provenance = {
@@ -8974,7 +8974,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "ExteriorShell/GambrelAtticFrontVentWindowLeftJamb"
 
 [node name="GambrelAtticFrontVentWindowRightJamb" type="MeshInstance3D" parent="ExteriorShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 140, 160)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 140, 149.05)
 material_override = SubResource("StandardMaterial3D_p88wq")
 mesh = SubResource("BoxMesh_x1qfb")
 metadata/generated_scene_provenance = {
@@ -9015,7 +9015,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "ExteriorShell/GambrelAtticFrontVentWindowRightJamb"
 
 [node name="GambrelAtticFrontVentWindowCenterMuntinVertical" type="MeshInstance3D" parent="ExteriorShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 140, 159)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 140, 149.35)
 material_override = SubResource("StandardMaterial3D_ju8hy")
 mesh = SubResource("BoxMesh_ttp38")
 metadata/generated_scene_provenance = {
@@ -9056,7 +9056,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "ExteriorShell/GambrelAtticFrontVentWindowCenterMuntinVertical"
 
 [node name="GambrelAtticFrontVentWindowCenterMuntinHorizontal" type="MeshInstance3D" parent="ExteriorShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 140, 159)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 140, 149.35)
 material_override = SubResource("StandardMaterial3D_liwen")
 mesh = SubResource("BoxMesh_fqvv6")
 metadata/generated_scene_provenance = {
@@ -9097,7 +9097,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "ExteriorShell/GambrelAtticFrontVentWindowCenterMuntinHorizontal"
 
 [node name="GambrelAtticFrontVentWindowInteriorShadowBacking" type="MeshInstance3D" parent="ExteriorShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 140, 157.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 140, 148.45001)
 material_override = SubResource("StandardMaterial3D_0gbnj")
 mesh = SubResource("BoxMesh_q1eol")
 metadata/generated_scene_provenance = {
@@ -12105,7 +12105,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "Openings/FrontEntrySidelightRight"
 
 [node name="DiningFrontWindow" type="MeshInstance3D" parent="Openings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -152, 25, 148)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -152, 25, 148.6)
 material_override = SubResource("StandardMaterial3D_gll6x")
 mesh = SubResource("BoxMesh_d0hoc")
 metadata/generated_scene_provenance = {
@@ -12146,7 +12146,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "Openings/DiningFrontWindow"
 
 [node name="DiningFrontWindowHeader" type="MeshInstance3D" parent="Openings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -152, 38, 148)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -152, 38, 148.45)
 material_override = SubResource("StandardMaterial3D_afsp1")
 mesh = SubResource("BoxMesh_pnl44")
 metadata/generated_scene_provenance = {
@@ -12187,7 +12187,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "Openings/DiningFrontWindowHeader"
 
 [node name="DiningFrontWindowSill" type="MeshInstance3D" parent="Openings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -152, 12, 148)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -152, 12, 148.45)
 material_override = SubResource("StandardMaterial3D_n1td2")
 mesh = SubResource("BoxMesh_o53dr")
 metadata/generated_scene_provenance = {
@@ -12228,7 +12228,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "Openings/DiningFrontWindowSill"
 
 [node name="DiningFrontWindowLeftJamb" type="MeshInstance3D" parent="Openings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -178, 25, 148)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -178, 25, 148.45)
 material_override = SubResource("StandardMaterial3D_el44e")
 mesh = SubResource("BoxMesh_5jhja")
 metadata/generated_scene_provenance = {
@@ -12269,7 +12269,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "Openings/DiningFrontWindowLeftJamb"
 
 [node name="DiningFrontWindowRightJamb" type="MeshInstance3D" parent="Openings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126, 25, 148)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126, 25, 148.45)
 material_override = SubResource("StandardMaterial3D_lli7c")
 mesh = SubResource("BoxMesh_r3q3o")
 metadata/generated_scene_provenance = {
@@ -12310,7 +12310,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "Openings/DiningFrontWindowRightJamb"
 
 [node name="DiningFrontWindowCenterMuntinVertical" type="MeshInstance3D" parent="Openings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -152, 25, 147)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -152, 25, 148.75)
 material_override = SubResource("StandardMaterial3D_7c77f")
 mesh = SubResource("BoxMesh_4jsxi")
 metadata/generated_scene_provenance = {
@@ -12351,7 +12351,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "Openings/DiningFrontWindowCenterMuntinVertical"
 
 [node name="DiningFrontWindowCenterMuntinHorizontal" type="MeshInstance3D" parent="Openings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -152, 25, 147)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -152, 25, 148.75)
 material_override = SubResource("StandardMaterial3D_rtc3e")
 mesh = SubResource("BoxMesh_bgotp")
 metadata/generated_scene_provenance = {
@@ -12392,7 +12392,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "Openings/DiningFrontWindowCenterMuntinHorizontal"
 
 [node name="DiningFrontWindowInteriorShadowBacking" type="MeshInstance3D" parent="Openings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -152, 25, 145.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -152, 25, 147.85)
 material_override = SubResource("StandardMaterial3D_qesac")
 mesh = SubResource("BoxMesh_4y2rv")
 metadata/generated_scene_provenance = {
@@ -12433,7 +12433,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "Openings/DiningFrontWindowInteriorShadowBacking"
 
 [node name="LivingFrontWindow" type="MeshInstance3D" parent="Openings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 25, 148)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 25, 149.20001)
 material_override = SubResource("StandardMaterial3D_mf1ju")
 mesh = SubResource("BoxMesh_ese8g")
 metadata/generated_scene_provenance = {
@@ -12474,7 +12474,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "Openings/LivingFrontWindow"
 
 [node name="LivingFrontWindowHeader" type="MeshInstance3D" parent="Openings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 38, 148)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 38, 149.05)
 material_override = SubResource("StandardMaterial3D_oblsx")
 mesh = SubResource("BoxMesh_ehvnp")
 metadata/generated_scene_provenance = {
@@ -12515,7 +12515,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "Openings/LivingFrontWindowHeader"
 
 [node name="LivingFrontWindowSill" type="MeshInstance3D" parent="Openings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 12, 148)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 12, 149.05)
 material_override = SubResource("StandardMaterial3D_teqsh")
 mesh = SubResource("BoxMesh_8dc6m")
 metadata/generated_scene_provenance = {
@@ -12556,7 +12556,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "Openings/LivingFrontWindowSill"
 
 [node name="LivingFrontWindowLeftJamb" type="MeshInstance3D" parent="Openings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 25, 148)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 25, 149.05)
 material_override = SubResource("StandardMaterial3D_6h7j1")
 mesh = SubResource("BoxMesh_d5dy1")
 metadata/generated_scene_provenance = {
@@ -12597,7 +12597,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "Openings/LivingFrontWindowLeftJamb"
 
 [node name="LivingFrontWindowRightJamb" type="MeshInstance3D" parent="Openings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 25, 148)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 75, 25, 149.05)
 material_override = SubResource("StandardMaterial3D_wecap")
 mesh = SubResource("BoxMesh_shub6")
 metadata/generated_scene_provenance = {
@@ -12638,7 +12638,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "Openings/LivingFrontWindowRightJamb"
 
 [node name="LivingFrontWindowCenterMuntinVertical" type="MeshInstance3D" parent="Openings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 25, 147)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 25, 149.35)
 material_override = SubResource("StandardMaterial3D_q2lry")
 mesh = SubResource("BoxMesh_q0ngw")
 metadata/generated_scene_provenance = {
@@ -12679,7 +12679,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "Openings/LivingFrontWindowCenterMuntinVertical"
 
 [node name="LivingFrontWindowCenterMuntinHorizontal" type="MeshInstance3D" parent="Openings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 25, 147)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 25, 149.35)
 material_override = SubResource("StandardMaterial3D_0owfw")
 mesh = SubResource("BoxMesh_d4tqr")
 metadata/generated_scene_provenance = {
@@ -12720,7 +12720,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "Openings/LivingFrontWindowCenterMuntinHorizontal"
 
 [node name="LivingFrontWindowInteriorShadowBacking" type="MeshInstance3D" parent="Openings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 25, 145.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 25, 148.45001)
 material_override = SubResource("StandardMaterial3D_ckquc")
 mesh = SubResource("BoxMesh_25mlr")
 metadata/generated_scene_provenance = {
@@ -12761,7 +12761,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "Openings/LivingFrontWindowInteriorShadowBacking"
 
 [node name="KitchenGardenWindow" type="MeshInstance3D" parent="Openings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200.5, 24, -58)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -201.1, 24, -58)
 material_override = SubResource("StandardMaterial3D_pmil2")
 mesh = SubResource("BoxMesh_b203h")
 metadata/generated_scene_provenance = {
@@ -12802,7 +12802,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "Openings/KitchenGardenWindow"
 
 [node name="KitchenGardenWindowHeader" type="MeshInstance3D" parent="Openings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200.5, 37, -58)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200.95, 37, -58)
 material_override = SubResource("StandardMaterial3D_ipm3u")
 mesh = SubResource("BoxMesh_uwc6a")
 metadata/generated_scene_provenance = {
@@ -12843,7 +12843,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "Openings/KitchenGardenWindowHeader"
 
 [node name="KitchenGardenWindowSill" type="MeshInstance3D" parent="Openings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200.5, 11, -58)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200.95, 11, -58)
 material_override = SubResource("StandardMaterial3D_xrj5b")
 mesh = SubResource("BoxMesh_8cwjw")
 metadata/generated_scene_provenance = {
@@ -12884,7 +12884,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "Openings/KitchenGardenWindowSill"
 
 [node name="KitchenGardenWindowLeftJamb" type="MeshInstance3D" parent="Openings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200.5, 24, -86)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200.95, 24, -86)
 material_override = SubResource("StandardMaterial3D_kfa5o")
 mesh = SubResource("BoxMesh_7lewu")
 metadata/generated_scene_provenance = {
@@ -12925,7 +12925,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "Openings/KitchenGardenWindowLeftJamb"
 
 [node name="KitchenGardenWindowRightJamb" type="MeshInstance3D" parent="Openings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200.5, 24, -30)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200.95, 24, -30)
 material_override = SubResource("StandardMaterial3D_civox")
 mesh = SubResource("BoxMesh_kn1bu")
 metadata/generated_scene_provenance = {
@@ -12966,7 +12966,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "Openings/KitchenGardenWindowRightJamb"
 
 [node name="KitchenGardenWindowCenterMuntinVertical" type="MeshInstance3D" parent="Openings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -201.5, 24, -58)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -201.25, 24, -58)
 material_override = SubResource("StandardMaterial3D_fyy0t")
 mesh = SubResource("BoxMesh_yf2ms")
 metadata/generated_scene_provenance = {
@@ -13007,7 +13007,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "Openings/KitchenGardenWindowCenterMuntinVertical"
 
 [node name="KitchenGardenWindowCenterMuntinHorizontal" type="MeshInstance3D" parent="Openings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -201.5, 24, -58)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -201.25, 24, -58)
 material_override = SubResource("StandardMaterial3D_gvwl8")
 mesh = SubResource("BoxMesh_5uxvk")
 metadata/generated_scene_provenance = {
@@ -13048,7 +13048,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "Openings/KitchenGardenWindowCenterMuntinHorizontal"
 
 [node name="KitchenGardenWindowInteriorShadowBacking" type="MeshInstance3D" parent="Openings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -203.3, 24, -58)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200.35, 24, -58)
 material_override = SubResource("StandardMaterial3D_khdt4")
 mesh = SubResource("BoxMesh_s5vh8")
 metadata/generated_scene_provenance = {

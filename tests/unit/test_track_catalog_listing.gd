@@ -682,9 +682,66 @@ func _assert_home_yard_exterior_visual_completeness(root: Node, track_id: String
 	]:
 		assert_true(root.get_node_or_null(node_path) != null, "%s exterior should include whole-unit beta visual detail %s" % [track_id, node_path])
 	_assert_home_yard_front_facade_details_respect_openings_and_wall_plane(root, track_id)
+	_assert_home_yard_front_openings_have_clear_bays(root, track_id)
 	_assert_home_yard_gambrel_gable_wall_aligns_to_front_wall(root, track_id)
 	_assert_home_yard_front_entry_assembly_fits_doorway(root, track_id)
 	_assert_home_yard_back_facade_openings_are_provenance_audited(root, track_id)
+	_assert_home_yard_exterior_long_members_are_clipped_to_owner_runs(root, track_id)
+	_assert_home_yard_porch_roof_does_not_intrude_into_front_wall(root, track_id)
+
+func _assert_home_yard_front_openings_have_clear_bays(root: Node, track_id: String) -> void:
+	var front_wall_face_z := 148.0
+	for window_path in [
+		"Openings/DiningFrontWindow",
+		"Openings/LivingFrontWindow",
+		"ExteriorShell/UpperFrontBedroomWindow",
+		"ExteriorShell/UpperFrontGlamWindow",
+		"ExteriorShell/GambrelAtticFrontVentWindow",
+	]:
+		var window := root.get_node_or_null(window_path) as MeshInstance3D
+		assert_true(window != null, "%s front opening should include glass %s" % [track_id, window_path])
+		if window == null:
+			continue
+		var bounds := _mesh_instance_global_aabb(window)
+		assert_true(bounds.position.z >= front_wall_face_z - 0.05, "%s %s glass should sit on the exterior side of the front wall, not buried in wall geometry: %s" % [track_id, window_path, str(bounds)])
+		assert_true(bounds.end.z <= 150.5, "%s %s glass should not float far proud of the wall face: %s" % [track_id, window_path, str(bounds)])
+	var living := root.get_node_or_null("Openings/LivingFrontWindow") as MeshInstance3D
+	var right_sidelight := root.get_node_or_null("Openings/FrontEntrySidelightRight") as MeshInstance3D
+	var door := root.get_node_or_null("Openings/FrontDoorPanel") as MeshInstance3D
+	assert_true(living != null and right_sidelight != null and door != null, "%s front entry/window bay should include living window, sidelight, and door" % track_id)
+	if living != null and right_sidelight != null and door != null:
+		var living_bounds := _mesh_instance_global_aabb(living)
+		var sidelight_bounds := _mesh_instance_global_aabb(right_sidelight)
+		var door_bounds := _mesh_instance_global_aabb(door)
+		assert_true(not _aabb_overlaps_on_axes(living_bounds, sidelight_bounds, ["x", "y"], 0.25), "%s LivingFrontWindow must not overlap the front-entry sidelight: window=%s sidelight=%s" % [track_id, str(living_bounds), str(sidelight_bounds)])
+		assert_true(not _aabb_overlaps_on_axes(living_bounds, door_bounds, ["x", "y"], 0.25), "%s LivingFrontWindow must not overlap the front door: window=%s door=%s" % [track_id, str(living_bounds), str(door_bounds)])
+	var kitchen_backing := root.get_node_or_null("Openings/KitchenGardenWindowInteriorShadowBacking") as MeshInstance3D
+	assert_true(kitchen_backing != null, "%s kitchen garden window should include an interior-side backing" % track_id)
+	if kitchen_backing != null:
+		var backing_bounds := _mesh_instance_global_aabb(kitchen_backing)
+		assert_true(backing_bounds.position.x > -203.0, "%s KitchenGardenWindowInteriorShadowBacking should be inside the west exterior wall plane, not outside the home: %s" % [track_id, str(backing_bounds)])
+
+func _assert_home_yard_exterior_long_members_are_clipped_to_owner_runs(root: Node, track_id: String) -> void:
+	var back_skirt := root.get_node_or_null("ExteriorShell/ExteriorFoundationBackSkirt") as MeshInstance3D
+	assert_true(back_skirt != null, "%s should include a rear foundation skirt" % track_id)
+	if back_skirt == null:
+		return
+	var bounds := _mesh_instance_global_aabb(back_skirt)
+	assert_true(bounds.position.x >= -204.5 and bounds.end.x <= 94.5, "%s ExteriorFoundationBackSkirt must be clipped to the main rear wall run, not extend beyond the house: %s" % [track_id, str(bounds)])
+	assert_true(bounds.size.x <= 300.0, "%s ExteriorFoundationBackSkirt should not be a whole-house broad bar: %s" % [track_id, str(bounds)])
+	var provenance: Variant = back_skirt.get_meta("generated_scene_provenance", {})
+	assert_true(provenance is Dictionary, "%s ExteriorFoundationBackSkirt should have clipped-run provenance" % track_id)
+	if provenance is Dictionary:
+		assert_equal(str((provenance as Dictionary).get("validation_gate", "")), "test_home_yard_exterior_long_members_are_clipped_to_owner_runs", "%s back skirt should point at the long-member clipping gate" % track_id)
+		assert_true(str((provenance as Dictionary).get("forbidden_intersections", "")).contains("overlong broad bar"), "%s back skirt provenance should forbid overlong broad bars" % track_id)
+
+func _assert_home_yard_porch_roof_does_not_intrude_into_front_wall(root: Node, track_id: String) -> void:
+	var back_plane := root.get_node_or_null("Roof/FrontPorchGableBackPlane") as MeshInstance3D
+	assert_true(back_plane != null, "%s should include a front porch gable back plane" % track_id)
+	if back_plane == null:
+		return
+	var bounds := _mesh_instance_global_aabb(back_plane)
+	assert_true(bounds.position.z >= 144.5, "%s FrontPorchGableBackPlane should stop at the front wall tie-in, not slant back into the house volume: %s" % [track_id, str(bounds)])
 
 func _assert_home_yard_back_facade_openings_are_provenance_audited(root: Node, track_id: String) -> void:
 	var rear_detail_paths := [
