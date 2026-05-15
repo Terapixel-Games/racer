@@ -5,6 +5,7 @@ from pathlib import Path
 
 import bpy
 from mathutils import Vector
+from mathutils.kdtree import KDTree
 
 
 ARKIT_BLEND_SHAPE_NAMES = [
@@ -109,7 +110,19 @@ def mask_bounds_from_blend(path: Path) -> list[dict]:
         if not is_face_part(obj):
             continue
         min_v, max_v = world_bounds(obj)
-        masks.append({"name": normalized_name(obj.name), "min": min_v, "max": max_v, "diagonal": (max_v - min_v).length})
+        points = [obj.matrix_world @ vertex.co for vertex in obj.data.vertices]
+        tree = KDTree(len(points))
+        for index, point in enumerate(points):
+            tree.insert(point, index)
+        tree.balance()
+        masks.append({
+            "name": normalized_name(obj.name),
+            "min": min_v,
+            "max": max_v,
+            "diagonal": (max_v - min_v).length,
+            "tree": tree,
+            "point_count": len(points),
+        })
     if not masks:
         raise RuntimeError(f"No face-part masks found in {path}")
     return masks
@@ -206,6 +219,33 @@ def bbox_weight(point: Vector, min_v: Vector, max_v: Vector, margin: float) -> f
         abs(point.z - max_v.z),
     ]
     return clamp01(1.0 - min(distances) / max(margin, 0.0001))
+
+
+def mask_radius(mask_name: str, margin: float) -> float:
+    if "brow" in mask_name:
+        return min(margin, 0.010)
+    if "eye" in mask_name or "lid" in mask_name:
+        return min(margin, 0.012)
+    if "mouth corner" in mask_name:
+        return min(max(margin, 0.014), 0.018)
+    if "nose" in mask_name:
+        return min(max(margin, 0.014), 0.018)
+    if "lip" in mask_name:
+        return min(max(margin, 0.016), 0.022)
+    if "jaw" in mask_name:
+        return min(max(margin, 0.018), 0.026)
+    return margin
+
+
+def nearest_mask_weight(point: Vector, mask: dict, margin: float) -> float:
+    radius = mask_radius(mask["name"], margin)
+    nearest = mask["tree"].find(point)
+    if nearest is None:
+        return 0.0
+    distance = nearest[2]
+    if distance > radius:
+        return 0.0
+    return clamp01(1.0 - distance / max(radius, 0.0001))
 
 
 def mask_relevance(shape_name: str, mask_name: str) -> float:
@@ -337,7 +377,7 @@ def add_shape_keys(target: bpy.types.Object, masks: list[dict], mask_margin: flo
                 relevance = mask_relevance(shape_name, mask["name"])
                 if relevance <= 0.0:
                     continue
-                weight = max(weight, relevance * bbox_weight(world, mask["min"], mask["max"], mask_margin))
+                weight = max(weight, relevance * nearest_mask_weight(world, mask, mask_margin))
             if weight <= 0.002:
                 continue
             coord = normalized_coord(world, target_min, target_max)
@@ -391,6 +431,7 @@ def main() -> None:
         "shape_key_count": len(ARKIT_BLEND_SHAPE_NAMES),
         "moved_vertex_counts": moved_counts,
         "mask_names": [mask["name"] for mask in masks],
+        "mask_point_counts": {mask["name"]: mask["point_count"] for mask in masks},
         "method": "Full Rexx mesh ARKit shape keys from vertex-group blend masks." if args.target_mode == "full" else "Connected face proxy carved from optimized Rexx mesh; vertex-group blend file used as morph masks.",
     }
     report_path = Path(args.report)
