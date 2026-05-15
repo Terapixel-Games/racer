@@ -814,6 +814,10 @@ func _assert_rear_frame_surrounds_panel_without_covering_center(root: Node, trac
 	if panel == null:
 		return
 	var panel_bounds := _mesh_instance_global_aabb(panel)
+	var header := root.get_node_or_null("Openings/%sFrameHeader" % prefix) as MeshInstance3D
+	var sill := root.get_node_or_null("Openings/%sFrameSill" % prefix) as MeshInstance3D
+	var left_jamb := root.get_node_or_null("Openings/%sFrameLeftJamb" % prefix) as MeshInstance3D
+	var right_jamb := root.get_node_or_null("Openings/%sFrameRightJamb" % prefix) as MeshInstance3D
 	for suffix in ["Header", "Sill", "LeftJamb", "RightJamb"]:
 		var frame_path := "Openings/%sFrame%s" % [prefix, suffix]
 		var frame_member := root.get_node_or_null(frame_path) as MeshInstance3D
@@ -822,6 +826,18 @@ func _assert_rear_frame_surrounds_panel_without_covering_center(root: Node, trac
 			continue
 		var frame_bounds := _mesh_instance_global_aabb(frame_member)
 		assert_true(not _aabb_overlaps_on_axes(frame_bounds, panel_bounds, ["x", "y"], 0.25), "%s %s should surround, not cover, %s; frame=%s panel=%s" % [track_id, frame_path, panel_name, str(frame_bounds), str(panel_bounds)])
+	if header == null or sill == null or left_jamb == null or right_jamb == null:
+		return
+	var header_bounds := _mesh_instance_global_aabb(header)
+	var sill_bounds := _mesh_instance_global_aabb(sill)
+	var left_jamb_bounds := _mesh_instance_global_aabb(left_jamb)
+	var right_jamb_bounds := _mesh_instance_global_aabb(right_jamb)
+	var reveal := 1.25
+	assert_true(panel_bounds.position.x >= left_jamb_bounds.end.x + reveal, "%s %s should fit inside the left jamb reveal: panel=%s left_jamb=%s" % [track_id, panel_name, str(panel_bounds), str(left_jamb_bounds)])
+	assert_true(panel_bounds.end.x <= right_jamb_bounds.position.x - reveal, "%s %s should fit inside the right jamb reveal: panel=%s right_jamb=%s" % [track_id, panel_name, str(panel_bounds), str(right_jamb_bounds)])
+	assert_true(panel_bounds.position.y >= sill_bounds.end.y + reveal, "%s %s should fit above the sill reveal: panel=%s sill=%s" % [track_id, panel_name, str(panel_bounds), str(sill_bounds)])
+	assert_true(panel_bounds.end.y <= header_bounds.position.y - reveal, "%s %s should fit below the header reveal: panel=%s header=%s" % [track_id, panel_name, str(panel_bounds), str(header_bounds)])
+	assert_true(panel_bounds.end.z <= left_jamb_bounds.position.z + 0.25, "%s %s should be inset behind the rear frame face: panel=%s frame=%s" % [track_id, panel_name, str(panel_bounds), str(left_jamb_bounds)])
 
 func _assert_home_yard_front_entry_assembly_fits_doorway(root: Node, track_id: String) -> void:
 	var left_wall := root.get_node_or_null("ExteriorShell/ExteriorFrontWallLeft") as MeshInstance3D
@@ -864,6 +880,10 @@ func _assert_home_yard_front_entry_assembly_fits_doorway(root: Node, track_id: S
 	assert_true(sidelight_left_bounds.end.x < mullion_left_bounds.position.x and mullion_left_bounds.end.x < door_bounds.position.x, "%s left sidelight, mullion, and door should be ordered without overlap" % track_id)
 	assert_true(door_bounds.end.x < mullion_right_bounds.position.x and mullion_right_bounds.end.x < sidelight_right_bounds.position.x, "%s door, right mullion, and right sidelight should be ordered without overlap" % track_id)
 	assert_true(jamb_left_bounds.position.x <= rough_opening_min_x + 6.0 and jamb_right_bounds.end.x >= rough_opening_max_x - 6.0, "%s front entry jambs should frame the full rough opening, not only the door panel" % track_id)
+	var reveal := 1.5
+	assert_true(sidelight_left_bounds.position.x >= jamb_left_bounds.end.x + reveal and sidelight_left_bounds.end.x <= mullion_left_bounds.position.x - reveal, "%s left sidelight glass should fit inside the jamb/mullion bay with a visible reveal: glass=%s jamb=%s mullion=%s" % [track_id, str(sidelight_left_bounds), str(jamb_left_bounds), str(mullion_left_bounds)])
+	assert_true(door_bounds.position.x >= mullion_left_bounds.end.x + reveal and door_bounds.end.x <= mullion_right_bounds.position.x - reveal, "%s front door panel should fit inside the mullion bay with a visible reveal: door=%s left=%s right=%s" % [track_id, str(door_bounds), str(mullion_left_bounds), str(mullion_right_bounds)])
+	assert_true(sidelight_right_bounds.position.x >= mullion_right_bounds.end.x + reveal and sidelight_right_bounds.end.x <= jamb_right_bounds.position.x - reveal, "%s right sidelight glass should fit inside the mullion/jamb bay with a visible reveal: glass=%s mullion=%s jamb=%s" % [track_id, str(sidelight_right_bounds), str(mullion_right_bounds), str(jamb_right_bounds)])
 
 func _assert_home_yard_front_facade_details_respect_openings_and_wall_plane(root: Node, track_id: String) -> void:
 	var detail_paths := [
