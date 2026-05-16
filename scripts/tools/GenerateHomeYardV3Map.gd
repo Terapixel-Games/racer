@@ -146,10 +146,18 @@ const KENNEY_HUMAN_SCALE_REFERENCE_PATH := "res://assets/source/kenney/animated_
 const KENNEY_STEPS_PATH := "res://assets/source/kenney/mini_skate/steps.glb"
 const KENNEY_KITCHEN_FRIDGE_PATH := "res://assets/source/kenney/furniture_kit/kitchenFridge.glb"
 const KENNEY_KITCHEN_SINK_PATH := "res://assets/source/kenney/furniture_kit/kitchenSink.glb"
+const KENNEY_KITCHEN_CABINET_PATH := "res://assets/source/kenney/furniture_kit/kitchenCabinet.glb"
+const KENNEY_KITCHEN_BAR_PATH := "res://assets/source/kenney/furniture_kit/kitchenBar.glb"
+const KENNEY_TABLE_PATH := "res://assets/source/kenney/furniture_kit/table.glb"
+const KENNEY_ROUND_TABLE_PATH := "res://assets/source/kenney/furniture_kit/tableRound.glb"
+const KENNEY_SIDE_TABLE_PATH := "res://assets/source/kenney/furniture_kit/sideTable.glb"
+const KENNEY_CHAIR_CUSHION_PATH := "res://assets/source/kenney/furniture_kit/chairCushion.glb"
 const PLAYROOM_MESHY_PLUSH_PATH := "res://assets/source/meshy/home_yard_v3/playroom/low_poly_playroom_plush_landmark/low_poly_playroom_plush_landmark.glb"
 const PLAYROOM_MESHY_BLOCK_TOWER_PATH := "res://assets/source/meshy/home_yard_v3/playroom/low_poly_playroom_toy_block_tower/low_poly_playroom_toy_block_tower.glb"
 const PLAYROOM_MESHY_TOY_BINS_PATH := "res://assets/source/meshy/home_yard_v3/playroom/low_poly_playroom_ramp_side_toy_bins/low_poly_playroom_ramp_side_toy_bins.glb"
 const KENNEY_BED_PATH := "res://assets/source/kenney/furniture_kit/bedSingle.glb"
+const KENNEY_CABINET_BED_PATH := "res://assets/source/kenney/furniture_kit/cabinetBed.glb"
+const KENNEY_CABINET_DRAWER_PATH := "res://assets/source/kenney/furniture_kit/cabinetBedDrawer.glb"
 const KENNEY_BEDROOM_LAMP_PATH := "res://assets/source/kenney/furniture_kit/lampRoundTable.glb"
 const KENNEY_GLAM_MIRROR_PATH := "res://assets/source/kenney/furniture_kit/bathroomMirror.glb"
 const KENNEY_GLAM_RUG_PATH := "res://assets/source/kenney/furniture_kit/rugRound.glb"
@@ -487,13 +495,7 @@ func _add_main_floor_interior(root: Node3D, parent: Node3D) -> void:
 	_add_interior_partitions_from_schedule(root, walls, "main", wall)
 	_add_box(root, finishes, "KitchenPatioThresholdInterior", Vector3(-128, 1.0, -130), Vector3(72, 2.0, 8), Color(0.16, 0.24, 0.24), false)
 	_add_box(root, finishes, "PlayroomDoggieDoorThresholdInterior", Vector3(4, 1.0, -130), Vector3(56, 2.0, 8), Color(0.16, 0.24, 0.24), false)
-	_add_box(root, finishes, "KitchenCabinetRunBack", Vector3(-128, 4, -123), Vector3(130, 8, 10), Color(0.38, 0.20, 0.10), false)
-	_add_box(root, finishes, "KitchenIsland", Vector3(-128, 4, -57), Vector3(66, 8, 34), Color(0.52, 0.34, 0.18), false)
 	_add_kitchen_readability_system(root, parent)
-	_add_box(root, finishes, "LivingSofa", Vector3(-46, 5, 90), Vector3(74, 10, 18), Color(0.28, 0.34, 0.42), false)
-	_add_box(root, finishes, "DiningTableAnchor", Vector3(-142, 4, 86), Vector3(48, 8, 34), Color(0.36, 0.22, 0.12), false)
-	_add_box(root, finishes, "PlayroomBlockMountain", Vector3(50, 6, -28), Vector3(38, 12, 30), Color(0.18, 0.32, 0.76), false)
-	_add_box(root, finishes, "PlayroomLowTable", Vector3(18, 5, -92), Vector3(54, 10, 24), Color(0.80, 0.24, 0.20), false)
 
 func _add_main_floor_ceiling_with_stairwell_shaft(root: Node3D, parent: Node3D) -> void:
 	var ceiling := _add_child_holder(root, parent, "MainFloorTenFootCeilingPlane", "split first-floor ceiling plane; stairwell shaft remains clear through the interstitial floor assembly")
@@ -549,12 +551,6 @@ func _add_upper_floor_interior(root: Node3D, parent: Node3D) -> void:
 	_add_stairwell_guardrail(root, finishes)
 	_add_box(root, finishes, "UpperFloorTenFootCeilingPlane", Vector3(-45, 92.8, 17.5), Vector3(270, 1.6, 215), Color(0.73, 0.68, 0.62), false)
 	_add_interior_partitions_from_schedule(root, walls, "upper", wall)
-	_add_box(root, finishes, "BedroomClosetBuiltIn", Vector3(-166, 60, 10), Vector3(20, 16, 74), Color(0.32, 0.24, 0.18), false)
-	_add_box(root, finishes, "BedroomDeskNook", Vector3(-52, 57, 74), Vector3(42, 10, 18), Color(0.40, 0.28, 0.18), false)
-	_add_box(root, finishes, "BedroomBedPlatform", Vector3(-128, 58, 26), Vector3(44, 12, 58), Color(0.28, 0.26, 0.34), false)
-	_add_box(root, finishes, "GlamWardrobeRun", Vector3(78, 60, -12), Vector3(22, 16, 190), Color(0.34, 0.20, 0.28), false)
-	_add_box(root, finishes, "GlamVanityIsland", Vector3(36, 57, -54), Vector3(48, 10, 20), Color(0.54, 0.30, 0.45), false)
-	_add_box(root, finishes, "GlamMirrorWall", Vector3(36, 64, 96), Vector3(62, 24, 1.0), Color(0.60, 0.72, 0.82, 0.55), false)
 
 func _add_stairwell_guardrail(root: Node3D, parent: Node3D) -> void:
 	var rail_color := Color(0.38, 0.30, 0.22)
@@ -606,17 +602,16 @@ func _add_attic_interior(root: Node3D, parent: Node3D) -> void:
 	_add_box(root, finishes, "AtticRafterLeftA", Vector3(-150, 124, 12), Vector3(3, 4, 218), Color(0.20, 0.14, 0.10), false, 0, Vector3(0, 0, -26))
 	_add_box(root, finishes, "AtticRafterRightA", Vector3(50, 124, 12), Vector3(3, 4, 218), Color(0.20, 0.14, 0.10), false, 0, Vector3(0, 0, 26))
 	_add_box(root, finishes, "AtticRidgeBeamInterior", Vector3(-55, 154, 12), Vector3(5, 4, 218), Color(0.18, 0.12, 0.08), false)
-	_add_box(root, finishes, "PopperHighRampLaunchDeck", Vector3(-122, 108, -50), Vector3(50, 7, 30), Color(0.42, 0.22, 0.10), false, 0.0, Vector3.ZERO, _route_infrastructure_provenance("Attic", "popper_high_ramp", "PopperHighRampLaunchDeck", "launch deck beside the Popper attic high-ramp route", "ValidationCameras/AtticRampSideProfileCamera"))
-	_add_box(root, finishes, "PopperHighRampLaunchDeckEdgeLeft", Vector3(-122, 112.2, -65), Vector3(52, 2.2, 2.2), Color(0.18, 0.10, 0.06), false, 0.0, Vector3.ZERO, _route_infrastructure_provenance("Attic", "popper_high_ramp", "PopperHighRampLaunchDeckEdgeLeft", "dark edge strip makes the launch deck read as authored toy-racing infrastructure", "ValidationCameras/AtticRampSideProfileCamera"))
-	_add_box(root, finishes, "PopperHighRampLaunchDeckEdgeRight", Vector3(-122, 112.2, -35), Vector3(52, 2.2, 2.2), Color(0.18, 0.10, 0.06), false, 0.0, Vector3.ZERO, _route_infrastructure_provenance("Attic", "popper_high_ramp", "PopperHighRampLaunchDeckEdgeRight", "dark edge strip makes the launch deck read as authored toy-racing infrastructure", "ValidationCameras/AtticRampSideProfileCamera"))
+	_add_box(root, finishes, "PopperHighRampLaunchDeck", Vector3(-122, 106.3, -44), Vector3(42, 3.6, 20), Color(0.42, 0.22, 0.10), false, 0.0, Vector3.ZERO, _route_infrastructure_provenance("Attic", "popper_high_ramp", "PopperHighRampLaunchDeck", "low launch deck beside the Popper attic high-ramp route, inset from the chase-camera lane", "ValidationCameras/AtticRampSideProfileCamera"))
+	_add_box(root, finishes, "PopperHighRampLaunchDeckEdgeLeft", Vector3(-122, 108.6, -54), Vector3(44, 1.4, 1.4), Color(0.18, 0.10, 0.06), false, 0.0, Vector3.ZERO, _route_infrastructure_provenance("Attic", "popper_high_ramp", "PopperHighRampLaunchDeckEdgeLeft", "dark edge strip makes the launch deck read as authored toy-racing infrastructure while staying clear of the route camera", "ValidationCameras/AtticRampSideProfileCamera"))
+	_add_box(root, finishes, "PopperHighRampLaunchDeckEdgeRight", Vector3(-122, 108.6, -34), Vector3(44, 1.4, 1.4), Color(0.18, 0.10, 0.06), false, 0.0, Vector3.ZERO, _route_infrastructure_provenance("Attic", "popper_high_ramp", "PopperHighRampLaunchDeckEdgeRight", "dark edge strip makes the launch deck read as authored toy-racing infrastructure while staying clear of the route camera", "ValidationCameras/AtticRampSideProfileCamera"))
 	_add_box(root, finishes, "PopperHighRampLandingDeck", Vector3(28, 116, 46), Vector3(54, 9, 34), Color(0.46, 0.26, 0.12), false, 0.0, Vector3.ZERO, _route_infrastructure_provenance("Attic", "popper_high_ramp", "PopperHighRampLandingDeck", "landing deck beside the Popper attic high-ramp route", "ValidationCameras/AtticRampSideProfileCamera"))
 	_add_box(root, finishes, "PopperHighRampLandingDeckEdgeLeft", Vector3(28, 121.2, 29), Vector3(56, 2.4, 2.4), Color(0.18, 0.10, 0.06), false, 0.0, Vector3.ZERO, _route_infrastructure_provenance("Attic", "popper_high_ramp", "PopperHighRampLandingDeckEdgeLeft", "dark edge strip makes the landing deck read as authored toy-racing infrastructure", "ValidationCameras/AtticRampSideProfileCamera"))
 	_add_box(root, finishes, "PopperHighRampLandingDeckEdgeRight", Vector3(28, 121.2, 63), Vector3(56, 2.4, 2.4), Color(0.18, 0.10, 0.06), false, 0.0, Vector3.ZERO, _route_infrastructure_provenance("Attic", "popper_high_ramp", "PopperHighRampLandingDeckEdgeRight", "dark edge strip makes the landing deck read as authored toy-racing infrastructure", "ValidationCameras/AtticRampSideProfileCamera"))
 	_add_box(root, finishes, "PopperBankedCardboardRamp", Vector3(-46, 112, -2), Vector3(128, 4, 24), Color(0.72, 0.42, 0.18), false, 26.0, Vector3.ZERO, _route_infrastructure_provenance("Attic", "popper_high_ramp", "PopperBankedCardboardRamp", "banked cardboard ramp is toy-racing route infrastructure, not a house circulation stair", "ValidationCameras/AtticRampSideProfileCamera"))
 	_add_box(root, finishes, "PopperRafterGateA", Vector3(-142, 122, 68), Vector3(6, 28, 6), Color(0.16, 0.10, 0.06), false)
 	_add_box(root, finishes, "PopperRafterGateB", Vector3(36, 120, -34), Vector3(6, 20, 6), Color(0.16, 0.10, 0.06), false)
-	_add_box(root, finishes, "AtticTrunkStack", Vector3(-84, 110, 84), Vector3(44, 12, 18), Color(0.30, 0.18, 0.10), false)
-	_add_box(root, finishes, "PopperCardboardGuardWall", Vector3(22, 111, -72), Vector3(62, 14, 20), Color(0.58, 0.42, 0.24), false, 0.0, Vector3.ZERO, _route_infrastructure_provenance("Attic", "popper_high_ramp", "PopperCardboardGuardWall", "cardboard guard wall blocks the non-playable side of the attic ramp corridor without entering the route swept volume", "ValidationCameras/AtticRampSideProfileCamera"))
+	_add_box(root, finishes, "PopperCardboardGuardWall", Vector3(22, 108, -86), Vector3(42, 8, 8), Color(0.58, 0.42, 0.24), false, 0.0, Vector3.ZERO, _route_infrastructure_provenance("Attic", "popper_high_ramp", "PopperCardboardGuardWall", "low cardboard guard wall blocks the non-playable side of the attic ramp corridor without entering the route swept volume or chase-camera cone", "ValidationCameras/AtticRampSideProfileCamera"))
 
 func _add_interior_partitions_from_schedule(root: Node3D, parent: Node3D, floor_id: String, color: Color) -> void:
 	parent.set_meta("wall_schedule", INTERIOR_WALL_SCHEDULE.filter(func(wall: Dictionary) -> bool:
@@ -879,6 +874,14 @@ func _add_roof_system(root: Node3D, parent: Node3D) -> void:
 	_add_box(root, parent, "GambrelEastRakeFascia", Vector3(104, 105, 7.5), Vector3(6, 7, 303), shadow, false)
 	_add_box(root, parent, "GambrelSoffitFront", Vector3(-55, 102, 154), Vector3(320, 4, 12), shadow.lightened(0.18), false)
 	_add_box(root, parent, "GambrelSoffitBack", Vector3(-55, 102, -139), Vector3(320, 4, 12), shadow.lightened(0.12), false)
+	_add_roof_plane_x(root, parent, "DutchGambrelFrontLowerLeftSoffitReturn", -214, -155, 148, 159, 102, 134, shadow.lightened(0.10), _provenance("Roof", "dutch_gambrel_front_overhang", "sloped_soffit_return", "PLAN_CONTRACT.roof_contract.dutch_gambrel", "front lower-left gambrel soffit return closes the underside gap between the exterior gable wall face and the front eave fascia", "DutchGambrelFrontGableWall, DutchGambrelLowerLeftPlane, and GambrelFrontEaveFascia", "front overhang underside z=148..159", "x", Vector3(-214, 102, 148), Vector3(-155, 134, 159), ["front gable wall face", "front eave fascia", "lower-left roof plane underside"], ["open black soffit gap", "broad diagonal rake patch as closure", "attic playable volume"], "resize with gambrel overhang; delete only if eave overhang is removed", "test_home_yard_gambrel_front_overhang_has_soffit_returns", "ValidationCameras/RoofGambrelSideProfileCamera"))
+	_add_roof_plane_x(root, parent, "DutchGambrelFrontUpperLeftSoffitReturn", -155, -55, 148, 159, 134, 162, shadow.lightened(0.08), _provenance("Roof", "dutch_gambrel_front_overhang", "sloped_soffit_return", "PLAN_CONTRACT.roof_contract.dutch_gambrel", "front upper-left gambrel soffit return closes the underside gap between the exterior gable wall face and the front eave fascia", "DutchGambrelFrontGableWall, DutchGambrelUpperLeftPlane, and GambrelFrontEaveFascia", "front overhang underside z=148..159", "x", Vector3(-155, 134, 148), Vector3(-55, 162, 159), ["front gable wall face", "front eave fascia", "upper-left roof plane underside"], ["open black soffit gap", "broad diagonal rake patch as closure", "attic playable volume"], "resize with gambrel overhang; delete only if eave overhang is removed", "test_home_yard_gambrel_front_overhang_has_soffit_returns", "ValidationCameras/RoofGambrelSideProfileCamera"))
+	_add_roof_plane_x(root, parent, "DutchGambrelFrontUpperRightSoffitReturn", -55, 45, 148, 159, 162, 134, shadow.lightened(0.08), _provenance("Roof", "dutch_gambrel_front_overhang", "sloped_soffit_return", "PLAN_CONTRACT.roof_contract.dutch_gambrel", "front upper-right gambrel soffit return closes the underside gap between the exterior gable wall face and the front eave fascia", "DutchGambrelFrontGableWall, DutchGambrelUpperRightPlane, and GambrelFrontEaveFascia", "front overhang underside z=148..159", "x", Vector3(-55, 162, 148), Vector3(45, 134, 159), ["front gable wall face", "front eave fascia", "upper-right roof plane underside"], ["open black soffit gap", "broad diagonal rake patch as closure", "attic playable volume"], "resize with gambrel overhang; delete only if eave overhang is removed", "test_home_yard_gambrel_front_overhang_has_soffit_returns", "ValidationCameras/RoofGambrelSideProfileCamera"))
+	_add_roof_plane_x(root, parent, "DutchGambrelFrontLowerRightSoffitReturn", 45, 104, 148, 159, 134, 102, shadow.lightened(0.10), _provenance("Roof", "dutch_gambrel_front_overhang", "sloped_soffit_return", "PLAN_CONTRACT.roof_contract.dutch_gambrel", "front lower-right gambrel soffit return closes the underside gap between the exterior gable wall face and the front eave fascia", "DutchGambrelFrontGableWall, DutchGambrelLowerRightPlane, and GambrelFrontEaveFascia", "front overhang underside z=148..159", "x", Vector3(45, 134, 148), Vector3(104, 102, 159), ["front gable wall face", "front eave fascia", "lower-right roof plane underside"], ["open black soffit gap", "broad diagonal rake patch as closure", "attic playable volume"], "resize with gambrel overhang; delete only if eave overhang is removed", "test_home_yard_gambrel_front_overhang_has_soffit_returns", "ValidationCameras/RoofGambrelSideProfileCamera"))
+	_add_roof_plane_x(root, parent, "DutchGambrelBackLowerLeftSoffitReturn", -214, -155, -144, -133, 102, 134, shadow.lightened(0.08), _provenance("Roof", "dutch_gambrel_back_overhang", "sloped_soffit_return", "PLAN_CONTRACT.roof_contract.dutch_gambrel", "back lower-left gambrel soffit return closes the underside gap between the exterior gable wall face and the back eave fascia", "DutchGambrelBackGableWall, DutchGambrelLowerLeftPlane, and GambrelBackEaveFascia", "back overhang underside z=-144..-133", "x", Vector3(-214, 102, -144), Vector3(-155, 134, -133), ["back gable wall face", "back eave fascia", "lower-left roof plane underside"], ["open black soffit gap", "broad diagonal rake patch as closure", "attic playable volume"], "resize with gambrel overhang; delete only if eave overhang is removed", "test_home_yard_gambrel_front_overhang_has_soffit_returns", "ValidationCameras/RoofGambrelSideProfileCamera"))
+	_add_roof_plane_x(root, parent, "DutchGambrelBackUpperLeftSoffitReturn", -155, -55, -144, -133, 134, 162, shadow.lightened(0.06), _provenance("Roof", "dutch_gambrel_back_overhang", "sloped_soffit_return", "PLAN_CONTRACT.roof_contract.dutch_gambrel", "back upper-left gambrel soffit return closes the underside gap between the exterior gable wall face and the back eave fascia", "DutchGambrelBackGableWall, DutchGambrelUpperLeftPlane, and GambrelBackEaveFascia", "back overhang underside z=-144..-133", "x", Vector3(-155, 134, -144), Vector3(-55, 162, -133), ["back gable wall face", "back eave fascia", "upper-left roof plane underside"], ["open black soffit gap", "broad diagonal rake patch as closure", "attic playable volume"], "resize with gambrel overhang; delete only if eave overhang is removed", "test_home_yard_gambrel_front_overhang_has_soffit_returns", "ValidationCameras/RoofGambrelSideProfileCamera"))
+	_add_roof_plane_x(root, parent, "DutchGambrelBackUpperRightSoffitReturn", -55, 45, -144, -133, 162, 134, shadow.lightened(0.06), _provenance("Roof", "dutch_gambrel_back_overhang", "sloped_soffit_return", "PLAN_CONTRACT.roof_contract.dutch_gambrel", "back upper-right gambrel soffit return closes the underside gap between the exterior gable wall face and the back eave fascia", "DutchGambrelBackGableWall, DutchGambrelUpperRightPlane, and GambrelBackEaveFascia", "back overhang underside z=-144..-133", "x", Vector3(-55, 162, -144), Vector3(45, 134, -133), ["back gable wall face", "back eave fascia", "upper-right roof plane underside"], ["open black soffit gap", "broad diagonal rake patch as closure", "attic playable volume"], "resize with gambrel overhang; delete only if eave overhang is removed", "test_home_yard_gambrel_front_overhang_has_soffit_returns", "ValidationCameras/RoofGambrelSideProfileCamera"))
+	_add_roof_plane_x(root, parent, "DutchGambrelBackLowerRightSoffitReturn", 45, 104, -144, -133, 134, 102, shadow.lightened(0.08), _provenance("Roof", "dutch_gambrel_back_overhang", "sloped_soffit_return", "PLAN_CONTRACT.roof_contract.dutch_gambrel", "back lower-right gambrel soffit return closes the underside gap between the exterior gable wall face and the back eave fascia", "DutchGambrelBackGableWall, DutchGambrelLowerRightPlane, and GambrelBackEaveFascia", "back overhang underside z=-144..-133", "x", Vector3(45, 134, -144), Vector3(104, 102, -133), ["back gable wall face", "back eave fascia", "lower-right roof plane underside"], ["open black soffit gap", "broad diagonal rake patch as closure", "attic playable volume"], "resize with gambrel overhang; delete only if eave overhang is removed", "test_home_yard_gambrel_front_overhang_has_soffit_returns", "ValidationCameras/RoofGambrelSideProfileCamera"))
 
 func _add_vertical_connectors(root: Node3D, parent: Node3D) -> void:
 	parent.set_meta("plan_role", "architectural vertical circulation generated from floor_plan_contract.vertical_links")
@@ -1005,10 +1008,13 @@ func _tag_temporary_vertical_asset(node: Node, replacement_source: String) -> vo
 	if node == null:
 		return
 	node.set_meta("temporary_stand_in", true)
+	node.set_meta("validation_only_visible_placeholder", true)
 	node.set_meta("replacement_source", replacement_source)
 	node.set_meta("asset_lifecycle_blocker", "functional measured vertical circulation restored before final Meshy/Kenney/toybox stair asset is generated and validated")
 	node.set_meta("scale_contract_id", SCALE_CONTRACT_ID)
 	node.set_meta("scale_validation_status", "measured_floor_to_floor_continuity_pass_pending_final_asset_replacement")
+	if node is MeshInstance3D:
+		(node as MeshInstance3D).visible = false
 
 func _tag_vertical_link(node: Node, link_id: String, link_part: String, from_floor: String, to_floor: String) -> void:
 	if node == null:
@@ -1077,17 +1083,29 @@ func _add_decor(root: Node3D, holders: Dictionary) -> void:
 	_add_scene(root, yard, TOYBOX_TREE_SWING_PATH, Vector3(42, 0, -308), 7, Vector3(15, 15, 15), "ToyboxTreeTireSwing")
 	_add_scene(root, yard, BACKYARD_FOSSIL_PATH, Vector3(217, 0, -320), -18, Vector3(11, 11, 11), "SandboxFossil")
 	_add_scene(root, yard, BACKYARD_GARDEN_PATH, Vector3(-300, 0, -226), 24, Vector3(12, 12, 12), "GardenLogBush")
-	_add_scene(root, main, "res://assets/source/kenney/furniture_kit/kitchenFridge.glb", Vector3(-194, 2.5, -10), 90, Vector3(8, 8, 8), "KitchenFridge")
-	_add_scene(root, main, "res://assets/source/kenney/furniture_kit/kitchenSink.glb", Vector3(-170, 2.5, -122), 0, Vector3(8, 8, 8), "KitchenSink")
-	_add_scene(root, main, "res://assets/source/kenney/furniture_kit/table.glb", Vector3(-142, 1.5, 86), 0, Vector3(10, 10, 10), "DiningTable")
-	_add_scene(root, main, PLAYROOM_MESHY_PLUSH_PATH, Vector3(66, 1.5, -106), -20, Vector3(6.0, 6.0, 6.0), "PlayroomPlushLandmark")
-	_add_scene(root, main, PLAYROOM_MESHY_BLOCK_TOWER_PATH, Vector3(44, 1.5, -18), 12, Vector3(5.0, 5.0, 5.0), "PlayroomBlockTower")
-	_add_scene(root, main, PLAYROOM_MESHY_TOY_BINS_PATH, Vector3(-30, 1.5, -28), -18, Vector3(5.5, 5.5, 5.5), "PlayroomToyBins")
-	_add_scene(root, upper, "res://assets/source/kenney/furniture_kit/bedSingle.glb", Vector3(-128, 54, 26), 90, Vector3(10, 10, 10), "BedroomBed")
-	_add_scene(root, upper, "res://assets/source/kenney/furniture_kit/rugRound.glb", Vector3(36, 53, 70), 0, Vector3(12, 12, 12), "GlamRug")
-	_add_scene(root, attic, ATTIC_MESHY_TRUNK_PATH, Vector3(-84, 105, 84), 18, Vector3(7, 7, 7), "AtticChest")
-	_add_scene(root, attic, ATTIC_MESHY_JACK_PATH, Vector3(28, 105, 92), -12, Vector3(1.8, 1.8, 1.8), "AtticJackSetpiece")
-	_add_scene(root, attic, ATTIC_MESHY_SHEET_TUNNEL_PATH, Vector3(-36, 105, 116), 8, Vector3(2.4, 2.4, 2.4), "AtticSheetTunnelSetpiece")
+	_add_room_asset_scene(root, main, KENNEY_KITCHEN_FRIDGE_PATH, Vector3(-194, 2.5, -10), 90, Vector3(8, 8, 8), "KitchenFridge", "kenney_keep_review", "kitchen", "fridge landmark anchors the kitchen without a primitive cabinet box", "ValidationCameras/KitchenAssetCloseupCamera")
+	_add_room_asset_scene(root, main, KENNEY_KITCHEN_SINK_PATH, Vector3(-170, 2.5, -122), 0, Vector3(8, 8, 8), "KitchenSink", "kenney_keep_review", "kitchen", "sink fixture replaces rear cabinet placeholder massing", "ValidationCameras/KitchenAssetCloseupCamera")
+	_add_room_asset_scene(root, main, KENNEY_KITCHEN_CABINET_PATH, Vector3(-120, 2.5, -122), 0, Vector3(9, 9, 9), "KitchenCabinetRunA", "kenney_keep_review", "kitchen", "sourced cabinets replace the old KitchenCabinetRunBack box", "ValidationCameras/KitchenAssetCloseupCamera")
+	_add_room_asset_scene(root, main, KENNEY_KITCHEN_CABINET_PATH, Vector3(-94, 2.5, -122), 0, Vector3(9, 9, 9), "KitchenCabinetRunB", "kenney_keep_review", "kitchen", "sourced cabinets continue the rear kitchen run without a broad primitive slab", "ValidationCameras/KitchenAssetCloseupCamera")
+	_add_room_asset_scene(root, main, KENNEY_KITCHEN_BAR_PATH, Vector3(-128, 2.5, -57), 90, Vector3(10, 10, 10), "KitchenIslandBar", "kenney_keep_review", "kitchen", "sourced bar island replaces the old KitchenIsland box", "ValidationCameras/KitchenAssetCloseupCamera")
+	_add_room_asset_scene(root, main, KENNEY_CHAIR_CUSHION_PATH, Vector3(-46, 1.5, 90), 180, Vector3(11, 11, 11), "LivingCushionSofa", "kenney_keep_review", "living_room", "sourced seating replaces the old LivingSofa primitive block", "ValidationCameras/MainFloorFurnitureCloseupCamera")
+	_add_room_asset_scene(root, main, KENNEY_TABLE_PATH, Vector3(-142, 1.5, 86), 0, Vector3(10, 10, 10), "DiningTable", "kenney_keep_review", "dining_living", "sourced dining table replaces the DiningTableAnchor box", "ValidationCameras/MainFloorFurnitureCloseupCamera")
+	_add_room_asset_scene(root, main, KENNEY_ROUND_TABLE_PATH, Vector3(18, 1.5, -92), 0, Vector3(8, 8, 8), "PlayroomRoundActivityTable", "kenney_keep_review", "playroom", "round activity table replaces the old PlayroomLowTable box", "ValidationCameras/PlayroomAssetCloseupCamera")
+	_add_room_asset_scene(root, main, PLAYROOM_MESHY_PLUSH_PATH, Vector3(66, 1.5, -106), -20, Vector3(6.0, 6.0, 6.0), "PlayroomPlushLandmark", "meshy_preview", "playroom", "Meshy plush landmark replaces generic toy placeholder readability", "ValidationCameras/PlayroomAssetCloseupCamera")
+	_add_room_asset_scene(root, main, PLAYROOM_MESHY_BLOCK_TOWER_PATH, Vector3(44, 1.5, -18), 12, Vector3(5.0, 5.0, 5.0), "PlayroomBlockTower", "meshy_preview", "playroom", "Meshy block tower replaces the old PlayroomBlockMountain primitive", "ValidationCameras/PlayroomAssetCloseupCamera")
+	_add_room_asset_scene(root, main, PLAYROOM_MESHY_TOY_BINS_PATH, Vector3(-30, 1.5, -28), -18, Vector3(5.5, 5.5, 5.5), "PlayroomToyBins", "meshy_preview", "playroom", "Meshy toy bins replace low-detail playroom side dressing", "ValidationCameras/PlayroomAssetCloseupCamera")
+	_add_room_asset_scene(root, upper, KENNEY_BED_PATH, Vector3(-128, 54, 26), 90, Vector3(10, 10, 10), "BedroomBed", "kenney_keep_review", "bedroom", "sourced bed replaces BedroomBedPlatform primitive", "ValidationCameras/BedroomAssetCloseupCamera")
+	_add_room_asset_scene(root, upper, KENNEY_CABINET_BED_PATH, Vector3(-166, 54, 10), 90, Vector3(9, 9, 9), "BedroomClosetCabinet", "kenney_keep_review", "bedroom", "sourced cabinet replaces BedroomClosetBuiltIn primitive", "ValidationCameras/BedroomAssetCloseupCamera")
+	_add_room_asset_scene(root, upper, KENNEY_SIDE_TABLE_PATH, Vector3(-52, 54, 74), 0, Vector3(8, 8, 8), "BedroomDeskSideTable", "kenney_keep_review", "bedroom", "sourced side table replaces BedroomDeskNook primitive", "ValidationCameras/BedroomAssetCloseupCamera")
+	_add_room_asset_scene(root, upper, KENNEY_BEDROOM_LAMP_PATH, Vector3(-40, 54, 72), 0, Vector3(8, 8, 8), "BedroomLampBeacon", "kenney_keep_review", "bedroom", "sourced lamp improves bedroom identity at player height", "ValidationCameras/BedroomAssetCloseupCamera")
+	_add_room_asset_scene(root, upper, KENNEY_CABINET_DRAWER_PATH, Vector3(78, 54, -64), 90, Vector3(10, 10, 10), "GlamWardrobeDrawerA", "kenney_keep_review", "glam_closet", "sourced wardrobe/drawer module replaces the old GlamWardrobeRun box", "ValidationCameras/GlamClosetAssetCloseupCamera")
+	_add_room_asset_scene(root, upper, KENNEY_CABINET_DRAWER_PATH, Vector3(78, 54, 26), 90, Vector3(10, 10, 10), "GlamWardrobeDrawerB", "kenney_keep_review", "glam_closet", "second sourced wardrobe module gives the closet a repeated furniture rhythm", "ValidationCameras/GlamClosetAssetCloseupCamera")
+	_add_room_asset_scene(root, upper, KENNEY_SIDE_TABLE_PATH, Vector3(36, 54, -54), 0, Vector3(9, 9, 9), "GlamVanityTable", "kenney_keep_review", "glam_closet", "sourced table replaces GlamVanityIsland primitive", "ValidationCameras/GlamClosetAssetCloseupCamera")
+	_add_room_asset_scene(root, upper, KENNEY_GLAM_MIRROR_PATH, Vector3(36, 56, 96), 180, Vector3(12, 12, 12), "GlamMirror", "kenney_keep_review", "glam_closet", "sourced mirror replaces translucent primitive mirror wall", "ValidationCameras/GlamClosetMirrorCamera")
+	_add_room_asset_scene(root, upper, KENNEY_GLAM_RUG_PATH, Vector3(36, 53, 70), 0, Vector3(12, 12, 12), "GlamRug", "kenney_keep_review", "glam_closet", "sourced rug anchors the closet route without collision", "ValidationCameras/GlamClosetAssetCloseupCamera")
+	_add_room_asset_scene(root, attic, ATTIC_MESHY_TRUNK_PATH, Vector3(-84, 105, 84), 18, Vector3(7, 7, 7), "AtticChest", "meshy_preview", "attic", "Meshy trunk replaces the old AtticTrunkStack box", "ValidationCameras/AtticAssetCloseupCamera")
+	_add_room_asset_scene(root, attic, ATTIC_MESHY_JACK_PATH, Vector3(28, 105, 92), -12, Vector3(1.8, 1.8, 1.8), "AtticJackSetpiece", "meshy_refined", "attic", "Meshy jack-in-the-box replaces custom/primitive prank set dressing", "ValidationCameras/AtticAssetCloseupCamera")
+	_add_room_asset_scene(root, attic, ATTIC_MESHY_SHEET_TUNNEL_PATH, Vector3(-36, 105, 116), 8, Vector3(2.4, 2.4, 2.4), "AtticSheetTunnelSetpiece", "meshy_preview", "attic", "Meshy sheet tunnel adds attic identity without a generic block tunnel", "ValidationCameras/AtticAssetCloseupCamera")
 
 func _add_course_route_markers(root: Node3D, parent: Node3D) -> void:
 	for course in COURSES:
@@ -1129,6 +1147,8 @@ func _add_validation_cameras(root: Node3D, parent: Node3D) -> void:
 	_add_camera(root, parent, "KitchenFirstTurnPlayerCamera", Vector3(-74, 16, -106), Vector3(-8, -44, 0), 58)
 	_add_camera(root, parent, "KitchenMidpointRouteCamera", Vector3(-24, 22, 34), Vector3(-10, -36, 0), 62)
 	_add_camera(root, parent, "KitchenChaseReadabilityCamera", Vector3(-118, 16, -72), Vector3(-8, -64, 0), 70)
+	_add_camera(root, parent, "KitchenAssetCloseupCamera", Vector3(-184, 18, -112), Vector3(-12, 42, 0), 48)
+	_add_camera(root, parent, "MainFloorFurnitureCloseupCamera", Vector3(-84, 20, 110), Vector3(-12, -38, 0), 50)
 	_add_camera(root, parent, "PlayroomStartPlayerCamera", Vector3(-62, 18, -105), Vector3(-12, -90, 0), 74)
 	_add_camera(root, parent, "PlayroomFirstTurnPlayerCamera", Vector3(18, 18, -102), Vector3(-10, -42, 0), 62)
 	_add_camera(root, parent, "PlayroomMidpointRouteCamera", Vector3(58, 22, -42), Vector3(-10, 18, 0), 62)
@@ -1162,6 +1182,11 @@ func _add_validation_cameras(root: Node3D, parent: Node3D) -> void:
 	_add_camera(root, parent, "UpperFloorRouteCamera", Vector3(-154, 112, 154), Vector3(-20, -42, 0), 70)
 	_add_camera(root, parent, "UpperFloorRouteStartsCamera", Vector3(-160, 76, -72), Vector3(-10, 34, 0), 64)
 	_add_camera(root, parent, "BedroomGlamSeamCamera", Vector3(-15, 80, 126), Vector3(-15, 0, 0), 54)
+	_add_camera(root, parent, "BedroomAssetCloseupCamera", Vector3(-168, 72, 68), Vector3(-12, 38, 0), 48)
+	_add_camera(root, parent, "GlamClosetAssetCloseupCamera", Vector3(94, 74, -18), Vector3(-12, -120, 0), 48)
+	_add_camera(root, parent, "GlamClosetMirrorCamera", Vector3(34, 72, 64), Vector3(-10, 0, 0), 44)
+	_add_camera(root, parent, "MainStairContinuityCamera", Vector3(34, 34, 158), Vector3(-22, -32, 0), 58)
+	_add_camera(root, parent, "UpperHallStairOpeningCamera", Vector3(36, 72, 154), Vector3(-22, -36, 0), 54)
 	_add_camera(root, parent, "AtticStartPlayerCamera", Vector3(-162, 122, -68), Vector3(-10, -90, 0), 72)
 	_add_camera(root, parent, "AtticFirstTurnPlayerCamera", Vector3(-102, 124, -40), Vector3(-8, -38, 0), 62)
 	_add_camera(root, parent, "AtticMidpointRouteCamera", Vector3(-24, 130, 18), Vector3(-12, 20, 0), 62)
@@ -1170,6 +1195,10 @@ func _add_validation_cameras(root: Node3D, parent: Node3D) -> void:
 	_add_camera(root, parent, "AtticStorageSeamCamera", Vector3(52, 136, 130), Vector3(-16, 34, 0), 54)
 	_add_camera(root, parent, "AtticAssetCloseupCamera", Vector3(8, 124, 132), Vector3(-15, -28, 0), 44)
 	_add_camera(root, parent, "AtticRampSideProfileCamera", Vector3(-170, 124, -8), Vector3(-8, -90, 0), 70)
+	_add_camera(root, parent, "AtticPullDownContinuityCamera", Vector3(8, 118, -18), Vector3(-24, -142, 0), 54)
+	_add_camera(root, parent, "MainInteriorExteriorFlushCamera", Vector3(-218, 24, -104), Vector3(-8, 46, 0), 58)
+	_add_camera(root, parent, "UpperInteriorExteriorFlushCamera", Vector3(-218, 78, 108), Vector3(-10, 42, 0), 58)
+	_add_camera(root, parent, "AtticRoofInteriorFlushCamera", Vector3(-170, 138, 118), Vector3(-14, 36, 0), 54)
 	_add_camera(root, parent, "RampSideProfileCamera", Vector3(-170, 124, -8), Vector3(-8, -90, 0), 70)
 	_add_camera(root, parent, "YardCourseOverviewCamera", Vector3(0, 240, -360), Vector3(-58, 0, 0), 88)
 
@@ -1769,13 +1798,13 @@ func _add_gambrel_gable_wall_z(root: Node3D, parent: Node3D, node_name: String, 
 	])
 	_add_mesh(root, holder, "GambrelGableUpperWall", vertices, PackedInt32Array([0, 1, 2, 0, 2, 4, 2, 3, 4]), color.darkened(0.06), _provenance("Roof", "dutch_gambrel_gable_infill", "upper_gable_wall", "PLAN_CONTRACT.roof_contract.dutch_gambrel", "upper gable wall closes only the triangular/gambrel roof end above the eave; the exterior wall owns the below-eave surface", "DutchGambrel roof planes and ExteriorShell wall below", "gable plane at z=%0.2f" % z, "x", Vector3(x0, eave_y, z), Vector3(x1, eave_y, z), ["DutchGambrel roof planes", "ExteriorShell wall top edge"], ["duplicate below-eave wall ownership", "attic playable clearance"], "delete or split if the roof end changes; never emit WallBelowGambrelEave here", "test_home_yard_no_duplicate_gambrel_below_eave_walls", "ValidationCameras/RoofGambrelSideProfileCamera"))
 	var rake_overhang_sign := 1.0 if z >= 0.0 else -1.0
-	var rake_trim_z := z + rake_overhang_sign * 5.5
+	var rake_trim_z := z + rake_overhang_sign * 7.0
 	var left_rake_delta := Vector2(left_break - x0, break_y - eave_y)
 	var right_rake_delta := Vector2(x1 - right_break, eave_y - break_y)
 	var left_rake_angle := rad_to_deg(atan2(left_rake_delta.y, left_rake_delta.x))
 	var right_rake_angle := rad_to_deg(atan2(right_rake_delta.y, right_rake_delta.x))
-	_add_box(root, holder, "GambrelLeftRakeTrim", Vector3((x0 + left_break) * 0.5, (eave_y + break_y) * 0.5, rake_trim_z), Vector3(left_rake_delta.length() + 4.0, 4, 17), color.lightened(0.16), false, 0, Vector3(0, 0, left_rake_angle), _provenance("Roof", "dutch_gambrel_gable_infill", "rake_trim", "PLAN_CONTRACT.roof_contract.dutch_gambrel", "left rake trim covers the left lower gambrel edge at the gable end and extends to the eave fascia return", "GambrelGableUpperWall, DutchGambrelLowerLeftPlane, and front/back eave fascia", "left rake edge plus eave fascia corner", "x", Vector3(x0, eave_y, z), Vector3(left_break, break_y, z), ["gable wall", "roof plane edge", "eave fascia return"], ["floating support block", "below-eave wall duplicate", "open roof corner gap"], "delete if edge is superseded by a mitred rake asset", "test_home_yard_gambrel_gable_rake_trim_contacts_eave_fascia", "ValidationCameras/RoofGambrelSideProfileCamera"))
-	_add_box(root, holder, "GambrelRightRakeTrim", Vector3((x1 + right_break) * 0.5, (eave_y + break_y) * 0.5, rake_trim_z), Vector3(right_rake_delta.length() + 4.0, 4, 17), color.lightened(0.16), false, 0, Vector3(0, 0, right_rake_angle), _provenance("Roof", "dutch_gambrel_gable_infill", "rake_trim", "PLAN_CONTRACT.roof_contract.dutch_gambrel", "right rake trim covers the right lower gambrel edge at the gable end and extends to the eave fascia return", "GambrelGableUpperWall, DutchGambrelLowerRightPlane, and front/back eave fascia", "right rake edge plus eave fascia corner", "x", Vector3(right_break, break_y, z), Vector3(x1, eave_y, z), ["gable wall", "roof plane edge", "eave fascia return"], ["floating support block", "below-eave wall duplicate", "open roof corner gap"], "delete if edge is superseded by a mitred rake asset", "test_home_yard_gambrel_gable_rake_trim_contacts_eave_fascia", "ValidationCameras/RoofGambrelSideProfileCamera"))
+	_add_box(root, holder, "GambrelLeftRakeTrim", Vector3((x0 + left_break) * 0.5, (eave_y + break_y) * 0.5, rake_trim_z), Vector3(left_rake_delta.length() + 4.0, 4, 8), Color(0.16, 0.13, 0.12), false, 0, Vector3(0, 0, left_rake_angle), _provenance("Roof", "dutch_gambrel_gable_infill", "rake_trim", "PLAN_CONTRACT.roof_contract.dutch_gambrel", "left rake trim is a narrow fascia-colored edge board; it does not serve as soffit closure or a broad diagonal patch", "GambrelGableUpperWall, DutchGambrelLowerLeftPlane, and front/back eave fascia", "left rake edge plus eave fascia corner", "x", Vector3(x0, eave_y, z), Vector3(left_break, break_y, z), ["gable wall", "roof plane edge", "eave fascia return"], ["floating support block", "below-eave wall duplicate", "open roof corner gap", "broad wall-colored diagonal patch"], "delete if edge is superseded by a mitred rake asset", "test_home_yard_gambrel_gable_rake_trim_contacts_eave_fascia", "ValidationCameras/RoofGambrelSideProfileCamera"))
+	_add_box(root, holder, "GambrelRightRakeTrim", Vector3((x1 + right_break) * 0.5, (eave_y + break_y) * 0.5, rake_trim_z), Vector3(right_rake_delta.length() + 4.0, 4, 8), Color(0.16, 0.13, 0.12), false, 0, Vector3(0, 0, right_rake_angle), _provenance("Roof", "dutch_gambrel_gable_infill", "rake_trim", "PLAN_CONTRACT.roof_contract.dutch_gambrel", "right rake trim is a narrow fascia-colored edge board; it does not serve as soffit closure or a broad diagonal patch", "GambrelGableUpperWall, DutchGambrelLowerRightPlane, and front/back eave fascia", "right rake edge plus eave fascia corner", "x", Vector3(right_break, break_y, z), Vector3(x1, eave_y, z), ["gable wall", "roof plane edge", "eave fascia return"], ["floating support block", "below-eave wall duplicate", "open roof corner gap", "broad wall-colored diagonal patch"], "delete if edge is superseded by a mitred rake asset", "test_home_yard_gambrel_gable_rake_trim_contacts_eave_fascia", "ValidationCameras/RoofGambrelSideProfileCamera"))
 	return holder
 
 func _add_mesh(root: Node3D, parent: Node3D, node_name: String, vertices: PackedVector3Array, indices: PackedInt32Array, color: Color, provenance := {}) -> MeshInstance3D:
@@ -2031,20 +2060,36 @@ func _add_box(root: Node3D, parent: Node3D, node_name: String, position: Vector3
 		shape_node.owner = root
 	return mesh
 
-func _add_scene(root: Node3D, parent: Node3D, path: String, position: Vector3, yaw_degrees: float, scale: Vector3, node_name: String) -> void:
+func _add_scene(root: Node3D, parent: Node3D, path: String, position: Vector3, yaw_degrees: float, scale: Vector3, node_name: String) -> Node3D:
 	var packed := load(path)
 	if not (packed is PackedScene):
-		return
+		return null
 	var instance := (packed as PackedScene).instantiate()
 	if not (instance is Node3D):
 		instance.queue_free()
-		return
+		return null
 	var node := instance as Node3D
 	node.name = node_name
 	node.transform = Transform3D(Basis(Vector3.UP, deg_to_rad(yaw_degrees)).scaled(scale), position)
 	node.set_meta("external_scene_instance", path)
 	parent.add_child(node)
 	node.owner = root
+	return node
+
+func _add_room_asset_scene(root: Node3D, parent: Node3D, path: String, position: Vector3, yaw_degrees: float, scale: Vector3, node_name: String, source_family: String, area: String, role: String, validation_camera: String) -> void:
+	var node := _add_scene(root, parent, path, position, yaw_degrees, scale, node_name)
+	if node == null:
+		return
+	node.set_meta("asset_source", path)
+	node.set_meta("source_family", source_family)
+	node.set_meta("area", area)
+	node.set_meta("room_identity_asset", true)
+	node.set_meta("placeholder_replacement", true)
+	node.set_meta("replacement_reason", role)
+	node.set_meta("collision_policy", "visual_off_route_or_import_defined_only")
+	node.set_meta("route_clearance", "outside_route_corridor_pending_camera_review")
+	node.set_meta("scale_contract_id", SCALE_CONTRACT_ID)
+	node.set_meta("validation_camera", validation_camera)
 
 func _add_label(root: Node3D, parent: Node3D, node_name: String, text: String, position: Vector3, size: float) -> void:
 	var label := Label3D.new()

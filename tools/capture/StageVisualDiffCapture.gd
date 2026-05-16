@@ -180,7 +180,7 @@ func _camera_views(track_id: String, definition) -> Array[Dictionary]:
 	]
 
 	for ratio in [0.25, 0.5, 0.75]:
-		views.append(_route_sample_view(route, ratio))
+		views.append(_route_sample_view(track_id, route, ratio))
 	for view in _elevation_transition_views(route):
 		views.append(view)
 	for view in _hero_landmark_views(definition, center):
@@ -192,7 +192,7 @@ func _camera_views(track_id: String, definition) -> Array[Dictionary]:
 		views[i] = _with_visual_gate_metadata(view)
 	return views
 
-func _route_sample_view(route: Array[Vector3], ratio: float) -> Dictionary:
+func _route_sample_view(track_id: String, route: Array[Vector3], ratio: float) -> Dictionary:
 	if route.is_empty():
 		return {
 			"id": "route_sample_%d" % int(ratio * 100.0),
@@ -204,6 +204,14 @@ func _route_sample_view(route: Array[Vector3], ratio: float) -> Dictionary:
 	var next := route[(index + 1) % route.size()] if route.size() > 1 else point + Vector3.FORWARD
 	var forward := _flat_forward(next - point)
 	var right := Vector3(forward.z, 0.0, -forward.x).normalized()
+	if INDOOR_TRACK_IDS.has(track_id):
+		return {
+			"id": "route_sample_%d" % int(ratio * 100.0),
+			"position": point - forward * 16.0 + right * 2.5 + Vector3.UP * 5.0,
+			"target": point + forward * 28.0 + Vector3.UP * HomeYardVisualGateContract.CHASE_CAMERA_LOOK_HEIGHT,
+			"fov": 62.0,
+			"note": "Representative indoor chase-camera sample at %d percent; route corridor and camera clearance must stay readable without roof or wall occlusion." % int(ratio * 100.0),
+		}
 	return {
 		"id": "route_sample_%d" % int(ratio * 100.0),
 		"position": point - forward * 38.0 + right * 14.0 + Vector3.UP * 18.0,

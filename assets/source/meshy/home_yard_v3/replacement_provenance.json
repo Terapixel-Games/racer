@@ -92,6 +92,69 @@
       "replacement_reason": "Prior Meshy output must pass current low-poly and player-height readability gate.",
       "decision_state": "planned",
       "validation_result": "pending"
+    },
+    {
+      "old_asset_path": "generator://MainFloor/RoomFinishes/KitchenCabinetRunBack",
+      "old_origin": "visible_godot_primitive_stand_in",
+      "replacement_asset_path": "res://assets/source/kenney/furniture_kit/kitchenCabinet.glb",
+      "replacement_origin": "kenney_keep_review",
+      "replacement_reason": "Kitchen cabinet identity now comes from sourced cabinet meshes instead of a broad generated box.",
+      "decision_state": "placed_pending_visual_validation",
+      "validation_result": "Generator places KitchenCabinetRunA/B with source metadata; KitchenAssetCloseupCamera screenshot score remains pending."
+    },
+    {
+      "old_asset_path": "generator://MainFloor/RoomFinishes/KitchenIsland",
+      "old_origin": "visible_godot_primitive_stand_in",
+      "replacement_asset_path": "res://assets/source/kenney/furniture_kit/kitchenBar.glb",
+      "replacement_origin": "kenney_keep_review",
+      "replacement_reason": "Kitchen island is now a sourced bar asset rather than a single placeholder block.",
+      "decision_state": "placed_pending_visual_validation",
+      "validation_result": "Generator places KitchenIslandBar with source metadata; route/camera validation remains pending."
+    },
+    {
+      "old_asset_path": "generator://MainFloor/RoomFinishes/LivingSofa",
+      "old_origin": "visible_godot_primitive_stand_in",
+      "replacement_asset_path": "res://assets/source/kenney/furniture_kit/chairCushion.glb",
+      "replacement_origin": "kenney_keep_review",
+      "replacement_reason": "Living room seating no longer relies on a rectangular sofa block.",
+      "decision_state": "placed_pending_visual_validation",
+      "validation_result": "Generator places LivingCushionSofa with source metadata; MainFloorFurnitureCloseupCamera review remains pending."
+    },
+    {
+      "old_asset_path": "generator://MainFloor/RoomFinishes/PlayroomBlockMountain",
+      "old_origin": "visible_godot_primitive_stand_in",
+      "replacement_asset_path": "res://assets/source/meshy/home_yard_v3/playroom/low_poly_playroom_toy_block_tower/low_poly_playroom_toy_block_tower.glb",
+      "replacement_origin": "meshy_6_preview",
+      "replacement_reason": "Playroom block landmark uses the imported Meshy tower instead of a generic blue mass.",
+      "decision_state": "imported_generator_integrated_pending_visual_validation",
+      "validation_result": "Generator places PlayroomBlockTower with source metadata; PlayroomAssetCloseupCamera review remains pending."
+    },
+    {
+      "old_asset_path": "generator://UpperFloor/RoomFinishes/BedroomBedPlatform",
+      "old_origin": "visible_godot_primitive_stand_in",
+      "replacement_asset_path": "res://assets/source/kenney/furniture_kit/bedSingle.glb",
+      "replacement_origin": "kenney_keep_review",
+      "replacement_reason": "Bedroom identity now uses sourced bed art rather than a block platform.",
+      "decision_state": "placed_pending_visual_validation",
+      "validation_result": "Generator places BedroomBed with source metadata; BedroomAssetCloseupCamera review remains pending."
+    },
+    {
+      "old_asset_path": "generator://UpperFloor/RoomFinishes/GlamMirrorWall",
+      "old_origin": "visible_godot_primitive_stand_in",
+      "replacement_asset_path": "res://assets/source/kenney/furniture_kit/bathroomMirror.glb",
+      "replacement_origin": "kenney_keep_review",
+      "replacement_reason": "Glam mirror identity now uses a sourced mirror asset instead of a translucent wall patch.",
+      "decision_state": "placed_pending_visual_validation",
+      "validation_result": "Generator places GlamMirror with source metadata; GlamClosetMirrorCamera review remains pending."
+    },
+    {
+      "old_asset_path": "generator://Attic/RoomFinishes/AtticTrunkStack",
+      "old_origin": "visible_godot_primitive_stand_in",
+      "replacement_asset_path": "res://assets/source/meshy/home_yard_v3/attic/low_poly_dusty_attic_trunk/low_poly_dusty_attic_trunk.glb",
+      "replacement_origin": "meshy_6_preview",
+      "replacement_reason": "Attic storage identity uses the imported Meshy trunk instead of the old rectangular trunk stack.",
+      "decision_state": "imported_generator_integrated_pending_visual_validation",
+      "validation_result": "Generator places AtticChest with source metadata; AtticAssetCloseupCamera review remains pending."
     }
   ],
   "blocked_items": [

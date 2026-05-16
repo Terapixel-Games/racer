@@ -530,6 +530,7 @@ func _assert_home_yard_scene_holders(root: Node, track_id: String) -> void:
 	_assert_home_yard_exterior_visual_completeness(root, track_id)
 	_assert_home_yard_yard_and_service_visual_completeness(root, track_id)
 	_assert_home_yard_shared_shell_ownership(root, track_id)
+	_assert_home_yard_interior_placeholder_replacements(root, track_id)
 	_assert_home_yard_exterior_shell(root, track_id)
 	_assert_home_yard_roof_and_attic_contract(root, track_id)
 	_assert_home_yard_landscape_and_assets(root, track_id)
@@ -1057,6 +1058,9 @@ func _assert_home_yard_vertical_circulation_continuity(root: Node, track_id: Str
 		assert_true(node != null, "%s should include continuous vertical connector node %s" % [track_id, node_path])
 		if node != null:
 			assert_true(bool(node.get_meta("temporary_stand_in", false)), "%s %s should declare temporary lifecycle metadata until a final Meshy/Kenney/toybox stair asset replaces it" % [track_id, node_path])
+			assert_true(bool(node.get_meta("validation_only_visible_placeholder", false)), "%s %s should be a validation-only primitive, not final visible circulation art" % [track_id, node_path])
+			if node is MeshInstance3D:
+				assert_true(not (node as MeshInstance3D).visible, "%s %s should not render as visible placeholder circulation after sourced stair assets are present" % [track_id, node_path])
 			assert_true(not str(node.get_meta("replacement_source", "")).is_empty(), "%s %s should declare the replacement asset source" % [track_id, node_path])
 			assert_true(str(node.get_meta("vertical_path_continuity", "")).contains("connects_"), "%s %s should state the floor-to-floor continuity it supports" % [track_id, node_path])
 	var upper_deck_holder := root.get_node_or_null("UpperFloor/RoomFinishes/UpperFloorDeck")
@@ -1187,9 +1191,60 @@ func _assert_home_yard_shared_shell_ownership(root: Node, track_id: String) -> v
 		"ValidationCameras/GarageServiceSeamCamera",
 		"ValidationCameras/BedroomGlamSeamCamera",
 		"ValidationCameras/AtticStorageSeamCamera",
+		"ValidationCameras/MainInteriorExteriorFlushCamera",
+		"ValidationCameras/UpperInteriorExteriorFlushCamera",
+		"ValidationCameras/AtticRoofInteriorFlushCamera",
 	]:
 		assert_true(root.get_node_or_null(node_path) != null, "%s shared home-yard scene should include seam validation camera %s" % [track_id, node_path])
 	_assert_home_yard_interior_exterior_aabb_separation(root, track_id)
+
+func _assert_home_yard_interior_placeholder_replacements(root: Node, track_id: String) -> void:
+	for removed_path in [
+		"MainFloor/RoomFinishes/KitchenCabinetRunBack",
+		"MainFloor/RoomFinishes/KitchenIsland",
+		"MainFloor/RoomFinishes/LivingSofa",
+		"MainFloor/RoomFinishes/DiningTableAnchor",
+		"MainFloor/RoomFinishes/PlayroomBlockMountain",
+		"MainFloor/RoomFinishes/PlayroomLowTable",
+		"UpperFloor/RoomFinishes/BedroomClosetBuiltIn",
+		"UpperFloor/RoomFinishes/BedroomDeskNook",
+		"UpperFloor/RoomFinishes/BedroomBedPlatform",
+		"UpperFloor/RoomFinishes/GlamWardrobeRun",
+		"UpperFloor/RoomFinishes/GlamVanityIsland",
+		"UpperFloor/RoomFinishes/GlamMirrorWall",
+		"Attic/RoomFinishes/AtticTrunkStack",
+	]:
+		assert_true(root.get_node_or_null(removed_path) == null, "%s should not keep visible primitive interior placeholder %s" % [track_id, removed_path])
+	var expected_assets := {
+		"MainFloor/KitchenCabinetRunA": "res://assets/source/kenney/furniture_kit/kitchenCabinet.glb",
+		"MainFloor/KitchenCabinetRunB": "res://assets/source/kenney/furniture_kit/kitchenCabinet.glb",
+		"MainFloor/KitchenIslandBar": "res://assets/source/kenney/furniture_kit/kitchenBar.glb",
+		"MainFloor/LivingCushionSofa": "res://assets/source/kenney/furniture_kit/chairCushion.glb",
+		"MainFloor/PlayroomRoundActivityTable": "res://assets/source/kenney/furniture_kit/tableRound.glb",
+		"MainFloor/PlayroomBlockTower": "res://assets/source/meshy/home_yard_v3/playroom/low_poly_playroom_toy_block_tower/low_poly_playroom_toy_block_tower.glb",
+		"UpperFloor/BedroomClosetCabinet": "res://assets/source/kenney/furniture_kit/cabinetBed.glb",
+		"UpperFloor/BedroomDeskSideTable": "res://assets/source/kenney/furniture_kit/sideTable.glb",
+		"UpperFloor/GlamWardrobeDrawerA": "res://assets/source/kenney/furniture_kit/cabinetBedDrawer.glb",
+		"UpperFloor/GlamVanityTable": "res://assets/source/kenney/furniture_kit/sideTable.glb",
+		"UpperFloor/GlamMirror": "res://assets/source/kenney/furniture_kit/bathroomMirror.glb",
+		"Attic/AtticChest": "res://assets/source/meshy/home_yard_v3/attic/low_poly_dusty_attic_trunk/low_poly_dusty_attic_trunk.glb",
+	}
+	for node_path in expected_assets.keys():
+		var node := root.get_node_or_null(str(node_path))
+		assert_true(node != null, "%s should include sourced interior replacement %s" % [track_id, str(node_path)])
+		if node != null:
+			assert_equal(str(node.get_meta("asset_source", "")), str(expected_assets[node_path]), "%s %s should record its source asset" % [track_id, str(node_path)])
+			assert_true(bool(node.get_meta("placeholder_replacement", false)), "%s %s should be marked as replacing a placeholder" % [track_id, str(node_path)])
+			assert_true(str(node.get_meta("validation_camera", "")).begins_with("ValidationCameras/"), "%s %s should name a validation camera" % [track_id, str(node_path)])
+	for camera_path in [
+		"ValidationCameras/KitchenAssetCloseupCamera",
+		"ValidationCameras/MainFloorFurnitureCloseupCamera",
+		"ValidationCameras/BedroomAssetCloseupCamera",
+		"ValidationCameras/GlamClosetAssetCloseupCamera",
+		"ValidationCameras/GlamClosetMirrorCamera",
+		"ValidationCameras/AtticAssetCloseupCamera",
+	]:
+		assert_true(root.get_node_or_null(camera_path) != null, "%s should include interior asset review camera %s" % [track_id, camera_path])
 
 func _assert_no_stage_owned_exterior_nodes(node: Node, track_id: String, holder_name: String, path: String) -> void:
 	for child in node.get_children():
@@ -1339,6 +1394,8 @@ func _assert_home_yard_roof_and_attic_contract(root: Node, track_id: String) -> 
 	_assert_side_fascia_mitres_to_eave_fascia(root, "Roof/GambrelEastRakeFascia", "Roof/GambrelFrontEaveFascia", "Roof/GambrelBackEaveFascia", track_id)
 	_assert_gambrel_gable_rake_trim_contacts_eave_fascia(root, "Roof/DutchGambrelFrontGableWall", "Roof/GambrelFrontEaveFascia", track_id)
 	_assert_gambrel_gable_rake_trim_contacts_eave_fascia(root, "Roof/DutchGambrelBackGableWall", "Roof/GambrelBackEaveFascia", track_id)
+	_assert_gambrel_overhang_has_soffit_returns(root, "front", 148.0, 159.0, track_id)
+	_assert_gambrel_overhang_has_soffit_returns(root, "back", -144.0, -133.0, track_id)
 	_assert_garage_roof_ridge_centered_on_owner_footprint(roof, track_id)
 	_assert_garage_roof_planes_contact_sidewall(root, track_id)
 	_assert_exterior_garage_side_infill(root, track_id)
@@ -1433,6 +1490,31 @@ func _assert_gambrel_gable_rake_trim_contacts_eave_fascia(root: Node, gable_path
 		if provenance is Dictionary:
 			assert_equal(str((provenance as Dictionary).get("validation_gate", "")), "test_home_yard_gambrel_gable_rake_trim_contacts_eave_fascia", "%s %s/%s should point at the rake/eave corner closure gate" % [track_id, gable_path, trim_name])
 			assert_true(str((provenance as Dictionary).get("forbidden_intersections", "")).contains("open roof corner gap"), "%s %s/%s provenance should forbid recurring second-floor corner gaps" % [track_id, gable_path, trim_name])
+			assert_true(str((provenance as Dictionary).get("forbidden_intersections", "")).contains("broad wall-colored diagonal patch"), "%s %s/%s provenance should forbid using rake trim as a broad patch" % [track_id, gable_path, trim_name])
+		assert_true(trim_bounds.size.z <= 8.25, "%s %s/%s should be a narrow rake board, not a broad selected diagonal patch across the roof face: %s" % [track_id, gable_path, trim_name, str(trim_bounds)])
+
+func _assert_gambrel_overhang_has_soffit_returns(root: Node, side: String, wall_z: float, fascia_z: float, track_id: String) -> void:
+	var side_title := "Front" if side == "front" else "Back"
+	var expected_names := [
+		"Roof/DutchGambrel%sLowerLeftSoffitReturn" % side_title,
+		"Roof/DutchGambrel%sUpperLeftSoffitReturn" % side_title,
+		"Roof/DutchGambrel%sUpperRightSoffitReturn" % side_title,
+		"Roof/DutchGambrel%sLowerRightSoffitReturn" % side_title,
+	]
+	for node_path in expected_names:
+		var soffit := root.get_node_or_null(node_path) as MeshInstance3D
+		assert_true(soffit != null, "%s %s should exist so the gambrel overhang does not leave an open underside gap" % [track_id, node_path])
+		if soffit == null:
+			continue
+		var bounds := _mesh_instance_global_aabb(soffit)
+		assert_true(bounds.position.z <= minf(wall_z, fascia_z) + 0.25 and bounds.end.z >= maxf(wall_z, fascia_z) - 0.25, "%s %s should bridge from gable wall plane to eave fascia instead of relying on rake trim: %s" % [track_id, node_path, str(bounds)])
+		assert_true(bounds.size.x > 20.0, "%s %s should be a real sloped soffit segment, not a tiny closure block: %s" % [track_id, node_path, str(bounds)])
+		var provenance: Variant = soffit.get_meta("generated_scene_provenance", {})
+		assert_true(provenance is Dictionary, "%s %s should declare soffit-return provenance" % [track_id, node_path])
+		if provenance is Dictionary:
+			assert_equal(str((provenance as Dictionary).get("validation_gate", "")), "test_home_yard_gambrel_front_overhang_has_soffit_returns", "%s %s should point at the soffit-return recurrence gate" % [track_id, node_path])
+			assert_true(str((provenance as Dictionary).get("forbidden_intersections", "")).contains("open black soffit gap"), "%s %s provenance should forbid recurring open underside gaps" % [track_id, node_path])
+			assert_true(str((provenance as Dictionary).get("forbidden_intersections", "")).contains("broad diagonal rake patch"), "%s %s provenance should forbid fixing soffits with rake patch bars" % [track_id, node_path])
 
 func _assert_garage_roof_ridge_centered_on_owner_footprint(roof: Node, track_id: String) -> void:
 	var contract: Variant = roof.get_meta("roof_contract", {})
