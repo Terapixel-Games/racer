@@ -1129,14 +1129,15 @@ func _assert_home_yard_vertical_circulation_continuity(root: Node, track_id: Str
 			assert_true(_visible_descendant_covers_xz_sample(upper_deck_holder, sample), "%s upper floor deck should fit the main exterior shell footprint at sample %s" % [track_id, str(sample)])
 	if glam_holder != null:
 		_assert_no_visible_mesh_intersects_aabb(glam_holder, opening_volume, "NoExclusions/", "%s glam floor must leave a clear stairwell floor opening" % track_id)
-	var upper_hall_divider_return := root.get_node_or_null("UpperFloor/InteriorWalls/UpperHallBedroomDividerUpper") as MeshInstance3D
+	var upper_hall_divider_return := root.get_node_or_null("UpperFloor/InteriorWalls/UpperHallBedroomDividerSegment02") as MeshInstance3D
 	assert_true(upper_hall_divider_return != null, "%s upper hall divider should terminate before the stair shaft instead of closing the stair opening" % track_id)
 	if upper_hall_divider_return != null:
 		var divider_bounds := _mesh_instance_global_aabb(upper_hall_divider_return)
 		assert_true(divider_bounds.end.x <= 54.5, "%s upper hall divider return should stop at the stairwell west edge; bounds=%s" % [track_id, str(divider_bounds)])
 	for opening_header_path in [
 		"UpperFloor/InteriorWalls/BedroomGlamCasedOpeningOpeningHeader",
-		"UpperFloor/InteriorWalls/UpperHallBedroomDividerOpeningHeader",
+		"UpperFloor/InteriorWalls/UpperHallBedroomDividerBedroomDoorHeader",
+		"UpperFloor/InteriorWalls/UpperHallBedroomDividerGlamClosetDoorHeader",
 	]:
 		var header := root.get_node_or_null(opening_header_path) as MeshInstance3D
 		assert_true(header != null, "%s upper room entry should include measured header %s" % [track_id, opening_header_path])
@@ -1144,12 +1145,22 @@ func _assert_home_yard_vertical_circulation_continuity(root: Node, track_id: Str
 			var header_bounds := _mesh_instance_global_aabb(header)
 			var clear_span := maxf(header_bounds.size.x, header_bounds.size.z)
 			assert_true(clear_span <= 44.5, "%s upper room entry %s should be door/cased-opening sized, not a wall-sized void: %s" % [track_id, opening_header_path, str(header_bounds)])
-	for rail_path in ["UpperFloor/RoomFinishes/MainStairOpeningRailNorth", "UpperFloor/RoomFinishes/MainStairOpeningRailSouth", "UpperFloor/RoomFinishes/MainStairOpeningRailWest"]:
+	assert_true(root.get_node_or_null("UpperFloor/RoomFinishes/MainStairOpeningRailSouth") == null, "%s upper stair landing should open into the upstairs living area without a south/front guardrail blocking entry" % track_id)
+	for rail_path in ["UpperFloor/RoomFinishes/MainStairOpeningRailNorth", "UpperFloor/RoomFinishes/MainStairOpeningRailWest", "UpperFloor/RoomFinishes/MainStairOpeningRailEast"]:
 		var rail := root.get_node_or_null(rail_path)
 		assert_true(rail != null, "%s should include stairwell guardrail %s" % [track_id, rail_path])
 		if rail != null:
 			assert_true(bool(rail.get_meta("stairwell_opening_part", false)), "%s %s should be tagged as part of the stairwell opening guardrail" % [track_id, rail_path])
 			assert_equal(str(rail.get_meta("collision_policy", "")), "visual_guardrail_no_gameplay_collision", "%s stairwell guardrail should not create gameplay collision until authored as a named boundary" % track_id)
+	var attic_lower := root.get_node_or_null("VerticalConnectors/AtticPullDownLowerLandingSurface") as MeshInstance3D
+	assert_true(attic_lower != null, "%s attic stair should be generated at the upstairs back wall with landing geometry" % track_id)
+	if attic_lower != null:
+		var lower_bounds := _mesh_instance_global_aabb(attic_lower)
+		assert_true(lower_bounds.position.z <= -121.0 and lower_bounds.end.z <= -86.0, "%s attic stair landing should sit against the rear/back wall zone, bounds=%s" % [track_id, str(lower_bounds)])
+	var attic_hatch := root.get_node_or_null("VerticalConnectors/AtticAccessHatchOpening") as Node3D
+	assert_true(attic_hatch != null, "%s attic stair should include a rear-wall hatch marker" % track_id)
+	if attic_hatch != null:
+		assert_true(attic_hatch.position.z <= -108.0, "%s attic hatch marker should move to the upstairs back wall, position=%s" % [track_id, str(attic_hatch.position)])
 
 func _assert_upper_floor_deck_clear_of_garage_volume(upper_deck_holder: Node, track_id: String) -> void:
 	var garage_volume := AABB(Vector3(90.01, 0.0, -60.0), Vector3(129.99, 54.0, 205.0))
@@ -1436,7 +1447,7 @@ func _assert_home_yard_upper_hall_and_ceiling_complete(root: Node, track_id: Str
 		Vector3(78, 92.8, -120),
 	]:
 		assert_true(_visible_descendant_covers_xz_sample(ceiling, sample), "%s upper ceiling should cover shell-interior sample %s" % [track_id, str(sample)])
-	var hatch_void := AABB(Vector3(2, 91, -82), Vector3(46, 5, 54))
+	var hatch_void := AABB(Vector3(18, 91, -130), Vector3(48, 5, 44))
 	_assert_no_visible_descendant_intersects_aabb(ceiling, hatch_void, track_id, "upper attic hatch void")
 	var east_rail := root.get_node_or_null("UpperFloor/RoomFinishes/MainStairOpeningRailEast")
 	assert_true(east_rail is MeshInstance3D, "%s upper hall stair opening should have an east guardrail so the hallway reads enclosed and continuous" % track_id)
