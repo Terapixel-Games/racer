@@ -871,9 +871,12 @@ func _assert_home_yard_front_entry_assembly_fits_doorway(root: Node, track_id: S
 	var jamb_right := root.get_node_or_null("ExteriorShell/FrontDoorDeepJambRight") as MeshInstance3D
 	var mullion_left := root.get_node_or_null("ExteriorShell/FrontDoorCenterMullionLeft") as MeshInstance3D
 	var mullion_right := root.get_node_or_null("ExteriorShell/FrontDoorCenterMullionRight") as MeshInstance3D
-	for node in [left_wall, right_wall, door, sidelight_left, sidelight_right, jamb_left, jamb_right, mullion_left, mullion_right]:
+	var header := root.get_node_or_null("ExteriorShell/FrontDoorLintelHeader") as MeshInstance3D
+	var sill := root.get_node_or_null("ExteriorShell/FrontDoorFrameSill") as MeshInstance3D
+	var door_glass := root.get_node_or_null("Openings/FrontDoorGlass") as MeshInstance3D
+	for node in [left_wall, right_wall, door, sidelight_left, sidelight_right, jamb_left, jamb_right, mullion_left, mullion_right, header, sill, door_glass]:
 		assert_true(node != null, "%s front entry should include complete doorway, sidelight, jamb, and mullion assembly" % track_id)
-	if left_wall == null or right_wall == null or door == null or sidelight_left == null or sidelight_right == null or jamb_left == null or jamb_right == null or mullion_left == null or mullion_right == null:
+	if left_wall == null or right_wall == null or door == null or sidelight_left == null or sidelight_right == null or jamb_left == null or jamb_right == null or mullion_left == null or mullion_right == null or header == null or sill == null or door_glass == null:
 		return
 	var left_wall_bounds := _mesh_instance_global_aabb(left_wall)
 	var right_wall_bounds := _mesh_instance_global_aabb(right_wall)
@@ -886,6 +889,9 @@ func _assert_home_yard_front_entry_assembly_fits_doorway(root: Node, track_id: S
 	var jamb_right_bounds := _mesh_instance_global_aabb(jamb_right)
 	var mullion_left_bounds := _mesh_instance_global_aabb(mullion_left)
 	var mullion_right_bounds := _mesh_instance_global_aabb(mullion_right)
+	var header_bounds := _mesh_instance_global_aabb(header)
+	var sill_bounds := _mesh_instance_global_aabb(sill)
+	var door_glass_bounds := _mesh_instance_global_aabb(door_glass)
 	assert_true(rough_opening_max_x - rough_opening_min_x >= 72.0, "%s front entry rough opening should be wide enough for a narrower door plus two sidelights" % track_id)
 	for item in [
 		{"name": "door", "bounds": door_bounds},
@@ -906,6 +912,10 @@ func _assert_home_yard_front_entry_assembly_fits_doorway(root: Node, track_id: S
 	assert_true(sidelight_left_bounds.position.x >= jamb_left_bounds.end.x + reveal and sidelight_left_bounds.end.x <= mullion_left_bounds.position.x - reveal, "%s left sidelight glass should fit inside the jamb/mullion bay with a visible reveal: glass=%s jamb=%s mullion=%s" % [track_id, str(sidelight_left_bounds), str(jamb_left_bounds), str(mullion_left_bounds)])
 	assert_true(door_bounds.position.x >= mullion_left_bounds.end.x + reveal and door_bounds.end.x <= mullion_right_bounds.position.x - reveal, "%s front door panel should fit inside the mullion bay with a visible reveal: door=%s left=%s right=%s" % [track_id, str(door_bounds), str(mullion_left_bounds), str(mullion_right_bounds)])
 	assert_true(sidelight_right_bounds.position.x >= mullion_right_bounds.end.x + reveal and sidelight_right_bounds.end.x <= jamb_right_bounds.position.x - reveal, "%s right sidelight glass should fit inside the mullion/jamb bay with a visible reveal: glass=%s mullion=%s jamb=%s" % [track_id, str(sidelight_right_bounds), str(mullion_right_bounds), str(jamb_right_bounds)])
+	assert_true(door_bounds.end.y <= header_bounds.position.y - reveal, "%s front door panel should fit below the lintel header with reveal: door=%s header=%s" % [track_id, str(door_bounds), str(header_bounds)])
+	assert_true(sill_bounds.end.y <= door_bounds.position.y + 4.25, "%s front sill should sit at the base of the door/frame instead of floating into the glass opening: sill=%s door=%s" % [track_id, str(sill_bounds), str(door_bounds)])
+	assert_true(door_glass_bounds.position.x >= door_bounds.position.x + reveal and door_glass_bounds.end.x <= door_bounds.end.x - reveal, "%s front door glass should fit inside the door panel width: glass=%s door=%s" % [track_id, str(door_glass_bounds), str(door_bounds)])
+	assert_true(door_glass_bounds.position.y >= door_bounds.position.y + reveal and door_glass_bounds.end.y <= door_bounds.end.y - reveal, "%s front door glass should fit inside the door panel height: glass=%s door=%s" % [track_id, str(door_glass_bounds), str(door_bounds)])
 
 func _assert_home_yard_front_facade_details_respect_openings_and_wall_plane(root: Node, track_id: String) -> void:
 	var detail_paths := [
@@ -1197,6 +1207,8 @@ func _assert_home_yard_shared_shell_ownership(root: Node, track_id: String) -> v
 	]:
 		assert_true(root.get_node_or_null(node_path) != null, "%s shared home-yard scene should include seam validation camera %s" % [track_id, node_path])
 	_assert_home_yard_interior_exterior_aabb_separation(root, track_id)
+	_assert_home_yard_site_props_stay_outside_interior(root, track_id)
+	_assert_home_yard_upper_hall_and_ceiling_complete(root, track_id)
 
 func _assert_home_yard_interior_placeholder_replacements(root: Node, track_id: String) -> void:
 	for removed_path in [
@@ -1268,6 +1280,84 @@ func _assert_home_yard_interior_exterior_aabb_separation(root: Node, track_id: S
 		assert_true(interior_holder != null, "%s should include %s for interior/exterior AABB separation audit" % [track_id, interior_path])
 		if interior_holder != null:
 			_assert_interior_meshes_clear_exterior_aabbs(interior_holder, root, exterior_bounds, track_id)
+
+func _assert_home_yard_site_props_stay_outside_interior(root: Node, track_id: String) -> void:
+	var site := root.get_node_or_null("Site")
+	assert_true(site != null, "%s should include Site for exterior-prop/interior leak audit" % track_id)
+	if site == null:
+		return
+	var occupied_volumes := [
+		{"name": "dining_living", "bounds": AABB(Vector3(-200, -1, 15), Vector3(235, 42, 130))},
+		{"name": "entry_stair_hall", "bounds": AABB(Vector3(35, -1, 15), Vector3(55, 42, 130))},
+		{"name": "kitchen_breakfast", "bounds": AABB(Vector3(-200, -1, -130), Vector3(145, 42, 145))},
+		{"name": "playroom_family", "bounds": AABB(Vector3(-55, -1, -130), Vector3(145, 42, 145))},
+		{"name": "upper_bedroom", "bounds": AABB(Vector3(-180, 51, -130), Vector3(165, 43, 275))},
+		{"name": "upper_glam_hall", "bounds": AABB(Vector3(-15, 51, -130), Vector3(105, 43, 275))},
+	]
+	_assert_site_loose_props_clear_interior_volumes(site, root, occupied_volumes, track_id)
+
+func _assert_site_loose_props_clear_interior_volumes(node: Node, scene_root: Node, occupied_volumes: Array, track_id: String) -> void:
+	if node is MeshInstance3D:
+		var mesh_instance := node as MeshInstance3D
+		if mesh_instance.visible and _is_site_loose_prop_for_interior_gate(mesh_instance):
+			var site_bounds := _mesh_instance_global_aabb(mesh_instance)
+			var site_path := str(scene_root.get_path_to(mesh_instance))
+			for item in occupied_volumes:
+				var room_bounds := (item as Dictionary).get("bounds", AABB()) as AABB
+				if site_bounds.intersects(room_bounds) and _aabb_overlap_is_blocking(site_bounds, room_bounds):
+					assert_true(false, "%s exterior/site prop %s must stay outside interior volume %s; prop=%s room=%s" % [track_id, site_path, str((item as Dictionary).get("name", "")), str(site_bounds), str(room_bounds)])
+	for child in node.get_children():
+		_assert_site_loose_props_clear_interior_volumes(child, scene_root, occupied_volumes, track_id)
+
+func _is_site_loose_prop_for_interior_gate(node: Node) -> bool:
+	var lower := str(node.name).to_lower()
+	return lower.contains("planting") or lower.contains("shrub") or lower.contains("mailbox") or lower.contains("trashbin") or lower.contains("wheel") or lower.contains("handle")
+
+func _assert_home_yard_upper_hall_and_ceiling_complete(root: Node, track_id: String) -> void:
+	var ceiling := root.get_node_or_null("UpperFloor/RoomFinishes/UpperFloorTenFootCeilingPlane")
+	assert_true(ceiling != null, "%s upper floor should include a split ceiling holder" % track_id)
+	if ceiling == null:
+		return
+	for node_name in [
+		"UpperCeilingWestOfAtticHatch",
+		"UpperCeilingEastOfAtticHatch",
+		"UpperCeilingNorthOfAtticHatch",
+		"UpperCeilingSouthOfAtticHatch",
+	]:
+		assert_true(ceiling.get_node_or_null(node_name) is MeshInstance3D, "%s upper ceiling should include measured piece %s" % [track_id, node_name])
+	for sample in [
+		Vector3(-120, 92.8, 138),
+		Vector3(36, 92.8, 138),
+		Vector3(78, 92.8, 138),
+		Vector3(-120, 92.8, -120),
+		Vector3(78, 92.8, -120),
+	]:
+		assert_true(_visible_descendant_covers_xz_sample(ceiling, sample), "%s upper ceiling should cover shell-interior sample %s" % [track_id, str(sample)])
+	var hatch_void := AABB(Vector3(2, 91, -82), Vector3(46, 5, 54))
+	_assert_no_visible_descendant_intersects_aabb(ceiling, hatch_void, track_id, "upper attic hatch void")
+	var east_rail := root.get_node_or_null("UpperFloor/RoomFinishes/MainStairOpeningRailEast")
+	assert_true(east_rail is MeshInstance3D, "%s upper hall stair opening should have an east guardrail so the hallway reads enclosed and continuous" % track_id)
+
+func _visible_descendant_covers_xz_sample(node: Node, sample: Vector3) -> bool:
+	if node is MeshInstance3D:
+		var mesh_instance := node as MeshInstance3D
+		if mesh_instance.visible:
+			var bounds := _mesh_instance_global_aabb(mesh_instance)
+			if sample.x >= bounds.position.x - 0.05 and sample.x <= bounds.end.x + 0.05 and sample.z >= bounds.position.z - 0.05 and sample.z <= bounds.end.z + 0.05:
+				return true
+	for child in node.get_children():
+		if _visible_descendant_covers_xz_sample(child, sample):
+			return true
+	return false
+
+func _assert_no_visible_descendant_intersects_aabb(node: Node, forbidden: AABB, track_id: String, label: String) -> void:
+	if node is MeshInstance3D:
+		var mesh_instance := node as MeshInstance3D
+		if mesh_instance.visible:
+			var bounds := _mesh_instance_global_aabb(mesh_instance)
+			assert_true(not (bounds.intersects(forbidden) and _aabb_overlap_is_blocking(bounds, forbidden)), "%s visible mesh %s should not cover %s; mesh=%s forbidden=%s" % [track_id, str(mesh_instance.name), label, str(bounds), str(forbidden)])
+	for child in node.get_children():
+		_assert_no_visible_descendant_intersects_aabb(child, forbidden, track_id, label)
 
 func _collect_exterior_blocker_aabbs(node: Node, scene_root: Node, output: Array[Dictionary]) -> void:
 	if node is MeshInstance3D:

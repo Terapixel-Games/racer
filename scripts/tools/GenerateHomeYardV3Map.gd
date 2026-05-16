@@ -438,8 +438,8 @@ func _add_site_base(root: Node3D, holders: Dictionary) -> void:
 	_add_box(root, site, "Driveway", Vector3(155, -0.45, 118), Vector3(118, 1.1, 160), Color(0.46, 0.46, 0.43), true)
 	_add_box(root, site, "DrivewayExpansionJointA", Vector3(155, 0.2, 82), Vector3(118, 0.14, 1.2), Color(0.27, 0.27, 0.25), false)
 	_add_box(root, site, "DrivewayExpansionJointB", Vector3(155, 0.2, 142), Vector3(118, 0.14, 1.2), Color(0.27, 0.27, 0.25), false)
-	_add_box(root, site, "FrontFoundationPlantingLeft", Vector3(-130, -0.35, 135), Vector3(118, 1.2, 16), Color(0.22, 0.42, 0.18), true)
-	_add_box(root, site, "FrontFoundationPlantingRight", Vector3(24, -0.35, 135), Vector3(78, 1.2, 16), Color(0.24, 0.44, 0.20), true)
+	_add_box(root, site, "FrontFoundationPlantingLeft", Vector3(-150, 1.2, 190), Vector3(82, 4.0, 14), Color(0.22, 0.42, 0.18), true)
+	_add_box(root, site, "FrontFoundationPlantingRight", Vector3(62, 1.2, 190), Vector3(74, 4.0, 14), Color(0.24, 0.44, 0.20), true)
 	_add_box(root, site, "MailboxPost", Vector3(104, 6, 178), Vector3(4, 12, 4), Color(0.20, 0.12, 0.08), false)
 	_add_box(root, site, "MailboxBox", Vector3(104, 14, 175), Vector3(14, 8, 8), Color(0.25, 0.27, 0.29), false)
 	_add_box(root, site, "ServiceTrashBinA", Vector3(238, 8, 54), Vector3(12, 16, 14), Color(0.12, 0.22, 0.18), false)
@@ -459,7 +459,7 @@ func _add_site_base(root: Node3D, holders: Dictionary) -> void:
 	_add_box(root, site, "EastSideFence", Vector3(360, 12, -120), Vector3(7, 24, 680), Color(0.28, 0.20, 0.13), true)
 	for i in range(7):
 		var x := -210.0 + float(i) * 42.0
-		_add_box(root, site, "FrontShrubMass%02d" % i, Vector3(x, 2.2, 130 + float(i % 2) * 5.0), Vector3(20, 5, 12), Color(0.18, 0.38, 0.18).lightened(float(i % 3) * 0.04), false)
+		_add_box(root, site, "FrontShrubMass%02d" % i, Vector3(x, 2.2, 188 + float(i % 2) * 5.0), Vector3(20, 5, 12), Color(0.18, 0.38, 0.18).lightened(float(i % 3) * 0.04), false)
 
 func _add_floor_plan_zones(root: Node3D, holders: Dictionary) -> void:
 	var yard := holders["Yard"] as Node3D
@@ -549,14 +549,25 @@ func _add_upper_floor_interior(root: Node3D, parent: Node3D) -> void:
 	glam_floor.set_meta("stairwell_opening_bounds", {"min": MAIN_STAIR_SHAFT_MIN, "max": MAIN_STAIR_SHAFT_MAX})
 	_add_room_floor(root, glam_floor, "GlamDressingBackFloor", Vector3(37.5, 52, -12), Vector3(105, 1.2, 236), Color(0.60, 0.52, 0.45), false)
 	_add_stairwell_guardrail(root, finishes)
-	_add_box(root, finishes, "UpperFloorTenFootCeilingPlane", Vector3(-45, 92.8, 17.5), Vector3(270, 1.6, 215), Color(0.73, 0.68, 0.62), false)
+	_add_upper_floor_ceiling_with_attic_hatch(root, finishes)
 	_add_interior_partitions_from_schedule(root, walls, "upper", wall)
+
+func _add_upper_floor_ceiling_with_attic_hatch(root: Node3D, parent: Node3D) -> void:
+	var ceiling := _add_child_holder(root, parent, "UpperFloorTenFootCeilingPlane", "split upper-floor ceiling; attic hatch and stairwell circulation stay open while the upper hall remains covered to the exterior shell")
+	ceiling.set_meta("attic_hatch_opening_bounds", {"min": Vector3(2, 91, -82), "max": Vector3(48, 95, -28)})
+	ceiling.set_meta("ceiling_footprint_contract", "upper ceiling pieces cover bedroom, glam closet, and upper hall to the exterior wall interior face; only the attic hatch bay is intentionally open")
+	var color := Color(0.73, 0.68, 0.62)
+	_add_box(root, ceiling, "UpperCeilingWestOfAtticHatch", Vector3(-91, 92.8, 7.5), Vector3(178, 1.6, 275), color, false)
+	_add_box(root, ceiling, "UpperCeilingEastOfAtticHatch", Vector3(69, 92.8, 7.5), Vector3(42, 1.6, 275), color, false)
+	_add_box(root, ceiling, "UpperCeilingNorthOfAtticHatch", Vector3(23, 92.8, -106), Vector3(50, 1.6, 48), color, false)
+	_add_box(root, ceiling, "UpperCeilingSouthOfAtticHatch", Vector3(23, 92.8, 58.5), Vector3(50, 1.6, 173), color, false)
 
 func _add_stairwell_guardrail(root: Node3D, parent: Node3D) -> void:
 	var rail_color := Color(0.38, 0.30, 0.22)
 	_add_guardrail_segment(root, parent, "MainStairOpeningRailNorth", Vector3(MAIN_STAIR_X, UPPER_ROOM_FLOOR_TOP_Y + 7.2, MAIN_STAIR_SHAFT_MIN.z), Vector3(36, 2.2, 2.2), rail_color)
 	_add_guardrail_segment(root, parent, "MainStairOpeningRailSouth", Vector3(MAIN_STAIR_X, UPPER_ROOM_FLOOR_TOP_Y + 7.2, MAIN_STAIR_SHAFT_MAX.z), Vector3(36, 2.2, 2.2), rail_color)
 	_add_guardrail_segment(root, parent, "MainStairOpeningRailWest", Vector3(MAIN_STAIR_SHAFT_MIN.x, UPPER_ROOM_FLOOR_TOP_Y + 7.2, 126), Vector3(2.2, 2.2, 40), rail_color)
+	_add_guardrail_segment(root, parent, "MainStairOpeningRailEast", Vector3(MAIN_STAIR_SHAFT_MAX.x, UPPER_ROOM_FLOOR_TOP_Y + 7.2, 126), Vector3(2.2, 2.2, 40), rail_color)
 	var post_positions := [
 		Vector3(MAIN_STAIR_SHAFT_MIN.x, UPPER_ROOM_FLOOR_TOP_Y + 4.0, MAIN_STAIR_SHAFT_MIN.z),
 		Vector3(MAIN_STAIR_SHAFT_MAX.x, UPPER_ROOM_FLOOR_TOP_Y + 4.0, MAIN_STAIR_SHAFT_MIN.z),
@@ -677,6 +688,7 @@ func _add_exterior_architecture(root: Node3D, parent: Node3D) -> void:
 	_add_box(root, parent, "FrontDoorCenterMullionLeft", Vector3(-66, 20, 147.4), Vector3(3, 38, 4), trim.darkened(0.06), false)
 	_add_box(root, parent, "FrontDoorCenterMullionRight", Vector3(-34, 20, 147.4), Vector3(3, 38, 4), trim.darkened(0.06), false)
 	_add_box(root, parent, "FrontDoorLintelHeader", Vector3(-50, 42, 146), Vector3(78, 6, 8), trim, false)
+	_add_box(root, parent, "FrontDoorFrameSill", Vector3(-50, 2, 146), Vector3(78, 4, 8), trim.darkened(0.06), false)
 	_add_box(root, parent, "FrontEntryPorchLightLeft", Vector3(-82, 30, 150), Vector3(4, 8, 3), Color(1.0, 0.82, 0.42), false)
 	_add_box(root, parent, "FrontEntryPorchLightRight", Vector3(-18, 30, 150), Vector3(4, 8, 3), Color(1.0, 0.82, 0.42), false)
 	_add_box(root, parent, "FrontEntryHouseNumberPlaque", Vector3(-50, 48, 149), Vector3(28, 5, 2), Color(0.12, 0.10, 0.08), false)

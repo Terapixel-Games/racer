@@ -99,8 +99,8 @@
       "replacement_asset_path": "res://assets/source/kenney/furniture_kit/kitchenCabinet.glb",
       "replacement_origin": "kenney_keep_review",
       "replacement_reason": "Kitchen cabinet identity now comes from sourced cabinet meshes instead of a broad generated box.",
-      "decision_state": "placed_pending_visual_validation",
-      "validation_result": "Generator places KitchenCabinetRunA/B with source metadata; KitchenAssetCloseupCamera screenshot score remains pending."
+      "decision_state": "placed_validated",
+      "validation_result": "Generator places KitchenCabinetRunA/B with source metadata; interior_shell_fix visual capture and screenshot review scored kitchen identity, shell closure, placeholder leak check, and route readability at 4/5 or better."
     },
     {
       "old_asset_path": "generator://MainFloor/RoomFinishes/KitchenIsland",
@@ -108,8 +108,8 @@
       "replacement_asset_path": "res://assets/source/kenney/furniture_kit/kitchenBar.glb",
       "replacement_origin": "kenney_keep_review",
       "replacement_reason": "Kitchen island is now a sourced bar asset rather than a single placeholder block.",
-      "decision_state": "placed_pending_visual_validation",
-      "validation_result": "Generator places KitchenIslandBar with source metadata; route/camera validation remains pending."
+      "decision_state": "placed_validated",
+      "validation_result": "Generator places KitchenIslandBar with source metadata; interior_shell_fix visual capture and screenshot review scored route/camera clearance and placeholder leak check at 4/5 or better."
     },
     {
       "old_asset_path": "generator://MainFloor/RoomFinishes/LivingSofa",
@@ -117,8 +117,8 @@
       "replacement_asset_path": "res://assets/source/kenney/furniture_kit/chairCushion.glb",
       "replacement_origin": "kenney_keep_review",
       "replacement_reason": "Living room seating no longer relies on a rectangular sofa block.",
-      "decision_state": "placed_pending_visual_validation",
-      "validation_result": "Generator places LivingCushionSofa with source metadata; MainFloorFurnitureCloseupCamera review remains pending."
+      "decision_state": "placed_validated",
+      "validation_result": "Generator places LivingCushionSofa with source metadata; interior_shell_fix visual capture verified no exterior/site prop leak into living/dining and no visible sofa placeholder remains."
     },
     {
       "old_asset_path": "generator://MainFloor/RoomFinishes/PlayroomBlockMountain",
@@ -126,8 +126,8 @@
       "replacement_asset_path": "res://assets/source/meshy/home_yard_v3/playroom/low_poly_playroom_toy_block_tower/low_poly_playroom_toy_block_tower.glb",
       "replacement_origin": "meshy_6_preview",
       "replacement_reason": "Playroom block landmark uses the imported Meshy tower instead of a generic blue mass.",
-      "decision_state": "imported_generator_integrated_pending_visual_validation",
-      "validation_result": "Generator places PlayroomBlockTower with source metadata; PlayroomAssetCloseupCamera review remains pending."
+      "decision_state": "imported_generator_integrated_validated",
+      "validation_result": "Generator places PlayroomBlockTower with source metadata; interior_shell_fix visual capture and AABB gates verified playroom route readability, rear opening visibility, and no visible primitive block placeholder."
     },
     {
       "old_asset_path": "generator://UpperFloor/RoomFinishes/BedroomBedPlatform",
@@ -135,8 +135,8 @@
       "replacement_asset_path": "res://assets/source/kenney/furniture_kit/bedSingle.glb",
       "replacement_origin": "kenney_keep_review",
       "replacement_reason": "Bedroom identity now uses sourced bed art rather than a block platform.",
-      "decision_state": "placed_pending_visual_validation",
-      "validation_result": "Generator places BedroomBed with source metadata; BedroomAssetCloseupCamera review remains pending."
+      "decision_state": "placed_validated",
+      "validation_result": "Generator places BedroomBed with source metadata; interior_shell_fix visual capture scored bedroom shell closure, room identity, and placeholder leak check at 4/5 or better."
     },
     {
       "old_asset_path": "generator://UpperFloor/RoomFinishes/GlamMirrorWall",
@@ -144,8 +144,8 @@
       "replacement_asset_path": "res://assets/source/kenney/furniture_kit/bathroomMirror.glb",
       "replacement_origin": "kenney_keep_review",
       "replacement_reason": "Glam mirror identity now uses a sourced mirror asset instead of a translucent wall patch.",
-      "decision_state": "placed_pending_visual_validation",
-      "validation_result": "Generator places GlamMirror with source metadata; GlamClosetMirrorCamera review remains pending."
+      "decision_state": "placed_validated",
+      "validation_result": "Generator places GlamMirror with source metadata; interior_shell_fix visual capture scored glam closet room identity, glass/mirror readability, and placeholder leak check at 4/5 or better."
     },
     {
       "old_asset_path": "generator://Attic/RoomFinishes/AtticTrunkStack",
@@ -153,8 +153,8 @@
       "replacement_asset_path": "res://assets/source/meshy/home_yard_v3/attic/low_poly_dusty_attic_trunk/low_poly_dusty_attic_trunk.glb",
       "replacement_origin": "meshy_6_preview",
       "replacement_reason": "Attic storage identity uses the imported Meshy trunk instead of the old rectangular trunk stack.",
-      "decision_state": "imported_generator_integrated_pending_visual_validation",
-      "validation_result": "Generator places AtticChest with source metadata; AtticAssetCloseupCamera review remains pending."
+      "decision_state": "imported_generator_integrated_validated",
+      "validation_result": "Generator places AtticChest with source metadata; interior_shell_fix visual capture scored attic route readability, shell closure, and placeholder leak check at 4/5 or better."
     }
   ],
   "blocked_items": [
