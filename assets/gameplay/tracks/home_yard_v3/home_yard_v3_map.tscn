@@ -1,4 +1,4 @@
-[gd_scene load_steps=1164 format=3]
+[gd_scene load_steps=1200 format=3]
 
 [ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/kitchenFridge.glb" id="1_dkcm6"]
 [ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/kitchenSink.glb" id="2_mgulr"]
@@ -1945,7 +1945,7 @@ albedo_color = Color(0.704, 0.656, 0.536, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_fbhsl"]
-size = Vector3(54, 5, 34)
+size = Vector3(44, 5, 66)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6n2xb"]
 albedo_color = Color(0.44, 0.35, 0.26, 1)
@@ -2846,28 +2846,28 @@ albedo_color = Color(0.73, 0.68, 0.62, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_e8b0h"]
-size = Vector3(218, 1.6, 275)
+size = Vector3(226, 1.6, 275)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ylst"]
 albedo_color = Color(0.73, 0.68, 0.62, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_gyrot"]
-size = Vector3(24, 1.6, 275)
+size = Vector3(32, 1.6, 275)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_txcu6"]
 albedo_color = Color(0.73, 0.68, 0.62, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_7ll35"]
-size = Vector3(48, 1.6, 2)
+size = Vector3(32, 1.6, 0.2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ool6t"]
 albedo_color = Color(0.73, 0.68, 0.62, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_auj7n"]
-size = Vector3(48, 1.6, 231)
+size = Vector3(32, 1.6, 211)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w1eqa"]
 albedo_color = Color(0.57, 0.51, 0.43, 1)
@@ -4060,118 +4060,244 @@ roughness = 0.72
 size = Vector3(1.5, 14, 38)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gmphl"]
-albedo_color = Color(0.48, 0.3456, 0.2112, 1)
+albedo_color = Color(0.49919996, 0.3456, 0.2112, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_yypqy"]
-size = Vector3(40, 0.6, 28)
+size = Vector3(30, 0.6, 12)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ep63"]
-albedo_color = Color(0.46, 0.33120003, 0.2024, 1)
+albedo_color = Color(0.52, 0.36, 0.22, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_5y8ii"]
-size = Vector3(44, 0.6, 32)
+size = Vector3(16, 0.7, 3.642857)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y6p0w"]
-albedo_color = Color(0.5, 0.36, 0.22, 1)
+albedo_color = Color(0.4784, 0.33120003, 0.2024, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_0lh3q"]
-size = Vector3(1, 52, 1)
+size = Vector3(16, 3.4714284, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t1wxm"]
-albedo_color = Color(0.5, 0.36, 0.22, 1)
+albedo_color = Color(0.532, 0.37600002, 0.2395, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_rtu0p"]
-size = Vector3(1, 52, 1)
+size = Vector3(16, 0.7, 3.642857)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kyti6"]
-albedo_color = Color(0.5, 0.36, 0.22, 1)
+albedo_color = Color(0.4784, 0.33120003, 0.2024, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_glliu"]
-size = Vector3(12, 0.7, 1.2)
+size = Vector3(16, 3.4714284, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e5vtr"]
-albedo_color = Color(0.52, 0.3856, 0.2512, 1)
+albedo_color = Color(0.54399997, 0.39200002, 0.259, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_8etuw"]
-size = Vector3(12, 0.7, 1.2)
+size = Vector3(16, 0.7, 3.642857)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sd8u3"]
-albedo_color = Color(0.5, 0.36, 0.22, 1)
+albedo_color = Color(0.4784, 0.33120003, 0.2024, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_4m7u6"]
-size = Vector3(12, 0.7, 1.2)
+size = Vector3(16, 3.4714284, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d8p7w"]
-albedo_color = Color(0.52, 0.3856, 0.2512, 1)
+albedo_color = Color(0.52, 0.36, 0.22, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_5yero"]
-size = Vector3(12, 0.7, 1.2)
+size = Vector3(16, 0.7, 3.642857)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gcjhh"]
-albedo_color = Color(0.5, 0.36, 0.22, 1)
+albedo_color = Color(0.4784, 0.33120003, 0.2024, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_y85kd"]
-size = Vector3(12, 0.7, 1.2)
+size = Vector3(16, 3.4714284, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jyj34"]
-albedo_color = Color(0.52, 0.3856, 0.2512, 1)
+albedo_color = Color(0.532, 0.37600002, 0.2395, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_uosxu"]
-size = Vector3(12, 0.7, 1.2)
+size = Vector3(16, 0.7, 3.642857)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4aavj"]
-albedo_color = Color(0.5, 0.36, 0.22, 1)
+albedo_color = Color(0.4784, 0.33120003, 0.2024, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_l2abp"]
-size = Vector3(12, 0.7, 1.2)
+size = Vector3(16, 3.4714284, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lmq7b"]
-albedo_color = Color(0.52, 0.3856, 0.2512, 1)
+albedo_color = Color(0.54399997, 0.39200002, 0.259, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_b1bla"]
-size = Vector3(12, 0.7, 1.2)
+size = Vector3(16, 0.7, 3.642857)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_32rus"]
-albedo_color = Color(0.5, 0.36, 0.22, 1)
+albedo_color = Color(0.4784, 0.33120003, 0.2024, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_kltoh"]
-size = Vector3(12, 0.7, 1.2)
+size = Vector3(16, 3.4714284, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_54u12"]
-albedo_color = Color(0.52, 0.3856, 0.2512, 1)
+albedo_color = Color(0.52, 0.36, 0.22, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_to3ox"]
-size = Vector3(12, 0.7, 1.2)
+size = Vector3(16, 0.7, 3.642857)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_evqi4"]
-albedo_color = Color(0.5, 0.36, 0.22, 1)
+albedo_color = Color(0.4784, 0.33120003, 0.2024, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_ci82m"]
-size = Vector3(12, 0.7, 1.2)
+size = Vector3(16, 3.4714284, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j1tnh"]
-albedo_color = Color(0.52, 0.3856, 0.2512, 1)
+albedo_color = Color(0.532, 0.37600002, 0.2395, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_q6bbw"]
-size = Vector3(12, 0.7, 1.2)
+size = Vector3(16, 0.7, 3.642857)
 
-[sub_resource type="Environment" id="Environment_t8sbk"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t8sbk"]
+albedo_color = Color(0.4784, 0.33120003, 0.2024, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_y4gms"]
+size = Vector3(16, 3.4714284, 0.55)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q14up"]
+albedo_color = Color(0.54399997, 0.39200002, 0.259, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_vsf0p"]
+size = Vector3(16, 0.7, 3.642857)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6nlfm"]
+albedo_color = Color(0.4784, 0.33120003, 0.2024, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_b5isk"]
+size = Vector3(16, 3.4714284, 0.55)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mdpa2"]
+albedo_color = Color(0.52, 0.36, 0.22, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_5jall"]
+size = Vector3(16, 0.7, 3.642857)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2hrqw"]
+albedo_color = Color(0.4784, 0.33120003, 0.2024, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_5mfq0"]
+size = Vector3(16, 3.4714284, 0.55)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ktv26"]
+albedo_color = Color(0.532, 0.37600002, 0.2395, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_66x3f"]
+size = Vector3(16, 0.7, 3.642857)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lsk2m"]
+albedo_color = Color(0.4784, 0.33120003, 0.2024, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_vh1qu"]
+size = Vector3(16, 3.4714284, 0.55)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aysgw"]
+albedo_color = Color(0.54399997, 0.39200002, 0.259, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_gbpfa"]
+size = Vector3(16, 0.7, 3.642857)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ifegh"]
+albedo_color = Color(0.4784, 0.33120003, 0.2024, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_1xnvj"]
+size = Vector3(16, 3.4714284, 0.55)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fdx7q"]
+albedo_color = Color(0.52, 0.36, 0.22, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_eie32"]
+size = Vector3(16, 0.7, 3.642857)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mpahi"]
+albedo_color = Color(0.4784, 0.33120003, 0.2024, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_1emj3"]
+size = Vector3(16, 3.4714284, 0.55)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2eoe"]
+albedo_color = Color(0.532, 0.37600002, 0.2395, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_r32u3"]
+size = Vector3(16, 0.7, 3.642857)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1uyng"]
+albedo_color = Color(0.4784, 0.33120003, 0.2024, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_6vgdt"]
+size = Vector3(16, 3.4714284, 0.55)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a4mbr"]
+albedo_color = Color(0.4784, 0.33120003, 0.2024, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_morxy"]
+size = Vector3(30, 0.6, 18)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jh6tf"]
+albedo_color = Color(0.3744, 0.2592, 0.1584, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_l3u0g"]
+size = Vector3(1.5, 3, 46)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fn2pe"]
+albedo_color = Color(0.3744, 0.2592, 0.1584, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_3rqc7"]
+size = Vector3(1.5, 3, 46)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_87xpy"]
+albedo_color = Color(0.3016, 0.20880002, 0.12760001, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_y2q8m"]
+size = Vector3(1.4, 48, 48)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7h5ka"]
+albedo_color = Color(0.3016, 0.20880002, 0.12760001, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_7lfle"]
+size = Vector3(1.4, 48, 48)
+
+[sub_resource type="Environment" id="Environment_7r5ik"]
 background_mode = 1
 background_color = Color(0.67, 0.8, 0.94, 1)
 ambient_light_source = 2
@@ -4220,7 +4346,7 @@ metadata/floor_plan_contract = {
 "site_orientation": "front/street +Z, backyard -Z",
 "source": "racer_house_yard_concept_floor_plan.png",
 "style_contract": "large residential Dutch Colonial suburban house on a bigger but residential lot; tracks are plastic toy overlays on finished rooms and yard zones, not room-defining shells",
-"vertical_circulation_contract": "The floor plan includes architectural vertical circulation: a main stair from the entry/stair hall to the upper hall, plus an attic pull-down stair/ladder from the upper hall into the gambrel attic. Toy ramp boxes are not valid house circulation.",
+"vertical_circulation_contract": "The floor plan includes architectural vertical circulation: a main stair from the entry/stair hall to the upper hall, plus a visible rear-wall attic stair from the upstairs living area into the gambrel attic. Toy ramp boxes and pull-down ladders are not valid house circulation.",
 "vertical_links": [{
 "collision_policy": "visible_architectural_stair_collision",
 "continuity_gate": "segments must connect landing-to-landing from main floor datum to upper floor datum with separated lower/upper flights, readable riser fill, 14-unit clear flight width, 5-unit tread depth, and a shaft void that starts at z=78 for upper-flight headroom",
@@ -4241,24 +4367,24 @@ metadata/floor_plan_contract = {
 "upper_zone": "upper_front_hall",
 "validation_gate": "must not intersect route corridors, exterior shell, or camera views; lower and upper flights must be separated in plan with no tread/stringer overlap, visible risers, landings, stringers, railings, clear approach volumes, and no floor/ceiling slab covering the stair path"
 }, {
-"collision_policy": "visual_reference_no_gameplay_collision",
-"continuity_gate": "ladder rungs and rails must span upper hall floor datum to attic floor datum at the rear wall access and overlap the hatch opening",
+"collision_policy": "visible_architectural_attic_stair_collision",
+"continuity_gate": "visible treads, risers, stringers, rails, and landings must span upper floor datum to attic floor datum at the rear wall and overlap the hatch opening",
 "from_floor": "upper",
-"id": "AtticPullDownStairUpperHallToAttic",
-"lower_landing_center": Vector3(42, 52.6, -108),
+"id": "AtticRearStairUpperHallToAttic",
+"lower_landing_center": Vector3(42, 52.6, -124),
 "lower_zone": "upper_living_back_wall",
-"opening_required": "attic_access_hatch",
-"path_segments": ["lower_landing", "pull_down_ladder", "attic_hatch_landing"],
-"source_asset": "res://assets/source/kenney/mini_skate/steps.glb",
+"opening_required": "attic_stair_ceiling_opening",
+"path_segments": ["lower_landing", "stair_flight", "attic_hatch_landing"],
+"source_asset": "generated_floor_plan_architect_measured_rear_attic_stair_v1",
 "stairwell_bounds": {
-"max": Vector3(66, 105, -86),
-"min": Vector3(18, 52, -130)
+"max": Vector3(58, 105, -66),
+"min": Vector3(26, 52, -130)
 },
 "to_floor": "attic",
-"type": "pull_down_attic_stair",
-"upper_landing_center": Vector3(42, 104.6, -108),
+"type": "rear_wall_attic_stair",
+"upper_landing_center": Vector3(42, 104.6, -78),
 "upper_zone": "attic_toy_course",
-"validation_gate": "must not intersect attic route corridor, roof planes, upper hall walls, or third-person camera views"
+"validation_gate": "must not intersect attic route corridor, roof planes, upper living walls, or third-person camera views"
 }],
 "world_scale": "1 floor-plan foot = 4 Godot units; RoadGridMap cell is 16 x 16 units / 4 ft x 4 ft; house, doors, counters, ceilings, windows, and furnishings must read as human residential scale, with toy racers and plastic track scaled as small objects inside that human space"
 }
@@ -4477,33 +4603,36 @@ metadata/interior_wall_schedule = [{
 "z": 120.0
 }]
 metadata/vertical_circulation_contract = {
-"attic_ladder": {
+"attic_stair": {
 "continuous_path_verified": true,
-"id": "AtticPullDownStairUpperHallToAttic",
+"id": "AtticRearStairUpperHallToAttic",
 "lower_floor_datum_y": 52.6,
-"opening_node": "AtticAccessHatchOpening",
+"opening_node": "AtticStairCeilingOpening",
 "opening_overlap_required": true,
 "path_segments": [{
-"center": Vector3(42, 52.3, -108),
+"center": Vector3(42, 52.3, -124),
 "id": "lower_landing",
-"node": "AtticPullDownLowerLandingSurface",
-"size": Vector3(40, 0.6, 28)
+"node": "AtticRearStairLowerLandingSurface",
+"size": Vector3(30, 0.6, 12)
 }, {
-"end": Vector3(42, 104.6, -108),
-"id": "pull_down_ladder",
-"node_prefix": "AtticPullDownLadder",
-"start": Vector3(42, 52.6, -108)
+"end": Vector3(42, 104.6, -78),
+"id": "stair_flight",
+"node_prefix": "AtticRearStairTread",
+"start": Vector3(42, 53.2, -122),
+"tread_count": 14
 }, {
-"center": Vector3(42, 104.3, -108),
+"center": Vector3(42, 104.3, -76),
 "id": "attic_hatch_landing",
-"node": "AtticPullDownUpperLandingSurface",
-"size": Vector3(44, 0.6, 32)
+"node": "AtticRearStairUpperLandingSurface",
+"size": Vector3(30, 0.6, 18)
 }],
-"rung_spacing_units": 4.0,
+"riser_height_units": 3.671428571428571,
 "total_rise_units": 51.99999999999999,
-"type": "pull_down_ladder",
+"tread_depth_units": 3.142857142857143,
+"type": "rear_wall_attic_stair",
 "upper_floor_datum_y": 104.6,
-"validation_cameras": ["ValidationCameras/AtticPullDownContinuityCamera"]
+"validation_cameras": ["ValidationCameras/AtticRearStairContinuityCamera"],
+"width_units": 16.0
 },
 "continuity_required": true,
 "main_stair": {
@@ -14776,7 +14905,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "Openings/GarageHouseServiceDoor"
 
 [node name="AtticAccessHatchFrame" type="MeshInstance3D" parent="Openings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 106, -108)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 106, -98)
 material_override = SubResource("StandardMaterial3D_ljge5")
 mesh = SubResource("BoxMesh_fbhsl")
 metadata/generated_scene_provenance = {
@@ -20221,13 +20350,13 @@ metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
 [node name="UpperFloorTenFootCeilingPlane" type="Node3D" parent="UpperFloor/RoomFinishes"]
 metadata/plan_role = "split upper-floor ceiling; attic hatch and stairwell circulation stay open while the upper hall remains covered to the exterior shell"
 metadata/attic_hatch_opening_bounds = {
-"max": Vector3(66, 95, -86),
-"min": Vector3(18, 91, -130)
+"max": Vector3(58, 95, -66),
+"min": Vector3(26, 91, -130)
 }
-metadata/ceiling_footprint_contract = "upper ceiling pieces cover bedroom, glam closet, and upper living hall to the exterior wall interior face; only the rear-wall attic stair hatch bay is intentionally open"
+metadata/ceiling_footprint_contract = "upper ceiling pieces cover bedroom, glam closet, and upper living hall to the exterior wall interior face; only the rear-wall attic stair bay is intentionally open"
 
 [node name="UpperCeilingWestOfAtticHatch" type="MeshInstance3D" parent="UpperFloor/RoomFinishes/UpperFloorTenFootCeilingPlane"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -91, 92.8, 7.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87, 92.8, 7.5)
 material_override = SubResource("StandardMaterial3D_pd8vo")
 mesh = SubResource("BoxMesh_e8b0h")
 metadata/generated_scene_provenance = {
@@ -20268,7 +20397,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "UpperFloor/RoomFinishes/UpperFloorTenFootCeilingPlane/UpperCeilingWestOfAtticHatch"
 
 [node name="UpperCeilingEastOfAtticHatch" type="MeshInstance3D" parent="UpperFloor/RoomFinishes/UpperFloorTenFootCeilingPlane"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 92.8, 7.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74, 92.8, 7.5)
 material_override = SubResource("StandardMaterial3D_4ylst")
 mesh = SubResource("BoxMesh_gyrot")
 metadata/generated_scene_provenance = {
@@ -20309,7 +20438,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "UpperFloor/RoomFinishes/UpperFloorTenFootCeilingPlane/UpperCeilingEastOfAtticHatch"
 
 [node name="UpperCeilingNorthOfAtticHatch" type="MeshInstance3D" parent="UpperFloor/RoomFinishes/UpperFloorTenFootCeilingPlane"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 92.8, -129)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 92.8, -130.6)
 material_override = SubResource("StandardMaterial3D_txcu6")
 mesh = SubResource("BoxMesh_7ll35")
 metadata/generated_scene_provenance = {
@@ -20350,7 +20479,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "UpperFloor/RoomFinishes/UpperFloorTenFootCeilingPlane/UpperCeilingNorthOfAtticHatch"
 
 [node name="UpperCeilingSouthOfAtticHatch" type="MeshInstance3D" parent="UpperFloor/RoomFinishes/UpperFloorTenFootCeilingPlane"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 92.8, 29.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 92.8, 39.5)
 material_override = SubResource("StandardMaterial3D_ool6t")
 mesh = SubResource("BoxMesh_auj7n")
 metadata/generated_scene_provenance = {
@@ -25363,33 +25492,36 @@ metadata/external_scene_instance = "res://assets/gameplay/tracks/shared/backyard
 metadata/plan_role = "architectural vertical circulation generated from floor_plan_contract.vertical_links"
 metadata/visible_asset_policy = "Measured floor-to-floor stair and ladder continuity is required; sourced stair props alone are visual references, not circulation proof."
 metadata/vertical_circulation_contract = {
-"attic_ladder": {
+"attic_stair": {
 "continuous_path_verified": true,
-"id": "AtticPullDownStairUpperHallToAttic",
+"id": "AtticRearStairUpperHallToAttic",
 "lower_floor_datum_y": 52.6,
-"opening_node": "AtticAccessHatchOpening",
+"opening_node": "AtticStairCeilingOpening",
 "opening_overlap_required": true,
 "path_segments": [{
-"center": Vector3(42, 52.3, -108),
+"center": Vector3(42, 52.3, -124),
 "id": "lower_landing",
-"node": "AtticPullDownLowerLandingSurface",
-"size": Vector3(40, 0.6, 28)
+"node": "AtticRearStairLowerLandingSurface",
+"size": Vector3(30, 0.6, 12)
 }, {
-"end": Vector3(42, 104.6, -108),
-"id": "pull_down_ladder",
-"node_prefix": "AtticPullDownLadder",
-"start": Vector3(42, 52.6, -108)
+"end": Vector3(42, 104.6, -78),
+"id": "stair_flight",
+"node_prefix": "AtticRearStairTread",
+"start": Vector3(42, 53.2, -122),
+"tread_count": 14
 }, {
-"center": Vector3(42, 104.3, -108),
+"center": Vector3(42, 104.3, -76),
 "id": "attic_hatch_landing",
-"node": "AtticPullDownUpperLandingSurface",
-"size": Vector3(44, 0.6, 32)
+"node": "AtticRearStairUpperLandingSurface",
+"size": Vector3(30, 0.6, 18)
 }],
-"rung_spacing_units": 4.0,
+"riser_height_units": 3.671428571428571,
 "total_rise_units": 51.99999999999999,
-"type": "pull_down_ladder",
+"tread_depth_units": 3.142857142857143,
+"type": "rear_wall_attic_stair",
 "upper_floor_datum_y": 104.6,
-"validation_cameras": ["ValidationCameras/AtticPullDownContinuityCamera"]
+"validation_cameras": ["ValidationCameras/AtticRearStairContinuityCamera"],
+"width_units": 16.0
 },
 "continuity_required": true,
 "main_stair": {
@@ -28656,8 +28788,8 @@ metadata/opening_marker = true
 metadata/clearance_size = Vector3(36, 2, 40)
 metadata/validation_gate = "floor opening must align with sourced stair asset and remain clear of active route/camera corridors"
 
-[node name="AtticPullDownLowerLandingSurface" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 52.3, -108)
+[node name="AtticRearStairLowerLandingSurface" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 52.3, -124)
 material_override = SubResource("StandardMaterial3D_gmphl")
 mesh = SubResource("BoxMesh_yypqy")
 metadata/generated_scene_provenance = {
@@ -28667,7 +28799,7 @@ metadata/generated_scene_provenance = {
 "deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
 "end_anchor": "generated_transform_end",
 "forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
-"node_path": "VerticalConnectors/AtticPullDownLowerLandingSurface",
+"node_path": "VerticalConnectors/AtticRearStairLowerLandingSurface",
 "owner_volume": "VerticalConnectors",
 "role": "generated_visible_part",
 "source_of_truth": "home_yard_v3 scratch generator contract",
@@ -28677,14 +28809,14 @@ metadata/generated_scene_provenance = {
 "validation_camera": "ValidationCameras/ExteriorRooflineCamera",
 "validation_gate": "test_home_yard_generated_scene_provenance_contract",
 "visible_class": "architectural_mesh",
-"why_exists": "AtticPullDownLowerLandingSurface is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+"why_exists": "AtticRearStairLowerLandingSurface is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 }
 metadata/visible_class = "architectural_mesh"
 metadata/owner_volume = "VerticalConnectors"
 metadata/assembly = "verticalconnectors_generated_assembly"
 metadata/role = "generated_visible_part"
 metadata/source_of_truth = "home_yard_v3 scratch generator contract"
-metadata/why_exists = "AtticPullDownLowerLandingSurface is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/why_exists = "AtticRearStairLowerLandingSurface is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 metadata/support_target = "VerticalConnectors"
 metadata/contact_face = "owner_volume_local_face_or_support_surface"
 metadata/span_axis = "inherited_from_node_transform"
@@ -28695,28 +28827,28 @@ metadata/forbidden_intersections = ["unowned helper geometry", "route corridor",
 metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
 metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
 metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
-metadata/node_path = "VerticalConnectors/AtticPullDownLowerLandingSurface"
-metadata/vertical_link_id = "AtticPullDownStairUpperHallToAttic"
+metadata/node_path = "VerticalConnectors/AtticRearStairLowerLandingSurface"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
 metadata/vertical_link_part = "lower_landing"
 metadata/from_floor = "upper"
 metadata/to_floor = "attic"
 metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
 metadata/license_origin = "CC0/Kenney"
-metadata/collision_policy = "visible_architectural_attic_access_collision"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_access_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
 metadata/asset_role = "lower_landing"
-metadata/asset_lifecycle_state = "authored_measured_attic_access"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
-metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_access"
-metadata/vertical_path_continuity = "connects_main_floor_to_upper_floor"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
+metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor"
 metadata/support_surface_top_y = 52.599999248981476
-metadata/target_dimensions_units = Vector3(40, 0.6, 28)
+metadata/target_dimensions_units = Vector3(30, 0.6, 12)
 
-[node name="AtticPullDownUpperLandingSurface" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 104.3, -108)
+[node name="AtticRearStairTread00" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 56.52143, -120.42857)
 material_override = SubResource("StandardMaterial3D_5ep63")
 mesh = SubResource("BoxMesh_5y8ii")
 metadata/generated_scene_provenance = {
@@ -28726,7 +28858,7 @@ metadata/generated_scene_provenance = {
 "deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
 "end_anchor": "generated_transform_end",
 "forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
-"node_path": "VerticalConnectors/AtticPullDownUpperLandingSurface",
+"node_path": "VerticalConnectors/AtticRearStairTread00",
 "owner_volume": "VerticalConnectors",
 "role": "generated_visible_part",
 "source_of_truth": "home_yard_v3 scratch generator contract",
@@ -28736,14 +28868,14 @@ metadata/generated_scene_provenance = {
 "validation_camera": "ValidationCameras/ExteriorRooflineCamera",
 "validation_gate": "test_home_yard_generated_scene_provenance_contract",
 "visible_class": "architectural_mesh",
-"why_exists": "AtticPullDownUpperLandingSurface is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+"why_exists": "AtticRearStairTread00 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 }
 metadata/visible_class = "architectural_mesh"
 metadata/owner_volume = "VerticalConnectors"
 metadata/assembly = "verticalconnectors_generated_assembly"
 metadata/role = "generated_visible_part"
 metadata/source_of_truth = "home_yard_v3 scratch generator contract"
-metadata/why_exists = "AtticPullDownUpperLandingSurface is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/why_exists = "AtticRearStairTread00 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 metadata/support_target = "VerticalConnectors"
 metadata/contact_face = "owner_volume_local_face_or_support_surface"
 metadata/span_axis = "inherited_from_node_transform"
@@ -28754,28 +28886,31 @@ metadata/forbidden_intersections = ["unowned helper geometry", "route corridor",
 metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
 metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
 metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
-metadata/node_path = "VerticalConnectors/AtticPullDownUpperLandingSurface"
-metadata/vertical_link_id = "AtticPullDownStairUpperHallToAttic"
-metadata/vertical_link_part = "attic_hatch_landing"
+metadata/node_path = "VerticalConnectors/AtticRearStairTread00"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_tread"
 metadata/from_floor = "upper"
 metadata/to_floor = "attic"
 metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
 metadata/license_origin = "CC0/Kenney"
-metadata/collision_policy = "visible_architectural_attic_access_collision"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_access_v1"
-metadata/asset_role = "attic_hatch_landing"
-metadata/asset_lifecycle_state = "authored_measured_attic_access"
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_tread"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
-metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_access"
-metadata/vertical_path_continuity = "connects_main_floor_to_upper_floor"
-metadata/support_surface_top_y = 104.60000306367874
-metadata/target_dimensions_units = Vector3(44, 0.6, 32)
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
+metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor"
+metadata/tread_index = 0
+metadata/tread_count = 14
+metadata/riser_height_units = 3.6714284079415456
+metadata/tread_depth_units = 3.142857142857143
+metadata/target_dimensions_units = Vector3(16, 0.7, 3.642857)
 
-[node name="AtticPullDownLadderRailLeft" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 78.6, -108)
+[node name="AtticRearStairRiser00" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 55.035713, -118.85714)
 material_override = SubResource("StandardMaterial3D_y6p0w")
 mesh = SubResource("BoxMesh_0lh3q")
 metadata/generated_scene_provenance = {
@@ -28785,7 +28920,7 @@ metadata/generated_scene_provenance = {
 "deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
 "end_anchor": "generated_transform_end",
 "forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
-"node_path": "VerticalConnectors/AtticPullDownLadderRailLeft",
+"node_path": "VerticalConnectors/AtticRearStairRiser00",
 "owner_volume": "VerticalConnectors",
 "role": "generated_visible_part",
 "source_of_truth": "home_yard_v3 scratch generator contract",
@@ -28795,14 +28930,14 @@ metadata/generated_scene_provenance = {
 "validation_camera": "ValidationCameras/ExteriorRooflineCamera",
 "validation_gate": "test_home_yard_generated_scene_provenance_contract",
 "visible_class": "architectural_mesh",
-"why_exists": "AtticPullDownLadderRailLeft is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+"why_exists": "AtticRearStairRiser00 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 }
 metadata/visible_class = "architectural_mesh"
 metadata/owner_volume = "VerticalConnectors"
 metadata/assembly = "verticalconnectors_generated_assembly"
 metadata/role = "generated_visible_part"
 metadata/source_of_truth = "home_yard_v3 scratch generator contract"
-metadata/why_exists = "AtticPullDownLadderRailLeft is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/why_exists = "AtticRearStairRiser00 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 metadata/support_target = "VerticalConnectors"
 metadata/contact_face = "owner_volume_local_face_or_support_surface"
 metadata/span_axis = "inherited_from_node_transform"
@@ -28813,26 +28948,29 @@ metadata/forbidden_intersections = ["unowned helper geometry", "route corridor",
 metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
 metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
 metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
-metadata/node_path = "VerticalConnectors/AtticPullDownLadderRailLeft"
-metadata/vertical_link_id = "AtticPullDownStairUpperHallToAttic"
-metadata/vertical_link_part = "ladder_rail"
+metadata/node_path = "VerticalConnectors/AtticRearStairRiser00"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_riser"
 metadata/from_floor = "upper"
 metadata/to_floor = "attic"
 metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
 metadata/license_origin = "CC0/Kenney"
-metadata/collision_policy = "visible_architectural_attic_access_collision"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_access_v1"
-metadata/asset_role = "ladder_rail"
-metadata/asset_lifecycle_state = "authored_measured_attic_access"
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
-metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_access"
-metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
+metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor_and_fills_between_treads"
+metadata/riser_index = 0
+metadata/riser_height_units = 3.6714284079415456
+metadata/target_dimensions_units = Vector3(16, 3.4714284, 0.55)
 
-[node name="AtticPullDownLadderRailRight" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 78.6, -108)
+[node name="AtticRearStairTread01" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 60.192856, -117.28571)
 material_override = SubResource("StandardMaterial3D_t1wxm")
 mesh = SubResource("BoxMesh_rtu0p")
 metadata/generated_scene_provenance = {
@@ -28842,7 +28980,7 @@ metadata/generated_scene_provenance = {
 "deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
 "end_anchor": "generated_transform_end",
 "forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
-"node_path": "VerticalConnectors/AtticPullDownLadderRailRight",
+"node_path": "VerticalConnectors/AtticRearStairTread01",
 "owner_volume": "VerticalConnectors",
 "role": "generated_visible_part",
 "source_of_truth": "home_yard_v3 scratch generator contract",
@@ -28852,14 +28990,14 @@ metadata/generated_scene_provenance = {
 "validation_camera": "ValidationCameras/ExteriorRooflineCamera",
 "validation_gate": "test_home_yard_generated_scene_provenance_contract",
 "visible_class": "architectural_mesh",
-"why_exists": "AtticPullDownLadderRailRight is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+"why_exists": "AtticRearStairTread01 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 }
 metadata/visible_class = "architectural_mesh"
 metadata/owner_volume = "VerticalConnectors"
 metadata/assembly = "verticalconnectors_generated_assembly"
 metadata/role = "generated_visible_part"
 metadata/source_of_truth = "home_yard_v3 scratch generator contract"
-metadata/why_exists = "AtticPullDownLadderRailRight is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/why_exists = "AtticRearStairTread01 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 metadata/support_target = "VerticalConnectors"
 metadata/contact_face = "owner_volume_local_face_or_support_surface"
 metadata/span_axis = "inherited_from_node_transform"
@@ -28870,26 +29008,31 @@ metadata/forbidden_intersections = ["unowned helper geometry", "route corridor",
 metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
 metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
 metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
-metadata/node_path = "VerticalConnectors/AtticPullDownLadderRailRight"
-metadata/vertical_link_id = "AtticPullDownStairUpperHallToAttic"
-metadata/vertical_link_part = "ladder_rail"
+metadata/node_path = "VerticalConnectors/AtticRearStairTread01"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_tread"
 metadata/from_floor = "upper"
 metadata/to_floor = "attic"
 metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
 metadata/license_origin = "CC0/Kenney"
-metadata/collision_policy = "visible_architectural_attic_access_collision"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_access_v1"
-metadata/asset_role = "ladder_rail"
-metadata/asset_lifecycle_state = "authored_measured_attic_access"
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_tread"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
-metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_access"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
 metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor"
+metadata/tread_index = 1
+metadata/tread_count = 14
+metadata/riser_height_units = 3.6714284079415456
+metadata/tread_depth_units = 3.142857142857143
+metadata/target_dimensions_units = Vector3(16, 0.7, 3.642857)
 
-[node name="AtticPullDownLadderRung00" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 56.6, -108)
+[node name="AtticRearStairRiser01" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 58.70714, -115.71429)
 material_override = SubResource("StandardMaterial3D_kyti6")
 mesh = SubResource("BoxMesh_glliu")
 metadata/generated_scene_provenance = {
@@ -28899,7 +29042,7 @@ metadata/generated_scene_provenance = {
 "deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
 "end_anchor": "generated_transform_end",
 "forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
-"node_path": "VerticalConnectors/AtticPullDownLadderRung00",
+"node_path": "VerticalConnectors/AtticRearStairRiser01",
 "owner_volume": "VerticalConnectors",
 "role": "generated_visible_part",
 "source_of_truth": "home_yard_v3 scratch generator contract",
@@ -28909,14 +29052,14 @@ metadata/generated_scene_provenance = {
 "validation_camera": "ValidationCameras/ExteriorRooflineCamera",
 "validation_gate": "test_home_yard_generated_scene_provenance_contract",
 "visible_class": "architectural_mesh",
-"why_exists": "AtticPullDownLadderRung00 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+"why_exists": "AtticRearStairRiser01 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 }
 metadata/visible_class = "architectural_mesh"
 metadata/owner_volume = "VerticalConnectors"
 metadata/assembly = "verticalconnectors_generated_assembly"
 metadata/role = "generated_visible_part"
 metadata/source_of_truth = "home_yard_v3 scratch generator contract"
-metadata/why_exists = "AtticPullDownLadderRung00 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/why_exists = "AtticRearStairRiser01 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 metadata/support_target = "VerticalConnectors"
 metadata/contact_face = "owner_volume_local_face_or_support_surface"
 metadata/span_axis = "inherited_from_node_transform"
@@ -28927,28 +29070,29 @@ metadata/forbidden_intersections = ["unowned helper geometry", "route corridor",
 metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
 metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
 metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
-metadata/node_path = "VerticalConnectors/AtticPullDownLadderRung00"
-metadata/vertical_link_id = "AtticPullDownStairUpperHallToAttic"
-metadata/vertical_link_part = "ladder_rung"
+metadata/node_path = "VerticalConnectors/AtticRearStairRiser01"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_riser"
 metadata/from_floor = "upper"
 metadata/to_floor = "attic"
 metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
 metadata/license_origin = "CC0/Kenney"
-metadata/collision_policy = "visible_architectural_attic_access_collision"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_access_v1"
-metadata/asset_role = "ladder_rung"
-metadata/asset_lifecycle_state = "authored_measured_attic_access"
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
-metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_access"
-metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor"
-metadata/rung_index = 0
-metadata/rung_spacing_units = 4.0
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
+metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor_and_fills_between_treads"
+metadata/riser_index = 1
+metadata/riser_height_units = 3.6714284079415456
+metadata/target_dimensions_units = Vector3(16, 3.4714284, 0.55)
 
-[node name="AtticPullDownLadderRung01" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 60.6, -108)
+[node name="AtticRearStairTread02" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 63.864285, -114.14286)
 material_override = SubResource("StandardMaterial3D_e5vtr")
 mesh = SubResource("BoxMesh_8etuw")
 metadata/generated_scene_provenance = {
@@ -28958,7 +29102,7 @@ metadata/generated_scene_provenance = {
 "deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
 "end_anchor": "generated_transform_end",
 "forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
-"node_path": "VerticalConnectors/AtticPullDownLadderRung01",
+"node_path": "VerticalConnectors/AtticRearStairTread02",
 "owner_volume": "VerticalConnectors",
 "role": "generated_visible_part",
 "source_of_truth": "home_yard_v3 scratch generator contract",
@@ -28968,14 +29112,14 @@ metadata/generated_scene_provenance = {
 "validation_camera": "ValidationCameras/ExteriorRooflineCamera",
 "validation_gate": "test_home_yard_generated_scene_provenance_contract",
 "visible_class": "architectural_mesh",
-"why_exists": "AtticPullDownLadderRung01 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+"why_exists": "AtticRearStairTread02 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 }
 metadata/visible_class = "architectural_mesh"
 metadata/owner_volume = "VerticalConnectors"
 metadata/assembly = "verticalconnectors_generated_assembly"
 metadata/role = "generated_visible_part"
 metadata/source_of_truth = "home_yard_v3 scratch generator contract"
-metadata/why_exists = "AtticPullDownLadderRung01 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/why_exists = "AtticRearStairTread02 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 metadata/support_target = "VerticalConnectors"
 metadata/contact_face = "owner_volume_local_face_or_support_surface"
 metadata/span_axis = "inherited_from_node_transform"
@@ -28986,28 +29130,31 @@ metadata/forbidden_intersections = ["unowned helper geometry", "route corridor",
 metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
 metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
 metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
-metadata/node_path = "VerticalConnectors/AtticPullDownLadderRung01"
-metadata/vertical_link_id = "AtticPullDownStairUpperHallToAttic"
-metadata/vertical_link_part = "ladder_rung"
+metadata/node_path = "VerticalConnectors/AtticRearStairTread02"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_tread"
 metadata/from_floor = "upper"
 metadata/to_floor = "attic"
 metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
 metadata/license_origin = "CC0/Kenney"
-metadata/collision_policy = "visible_architectural_attic_access_collision"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_access_v1"
-metadata/asset_role = "ladder_rung"
-metadata/asset_lifecycle_state = "authored_measured_attic_access"
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_tread"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
-metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_access"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
 metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor"
-metadata/rung_index = 1
-metadata/rung_spacing_units = 4.0
+metadata/tread_index = 2
+metadata/tread_count = 14
+metadata/riser_height_units = 3.6714284079415456
+metadata/tread_depth_units = 3.142857142857143
+metadata/target_dimensions_units = Vector3(16, 0.7, 3.642857)
 
-[node name="AtticPullDownLadderRung02" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 64.6, -108)
+[node name="AtticRearStairRiser02" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 62.37857, -112.57143)
 material_override = SubResource("StandardMaterial3D_sd8u3")
 mesh = SubResource("BoxMesh_4m7u6")
 metadata/generated_scene_provenance = {
@@ -29017,7 +29164,7 @@ metadata/generated_scene_provenance = {
 "deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
 "end_anchor": "generated_transform_end",
 "forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
-"node_path": "VerticalConnectors/AtticPullDownLadderRung02",
+"node_path": "VerticalConnectors/AtticRearStairRiser02",
 "owner_volume": "VerticalConnectors",
 "role": "generated_visible_part",
 "source_of_truth": "home_yard_v3 scratch generator contract",
@@ -29027,14 +29174,14 @@ metadata/generated_scene_provenance = {
 "validation_camera": "ValidationCameras/ExteriorRooflineCamera",
 "validation_gate": "test_home_yard_generated_scene_provenance_contract",
 "visible_class": "architectural_mesh",
-"why_exists": "AtticPullDownLadderRung02 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+"why_exists": "AtticRearStairRiser02 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 }
 metadata/visible_class = "architectural_mesh"
 metadata/owner_volume = "VerticalConnectors"
 metadata/assembly = "verticalconnectors_generated_assembly"
 metadata/role = "generated_visible_part"
 metadata/source_of_truth = "home_yard_v3 scratch generator contract"
-metadata/why_exists = "AtticPullDownLadderRung02 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/why_exists = "AtticRearStairRiser02 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 metadata/support_target = "VerticalConnectors"
 metadata/contact_face = "owner_volume_local_face_or_support_surface"
 metadata/span_axis = "inherited_from_node_transform"
@@ -29045,28 +29192,29 @@ metadata/forbidden_intersections = ["unowned helper geometry", "route corridor",
 metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
 metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
 metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
-metadata/node_path = "VerticalConnectors/AtticPullDownLadderRung02"
-metadata/vertical_link_id = "AtticPullDownStairUpperHallToAttic"
-metadata/vertical_link_part = "ladder_rung"
+metadata/node_path = "VerticalConnectors/AtticRearStairRiser02"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_riser"
 metadata/from_floor = "upper"
 metadata/to_floor = "attic"
 metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
 metadata/license_origin = "CC0/Kenney"
-metadata/collision_policy = "visible_architectural_attic_access_collision"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_access_v1"
-metadata/asset_role = "ladder_rung"
-metadata/asset_lifecycle_state = "authored_measured_attic_access"
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
-metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_access"
-metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor"
-metadata/rung_index = 2
-metadata/rung_spacing_units = 4.0
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
+metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor_and_fills_between_treads"
+metadata/riser_index = 2
+metadata/riser_height_units = 3.6714284079415456
+metadata/target_dimensions_units = Vector3(16, 3.4714284, 0.55)
 
-[node name="AtticPullDownLadderRung03" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 68.6, -108)
+[node name="AtticRearStairTread03" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 67.53571, -111)
 material_override = SubResource("StandardMaterial3D_d8p7w")
 mesh = SubResource("BoxMesh_5yero")
 metadata/generated_scene_provenance = {
@@ -29076,7 +29224,7 @@ metadata/generated_scene_provenance = {
 "deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
 "end_anchor": "generated_transform_end",
 "forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
-"node_path": "VerticalConnectors/AtticPullDownLadderRung03",
+"node_path": "VerticalConnectors/AtticRearStairTread03",
 "owner_volume": "VerticalConnectors",
 "role": "generated_visible_part",
 "source_of_truth": "home_yard_v3 scratch generator contract",
@@ -29086,14 +29234,14 @@ metadata/generated_scene_provenance = {
 "validation_camera": "ValidationCameras/ExteriorRooflineCamera",
 "validation_gate": "test_home_yard_generated_scene_provenance_contract",
 "visible_class": "architectural_mesh",
-"why_exists": "AtticPullDownLadderRung03 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+"why_exists": "AtticRearStairTread03 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 }
 metadata/visible_class = "architectural_mesh"
 metadata/owner_volume = "VerticalConnectors"
 metadata/assembly = "verticalconnectors_generated_assembly"
 metadata/role = "generated_visible_part"
 metadata/source_of_truth = "home_yard_v3 scratch generator contract"
-metadata/why_exists = "AtticPullDownLadderRung03 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/why_exists = "AtticRearStairTread03 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 metadata/support_target = "VerticalConnectors"
 metadata/contact_face = "owner_volume_local_face_or_support_surface"
 metadata/span_axis = "inherited_from_node_transform"
@@ -29104,28 +29252,31 @@ metadata/forbidden_intersections = ["unowned helper geometry", "route corridor",
 metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
 metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
 metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
-metadata/node_path = "VerticalConnectors/AtticPullDownLadderRung03"
-metadata/vertical_link_id = "AtticPullDownStairUpperHallToAttic"
-metadata/vertical_link_part = "ladder_rung"
+metadata/node_path = "VerticalConnectors/AtticRearStairTread03"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_tread"
 metadata/from_floor = "upper"
 metadata/to_floor = "attic"
 metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
 metadata/license_origin = "CC0/Kenney"
-metadata/collision_policy = "visible_architectural_attic_access_collision"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_access_v1"
-metadata/asset_role = "ladder_rung"
-metadata/asset_lifecycle_state = "authored_measured_attic_access"
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_tread"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
-metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_access"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
 metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor"
-metadata/rung_index = 3
-metadata/rung_spacing_units = 4.0
+metadata/tread_index = 3
+metadata/tread_count = 14
+metadata/riser_height_units = 3.6714284079415456
+metadata/tread_depth_units = 3.142857142857143
+metadata/target_dimensions_units = Vector3(16, 0.7, 3.642857)
 
-[node name="AtticPullDownLadderRung04" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 72.6, -108)
+[node name="AtticRearStairRiser03" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 66.05, -109.42857)
 material_override = SubResource("StandardMaterial3D_gcjhh")
 mesh = SubResource("BoxMesh_y85kd")
 metadata/generated_scene_provenance = {
@@ -29135,7 +29286,7 @@ metadata/generated_scene_provenance = {
 "deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
 "end_anchor": "generated_transform_end",
 "forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
-"node_path": "VerticalConnectors/AtticPullDownLadderRung04",
+"node_path": "VerticalConnectors/AtticRearStairRiser03",
 "owner_volume": "VerticalConnectors",
 "role": "generated_visible_part",
 "source_of_truth": "home_yard_v3 scratch generator contract",
@@ -29145,14 +29296,14 @@ metadata/generated_scene_provenance = {
 "validation_camera": "ValidationCameras/ExteriorRooflineCamera",
 "validation_gate": "test_home_yard_generated_scene_provenance_contract",
 "visible_class": "architectural_mesh",
-"why_exists": "AtticPullDownLadderRung04 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+"why_exists": "AtticRearStairRiser03 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 }
 metadata/visible_class = "architectural_mesh"
 metadata/owner_volume = "VerticalConnectors"
 metadata/assembly = "verticalconnectors_generated_assembly"
 metadata/role = "generated_visible_part"
 metadata/source_of_truth = "home_yard_v3 scratch generator contract"
-metadata/why_exists = "AtticPullDownLadderRung04 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/why_exists = "AtticRearStairRiser03 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 metadata/support_target = "VerticalConnectors"
 metadata/contact_face = "owner_volume_local_face_or_support_surface"
 metadata/span_axis = "inherited_from_node_transform"
@@ -29163,28 +29314,29 @@ metadata/forbidden_intersections = ["unowned helper geometry", "route corridor",
 metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
 metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
 metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
-metadata/node_path = "VerticalConnectors/AtticPullDownLadderRung04"
-metadata/vertical_link_id = "AtticPullDownStairUpperHallToAttic"
-metadata/vertical_link_part = "ladder_rung"
+metadata/node_path = "VerticalConnectors/AtticRearStairRiser03"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_riser"
 metadata/from_floor = "upper"
 metadata/to_floor = "attic"
 metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
 metadata/license_origin = "CC0/Kenney"
-metadata/collision_policy = "visible_architectural_attic_access_collision"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_access_v1"
-metadata/asset_role = "ladder_rung"
-metadata/asset_lifecycle_state = "authored_measured_attic_access"
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
-metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_access"
-metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor"
-metadata/rung_index = 4
-metadata/rung_spacing_units = 4.0
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
+metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor_and_fills_between_treads"
+metadata/riser_index = 3
+metadata/riser_height_units = 3.6714284079415456
+metadata/target_dimensions_units = Vector3(16, 3.4714284, 0.55)
 
-[node name="AtticPullDownLadderRung05" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 76.6, -108)
+[node name="AtticRearStairTread04" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 71.207146, -107.85715)
 material_override = SubResource("StandardMaterial3D_jyj34")
 mesh = SubResource("BoxMesh_uosxu")
 metadata/generated_scene_provenance = {
@@ -29194,7 +29346,7 @@ metadata/generated_scene_provenance = {
 "deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
 "end_anchor": "generated_transform_end",
 "forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
-"node_path": "VerticalConnectors/AtticPullDownLadderRung05",
+"node_path": "VerticalConnectors/AtticRearStairTread04",
 "owner_volume": "VerticalConnectors",
 "role": "generated_visible_part",
 "source_of_truth": "home_yard_v3 scratch generator contract",
@@ -29204,14 +29356,14 @@ metadata/generated_scene_provenance = {
 "validation_camera": "ValidationCameras/ExteriorRooflineCamera",
 "validation_gate": "test_home_yard_generated_scene_provenance_contract",
 "visible_class": "architectural_mesh",
-"why_exists": "AtticPullDownLadderRung05 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+"why_exists": "AtticRearStairTread04 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 }
 metadata/visible_class = "architectural_mesh"
 metadata/owner_volume = "VerticalConnectors"
 metadata/assembly = "verticalconnectors_generated_assembly"
 metadata/role = "generated_visible_part"
 metadata/source_of_truth = "home_yard_v3 scratch generator contract"
-metadata/why_exists = "AtticPullDownLadderRung05 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/why_exists = "AtticRearStairTread04 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 metadata/support_target = "VerticalConnectors"
 metadata/contact_face = "owner_volume_local_face_or_support_surface"
 metadata/span_axis = "inherited_from_node_transform"
@@ -29222,28 +29374,31 @@ metadata/forbidden_intersections = ["unowned helper geometry", "route corridor",
 metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
 metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
 metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
-metadata/node_path = "VerticalConnectors/AtticPullDownLadderRung05"
-metadata/vertical_link_id = "AtticPullDownStairUpperHallToAttic"
-metadata/vertical_link_part = "ladder_rung"
+metadata/node_path = "VerticalConnectors/AtticRearStairTread04"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_tread"
 metadata/from_floor = "upper"
 metadata/to_floor = "attic"
 metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
 metadata/license_origin = "CC0/Kenney"
-metadata/collision_policy = "visible_architectural_attic_access_collision"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_access_v1"
-metadata/asset_role = "ladder_rung"
-metadata/asset_lifecycle_state = "authored_measured_attic_access"
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_tread"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
-metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_access"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
 metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor"
-metadata/rung_index = 5
-metadata/rung_spacing_units = 4.0
+metadata/tread_index = 4
+metadata/tread_count = 14
+metadata/riser_height_units = 3.6714284079415456
+metadata/tread_depth_units = 3.142857142857143
+metadata/target_dimensions_units = Vector3(16, 0.7, 3.642857)
 
-[node name="AtticPullDownLadderRung06" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 80.6, -108)
+[node name="AtticRearStairRiser04" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 69.72143, -106.28571)
 material_override = SubResource("StandardMaterial3D_4aavj")
 mesh = SubResource("BoxMesh_l2abp")
 metadata/generated_scene_provenance = {
@@ -29253,7 +29408,7 @@ metadata/generated_scene_provenance = {
 "deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
 "end_anchor": "generated_transform_end",
 "forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
-"node_path": "VerticalConnectors/AtticPullDownLadderRung06",
+"node_path": "VerticalConnectors/AtticRearStairRiser04",
 "owner_volume": "VerticalConnectors",
 "role": "generated_visible_part",
 "source_of_truth": "home_yard_v3 scratch generator contract",
@@ -29263,14 +29418,14 @@ metadata/generated_scene_provenance = {
 "validation_camera": "ValidationCameras/ExteriorRooflineCamera",
 "validation_gate": "test_home_yard_generated_scene_provenance_contract",
 "visible_class": "architectural_mesh",
-"why_exists": "AtticPullDownLadderRung06 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+"why_exists": "AtticRearStairRiser04 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 }
 metadata/visible_class = "architectural_mesh"
 metadata/owner_volume = "VerticalConnectors"
 metadata/assembly = "verticalconnectors_generated_assembly"
 metadata/role = "generated_visible_part"
 metadata/source_of_truth = "home_yard_v3 scratch generator contract"
-metadata/why_exists = "AtticPullDownLadderRung06 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/why_exists = "AtticRearStairRiser04 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 metadata/support_target = "VerticalConnectors"
 metadata/contact_face = "owner_volume_local_face_or_support_surface"
 metadata/span_axis = "inherited_from_node_transform"
@@ -29281,28 +29436,29 @@ metadata/forbidden_intersections = ["unowned helper geometry", "route corridor",
 metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
 metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
 metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
-metadata/node_path = "VerticalConnectors/AtticPullDownLadderRung06"
-metadata/vertical_link_id = "AtticPullDownStairUpperHallToAttic"
-metadata/vertical_link_part = "ladder_rung"
+metadata/node_path = "VerticalConnectors/AtticRearStairRiser04"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_riser"
 metadata/from_floor = "upper"
 metadata/to_floor = "attic"
 metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
 metadata/license_origin = "CC0/Kenney"
-metadata/collision_policy = "visible_architectural_attic_access_collision"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_access_v1"
-metadata/asset_role = "ladder_rung"
-metadata/asset_lifecycle_state = "authored_measured_attic_access"
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
-metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_access"
-metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor"
-metadata/rung_index = 6
-metadata/rung_spacing_units = 4.0
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
+metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor_and_fills_between_treads"
+metadata/riser_index = 4
+metadata/riser_height_units = 3.6714284079415456
+metadata/target_dimensions_units = Vector3(16, 3.4714284, 0.55)
 
-[node name="AtticPullDownLadderRung07" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 84.6, -108)
+[node name="AtticRearStairTread05" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 74.87857, -104.71429)
 material_override = SubResource("StandardMaterial3D_lmq7b")
 mesh = SubResource("BoxMesh_b1bla")
 metadata/generated_scene_provenance = {
@@ -29312,7 +29468,7 @@ metadata/generated_scene_provenance = {
 "deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
 "end_anchor": "generated_transform_end",
 "forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
-"node_path": "VerticalConnectors/AtticPullDownLadderRung07",
+"node_path": "VerticalConnectors/AtticRearStairTread05",
 "owner_volume": "VerticalConnectors",
 "role": "generated_visible_part",
 "source_of_truth": "home_yard_v3 scratch generator contract",
@@ -29322,14 +29478,14 @@ metadata/generated_scene_provenance = {
 "validation_camera": "ValidationCameras/ExteriorRooflineCamera",
 "validation_gate": "test_home_yard_generated_scene_provenance_contract",
 "visible_class": "architectural_mesh",
-"why_exists": "AtticPullDownLadderRung07 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+"why_exists": "AtticRearStairTread05 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 }
 metadata/visible_class = "architectural_mesh"
 metadata/owner_volume = "VerticalConnectors"
 metadata/assembly = "verticalconnectors_generated_assembly"
 metadata/role = "generated_visible_part"
 metadata/source_of_truth = "home_yard_v3 scratch generator contract"
-metadata/why_exists = "AtticPullDownLadderRung07 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/why_exists = "AtticRearStairTread05 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 metadata/support_target = "VerticalConnectors"
 metadata/contact_face = "owner_volume_local_face_or_support_surface"
 metadata/span_axis = "inherited_from_node_transform"
@@ -29340,28 +29496,31 @@ metadata/forbidden_intersections = ["unowned helper geometry", "route corridor",
 metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
 metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
 metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
-metadata/node_path = "VerticalConnectors/AtticPullDownLadderRung07"
-metadata/vertical_link_id = "AtticPullDownStairUpperHallToAttic"
-metadata/vertical_link_part = "ladder_rung"
+metadata/node_path = "VerticalConnectors/AtticRearStairTread05"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_tread"
 metadata/from_floor = "upper"
 metadata/to_floor = "attic"
 metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
 metadata/license_origin = "CC0/Kenney"
-metadata/collision_policy = "visible_architectural_attic_access_collision"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_access_v1"
-metadata/asset_role = "ladder_rung"
-metadata/asset_lifecycle_state = "authored_measured_attic_access"
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_tread"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
-metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_access"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
 metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor"
-metadata/rung_index = 7
-metadata/rung_spacing_units = 4.0
+metadata/tread_index = 5
+metadata/tread_count = 14
+metadata/riser_height_units = 3.6714284079415456
+metadata/tread_depth_units = 3.142857142857143
+metadata/target_dimensions_units = Vector3(16, 0.7, 3.642857)
 
-[node name="AtticPullDownLadderRung08" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 88.6, -108)
+[node name="AtticRearStairRiser05" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 73.39286, -103.14285)
 material_override = SubResource("StandardMaterial3D_32rus")
 mesh = SubResource("BoxMesh_kltoh")
 metadata/generated_scene_provenance = {
@@ -29371,7 +29530,7 @@ metadata/generated_scene_provenance = {
 "deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
 "end_anchor": "generated_transform_end",
 "forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
-"node_path": "VerticalConnectors/AtticPullDownLadderRung08",
+"node_path": "VerticalConnectors/AtticRearStairRiser05",
 "owner_volume": "VerticalConnectors",
 "role": "generated_visible_part",
 "source_of_truth": "home_yard_v3 scratch generator contract",
@@ -29381,14 +29540,14 @@ metadata/generated_scene_provenance = {
 "validation_camera": "ValidationCameras/ExteriorRooflineCamera",
 "validation_gate": "test_home_yard_generated_scene_provenance_contract",
 "visible_class": "architectural_mesh",
-"why_exists": "AtticPullDownLadderRung08 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+"why_exists": "AtticRearStairRiser05 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 }
 metadata/visible_class = "architectural_mesh"
 metadata/owner_volume = "VerticalConnectors"
 metadata/assembly = "verticalconnectors_generated_assembly"
 metadata/role = "generated_visible_part"
 metadata/source_of_truth = "home_yard_v3 scratch generator contract"
-metadata/why_exists = "AtticPullDownLadderRung08 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/why_exists = "AtticRearStairRiser05 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 metadata/support_target = "VerticalConnectors"
 metadata/contact_face = "owner_volume_local_face_or_support_surface"
 metadata/span_axis = "inherited_from_node_transform"
@@ -29399,28 +29558,29 @@ metadata/forbidden_intersections = ["unowned helper geometry", "route corridor",
 metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
 metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
 metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
-metadata/node_path = "VerticalConnectors/AtticPullDownLadderRung08"
-metadata/vertical_link_id = "AtticPullDownStairUpperHallToAttic"
-metadata/vertical_link_part = "ladder_rung"
+metadata/node_path = "VerticalConnectors/AtticRearStairRiser05"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_riser"
 metadata/from_floor = "upper"
 metadata/to_floor = "attic"
 metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
 metadata/license_origin = "CC0/Kenney"
-metadata/collision_policy = "visible_architectural_attic_access_collision"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_access_v1"
-metadata/asset_role = "ladder_rung"
-metadata/asset_lifecycle_state = "authored_measured_attic_access"
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
-metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_access"
-metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor"
-metadata/rung_index = 8
-metadata/rung_spacing_units = 4.0
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
+metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor_and_fills_between_treads"
+metadata/riser_index = 5
+metadata/riser_height_units = 3.6714284079415456
+metadata/target_dimensions_units = Vector3(16, 3.4714284, 0.55)
 
-[node name="AtticPullDownLadderRung09" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 92.6, -108)
+[node name="AtticRearStairTread06" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 78.55, -101.57143)
 material_override = SubResource("StandardMaterial3D_54u12")
 mesh = SubResource("BoxMesh_to3ox")
 metadata/generated_scene_provenance = {
@@ -29430,7 +29590,7 @@ metadata/generated_scene_provenance = {
 "deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
 "end_anchor": "generated_transform_end",
 "forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
-"node_path": "VerticalConnectors/AtticPullDownLadderRung09",
+"node_path": "VerticalConnectors/AtticRearStairTread06",
 "owner_volume": "VerticalConnectors",
 "role": "generated_visible_part",
 "source_of_truth": "home_yard_v3 scratch generator contract",
@@ -29440,14 +29600,14 @@ metadata/generated_scene_provenance = {
 "validation_camera": "ValidationCameras/ExteriorRooflineCamera",
 "validation_gate": "test_home_yard_generated_scene_provenance_contract",
 "visible_class": "architectural_mesh",
-"why_exists": "AtticPullDownLadderRung09 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+"why_exists": "AtticRearStairTread06 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 }
 metadata/visible_class = "architectural_mesh"
 metadata/owner_volume = "VerticalConnectors"
 metadata/assembly = "verticalconnectors_generated_assembly"
 metadata/role = "generated_visible_part"
 metadata/source_of_truth = "home_yard_v3 scratch generator contract"
-metadata/why_exists = "AtticPullDownLadderRung09 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/why_exists = "AtticRearStairTread06 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 metadata/support_target = "VerticalConnectors"
 metadata/contact_face = "owner_volume_local_face_or_support_surface"
 metadata/span_axis = "inherited_from_node_transform"
@@ -29458,28 +29618,31 @@ metadata/forbidden_intersections = ["unowned helper geometry", "route corridor",
 metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
 metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
 metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
-metadata/node_path = "VerticalConnectors/AtticPullDownLadderRung09"
-metadata/vertical_link_id = "AtticPullDownStairUpperHallToAttic"
-metadata/vertical_link_part = "ladder_rung"
+metadata/node_path = "VerticalConnectors/AtticRearStairTread06"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_tread"
 metadata/from_floor = "upper"
 metadata/to_floor = "attic"
 metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
 metadata/license_origin = "CC0/Kenney"
-metadata/collision_policy = "visible_architectural_attic_access_collision"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_access_v1"
-metadata/asset_role = "ladder_rung"
-metadata/asset_lifecycle_state = "authored_measured_attic_access"
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_tread"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
-metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_access"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
 metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor"
-metadata/rung_index = 9
-metadata/rung_spacing_units = 4.0
+metadata/tread_index = 6
+metadata/tread_count = 14
+metadata/riser_height_units = 3.6714284079415456
+metadata/tread_depth_units = 3.142857142857143
+metadata/target_dimensions_units = Vector3(16, 0.7, 3.642857)
 
-[node name="AtticPullDownLadderRung10" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 96.6, -108)
+[node name="AtticRearStairRiser06" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 77.064285, -100)
 material_override = SubResource("StandardMaterial3D_evqi4")
 mesh = SubResource("BoxMesh_ci82m")
 metadata/generated_scene_provenance = {
@@ -29489,7 +29652,7 @@ metadata/generated_scene_provenance = {
 "deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
 "end_anchor": "generated_transform_end",
 "forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
-"node_path": "VerticalConnectors/AtticPullDownLadderRung10",
+"node_path": "VerticalConnectors/AtticRearStairRiser06",
 "owner_volume": "VerticalConnectors",
 "role": "generated_visible_part",
 "source_of_truth": "home_yard_v3 scratch generator contract",
@@ -29499,14 +29662,14 @@ metadata/generated_scene_provenance = {
 "validation_camera": "ValidationCameras/ExteriorRooflineCamera",
 "validation_gate": "test_home_yard_generated_scene_provenance_contract",
 "visible_class": "architectural_mesh",
-"why_exists": "AtticPullDownLadderRung10 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+"why_exists": "AtticRearStairRiser06 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 }
 metadata/visible_class = "architectural_mesh"
 metadata/owner_volume = "VerticalConnectors"
 metadata/assembly = "verticalconnectors_generated_assembly"
 metadata/role = "generated_visible_part"
 metadata/source_of_truth = "home_yard_v3 scratch generator contract"
-metadata/why_exists = "AtticPullDownLadderRung10 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/why_exists = "AtticRearStairRiser06 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 metadata/support_target = "VerticalConnectors"
 metadata/contact_face = "owner_volume_local_face_or_support_surface"
 metadata/span_axis = "inherited_from_node_transform"
@@ -29517,28 +29680,29 @@ metadata/forbidden_intersections = ["unowned helper geometry", "route corridor",
 metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
 metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
 metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
-metadata/node_path = "VerticalConnectors/AtticPullDownLadderRung10"
-metadata/vertical_link_id = "AtticPullDownStairUpperHallToAttic"
-metadata/vertical_link_part = "ladder_rung"
+metadata/node_path = "VerticalConnectors/AtticRearStairRiser06"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_riser"
 metadata/from_floor = "upper"
 metadata/to_floor = "attic"
 metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
 metadata/license_origin = "CC0/Kenney"
-metadata/collision_policy = "visible_architectural_attic_access_collision"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_access_v1"
-metadata/asset_role = "ladder_rung"
-metadata/asset_lifecycle_state = "authored_measured_attic_access"
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
-metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_access"
-metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor"
-metadata/rung_index = 10
-metadata/rung_spacing_units = 4.0
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
+metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor_and_fills_between_treads"
+metadata/riser_index = 6
+metadata/riser_height_units = 3.6714284079415456
+metadata/target_dimensions_units = Vector3(16, 3.4714284, 0.55)
 
-[node name="AtticPullDownLadderRung11" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 100.6, -108)
+[node name="AtticRearStairTread07" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 82.22143, -98.42857)
 material_override = SubResource("StandardMaterial3D_j1tnh")
 mesh = SubResource("BoxMesh_q6bbw")
 metadata/generated_scene_provenance = {
@@ -29548,7 +29712,7 @@ metadata/generated_scene_provenance = {
 "deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
 "end_anchor": "generated_transform_end",
 "forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
-"node_path": "VerticalConnectors/AtticPullDownLadderRung11",
+"node_path": "VerticalConnectors/AtticRearStairTread07",
 "owner_volume": "VerticalConnectors",
 "role": "generated_visible_part",
 "source_of_truth": "home_yard_v3 scratch generator contract",
@@ -29558,14 +29722,14 @@ metadata/generated_scene_provenance = {
 "validation_camera": "ValidationCameras/ExteriorRooflineCamera",
 "validation_gate": "test_home_yard_generated_scene_provenance_contract",
 "visible_class": "architectural_mesh",
-"why_exists": "AtticPullDownLadderRung11 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+"why_exists": "AtticRearStairTread07 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 }
 metadata/visible_class = "architectural_mesh"
 metadata/owner_volume = "VerticalConnectors"
 metadata/assembly = "verticalconnectors_generated_assembly"
 metadata/role = "generated_visible_part"
 metadata/source_of_truth = "home_yard_v3 scratch generator contract"
-metadata/why_exists = "AtticPullDownLadderRung11 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/why_exists = "AtticRearStairTread07 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
 metadata/support_target = "VerticalConnectors"
 metadata/contact_face = "owner_volume_local_face_or_support_surface"
 metadata/span_axis = "inherited_from_node_transform"
@@ -29576,44 +29740,1124 @@ metadata/forbidden_intersections = ["unowned helper geometry", "route corridor",
 metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
 metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
 metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
-metadata/node_path = "VerticalConnectors/AtticPullDownLadderRung11"
-metadata/vertical_link_id = "AtticPullDownStairUpperHallToAttic"
-metadata/vertical_link_part = "ladder_rung"
+metadata/node_path = "VerticalConnectors/AtticRearStairTread07"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_tread"
 metadata/from_floor = "upper"
 metadata/to_floor = "attic"
 metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
 metadata/license_origin = "CC0/Kenney"
-metadata/collision_policy = "visible_architectural_attic_access_collision"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_access_v1"
-metadata/asset_role = "ladder_rung"
-metadata/asset_lifecycle_state = "authored_measured_attic_access"
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_tread"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
-metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_access"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
 metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor"
-metadata/rung_index = 11
-metadata/rung_spacing_units = 4.0
+metadata/tread_index = 7
+metadata/tread_count = 14
+metadata/riser_height_units = 3.6714284079415456
+metadata/tread_depth_units = 3.142857142857143
+metadata/target_dimensions_units = Vector3(16, 0.7, 3.642857)
 
-[node name="AtticPullDownStairKenneySteps" type="Node3D" parent="VerticalConnectors" instance=ExtResource("25_i4a6c")]
-transform = Transform3D(-6.119594e-07, 0, -14, 0, 14, 0, 14, 0, -6.119594e-07, 42, 52.7, -108)
+[node name="AtticRearStairRiser07" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 80.73571, -96.85714)
+material_override = SubResource("StandardMaterial3D_t8sbk")
+mesh = SubResource("BoxMesh_y4gms")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/AtticRearStairRiser07",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "AtticRearStairRiser07 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "AtticRearStairRiser07 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/AtticRearStairRiser07"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "upper"
+metadata/to_floor = "attic"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
+metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor_and_fills_between_treads"
+metadata/riser_index = 7
+metadata/riser_height_units = 3.6714284079415456
+metadata/target_dimensions_units = Vector3(16, 3.4714284, 0.55)
+
+[node name="AtticRearStairTread08" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 85.89285, -95.28571)
+material_override = SubResource("StandardMaterial3D_q14up")
+mesh = SubResource("BoxMesh_vsf0p")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/AtticRearStairTread08",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "AtticRearStairTread08 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "AtticRearStairTread08 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/AtticRearStairTread08"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_tread"
+metadata/from_floor = "upper"
+metadata/to_floor = "attic"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_tread"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
+metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor"
+metadata/tread_index = 8
+metadata/tread_count = 14
+metadata/riser_height_units = 3.6714284079415456
+metadata/tread_depth_units = 3.142857142857143
+metadata/target_dimensions_units = Vector3(16, 0.7, 3.642857)
+
+[node name="AtticRearStairRiser08" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 84.40714, -93.71429)
+material_override = SubResource("StandardMaterial3D_6nlfm")
+mesh = SubResource("BoxMesh_b5isk")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/AtticRearStairRiser08",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "AtticRearStairRiser08 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "AtticRearStairRiser08 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/AtticRearStairRiser08"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "upper"
+metadata/to_floor = "attic"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
+metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor_and_fills_between_treads"
+metadata/riser_index = 8
+metadata/riser_height_units = 3.6714284079415456
+metadata/target_dimensions_units = Vector3(16, 3.4714284, 0.55)
+
+[node name="AtticRearStairTread09" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 89.564285, -92.14286)
+material_override = SubResource("StandardMaterial3D_mdpa2")
+mesh = SubResource("BoxMesh_5jall")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/AtticRearStairTread09",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "AtticRearStairTread09 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "AtticRearStairTread09 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/AtticRearStairTread09"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_tread"
+metadata/from_floor = "upper"
+metadata/to_floor = "attic"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_tread"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
+metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor"
+metadata/tread_index = 9
+metadata/tread_count = 14
+metadata/riser_height_units = 3.6714284079415456
+metadata/tread_depth_units = 3.142857142857143
+metadata/target_dimensions_units = Vector3(16, 0.7, 3.642857)
+
+[node name="AtticRearStairRiser09" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 88.07857, -90.57143)
+material_override = SubResource("StandardMaterial3D_2hrqw")
+mesh = SubResource("BoxMesh_5mfq0")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/AtticRearStairRiser09",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "AtticRearStairRiser09 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "AtticRearStairRiser09 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/AtticRearStairRiser09"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "upper"
+metadata/to_floor = "attic"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
+metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor_and_fills_between_treads"
+metadata/riser_index = 9
+metadata/riser_height_units = 3.6714284079415456
+metadata/target_dimensions_units = Vector3(16, 3.4714284, 0.55)
+
+[node name="AtticRearStairTread10" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 93.23571, -89)
+material_override = SubResource("StandardMaterial3D_ktv26")
+mesh = SubResource("BoxMesh_66x3f")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/AtticRearStairTread10",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "AtticRearStairTread10 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "AtticRearStairTread10 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/AtticRearStairTread10"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_tread"
+metadata/from_floor = "upper"
+metadata/to_floor = "attic"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_tread"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
+metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor"
+metadata/tread_index = 10
+metadata/tread_count = 14
+metadata/riser_height_units = 3.6714284079415456
+metadata/tread_depth_units = 3.142857142857143
+metadata/target_dimensions_units = Vector3(16, 0.7, 3.642857)
+
+[node name="AtticRearStairRiser10" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 91.75, -87.42857)
+material_override = SubResource("StandardMaterial3D_lsk2m")
+mesh = SubResource("BoxMesh_vh1qu")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/AtticRearStairRiser10",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "AtticRearStairRiser10 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "AtticRearStairRiser10 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/AtticRearStairRiser10"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "upper"
+metadata/to_floor = "attic"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
+metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor_and_fills_between_treads"
+metadata/riser_index = 10
+metadata/riser_height_units = 3.6714284079415456
+metadata/target_dimensions_units = Vector3(16, 3.4714284, 0.55)
+
+[node name="AtticRearStairTread11" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 96.90714, -85.85715)
+material_override = SubResource("StandardMaterial3D_aysgw")
+mesh = SubResource("BoxMesh_gbpfa")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/AtticRearStairTread11",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "AtticRearStairTread11 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "AtticRearStairTread11 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/AtticRearStairTread11"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_tread"
+metadata/from_floor = "upper"
+metadata/to_floor = "attic"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_tread"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
+metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor"
+metadata/tread_index = 11
+metadata/tread_count = 14
+metadata/riser_height_units = 3.6714284079415456
+metadata/tread_depth_units = 3.142857142857143
+metadata/target_dimensions_units = Vector3(16, 0.7, 3.642857)
+
+[node name="AtticRearStairRiser11" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 95.421425, -84.28571)
+material_override = SubResource("StandardMaterial3D_ifegh")
+mesh = SubResource("BoxMesh_1xnvj")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/AtticRearStairRiser11",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "AtticRearStairRiser11 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "AtticRearStairRiser11 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/AtticRearStairRiser11"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "upper"
+metadata/to_floor = "attic"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
+metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor_and_fills_between_treads"
+metadata/riser_index = 11
+metadata/riser_height_units = 3.6714284079415456
+metadata/target_dimensions_units = Vector3(16, 3.4714284, 0.55)
+
+[node name="AtticRearStairTread12" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 100.57857, -82.71429)
+material_override = SubResource("StandardMaterial3D_fdx7q")
+mesh = SubResource("BoxMesh_eie32")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/AtticRearStairTread12",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "AtticRearStairTread12 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "AtticRearStairTread12 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/AtticRearStairTread12"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_tread"
+metadata/from_floor = "upper"
+metadata/to_floor = "attic"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_tread"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
+metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor"
+metadata/tread_index = 12
+metadata/tread_count = 14
+metadata/riser_height_units = 3.6714284079415456
+metadata/tread_depth_units = 3.142857142857143
+metadata/target_dimensions_units = Vector3(16, 0.7, 3.642857)
+
+[node name="AtticRearStairRiser12" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 99.09286, -81.14285)
+material_override = SubResource("StandardMaterial3D_mpahi")
+mesh = SubResource("BoxMesh_1emj3")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/AtticRearStairRiser12",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "AtticRearStairRiser12 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "AtticRearStairRiser12 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/AtticRearStairRiser12"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "upper"
+metadata/to_floor = "attic"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
+metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor_and_fills_between_treads"
+metadata/riser_index = 12
+metadata/riser_height_units = 3.6714284079415456
+metadata/target_dimensions_units = Vector3(16, 3.4714284, 0.55)
+
+[node name="AtticRearStairTread13" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 104.25, -79.57143)
+material_override = SubResource("StandardMaterial3D_h2eoe")
+mesh = SubResource("BoxMesh_r32u3")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/AtticRearStairTread13",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "AtticRearStairTread13 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "AtticRearStairTread13 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/AtticRearStairTread13"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_tread"
+metadata/from_floor = "upper"
+metadata/to_floor = "attic"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_tread"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
+metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor"
+metadata/tread_index = 13
+metadata/tread_count = 14
+metadata/riser_height_units = 3.6714284079415456
+metadata/tread_depth_units = 3.142857142857143
+metadata/target_dimensions_units = Vector3(16, 0.7, 3.642857)
+
+[node name="AtticRearStairRiser13" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 102.76428, -78)
+material_override = SubResource("StandardMaterial3D_1uyng")
+mesh = SubResource("BoxMesh_6vgdt")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/AtticRearStairRiser13",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "AtticRearStairRiser13 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "AtticRearStairRiser13 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/AtticRearStairRiser13"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "upper"
+metadata/to_floor = "attic"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
+metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor_and_fills_between_treads"
+metadata/riser_index = 13
+metadata/riser_height_units = 3.6714284079415456
+metadata/target_dimensions_units = Vector3(16, 3.4714284, 0.55)
+
+[node name="AtticRearStairUpperLandingSurface" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 104.3, -76)
+material_override = SubResource("StandardMaterial3D_a4mbr")
+mesh = SubResource("BoxMesh_morxy")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/AtticRearStairUpperLandingSurface",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "AtticRearStairUpperLandingSurface is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "AtticRearStairUpperLandingSurface is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/AtticRearStairUpperLandingSurface"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "attic_hatch_landing"
+metadata/from_floor = "upper"
+metadata/to_floor = "attic"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "attic_hatch_landing"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
+metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor"
+metadata/support_surface_top_y = 104.60000306367874
+metadata/target_dimensions_units = Vector3(30, 0.6, 18)
+
+[node name="AtticRearStairStringerLeft" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 0.6503044, 0.7596737, 0, -0.7596737, 0.6503044, 33.2, 79.9, -100)
+material_override = SubResource("StandardMaterial3D_jh6tf")
+mesh = SubResource("BoxMesh_l3u0g")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/AtticRearStairStringerLeft",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "AtticRearStairStringerLeft is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "AtticRearStairStringerLeft is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/AtticRearStairStringerLeft"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "stair_stringer"
+metadata/from_floor = "upper"
+metadata/to_floor = "attic"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "stair_stringer"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
+
+[node name="AtticRearStairStringerRight" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 0.6503044, 0.7596737, 0, -0.7596737, 0.6503044, 50.8, 79.9, -100)
+material_override = SubResource("StandardMaterial3D_fn2pe")
+mesh = SubResource("BoxMesh_3rqc7")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/AtticRearStairStringerRight",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "AtticRearStairStringerRight is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "AtticRearStairStringerRight is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/AtticRearStairStringerRight"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "stair_stringer"
+metadata/from_floor = "upper"
+metadata/to_floor = "attic"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "stair_stringer"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
+
+[node name="AtticRearStairGuardrailLeft" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.8, 80, -100)
+material_override = SubResource("StandardMaterial3D_87xpy")
+mesh = SubResource("BoxMesh_y2q8m")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/AtticRearStairGuardrailLeft",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "AtticRearStairGuardrailLeft is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "AtticRearStairGuardrailLeft is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/AtticRearStairGuardrailLeft"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "stair_guardrail"
+metadata/from_floor = "upper"
+metadata/to_floor = "attic"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "stair_guardrail"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
+
+[node name="AtticRearStairGuardrailRight" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.2, 80, -100)
+material_override = SubResource("StandardMaterial3D_7h5ka")
+mesh = SubResource("BoxMesh_7lfle")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/AtticRearStairGuardrailRight",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "AtticRearStairGuardrailRight is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "AtticRearStairGuardrailRight is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/AtticRearStairGuardrailRight"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "stair_guardrail"
+metadata/from_floor = "upper"
+metadata/to_floor = "attic"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_attic_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_rear_attic_stair_v1"
+metadata/asset_role = "stair_guardrail"
+metadata/asset_lifecycle_state = "authored_measured_attic_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_attic_stair"
+
+[node name="AtticRearStairKenneyStepsReference" type="Node3D" parent="VerticalConnectors" instance=ExtResource("25_i4a6c")]
+transform = Transform3D(14, 0, 0, 0, 14, 0, 0, 0, 14, 42, 52.7, -124)
+visible = false
 metadata/external_scene_instance = "res://assets/source/kenney/mini_skate/steps.glb"
-metadata/vertical_link_id = "AtticPullDownStairUpperHallToAttic"
-metadata/vertical_link_part = "pull_down_stair"
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
+metadata/vertical_link_part = "reference_stair_asset"
 metadata/from_floor = "upper"
 metadata/to_floor = "attic"
 metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
 metadata/license_origin = "CC0/Kenney"
 metadata/collision_policy = "visual_reference_no_gameplay_collision"
 metadata/route_clearance = "outside_route_corridor"
+metadata/visual_reference_hidden_by_measured_stair = true
 
-[node name="AtticAccessHatchOpening" type="Node3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 104.65, -108)
-metadata/vertical_link_id = "AtticPullDownStairUpperHallToAttic"
+[node name="AtticStairCeilingOpening" type="Node3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 104.65, -98)
+metadata/vertical_link_id = "AtticRearStairUpperHallToAttic"
 metadata/validation_only = true
 metadata/opening_marker = true
-metadata/clearance_size = Vector3(48, 2, 44)
+metadata/clearance_size = Vector3(32, 2, 64)
 metadata/validation_gate = "floor opening must align with sourced stair asset and remain clear of active route/camera corridors"
 
 [node name="CourseRoutes" type="Node3D" parent="."]
@@ -30454,11 +31698,11 @@ metadata/visual_evidence_mode = "clean_runtime_or_cinematic_no_editor_overlays"
 metadata/validation_subject = "AtticRampSideProfileCamera"
 metadata/review_contract = "Final proof must render from this Camera3D path, not from an editor viewport with camera icons or transform gizmos."
 
-[node name="AtticPullDownContinuityCamera" type="Camera3D" parent="ValidationCameras"]
+[node name="AtticRearStairContinuityCamera" type="Camera3D" parent="ValidationCameras"]
 transform = Transform3D(-0.7880108, 0.25041208, -0.5624347, 0, 0.9135454, 0.40673664, 0.61566144, 0.32051286, -0.7198836, 8, 118, -18)
 fov = 54.0
 metadata/visual_evidence_mode = "clean_runtime_or_cinematic_no_editor_overlays"
-metadata/validation_subject = "AtticPullDownContinuityCamera"
+metadata/validation_subject = "AtticRearStairContinuityCamera"
 metadata/review_contract = "Final proof must render from this Camera3D path, not from an editor viewport with camera icons or transform gizmos."
 
 [node name="MainInteriorExteriorFlushCamera" type="Camera3D" parent="ValidationCameras"]
@@ -30520,4 +31764,4 @@ transform = Transform3D(0.81915206, 0.4055798, -0.4055798, 0, 0.70710677, 0.7071
 light_energy = 2.3
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_t8sbk")
+environment = SubResource("Environment_7r5ik")

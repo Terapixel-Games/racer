@@ -542,7 +542,7 @@ func _assert_home_yard_scene_holders(root: Node, track_id: String) -> void:
 		_assert_home_yard_kitchen_readability(root)
 	assert_true(root.get_node_or_null("VerticalConnectors/MainStairLowerFlightKenneySteps") != null, "%s should include sourced main stair lower flight geometry" % track_id)
 	assert_true(root.get_node_or_null("VerticalConnectors/MainStairUpperFlightKenneySteps") != null, "%s should include sourced main stair upper flight geometry" % track_id)
-	assert_true(root.get_node_or_null("VerticalConnectors/AtticPullDownStairKenneySteps") != null, "%s should include sourced attic access stair geometry" % track_id)
+	assert_true(root.get_node_or_null("VerticalConnectors/AtticRearStairKenneyStepsReference") != null, "%s should include a hidden sourced attic stair reference for provenance" % track_id)
 	_assert_home_yard_vertical_circulation_continuity(root, track_id)
 	assert_true(root.get_node_or_null("VerticalConnectors/MainToUpperToyRamp") == null, "%s should not keep the blue placeholder toy ramp as house circulation" % track_id)
 	assert_true(root.get_node_or_null("VerticalConnectors/UpperToAtticToyRamp") == null, "%s should not keep the red placeholder toy ramp as attic circulation" % track_id)
@@ -568,7 +568,7 @@ func _assert_home_yard_floor_plan_contract(root: Node, track_id: String) -> void
 	assert_true(vertical_links is Array and (vertical_links as Array).size() >= 2, "%s floor-plan contract should include main-to-upper and upper-to-attic vertical links" % track_id)
 	if vertical_links is Array:
 		assert_true(_vertical_link_has_id(vertical_links as Array, "MainStairEntryToUpperHall"), "%s floor-plan contract should include main stair vertical link" % track_id)
-		assert_true(_vertical_link_has_id(vertical_links as Array, "AtticPullDownStairUpperHallToAttic"), "%s floor-plan contract should include attic access vertical link" % track_id)
+		assert_true(_vertical_link_has_id(vertical_links as Array, "AtticRearStairUpperHallToAttic"), "%s floor-plan contract should include attic stair vertical link" % track_id)
 	assert_equal(float(data.get("ceiling_clear_height", 0.0)), 40.0, "%s should record 10 ft / 40 unit occupied ceiling clearances" % track_id)
 	assert_true(data.get("lot_bounds", {}) is Dictionary, "%s should record the larger residential lot bounds" % track_id)
 	assert_true(str(data.get("free_drive_contract", "")).contains("doggie door"), "%s should record the free-drive doggie-door contract" % track_id)
@@ -1048,7 +1048,7 @@ func _assert_home_yard_vertical_circulation_continuity(root: Node, track_id: Str
 	assert_equal(str(data.get("scale_contract_id", "")), "home_yard_v3_human_house_toy_racer_scale_v1", "%s vertical circulation should use the shared scale contract" % track_id)
 	assert_true(bool(data.get("continuity_required", false)), "%s vertical circulation should require floor-to-floor continuity" % track_id)
 	_assert_vertical_link_contract(data.get("main_stair", {}), "MainStairEntryToUpperHall", "main stair", MAIN_FLOOR_TOP_Y_FOR_TEST(), 52.60, track_id)
-	_assert_vertical_link_contract(data.get("attic_ladder", {}), "AtticPullDownStairUpperHallToAttic", "attic ladder", 52.60, 104.60, track_id)
+	_assert_vertical_link_contract(data.get("attic_stair", {}), "AtticRearStairUpperHallToAttic", "attic stair", 52.60, 104.60, track_id)
 	for node_path in [
 		"VerticalConnectors/MainStairLowerLandingSurface",
 		"VerticalConnectors/MainStairSwitchbackLandingSurface",
@@ -1059,12 +1059,12 @@ func _assert_home_yard_vertical_circulation_continuity(root: Node, track_id: Str
 		"VerticalConnectors/MainStairUpperFlightTread10",
 		"VerticalConnectors/MainStairLowerFlightRiser00",
 		"VerticalConnectors/MainStairUpperFlightRiser10",
-		"VerticalConnectors/AtticPullDownLowerLandingSurface",
-		"VerticalConnectors/AtticPullDownUpperLandingSurface",
-		"VerticalConnectors/AtticPullDownLadderRailLeft",
-		"VerticalConnectors/AtticPullDownLadderRailRight",
-		"VerticalConnectors/AtticPullDownLadderRung00",
-		"VerticalConnectors/AtticPullDownLadderRung11",
+		"VerticalConnectors/AtticRearStairLowerLandingSurface",
+		"VerticalConnectors/AtticRearStairUpperLandingSurface",
+		"VerticalConnectors/AtticRearStairTread00",
+		"VerticalConnectors/AtticRearStairTread13",
+		"VerticalConnectors/AtticRearStairRiser00",
+		"VerticalConnectors/AtticRearStairRiser13",
 	]:
 		var node := root.get_node_or_null(node_path)
 		assert_true(node != null, "%s should include continuous vertical connector node %s" % [track_id, node_path])
@@ -1076,9 +1076,9 @@ func _assert_home_yard_vertical_circulation_continuity(root: Node, track_id: Str
 				if node is MeshInstance3D:
 					assert_true((node as MeshInstance3D).visible, "%s %s should be visible for stair critique and gameplay readability" % [track_id, node_path])
 			else:
-				assert_true(not bool(node.get_meta("temporary_stand_in", true)), "%s %s should be authored rear attic access geometry, not a hidden temporary stand-in" % [track_id, node_path])
-				assert_true(not bool(node.get_meta("validation_only_visible_placeholder", true)), "%s %s should be production-intent visible attic access geometry" % [track_id, node_path])
-				assert_equal(str(node.get_meta("asset_lifecycle_state", "")), "authored_measured_attic_access", "%s %s should declare authored attic access lifecycle metadata" % [track_id, node_path])
+				assert_true(not bool(node.get_meta("temporary_stand_in", true)), "%s %s should be authored rear attic stairs, not a hidden temporary stand-in" % [track_id, node_path])
+				assert_true(not bool(node.get_meta("validation_only_visible_placeholder", true)), "%s %s should be production-intent visible attic stair geometry" % [track_id, node_path])
+				assert_equal(str(node.get_meta("asset_lifecycle_state", "")), "authored_measured_attic_stair", "%s %s should declare authored attic stair lifecycle metadata" % [track_id, node_path])
 				if node is MeshInstance3D:
 					assert_true((node as MeshInstance3D).visible, "%s %s should render so the rear attic stair can be visually critiqued" % [track_id, node_path])
 			assert_true(not str(node.get_meta("replacement_source", "")).is_empty(), "%s %s should declare the replacement asset source" % [track_id, node_path])
@@ -1153,21 +1153,10 @@ func _assert_home_yard_vertical_circulation_continuity(root: Node, track_id: Str
 		if rail != null:
 			assert_true(bool(rail.get_meta("stairwell_opening_part", false)), "%s %s should be tagged as part of the stairwell opening guardrail" % [track_id, rail_path])
 			assert_equal(str(rail.get_meta("collision_policy", "")), "visual_guardrail_no_gameplay_collision", "%s stairwell guardrail should not create gameplay collision until authored as a named boundary" % track_id)
-	var attic_lower := root.get_node_or_null("VerticalConnectors/AtticPullDownLowerLandingSurface") as MeshInstance3D
-	assert_true(attic_lower != null, "%s attic stair should be generated at the upstairs back wall with landing geometry" % track_id)
-	if attic_lower != null:
-		var lower_bounds := _mesh_instance_global_aabb(attic_lower)
-		assert_true(attic_lower.visible, "%s rear attic stair landing should be visible authored geometry, not a hidden temporary helper" % track_id)
-		assert_equal(str(attic_lower.get_meta("asset_lifecycle_state", "")), "authored_measured_attic_access", "%s rear attic stair landing should be production-intent authored attic access geometry" % track_id)
-		assert_true(lower_bounds.position.z <= -121.0 and lower_bounds.end.z <= -86.0, "%s attic stair landing should sit against the rear/back wall zone, bounds=%s" % [track_id, str(lower_bounds)])
-	var attic_rung := root.get_node_or_null("VerticalConnectors/AtticPullDownLadderRung05") as MeshInstance3D
-	assert_true(attic_rung != null and attic_rung.visible, "%s rear attic stair should include visible rungs, not only a hatch marker" % track_id)
-	if attic_rung != null:
-		assert_equal(str(attic_rung.get_meta("asset_lifecycle_state", "")), "authored_measured_attic_access", "%s rear attic stair rungs should be authored visible access geometry" % track_id)
-	var attic_hatch := root.get_node_or_null("VerticalConnectors/AtticAccessHatchOpening") as Node3D
-	assert_true(attic_hatch != null, "%s attic stair should include a rear-wall hatch marker" % track_id)
-	if attic_hatch != null:
-		assert_true(attic_hatch.position.z <= -108.0, "%s attic hatch marker should move to the upstairs back wall, position=%s" % [track_id, str(attic_hatch.position)])
+	var attic_tread := root.get_node_or_null("VerticalConnectors/AtticRearStairTread06") as MeshInstance3D
+	assert_true(attic_tread != null and attic_tread.visible, "%s attic access should be a visible stair tread run, not a ladder" % track_id)
+	var old_ladder := root.get_node_or_null("VerticalConnectors/AtticPullDownLadderRung05")
+	assert_true(old_ladder == null, "%s attic access should not keep pull-down ladder rung geometry after the fresh stair rebuild" % track_id)
 
 func _assert_upper_floor_deck_clear_of_garage_volume(upper_deck_holder: Node, track_id: String) -> void:
 	var garage_volume := AABB(Vector3(90.01, 0.0, -60.0), Vector3(129.99, 54.0, 205.0))
@@ -1454,7 +1443,7 @@ func _assert_home_yard_upper_hall_and_ceiling_complete(root: Node, track_id: Str
 		Vector3(78, 92.8, -120),
 	]:
 		assert_true(_visible_descendant_covers_xz_sample(ceiling, sample), "%s upper ceiling should cover shell-interior sample %s" % [track_id, str(sample)])
-	var hatch_void := AABB(Vector3(18, 91, -130), Vector3(48, 5, 44))
+	var hatch_void := AABB(Vector3(26, 91, -130), Vector3(32, 5, 64))
 	_assert_no_visible_descendant_intersects_aabb(ceiling, hatch_void, track_id, "upper attic hatch void")
 	var east_rail := root.get_node_or_null("UpperFloor/RoomFinishes/MainStairOpeningRailEast")
 	assert_true(east_rail is MeshInstance3D, "%s upper hall stair opening should have an east guardrail so the hallway reads enclosed and continuous" % track_id)
