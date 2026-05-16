@@ -1089,6 +1089,8 @@ func _assert_home_yard_vertical_circulation_continuity(root: Node, track_id: Str
 		"MainFloor/RoomFinishes/MainFloorTenFootCeilingPlane/MainStairShaftReturnSouth",
 		"MainFloor/RoomFinishes/MainFloorTenFootCeilingPlane/MainStairShaftReturnWest",
 		"MainFloor/RoomFinishes/MainFloorTenFootCeilingPlane/MainStairShaftReturnEast",
+		"UpperFloor/RoomFinishes/UpperFloorDeck/UpperFloorDeckWestShellStrip",
+		"UpperFloor/RoomFinishes/UpperFloorDeck/UpperFloorDeckFrontBedroomHallShell",
 		"UpperFloor/RoomFinishes/UpperFloorDeck/UpperFloorDeckBedroomBack",
 		"UpperFloor/RoomFinishes/UpperFloorDeck/UpperFloorDeckGlamBack",
 		"UpperFloor/RoomFinishes/UpperFloorDeck/UpperFloorDeckUpperHallWest",
@@ -1105,8 +1107,31 @@ func _assert_home_yard_vertical_circulation_continuity(root: Node, track_id: Str
 	if upper_deck_holder != null:
 		_assert_no_visible_mesh_intersects_aabb(upper_deck_holder, opening_volume, "NoExclusions/", "%s upper deck must leave a clear stairwell floor opening" % track_id)
 		_assert_upper_floor_deck_clear_of_garage_volume(upper_deck_holder, track_id)
+		for sample in [
+			Vector3(-195, 52.6, -120),
+			Vector3(-195, 52.6, 138),
+			Vector3(-96, 52.6, 138),
+			Vector3(50, 52.6, 138),
+			Vector3(86, 52.6, 96),
+		]:
+			assert_true(_visible_descendant_covers_xz_sample(upper_deck_holder, sample), "%s upper floor deck should fit the main exterior shell footprint at sample %s" % [track_id, str(sample)])
 	if glam_holder != null:
 		_assert_no_visible_mesh_intersects_aabb(glam_holder, opening_volume, "NoExclusions/", "%s glam floor must leave a clear stairwell floor opening" % track_id)
+	var upper_hall_divider_return := root.get_node_or_null("UpperFloor/InteriorWalls/UpperHallBedroomDividerUpper") as MeshInstance3D
+	assert_true(upper_hall_divider_return != null, "%s upper hall divider should terminate before the stair shaft instead of closing the stair opening" % track_id)
+	if upper_hall_divider_return != null:
+		var divider_bounds := _mesh_instance_global_aabb(upper_hall_divider_return)
+		assert_true(divider_bounds.end.x <= 54.5, "%s upper hall divider return should stop at the stairwell west edge; bounds=%s" % [track_id, str(divider_bounds)])
+	for opening_header_path in [
+		"UpperFloor/InteriorWalls/BedroomGlamCasedOpeningOpeningHeader",
+		"UpperFloor/InteriorWalls/UpperHallBedroomDividerOpeningHeader",
+	]:
+		var header := root.get_node_or_null(opening_header_path) as MeshInstance3D
+		assert_true(header != null, "%s upper room entry should include measured header %s" % [track_id, opening_header_path])
+		if header != null:
+			var header_bounds := _mesh_instance_global_aabb(header)
+			var clear_span := maxf(header_bounds.size.x, header_bounds.size.z)
+			assert_true(clear_span <= 44.5, "%s upper room entry %s should be door/cased-opening sized, not a wall-sized void: %s" % [track_id, opening_header_path, str(header_bounds)])
 	for rail_path in ["UpperFloor/RoomFinishes/MainStairOpeningRailNorth", "UpperFloor/RoomFinishes/MainStairOpeningRailSouth", "UpperFloor/RoomFinishes/MainStairOpeningRailWest"]:
 		var rail := root.get_node_or_null(rail_path)
 		assert_true(rail != null, "%s should include stairwell guardrail %s" % [track_id, rail_path])
@@ -1356,6 +1381,25 @@ func _assert_home_yard_upper_hall_and_ceiling_complete(root: Node, track_id: Str
 			assert_true(_visible_descendant_covers_xz_sample(upper_hall_floor, sample), "%s upper hall landing floor should cover visible hall sample %s without looking missing" % [track_id, str(sample)])
 		var stair_opening := AABB(Vector3(54.0, 50.0, 106.0), Vector3(36.0, 4.0, 40.0))
 		_assert_no_visible_descendant_intersects_aabb(upper_hall_floor, stair_opening, track_id, "main stair upper-floor opening")
+	var attic_finishes := root.get_node_or_null("Attic/RoomFinishes")
+	assert_true(attic_finishes != null, "%s attic should include room finishes for shell-footprint deck audit" % track_id)
+	if attic_finishes != null:
+		for node_name in [
+			"AtticFloorDeckWestEaveShellStrip",
+			"AtticFloorDeckEastEaveShellStrip",
+			"AtticFloorDeckBackEaveShellStrip",
+			"AtticFloorDeckFrontEaveShellStrip",
+			"AtticDeck",
+		]:
+			assert_true(attic_finishes.get_node_or_null(node_name) is MeshInstance3D, "%s attic shell deck should include measured piece %s" % [track_id, node_name])
+		for sample in [
+			Vector3(-195, 104.6, -120),
+			Vector3(85, 104.6, -120),
+			Vector3(-195, 104.6, 140),
+			Vector3(85, 104.6, 140),
+			Vector3(-50, 104.6, 132),
+		]:
+			assert_true(_visible_descendant_covers_xz_sample(attic_finishes, sample), "%s attic deck should fit the gambrel exterior shell footprint at sample %s" % [track_id, str(sample)])
 
 func _visible_descendant_covers_xz_sample(node: Node, sample: Vector3) -> bool:
 	if node is MeshInstance3D:
