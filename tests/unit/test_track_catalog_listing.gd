@@ -1049,6 +1049,14 @@ func _assert_home_yard_vertical_circulation_continuity(root: Node, track_id: Str
 	assert_true(bool(data.get("continuity_required", false)), "%s vertical circulation should require floor-to-floor continuity" % track_id)
 	_assert_vertical_link_contract(data.get("main_stair", {}), "MainStairEntryToUpperHall", "main stair", MAIN_FLOOR_TOP_Y_FOR_TEST(), 52.60, track_id)
 	_assert_vertical_link_contract(data.get("attic_stair", {}), "AtticRearStairUpperHallToAttic", "attic stair", 52.60, 104.60, track_id)
+	var attic_stair_contract := data.get("attic_stair", {}) as Dictionary
+	var attic_flight_segment := _vertical_path_segment(attic_stair_contract.get("path_segments", []), "stair_flight")
+	if not attic_flight_segment.is_empty():
+		var attic_flight_start := attic_flight_segment.get("start", Vector3.ZERO) as Vector3
+		var attic_flight_end := attic_flight_segment.get("end", Vector3.ZERO) as Vector3
+		var attic_flight_delta := attic_flight_end - attic_flight_start
+		assert_true(absf(attic_flight_delta.x) > absf(attic_flight_delta.z) * 4.0, "%s attic stair contract should rotate 90 degrees to run east-west across the rear room instead of facing the side wall; start=%s end=%s" % [track_id, str(attic_flight_start), str(attic_flight_end)])
+		assert_true(attic_flight_delta.x > 30.0, "%s attic stair should climb from west to east after the 90-degree rotation; start=%s end=%s" % [track_id, str(attic_flight_start), str(attic_flight_end)])
 	for node_path in [
 		"VerticalConnectors/MainStairLowerLandingSurface",
 		"VerticalConnectors/MainStairSwitchbackLandingSurface",
@@ -1155,8 +1163,25 @@ func _assert_home_yard_vertical_circulation_continuity(root: Node, track_id: Str
 			assert_equal(str(rail.get_meta("collision_policy", "")), "visual_guardrail_no_gameplay_collision", "%s stairwell guardrail should not create gameplay collision until authored as a named boundary" % track_id)
 	var attic_tread := root.get_node_or_null("VerticalConnectors/AtticRearStairTread06") as MeshInstance3D
 	assert_true(attic_tread != null and attic_tread.visible, "%s attic access should be a visible stair tread run, not a ladder" % track_id)
+	var attic_lower := root.get_node_or_null("VerticalConnectors/AtticRearStairLowerLandingSurface") as MeshInstance3D
+	var attic_upper := root.get_node_or_null("VerticalConnectors/AtticRearStairUpperLandingSurface") as MeshInstance3D
+	if attic_lower != null and attic_upper != null:
+		var lower_bounds := _mesh_instance_global_aabb(attic_lower)
+		var upper_bounds := _mesh_instance_global_aabb(attic_upper)
+		assert_true(upper_bounds.position.x > lower_bounds.end.x, "%s attic stair should climb from west to east after the 90-degree rotation; lower=%s upper=%s" % [track_id, str(lower_bounds), str(upper_bounds)])
+		var lower_center := lower_bounds.position + lower_bounds.size * 0.5
+		var upper_center := upper_bounds.position + upper_bounds.size * 0.5
+		assert_true(absf(upper_center.z - lower_center.z) <= 2.0, "%s attic stair landings should stay on the same rear-wall z band after rotation; lower=%s upper=%s" % [track_id, str(lower_bounds), str(upper_bounds)])
 	var old_ladder := root.get_node_or_null("VerticalConnectors/AtticPullDownLadderRung05")
 	assert_true(old_ladder == null, "%s attic access should not keep pull-down ladder rung geometry after the fresh stair rebuild" % track_id)
+
+func _vertical_path_segment(path_segments: Variant, segment_id: String) -> Dictionary:
+	if not (path_segments is Array):
+		return {}
+	for item in path_segments as Array:
+		if item is Dictionary and str((item as Dictionary).get("id", "")) == segment_id:
+			return item as Dictionary
+	return {}
 
 func _assert_upper_floor_deck_clear_of_garage_volume(upper_deck_holder: Node, track_id: String) -> void:
 	var garage_volume := AABB(Vector3(90.01, 0.0, -60.0), Vector3(129.99, 54.0, 205.0))
@@ -1443,7 +1468,7 @@ func _assert_home_yard_upper_hall_and_ceiling_complete(root: Node, track_id: Str
 		Vector3(78, 92.8, -120),
 	]:
 		assert_true(_visible_descendant_covers_xz_sample(ceiling, sample), "%s upper ceiling should cover shell-interior sample %s" % [track_id, str(sample)])
-	var hatch_void := AABB(Vector3(26, 91, -130), Vector3(32, 5, 64))
+	var hatch_void := AABB(Vector3(14, 91, -124), Vector3(62, 5, 32))
 	_assert_no_visible_descendant_intersects_aabb(ceiling, hatch_void, track_id, "upper attic hatch void")
 	var east_rail := root.get_node_or_null("UpperFloor/RoomFinishes/MainStairOpeningRailEast")
 	assert_true(east_rail is MeshInstance3D, "%s upper hall stair opening should have an east guardrail so the hallway reads enclosed and continuous" % track_id)

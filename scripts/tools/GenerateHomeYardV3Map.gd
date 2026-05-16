@@ -120,7 +120,7 @@ const PLAN_CONTRACT := {
 	"beta_visual_contract": "Whole-unit beta review requires clean runtime/cinematic screenshots without editor camera icons or selected-node overlays; front/back/side/elevated/roofline/underside/player-route views must identify out-of-place pieces before metadata is accepted. Generated route decks and ramps are allowed only as classified route_infrastructure with non-placeholder materials, edge treatment, route clearance, and validation cameras.",
 	"vertical_links": [
 		{"id": "MainStairEntryToUpperHall", "type": "u_shaped_residential_stair", "from_floor": "main", "to_floor": "upper", "lower_zone": "entry_stair_hall", "upper_zone": "upper_front_hall", "lower_landing_center": Vector3(MAIN_STAIR_LOWER_X, 0.05, 134), "upper_landing_center": Vector3(MAIN_STAIR_UPPER_X, 52.60, 134), "stairwell_bounds": {"min": MAIN_STAIR_SHAFT_MIN, "max": MAIN_STAIR_SHAFT_MAX}, "opening_required": "upper_floor_stairwell_opening", "path_segments": ["lower_landing", "lower_flight", "switchback_landing", "upper_flight", "upper_landing"], "continuity_gate": "segments must connect landing-to-landing from main floor datum to upper floor datum with separated lower/upper flights, readable riser fill, 14-unit clear flight width, 5-unit tread depth, and a shaft void that starts at z=78 for upper-flight headroom", "source_asset": "generated_floor_plan_architect_measured_stair_v2", "collision_policy": "visible_architectural_stair_collision", "validation_gate": "must not intersect route corridors, exterior shell, or camera views; lower and upper flights must be separated in plan with no tread/stringer overlap, visible risers, landings, stringers, railings, clear approach volumes, and no floor/ceiling slab covering the stair path"},
-		{"id": "AtticRearStairUpperHallToAttic", "type": "rear_wall_attic_stair", "from_floor": "upper", "to_floor": "attic", "lower_zone": "upper_living_back_wall", "upper_zone": "attic_toy_course", "lower_landing_center": Vector3(42, 52.60, -124), "upper_landing_center": Vector3(42, 104.60, -78), "stairwell_bounds": {"min": Vector3(26, 52, -130), "max": Vector3(58, 105, -66)}, "opening_required": "attic_stair_ceiling_opening", "path_segments": ["lower_landing", "stair_flight", "attic_hatch_landing"], "continuity_gate": "visible treads, risers, stringers, rails, and landings must span upper floor datum to attic floor datum at the rear wall and overlap the hatch opening", "source_asset": "generated_floor_plan_architect_measured_rear_attic_stair_v1", "collision_policy": "visible_architectural_attic_stair_collision", "validation_gate": "must not intersect attic route corridor, roof planes, upper living walls, or third-person camera views"},
+		{"id": "AtticRearStairUpperHallToAttic", "type": "rear_wall_attic_stair", "from_floor": "upper", "to_floor": "attic", "lower_zone": "upper_living_back_wall", "upper_zone": "attic_toy_course", "lower_landing_center": Vector3(20, 52.60, -108), "upper_landing_center": Vector3(66, 104.60, -108), "stairwell_bounds": {"min": Vector3(14, 52, -124), "max": Vector3(76, 105, -92)}, "opening_required": "attic_stair_ceiling_opening", "path_segments": ["lower_landing", "stair_flight", "attic_hatch_landing"], "continuity_gate": "visible treads, risers, stringers, rails, and landings must span upper floor datum to attic floor datum at the rear wall, run east-west instead of facing the side wall, and overlap the hatch opening", "source_asset": "generated_floor_plan_architect_measured_rear_attic_stair_v1", "collision_policy": "visible_architectural_attic_stair_collision", "validation_gate": "must not intersect attic route corridor, roof planes, upper living walls, or third-person camera views"},
 	],
 }
 
@@ -584,13 +584,13 @@ func _add_upper_hall_landing_floor(root: Node3D, parent: Node3D) -> void:
 
 func _add_upper_floor_ceiling_with_attic_hatch(root: Node3D, parent: Node3D) -> void:
 	var ceiling := _add_child_holder(root, parent, "UpperFloorTenFootCeilingPlane", "split upper-floor ceiling; attic hatch and stairwell circulation stay open while the upper hall remains covered to the exterior shell")
-	ceiling.set_meta("attic_hatch_opening_bounds", {"min": Vector3(26, 91, -130), "max": Vector3(58, 95, -66)})
+	ceiling.set_meta("attic_hatch_opening_bounds", {"min": Vector3(14, 91, -124), "max": Vector3(76, 95, -92)})
 	ceiling.set_meta("ceiling_footprint_contract", "upper ceiling pieces cover bedroom, glam closet, and upper living hall to the exterior wall interior face; only the rear-wall attic stair bay is intentionally open")
 	var color := Color(0.73, 0.68, 0.62)
-	_add_box(root, ceiling, "UpperCeilingWestOfAtticHatch", Vector3(-87, 92.8, 7.5), Vector3(226, 1.6, 275), color, false)
-	_add_box(root, ceiling, "UpperCeilingEastOfAtticHatch", Vector3(74, 92.8, 7.5), Vector3(32, 1.6, 275), color, false)
-	_add_box(root, ceiling, "UpperCeilingNorthOfAtticHatch", Vector3(42, 92.8, -130.6), Vector3(32, 1.6, 0.2), color, false)
-	_add_box(root, ceiling, "UpperCeilingSouthOfAtticHatch", Vector3(42, 92.8, 39.5), Vector3(32, 1.6, 211), color, false)
+	_add_box(root, ceiling, "UpperCeilingWestOfAtticHatch", Vector3(-93, 92.8, 7.5), Vector3(214, 1.6, 275), color, false)
+	_add_box(root, ceiling, "UpperCeilingEastOfAtticHatch", Vector3(83, 92.8, 7.5), Vector3(14, 1.6, 275), color, false)
+	_add_box(root, ceiling, "UpperCeilingNorthOfAtticHatch", Vector3(45, 92.8, -127), Vector3(62, 1.6, 6), color, false)
+	_add_box(root, ceiling, "UpperCeilingSouthOfAtticHatch", Vector3(45, 92.8, 26.5), Vector3(62, 1.6, 237), color, false)
 
 func _add_stairwell_guardrail(root: Node3D, parent: Node3D) -> void:
 	var rail_color := Color(0.38, 0.30, 0.22)
@@ -887,7 +887,7 @@ func _add_opening_assemblies(root: Node3D, parent: Node3D) -> void:
 	_add_box(root, parent, "OversizedDoggieDoorFlap", Vector3(68, 10, -135), Vector3(14, 10, 1.2), Color(0.10, 0.08, 0.07, 0.62), false, 0.0, Vector3.ZERO, _rear_facade_provenance("OversizedDoggieDoorFlap", "dark flap is inset behind the doggie-door frame and reads as a route/freedrive portal instead of a loose exterior panel"))
 	_add_box(root, parent, "GarageDoorPanel", Vector3(155, 14, 148), Vector3(86, 28, 2.0), Color(0.32, 0.30, 0.27), false)
 	_add_box(root, parent, "GarageHouseServiceDoor", Vector3(92, 14, 68), Vector3(4, 28, 20), Color(0.22, 0.16, 0.10), false)
-	_add_box(root, parent, "AtticAccessHatchFrame", Vector3(42, 106, -98), Vector3(44, 5, 66), trim.darkened(0.20), false)
+	_add_box(root, parent, "AtticAccessHatchFrame", Vector3(45, 106, -108), Vector3(66, 5, 44), trim.darkened(0.20), false)
 
 func _add_porch_deck_system(root: Node3D, parent: Node3D) -> void:
 	parent.set_meta("plan_role", "front porch and backyard deck threshold system")
@@ -966,10 +966,10 @@ func _add_vertical_connectors(root: Node3D, parent: Node3D) -> void:
 	_hide_visual_reference_stair(parent.get_node_or_null("MainStairUpperFlightKenneySteps"))
 	_add_vertical_link_marker(root, parent, "MainStairUpperFloorOpening", "MainStairEntryToUpperHall", Vector3(MAIN_STAIR_X, 52.65, MAIN_STAIR_LANDING_Z), Vector3(36, 2, 40))
 	_add_attic_stair_continuity_geometry(root, parent)
-	_add_scene(root, parent, KENNEY_STEPS_PATH, Vector3(42, 52.70, -124), 0.0, Vector3(14.0, 14.0, 14.0), "AtticRearStairKenneyStepsReference")
+	_add_scene(root, parent, KENNEY_STEPS_PATH, Vector3(20, 52.70, -108), 90.0, Vector3(14.0, 14.0, 14.0), "AtticRearStairKenneyStepsReference")
 	_tag_vertical_link(parent.get_node_or_null("AtticRearStairKenneyStepsReference"), "AtticRearStairUpperHallToAttic", "reference_stair_asset", "upper", "attic")
 	_hide_visual_reference_stair(parent.get_node_or_null("AtticRearStairKenneyStepsReference"))
-	_add_vertical_link_marker(root, parent, "AtticStairCeilingOpening", "AtticRearStairUpperHallToAttic", Vector3(42, 104.65, -98), Vector3(32, 2, 64))
+	_add_vertical_link_marker(root, parent, "AtticStairCeilingOpening", "AtticRearStairUpperHallToAttic", Vector3(45, 104.65, -108), Vector3(62, 2, 32))
 
 func _vertical_circulation_contract() -> Dictionary:
 	return {
@@ -1013,9 +1013,9 @@ func _vertical_circulation_contract() -> Dictionary:
 			"tread_depth_units": 44.0 / 14.0,
 			"riser_height_units": (ATTIC_ROOM_FLOOR_TOP_Y - UPPER_ROOM_FLOOR_TOP_Y - 0.60) / 14.0,
 			"path_segments": [
-				{"id": "lower_landing", "node": "AtticRearStairLowerLandingSurface", "center": Vector3(42, UPPER_ROOM_FLOOR_TOP_Y - 0.30, -124), "size": Vector3(30, 0.6, 12)},
-				{"id": "stair_flight", "node_prefix": "AtticRearStairTread", "start": Vector3(42, UPPER_ROOM_FLOOR_TOP_Y + 0.60, -122), "end": Vector3(42, ATTIC_ROOM_FLOOR_TOP_Y, -78), "tread_count": 14},
-				{"id": "attic_hatch_landing", "node": "AtticRearStairUpperLandingSurface", "center": Vector3(42, ATTIC_ROOM_FLOOR_TOP_Y - 0.30, -76), "size": Vector3(30, 0.6, 18)},
+				{"id": "lower_landing", "node": "AtticRearStairLowerLandingSurface", "center": Vector3(20, UPPER_ROOM_FLOOR_TOP_Y - 0.30, -108), "size": Vector3(12, 0.6, 30)},
+				{"id": "stair_flight", "node_prefix": "AtticRearStairTread", "start": Vector3(22, UPPER_ROOM_FLOOR_TOP_Y + 0.60, -108), "end": Vector3(66, ATTIC_ROOM_FLOOR_TOP_Y, -108), "tread_count": 14},
+				{"id": "attic_hatch_landing", "node": "AtticRearStairUpperLandingSurface", "center": Vector3(68, ATTIC_ROOM_FLOOR_TOP_Y - 0.30, -108), "size": Vector3(18, 0.6, 30)},
 			],
 			"opening_node": "AtticStairCeilingOpening",
 			"opening_overlap_required": true,
@@ -1132,14 +1132,14 @@ func _tag_authored_vertical_asset(node: Node, role: String) -> void:
 
 func _add_attic_stair_continuity_geometry(root: Node3D, parent: Node3D) -> void:
 	var wood := Color(0.52, 0.36, 0.22)
-	var start := Vector3(42, UPPER_ROOM_FLOOR_TOP_Y + 0.60, -122)
-	var end := Vector3(42, ATTIC_ROOM_FLOOR_TOP_Y, -78)
-	_add_attic_stair_landing(root, parent, "AtticRearStairLowerLandingSurface", "lower_landing", Vector3(42, UPPER_ROOM_FLOOR_TOP_Y - 0.30, -124), Vector3(30, 0.6, 12), wood.darkened(0.04))
+	var start := Vector3(22, UPPER_ROOM_FLOOR_TOP_Y + 0.60, -108)
+	var end := Vector3(66, ATTIC_ROOM_FLOOR_TOP_Y, -108)
+	_add_attic_stair_landing(root, parent, "AtticRearStairLowerLandingSurface", "lower_landing", Vector3(20, UPPER_ROOM_FLOOR_TOP_Y - 0.30, -108), Vector3(12, 0.6, 30), wood.darkened(0.04))
 	_add_attic_stair_flight(root, parent, "AtticRearStairTread", start, end, 16.0, 14, wood)
-	_add_attic_stair_landing(root, parent, "AtticRearStairUpperLandingSurface", "attic_hatch_landing", Vector3(42, ATTIC_ROOM_FLOOR_TOP_Y - 0.30, -76), Vector3(30, 0.6, 18), wood.darkened(0.08))
+	_add_attic_stair_landing(root, parent, "AtticRearStairUpperLandingSurface", "attic_hatch_landing", Vector3(68, ATTIC_ROOM_FLOOR_TOP_Y - 0.30, -108), Vector3(18, 0.6, 30), wood.darkened(0.08))
 	_add_attic_stair_stringer_pair(root, parent, "AtticRearStairStringer", start, end, 16.0, wood.darkened(0.28))
-	_add_attic_stair_guardrail(root, parent, "AtticRearStairGuardrailLeft", Vector3(32.8, 80, -100), Vector3(1.4, 48, 48), wood.darkened(0.42))
-	_add_attic_stair_guardrail(root, parent, "AtticRearStairGuardrailRight", Vector3(51.2, 80, -100), Vector3(1.4, 48, 48), wood.darkened(0.42))
+	_add_attic_stair_guardrail(root, parent, "AtticRearStairGuardrailLeft", Vector3(44, 80, -116.8), Vector3(48, 48, 1.4), wood.darkened(0.42))
+	_add_attic_stair_guardrail(root, parent, "AtticRearStairGuardrailRight", Vector3(44, 80, -99.2), Vector3(48, 48, 1.4), wood.darkened(0.42))
 
 func _add_attic_stair_landing(root: Node3D, parent: Node3D, node_name: String, part: String, position: Vector3, size: Vector3, color: Color) -> void:
 	var landing := _add_box(root, parent, node_name, position, size, color, false)
