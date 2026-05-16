@@ -1076,10 +1076,11 @@ func _assert_home_yard_vertical_circulation_continuity(root: Node, track_id: Str
 				if node is MeshInstance3D:
 					assert_true((node as MeshInstance3D).visible, "%s %s should be visible for stair critique and gameplay readability" % [track_id, node_path])
 			else:
-				assert_true(bool(node.get_meta("temporary_stand_in", false)), "%s %s should declare temporary lifecycle metadata until a final Meshy/Kenney/toybox stair asset replaces it" % [track_id, node_path])
-				assert_true(bool(node.get_meta("validation_only_visible_placeholder", false)), "%s %s should be a validation-only primitive, not final visible circulation art" % [track_id, node_path])
+				assert_true(not bool(node.get_meta("temporary_stand_in", true)), "%s %s should be authored rear attic access geometry, not a hidden temporary stand-in" % [track_id, node_path])
+				assert_true(not bool(node.get_meta("validation_only_visible_placeholder", true)), "%s %s should be production-intent visible attic access geometry" % [track_id, node_path])
+				assert_equal(str(node.get_meta("asset_lifecycle_state", "")), "authored_measured_attic_access", "%s %s should declare authored attic access lifecycle metadata" % [track_id, node_path])
 				if node is MeshInstance3D:
-					assert_true(not (node as MeshInstance3D).visible, "%s %s should not render as visible placeholder circulation after sourced stair assets are present" % [track_id, node_path])
+					assert_true((node as MeshInstance3D).visible, "%s %s should render so the rear attic stair can be visually critiqued" % [track_id, node_path])
 			assert_true(not str(node.get_meta("replacement_source", "")).is_empty(), "%s %s should declare the replacement asset source" % [track_id, node_path])
 			assert_true(str(node.get_meta("vertical_path_continuity", "")).contains("connects_"), "%s %s should state the floor-to-floor continuity it supports" % [track_id, node_path])
 	var upper_deck_holder := root.get_node_or_null("UpperFloor/RoomFinishes/UpperFloorDeck")
@@ -1156,7 +1157,13 @@ func _assert_home_yard_vertical_circulation_continuity(root: Node, track_id: Str
 	assert_true(attic_lower != null, "%s attic stair should be generated at the upstairs back wall with landing geometry" % track_id)
 	if attic_lower != null:
 		var lower_bounds := _mesh_instance_global_aabb(attic_lower)
+		assert_true(attic_lower.visible, "%s rear attic stair landing should be visible authored geometry, not a hidden temporary helper" % track_id)
+		assert_equal(str(attic_lower.get_meta("asset_lifecycle_state", "")), "authored_measured_attic_access", "%s rear attic stair landing should be production-intent authored attic access geometry" % track_id)
 		assert_true(lower_bounds.position.z <= -121.0 and lower_bounds.end.z <= -86.0, "%s attic stair landing should sit against the rear/back wall zone, bounds=%s" % [track_id, str(lower_bounds)])
+	var attic_rung := root.get_node_or_null("VerticalConnectors/AtticPullDownLadderRung05") as MeshInstance3D
+	assert_true(attic_rung != null and attic_rung.visible, "%s rear attic stair should include visible rungs, not only a hatch marker" % track_id)
+	if attic_rung != null:
+		assert_equal(str(attic_rung.get_meta("asset_lifecycle_state", "")), "authored_measured_attic_access", "%s rear attic stair rungs should be authored visible access geometry" % track_id)
 	var attic_hatch := root.get_node_or_null("VerticalConnectors/AtticAccessHatchOpening") as Node3D
 	assert_true(attic_hatch != null, "%s attic stair should include a rear-wall hatch marker" % track_id)
 	if attic_hatch != null:

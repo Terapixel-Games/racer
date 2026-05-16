@@ -1076,7 +1076,7 @@ func _add_stair_landing(root: Node3D, parent: Node3D, node_name: String, link_id
 	if link_id == "MainStairEntryToUpperHall":
 		_tag_authored_vertical_asset(landing, part)
 	else:
-		_tag_temporary_vertical_asset(landing, "Meshy 6 GLB residential attic pull-down ladder asset")
+		_tag_authored_attic_access_asset(landing, part)
 	landing.set_meta("vertical_path_continuity", "connects_main_floor_to_upper_floor")
 	landing.set_meta("support_surface_top_y", position.y + size.y * 0.5)
 	landing.set_meta("target_dimensions_units", size)
@@ -1135,16 +1135,28 @@ func _add_attic_ladder_continuity_geometry(root: Node3D, parent: Node3D) -> void
 	for x_offset in [-5.0, 5.0]:
 		var rail := _add_box(root, parent, "AtticPullDownLadderRail%s" % ("Left" if x_offset < 0.0 else "Right"), Vector3(attic_stair_center.x + x_offset, (UPPER_ROOM_FLOOR_TOP_Y + ATTIC_ROOM_FLOOR_TOP_Y) * 0.5, attic_stair_center.z), Vector3(1.0, ATTIC_ROOM_FLOOR_TOP_Y - UPPER_ROOM_FLOOR_TOP_Y, 1.0), ladder_color, false)
 		_tag_vertical_link(rail, "AtticPullDownStairUpperHallToAttic", "ladder_rail", "upper", "attic")
-		_tag_temporary_vertical_asset(rail, "Meshy 6 GLB residential attic pull-down ladder asset")
+		_tag_authored_attic_access_asset(rail, "ladder_rail")
 		rail.set_meta("vertical_path_continuity", "connects_upper_floor_to_attic_floor")
 	for i in range(12):
 		var rung_y := UPPER_ROOM_FLOOR_TOP_Y + 4.0 + float(i) * 4.0
 		var rung := _add_box(root, parent, "AtticPullDownLadderRung%02d" % i, Vector3(attic_stair_center.x, rung_y, attic_stair_center.z), Vector3(12, 0.7, 1.2), ladder_color.lightened(float(i % 2) * 0.04), false)
 		_tag_vertical_link(rung, "AtticPullDownStairUpperHallToAttic", "ladder_rung", "upper", "attic")
-		_tag_temporary_vertical_asset(rung, "Meshy 6 GLB residential attic pull-down ladder asset")
+		_tag_authored_attic_access_asset(rung, "ladder_rung")
 		rung.set_meta("vertical_path_continuity", "connects_upper_floor_to_attic_floor")
 		rung.set_meta("rung_index", i)
 		rung.set_meta("rung_spacing_units", 4.0)
+
+func _tag_authored_attic_access_asset(node: Node, role: String) -> void:
+	if node == null:
+		return
+	node.set_meta("temporary_stand_in", false)
+	node.set_meta("validation_only_visible_placeholder", false)
+	node.set_meta("replacement_source", "generated_floor_plan_architect_measured_rear_attic_access_v1")
+	node.set_meta("asset_role", role)
+	node.set_meta("asset_lifecycle_state", "authored_measured_attic_access")
+	node.set_meta("scale_contract_id", SCALE_CONTRACT_ID)
+	node.set_meta("scale_validation_status", "floor_plan_architect_measured_visible_attic_access")
+	node.set_meta("collision_policy", "visible_architectural_attic_access_collision")
 
 func _tag_temporary_vertical_asset(node: Node, replacement_source: String) -> void:
 	if node == null:
