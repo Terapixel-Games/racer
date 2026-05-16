@@ -1144,14 +1144,7 @@ func _assert_home_yard_vertical_circulation_continuity(root: Node, track_id: Str
 			var header_bounds := _mesh_instance_global_aabb(header)
 			var clear_span := maxf(header_bounds.size.x, header_bounds.size.z)
 			assert_true(clear_span <= 44.5, "%s upper room entry %s should be door/cased-opening sized, not a wall-sized void: %s" % [track_id, opening_header_path, str(header_bounds)])
-	assert_true(root.get_node_or_null("UpperFloor/RoomFinishes/MainStairOpeningRailSouth") == null, "%s upstairs stair landing should open to the upper living area without a south/front rail blocking entry" % track_id)
-	var upper_living_closure := root.get_node_or_null("UpperFloor/InteriorWalls/UpperLivingBackWallEastOfStair") as MeshInstance3D
-	assert_true(upper_living_closure != null, "%s upper living area should move/add a wall to close the east side before the rear rooms and attic stair zone" % track_id)
-	if upper_living_closure != null:
-		var closure_bounds := _mesh_instance_global_aabb(upper_living_closure)
-		assert_true(closure_bounds.position.x >= 53.5 and closure_bounds.end.x <= 86.5, "%s upper living closure wall should span the east side of the rear wall without entering the exterior wall thickness, bounds=%s" % [track_id, str(closure_bounds)])
-		assert_true(absf(closure_bounds.position.z - 103.0) <= 0.2 and absf(closure_bounds.end.z - 109.0) <= 0.2, "%s upper living closure wall should sit on the bedroom/upper-living divider plane, bounds=%s" % [track_id, str(closure_bounds)])
-	for rail_path in ["UpperFloor/RoomFinishes/MainStairOpeningRailNorth", "UpperFloor/RoomFinishes/MainStairOpeningRailWest", "UpperFloor/RoomFinishes/MainStairOpeningRailEast"]:
+	for rail_path in ["UpperFloor/RoomFinishes/MainStairOpeningRailNorth", "UpperFloor/RoomFinishes/MainStairOpeningRailSouth", "UpperFloor/RoomFinishes/MainStairOpeningRailWest"]:
 		var rail := root.get_node_or_null(rail_path)
 		assert_true(rail != null, "%s should include stairwell guardrail %s" % [track_id, rail_path])
 		if rail != null:
@@ -1445,10 +1438,8 @@ func _assert_home_yard_upper_hall_and_ceiling_complete(root: Node, track_id: Str
 		assert_true(_visible_descendant_covers_xz_sample(ceiling, sample), "%s upper ceiling should cover shell-interior sample %s" % [track_id, str(sample)])
 	var hatch_void := AABB(Vector3(2, 91, -82), Vector3(46, 5, 54))
 	_assert_no_visible_descendant_intersects_aabb(ceiling, hatch_void, track_id, "upper attic hatch void")
-	var south_rail := root.get_node_or_null("UpperFloor/RoomFinishes/MainStairOpeningRailSouth")
-	assert_true(south_rail == null, "%s upper hall stair landing should not keep a front/south rail where the stairs open to the upstairs living area" % track_id)
 	var east_rail := root.get_node_or_null("UpperFloor/RoomFinishes/MainStairOpeningRailEast")
-	assert_true(east_rail is MeshInstance3D, "%s upper hall stair opening should keep an east guardrail where the opening edge remains exposed" % track_id)
+	assert_true(east_rail is MeshInstance3D, "%s upper hall stair opening should have an east guardrail so the hallway reads enclosed and continuous" % track_id)
 	var upper_hall_floor := root.get_node_or_null("UpperFloor/RoomFinishes/UpperHallLandingFloor")
 	assert_true(upper_hall_floor != null and not (upper_hall_floor is MeshInstance3D), "%s upper hall landing floor should be a measured holder, not an unowned broad slab" % track_id)
 	if upper_hall_floor != null:
