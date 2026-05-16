@@ -1067,10 +1067,17 @@ func _assert_home_yard_vertical_circulation_continuity(root: Node, track_id: Str
 		var node := root.get_node_or_null(node_path)
 		assert_true(node != null, "%s should include continuous vertical connector node %s" % [track_id, node_path])
 		if node != null:
-			assert_true(bool(node.get_meta("temporary_stand_in", false)), "%s %s should declare temporary lifecycle metadata until a final Meshy/Kenney/toybox stair asset replaces it" % [track_id, node_path])
-			assert_true(bool(node.get_meta("validation_only_visible_placeholder", false)), "%s %s should be a validation-only primitive, not final visible circulation art" % [track_id, node_path])
-			if node is MeshInstance3D:
-				assert_true(not (node as MeshInstance3D).visible, "%s %s should not render as visible placeholder circulation after sourced stair assets are present" % [track_id, node_path])
+			var is_main_stair: bool = node_path.contains("MainStair")
+			if is_main_stair:
+				assert_true(not bool(node.get_meta("temporary_stand_in", true)), "%s %s should be an authored measured stair, not a temporary stand-in" % [track_id, node_path])
+				assert_true(not bool(node.get_meta("validation_only_visible_placeholder", true)), "%s %s should render as the visible architectural stair" % [track_id, node_path])
+				if node is MeshInstance3D:
+					assert_true((node as MeshInstance3D).visible, "%s %s should be visible for stair critique and gameplay readability" % [track_id, node_path])
+			else:
+				assert_true(bool(node.get_meta("temporary_stand_in", false)), "%s %s should declare temporary lifecycle metadata until a final Meshy/Kenney/toybox stair asset replaces it" % [track_id, node_path])
+				assert_true(bool(node.get_meta("validation_only_visible_placeholder", false)), "%s %s should be a validation-only primitive, not final visible circulation art" % [track_id, node_path])
+				if node is MeshInstance3D:
+					assert_true(not (node as MeshInstance3D).visible, "%s %s should not render as visible placeholder circulation after sourced stair assets are present" % [track_id, node_path])
 			assert_true(not str(node.get_meta("replacement_source", "")).is_empty(), "%s %s should declare the replacement asset source" % [track_id, node_path])
 			assert_true(str(node.get_meta("vertical_path_continuity", "")).contains("connects_"), "%s %s should state the floor-to-floor continuity it supports" % [track_id, node_path])
 	var upper_deck_holder := root.get_node_or_null("UpperFloor/RoomFinishes/UpperFloorDeck")
@@ -1093,13 +1100,16 @@ func _assert_home_yard_vertical_circulation_continuity(root: Node, track_id: Str
 		"UpperFloor/RoomFinishes/UpperFloorDeck/UpperFloorDeckFrontBedroomHallShell",
 		"UpperFloor/RoomFinishes/UpperFloorDeck/UpperFloorDeckBedroomBack",
 		"UpperFloor/RoomFinishes/UpperFloorDeck/UpperFloorDeckGlamBack",
+		"UpperFloor/RoomFinishes/UpperFloorDeck/UpperFloorDeckGlamFrontWestOfStair",
 		"UpperFloor/RoomFinishes/UpperFloorDeck/UpperFloorDeckUpperHallWest",
 		"UpperFloor/RoomFinishes/UpperHallLandingFloor/UpperHallLandingFloorWestOfStairOpening",
 		"UpperFloor/RoomFinishes/GlamDressing/GlamDressingBackFloor",
+		"UpperFloor/RoomFinishes/GlamDressing/GlamDressingFrontFloorWestOfStair",
 	]:
 		assert_true(root.get_node_or_null(floor_path) != null, "%s should include split floor/ceiling assembly piece %s around the stairwell shaft" % [track_id, floor_path])
-	var opening_volume := AABB(Vector3(54.0, 50.0, 106.0), Vector3(36.0, 4.0, 40.0))
-	var shaft_volume := AABB(Vector3(54.0, 39.5, 106.0), Vector3(36.0, 14.1, 40.0))
+	var opening_volume := AABB(Vector3(54.0, 50.0, 78.0), Vector3(36.0, 4.0, 68.0))
+	var shaft_volume := AABB(Vector3(54.0, 39.5, 78.0), Vector3(36.0, 14.1, 68.0))
+	_assert_home_yard_main_stair_is_measured_and_visible(root, track_id)
 	_assert_home_yard_stair_route_exclusion(root, shaft_volume, track_id)
 	_assert_home_yard_stair_is_front_hall_not_garage(root, shaft_volume, track_id)
 	if main_ceiling_holder != null:
@@ -1112,7 +1122,7 @@ func _assert_home_yard_vertical_circulation_continuity(root: Node, track_id: Str
 			Vector3(-195, 52.6, 138),
 			Vector3(-96, 52.6, 138),
 			Vector3(50, 52.6, 138),
-			Vector3(86, 52.6, 96),
+			Vector3(50, 52.6, 96),
 		]:
 			assert_true(_visible_descendant_covers_xz_sample(upper_deck_holder, sample), "%s upper floor deck should fit the main exterior shell footprint at sample %s" % [track_id, str(sample)])
 	if glam_holder != null:
@@ -1142,6 +1152,42 @@ func _assert_home_yard_vertical_circulation_continuity(root: Node, track_id: Str
 func _assert_upper_floor_deck_clear_of_garage_volume(upper_deck_holder: Node, track_id: String) -> void:
 	var garage_volume := AABB(Vector3(90.01, 0.0, -60.0), Vector3(129.99, 54.0, 205.0))
 	_assert_no_visible_mesh_intersects_aabb(upper_deck_holder, garage_volume, "NoExclusions/", "%s upper floor deck pieces must not occupy the garage/service bay; the garage is a one-story volume with its own ceiling and roof" % track_id)
+
+func _assert_home_yard_main_stair_is_measured_and_visible(root: Node, track_id: String) -> void:
+	var main_stair_contract := (root.get_meta("vertical_circulation_contract", {}) as Dictionary).get("main_stair", {}) as Dictionary
+	assert_equal(str(main_stair_contract.get("type", "")), "u_shaped_residential_stair", "%s main stair should be planned as a U-shaped residential stair" % track_id)
+	assert_true(float(main_stair_contract.get("tread_depth_units", 0.0)) >= 5.0, "%s main stair should have readable tread depth, not ladder-like blocks" % track_id)
+	for node_path in [
+		"VerticalConnectors/MainStairLowerLandingSurface",
+		"VerticalConnectors/MainStairSwitchbackLandingSurface",
+		"VerticalConnectors/MainStairUpperLandingSurface",
+		"VerticalConnectors/MainStairLowerStringerLeft",
+		"VerticalConnectors/MainStairLowerStringerRight",
+		"VerticalConnectors/MainStairUpperStringerLeft",
+		"VerticalConnectors/MainStairUpperStringerRight",
+		"VerticalConnectors/MainStairLowerGuardrailLeft",
+		"VerticalConnectors/MainStairUpperGuardrailRight",
+	]:
+		var node := root.get_node_or_null(node_path) as MeshInstance3D
+		assert_true(node != null, "%s visible measured stair should include %s" % [track_id, node_path])
+		if node != null:
+			assert_true(node.visible, "%s %s should be visible" % [track_id, node_path])
+			assert_equal(str(node.get_meta("asset_lifecycle_state", "")), "authored_measured_stair", "%s %s should be authored measured stair geometry" % [track_id, node_path])
+	for index in [0, 5, 10]:
+		for prefix in ["MainStairLowerFlightTread", "MainStairUpperFlightTread"]:
+			var node := root.get_node_or_null("VerticalConnectors/%s%02d" % [prefix, index]) as MeshInstance3D
+			assert_true(node != null, "%s visible measured stair should include tread %s%02d" % [track_id, prefix, index])
+			if node != null:
+				var bounds := _mesh_instance_global_aabb(node)
+				assert_true(node.visible, "%s %s%02d should be visible" % [track_id, prefix, index])
+				assert_true(maxf(bounds.size.x, bounds.size.z) >= 5.0, "%s %s%02d should have readable tread run, bounds=%s" % [track_id, prefix, index, str(bounds)])
+	var lower_ref := root.get_node_or_null("VerticalConnectors/MainStairLowerFlightKenneySteps") as Node3D
+	var upper_ref := root.get_node_or_null("VerticalConnectors/MainStairUpperFlightKenneySteps") as Node3D
+	for ref in [lower_ref, upper_ref]:
+		assert_true(ref != null, "%s hidden Kenney stair reference should remain for provenance" % track_id)
+		if ref != null:
+			assert_true(not ref.visible, "%s tiny Kenney stair reference should not be the visible stair design" % track_id)
+			assert_true(bool(ref.get_meta("visual_reference_hidden_by_measured_stair", false)), "%s hidden Kenney stair reference should document why it is hidden" % track_id)
 
 func _assert_home_yard_stair_route_exclusion(root: Node, shaft_volume: AABB, track_id: String) -> void:
 	var envelopes: Variant = root.get_meta("route_envelopes", {})
@@ -1379,7 +1425,7 @@ func _assert_home_yard_upper_hall_and_ceiling_complete(root: Node, track_id: Str
 			Vector3(52.5, 52.6, 126),
 		]:
 			assert_true(_visible_descendant_covers_xz_sample(upper_hall_floor, sample), "%s upper hall landing floor should cover visible hall sample %s without looking missing" % [track_id, str(sample)])
-		var stair_opening := AABB(Vector3(54.0, 50.0, 106.0), Vector3(36.0, 4.0, 40.0))
+		var stair_opening := AABB(Vector3(54.0, 50.0, 78.0), Vector3(36.0, 4.0, 68.0))
 		_assert_no_visible_descendant_intersects_aabb(upper_hall_floor, stair_opening, track_id, "main stair upper-floor opening")
 	var attic_finishes := root.get_node_or_null("Attic/RoomFinishes")
 	assert_true(attic_finishes != null, "%s attic should include room finishes for shell-footprint deck audit" % track_id)
