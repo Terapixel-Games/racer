@@ -296,13 +296,7 @@ func _envelope_camera_position(track_id: String, center: Vector3, size: Vector3)
 	return center + Vector3(size.x * 0.55 + 110.0, 64.0, -size.z * 0.55 - 110.0)
 
 func _level_select_camera_position(track_id: String, center: Vector3, size: Vector3) -> Vector3:
-	if INDOOR_TRACK_IDS.has(track_id):
-		return center + Vector3(
-			minf(size.x * 0.32 + 42.0, 128.0),
-			46.0,
-			minf(size.z * 0.28 + 38.0, 86.0)
-		)
-	return center + Vector3(size.x * 0.42 + 86.0, 76.0, size.z * 0.46 + 92.0)
+	return HomeYardVisualGateContract.level_select_camera_position(track_id, center, size)
 
 func _capture_view(track_id: String, output_dir: String, phase: String, view: Dictionary, manifest_only: bool) -> void:
 	var position := view.get("position", Vector3.ZERO) as Vector3
