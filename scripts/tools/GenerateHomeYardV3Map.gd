@@ -560,6 +560,7 @@ func _add_upper_floor_interior(root: Node3D, parent: Node3D) -> void:
 	_add_room_floor(root, glam_floor, "GlamDressingBackFloor", Vector3(37.5, 52, -26), Vector3(105, 1.2, 208), Color(0.60, 0.52, 0.45), false)
 	_add_room_floor(root, glam_floor, "GlamDressingFrontFloorWestOfStair", Vector3(19.5, 52, 92), Vector3(69, 1.2, 28), Color(0.60, 0.52, 0.45), false)
 	_add_stairwell_guardrail(root, finishes)
+	_add_upper_living_closure_walls(root, walls, wall)
 	_add_upper_floor_ceiling_with_attic_hatch(root, finishes)
 	_add_interior_partitions_from_schedule(root, walls, "upper", wall)
 
@@ -595,14 +596,11 @@ func _add_upper_floor_ceiling_with_attic_hatch(root: Node3D, parent: Node3D) -> 
 func _add_stairwell_guardrail(root: Node3D, parent: Node3D) -> void:
 	var rail_color := Color(0.38, 0.30, 0.22)
 	_add_guardrail_segment(root, parent, "MainStairOpeningRailNorth", Vector3(MAIN_STAIR_X, UPPER_ROOM_FLOOR_TOP_Y + 7.2, MAIN_STAIR_SHAFT_MIN.z), Vector3(36, 2.2, 2.2), rail_color)
-	_add_guardrail_segment(root, parent, "MainStairOpeningRailSouth", Vector3(MAIN_STAIR_X, UPPER_ROOM_FLOOR_TOP_Y + 7.2, MAIN_STAIR_SHAFT_MAX.z), Vector3(36, 2.2, 2.2), rail_color)
 	_add_guardrail_segment(root, parent, "MainStairOpeningRailWest", Vector3(MAIN_STAIR_SHAFT_MIN.x, UPPER_ROOM_FLOOR_TOP_Y + 7.2, 112), Vector3(2.2, 2.2, 68), rail_color)
 	_add_guardrail_segment(root, parent, "MainStairOpeningRailEast", Vector3(MAIN_STAIR_SHAFT_MAX.x, UPPER_ROOM_FLOOR_TOP_Y + 7.2, 112), Vector3(2.2, 2.2, 68), rail_color)
 	var post_positions := [
 		Vector3(MAIN_STAIR_SHAFT_MIN.x, UPPER_ROOM_FLOOR_TOP_Y + 4.0, MAIN_STAIR_SHAFT_MIN.z),
 		Vector3(MAIN_STAIR_SHAFT_MAX.x, UPPER_ROOM_FLOOR_TOP_Y + 4.0, MAIN_STAIR_SHAFT_MIN.z),
-		Vector3(MAIN_STAIR_SHAFT_MIN.x, UPPER_ROOM_FLOOR_TOP_Y + 4.0, MAIN_STAIR_SHAFT_MAX.z),
-		Vector3(MAIN_STAIR_SHAFT_MAX.x, UPPER_ROOM_FLOOR_TOP_Y + 4.0, MAIN_STAIR_SHAFT_MAX.z),
 		Vector3(MAIN_STAIR_SHAFT_MIN.x, UPPER_ROOM_FLOOR_TOP_Y + 4.0, 112),
 	]
 	for i in range(post_positions.size()):
@@ -622,6 +620,14 @@ func _tag_stairwell_opening_piece(node: Node) -> void:
 	node.set_meta("collision_policy", "visual_guardrail_no_gameplay_collision")
 	node.set_meta("route_clearance", "outside_route_corridor")
 	node.set_meta("scale_contract_id", SCALE_CONTRACT_ID)
+
+func _add_upper_living_closure_walls(root: Node3D, parent: Node3D, color: Color) -> void:
+	_add_wall_z(root, parent, "UpperLivingBackWallEastOfStair", 106.0, 54.0, 86.0, color, true, 52.0, 40.0)
+	var wall := parent.get_node_or_null("UpperLivingBackWallEastOfStair")
+	if wall != null:
+		wall.set_meta("owner_volume", "upper_living_area")
+		wall.set_meta("connected_zones", ["upper_living_area", "upper_rear_rooms_and_attic_access"])
+		wall.set_meta("validation_gate", "closes the east side of the upper living back wall while keeping the front stair landing open to the upstairs living area")
 
 func _add_attic_interior(root: Node3D, parent: Node3D) -> void:
 	parent.set_meta("plan_role", "Popper toy-built attic route inside measured Dutch gambrel roof volume; exterior gables and roof are owned by Roof")
