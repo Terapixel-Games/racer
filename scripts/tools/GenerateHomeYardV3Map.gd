@@ -545,12 +545,32 @@ func _add_upper_floor_interior(root: Node3D, parent: Node3D) -> void:
 	_add_room_floor(root, upper_deck, "UpperFloorDeckGlamBack", Vector3(37.5, 51, -12), Vector3(105, 2, 236), Color(0.46, 0.40, 0.34), false)
 	_add_room_floor(root, upper_deck, "UpperFloorDeckUpperHallWest", Vector3(19.5, 51, 126), Vector3(69, 2, 40), Color(0.46, 0.40, 0.34), false)
 	_add_room_floor(root, finishes, "BedroomSuite", Vector3(-97.5, 52, -12), Vector3(165, 1.2, 236), Color(0.58, 0.52, 0.43))
+	_add_upper_hall_landing_floor(root, finishes)
 	var glam_floor := _add_child_holder(root, finishes, "GlamDressing", "glam dressing finish floor split around the front-hall stairwell opening")
 	glam_floor.set_meta("stairwell_opening_bounds", {"min": MAIN_STAIR_SHAFT_MIN, "max": MAIN_STAIR_SHAFT_MAX})
 	_add_room_floor(root, glam_floor, "GlamDressingBackFloor", Vector3(37.5, 52, -12), Vector3(105, 1.2, 236), Color(0.60, 0.52, 0.45), false)
 	_add_stairwell_guardrail(root, finishes)
 	_add_upper_floor_ceiling_with_attic_hatch(root, finishes)
 	_add_interior_partitions_from_schedule(root, walls, "upper", wall)
+
+func _add_upper_hall_landing_floor(root: Node3D, parent: Node3D) -> void:
+	var holder := _add_child_holder(root, parent, "UpperHallLandingFloor", "upper front-hall finish floor and stair-opening trim; stops flush at the main stair shaft so the upper hall reads complete without covering the vertical connector")
+	holder.set_meta("owner_volume", "upper_front_hall")
+	holder.set_meta("floor_coverage_contract", "visible finish floor covers the upper hall west of the stair opening; x >= 54 remains the intentional stairwell void/garage boundary")
+	holder.set_meta("stairwell_opening_bounds", {"min": MAIN_STAIR_SHAFT_MIN, "max": MAIN_STAIR_SHAFT_MAX})
+	var floor := _add_box(root, holder, "UpperHallLandingFloorWestOfStairOpening", Vector3(19.45, 52.05, 126), Vector3(68.9, 1.1, 40), Color(0.62, 0.56, 0.47), true)
+	floor.set_meta("owner_volume", "upper_front_hall")
+	floor.set_meta("support_face", "UpperFloorDeckUpperHallWest")
+	floor.set_meta("validation_gate", "sampled upper-hall floor coverage and no AABB overlap with MainStairEntryToUpperHall opening")
+	var trim_color := Color(0.39, 0.33, 0.26)
+	var west_edge := _add_box(root, holder, "UpperHallStairOpeningFloorTrimWest", Vector3(53.0, 52.85, 126), Vector3(1.8, 1.2, 40), trim_color, false)
+	var north_edge := _add_box(root, holder, "UpperHallStairOpeningFloorTrimNorth", Vector3(36.0, 52.85, 105.2), Vector3(36, 1.2, 1.6), trim_color, false)
+	var south_edge := _add_box(root, holder, "UpperHallStairOpeningFloorTrimSouth", Vector3(36.0, 52.85, 146.8), Vector3(36, 1.2, 1.6), trim_color, false)
+	for trim in [west_edge, north_edge, south_edge]:
+		trim.set_meta("owner_volume", "upper_front_hall")
+		trim.set_meta("support_face", "UpperFloorDeckUpperHallWest")
+		trim.set_meta("collision_policy", "visual_trim_no_gameplay_collision")
+		trim.set_meta("validation_gate", "must touch the stair opening edge without intersecting the stairwell AABB")
 
 func _add_upper_floor_ceiling_with_attic_hatch(root: Node3D, parent: Node3D) -> void:
 	var ceiling := _add_child_holder(root, parent, "UpperFloorTenFootCeilingPlane", "split upper-floor ceiling; attic hatch and stairwell circulation stay open while the upper hall remains covered to the exterior shell")

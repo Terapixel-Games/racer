@@ -1,4 +1,4 @@
-[gd_scene load_steps=1072 format=3]
+[gd_scene load_steps=1081 format=3]
 
 [ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/kitchenFridge.glb" id="1_dkcm6"]
 [ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/kitchenSink.glb" id="2_mgulr"]
@@ -2719,1142 +2719,1173 @@ roughness = 0.72
 size = Vector3(2, 4, 236)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_63aew"]
-albedo_color = Color(0.6, 0.52, 0.45, 1)
+albedo_color = Color(0.62, 0.56, 0.47, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_3msto"]
-size = Vector3(105, 1.2, 236)
+size = Vector3(68.9, 1.1, 40)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_o8ymq"]
-size = Vector3(105, 1.2, 236)
+size = Vector3(68.9, 1.1, 40)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_087d7"]
-albedo_color = Color(0.38, 0.3, 0.22, 1)
+albedo_color = Color(0.39, 0.33, 0.26, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_fufbs"]
-size = Vector3(36, 2.2, 2.2)
+size = Vector3(1.8, 1.2, 40)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ctbrr"]
-albedo_color = Color(0.38, 0.3, 0.22, 1)
+albedo_color = Color(0.39, 0.33, 0.26, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_646pd"]
-size = Vector3(36, 2.2, 2.2)
+size = Vector3(36, 1.2, 1.6)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_orv2v"]
-albedo_color = Color(0.38, 0.3, 0.22, 1)
+albedo_color = Color(0.39, 0.33, 0.26, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_541sv"]
-size = Vector3(2.2, 2.2, 40)
+size = Vector3(36, 1.2, 1.6)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7yhtq"]
-albedo_color = Color(0.38, 0.3, 0.22, 1)
+albedo_color = Color(0.6, 0.52, 0.45, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_54w8d"]
+size = Vector3(105, 1.2, 236)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gsk5f"]
+size = Vector3(105, 1.2, 236)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_33etw"]
+albedo_color = Color(0.38, 0.3, 0.22, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_54y7v"]
+size = Vector3(36, 2.2, 2.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c6e43"]
+albedo_color = Color(0.38, 0.3, 0.22, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_bc4ua"]
+size = Vector3(36, 2.2, 2.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_73njw"]
+albedo_color = Color(0.38, 0.3, 0.22, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_goiaq"]
 size = Vector3(2.2, 2.2, 40)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gsk5f"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dqswn"]
+albedo_color = Color(0.38, 0.3, 0.22, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_1yi3t"]
+size = Vector3(2.2, 2.2, 40)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v67g6"]
 albedo_color = Color(0.3496, 0.27600002, 0.2024, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_33etw"]
+[sub_resource type="BoxMesh" id="BoxMesh_y6jsh"]
 size = Vector3(2.6, 8, 2.6)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_54y7v"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tlnej"]
 albedo_color = Color(0.3496, 0.27600002, 0.2024, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_c6e43"]
+[sub_resource type="BoxMesh" id="BoxMesh_lcs8f"]
 size = Vector3(2.6, 8, 2.6)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bc4ua"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fjwe2"]
 albedo_color = Color(0.3496, 0.27600002, 0.2024, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_73njw"]
+[sub_resource type="BoxMesh" id="BoxMesh_v5o3a"]
 size = Vector3(2.6, 8, 2.6)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_goiaq"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3wodr"]
 albedo_color = Color(0.3496, 0.27600002, 0.2024, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_dqswn"]
+[sub_resource type="BoxMesh" id="BoxMesh_2fk25"]
 size = Vector3(2.6, 8, 2.6)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1yi3t"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jm2ke"]
 albedo_color = Color(0.3496, 0.27600002, 0.2024, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_v67g6"]
+[sub_resource type="BoxMesh" id="BoxMesh_6cb1r"]
 size = Vector3(2.6, 8, 2.6)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y6jsh"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tw7ap"]
 albedo_color = Color(0.73, 0.68, 0.62, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_tlnej"]
+[sub_resource type="BoxMesh" id="BoxMesh_wvi3e"]
 size = Vector3(178, 1.6, 275)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lcs8f"]
-albedo_color = Color(0.73, 0.68, 0.62, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_fjwe2"]
-size = Vector3(42, 1.6, 275)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v5o3a"]
-albedo_color = Color(0.73, 0.68, 0.62, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_3wodr"]
-size = Vector3(50, 1.6, 48)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2fk25"]
-albedo_color = Color(0.73, 0.68, 0.62, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_jm2ke"]
-size = Vector3(50, 1.6, 173)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6cb1r"]
-albedo_color = Color(0.57, 0.51, 0.43, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_tw7ap"]
-size = Vector3(6, 40, 154)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_wvi3e"]
-size = Vector3(6, 40, 154)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jmtgu"]
-albedo_color = Color(0.456, 0.408, 0.344, 1)
+albedo_color = Color(0.73, 0.68, 0.62, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_l6xqo"]
-size = Vector3(8, 4, 156)
+size = Vector3(42, 1.6, 275)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a4uql"]
-albedo_color = Color(0.57, 0.51, 0.43, 1)
+albedo_color = Color(0.73, 0.68, 0.62, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_rkyot"]
-size = Vector3(6, 40, 34)
+size = Vector3(50, 1.6, 48)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_pd8vo"]
-size = Vector3(6, 40, 34)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pd8vo"]
+albedo_color = Color(0.73, 0.68, 0.62, 1)
+roughness = 0.72
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e8b0h"]
+[sub_resource type="BoxMesh" id="BoxMesh_e8b0h"]
+size = Vector3(50, 1.6, 173)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ylst"]
+albedo_color = Color(0.57, 0.51, 0.43, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_gyrot"]
+size = Vector3(6, 40, 154)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_txcu6"]
+size = Vector3(6, 40, 154)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ll35"]
 albedo_color = Color(0.456, 0.408, 0.344, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_4ylst"]
-size = Vector3(8, 4, 36)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gyrot"]
-albedo_color = Color(0.5244, 0.4692, 0.39560002, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_txcu6"]
-size = Vector3(8, 10, 48)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ll35"]
-albedo_color = Color(0.3876, 0.3468, 0.2924, 1)
-roughness = 0.72
-
 [sub_resource type="BoxMesh" id="BoxMesh_ool6t"]
-size = Vector3(7, 1.2, 48)
+size = Vector3(8, 4, 156)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_auj7n"]
 albedo_color = Color(0.57, 0.51, 0.43, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_w1eqa"]
-size = Vector3(60, 40, 6)
+size = Vector3(6, 40, 34)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_is7p5"]
-size = Vector3(60, 40, 6)
+size = Vector3(6, 40, 34)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ttun"]
 albedo_color = Color(0.456, 0.408, 0.344, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_f78cq"]
-size = Vector3(62, 4, 8)
+size = Vector3(8, 4, 36)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gp31g"]
-albedo_color = Color(0.57, 0.51, 0.43, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_osmju"]
-size = Vector3(24, 40, 6)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_eabyp"]
-size = Vector3(24, 40, 6)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_16ro3"]
-albedo_color = Color(0.456, 0.408, 0.344, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_vgahm"]
-size = Vector3(26, 4, 8)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d3fvp"]
 albedo_color = Color(0.5244, 0.4692, 0.39560002, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_mdjib"]
-size = Vector3(186, 10, 8)
+[sub_resource type="BoxMesh" id="BoxMesh_osmju"]
+size = Vector3(8, 10, 48)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pdc4r"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eabyp"]
 albedo_color = Color(0.3876, 0.3468, 0.2924, 1)
 roughness = 0.72
 
+[sub_resource type="BoxMesh" id="BoxMesh_16ro3"]
+size = Vector3(7, 1.2, 48)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vgahm"]
+albedo_color = Color(0.57, 0.51, 0.43, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_d3fvp"]
+size = Vector3(60, 40, 6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mdjib"]
+size = Vector3(60, 40, 6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pdc4r"]
+albedo_color = Color(0.456, 0.408, 0.344, 1)
+roughness = 0.72
+
 [sub_resource type="BoxMesh" id="BoxMesh_mhs4d"]
-size = Vector3(186, 1.2, 7)
+size = Vector3(62, 4, 8)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_alt6k"]
-albedo_color = Color(0.45, 0.33, 0.22, 1)
+albedo_color = Color(0.57, 0.51, 0.43, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_dvaqh"]
-size = Vector3(230, 2, 215)
+size = Vector3(24, 40, 6)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_prpkc"]
-size = Vector3(230, 2, 215)
+size = Vector3(24, 40, 6)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gk2xk"]
-albedo_color = Color(0.306, 0.22440001, 0.1496, 1)
+albedo_color = Color(0.456, 0.408, 0.344, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_jyglp"]
-size = Vector3(230, 4, 2)
+size = Vector3(26, 4, 8)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x0shh"]
-albedo_color = Color(0.306, 0.22440001, 0.1496, 1)
+albedo_color = Color(0.5244, 0.4692, 0.39560002, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_awq3n"]
-size = Vector3(230, 4, 2)
+size = Vector3(186, 10, 8)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bufdy"]
-albedo_color = Color(0.306, 0.22440001, 0.1496, 1)
+albedo_color = Color(0.3876, 0.3468, 0.2924, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_m27av"]
-size = Vector3(2, 4, 215)
+size = Vector3(186, 1.2, 7)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qq7bh"]
-albedo_color = Color(0.306, 0.22440001, 0.1496, 1)
+albedo_color = Color(0.45, 0.33, 0.22, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_vbxik"]
-size = Vector3(2, 4, 215)
+size = Vector3(230, 2, 215)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5liht"]
-albedo_color = Color(0.48, 0.36, 0.24, 1)
+[sub_resource type="BoxShape3D" id="BoxShape3D_5liht"]
+size = Vector3(230, 2, 215)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2qj6a"]
+albedo_color = Color(0.306, 0.22440001, 0.1496, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_2qj6a"]
-size = Vector3(202, 1.2, 190)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_vvn1t"]
-size = Vector3(202, 1.2, 190)
+[sub_resource type="BoxMesh" id="BoxMesh_vvn1t"]
+size = Vector3(230, 4, 2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ilmuh"]
-albedo_color = Color(0.32639998, 0.24480002, 0.16319999, 1)
+albedo_color = Color(0.306, 0.22440001, 0.1496, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_17qv2"]
-size = Vector3(202, 4, 2)
+size = Vector3(230, 4, 2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a7uq3"]
-albedo_color = Color(0.32639998, 0.24480002, 0.16319999, 1)
+albedo_color = Color(0.306, 0.22440001, 0.1496, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_ekch0"]
-size = Vector3(202, 4, 2)
+size = Vector3(2, 4, 215)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_20py6"]
-albedo_color = Color(0.32639998, 0.24480002, 0.16319999, 1)
+albedo_color = Color(0.306, 0.22440001, 0.1496, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_7f3ij"]
-size = Vector3(2, 4, 190)
+size = Vector3(2, 4, 215)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b1tsb"]
-albedo_color = Color(0.32639998, 0.24480002, 0.16319999, 1)
+albedo_color = Color(0.48, 0.36, 0.24, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_40oj8"]
+size = Vector3(202, 1.2, 190)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_agqq3"]
+size = Vector3(202, 1.2, 190)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wg3xo"]
+albedo_color = Color(0.32639998, 0.24480002, 0.16319999, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_mljax"]
+size = Vector3(202, 4, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hfn2t"]
+albedo_color = Color(0.32639998, 0.24480002, 0.16319999, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_lhmjm"]
+size = Vector3(202, 4, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yu6vr"]
+albedo_color = Color(0.32639998, 0.24480002, 0.16319999, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_nhjhf"]
 size = Vector3(2, 4, 190)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_agqq3"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iuraf"]
+albedo_color = Color(0.32639998, 0.24480002, 0.16319999, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_87hmw"]
+size = Vector3(2, 4, 190)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7u03c"]
 albedo_color = Color(0.2, 0.14, 0.1, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_wg3xo"]
+[sub_resource type="BoxMesh" id="BoxMesh_hu2mk"]
 size = Vector3(3, 4, 218)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mljax"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yv52a"]
 albedo_color = Color(0.2, 0.14, 0.1, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_hfn2t"]
+[sub_resource type="BoxMesh" id="BoxMesh_hm2al"]
 size = Vector3(3, 4, 218)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lhmjm"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8fiv3"]
 albedo_color = Color(0.18, 0.12, 0.08, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_yu6vr"]
+[sub_resource type="BoxMesh" id="BoxMesh_747r5"]
 size = Vector3(5, 4, 218)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nhjhf"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5vtks"]
 albedo_color = Color(0.42, 0.22, 0.1, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_iuraf"]
+[sub_resource type="BoxMesh" id="BoxMesh_vafqi"]
 size = Vector3(42, 3.6, 20)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_87hmw"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ryqy8"]
 albedo_color = Color(0.18, 0.1, 0.06, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_7u03c"]
+[sub_resource type="BoxMesh" id="BoxMesh_nuwa2"]
 size = Vector3(44, 1.4, 1.4)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hu2mk"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rjj8t"]
 albedo_color = Color(0.18, 0.1, 0.06, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_yv52a"]
+[sub_resource type="BoxMesh" id="BoxMesh_dtd4v"]
 size = Vector3(44, 1.4, 1.4)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hm2al"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yp6y4"]
 albedo_color = Color(0.46, 0.26, 0.12, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_8fiv3"]
+[sub_resource type="BoxMesh" id="BoxMesh_klpvm"]
 size = Vector3(54, 9, 34)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_747r5"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xiwfn"]
 albedo_color = Color(0.18, 0.1, 0.06, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_5vtks"]
+[sub_resource type="BoxMesh" id="BoxMesh_45e1q"]
 size = Vector3(56, 2.4, 2.4)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vafqi"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_allcu"]
 albedo_color = Color(0.18, 0.1, 0.06, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_ryqy8"]
+[sub_resource type="BoxMesh" id="BoxMesh_hsv6s"]
 size = Vector3(56, 2.4, 2.4)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nuwa2"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_42mbk"]
 albedo_color = Color(0.72, 0.42, 0.18, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_rjj8t"]
+[sub_resource type="BoxMesh" id="BoxMesh_os5h6"]
 size = Vector3(128, 4, 24)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dtd4v"]
-albedo_color = Color(0.16, 0.1, 0.06, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_yp6y4"]
-size = Vector3(6, 28, 6)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_klpvm"]
-albedo_color = Color(0.16, 0.1, 0.06, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_xiwfn"]
-size = Vector3(6, 20, 6)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_45e1q"]
-albedo_color = Color(0.58, 0.42, 0.24, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_allcu"]
-size = Vector3(42, 8, 8)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hsv6s"]
-albedo_color = Color(0.34, 0.27, 0.21, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_42mbk"]
-size = Vector3(6, 20, 215)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_os5h6"]
-size = Vector3(6, 20, 215)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_56rtx"]
-albedo_color = Color(0.272, 0.216, 0.168, 1)
+albedo_color = Color(0.16, 0.1, 0.06, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_53t62"]
-size = Vector3(8, 4, 217)
+size = Vector3(6, 28, 6)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xtu1b"]
-albedo_color = Color(0.34, 0.27, 0.21, 1)
+albedo_color = Color(0.16, 0.1, 0.06, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_541eh"]
+size = Vector3(6, 20, 6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pecms"]
+albedo_color = Color(0.58, 0.42, 0.24, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_5xb7f"]
+size = Vector3(42, 8, 8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_36pxn"]
+albedo_color = Color(0.34, 0.27, 0.21, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_kukpc"]
 size = Vector3(6, 20, 215)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_pecms"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_bq0tg"]
 size = Vector3(6, 20, 215)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5xb7f"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tqcc3"]
 albedo_color = Color(0.272, 0.216, 0.168, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_36pxn"]
+[sub_resource type="BoxMesh" id="BoxMesh_1ykk7"]
 size = Vector3(8, 4, 217)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kukpc"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_41d3i"]
 albedo_color = Color(0.34, 0.27, 0.21, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_bq0tg"]
-size = Vector3(108, 20, 6)
+[sub_resource type="BoxMesh" id="BoxMesh_m1ymg"]
+size = Vector3(6, 20, 215)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_tqcc3"]
-size = Vector3(108, 20, 6)
+[sub_resource type="BoxShape3D" id="BoxShape3D_6vlu8"]
+size = Vector3(6, 20, 215)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ykk7"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nrsg5"]
 albedo_color = Color(0.272, 0.216, 0.168, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_41d3i"]
-size = Vector3(110, 4, 8)
+[sub_resource type="BoxMesh" id="BoxMesh_xm0st"]
+size = Vector3(8, 4, 217)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m1ymg"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m74ce"]
 albedo_color = Color(0.34, 0.27, 0.21, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_6vlu8"]
-size = Vector3(32, 20, 6)
+[sub_resource type="BoxMesh" id="BoxMesh_5vxci"]
+size = Vector3(108, 20, 6)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_nrsg5"]
-size = Vector3(32, 20, 6)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xm0st"]
-albedo_color = Color(0.272, 0.216, 0.168, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_m74ce"]
-size = Vector3(34, 4, 8)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5vxci"]
-albedo_color = Color(0.31280002, 0.24840002, 0.19319999, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_yothn"]
-size = Vector3(60, 10, 8)
+[sub_resource type="BoxShape3D" id="BoxShape3D_yothn"]
+size = Vector3(108, 20, 6)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_56cau"]
-albedo_color = Color(0.23120001, 0.18360001, 0.1428, 1)
+albedo_color = Color(0.272, 0.216, 0.168, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_r6peq"]
-size = Vector3(60, 1.2, 7)
+size = Vector3(110, 4, 8)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qdnsi"]
-albedo_color = Color(0.48, 0.44, 0.38, 1)
+albedo_color = Color(0.34, 0.27, 0.21, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_1xlkj"]
-size = Vector3(245, 1.2, 45)
+size = Vector3(32, 20, 6)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_74co5"]
-size = Vector3(245, 1.2, 45)
+size = Vector3(32, 20, 6)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_trqil"]
-albedo_color = Color(0.27, 0.23, 0.18, 1)
+albedo_color = Color(0.272, 0.216, 0.168, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_sbp6o"]
-size = Vector3(245, 0.12, 1)
+size = Vector3(34, 4, 8)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_crid3"]
-albedo_color = Color(0.27, 0.23, 0.18, 1)
+albedo_color = Color(0.31280002, 0.24840002, 0.19319999, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_hk7ed"]
-size = Vector3(245, 0.12, 1)
+size = Vector3(60, 10, 8)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ojqay"]
-albedo_color = Color(0.25, 0.21, 0.16, 1)
+albedo_color = Color(0.23120001, 0.18360001, 0.1428, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_6pxkq"]
-size = Vector3(1, 0.16, 43)
+size = Vector3(60, 1.2, 7)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o2ga4"]
-albedo_color = Color(0.25, 0.21, 0.16, 1)
+albedo_color = Color(0.48, 0.44, 0.38, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_x0pmj"]
-size = Vector3(1, 0.16, 43)
+size = Vector3(245, 1.2, 45)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ow1yp"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_ow1yp"]
+size = Vector3(245, 1.2, 45)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r67ud"]
+albedo_color = Color(0.27, 0.23, 0.18, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_nnoui"]
+size = Vector3(245, 0.12, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7hyqg"]
+albedo_color = Color(0.27, 0.23, 0.18, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_o5oj7"]
+size = Vector3(245, 0.12, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hxdj5"]
 albedo_color = Color(0.25, 0.21, 0.16, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_r67ud"]
+[sub_resource type="BoxMesh" id="BoxMesh_45a0c"]
 size = Vector3(1, 0.16, 43)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nnoui"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_66xfj"]
 albedo_color = Color(0.25, 0.21, 0.16, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_7hyqg"]
+[sub_resource type="BoxMesh" id="BoxMesh_hnk2h"]
 size = Vector3(1, 0.16, 43)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o5oj7"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1wu0d"]
 albedo_color = Color(0.25, 0.21, 0.16, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_hxdj5"]
+[sub_resource type="BoxMesh" id="BoxMesh_wcacm"]
 size = Vector3(1, 0.16, 43)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_45a0c"]
-albedo_color = Color(0.25, 0.21, 0.16, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_66xfj"]
-size = Vector3(1, 0.16, 43)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hnk2h"]
-albedo_color = Color(0.56, 0.42, 0.22, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_1wu0d"]
-size = Vector3(235, 1.2, 135)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_wcacm"]
-size = Vector3(235, 1.2, 135)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k8yfc"]
-albedo_color = Color(0.22, 0.12, 0.06, 1)
+albedo_color = Color(0.25, 0.21, 0.16, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_x7ewi"]
-size = Vector3(243, 3, 4)
+size = Vector3(1, 0.16, 43)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wu7pq"]
-albedo_color = Color(0.22, 0.12, 0.06, 1)
+albedo_color = Color(0.25, 0.21, 0.16, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_bs35j"]
-size = Vector3(243, 3, 4)
+size = Vector3(1, 0.16, 43)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_selb5"]
-albedo_color = Color(0.22, 0.12, 0.06, 1)
+albedo_color = Color(0.25, 0.21, 0.16, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_ey2n7"]
-size = Vector3(4, 3, 139)
+size = Vector3(1, 0.16, 43)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_614mp"]
-albedo_color = Color(0.22, 0.12, 0.06, 1)
+albedo_color = Color(0.56, 0.42, 0.22, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_nswd1"]
-size = Vector3(4, 3, 139)
+size = Vector3(235, 1.2, 135)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ax5fu"]
-albedo_color = Color(0.24, 0.36, 0.18, 1)
-roughness = 0.72
+[sub_resource type="BoxShape3D" id="BoxShape3D_ax5fu"]
+size = Vector3(235, 1.2, 135)
 
-[sub_resource type="BoxMesh" id="BoxMesh_sooh0"]
-size = Vector3(160, 1.4, 225)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_gqpoi"]
-size = Vector3(160, 1.4, 225)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f111n"]
-albedo_color = Color(0.2, 0.12, 0.07, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_bring"]
-size = Vector3(32, 6, 132)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qpkmi"]
-albedo_color = Color(0.2, 0.12, 0.07, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_8hfox"]
-size = Vector3(32, 6, 132)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aiye0"]
-albedo_color = Color(0.18, 0.44, 0.18, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_lsex0"]
-size = Vector3(24, 5, 8)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gibis"]
-albedo_color = Color(0.20050001, 0.454, 0.20050001, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_y7243"]
-size = Vector3(24, 5, 8)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w6cnj"]
-albedo_color = Color(0.22100002, 0.468, 0.22100002, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_l4ugb"]
-size = Vector3(24, 5, 8)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yn84g"]
-albedo_color = Color(0.2415, 0.482, 0.2415, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_bdrvq"]
-size = Vector3(24, 5, 8)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cusiu"]
-albedo_color = Color(0.26200002, 0.496, 0.26200002, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_qr4av"]
-size = Vector3(24, 5, 8)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5x116"]
-albedo_color = Color(0.64, 0.56, 0.42, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_ivthf"]
-size = Vector3(18, 0.5, 210)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0cfrf"]
-albedo_color = Color(0.48, 0.62, 0.34, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_eqmmi"]
-size = Vector3(210, 1.1, 190)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_ma30n"]
-size = Vector3(210, 1.1, 190)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2x13s"]
-albedo_color = Color(0.34, 0.56, 0.28, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_q3vrr"]
-size = Vector3(86, 1.2, 78)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_luhx0"]
-size = Vector3(86, 1.2, 78)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wqy4s"]
-albedo_color = Color(0.22, 0.48, 0.18, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_f3wqk"]
-size = Vector3(5, 3, 4)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ehapg"]
-albedo_color = Color(0.259, 0.506, 0.22100002, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_3ygxp"]
-size = Vector3(5, 4, 4)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qddc2"]
-albedo_color = Color(0.298, 0.532, 0.26200002, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_qjos8"]
-size = Vector3(5, 5, 4)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wu7kl"]
-albedo_color = Color(0.22, 0.48, 0.18, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_g8jgp"]
-size = Vector3(5, 6, 4)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_neofk"]
-albedo_color = Color(0.259, 0.506, 0.22100002, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_ir7fc"]
-size = Vector3(5, 3, 4)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pwl04"]
-albedo_color = Color(0.298, 0.532, 0.26200002, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_7k4e4"]
-size = Vector3(5, 4, 4)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xhy46"]
-albedo_color = Color(0.22, 0.48, 0.18, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_ie7s4"]
-size = Vector3(5, 5, 4)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l3d3v"]
-albedo_color = Color(0.259, 0.506, 0.22100002, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_a27rj"]
-size = Vector3(5, 6, 4)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rapi4"]
-albedo_color = Color(0.298, 0.532, 0.26200002, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_q084x"]
-size = Vector3(5, 3, 4)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k3wst"]
-albedo_color = Color(0.22, 0.48, 0.18, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_fwfk4"]
-size = Vector3(5, 4, 4)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v70kh"]
-albedo_color = Color(0.259, 0.506, 0.22100002, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_r2vnb"]
-size = Vector3(5, 5, 4)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gp8wk"]
-albedo_color = Color(0.298, 0.532, 0.26200002, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_7hk1a"]
-size = Vector3(5, 6, 4)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e26c7"]
-albedo_color = Color(0.82, 0.66, 0.42, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_hxu3c"]
-size = Vector3(185, 1.4, 200)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_4yr0l"]
-size = Vector3(185, 1.4, 200)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_toxqd"]
-albedo_color = Color(0.3, 0.18, 0.08, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_ph8cr"]
-size = Vector3(193, 6, 6)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vfci1"]
-albedo_color = Color(0.3, 0.18, 0.08, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_5qibt"]
-size = Vector3(193, 6, 6)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_52xr8"]
-albedo_color = Color(0.3, 0.18, 0.08, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_ywip3"]
-size = Vector3(6, 6, 206)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wekqx"]
-albedo_color = Color(0.3, 0.18, 0.08, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_w1mw2"]
-size = Vector3(6, 6, 206)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jvlhk"]
-albedo_color = Color(0.19, 0.36, 0.14, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_hrspm"]
-size = Vector3(650, 6, 18)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tvqaa"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sooh0"]
 albedo_color = Color(0.22, 0.12, 0.06, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_qsvyf"]
+[sub_resource type="BoxMesh" id="BoxMesh_gqpoi"]
+size = Vector3(243, 3, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f111n"]
+albedo_color = Color(0.22, 0.12, 0.06, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_bring"]
+size = Vector3(243, 3, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qpkmi"]
+albedo_color = Color(0.22, 0.12, 0.06, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_8hfox"]
+size = Vector3(4, 3, 139)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aiye0"]
+albedo_color = Color(0.22, 0.12, 0.06, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_lsex0"]
+size = Vector3(4, 3, 139)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gibis"]
+albedo_color = Color(0.24, 0.36, 0.18, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_y7243"]
+size = Vector3(160, 1.4, 225)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_w6cnj"]
+size = Vector3(160, 1.4, 225)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l4ugb"]
+albedo_color = Color(0.2, 0.12, 0.07, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_yn84g"]
+size = Vector3(32, 6, 132)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bdrvq"]
+albedo_color = Color(0.2, 0.12, 0.07, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_cusiu"]
+size = Vector3(32, 6, 132)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qr4av"]
+albedo_color = Color(0.18, 0.44, 0.18, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_5x116"]
+size = Vector3(24, 5, 8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ivthf"]
+albedo_color = Color(0.20050001, 0.454, 0.20050001, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_0cfrf"]
+size = Vector3(24, 5, 8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eqmmi"]
+albedo_color = Color(0.22100002, 0.468, 0.22100002, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_ma30n"]
+size = Vector3(24, 5, 8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2x13s"]
+albedo_color = Color(0.2415, 0.482, 0.2415, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_q3vrr"]
+size = Vector3(24, 5, 8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_luhx0"]
+albedo_color = Color(0.26200002, 0.496, 0.26200002, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_wqy4s"]
+size = Vector3(24, 5, 8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f3wqk"]
+albedo_color = Color(0.64, 0.56, 0.42, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_ehapg"]
+size = Vector3(18, 0.5, 210)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ygxp"]
+albedo_color = Color(0.48, 0.62, 0.34, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_qddc2"]
+size = Vector3(210, 1.1, 190)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qjos8"]
+size = Vector3(210, 1.1, 190)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wu7kl"]
+albedo_color = Color(0.34, 0.56, 0.28, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_g8jgp"]
+size = Vector3(86, 1.2, 78)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_neofk"]
+size = Vector3(86, 1.2, 78)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ir7fc"]
+albedo_color = Color(0.22, 0.48, 0.18, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_pwl04"]
+size = Vector3(5, 3, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7k4e4"]
+albedo_color = Color(0.259, 0.506, 0.22100002, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_xhy46"]
+size = Vector3(5, 4, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ie7s4"]
+albedo_color = Color(0.298, 0.532, 0.26200002, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_l3d3v"]
+size = Vector3(5, 5, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a27rj"]
+albedo_color = Color(0.22, 0.48, 0.18, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_rapi4"]
+size = Vector3(5, 6, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q084x"]
+albedo_color = Color(0.259, 0.506, 0.22100002, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_k3wst"]
+size = Vector3(5, 3, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fwfk4"]
+albedo_color = Color(0.298, 0.532, 0.26200002, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_v70kh"]
+size = Vector3(5, 4, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r2vnb"]
+albedo_color = Color(0.22, 0.48, 0.18, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_gp8wk"]
+size = Vector3(5, 5, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7hk1a"]
+albedo_color = Color(0.259, 0.506, 0.22100002, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_e26c7"]
+size = Vector3(5, 6, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hxu3c"]
+albedo_color = Color(0.298, 0.532, 0.26200002, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_4yr0l"]
+size = Vector3(5, 3, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_toxqd"]
+albedo_color = Color(0.22, 0.48, 0.18, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_ph8cr"]
+size = Vector3(5, 4, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vfci1"]
+albedo_color = Color(0.259, 0.506, 0.22100002, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_5qibt"]
+size = Vector3(5, 5, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_52xr8"]
+albedo_color = Color(0.298, 0.532, 0.26200002, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_ywip3"]
+size = Vector3(5, 6, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wekqx"]
+albedo_color = Color(0.82, 0.66, 0.42, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_w1mw2"]
+size = Vector3(185, 1.4, 200)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jvlhk"]
+size = Vector3(185, 1.4, 200)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hrspm"]
+albedo_color = Color(0.3, 0.18, 0.08, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_tvqaa"]
+size = Vector3(193, 6, 6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qsvyf"]
+albedo_color = Color(0.3, 0.18, 0.08, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_6tqo1"]
+size = Vector3(193, 6, 6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pwjet"]
+albedo_color = Color(0.3, 0.18, 0.08, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_78gxe"]
+size = Vector3(6, 6, 206)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q3d6n"]
+albedo_color = Color(0.3, 0.18, 0.08, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_voskr"]
+size = Vector3(6, 6, 206)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k6o33"]
+albedo_color = Color(0.19, 0.36, 0.14, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_i4cab"]
+size = Vector3(650, 6, 18)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6sc85"]
+albedo_color = Color(0.22, 0.12, 0.06, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_03piy"]
 size = Vector3(28, 18, 4)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6tqo1"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_riqtf"]
 albedo_color = Color(0.56, 0.55, 0.48, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_pwjet"]
+[sub_resource type="BoxMesh" id="BoxMesh_llveg"]
 size = Vector3(78, 0.45, 10)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_78gxe"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6iekm"]
 albedo_color = Color(0.5, 0.47, 0.4, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_q3d6n"]
+[sub_resource type="BoxMesh" id="BoxMesh_ibl85"]
 size = Vector3(54, 0.35, 42)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_voskr"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ojlri"]
 albedo_color = Color(0.54, 0.5, 0.43, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_k6o33"]
+[sub_resource type="BoxMesh" id="BoxMesh_nc4q1"]
 size = Vector3(54, 0.35, 42)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i4cab"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fke0p"]
 albedo_color = Color(0.16, 0.34, 0.14, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_6sc85"]
+[sub_resource type="BoxMesh" id="BoxMesh_xj1fa"]
 size = Vector3(34, 10, 18)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_03piy"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0crey"]
 albedo_color = Color(0.1894, 0.3631, 0.1701, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_riqtf"]
+[sub_resource type="BoxMesh" id="BoxMesh_rah8o"]
 size = Vector3(34, 10, 18)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_llveg"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0qy3l"]
 albedo_color = Color(0.21880001, 0.3862, 0.2002, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_6iekm"]
+[sub_resource type="BoxMesh" id="BoxMesh_7xaen"]
 size = Vector3(34, 10, 18)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ibl85"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w1otw"]
 albedo_color = Color(0.2482, 0.4093, 0.23030001, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_ojlri"]
+[sub_resource type="BoxMesh" id="BoxMesh_jgkfb"]
 size = Vector3(34, 10, 18)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nc4q1"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ub0rk"]
 albedo_color = Color(0.16, 0.34, 0.14, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_fke0p"]
+[sub_resource type="BoxMesh" id="BoxMesh_xm1bc"]
 size = Vector3(34, 10, 18)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xj1fa"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u4re2"]
 albedo_color = Color(0.1894, 0.3631, 0.1701, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_0crey"]
+[sub_resource type="BoxMesh" id="BoxMesh_aew28"]
 size = Vector3(34, 10, 18)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rah8o"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vnqs0"]
 albedo_color = Color(0.21880001, 0.3862, 0.2002, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_0qy3l"]
+[sub_resource type="BoxMesh" id="BoxMesh_ntj13"]
 size = Vector3(34, 10, 18)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7xaen"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lhpxm"]
 albedo_color = Color(0.2482, 0.4093, 0.23030001, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_w1otw"]
+[sub_resource type="BoxMesh" id="BoxMesh_r0b5d"]
 size = Vector3(34, 10, 18)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jgkfb"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0f1xn"]
 albedo_color = Color(0.589, 0.399, 0.2375, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_ub0rk"]
+[sub_resource type="BoxMesh" id="BoxMesh_wgp1n"]
 size = Vector3(34, 0.6, 18)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xm1bc"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_57wka"]
 albedo_color = Color(0.62, 0.42, 0.25, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_u4re2"]
+[sub_resource type="BoxMesh" id="BoxMesh_x2lc5"]
 size = Vector3(24, 0.7, 2.2181818)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aew28"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n6dnf"]
 albedo_color = Color(0.62950003, 0.43449998, 0.26875, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_vnqs0"]
+[sub_resource type="BoxMesh" id="BoxMesh_w2l7h"]
 size = Vector3(24, 0.7, 2.2181818)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ntj13"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x46sj"]
 albedo_color = Color(0.639, 0.449, 0.2875, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_lhpxm"]
+[sub_resource type="BoxMesh" id="BoxMesh_p8plg"]
 size = Vector3(24, 0.7, 2.2181818)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r0b5d"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_emawy"]
 albedo_color = Color(0.62, 0.42, 0.25, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_0f1xn"]
+[sub_resource type="BoxMesh" id="BoxMesh_o10k7"]
 size = Vector3(24, 0.7, 2.2181818)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wgp1n"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xfeft"]
 albedo_color = Color(0.62950003, 0.43449998, 0.26875, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_57wka"]
+[sub_resource type="BoxMesh" id="BoxMesh_xt3ox"]
 size = Vector3(24, 0.7, 2.2181818)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x2lc5"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0jl7f"]
 albedo_color = Color(0.639, 0.449, 0.2875, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_n6dnf"]
+[sub_resource type="BoxMesh" id="BoxMesh_kaost"]
 size = Vector3(24, 0.7, 2.2181818)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w2l7h"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7qbhy"]
 albedo_color = Color(0.62, 0.42, 0.25, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_x46sj"]
+[sub_resource type="BoxMesh" id="BoxMesh_8yqiq"]
 size = Vector3(24, 0.7, 2.2181818)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p8plg"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ol1vw"]
 albedo_color = Color(0.62950003, 0.43449998, 0.26875, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_emawy"]
+[sub_resource type="BoxMesh" id="BoxMesh_jq4bt"]
 size = Vector3(24, 0.7, 2.2181818)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o10k7"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hxc5n"]
 albedo_color = Color(0.639, 0.449, 0.2875, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_xfeft"]
+[sub_resource type="BoxMesh" id="BoxMesh_k04g6"]
 size = Vector3(24, 0.7, 2.2181818)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xt3ox"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qge0a"]
 albedo_color = Color(0.62, 0.42, 0.25, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_0jl7f"]
+[sub_resource type="BoxMesh" id="BoxMesh_ilu4k"]
 size = Vector3(24, 0.7, 2.2181818)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kaost"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fp8ff"]
 albedo_color = Color(0.62950003, 0.43449998, 0.26875, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_7qbhy"]
+[sub_resource type="BoxMesh" id="BoxMesh_ylt85"]
 size = Vector3(24, 0.7, 2.2181818)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8yqiq"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h0lo4"]
 albedo_color = Color(0.5704, 0.38639998, 0.23, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_ol1vw"]
+[sub_resource type="BoxMesh" id="BoxMesh_wula2"]
 size = Vector3(34, 0.6, 24)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jq4bt"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1jlbo"]
 albedo_color = Color(0.6314, 0.43739998, 0.2725, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_hxc5n"]
+[sub_resource type="BoxMesh" id="BoxMesh_skne2"]
 size = Vector3(24, 0.7, 2.2181818)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k04g6"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m4ely"]
 albedo_color = Color(0.640615, 0.45146498, 0.2906875, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_qge0a"]
+[sub_resource type="BoxMesh" id="BoxMesh_sa5oy"]
 size = Vector3(24, 0.7, 2.2181818)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ilu4k"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f8vut"]
 albedo_color = Color(0.64983, 0.46552998, 0.308875, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_fp8ff"]
+[sub_resource type="BoxMesh" id="BoxMesh_tus0l"]
 size = Vector3(24, 0.7, 2.2181818)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ylt85"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y31v2"]
 albedo_color = Color(0.6314, 0.43739998, 0.2725, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_h0lo4"]
+[sub_resource type="BoxMesh" id="BoxMesh_860te"]
 size = Vector3(24, 0.7, 2.2181818)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wula2"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sknor"]
 albedo_color = Color(0.640615, 0.45146498, 0.2906875, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_1jlbo"]
+[sub_resource type="BoxMesh" id="BoxMesh_teppx"]
 size = Vector3(24, 0.7, 2.2181818)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_skne2"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v62mp"]
 albedo_color = Color(0.64983, 0.46552998, 0.308875, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_m4ely"]
+[sub_resource type="BoxMesh" id="BoxMesh_1dpo4"]
 size = Vector3(24, 0.7, 2.2181818)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sa5oy"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j3e4d"]
 albedo_color = Color(0.6314, 0.43739998, 0.2725, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_f8vut"]
+[sub_resource type="BoxMesh" id="BoxMesh_f47p7"]
 size = Vector3(24, 0.7, 2.2181818)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tus0l"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jvhu8"]
 albedo_color = Color(0.640615, 0.45146498, 0.2906875, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_y31v2"]
+[sub_resource type="BoxMesh" id="BoxMesh_o0spl"]
 size = Vector3(24, 0.7, 2.2181818)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_860te"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pjatl"]
 albedo_color = Color(0.64983, 0.46552998, 0.308875, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_sknor"]
+[sub_resource type="BoxMesh" id="BoxMesh_8chp1"]
 size = Vector3(24, 0.7, 2.2181818)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_teppx"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qfywk"]
 albedo_color = Color(0.6314, 0.43739998, 0.2725, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_v62mp"]
+[sub_resource type="BoxMesh" id="BoxMesh_q52s7"]
 size = Vector3(24, 0.7, 2.2181818)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1dpo4"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_53bc6"]
 albedo_color = Color(0.640615, 0.45146498, 0.2906875, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_j3e4d"]
+[sub_resource type="BoxMesh" id="BoxMesh_u7p2n"]
 size = Vector3(24, 0.7, 2.2181818)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f47p7"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j5q48"]
 albedo_color = Color(0.589, 0.399, 0.2375, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_jvhu8"]
+[sub_resource type="BoxMesh" id="BoxMesh_j5bc0"]
 size = Vector3(34, 0.6, 18)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o0spl"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cppg0"]
 albedo_color = Color(0.48, 0.3456, 0.2112, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_pjatl"]
+[sub_resource type="BoxMesh" id="BoxMesh_xk7lo"]
 size = Vector3(34, 0.6, 30)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8chp1"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2sfd8"]
 albedo_color = Color(0.46, 0.33120003, 0.2024, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_qfywk"]
+[sub_resource type="BoxMesh" id="BoxMesh_ehwg7"]
 size = Vector3(40, 0.6, 34)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q52s7"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_82tan"]
 albedo_color = Color(0.5, 0.36, 0.22, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_53bc6"]
+[sub_resource type="BoxMesh" id="BoxMesh_euc5q"]
 size = Vector3(1, 52, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u7p2n"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_twnbr"]
 albedo_color = Color(0.5, 0.36, 0.22, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_j5q48"]
+[sub_resource type="BoxMesh" id="BoxMesh_3qyud"]
 size = Vector3(1, 52, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j5bc0"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d2d06"]
 albedo_color = Color(0.5, 0.36, 0.22, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_cppg0"]
+[sub_resource type="BoxMesh" id="BoxMesh_2dv50"]
 size = Vector3(12, 0.7, 1.2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xk7lo"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6me1o"]
 albedo_color = Color(0.52, 0.3856, 0.2512, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_2sfd8"]
+[sub_resource type="BoxMesh" id="BoxMesh_51m2g"]
 size = Vector3(12, 0.7, 1.2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ehwg7"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tjjd0"]
 albedo_color = Color(0.5, 0.36, 0.22, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_82tan"]
+[sub_resource type="BoxMesh" id="BoxMesh_3lunw"]
 size = Vector3(12, 0.7, 1.2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_euc5q"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s3kh4"]
 albedo_color = Color(0.52, 0.3856, 0.2512, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_twnbr"]
+[sub_resource type="BoxMesh" id="BoxMesh_lmexr"]
 size = Vector3(12, 0.7, 1.2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3qyud"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k4vfg"]
 albedo_color = Color(0.5, 0.36, 0.22, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_d2d06"]
+[sub_resource type="BoxMesh" id="BoxMesh_bre7t"]
 size = Vector3(12, 0.7, 1.2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2dv50"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fu0vo"]
 albedo_color = Color(0.52, 0.3856, 0.2512, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_6me1o"]
+[sub_resource type="BoxMesh" id="BoxMesh_xpeaa"]
 size = Vector3(12, 0.7, 1.2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_51m2g"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pehca"]
 albedo_color = Color(0.5, 0.36, 0.22, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_tjjd0"]
+[sub_resource type="BoxMesh" id="BoxMesh_u6pqe"]
 size = Vector3(12, 0.7, 1.2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3lunw"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4q4u8"]
 albedo_color = Color(0.52, 0.3856, 0.2512, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_s3kh4"]
+[sub_resource type="BoxMesh" id="BoxMesh_6n26a"]
 size = Vector3(12, 0.7, 1.2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lmexr"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tnbxp"]
 albedo_color = Color(0.5, 0.36, 0.22, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_k4vfg"]
+[sub_resource type="BoxMesh" id="BoxMesh_uxaw1"]
 size = Vector3(12, 0.7, 1.2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bre7t"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ytqhp"]
 albedo_color = Color(0.52, 0.3856, 0.2512, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_fu0vo"]
+[sub_resource type="BoxMesh" id="BoxMesh_vppyv"]
 size = Vector3(12, 0.7, 1.2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xpeaa"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hpi5d"]
 albedo_color = Color(0.5, 0.36, 0.22, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_pehca"]
+[sub_resource type="BoxMesh" id="BoxMesh_nuay4"]
 size = Vector3(12, 0.7, 1.2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u6pqe"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2gsvu"]
 albedo_color = Color(0.52, 0.3856, 0.2512, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_4q4u8"]
+[sub_resource type="BoxMesh" id="BoxMesh_tl835"]
 size = Vector3(12, 0.7, 1.2)
 
-[sub_resource type="Environment" id="Environment_6n26a"]
+[sub_resource type="Environment" id="Environment_6ilux"]
 background_mode = 1
 background_color = Color(0.67, 0.8, 0.94, 1)
 ambient_light_source = 2
@@ -19179,6 +19210,191 @@ metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
 metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "UpperFloor/RoomFinishes/BedroomSuiteBaseboardEast"
 
+[node name="UpperHallLandingFloor" type="Node3D" parent="UpperFloor/RoomFinishes"]
+metadata/plan_role = "upper front-hall finish floor and stair-opening trim; stops flush at the main stair shaft so the upper hall reads complete without covering the vertical connector"
+metadata/owner_volume = "upper_front_hall"
+metadata/floor_coverage_contract = "visible finish floor covers the upper hall west of the stair opening; x >= 54 remains the intentional stairwell void/garage boundary"
+metadata/stairwell_opening_bounds = {
+"max": Vector3(90, 53.6, 146),
+"min": Vector3(54, 39.5, 106)
+}
+
+[node name="UpperHallLandingFloorWestOfStairOpening" type="MeshInstance3D" parent="UpperFloor/RoomFinishes/UpperHallLandingFloor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.45, 52.05, 126)
+material_override = SubResource("StandardMaterial3D_63aew")
+mesh = SubResource("BoxMesh_3msto")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "upperfloor_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "UpperFloor/RoomFinishes/UpperHallLandingFloor/UpperHallLandingFloorWestOfStairOpening",
+"owner_volume": "UpperFloor",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "UpperHallLandingFloor",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "UpperHallLandingFloorWestOfStairOpening is emitted by the home_yard_v3 generator as part of UpperFloor and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "upper_front_hall"
+metadata/assembly = "upperfloor_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "UpperHallLandingFloorWestOfStairOpening is emitted by the home_yard_v3 generator as part of UpperFloor and must be validated by provenance coverage gates."
+metadata/support_target = "UpperHallLandingFloor"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "sampled upper-hall floor coverage and no AABB overlap with MainStairEntryToUpperHall opening"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "UpperFloor/RoomFinishes/UpperHallLandingFloor/UpperHallLandingFloorWestOfStairOpening"
+metadata/support_face = "UpperFloorDeckUpperHallWest"
+
+[node name="UpperHallLandingFloorWestOfStairOpeningCollision" type="StaticBody3D" parent="UpperFloor/RoomFinishes/UpperHallLandingFloor/UpperHallLandingFloorWestOfStairOpening"]
+
+[node name="@CollisionShape3D@61" type="CollisionShape3D" parent="UpperFloor/RoomFinishes/UpperHallLandingFloor/UpperHallLandingFloorWestOfStairOpening/UpperHallLandingFloorWestOfStairOpeningCollision"]
+shape = SubResource("BoxShape3D_o8ymq")
+
+[node name="UpperHallStairOpeningFloorTrimWest" type="MeshInstance3D" parent="UpperFloor/RoomFinishes/UpperHallLandingFloor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53, 52.85, 126)
+material_override = SubResource("StandardMaterial3D_087d7")
+mesh = SubResource("BoxMesh_fufbs")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "upperfloor_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "UpperFloor/RoomFinishes/UpperHallLandingFloor/UpperHallStairOpeningFloorTrimWest",
+"owner_volume": "UpperFloor",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "UpperHallLandingFloor",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "UpperHallStairOpeningFloorTrimWest is emitted by the home_yard_v3 generator as part of UpperFloor and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "upper_front_hall"
+metadata/assembly = "upperfloor_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "UpperHallStairOpeningFloorTrimWest is emitted by the home_yard_v3 generator as part of UpperFloor and must be validated by provenance coverage gates."
+metadata/support_target = "UpperHallLandingFloor"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "must touch the stair opening edge without intersecting the stairwell AABB"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "UpperFloor/RoomFinishes/UpperHallLandingFloor/UpperHallStairOpeningFloorTrimWest"
+metadata/support_face = "UpperFloorDeckUpperHallWest"
+metadata/collision_policy = "visual_trim_no_gameplay_collision"
+
+[node name="UpperHallStairOpeningFloorTrimNorth" type="MeshInstance3D" parent="UpperFloor/RoomFinishes/UpperHallLandingFloor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 52.85, 105.2)
+material_override = SubResource("StandardMaterial3D_ctbrr")
+mesh = SubResource("BoxMesh_646pd")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "upperfloor_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "UpperFloor/RoomFinishes/UpperHallLandingFloor/UpperHallStairOpeningFloorTrimNorth",
+"owner_volume": "UpperFloor",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "UpperHallLandingFloor",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "UpperHallStairOpeningFloorTrimNorth is emitted by the home_yard_v3 generator as part of UpperFloor and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "upper_front_hall"
+metadata/assembly = "upperfloor_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "UpperHallStairOpeningFloorTrimNorth is emitted by the home_yard_v3 generator as part of UpperFloor and must be validated by provenance coverage gates."
+metadata/support_target = "UpperHallLandingFloor"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "must touch the stair opening edge without intersecting the stairwell AABB"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "UpperFloor/RoomFinishes/UpperHallLandingFloor/UpperHallStairOpeningFloorTrimNorth"
+metadata/support_face = "UpperFloorDeckUpperHallWest"
+metadata/collision_policy = "visual_trim_no_gameplay_collision"
+
+[node name="UpperHallStairOpeningFloorTrimSouth" type="MeshInstance3D" parent="UpperFloor/RoomFinishes/UpperHallLandingFloor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 52.85, 146.8)
+material_override = SubResource("StandardMaterial3D_orv2v")
+mesh = SubResource("BoxMesh_541sv")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "upperfloor_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "UpperFloor/RoomFinishes/UpperHallLandingFloor/UpperHallStairOpeningFloorTrimSouth",
+"owner_volume": "UpperFloor",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "UpperHallLandingFloor",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "UpperHallStairOpeningFloorTrimSouth is emitted by the home_yard_v3 generator as part of UpperFloor and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "upper_front_hall"
+metadata/assembly = "upperfloor_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "UpperHallStairOpeningFloorTrimSouth is emitted by the home_yard_v3 generator as part of UpperFloor and must be validated by provenance coverage gates."
+metadata/support_target = "UpperHallLandingFloor"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "must touch the stair opening edge without intersecting the stairwell AABB"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "UpperFloor/RoomFinishes/UpperHallLandingFloor/UpperHallStairOpeningFloorTrimSouth"
+metadata/support_face = "UpperFloorDeckUpperHallWest"
+metadata/collision_policy = "visual_trim_no_gameplay_collision"
+
 [node name="GlamDressing" type="Node3D" parent="UpperFloor/RoomFinishes"]
 metadata/plan_role = "glam dressing finish floor split around the front-hall stairwell opening"
 metadata/stairwell_opening_bounds = {
@@ -19188,8 +19404,8 @@ metadata/stairwell_opening_bounds = {
 
 [node name="GlamDressingBackFloor" type="MeshInstance3D" parent="UpperFloor/RoomFinishes/GlamDressing"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.5, 52, -12)
-material_override = SubResource("StandardMaterial3D_63aew")
-mesh = SubResource("BoxMesh_3msto")
+material_override = SubResource("StandardMaterial3D_7yhtq")
+mesh = SubResource("BoxMesh_54w8d")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "upperfloor_generated_assembly",
@@ -19229,13 +19445,13 @@ metadata/node_path = "UpperFloor/RoomFinishes/GlamDressing/GlamDressingBackFloor
 
 [node name="GlamDressingBackFloorCollision" type="StaticBody3D" parent="UpperFloor/RoomFinishes/GlamDressing/GlamDressingBackFloor"]
 
-[node name="@CollisionShape3D@61" type="CollisionShape3D" parent="UpperFloor/RoomFinishes/GlamDressing/GlamDressingBackFloor/GlamDressingBackFloorCollision"]
-shape = SubResource("BoxShape3D_o8ymq")
+[node name="@CollisionShape3D@62" type="CollisionShape3D" parent="UpperFloor/RoomFinishes/GlamDressing/GlamDressingBackFloor/GlamDressingBackFloorCollision"]
+shape = SubResource("BoxShape3D_gsk5f")
 
 [node name="MainStairOpeningRailNorth" type="MeshInstance3D" parent="UpperFloor/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 59.8, 106)
-material_override = SubResource("StandardMaterial3D_087d7")
-mesh = SubResource("BoxMesh_fufbs")
+material_override = SubResource("StandardMaterial3D_33etw")
+mesh = SubResource("BoxMesh_54y7v")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "upperfloor_generated_assembly",
@@ -19281,8 +19497,8 @@ metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
 
 [node name="MainStairOpeningRailSouth" type="MeshInstance3D" parent="UpperFloor/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 59.8, 146)
-material_override = SubResource("StandardMaterial3D_ctbrr")
-mesh = SubResource("BoxMesh_646pd")
+material_override = SubResource("StandardMaterial3D_c6e43")
+mesh = SubResource("BoxMesh_bc4ua")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "upperfloor_generated_assembly",
@@ -19328,8 +19544,8 @@ metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
 
 [node name="MainStairOpeningRailWest" type="MeshInstance3D" parent="UpperFloor/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54, 59.8, 126)
-material_override = SubResource("StandardMaterial3D_orv2v")
-mesh = SubResource("BoxMesh_541sv")
+material_override = SubResource("StandardMaterial3D_73njw")
+mesh = SubResource("BoxMesh_goiaq")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "upperfloor_generated_assembly",
@@ -19375,8 +19591,8 @@ metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
 
 [node name="MainStairOpeningRailEast" type="MeshInstance3D" parent="UpperFloor/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 90, 59.8, 126)
-material_override = SubResource("StandardMaterial3D_7yhtq")
-mesh = SubResource("BoxMesh_54w8d")
+material_override = SubResource("StandardMaterial3D_dqswn")
+mesh = SubResource("BoxMesh_1yi3t")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "upperfloor_generated_assembly",
@@ -19422,8 +19638,8 @@ metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
 
 [node name="MainStairOpeningRailPost00" type="MeshInstance3D" parent="UpperFloor/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54, 56.6, 106)
-material_override = SubResource("StandardMaterial3D_gsk5f")
-mesh = SubResource("BoxMesh_33etw")
+material_override = SubResource("StandardMaterial3D_v67g6")
+mesh = SubResource("BoxMesh_y6jsh")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "upperfloor_generated_assembly",
@@ -19469,8 +19685,8 @@ metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
 
 [node name="MainStairOpeningRailPost01" type="MeshInstance3D" parent="UpperFloor/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 90, 56.6, 106)
-material_override = SubResource("StandardMaterial3D_54y7v")
-mesh = SubResource("BoxMesh_c6e43")
+material_override = SubResource("StandardMaterial3D_tlnej")
+mesh = SubResource("BoxMesh_lcs8f")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "upperfloor_generated_assembly",
@@ -19516,8 +19732,8 @@ metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
 
 [node name="MainStairOpeningRailPost02" type="MeshInstance3D" parent="UpperFloor/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54, 56.6, 146)
-material_override = SubResource("StandardMaterial3D_bc4ua")
-mesh = SubResource("BoxMesh_73njw")
+material_override = SubResource("StandardMaterial3D_fjwe2")
+mesh = SubResource("BoxMesh_v5o3a")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "upperfloor_generated_assembly",
@@ -19563,8 +19779,8 @@ metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
 
 [node name="MainStairOpeningRailPost03" type="MeshInstance3D" parent="UpperFloor/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 90, 56.6, 146)
-material_override = SubResource("StandardMaterial3D_goiaq")
-mesh = SubResource("BoxMesh_dqswn")
+material_override = SubResource("StandardMaterial3D_3wodr")
+mesh = SubResource("BoxMesh_2fk25")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "upperfloor_generated_assembly",
@@ -19610,8 +19826,8 @@ metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
 
 [node name="MainStairOpeningRailPost04" type="MeshInstance3D" parent="UpperFloor/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54, 56.6, 126)
-material_override = SubResource("StandardMaterial3D_1yi3t")
-mesh = SubResource("BoxMesh_v67g6")
+material_override = SubResource("StandardMaterial3D_jm2ke")
+mesh = SubResource("BoxMesh_6cb1r")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "upperfloor_generated_assembly",
@@ -19665,8 +19881,8 @@ metadata/ceiling_footprint_contract = "upper ceiling pieces cover bedroom, glam 
 
 [node name="UpperCeilingWestOfAtticHatch" type="MeshInstance3D" parent="UpperFloor/RoomFinishes/UpperFloorTenFootCeilingPlane"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -91, 92.8, 7.5)
-material_override = SubResource("StandardMaterial3D_y6jsh")
-mesh = SubResource("BoxMesh_tlnej")
+material_override = SubResource("StandardMaterial3D_tw7ap")
+mesh = SubResource("BoxMesh_wvi3e")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "upperfloor_generated_assembly",
@@ -19706,8 +19922,8 @@ metadata/node_path = "UpperFloor/RoomFinishes/UpperFloorTenFootCeilingPlane/Uppe
 
 [node name="UpperCeilingEastOfAtticHatch" type="MeshInstance3D" parent="UpperFloor/RoomFinishes/UpperFloorTenFootCeilingPlane"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69, 92.8, 7.5)
-material_override = SubResource("StandardMaterial3D_lcs8f")
-mesh = SubResource("BoxMesh_fjwe2")
+material_override = SubResource("StandardMaterial3D_jmtgu")
+mesh = SubResource("BoxMesh_l6xqo")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "upperfloor_generated_assembly",
@@ -19747,8 +19963,8 @@ metadata/node_path = "UpperFloor/RoomFinishes/UpperFloorTenFootCeilingPlane/Uppe
 
 [node name="UpperCeilingNorthOfAtticHatch" type="MeshInstance3D" parent="UpperFloor/RoomFinishes/UpperFloorTenFootCeilingPlane"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 92.8, -106)
-material_override = SubResource("StandardMaterial3D_v5o3a")
-mesh = SubResource("BoxMesh_3wodr")
+material_override = SubResource("StandardMaterial3D_a4uql")
+mesh = SubResource("BoxMesh_rkyot")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "upperfloor_generated_assembly",
@@ -19788,8 +20004,8 @@ metadata/node_path = "UpperFloor/RoomFinishes/UpperFloorTenFootCeilingPlane/Uppe
 
 [node name="UpperCeilingSouthOfAtticHatch" type="MeshInstance3D" parent="UpperFloor/RoomFinishes/UpperFloorTenFootCeilingPlane"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 92.8, 58.5)
-material_override = SubResource("StandardMaterial3D_2fk25")
-mesh = SubResource("BoxMesh_jm2ke")
+material_override = SubResource("StandardMaterial3D_pd8vo")
+mesh = SubResource("BoxMesh_e8b0h")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "upperfloor_generated_assembly",
@@ -19863,8 +20079,8 @@ metadata/wall_schedule = [{
 
 [node name="BedroomGlamCasedOpeningLower" type="MeshInstance3D" parent="UpperFloor/InteriorWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 72, -53)
-material_override = SubResource("StandardMaterial3D_6cb1r")
-mesh = SubResource("BoxMesh_tw7ap")
+material_override = SubResource("StandardMaterial3D_4ylst")
+mesh = SubResource("BoxMesh_gyrot")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "upperfloor_generated_assembly",
@@ -19904,13 +20120,13 @@ metadata/node_path = "UpperFloor/InteriorWalls/BedroomGlamCasedOpeningLower"
 
 [node name="BedroomGlamCasedOpeningLowerCollision" type="StaticBody3D" parent="UpperFloor/InteriorWalls/BedroomGlamCasedOpeningLower"]
 
-[node name="@CollisionShape3D@62" type="CollisionShape3D" parent="UpperFloor/InteriorWalls/BedroomGlamCasedOpeningLower/BedroomGlamCasedOpeningLowerCollision"]
-shape = SubResource("BoxShape3D_wvi3e")
+[node name="@CollisionShape3D@63" type="CollisionShape3D" parent="UpperFloor/InteriorWalls/BedroomGlamCasedOpeningLower/BedroomGlamCasedOpeningLowerCollision"]
+shape = SubResource("BoxShape3D_txcu6")
 
 [node name="BedroomGlamCasedOpeningLowerTopTrim" type="MeshInstance3D" parent="UpperFloor/InteriorWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 94, -53)
-material_override = SubResource("StandardMaterial3D_jmtgu")
-mesh = SubResource("BoxMesh_l6xqo")
+material_override = SubResource("StandardMaterial3D_7ll35")
+mesh = SubResource("BoxMesh_ool6t")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["same wall run", "small trim overlap at corners"],
 "assembly": "exterior_wall_top_trim",
@@ -19966,8 +20182,8 @@ metadata/node_path = "UpperFloor/InteriorWalls/BedroomGlamCasedOpeningLowerTopTr
 
 [node name="BedroomGlamCasedOpeningUpper" type="MeshInstance3D" parent="UpperFloor/InteriorWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 72, 89)
-material_override = SubResource("StandardMaterial3D_a4uql")
-mesh = SubResource("BoxMesh_rkyot")
+material_override = SubResource("StandardMaterial3D_auj7n")
+mesh = SubResource("BoxMesh_w1eqa")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "upperfloor_generated_assembly",
@@ -20007,13 +20223,13 @@ metadata/node_path = "UpperFloor/InteriorWalls/BedroomGlamCasedOpeningUpper"
 
 [node name="BedroomGlamCasedOpeningUpperCollision" type="StaticBody3D" parent="UpperFloor/InteriorWalls/BedroomGlamCasedOpeningUpper"]
 
-[node name="@CollisionShape3D@63" type="CollisionShape3D" parent="UpperFloor/InteriorWalls/BedroomGlamCasedOpeningUpper/BedroomGlamCasedOpeningUpperCollision"]
-shape = SubResource("BoxShape3D_pd8vo")
+[node name="@CollisionShape3D@64" type="CollisionShape3D" parent="UpperFloor/InteriorWalls/BedroomGlamCasedOpeningUpper/BedroomGlamCasedOpeningUpperCollision"]
+shape = SubResource("BoxShape3D_is7p5")
 
 [node name="BedroomGlamCasedOpeningUpperTopTrim" type="MeshInstance3D" parent="UpperFloor/InteriorWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 94, 89)
-material_override = SubResource("StandardMaterial3D_e8b0h")
-mesh = SubResource("BoxMesh_4ylst")
+material_override = SubResource("StandardMaterial3D_1ttun")
+mesh = SubResource("BoxMesh_f78cq")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["same wall run", "small trim overlap at corners"],
 "assembly": "exterior_wall_top_trim",
@@ -20069,8 +20285,8 @@ metadata/node_path = "UpperFloor/InteriorWalls/BedroomGlamCasedOpeningUpperTopTr
 
 [node name="BedroomGlamCasedOpeningOpeningHeader" type="MeshInstance3D" parent="UpperFloor/InteriorWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 86, 48)
-material_override = SubResource("StandardMaterial3D_gyrot")
-mesh = SubResource("BoxMesh_txcu6")
+material_override = SubResource("StandardMaterial3D_gp31g")
+mesh = SubResource("BoxMesh_osmju")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "upperfloor_generated_assembly",
@@ -20110,8 +20326,8 @@ metadata/node_path = "UpperFloor/InteriorWalls/BedroomGlamCasedOpeningOpeningHea
 
 [node name="BedroomGlamCasedOpeningThreshold" type="MeshInstance3D" parent="UpperFloor/InteriorWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 53.2, 48)
-material_override = SubResource("StandardMaterial3D_7ll35")
-mesh = SubResource("BoxMesh_ool6t")
+material_override = SubResource("StandardMaterial3D_eabyp")
+mesh = SubResource("BoxMesh_16ro3")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "upperfloor_generated_assembly",
@@ -20151,8 +20367,8 @@ metadata/node_path = "UpperFloor/InteriorWalls/BedroomGlamCasedOpeningThreshold"
 
 [node name="UpperHallBedroomDividerLower" type="MeshInstance3D" parent="UpperFloor/InteriorWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150, 72, 106)
-material_override = SubResource("StandardMaterial3D_auj7n")
-mesh = SubResource("BoxMesh_w1eqa")
+material_override = SubResource("StandardMaterial3D_vgahm")
+mesh = SubResource("BoxMesh_d3fvp")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "upperfloor_generated_assembly",
@@ -20192,13 +20408,13 @@ metadata/node_path = "UpperFloor/InteriorWalls/UpperHallBedroomDividerLower"
 
 [node name="UpperHallBedroomDividerLowerCollision" type="StaticBody3D" parent="UpperFloor/InteriorWalls/UpperHallBedroomDividerLower"]
 
-[node name="@CollisionShape3D@64" type="CollisionShape3D" parent="UpperFloor/InteriorWalls/UpperHallBedroomDividerLower/UpperHallBedroomDividerLowerCollision"]
-shape = SubResource("BoxShape3D_is7p5")
+[node name="@CollisionShape3D@65" type="CollisionShape3D" parent="UpperFloor/InteriorWalls/UpperHallBedroomDividerLower/UpperHallBedroomDividerLowerCollision"]
+shape = SubResource("BoxShape3D_mdjib")
 
 [node name="UpperHallBedroomDividerLowerTopTrim" type="MeshInstance3D" parent="UpperFloor/InteriorWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150, 94, 106)
-material_override = SubResource("StandardMaterial3D_1ttun")
-mesh = SubResource("BoxMesh_f78cq")
+material_override = SubResource("StandardMaterial3D_pdc4r")
+mesh = SubResource("BoxMesh_mhs4d")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["same wall run", "small trim overlap at corners"],
 "assembly": "exterior_wall_top_trim",
@@ -20254,8 +20470,8 @@ metadata/node_path = "UpperFloor/InteriorWalls/UpperHallBedroomDividerLowerTopTr
 
 [node name="UpperHallBedroomDividerUpper" type="MeshInstance3D" parent="UpperFloor/InteriorWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 72, 106)
-material_override = SubResource("StandardMaterial3D_gp31g")
-mesh = SubResource("BoxMesh_osmju")
+material_override = SubResource("StandardMaterial3D_alt6k")
+mesh = SubResource("BoxMesh_dvaqh")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "upperfloor_generated_assembly",
@@ -20295,13 +20511,13 @@ metadata/node_path = "UpperFloor/InteriorWalls/UpperHallBedroomDividerUpper"
 
 [node name="UpperHallBedroomDividerUpperCollision" type="StaticBody3D" parent="UpperFloor/InteriorWalls/UpperHallBedroomDividerUpper"]
 
-[node name="@CollisionShape3D@65" type="CollisionShape3D" parent="UpperFloor/InteriorWalls/UpperHallBedroomDividerUpper/UpperHallBedroomDividerUpperCollision"]
-shape = SubResource("BoxShape3D_eabyp")
+[node name="@CollisionShape3D@66" type="CollisionShape3D" parent="UpperFloor/InteriorWalls/UpperHallBedroomDividerUpper/UpperHallBedroomDividerUpperCollision"]
+shape = SubResource("BoxShape3D_prpkc")
 
 [node name="UpperHallBedroomDividerUpperTopTrim" type="MeshInstance3D" parent="UpperFloor/InteriorWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 94, 106)
-material_override = SubResource("StandardMaterial3D_16ro3")
-mesh = SubResource("BoxMesh_vgahm")
+material_override = SubResource("StandardMaterial3D_gk2xk")
+mesh = SubResource("BoxMesh_jyglp")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["same wall run", "small trim overlap at corners"],
 "assembly": "exterior_wall_top_trim",
@@ -20357,8 +20573,8 @@ metadata/node_path = "UpperFloor/InteriorWalls/UpperHallBedroomDividerUpperTopTr
 
 [node name="UpperHallBedroomDividerOpeningHeader" type="MeshInstance3D" parent="UpperFloor/InteriorWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 86, 106)
-material_override = SubResource("StandardMaterial3D_d3fvp")
-mesh = SubResource("BoxMesh_mdjib")
+material_override = SubResource("StandardMaterial3D_x0shh")
+mesh = SubResource("BoxMesh_awq3n")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "upperfloor_generated_assembly",
@@ -20398,8 +20614,8 @@ metadata/node_path = "UpperFloor/InteriorWalls/UpperHallBedroomDividerOpeningHea
 
 [node name="UpperHallBedroomDividerThreshold" type="MeshInstance3D" parent="UpperFloor/InteriorWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 53.2, 106)
-material_override = SubResource("StandardMaterial3D_pdc4r")
-mesh = SubResource("BoxMesh_mhs4d")
+material_override = SubResource("StandardMaterial3D_bufdy")
+mesh = SubResource("BoxMesh_m27av")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "upperfloor_generated_assembly",
@@ -20571,8 +20787,8 @@ metadata/plan_role = "attic deck, high-ramp staging, rafters, and Popper storage
 
 [node name="AtticDeck" type="MeshInstance3D" parent="Attic/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 103, 12.5)
-material_override = SubResource("StandardMaterial3D_alt6k")
-mesh = SubResource("BoxMesh_dvaqh")
+material_override = SubResource("StandardMaterial3D_qq7bh")
+mesh = SubResource("BoxMesh_vbxik")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "attic_generated_assembly",
@@ -20612,13 +20828,13 @@ metadata/node_path = "Attic/RoomFinishes/AtticDeck"
 
 [node name="AtticDeckCollision" type="StaticBody3D" parent="Attic/RoomFinishes/AtticDeck"]
 
-[node name="@CollisionShape3D@66" type="CollisionShape3D" parent="Attic/RoomFinishes/AtticDeck/AtticDeckCollision"]
-shape = SubResource("BoxShape3D_prpkc")
+[node name="@CollisionShape3D@67" type="CollisionShape3D" parent="Attic/RoomFinishes/AtticDeck/AtticDeckCollision"]
+shape = SubResource("BoxShape3D_5liht")
 
 [node name="AtticDeckBaseboardNorth" type="MeshInstance3D" parent="Attic/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 105, -95)
-material_override = SubResource("StandardMaterial3D_gk2xk")
-mesh = SubResource("BoxMesh_jyglp")
+material_override = SubResource("StandardMaterial3D_2qj6a")
+mesh = SubResource("BoxMesh_vvn1t")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "attic_generated_assembly",
@@ -20658,8 +20874,8 @@ metadata/node_path = "Attic/RoomFinishes/AtticDeckBaseboardNorth"
 
 [node name="AtticDeckBaseboardSouth" type="MeshInstance3D" parent="Attic/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 105, 120)
-material_override = SubResource("StandardMaterial3D_x0shh")
-mesh = SubResource("BoxMesh_awq3n")
+material_override = SubResource("StandardMaterial3D_ilmuh")
+mesh = SubResource("BoxMesh_17qv2")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "attic_generated_assembly",
@@ -20699,8 +20915,8 @@ metadata/node_path = "Attic/RoomFinishes/AtticDeckBaseboardSouth"
 
 [node name="AtticDeckBaseboardWest" type="MeshInstance3D" parent="Attic/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -165, 105, 12.5)
-material_override = SubResource("StandardMaterial3D_bufdy")
-mesh = SubResource("BoxMesh_m27av")
+material_override = SubResource("StandardMaterial3D_a7uq3")
+mesh = SubResource("BoxMesh_ekch0")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "attic_generated_assembly",
@@ -20740,8 +20956,8 @@ metadata/node_path = "Attic/RoomFinishes/AtticDeckBaseboardWest"
 
 [node name="AtticDeckBaseboardEast" type="MeshInstance3D" parent="Attic/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65, 105, 12.5)
-material_override = SubResource("StandardMaterial3D_qq7bh")
-mesh = SubResource("BoxMesh_vbxik")
+material_override = SubResource("StandardMaterial3D_20py6")
+mesh = SubResource("BoxMesh_7f3ij")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "attic_generated_assembly",
@@ -20781,8 +20997,8 @@ metadata/node_path = "Attic/RoomFinishes/AtticDeckBaseboardEast"
 
 [node name="AtticStorageZone" type="MeshInstance3D" parent="Attic/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 104, 12.5)
-material_override = SubResource("StandardMaterial3D_5liht")
-mesh = SubResource("BoxMesh_2qj6a")
+material_override = SubResource("StandardMaterial3D_b1tsb")
+mesh = SubResource("BoxMesh_40oj8")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "attic_generated_assembly",
@@ -20822,13 +21038,13 @@ metadata/node_path = "Attic/RoomFinishes/AtticStorageZone"
 
 [node name="AtticStorageZoneCollision" type="StaticBody3D" parent="Attic/RoomFinishes/AtticStorageZone"]
 
-[node name="@CollisionShape3D@67" type="CollisionShape3D" parent="Attic/RoomFinishes/AtticStorageZone/AtticStorageZoneCollision"]
-shape = SubResource("BoxShape3D_vvn1t")
+[node name="@CollisionShape3D@68" type="CollisionShape3D" parent="Attic/RoomFinishes/AtticStorageZone/AtticStorageZoneCollision"]
+shape = SubResource("BoxShape3D_agqq3")
 
 [node name="AtticStorageZoneBaseboardNorth" type="MeshInstance3D" parent="Attic/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 106, -82.5)
-material_override = SubResource("StandardMaterial3D_ilmuh")
-mesh = SubResource("BoxMesh_17qv2")
+material_override = SubResource("StandardMaterial3D_wg3xo")
+mesh = SubResource("BoxMesh_mljax")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "attic_generated_assembly",
@@ -20868,8 +21084,8 @@ metadata/node_path = "Attic/RoomFinishes/AtticStorageZoneBaseboardNorth"
 
 [node name="AtticStorageZoneBaseboardSouth" type="MeshInstance3D" parent="Attic/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 106, 107.5)
-material_override = SubResource("StandardMaterial3D_a7uq3")
-mesh = SubResource("BoxMesh_ekch0")
+material_override = SubResource("StandardMaterial3D_hfn2t")
+mesh = SubResource("BoxMesh_lhmjm")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "attic_generated_assembly",
@@ -20909,8 +21125,8 @@ metadata/node_path = "Attic/RoomFinishes/AtticStorageZoneBaseboardSouth"
 
 [node name="AtticStorageZoneBaseboardWest" type="MeshInstance3D" parent="Attic/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -151, 106, 12.5)
-material_override = SubResource("StandardMaterial3D_20py6")
-mesh = SubResource("BoxMesh_7f3ij")
+material_override = SubResource("StandardMaterial3D_yu6vr")
+mesh = SubResource("BoxMesh_nhjhf")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "attic_generated_assembly",
@@ -20950,8 +21166,8 @@ metadata/node_path = "Attic/RoomFinishes/AtticStorageZoneBaseboardWest"
 
 [node name="AtticStorageZoneBaseboardEast" type="MeshInstance3D" parent="Attic/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51, 106, 12.5)
-material_override = SubResource("StandardMaterial3D_b1tsb")
-mesh = SubResource("BoxMesh_40oj8")
+material_override = SubResource("StandardMaterial3D_iuraf")
+mesh = SubResource("BoxMesh_87hmw")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "attic_generated_assembly",
@@ -20999,8 +21215,8 @@ metadata/reason = "attic central clearance audit helper; should not render as vi
 
 [node name="AtticRafterLeftA" type="MeshInstance3D" parent="Attic/RoomFinishes"]
 transform = Transform3D(0.89879405, 0.43837115, 0, -0.43837115, 0.89879405, 0, 0, 0, 1, -150, 124, 12)
-material_override = SubResource("StandardMaterial3D_agqq3")
-mesh = SubResource("BoxMesh_wg3xo")
+material_override = SubResource("StandardMaterial3D_7u03c")
+mesh = SubResource("BoxMesh_hu2mk")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "attic_generated_assembly",
@@ -21040,8 +21256,8 @@ metadata/node_path = "Attic/RoomFinishes/AtticRafterLeftA"
 
 [node name="AtticRafterRightA" type="MeshInstance3D" parent="Attic/RoomFinishes"]
 transform = Transform3D(0.89879405, -0.43837115, 0, 0.43837115, 0.89879405, 0, 0, 0, 1, 50, 124, 12)
-material_override = SubResource("StandardMaterial3D_mljax")
-mesh = SubResource("BoxMesh_hfn2t")
+material_override = SubResource("StandardMaterial3D_yv52a")
+mesh = SubResource("BoxMesh_hm2al")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "attic_generated_assembly",
@@ -21081,8 +21297,8 @@ metadata/node_path = "Attic/RoomFinishes/AtticRafterRightA"
 
 [node name="AtticRidgeBeamInterior" type="MeshInstance3D" parent="Attic/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55, 154, 12)
-material_override = SubResource("StandardMaterial3D_lhmjm")
-mesh = SubResource("BoxMesh_yu6vr")
+material_override = SubResource("StandardMaterial3D_8fiv3")
+mesh = SubResource("BoxMesh_747r5")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "attic_generated_assembly",
@@ -21122,8 +21338,8 @@ metadata/node_path = "Attic/RoomFinishes/AtticRidgeBeamInterior"
 
 [node name="PopperHighRampLaunchDeck" type="MeshInstance3D" parent="Attic/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -122, 106.3, -44)
-material_override = SubResource("StandardMaterial3D_nhjhf")
-mesh = SubResource("BoxMesh_iuraf")
+material_override = SubResource("StandardMaterial3D_5vtks")
+mesh = SubResource("BoxMesh_vafqi")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["route surface support overlap", "non-colliding edge trim overlap", "intentional toy-racing guard contact"],
 "assembly": "popper_high_ramp",
@@ -21163,8 +21379,8 @@ metadata/node_path = "Attic/RoomFinishes/PopperHighRampLaunchDeck"
 
 [node name="PopperHighRampLaunchDeckEdgeLeft" type="MeshInstance3D" parent="Attic/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -122, 108.6, -54)
-material_override = SubResource("StandardMaterial3D_87hmw")
-mesh = SubResource("BoxMesh_7u03c")
+material_override = SubResource("StandardMaterial3D_ryqy8")
+mesh = SubResource("BoxMesh_nuwa2")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["route surface support overlap", "non-colliding edge trim overlap", "intentional toy-racing guard contact"],
 "assembly": "popper_high_ramp",
@@ -21204,8 +21420,8 @@ metadata/node_path = "Attic/RoomFinishes/PopperHighRampLaunchDeckEdgeLeft"
 
 [node name="PopperHighRampLaunchDeckEdgeRight" type="MeshInstance3D" parent="Attic/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -122, 108.6, -34)
-material_override = SubResource("StandardMaterial3D_hu2mk")
-mesh = SubResource("BoxMesh_yv52a")
+material_override = SubResource("StandardMaterial3D_rjj8t")
+mesh = SubResource("BoxMesh_dtd4v")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["route surface support overlap", "non-colliding edge trim overlap", "intentional toy-racing guard contact"],
 "assembly": "popper_high_ramp",
@@ -21245,8 +21461,8 @@ metadata/node_path = "Attic/RoomFinishes/PopperHighRampLaunchDeckEdgeRight"
 
 [node name="PopperHighRampLandingDeck" type="MeshInstance3D" parent="Attic/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 116, 46)
-material_override = SubResource("StandardMaterial3D_hm2al")
-mesh = SubResource("BoxMesh_8fiv3")
+material_override = SubResource("StandardMaterial3D_yp6y4")
+mesh = SubResource("BoxMesh_klpvm")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["route surface support overlap", "non-colliding edge trim overlap", "intentional toy-racing guard contact"],
 "assembly": "popper_high_ramp",
@@ -21286,8 +21502,8 @@ metadata/node_path = "Attic/RoomFinishes/PopperHighRampLandingDeck"
 
 [node name="PopperHighRampLandingDeckEdgeLeft" type="MeshInstance3D" parent="Attic/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 121.2, 29)
-material_override = SubResource("StandardMaterial3D_747r5")
-mesh = SubResource("BoxMesh_5vtks")
+material_override = SubResource("StandardMaterial3D_xiwfn")
+mesh = SubResource("BoxMesh_45e1q")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["route surface support overlap", "non-colliding edge trim overlap", "intentional toy-racing guard contact"],
 "assembly": "popper_high_ramp",
@@ -21327,8 +21543,8 @@ metadata/node_path = "Attic/RoomFinishes/PopperHighRampLandingDeckEdgeLeft"
 
 [node name="PopperHighRampLandingDeckEdgeRight" type="MeshInstance3D" parent="Attic/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 121.2, 63)
-material_override = SubResource("StandardMaterial3D_vafqi")
-mesh = SubResource("BoxMesh_ryqy8")
+material_override = SubResource("StandardMaterial3D_allcu")
+mesh = SubResource("BoxMesh_hsv6s")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["route surface support overlap", "non-colliding edge trim overlap", "intentional toy-racing guard contact"],
 "assembly": "popper_high_ramp",
@@ -21368,8 +21584,8 @@ metadata/node_path = "Attic/RoomFinishes/PopperHighRampLandingDeckEdgeRight"
 
 [node name="PopperBankedCardboardRamp" type="MeshInstance3D" parent="Attic/RoomFinishes"]
 transform = Transform3D(0.89879405, 0, 0.43837115, 0, 1, 0, -0.43837115, 0, 0.89879405, -46, 112, -2)
-material_override = SubResource("StandardMaterial3D_nuwa2")
-mesh = SubResource("BoxMesh_rjj8t")
+material_override = SubResource("StandardMaterial3D_42mbk")
+mesh = SubResource("BoxMesh_os5h6")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["route surface support overlap", "non-colliding edge trim overlap", "intentional toy-racing guard contact"],
 "assembly": "popper_high_ramp",
@@ -21409,8 +21625,8 @@ metadata/node_path = "Attic/RoomFinishes/PopperBankedCardboardRamp"
 
 [node name="PopperRafterGateA" type="MeshInstance3D" parent="Attic/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -142, 122, 68)
-material_override = SubResource("StandardMaterial3D_dtd4v")
-mesh = SubResource("BoxMesh_yp6y4")
+material_override = SubResource("StandardMaterial3D_56rtx")
+mesh = SubResource("BoxMesh_53t62")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "attic_generated_assembly",
@@ -21450,8 +21666,8 @@ metadata/node_path = "Attic/RoomFinishes/PopperRafterGateA"
 
 [node name="PopperRafterGateB" type="MeshInstance3D" parent="Attic/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 120, -34)
-material_override = SubResource("StandardMaterial3D_klpvm")
-mesh = SubResource("BoxMesh_xiwfn")
+material_override = SubResource("StandardMaterial3D_xtu1b")
+mesh = SubResource("BoxMesh_541eh")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "attic_generated_assembly",
@@ -21491,8 +21707,8 @@ metadata/node_path = "Attic/RoomFinishes/PopperRafterGateB"
 
 [node name="PopperCardboardGuardWall" type="MeshInstance3D" parent="Attic/RoomFinishes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 108, -86)
-material_override = SubResource("StandardMaterial3D_45e1q")
-mesh = SubResource("BoxMesh_allcu")
+material_override = SubResource("StandardMaterial3D_pecms")
+mesh = SubResource("BoxMesh_5xb7f")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["route surface support overlap", "non-colliding edge trim overlap", "intentional toy-racing guard contact"],
 "assembly": "popper_high_ramp",
@@ -21581,8 +21797,8 @@ metadata/wall_schedule = [{
 
 [node name="AtticWestKneePartition" type="MeshInstance3D" parent="Attic/InteriorPartitions"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -160, 114, 12.5)
-material_override = SubResource("StandardMaterial3D_hsv6s")
-mesh = SubResource("BoxMesh_42mbk")
+material_override = SubResource("StandardMaterial3D_36pxn")
+mesh = SubResource("BoxMesh_kukpc")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "attic_generated_assembly",
@@ -21622,13 +21838,13 @@ metadata/node_path = "Attic/InteriorPartitions/AtticWestKneePartition"
 
 [node name="AtticWestKneePartitionCollision" type="StaticBody3D" parent="Attic/InteriorPartitions/AtticWestKneePartition"]
 
-[node name="@CollisionShape3D@68" type="CollisionShape3D" parent="Attic/InteriorPartitions/AtticWestKneePartition/AtticWestKneePartitionCollision"]
-shape = SubResource("BoxShape3D_os5h6")
+[node name="@CollisionShape3D@69" type="CollisionShape3D" parent="Attic/InteriorPartitions/AtticWestKneePartition/AtticWestKneePartitionCollision"]
+shape = SubResource("BoxShape3D_bq0tg")
 
 [node name="AtticWestKneePartitionTopTrim" type="MeshInstance3D" parent="Attic/InteriorPartitions"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -160, 126, 12.5)
-material_override = SubResource("StandardMaterial3D_56rtx")
-mesh = SubResource("BoxMesh_53t62")
+material_override = SubResource("StandardMaterial3D_tqcc3")
+mesh = SubResource("BoxMesh_1ykk7")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["same wall run", "small trim overlap at corners"],
 "assembly": "exterior_wall_top_trim",
@@ -21684,8 +21900,8 @@ metadata/node_path = "Attic/InteriorPartitions/AtticWestKneePartitionTopTrim"
 
 [node name="AtticEastKneePartition" type="MeshInstance3D" parent="Attic/InteriorPartitions"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 114, 12.5)
-material_override = SubResource("StandardMaterial3D_xtu1b")
-mesh = SubResource("BoxMesh_541eh")
+material_override = SubResource("StandardMaterial3D_41d3i")
+mesh = SubResource("BoxMesh_m1ymg")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "attic_generated_assembly",
@@ -21725,13 +21941,13 @@ metadata/node_path = "Attic/InteriorPartitions/AtticEastKneePartition"
 
 [node name="AtticEastKneePartitionCollision" type="StaticBody3D" parent="Attic/InteriorPartitions/AtticEastKneePartition"]
 
-[node name="@CollisionShape3D@69" type="CollisionShape3D" parent="Attic/InteriorPartitions/AtticEastKneePartition/AtticEastKneePartitionCollision"]
-shape = SubResource("BoxShape3D_pecms")
+[node name="@CollisionShape3D@70" type="CollisionShape3D" parent="Attic/InteriorPartitions/AtticEastKneePartition/AtticEastKneePartitionCollision"]
+shape = SubResource("BoxShape3D_6vlu8")
 
 [node name="AtticEastKneePartitionTopTrim" type="MeshInstance3D" parent="Attic/InteriorPartitions"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 126, 12.5)
-material_override = SubResource("StandardMaterial3D_5xb7f")
-mesh = SubResource("BoxMesh_36pxn")
+material_override = SubResource("StandardMaterial3D_nrsg5")
+mesh = SubResource("BoxMesh_xm0st")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["same wall run", "small trim overlap at corners"],
 "assembly": "exterior_wall_top_trim",
@@ -21787,8 +22003,8 @@ metadata/node_path = "Attic/InteriorPartitions/AtticEastKneePartitionTopTrim"
 
 [node name="AtticStorageBackPartitionLower" type="MeshInstance3D" parent="Attic/InteriorPartitions"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96, 114, 120)
-material_override = SubResource("StandardMaterial3D_kukpc")
-mesh = SubResource("BoxMesh_bq0tg")
+material_override = SubResource("StandardMaterial3D_m74ce")
+mesh = SubResource("BoxMesh_5vxci")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "attic_generated_assembly",
@@ -21828,13 +22044,13 @@ metadata/node_path = "Attic/InteriorPartitions/AtticStorageBackPartitionLower"
 
 [node name="AtticStorageBackPartitionLowerCollision" type="StaticBody3D" parent="Attic/InteriorPartitions/AtticStorageBackPartitionLower"]
 
-[node name="@CollisionShape3D@70" type="CollisionShape3D" parent="Attic/InteriorPartitions/AtticStorageBackPartitionLower/AtticStorageBackPartitionLowerCollision"]
-shape = SubResource("BoxShape3D_tqcc3")
+[node name="@CollisionShape3D@71" type="CollisionShape3D" parent="Attic/InteriorPartitions/AtticStorageBackPartitionLower/AtticStorageBackPartitionLowerCollision"]
+shape = SubResource("BoxShape3D_yothn")
 
 [node name="AtticStorageBackPartitionLowerTopTrim" type="MeshInstance3D" parent="Attic/InteriorPartitions"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96, 126, 120)
-material_override = SubResource("StandardMaterial3D_1ykk7")
-mesh = SubResource("BoxMesh_41d3i")
+material_override = SubResource("StandardMaterial3D_56cau")
+mesh = SubResource("BoxMesh_r6peq")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["same wall run", "small trim overlap at corners"],
 "assembly": "exterior_wall_top_trim",
@@ -21890,8 +22106,8 @@ metadata/node_path = "Attic/InteriorPartitions/AtticStorageBackPartitionLowerTop
 
 [node name="AtticStorageBackPartitionUpper" type="MeshInstance3D" parent="Attic/InteriorPartitions"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 114, 120)
-material_override = SubResource("StandardMaterial3D_m1ymg")
-mesh = SubResource("BoxMesh_6vlu8")
+material_override = SubResource("StandardMaterial3D_qdnsi")
+mesh = SubResource("BoxMesh_1xlkj")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "attic_generated_assembly",
@@ -21931,13 +22147,13 @@ metadata/node_path = "Attic/InteriorPartitions/AtticStorageBackPartitionUpper"
 
 [node name="AtticStorageBackPartitionUpperCollision" type="StaticBody3D" parent="Attic/InteriorPartitions/AtticStorageBackPartitionUpper"]
 
-[node name="@CollisionShape3D@71" type="CollisionShape3D" parent="Attic/InteriorPartitions/AtticStorageBackPartitionUpper/AtticStorageBackPartitionUpperCollision"]
-shape = SubResource("BoxShape3D_nrsg5")
+[node name="@CollisionShape3D@72" type="CollisionShape3D" parent="Attic/InteriorPartitions/AtticStorageBackPartitionUpper/AtticStorageBackPartitionUpperCollision"]
+shape = SubResource("BoxShape3D_74co5")
 
 [node name="AtticStorageBackPartitionUpperTopTrim" type="MeshInstance3D" parent="Attic/InteriorPartitions"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 126, 120)
-material_override = SubResource("StandardMaterial3D_xm0st")
-mesh = SubResource("BoxMesh_m74ce")
+material_override = SubResource("StandardMaterial3D_trqil")
+mesh = SubResource("BoxMesh_sbp6o")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["same wall run", "small trim overlap at corners"],
 "assembly": "exterior_wall_top_trim",
@@ -21993,8 +22209,8 @@ metadata/node_path = "Attic/InteriorPartitions/AtticStorageBackPartitionUpperTop
 
 [node name="AtticStorageBackPartitionOpeningHeader" type="MeshInstance3D" parent="Attic/InteriorPartitions"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 118, 120)
-material_override = SubResource("StandardMaterial3D_5vxci")
-mesh = SubResource("BoxMesh_yothn")
+material_override = SubResource("StandardMaterial3D_crid3")
+mesh = SubResource("BoxMesh_hk7ed")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "attic_generated_assembly",
@@ -22034,8 +22250,8 @@ metadata/node_path = "Attic/InteriorPartitions/AtticStorageBackPartitionOpeningH
 
 [node name="AtticStorageBackPartitionThreshold" type="MeshInstance3D" parent="Attic/InteriorPartitions"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 105.2, 120)
-material_override = SubResource("StandardMaterial3D_56cau")
-mesh = SubResource("BoxMesh_r6peq")
+material_override = SubResource("StandardMaterial3D_ojqay")
+mesh = SubResource("BoxMesh_6pxkq")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "attic_generated_assembly",
@@ -22119,8 +22335,8 @@ metadata/validation_camera = "ValidationCameras/AtticAssetCloseupCamera"
 
 [node name="PatioDeckTransition" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.5, -0.45, -152.5)
-material_override = SubResource("StandardMaterial3D_qdnsi")
-mesh = SubResource("BoxMesh_1xlkj")
+material_override = SubResource("StandardMaterial3D_o2ga4")
+mesh = SubResource("BoxMesh_x0pmj")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -22161,12 +22377,12 @@ metadata/node_path = "Yard/PatioDeckTransition"
 [node name="PatioDeckTransitionCollision" type="StaticBody3D" parent="Yard/PatioDeckTransition"]
 
 [node name="@CollisionShape3D@15" type="CollisionShape3D" parent="Yard/PatioDeckTransition/PatioDeckTransitionCollision"]
-shape = SubResource("BoxShape3D_74co5")
+shape = SubResource("BoxShape3D_ow1yp")
 
 [node name="PatioBoardLineA" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.5, 0.25, -164)
-material_override = SubResource("StandardMaterial3D_trqil")
-mesh = SubResource("BoxMesh_sbp6o")
+material_override = SubResource("StandardMaterial3D_r67ud")
+mesh = SubResource("BoxMesh_nnoui")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -22206,8 +22422,8 @@ metadata/node_path = "Yard/PatioBoardLineA"
 
 [node name="PatioBoardLineB" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.5, 0.25, -141)
-material_override = SubResource("StandardMaterial3D_crid3")
-mesh = SubResource("BoxMesh_hk7ed")
+material_override = SubResource("StandardMaterial3D_7hyqg")
+mesh = SubResource("BoxMesh_o5oj7")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -22247,8 +22463,8 @@ metadata/node_path = "Yard/PatioBoardLineB"
 
 [node name="PatioDeckBoardSeam00" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150, 0.3, -152.5)
-material_override = SubResource("StandardMaterial3D_ojqay")
-mesh = SubResource("BoxMesh_6pxkq")
+material_override = SubResource("StandardMaterial3D_hxdj5")
+mesh = SubResource("BoxMesh_45a0c")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -22288,8 +22504,8 @@ metadata/node_path = "Yard/PatioDeckBoardSeam00"
 
 [node name="PatioDeckBoardSeam01" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106, 0.3, -152.5)
-material_override = SubResource("StandardMaterial3D_o2ga4")
-mesh = SubResource("BoxMesh_x0pmj")
+material_override = SubResource("StandardMaterial3D_66xfj")
+mesh = SubResource("BoxMesh_hnk2h")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -22329,8 +22545,8 @@ metadata/node_path = "Yard/PatioDeckBoardSeam01"
 
 [node name="PatioDeckBoardSeam02" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62, 0.3, -152.5)
-material_override = SubResource("StandardMaterial3D_ow1yp")
-mesh = SubResource("BoxMesh_r67ud")
+material_override = SubResource("StandardMaterial3D_1wu0d")
+mesh = SubResource("BoxMesh_wcacm")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -22370,8 +22586,8 @@ metadata/node_path = "Yard/PatioDeckBoardSeam02"
 
 [node name="PatioDeckBoardSeam03" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.3, -152.5)
-material_override = SubResource("StandardMaterial3D_nnoui")
-mesh = SubResource("BoxMesh_7hyqg")
+material_override = SubResource("StandardMaterial3D_k8yfc")
+mesh = SubResource("BoxMesh_x7ewi")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -22411,8 +22627,8 @@ metadata/node_path = "Yard/PatioDeckBoardSeam03"
 
 [node name="PatioDeckBoardSeam04" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 0.3, -152.5)
-material_override = SubResource("StandardMaterial3D_o5oj7")
-mesh = SubResource("BoxMesh_hxdj5")
+material_override = SubResource("StandardMaterial3D_wu7pq")
+mesh = SubResource("BoxMesh_bs35j")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -22452,8 +22668,8 @@ metadata/node_path = "Yard/PatioDeckBoardSeam04"
 
 [node name="PatioDeckBoardSeam05" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70, 0.3, -152.5)
-material_override = SubResource("StandardMaterial3D_45a0c")
-mesh = SubResource("BoxMesh_66xfj")
+material_override = SubResource("StandardMaterial3D_selb5")
+mesh = SubResource("BoxMesh_ey2n7")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -22493,8 +22709,8 @@ metadata/node_path = "Yard/PatioDeckBoardSeam05"
 
 [node name="OutdoorPlaygroundSetpieceZone" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.5, -0.45, -217.5)
-material_override = SubResource("StandardMaterial3D_hnk2h")
-mesh = SubResource("BoxMesh_1wu0d")
+material_override = SubResource("StandardMaterial3D_614mp")
+mesh = SubResource("BoxMesh_nswd1")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -22535,12 +22751,12 @@ metadata/node_path = "Yard/OutdoorPlaygroundSetpieceZone"
 [node name="OutdoorPlaygroundSetpieceZoneCollision" type="StaticBody3D" parent="Yard/OutdoorPlaygroundSetpieceZone"]
 
 [node name="@CollisionShape3D@16" type="CollisionShape3D" parent="Yard/OutdoorPlaygroundSetpieceZone/OutdoorPlaygroundSetpieceZoneCollision"]
-shape = SubResource("BoxShape3D_wcacm")
+shape = SubResource("BoxShape3D_ax5fu")
 
 [node name="PlaygroundMulchBorderFront" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.5, 1, -150)
-material_override = SubResource("StandardMaterial3D_k8yfc")
-mesh = SubResource("BoxMesh_x7ewi")
+material_override = SubResource("StandardMaterial3D_sooh0")
+mesh = SubResource("BoxMesh_gqpoi")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -22580,8 +22796,8 @@ metadata/node_path = "Yard/PlaygroundMulchBorderFront"
 
 [node name="PlaygroundMulchBorderBack" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.5, 1, -285)
-material_override = SubResource("StandardMaterial3D_wu7pq")
-mesh = SubResource("BoxMesh_bs35j")
+material_override = SubResource("StandardMaterial3D_f111n")
+mesh = SubResource("BoxMesh_bring")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -22621,8 +22837,8 @@ metadata/node_path = "Yard/PlaygroundMulchBorderBack"
 
 [node name="PlaygroundMulchBorderWest" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -170, 1, -217.5)
-material_override = SubResource("StandardMaterial3D_selb5")
-mesh = SubResource("BoxMesh_ey2n7")
+material_override = SubResource("StandardMaterial3D_qpkmi")
+mesh = SubResource("BoxMesh_8hfox")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -22662,8 +22878,8 @@ metadata/node_path = "Yard/PlaygroundMulchBorderWest"
 
 [node name="PlaygroundMulchBorderEast" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65, 1, -217.5)
-material_override = SubResource("StandardMaterial3D_614mp")
-mesh = SubResource("BoxMesh_nswd1")
+material_override = SubResource("StandardMaterial3D_aiye0")
+mesh = SubResource("BoxMesh_lsex0")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -22703,8 +22919,8 @@ metadata/node_path = "Yard/PlaygroundMulchBorderEast"
 
 [node name="GardenZone" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -250, -0.35, -307.5)
-material_override = SubResource("StandardMaterial3D_ax5fu")
-mesh = SubResource("BoxMesh_sooh0")
+material_override = SubResource("StandardMaterial3D_gibis")
+mesh = SubResource("BoxMesh_y7243")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -22745,12 +22961,12 @@ metadata/node_path = "Yard/GardenZone"
 [node name="GardenZoneCollision" type="StaticBody3D" parent="Yard/GardenZone"]
 
 [node name="@CollisionShape3D@17" type="CollisionShape3D" parent="Yard/GardenZone/GardenZoneCollision"]
-shape = SubResource("BoxShape3D_gqpoi")
+shape = SubResource("BoxShape3D_w6cnj")
 
 [node name="GardenRaisedBedA" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -282, 3, -308)
-material_override = SubResource("StandardMaterial3D_f111n")
-mesh = SubResource("BoxMesh_bring")
+material_override = SubResource("StandardMaterial3D_l4ugb")
+mesh = SubResource("BoxMesh_yn84g")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -22790,8 +23006,8 @@ metadata/node_path = "Yard/GardenRaisedBedA"
 
 [node name="GardenRaisedBedB" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -218, 3, -308)
-material_override = SubResource("StandardMaterial3D_qpkmi")
-mesh = SubResource("BoxMesh_8hfox")
+material_override = SubResource("StandardMaterial3D_bdrvq")
+mesh = SubResource("BoxMesh_cusiu")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -22831,8 +23047,8 @@ metadata/node_path = "Yard/GardenRaisedBedB"
 
 [node name="GardenVegetableRow00" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -282, 7, -368)
-material_override = SubResource("StandardMaterial3D_aiye0")
-mesh = SubResource("BoxMesh_lsex0")
+material_override = SubResource("StandardMaterial3D_qr4av")
+mesh = SubResource("BoxMesh_5x116")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -22872,8 +23088,8 @@ metadata/node_path = "Yard/GardenVegetableRow00"
 
 [node name="GardenVegetableRow01" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -218, 7, -338)
-material_override = SubResource("StandardMaterial3D_gibis")
-mesh = SubResource("BoxMesh_y7243")
+material_override = SubResource("StandardMaterial3D_ivthf")
+mesh = SubResource("BoxMesh_0cfrf")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -22913,8 +23129,8 @@ metadata/node_path = "Yard/GardenVegetableRow01"
 
 [node name="GardenVegetableRow02" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -282, 7, -308)
-material_override = SubResource("StandardMaterial3D_w6cnj")
-mesh = SubResource("BoxMesh_l4ugb")
+material_override = SubResource("StandardMaterial3D_eqmmi")
+mesh = SubResource("BoxMesh_ma30n")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -22954,8 +23170,8 @@ metadata/node_path = "Yard/GardenVegetableRow02"
 
 [node name="GardenVegetableRow03" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -218, 7, -278)
-material_override = SubResource("StandardMaterial3D_yn84g")
-mesh = SubResource("BoxMesh_bdrvq")
+material_override = SubResource("StandardMaterial3D_2x13s")
+mesh = SubResource("BoxMesh_q3vrr")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -22995,8 +23211,8 @@ metadata/node_path = "Yard/GardenVegetableRow03"
 
 [node name="GardenVegetableRow04" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -282, 7, -248)
-material_override = SubResource("StandardMaterial3D_cusiu")
-mesh = SubResource("BoxMesh_qr4av")
+material_override = SubResource("StandardMaterial3D_luhx0")
+mesh = SubResource("BoxMesh_wqy4s")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -23036,8 +23252,8 @@ metadata/node_path = "Yard/GardenVegetableRow04"
 
 [node name="GardenPath" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -250, 0.05, -308)
-material_override = SubResource("StandardMaterial3D_5x116")
-mesh = SubResource("BoxMesh_ivthf")
+material_override = SubResource("StandardMaterial3D_f3wqk")
+mesh = SubResource("BoxMesh_ehapg")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -23077,8 +23293,8 @@ metadata/node_path = "Yard/GardenPath"
 
 [node name="LawnRouteBuffer" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.55, -326)
-material_override = SubResource("StandardMaterial3D_0cfrf")
-mesh = SubResource("BoxMesh_eqmmi")
+material_override = SubResource("StandardMaterial3D_3ygxp")
+mesh = SubResource("BoxMesh_qddc2")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -23119,12 +23335,12 @@ metadata/node_path = "Yard/LawnRouteBuffer"
 [node name="LawnRouteBufferCollision" type="StaticBody3D" parent="Yard/LawnRouteBuffer"]
 
 [node name="@CollisionShape3D@18" type="CollisionShape3D" parent="Yard/LawnRouteBuffer/LawnRouteBufferCollision"]
-shape = SubResource("BoxShape3D_ma30n")
+shape = SubResource("BoxShape3D_qjos8")
 
 [node name="ToyboxTreeSwingLandingPatch" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, -0.3, -308)
-material_override = SubResource("StandardMaterial3D_2x13s")
-mesh = SubResource("BoxMesh_q3vrr")
+material_override = SubResource("StandardMaterial3D_wu7kl")
+mesh = SubResource("BoxMesh_g8jgp")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -23165,12 +23381,12 @@ metadata/node_path = "Yard/ToyboxTreeSwingLandingPatch"
 [node name="ToyboxTreeSwingLandingPatchCollision" type="StaticBody3D" parent="Yard/ToyboxTreeSwingLandingPatch"]
 
 [node name="@CollisionShape3D@19" type="CollisionShape3D" parent="Yard/ToyboxTreeSwingLandingPatch/ToyboxTreeSwingLandingPatchCollision"]
-shape = SubResource("BoxShape3D_luhx0")
+shape = SubResource("BoxShape3D_neofk")
 
 [node name="MixedGrassHeightClump00" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 1.4, -250)
-material_override = SubResource("StandardMaterial3D_wqy4s")
-mesh = SubResource("BoxMesh_f3wqk")
+material_override = SubResource("StandardMaterial3D_ir7fc")
+mesh = SubResource("BoxMesh_pwl04")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -23210,8 +23426,8 @@ metadata/node_path = "Yard/MixedGrassHeightClump00"
 
 [node name="MixedGrassHeightClump01" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52, 2.4, -267)
-material_override = SubResource("StandardMaterial3D_ehapg")
-mesh = SubResource("BoxMesh_3ygxp")
+material_override = SubResource("StandardMaterial3D_7k4e4")
+mesh = SubResource("BoxMesh_xhy46")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -23251,8 +23467,8 @@ metadata/node_path = "Yard/MixedGrassHeightClump01"
 
 [node name="MixedGrassHeightClump02" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 3.4, -284)
-material_override = SubResource("StandardMaterial3D_qddc2")
-mesh = SubResource("BoxMesh_qjos8")
+material_override = SubResource("StandardMaterial3D_ie7s4")
+mesh = SubResource("BoxMesh_l3d3v")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -23292,8 +23508,8 @@ metadata/node_path = "Yard/MixedGrassHeightClump02"
 
 [node name="MixedGrassHeightClump03" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 1.4, -301)
-material_override = SubResource("StandardMaterial3D_wu7kl")
-mesh = SubResource("BoxMesh_g8jgp")
+material_override = SubResource("StandardMaterial3D_a27rj")
+mesh = SubResource("BoxMesh_rapi4")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -23333,8 +23549,8 @@ metadata/node_path = "Yard/MixedGrassHeightClump03"
 
 [node name="MixedGrassHeightClump04" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2.4, -318)
-material_override = SubResource("StandardMaterial3D_neofk")
-mesh = SubResource("BoxMesh_ir7fc")
+material_override = SubResource("StandardMaterial3D_q084x")
+mesh = SubResource("BoxMesh_k3wst")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -23374,8 +23590,8 @@ metadata/node_path = "Yard/MixedGrassHeightClump04"
 
 [node name="MixedGrassHeightClump05" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 3.4, -335)
-material_override = SubResource("StandardMaterial3D_pwl04")
-mesh = SubResource("BoxMesh_7k4e4")
+material_override = SubResource("StandardMaterial3D_fwfk4")
+mesh = SubResource("BoxMesh_v70kh")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -23415,8 +23631,8 @@ metadata/node_path = "Yard/MixedGrassHeightClump05"
 
 [node name="MixedGrassHeightClump06" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 1.4, -352)
-material_override = SubResource("StandardMaterial3D_xhy46")
-mesh = SubResource("BoxMesh_ie7s4")
+material_override = SubResource("StandardMaterial3D_r2vnb")
+mesh = SubResource("BoxMesh_gp8wk")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -23456,8 +23672,8 @@ metadata/node_path = "Yard/MixedGrassHeightClump06"
 
 [node name="MixedGrassHeightClump07" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56, 2.4, -369)
-material_override = SubResource("StandardMaterial3D_l3d3v")
-mesh = SubResource("BoxMesh_a27rj")
+material_override = SubResource("StandardMaterial3D_7hk1a")
+mesh = SubResource("BoxMesh_e26c7")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -23497,8 +23713,8 @@ metadata/node_path = "Yard/MixedGrassHeightClump07"
 
 [node name="MixedGrassHeightClump08" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74, 3.4, -386)
-material_override = SubResource("StandardMaterial3D_rapi4")
-mesh = SubResource("BoxMesh_q084x")
+material_override = SubResource("StandardMaterial3D_hxu3c")
+mesh = SubResource("BoxMesh_4yr0l")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -23538,8 +23754,8 @@ metadata/node_path = "Yard/MixedGrassHeightClump08"
 
 [node name="MixedGrassHeightClump09" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 1.4, -253)
-material_override = SubResource("StandardMaterial3D_k3wst")
-mesh = SubResource("BoxMesh_fwfk4")
+material_override = SubResource("StandardMaterial3D_toxqd")
+mesh = SubResource("BoxMesh_ph8cr")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -23579,8 +23795,8 @@ metadata/node_path = "Yard/MixedGrassHeightClump09"
 
 [node name="MixedGrassHeightClump10" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 110, 2.4, -270)
-material_override = SubResource("StandardMaterial3D_v70kh")
-mesh = SubResource("BoxMesh_r2vnb")
+material_override = SubResource("StandardMaterial3D_vfci1")
+mesh = SubResource("BoxMesh_5qibt")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -23620,8 +23836,8 @@ metadata/node_path = "Yard/MixedGrassHeightClump10"
 
 [node name="MixedGrassHeightClump11" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, 3.4, -287)
-material_override = SubResource("StandardMaterial3D_gp8wk")
-mesh = SubResource("BoxMesh_7hk1a")
+material_override = SubResource("StandardMaterial3D_52xr8")
+mesh = SubResource("BoxMesh_ywip3")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -23661,8 +23877,8 @@ metadata/node_path = "Yard/MixedGrassHeightClump11"
 
 [node name="Sandbox" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 217.5, -0.35, -320)
-material_override = SubResource("StandardMaterial3D_e26c7")
-mesh = SubResource("BoxMesh_hxu3c")
+material_override = SubResource("StandardMaterial3D_wekqx")
+mesh = SubResource("BoxMesh_w1mw2")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -23703,12 +23919,12 @@ metadata/node_path = "Yard/Sandbox"
 [node name="SandboxCollision" type="StaticBody3D" parent="Yard/Sandbox"]
 
 [node name="@CollisionShape3D@20" type="CollisionShape3D" parent="Yard/Sandbox/SandboxCollision"]
-shape = SubResource("BoxShape3D_4yr0l")
+shape = SubResource("BoxShape3D_jvlhk")
 
 [node name="SandboxTimberNorth" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 217.5, 3, -420)
-material_override = SubResource("StandardMaterial3D_toxqd")
-mesh = SubResource("BoxMesh_ph8cr")
+material_override = SubResource("StandardMaterial3D_hrspm")
+mesh = SubResource("BoxMesh_tvqaa")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -23748,8 +23964,8 @@ metadata/node_path = "Yard/SandboxTimberNorth"
 
 [node name="SandboxTimberSouth" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 217.5, 3, -220)
-material_override = SubResource("StandardMaterial3D_vfci1")
-mesh = SubResource("BoxMesh_5qibt")
+material_override = SubResource("StandardMaterial3D_qsvyf")
+mesh = SubResource("BoxMesh_6tqo1")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -23789,8 +24005,8 @@ metadata/node_path = "Yard/SandboxTimberSouth"
 
 [node name="SandboxTimberWest" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125, 3, -320)
-material_override = SubResource("StandardMaterial3D_52xr8")
-mesh = SubResource("BoxMesh_ywip3")
+material_override = SubResource("StandardMaterial3D_pwjet")
+mesh = SubResource("BoxMesh_78gxe")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -23830,8 +24046,8 @@ metadata/node_path = "Yard/SandboxTimberWest"
 
 [node name="SandboxTimberEast" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 310, 3, -320)
-material_override = SubResource("StandardMaterial3D_wekqx")
-mesh = SubResource("BoxMesh_w1mw2")
+material_override = SubResource("StandardMaterial3D_q3d6n")
+mesh = SubResource("BoxMesh_voskr")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -23871,8 +24087,8 @@ metadata/node_path = "Yard/SandboxTimberEast"
 
 [node name="TreeShrubScreen" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -446)
-material_override = SubResource("StandardMaterial3D_jvlhk")
-mesh = SubResource("BoxMesh_hrspm")
+material_override = SubResource("StandardMaterial3D_k6o33")
+mesh = SubResource("BoxMesh_i4cab")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -23912,8 +24128,8 @@ metadata/node_path = "Yard/TreeShrubScreen"
 
 [node name="BackServiceGate" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 238, 9, -446)
-material_override = SubResource("StandardMaterial3D_tvqaa")
-mesh = SubResource("BoxMesh_qsvyf")
+material_override = SubResource("StandardMaterial3D_6sc85")
+mesh = SubResource("BoxMesh_03piy")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -23953,8 +24169,8 @@ metadata/node_path = "Yard/BackServiceGate"
 
 [node name="BackyardStonePathToGarden" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(0.9781476, 0, 0.2079117, 0, 1, 0, -0.2079117, 0, 0.9781476, -152, 0, -258)
-material_override = SubResource("StandardMaterial3D_6tqo1")
-mesh = SubResource("BoxMesh_pwjet")
+material_override = SubResource("StandardMaterial3D_riqtf")
+mesh = SubResource("BoxMesh_llveg")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -23994,8 +24210,8 @@ metadata/node_path = "Yard/BackyardStonePathToGarden"
 
 [node name="BackyardPatioPaverGridA" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -92, 0.1, -180)
-material_override = SubResource("StandardMaterial3D_78gxe")
-mesh = SubResource("BoxMesh_q3d6n")
+material_override = SubResource("StandardMaterial3D_6iekm")
+mesh = SubResource("BoxMesh_ibl85")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -24035,8 +24251,8 @@ metadata/node_path = "Yard/BackyardPatioPaverGridA"
 
 [node name="BackyardPatioPaverGridB" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0.1, -180)
-material_override = SubResource("StandardMaterial3D_voskr")
-mesh = SubResource("BoxMesh_k6o33")
+material_override = SubResource("StandardMaterial3D_ojlri")
+mesh = SubResource("BoxMesh_nc4q1")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -24076,8 +24292,8 @@ metadata/node_path = "Yard/BackyardPatioPaverGridB"
 
 [node name="BackFenceShrubMass00" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -300, 5, -434)
-material_override = SubResource("StandardMaterial3D_i4cab")
-mesh = SubResource("BoxMesh_6sc85")
+material_override = SubResource("StandardMaterial3D_fke0p")
+mesh = SubResource("BoxMesh_xj1fa")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -24117,8 +24333,8 @@ metadata/node_path = "Yard/BackFenceShrubMass00"
 
 [node name="BackFenceShrubMass01" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -216, 5, -426)
-material_override = SubResource("StandardMaterial3D_03piy")
-mesh = SubResource("BoxMesh_riqtf")
+material_override = SubResource("StandardMaterial3D_0crey")
+mesh = SubResource("BoxMesh_rah8o")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -24158,8 +24374,8 @@ metadata/node_path = "Yard/BackFenceShrubMass01"
 
 [node name="BackFenceShrubMass02" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -132, 5, -434)
-material_override = SubResource("StandardMaterial3D_llveg")
-mesh = SubResource("BoxMesh_6iekm")
+material_override = SubResource("StandardMaterial3D_0qy3l")
+mesh = SubResource("BoxMesh_7xaen")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -24199,8 +24415,8 @@ metadata/node_path = "Yard/BackFenceShrubMass02"
 
 [node name="BackFenceShrubMass03" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48, 5, -426)
-material_override = SubResource("StandardMaterial3D_ibl85")
-mesh = SubResource("BoxMesh_ojlri")
+material_override = SubResource("StandardMaterial3D_w1otw")
+mesh = SubResource("BoxMesh_jgkfb")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -24240,8 +24456,8 @@ metadata/node_path = "Yard/BackFenceShrubMass03"
 
 [node name="BackFenceShrubMass04" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 5, -434)
-material_override = SubResource("StandardMaterial3D_nc4q1")
-mesh = SubResource("BoxMesh_fke0p")
+material_override = SubResource("StandardMaterial3D_ub0rk")
+mesh = SubResource("BoxMesh_xm1bc")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -24281,8 +24497,8 @@ metadata/node_path = "Yard/BackFenceShrubMass04"
 
 [node name="BackFenceShrubMass05" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 120, 5, -426)
-material_override = SubResource("StandardMaterial3D_xj1fa")
-mesh = SubResource("BoxMesh_0crey")
+material_override = SubResource("StandardMaterial3D_u4re2")
+mesh = SubResource("BoxMesh_aew28")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -24322,8 +24538,8 @@ metadata/node_path = "Yard/BackFenceShrubMass05"
 
 [node name="BackFenceShrubMass06" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 204, 5, -434)
-material_override = SubResource("StandardMaterial3D_rah8o")
-mesh = SubResource("BoxMesh_0qy3l")
+material_override = SubResource("StandardMaterial3D_vnqs0")
+mesh = SubResource("BoxMesh_ntj13")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -24363,8 +24579,8 @@ metadata/node_path = "Yard/BackFenceShrubMass06"
 
 [node name="BackFenceShrubMass07" type="MeshInstance3D" parent="Yard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 288, 5, -426)
-material_override = SubResource("StandardMaterial3D_7xaen")
-mesh = SubResource("BoxMesh_w1otw")
+material_override = SubResource("StandardMaterial3D_lhpxm")
+mesh = SubResource("BoxMesh_r0b5d")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "yard_generated_assembly",
@@ -24506,8 +24722,8 @@ metadata/vertical_circulation_contract = {
 [node name="MainStairLowerLandingSurface" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 0.35, 126)
 visible = false
-material_override = SubResource("StandardMaterial3D_jgkfb")
-mesh = SubResource("BoxMesh_ub0rk")
+material_override = SubResource("StandardMaterial3D_0f1xn")
+mesh = SubResource("BoxMesh_wgp1n")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -24565,8 +24781,8 @@ metadata/target_dimensions_units = Vector3(34, 0.6, 18)
 [node name="MainStairLowerFlightTread00" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 2.6613636, 118.90909)
 visible = false
-material_override = SubResource("StandardMaterial3D_xm1bc")
-mesh = SubResource("BoxMesh_u4re2")
+material_override = SubResource("StandardMaterial3D_57wka")
+mesh = SubResource("BoxMesh_x2lc5")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -24627,8 +24843,8 @@ metadata/target_dimensions_units = Vector3(24, 0.7, 2.2181818)
 [node name="MainStairLowerFlightTread01" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 5.0227275, 120.72727)
 visible = false
-material_override = SubResource("StandardMaterial3D_aew28")
-mesh = SubResource("BoxMesh_vnqs0")
+material_override = SubResource("StandardMaterial3D_n6dnf")
+mesh = SubResource("BoxMesh_w2l7h")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -24689,8 +24905,8 @@ metadata/target_dimensions_units = Vector3(24, 0.7, 2.2181818)
 [node name="MainStairLowerFlightTread02" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 7.384091, 122.545456)
 visible = false
-material_override = SubResource("StandardMaterial3D_ntj13")
-mesh = SubResource("BoxMesh_lhpxm")
+material_override = SubResource("StandardMaterial3D_x46sj")
+mesh = SubResource("BoxMesh_p8plg")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -24751,8 +24967,8 @@ metadata/target_dimensions_units = Vector3(24, 0.7, 2.2181818)
 [node name="MainStairLowerFlightTread03" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 9.745455, 124.36363)
 visible = false
-material_override = SubResource("StandardMaterial3D_r0b5d")
-mesh = SubResource("BoxMesh_0f1xn")
+material_override = SubResource("StandardMaterial3D_emawy")
+mesh = SubResource("BoxMesh_o10k7")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -24813,8 +25029,8 @@ metadata/target_dimensions_units = Vector3(24, 0.7, 2.2181818)
 [node name="MainStairLowerFlightTread04" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 12.106818, 126.181816)
 visible = false
-material_override = SubResource("StandardMaterial3D_wgp1n")
-mesh = SubResource("BoxMesh_57wka")
+material_override = SubResource("StandardMaterial3D_xfeft")
+mesh = SubResource("BoxMesh_xt3ox")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -24875,8 +25091,8 @@ metadata/target_dimensions_units = Vector3(24, 0.7, 2.2181818)
 [node name="MainStairLowerFlightTread05" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 14.468182, 128)
 visible = false
-material_override = SubResource("StandardMaterial3D_x2lc5")
-mesh = SubResource("BoxMesh_n6dnf")
+material_override = SubResource("StandardMaterial3D_0jl7f")
+mesh = SubResource("BoxMesh_kaost")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -24937,8 +25153,8 @@ metadata/target_dimensions_units = Vector3(24, 0.7, 2.2181818)
 [node name="MainStairLowerFlightTread06" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 16.829546, 129.81818)
 visible = false
-material_override = SubResource("StandardMaterial3D_w2l7h")
-mesh = SubResource("BoxMesh_x46sj")
+material_override = SubResource("StandardMaterial3D_7qbhy")
+mesh = SubResource("BoxMesh_8yqiq")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -24999,8 +25215,8 @@ metadata/target_dimensions_units = Vector3(24, 0.7, 2.2181818)
 [node name="MainStairLowerFlightTread07" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 19.190908, 131.63637)
 visible = false
-material_override = SubResource("StandardMaterial3D_p8plg")
-mesh = SubResource("BoxMesh_emawy")
+material_override = SubResource("StandardMaterial3D_ol1vw")
+mesh = SubResource("BoxMesh_jq4bt")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -25061,8 +25277,8 @@ metadata/target_dimensions_units = Vector3(24, 0.7, 2.2181818)
 [node name="MainStairLowerFlightTread08" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 21.552273, 133.45454)
 visible = false
-material_override = SubResource("StandardMaterial3D_o10k7")
-mesh = SubResource("BoxMesh_xfeft")
+material_override = SubResource("StandardMaterial3D_hxc5n")
+mesh = SubResource("BoxMesh_k04g6")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -25123,8 +25339,8 @@ metadata/target_dimensions_units = Vector3(24, 0.7, 2.2181818)
 [node name="MainStairLowerFlightTread09" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 23.913637, 135.27274)
 visible = false
-material_override = SubResource("StandardMaterial3D_xt3ox")
-mesh = SubResource("BoxMesh_0jl7f")
+material_override = SubResource("StandardMaterial3D_qge0a")
+mesh = SubResource("BoxMesh_ilu4k")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -25185,8 +25401,8 @@ metadata/target_dimensions_units = Vector3(24, 0.7, 2.2181818)
 [node name="MainStairLowerFlightTread10" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 26.275, 137.09091)
 visible = false
-material_override = SubResource("StandardMaterial3D_kaost")
-mesh = SubResource("BoxMesh_7qbhy")
+material_override = SubResource("StandardMaterial3D_fp8ff")
+mesh = SubResource("BoxMesh_ylt85")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -25247,8 +25463,8 @@ metadata/target_dimensions_units = Vector3(24, 0.7, 2.2181818)
 [node name="MainStairSwitchbackLandingSurface" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 26.325, 116)
 visible = false
-material_override = SubResource("StandardMaterial3D_8yqiq")
-mesh = SubResource("BoxMesh_ol1vw")
+material_override = SubResource("StandardMaterial3D_h0lo4")
+mesh = SubResource("BoxMesh_wula2")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -25306,8 +25522,8 @@ metadata/target_dimensions_units = Vector3(34, 0.6, 24)
 [node name="MainStairUpperFlightTread00" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 72, 28.636364, 137.09091)
 visible = false
-material_override = SubResource("StandardMaterial3D_jq4bt")
-mesh = SubResource("BoxMesh_hxc5n")
+material_override = SubResource("StandardMaterial3D_1jlbo")
+mesh = SubResource("BoxMesh_skne2")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -25368,8 +25584,8 @@ metadata/target_dimensions_units = Vector3(24, 0.7, 2.2181818)
 [node name="MainStairUpperFlightTread01" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 72, 30.997726, 135.27272)
 visible = false
-material_override = SubResource("StandardMaterial3D_k04g6")
-mesh = SubResource("BoxMesh_qge0a")
+material_override = SubResource("StandardMaterial3D_m4ely")
+mesh = SubResource("BoxMesh_sa5oy")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -25430,8 +25646,8 @@ metadata/target_dimensions_units = Vector3(24, 0.7, 2.2181818)
 [node name="MainStairUpperFlightTread02" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 72, 33.35909, 133.45454)
 visible = false
-material_override = SubResource("StandardMaterial3D_ilu4k")
-mesh = SubResource("BoxMesh_fp8ff")
+material_override = SubResource("StandardMaterial3D_f8vut")
+mesh = SubResource("BoxMesh_tus0l")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -25492,8 +25708,8 @@ metadata/target_dimensions_units = Vector3(24, 0.7, 2.2181818)
 [node name="MainStairUpperFlightTread03" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 72, 35.720455, 131.63637)
 visible = false
-material_override = SubResource("StandardMaterial3D_ylt85")
-mesh = SubResource("BoxMesh_h0lo4")
+material_override = SubResource("StandardMaterial3D_y31v2")
+mesh = SubResource("BoxMesh_860te")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -25554,8 +25770,8 @@ metadata/target_dimensions_units = Vector3(24, 0.7, 2.2181818)
 [node name="MainStairUpperFlightTread04" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 72, 38.081818, 129.81818)
 visible = false
-material_override = SubResource("StandardMaterial3D_wula2")
-mesh = SubResource("BoxMesh_1jlbo")
+material_override = SubResource("StandardMaterial3D_sknor")
+mesh = SubResource("BoxMesh_teppx")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -25616,8 +25832,8 @@ metadata/target_dimensions_units = Vector3(24, 0.7, 2.2181818)
 [node name="MainStairUpperFlightTread05" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 72, 40.44318, 128)
 visible = false
-material_override = SubResource("StandardMaterial3D_skne2")
-mesh = SubResource("BoxMesh_m4ely")
+material_override = SubResource("StandardMaterial3D_v62mp")
+mesh = SubResource("BoxMesh_1dpo4")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -25678,8 +25894,8 @@ metadata/target_dimensions_units = Vector3(24, 0.7, 2.2181818)
 [node name="MainStairUpperFlightTread06" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 72, 42.804546, 126.181816)
 visible = false
-material_override = SubResource("StandardMaterial3D_sa5oy")
-mesh = SubResource("BoxMesh_f8vut")
+material_override = SubResource("StandardMaterial3D_j3e4d")
+mesh = SubResource("BoxMesh_f47p7")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -25740,8 +25956,8 @@ metadata/target_dimensions_units = Vector3(24, 0.7, 2.2181818)
 [node name="MainStairUpperFlightTread07" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 72, 45.16591, 124.36363)
 visible = false
-material_override = SubResource("StandardMaterial3D_tus0l")
-mesh = SubResource("BoxMesh_y31v2")
+material_override = SubResource("StandardMaterial3D_jvhu8")
+mesh = SubResource("BoxMesh_o0spl")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -25802,8 +26018,8 @@ metadata/target_dimensions_units = Vector3(24, 0.7, 2.2181818)
 [node name="MainStairUpperFlightTread08" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 72, 47.52727, 122.545456)
 visible = false
-material_override = SubResource("StandardMaterial3D_860te")
-mesh = SubResource("BoxMesh_sknor")
+material_override = SubResource("StandardMaterial3D_pjatl")
+mesh = SubResource("BoxMesh_8chp1")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -25864,8 +26080,8 @@ metadata/target_dimensions_units = Vector3(24, 0.7, 2.2181818)
 [node name="MainStairUpperFlightTread09" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 72, 49.888634, 120.72727)
 visible = false
-material_override = SubResource("StandardMaterial3D_teppx")
-mesh = SubResource("BoxMesh_v62mp")
+material_override = SubResource("StandardMaterial3D_qfywk")
+mesh = SubResource("BoxMesh_q52s7")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -25926,8 +26142,8 @@ metadata/target_dimensions_units = Vector3(24, 0.7, 2.2181818)
 [node name="MainStairUpperFlightTread10" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 72, 52.25, 118.90909)
 visible = false
-material_override = SubResource("StandardMaterial3D_1dpo4")
-mesh = SubResource("BoxMesh_j3e4d")
+material_override = SubResource("StandardMaterial3D_53bc6")
+mesh = SubResource("BoxMesh_u7p2n")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -25988,8 +26204,8 @@ metadata/target_dimensions_units = Vector3(24, 0.7, 2.2181818)
 [node name="MainStairUpperLandingSurface" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 52.3, 126)
 visible = false
-material_override = SubResource("StandardMaterial3D_f47p7")
-mesh = SubResource("BoxMesh_jvhu8")
+material_override = SubResource("StandardMaterial3D_j5q48")
+mesh = SubResource("BoxMesh_j5bc0")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26079,8 +26295,8 @@ metadata/validation_gate = "floor opening must align with sourced stair asset an
 [node name="AtticPullDownLowerLandingSurface" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 52.3, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_o0spl")
-mesh = SubResource("BoxMesh_pjatl")
+material_override = SubResource("StandardMaterial3D_cppg0")
+mesh = SubResource("BoxMesh_xk7lo")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26138,8 +26354,8 @@ metadata/target_dimensions_units = Vector3(34, 0.6, 30)
 [node name="AtticPullDownUpperLandingSurface" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 104.3, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_8chp1")
-mesh = SubResource("BoxMesh_qfywk")
+material_override = SubResource("StandardMaterial3D_2sfd8")
+mesh = SubResource("BoxMesh_ehwg7")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26197,8 +26413,8 @@ metadata/target_dimensions_units = Vector3(40, 0.6, 34)
 [node name="AtticPullDownLadderRailLeft" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 78.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_q52s7")
-mesh = SubResource("BoxMesh_53bc6")
+material_override = SubResource("StandardMaterial3D_82tan")
+mesh = SubResource("BoxMesh_euc5q")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26254,8 +26470,8 @@ metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor"
 [node name="AtticPullDownLadderRailRight" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 78.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_u7p2n")
-mesh = SubResource("BoxMesh_j5q48")
+material_override = SubResource("StandardMaterial3D_twnbr")
+mesh = SubResource("BoxMesh_3qyud")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26311,8 +26527,8 @@ metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor"
 [node name="AtticPullDownLadderRung00" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 56.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_j5bc0")
-mesh = SubResource("BoxMesh_cppg0")
+material_override = SubResource("StandardMaterial3D_d2d06")
+mesh = SubResource("BoxMesh_2dv50")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26370,8 +26586,8 @@ metadata/rung_spacing_units = 4.0
 [node name="AtticPullDownLadderRung01" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 60.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_xk7lo")
-mesh = SubResource("BoxMesh_2sfd8")
+material_override = SubResource("StandardMaterial3D_6me1o")
+mesh = SubResource("BoxMesh_51m2g")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26429,8 +26645,8 @@ metadata/rung_spacing_units = 4.0
 [node name="AtticPullDownLadderRung02" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 64.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_ehwg7")
-mesh = SubResource("BoxMesh_82tan")
+material_override = SubResource("StandardMaterial3D_tjjd0")
+mesh = SubResource("BoxMesh_3lunw")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26488,8 +26704,8 @@ metadata/rung_spacing_units = 4.0
 [node name="AtticPullDownLadderRung03" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 68.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_euc5q")
-mesh = SubResource("BoxMesh_twnbr")
+material_override = SubResource("StandardMaterial3D_s3kh4")
+mesh = SubResource("BoxMesh_lmexr")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26547,8 +26763,8 @@ metadata/rung_spacing_units = 4.0
 [node name="AtticPullDownLadderRung04" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 72.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_3qyud")
-mesh = SubResource("BoxMesh_d2d06")
+material_override = SubResource("StandardMaterial3D_k4vfg")
+mesh = SubResource("BoxMesh_bre7t")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26606,8 +26822,8 @@ metadata/rung_spacing_units = 4.0
 [node name="AtticPullDownLadderRung05" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 76.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_2dv50")
-mesh = SubResource("BoxMesh_6me1o")
+material_override = SubResource("StandardMaterial3D_fu0vo")
+mesh = SubResource("BoxMesh_xpeaa")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26665,8 +26881,8 @@ metadata/rung_spacing_units = 4.0
 [node name="AtticPullDownLadderRung06" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 80.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_51m2g")
-mesh = SubResource("BoxMesh_tjjd0")
+material_override = SubResource("StandardMaterial3D_pehca")
+mesh = SubResource("BoxMesh_u6pqe")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26724,8 +26940,8 @@ metadata/rung_spacing_units = 4.0
 [node name="AtticPullDownLadderRung07" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 84.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_3lunw")
-mesh = SubResource("BoxMesh_s3kh4")
+material_override = SubResource("StandardMaterial3D_4q4u8")
+mesh = SubResource("BoxMesh_6n26a")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26783,8 +26999,8 @@ metadata/rung_spacing_units = 4.0
 [node name="AtticPullDownLadderRung08" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 88.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_lmexr")
-mesh = SubResource("BoxMesh_k4vfg")
+material_override = SubResource("StandardMaterial3D_tnbxp")
+mesh = SubResource("BoxMesh_uxaw1")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26842,8 +27058,8 @@ metadata/rung_spacing_units = 4.0
 [node name="AtticPullDownLadderRung09" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 92.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_bre7t")
-mesh = SubResource("BoxMesh_fu0vo")
+material_override = SubResource("StandardMaterial3D_ytqhp")
+mesh = SubResource("BoxMesh_vppyv")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26901,8 +27117,8 @@ metadata/rung_spacing_units = 4.0
 [node name="AtticPullDownLadderRung10" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 96.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_xpeaa")
-mesh = SubResource("BoxMesh_pehca")
+material_override = SubResource("StandardMaterial3D_hpi5d")
+mesh = SubResource("BoxMesh_nuay4")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26960,8 +27176,8 @@ metadata/rung_spacing_units = 4.0
 [node name="AtticPullDownLadderRung11" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 100.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_u6pqe")
-mesh = SubResource("BoxMesh_4q4u8")
+material_override = SubResource("StandardMaterial3D_2gsvu")
+mesh = SubResource("BoxMesh_tl835")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -27940,4 +28156,4 @@ transform = Transform3D(0.81915206, 0.4055798, -0.4055798, 0, 0.70710677, 0.7071
 light_energy = 2.3
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_6n26a")
+environment = SubResource("Environment_6ilux")

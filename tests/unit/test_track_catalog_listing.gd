@@ -1092,6 +1092,7 @@ func _assert_home_yard_vertical_circulation_continuity(root: Node, track_id: Str
 		"UpperFloor/RoomFinishes/UpperFloorDeck/UpperFloorDeckBedroomBack",
 		"UpperFloor/RoomFinishes/UpperFloorDeck/UpperFloorDeckGlamBack",
 		"UpperFloor/RoomFinishes/UpperFloorDeck/UpperFloorDeckUpperHallWest",
+		"UpperFloor/RoomFinishes/UpperHallLandingFloor/UpperHallLandingFloorWestOfStairOpening",
 		"UpperFloor/RoomFinishes/GlamDressing/GlamDressingBackFloor",
 	]:
 		assert_true(root.get_node_or_null(floor_path) != null, "%s should include split floor/ceiling assembly piece %s around the stairwell shaft" % [track_id, floor_path])
@@ -1337,6 +1338,24 @@ func _assert_home_yard_upper_hall_and_ceiling_complete(root: Node, track_id: Str
 	_assert_no_visible_descendant_intersects_aabb(ceiling, hatch_void, track_id, "upper attic hatch void")
 	var east_rail := root.get_node_or_null("UpperFloor/RoomFinishes/MainStairOpeningRailEast")
 	assert_true(east_rail is MeshInstance3D, "%s upper hall stair opening should have an east guardrail so the hallway reads enclosed and continuous" % track_id)
+	var upper_hall_floor := root.get_node_or_null("UpperFloor/RoomFinishes/UpperHallLandingFloor")
+	assert_true(upper_hall_floor != null and not (upper_hall_floor is MeshInstance3D), "%s upper hall landing floor should be a measured holder, not an unowned broad slab" % track_id)
+	if upper_hall_floor != null:
+		for node_name in [
+			"UpperHallLandingFloorWestOfStairOpening",
+			"UpperHallStairOpeningFloorTrimWest",
+			"UpperHallStairOpeningFloorTrimNorth",
+			"UpperHallStairOpeningFloorTrimSouth",
+		]:
+			assert_true(upper_hall_floor.get_node_or_null(node_name) is MeshInstance3D, "%s upper hall should include measured landing piece %s" % [track_id, node_name])
+		for sample in [
+			Vector3(-12, 52.6, 126),
+			Vector3(20, 52.6, 126),
+			Vector3(52.5, 52.6, 126),
+		]:
+			assert_true(_visible_descendant_covers_xz_sample(upper_hall_floor, sample), "%s upper hall landing floor should cover visible hall sample %s without looking missing" % [track_id, str(sample)])
+		var stair_opening := AABB(Vector3(54.0, 50.0, 106.0), Vector3(36.0, 4.0, 40.0))
+		_assert_no_visible_descendant_intersects_aabb(upper_hall_floor, stair_opening, track_id, "main stair upper-floor opening")
 
 func _visible_descendant_covers_xz_sample(node: Node, sample: Vector3) -> bool:
 	if node is MeshInstance3D:
