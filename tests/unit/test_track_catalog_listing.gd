@@ -1176,6 +1176,18 @@ func _assert_home_yard_main_stair_is_measured_and_visible(root: Node, track_id: 
 		if node != null:
 			assert_true(node.visible, "%s %s should be visible" % [track_id, node_path])
 			assert_equal(str(node.get_meta("asset_lifecycle_state", "")), "authored_measured_stair", "%s %s should be authored measured stair geometry" % [track_id, node_path])
+	var lower_landing := root.get_node_or_null("VerticalConnectors/MainStairLowerLandingSurface") as MeshInstance3D
+	var upper_landing := root.get_node_or_null("VerticalConnectors/MainStairUpperLandingSurface") as MeshInstance3D
+	var upper_guardrail := root.get_node_or_null("VerticalConnectors/MainStairUpperGuardrailRight") as MeshInstance3D
+	if lower_landing != null:
+		var lower_landing_bounds := _mesh_instance_global_aabb(lower_landing)
+		assert_true(lower_landing_bounds.size.x >= 27.5 and lower_landing_bounds.size.z >= 15.5, "%s lower stair should include a real bottom landing area, bounds=%s" % [track_id, str(lower_landing_bounds)])
+	if upper_landing != null:
+		var upper_landing_bounds := _mesh_instance_global_aabb(upper_landing)
+		assert_true(upper_landing_bounds.size.x >= 33.5 and upper_landing_bounds.size.z >= 17.5, "%s upper stair landing should be large enough for arrival and turn-in, bounds=%s" % [track_id, str(upper_landing_bounds)])
+		if upper_guardrail != null:
+			var rail_bounds := _mesh_instance_global_aabb(upper_guardrail)
+			assert_true(rail_bounds.end.z <= upper_landing_bounds.position.z + 1.0, "%s upper guardrail should stop before the landing entry instead of blocking it; rail=%s landing=%s" % [track_id, str(rail_bounds), str(upper_landing_bounds)])
 	for index in [0, 5, 10]:
 		for prefix in ["MainStairLowerFlightTread", "MainStairUpperFlightTread"]:
 			var node := root.get_node_or_null("VerticalConnectors/%s%02d" % [prefix, index]) as MeshInstance3D
