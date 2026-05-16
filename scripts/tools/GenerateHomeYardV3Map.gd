@@ -28,6 +28,9 @@ const MAIN_FLOOR_TOP_Y := 0.05
 const UPPER_ROOM_FLOOR_TOP_Y := 52.60
 const ATTIC_ROOM_FLOOR_TOP_Y := 104.60
 const MAIN_STAIR_X := 72.0
+const MAIN_STAIR_LOWER_X := 61.0
+const MAIN_STAIR_UPPER_X := 82.0
+const MAIN_STAIR_FLIGHT_WIDTH := 14.0
 const MAIN_STAIR_LOWER_Z := 134.0
 const MAIN_STAIR_UPPER_Z := 78.0
 const MAIN_STAIR_LANDING_Z := 78.0
@@ -114,7 +117,7 @@ const PLAN_CONTRACT := {
 	"vertical_circulation_contract": "The floor plan includes architectural vertical circulation: a main stair from the entry/stair hall to the upper hall, plus an attic pull-down stair/ladder from the upper hall into the gambrel attic. Toy ramp boxes are not valid house circulation.",
 	"beta_visual_contract": "Whole-unit beta review requires clean runtime/cinematic screenshots without editor camera icons or selected-node overlays; front/back/side/elevated/roofline/underside/player-route views must identify out-of-place pieces before metadata is accepted. Generated route decks and ramps are allowed only as classified route_infrastructure with non-placeholder materials, edge treatment, route clearance, and validation cameras.",
 	"vertical_links": [
-		{"id": "MainStairEntryToUpperHall", "type": "u_shaped_residential_stair", "from_floor": "main", "to_floor": "upper", "lower_zone": "entry_stair_hall", "upper_zone": "upper_front_hall", "lower_landing_center": Vector3(MAIN_STAIR_X, 0.05, 134), "upper_landing_center": Vector3(MAIN_STAIR_X, 52.60, 134), "stairwell_bounds": {"min": MAIN_STAIR_SHAFT_MIN, "max": MAIN_STAIR_SHAFT_MAX}, "opening_required": "upper_floor_stairwell_opening", "path_segments": ["lower_landing", "lower_flight", "switchback_landing", "upper_flight", "upper_landing"], "continuity_gate": "segments must connect landing-to-landing from main floor datum to upper floor datum with 24-unit clear width, 5-unit tread depth, and a shaft void that starts at z=78 for upper-flight headroom", "source_asset": "generated_floor_plan_architect_measured_stair_v1", "collision_policy": "visible_architectural_stair_collision", "validation_gate": "must not intersect route corridors, exterior shell, or camera views; must have visible treads, landings, stringers, railings, clear approach volumes, and no floor/ceiling slab covering the stair path"},
+		{"id": "MainStairEntryToUpperHall", "type": "u_shaped_residential_stair", "from_floor": "main", "to_floor": "upper", "lower_zone": "entry_stair_hall", "upper_zone": "upper_front_hall", "lower_landing_center": Vector3(MAIN_STAIR_LOWER_X, 0.05, 134), "upper_landing_center": Vector3(MAIN_STAIR_UPPER_X, 52.60, 134), "stairwell_bounds": {"min": MAIN_STAIR_SHAFT_MIN, "max": MAIN_STAIR_SHAFT_MAX}, "opening_required": "upper_floor_stairwell_opening", "path_segments": ["lower_landing", "lower_flight", "switchback_landing", "upper_flight", "upper_landing"], "continuity_gate": "segments must connect landing-to-landing from main floor datum to upper floor datum with separated lower/upper flights, readable riser fill, 14-unit clear flight width, 5-unit tread depth, and a shaft void that starts at z=78 for upper-flight headroom", "source_asset": "generated_floor_plan_architect_measured_stair_v2", "collision_policy": "visible_architectural_stair_collision", "validation_gate": "must not intersect route corridors, exterior shell, or camera views; lower and upper flights must be separated in plan with no tread/stringer overlap, visible risers, landings, stringers, railings, clear approach volumes, and no floor/ceiling slab covering the stair path"},
 		{"id": "AtticPullDownStairUpperHallToAttic", "type": "pull_down_attic_stair", "from_floor": "upper", "to_floor": "attic", "lower_zone": "upper_hall", "upper_zone": "attic_toy_course", "lower_landing_center": Vector3(24, 52.60, -54), "upper_landing_center": Vector3(24, 104.60, -54), "stairwell_bounds": {"min": Vector3(2, 52, -82), "max": Vector3(48, 105, -28)}, "opening_required": "attic_access_hatch", "path_segments": ["lower_landing", "pull_down_ladder", "attic_hatch_landing"], "continuity_gate": "ladder rungs and rails must span upper hall floor datum to attic floor datum and overlap the hatch opening", "source_asset": "res://assets/source/kenney/mini_skate/steps.glb", "collision_policy": "visual_reference_no_gameplay_collision", "validation_gate": "must not intersect attic route corridor, roof planes, upper hall walls, or third-person camera views"},
 	],
 }
@@ -930,10 +933,10 @@ func _add_vertical_connectors(root: Node3D, parent: Node3D) -> void:
 	parent.set_meta("visible_asset_policy", "Measured floor-to-floor stair and ladder continuity is required; sourced stair props alone are visual references, not circulation proof.")
 	parent.set_meta("vertical_circulation_contract", _vertical_circulation_contract())
 	_add_main_stair_continuity_geometry(root, parent)
-	_add_scene(root, parent, KENNEY_STEPS_PATH, Vector3(MAIN_STAIR_X, 0.10, MAIN_STAIR_LANDING_Z), 0.0, Vector3(20.0, 20.0, 20.0), "MainStairLowerFlightKenneySteps")
+	_add_scene(root, parent, KENNEY_STEPS_PATH, Vector3(MAIN_STAIR_LOWER_X, 0.10, MAIN_STAIR_LANDING_Z), 0.0, Vector3(20.0, 20.0, 20.0), "MainStairLowerFlightKenneySteps")
 	_tag_vertical_link(parent.get_node_or_null("MainStairLowerFlightKenneySteps"), "MainStairEntryToUpperHall", "lower_flight", "main", "upper")
 	_hide_visual_reference_stair(parent.get_node_or_null("MainStairLowerFlightKenneySteps"))
-	_add_scene(root, parent, KENNEY_STEPS_PATH, Vector3(MAIN_STAIR_X, 26.10, MAIN_STAIR_LANDING_Z), 180.0, Vector3(20.0, 20.0, 20.0), "MainStairUpperFlightKenneySteps")
+	_add_scene(root, parent, KENNEY_STEPS_PATH, Vector3(MAIN_STAIR_UPPER_X, 26.10, MAIN_STAIR_LANDING_Z), 180.0, Vector3(20.0, 20.0, 20.0), "MainStairUpperFlightKenneySteps")
 	_tag_vertical_link(parent.get_node_or_null("MainStairUpperFlightKenneySteps"), "MainStairEntryToUpperHall", "upper_flight", "main", "upper")
 	_hide_visual_reference_stair(parent.get_node_or_null("MainStairUpperFlightKenneySteps"))
 	_add_vertical_link_marker(root, parent, "MainStairUpperFloorOpening", "MainStairEntryToUpperHall", Vector3(MAIN_STAIR_X, 52.65, MAIN_STAIR_LANDING_Z), Vector3(36, 2, 40))
@@ -953,18 +956,19 @@ func _vertical_circulation_contract() -> Dictionary:
 			"lower_floor_datum_y": MAIN_FLOOR_TOP_Y,
 			"upper_floor_datum_y": UPPER_ROOM_FLOOR_TOP_Y,
 			"total_rise_units": UPPER_ROOM_FLOOR_TOP_Y - MAIN_FLOOR_TOP_Y,
-			"width_units": 24.0,
+			"width_units": MAIN_STAIR_FLIGHT_WIDTH,
 			"riser_height_units": (UPPER_ROOM_FLOOR_TOP_Y - MAIN_FLOOR_TOP_Y - 0.60) / 22.0,
-			"tread_depth_units": 56.0 / 11.0,
-			"lower_approach_clearance": {"center": Vector3(MAIN_STAIR_X, 6.0, 144), "size": Vector3(40, 12, 8)},
-			"upper_approach_clearance": {"center": Vector3(MAIN_STAIR_X, UPPER_ROOM_FLOOR_TOP_Y + 6.0, 144), "size": Vector3(40, 12, 8)},
+			"tread_depth_units": absf(MAIN_STAIR_LOWER_Z - MAIN_STAIR_UPPER_Z) / 11.0,
+			"continuity_gate": "segments must connect landing-to-landing from main floor datum to upper floor datum with separated lower/upper flights, readable riser fill, 14-unit clear flight width, 5-unit tread depth, and a shaft void that starts at z=78 for upper-flight headroom",
+			"lower_approach_clearance": {"center": Vector3(MAIN_STAIR_LOWER_X, 6.0, 144), "size": Vector3(24, 12, 8)},
+			"upper_approach_clearance": {"center": Vector3(MAIN_STAIR_UPPER_X, UPPER_ROOM_FLOOR_TOP_Y + 6.0, 144), "size": Vector3(24, 12, 8)},
 			"route_exclusion": ["bedroom", "glam_closet"],
 			"path_segments": [
-				{"id": "lower_landing", "node": "MainStairLowerLandingSurface", "center": Vector3(MAIN_STAIR_X, MAIN_FLOOR_TOP_Y + 0.30, 134), "size": Vector3(34, 0.6, 16)},
-				{"id": "lower_flight", "node_prefix": "MainStairLowerFlightTread", "start": Vector3(MAIN_STAIR_X, MAIN_FLOOR_TOP_Y + 0.60, MAIN_STAIR_LOWER_Z), "end": Vector3(MAIN_STAIR_X, 26.625, MAIN_STAIR_UPPER_Z), "tread_count": 11},
-				{"id": "switchback_landing", "node": "MainStairSwitchbackLandingSurface", "center": Vector3(MAIN_STAIR_X, 26.325, MAIN_STAIR_LANDING_Z), "size": Vector3(34, 0.6, 22)},
-				{"id": "upper_flight", "node_prefix": "MainStairUpperFlightTread", "start": Vector3(MAIN_STAIR_X, 26.625, MAIN_STAIR_UPPER_Z), "end": Vector3(MAIN_STAIR_X, UPPER_ROOM_FLOOR_TOP_Y, 136), "tread_count": 11},
-				{"id": "upper_landing", "node": "MainStairUpperLandingSurface", "center": Vector3(MAIN_STAIR_X, UPPER_ROOM_FLOOR_TOP_Y - 0.30, 134), "size": Vector3(34, 0.6, 16)},
+				{"id": "lower_landing", "node": "MainStairLowerLandingSurface", "center": Vector3(MAIN_STAIR_LOWER_X, MAIN_FLOOR_TOP_Y + 0.30, 134), "size": Vector3(MAIN_STAIR_FLIGHT_WIDTH, 0.6, 16)},
+				{"id": "lower_flight", "node_prefix": "MainStairLowerFlightTread", "start": Vector3(MAIN_STAIR_LOWER_X, MAIN_FLOOR_TOP_Y + 0.60, MAIN_STAIR_LOWER_Z), "end": Vector3(MAIN_STAIR_LOWER_X, 26.625, MAIN_STAIR_UPPER_Z), "tread_count": 11},
+				{"id": "switchback_landing", "node": "MainStairSwitchbackLandingSurface", "center": Vector3(MAIN_STAIR_X, 26.325, MAIN_STAIR_LANDING_Z), "size": Vector3(36, 0.6, 22)},
+				{"id": "upper_flight", "node_prefix": "MainStairUpperFlightTread", "start": Vector3(MAIN_STAIR_UPPER_X, 26.625, MAIN_STAIR_UPPER_Z), "end": Vector3(MAIN_STAIR_UPPER_X, UPPER_ROOM_FLOOR_TOP_Y, 134), "tread_count": 11},
+				{"id": "upper_landing", "node": "MainStairUpperLandingSurface", "center": Vector3(MAIN_STAIR_UPPER_X, UPPER_ROOM_FLOOR_TOP_Y - 0.30, 134), "size": Vector3(MAIN_STAIR_FLIGHT_WIDTH, 0.6, 16)},
 			],
 			"opening_node": "MainStairUpperFloorOpening",
 			"floor_assembly_shaft_void_bounds": {"min": MAIN_STAIR_SHAFT_MIN, "max": MAIN_STAIR_SHAFT_MAX},
@@ -994,17 +998,15 @@ func _vertical_circulation_contract() -> Dictionary:
 
 func _add_main_stair_continuity_geometry(root: Node3D, parent: Node3D) -> void:
 	var wood := Color(0.62, 0.42, 0.25)
-	_add_stair_landing(root, parent, "MainStairLowerLandingSurface", "MainStairEntryToUpperHall", "lower_landing", "main", "upper", Vector3(MAIN_STAIR_X, MAIN_FLOOR_TOP_Y + 0.30, 134), Vector3(34, 0.6, 16), wood.darkened(0.05))
-	_add_stair_flight(root, parent, "MainStairLowerFlightTread", "MainStairEntryToUpperHall", Vector3(MAIN_STAIR_X, MAIN_FLOOR_TOP_Y + 0.60, MAIN_STAIR_LOWER_Z), Vector3(MAIN_STAIR_X, 26.625, MAIN_STAIR_UPPER_Z), 24.0, 11, wood)
-	_add_stair_landing(root, parent, "MainStairSwitchbackLandingSurface", "MainStairEntryToUpperHall", "switchback_landing", "main", "upper", Vector3(MAIN_STAIR_X, 26.325, MAIN_STAIR_LANDING_Z), Vector3(34, 0.6, 22), wood.darkened(0.08))
-	_add_stair_flight(root, parent, "MainStairUpperFlightTread", "MainStairEntryToUpperHall", Vector3(MAIN_STAIR_X, 26.625, MAIN_STAIR_UPPER_Z), Vector3(MAIN_STAIR_X, UPPER_ROOM_FLOOR_TOP_Y, 134), 24.0, 11, wood.lightened(0.03))
-	_add_stair_landing(root, parent, "MainStairUpperLandingSurface", "MainStairEntryToUpperHall", "upper_landing", "main", "upper", Vector3(MAIN_STAIR_X, UPPER_ROOM_FLOOR_TOP_Y - 0.30, 134), Vector3(34, 0.6, 16), wood.darkened(0.05))
-	_add_stair_stringer(root, parent, "MainStairLowerStringerLeft", Vector3(MAIN_STAIR_X - 13.5, 13.4, 112), Vector3(1.8, 3.0, 60), wood.darkened(0.28), 0.0)
-	_add_stair_stringer(root, parent, "MainStairLowerStringerRight", Vector3(MAIN_STAIR_X + 13.5, 13.4, 112), Vector3(1.8, 3.0, 60), wood.darkened(0.28), 0.0)
-	_add_stair_stringer(root, parent, "MainStairUpperStringerLeft", Vector3(MAIN_STAIR_X - 13.5, 39.4, 110), Vector3(1.8, 3.0, 60), wood.darkened(0.25), 0.0)
-	_add_stair_stringer(root, parent, "MainStairUpperStringerRight", Vector3(MAIN_STAIR_X + 13.5, 39.4, 110), Vector3(1.8, 3.0, 60), wood.darkened(0.25), 0.0)
-	_add_stair_guardrail(root, parent, "MainStairLowerGuardrailLeft", Vector3(MAIN_STAIR_X - 15.5, 16.0, 112), Vector3(1.5, 14.0, 58), wood.darkened(0.42))
-	_add_stair_guardrail(root, parent, "MainStairUpperGuardrailRight", Vector3(MAIN_STAIR_X + 15.5, 42.0, 110), Vector3(1.5, 14.0, 58), wood.darkened(0.42))
+	_add_stair_landing(root, parent, "MainStairLowerLandingSurface", "MainStairEntryToUpperHall", "lower_landing", "main", "upper", Vector3(MAIN_STAIR_LOWER_X, MAIN_FLOOR_TOP_Y + 0.30, 134), Vector3(MAIN_STAIR_FLIGHT_WIDTH, 0.6, 16), wood.darkened(0.05))
+	_add_stair_flight(root, parent, "MainStairLowerFlightTread", "MainStairEntryToUpperHall", Vector3(MAIN_STAIR_LOWER_X, MAIN_FLOOR_TOP_Y + 0.60, MAIN_STAIR_LOWER_Z), Vector3(MAIN_STAIR_LOWER_X, 26.625, MAIN_STAIR_UPPER_Z), MAIN_STAIR_FLIGHT_WIDTH, 11, wood)
+	_add_stair_landing(root, parent, "MainStairSwitchbackLandingSurface", "MainStairEntryToUpperHall", "switchback_landing", "main", "upper", Vector3(MAIN_STAIR_X, 26.325, MAIN_STAIR_LANDING_Z), Vector3(36, 0.6, 22), wood.darkened(0.08))
+	_add_stair_flight(root, parent, "MainStairUpperFlightTread", "MainStairEntryToUpperHall", Vector3(MAIN_STAIR_UPPER_X, 26.625, MAIN_STAIR_UPPER_Z), Vector3(MAIN_STAIR_UPPER_X, UPPER_ROOM_FLOOR_TOP_Y, 134), MAIN_STAIR_FLIGHT_WIDTH, 11, wood.lightened(0.03))
+	_add_stair_landing(root, parent, "MainStairUpperLandingSurface", "MainStairEntryToUpperHall", "upper_landing", "main", "upper", Vector3(MAIN_STAIR_UPPER_X, UPPER_ROOM_FLOOR_TOP_Y - 0.30, 134), Vector3(MAIN_STAIR_FLIGHT_WIDTH, 0.6, 16), wood.darkened(0.05))
+	_add_stair_stringer_pair(root, parent, "MainStairLowerStringer", Vector3(MAIN_STAIR_LOWER_X, MAIN_FLOOR_TOP_Y + 0.60, MAIN_STAIR_LOWER_Z), Vector3(MAIN_STAIR_LOWER_X, 26.625, MAIN_STAIR_UPPER_Z), MAIN_STAIR_FLIGHT_WIDTH, wood.darkened(0.28))
+	_add_stair_stringer_pair(root, parent, "MainStairUpperStringer", Vector3(MAIN_STAIR_UPPER_X, 26.625, MAIN_STAIR_UPPER_Z), Vector3(MAIN_STAIR_UPPER_X, UPPER_ROOM_FLOOR_TOP_Y, 134), MAIN_STAIR_FLIGHT_WIDTH, wood.darkened(0.25))
+	_add_stair_guardrail(root, parent, "MainStairLowerGuardrailLeft", Vector3(MAIN_STAIR_SHAFT_MIN.x + 1.0, 16.0, 109), Vector3(1.5, 14.0, 54), wood.darkened(0.42))
+	_add_stair_guardrail(root, parent, "MainStairUpperGuardrailRight", Vector3(MAIN_STAIR_SHAFT_MAX.x - 1.0, 42.0, 109), Vector3(1.5, 14.0, 54), wood.darkened(0.42))
 
 func _hide_visual_reference_stair(node: Node) -> void:
 	if node == null:
@@ -1016,6 +1018,28 @@ func _hide_visual_reference_stair(node: Node) -> void:
 func _add_stair_stringer(root: Node3D, parent: Node3D, node_name: String, position: Vector3, size: Vector3, color: Color, yaw_degrees: float) -> void:
 	var stringer := _add_box(root, parent, node_name, position, size, color, false, yaw_degrees, Vector3(-25, 0, 0))
 	_tag_authored_vertical_asset(stringer, "stair_stringer")
+
+func _add_stair_stringer_pair(root: Node3D, parent: Node3D, prefix: String, start: Vector3, end: Vector3, width: float, color: Color) -> void:
+	var horizontal := Vector3(end.x - start.x, 0.0, end.z - start.z)
+	var run_length := horizontal.length()
+	if run_length <= 0.01:
+		return
+	var direction := horizontal.normalized()
+	var yaw := rad_to_deg(atan2(direction.x, direction.z))
+	var pitch := rad_to_deg(atan2(end.y - start.y, run_length))
+	var center := start.lerp(end, 0.5)
+	center.y += 1.0
+	var side_axis := Vector3(direction.z, 0.0, -direction.x).normalized()
+	for side in [
+		{"name": "Left", "offset": -width * 0.5 - 0.8},
+		{"name": "Right", "offset": width * 0.5 + 0.8},
+	]:
+		var side_center := center + side_axis * float(side["offset"])
+		var stringer := _add_box(root, parent, "%s%s" % [prefix, str(side["name"])], side_center, Vector3(1.5, 3.0, run_length + 2.0), color, false, yaw, Vector3(-pitch, 0, 0))
+		_tag_authored_vertical_asset(stringer, "stair_stringer")
+		stringer.set_meta("stair_flight_side", side["name"])
+		stringer.set_meta("stair_flight_centerline_start", start)
+		stringer.set_meta("stair_flight_centerline_end", end)
 
 func _add_stair_guardrail(root: Node3D, parent: Node3D, node_name: String, position: Vector3, size: Vector3, color: Color) -> void:
 	var rail := _add_box(root, parent, node_name, position, size, color, false)
@@ -1041,6 +1065,7 @@ func _add_stair_flight(root: Node3D, parent: Node3D, prefix: String, link_id: St
 	var yaw := rad_to_deg(atan2(direction.x, direction.z))
 	var tread_depth := run_length / float(tread_count)
 	var rise := (end.y - start.y) / float(tread_count)
+	var riser_prefix := prefix.replace("Tread", "Riser")
 	for i in range(tread_count):
 		var top_y := start.y + rise * float(i + 1)
 		var t := (float(i) + 0.5) / float(tread_count)
@@ -1055,13 +1080,22 @@ func _add_stair_flight(root: Node3D, parent: Node3D, prefix: String, link_id: St
 		tread.set_meta("riser_height_units", rise)
 		tread.set_meta("tread_depth_units", tread_depth)
 		tread.set_meta("target_dimensions_units", Vector3(width, 0.7, tread_depth + 0.4))
+		var riser_center := start.lerp(end, float(i + 1) / float(tread_count))
+		riser_center.y = top_y - rise * 0.5
+		var riser := _add_box(root, parent, "%s%02d" % [riser_prefix, i], riser_center, Vector3(width, maxf(rise - 0.2, 0.5), 0.55), color.darkened(0.08), false, yaw)
+		_tag_vertical_link(riser, link_id, "measured_riser", "main", "upper")
+		_tag_authored_vertical_asset(riser, "measured_riser")
+		riser.set_meta("vertical_path_continuity", "connects_main_floor_to_upper_floor_and_fills_between_treads")
+		riser.set_meta("riser_index", i)
+		riser.set_meta("riser_height_units", rise)
+		riser.set_meta("target_dimensions_units", Vector3(width, maxf(rise - 0.2, 0.5), 0.55))
 
 func _tag_authored_vertical_asset(node: Node, role: String) -> void:
 	if node == null:
 		return
 	node.set_meta("temporary_stand_in", false)
 	node.set_meta("validation_only_visible_placeholder", false)
-	node.set_meta("replacement_source", "generated_floor_plan_architect_measured_stair_v1")
+	node.set_meta("replacement_source", "generated_floor_plan_architect_measured_stair_v2")
 	node.set_meta("asset_role", role)
 	node.set_meta("asset_lifecycle_state", "authored_measured_stair")
 	node.set_meta("scale_contract_id", SCALE_CONTRACT_ID)

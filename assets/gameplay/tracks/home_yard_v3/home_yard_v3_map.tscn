@@ -1,4 +1,4 @@
-[gd_scene load_steps=1117 format=3]
+[gd_scene load_steps=1161 format=3]
 
 [ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/kitchenFridge.glb" id="1_dkcm6"]
 [ext_resource type="PackedScene" path="res://assets/source/kenney/furniture_kit/kitchenSink.glb" id="2_mgulr"]
@@ -3683,331 +3683,485 @@ albedo_color = Color(0.589, 0.399, 0.2375, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_wula2"]
-size = Vector3(34, 0.6, 16)
+size = Vector3(14, 0.6, 16)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1jlbo"]
 albedo_color = Color(0.62, 0.42, 0.25, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_skne2"]
-size = Vector3(24, 0.7, 5.490909)
+size = Vector3(14, 0.7, 5.490909)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m4ely"]
-albedo_color = Color(0.62950003, 0.43449998, 0.26875, 1)
+albedo_color = Color(0.5704, 0.38639998, 0.23, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_sa5oy"]
-size = Vector3(24, 0.7, 5.490909)
+size = Vector3(14, 2.1613636, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f8vut"]
-albedo_color = Color(0.639, 0.449, 0.2875, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_tus0l"]
-size = Vector3(24, 0.7, 5.490909)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y31v2"]
-albedo_color = Color(0.62, 0.42, 0.25, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_860te"]
-size = Vector3(24, 0.7, 5.490909)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sknor"]
 albedo_color = Color(0.62950003, 0.43449998, 0.26875, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_teppx"]
-size = Vector3(24, 0.7, 5.490909)
+[sub_resource type="BoxMesh" id="BoxMesh_tus0l"]
+size = Vector3(14, 0.7, 5.490909)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v62mp"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y31v2"]
+albedo_color = Color(0.5704, 0.38639998, 0.23, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_860te"]
+size = Vector3(14, 2.1613636, 0.55)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sknor"]
 albedo_color = Color(0.639, 0.449, 0.2875, 1)
 roughness = 0.72
 
+[sub_resource type="BoxMesh" id="BoxMesh_teppx"]
+size = Vector3(14, 0.7, 5.490909)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v62mp"]
+albedo_color = Color(0.5704, 0.38639998, 0.23, 1)
+roughness = 0.72
+
 [sub_resource type="BoxMesh" id="BoxMesh_1dpo4"]
-size = Vector3(24, 0.7, 5.490909)
+size = Vector3(14, 2.1613636, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j3e4d"]
 albedo_color = Color(0.62, 0.42, 0.25, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_f47p7"]
-size = Vector3(24, 0.7, 5.490909)
+size = Vector3(14, 0.7, 5.490909)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jvhu8"]
-albedo_color = Color(0.62950003, 0.43449998, 0.26875, 1)
+albedo_color = Color(0.5704, 0.38639998, 0.23, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_o0spl"]
-size = Vector3(24, 0.7, 5.490909)
+size = Vector3(14, 2.1613636, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pjatl"]
-albedo_color = Color(0.639, 0.449, 0.2875, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_8chp1"]
-size = Vector3(24, 0.7, 5.490909)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qfywk"]
-albedo_color = Color(0.62, 0.42, 0.25, 1)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_q52s7"]
-size = Vector3(24, 0.7, 5.490909)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_53bc6"]
 albedo_color = Color(0.62950003, 0.43449998, 0.26875, 1)
 roughness = 0.72
 
+[sub_resource type="BoxMesh" id="BoxMesh_8chp1"]
+size = Vector3(14, 0.7, 5.490909)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qfywk"]
+albedo_color = Color(0.5704, 0.38639998, 0.23, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_q52s7"]
+size = Vector3(14, 2.1613636, 0.55)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_53bc6"]
+albedo_color = Color(0.639, 0.449, 0.2875, 1)
+roughness = 0.72
+
 [sub_resource type="BoxMesh" id="BoxMesh_u7p2n"]
-size = Vector3(24, 0.7, 5.490909)
+size = Vector3(14, 0.7, 5.490909)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j5q48"]
 albedo_color = Color(0.5704, 0.38639998, 0.23, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_j5bc0"]
-size = Vector3(34, 0.6, 22)
+size = Vector3(14, 2.1613636, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cppg0"]
-albedo_color = Color(0.6314, 0.43739998, 0.2725, 1)
+albedo_color = Color(0.62, 0.42, 0.25, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_xk7lo"]
-size = Vector3(24, 0.7, 5.490909)
+size = Vector3(14, 0.7, 5.490909)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2sfd8"]
-albedo_color = Color(0.640615, 0.45146498, 0.2906875, 1)
+albedo_color = Color(0.5704, 0.38639998, 0.23, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_ehwg7"]
-size = Vector3(24, 0.7, 5.490909)
+size = Vector3(14, 2.1613636, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_82tan"]
-albedo_color = Color(0.64983, 0.46552998, 0.308875, 1)
+albedo_color = Color(0.62950003, 0.43449998, 0.26875, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_euc5q"]
-size = Vector3(24, 0.7, 5.490909)
+size = Vector3(14, 0.7, 5.490909)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_twnbr"]
-albedo_color = Color(0.6314, 0.43739998, 0.2725, 1)
+albedo_color = Color(0.5704, 0.38639998, 0.23, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_3qyud"]
-size = Vector3(24, 0.7, 5.490909)
+size = Vector3(14, 2.1613636, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d2d06"]
-albedo_color = Color(0.640615, 0.45146498, 0.2906875, 1)
+albedo_color = Color(0.639, 0.449, 0.2875, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_2dv50"]
-size = Vector3(24, 0.7, 5.490909)
+size = Vector3(14, 0.7, 5.490909)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6me1o"]
-albedo_color = Color(0.64983, 0.46552998, 0.308875, 1)
+albedo_color = Color(0.5704, 0.38639998, 0.23, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_51m2g"]
-size = Vector3(24, 0.7, 5.490909)
+size = Vector3(14, 2.1613636, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tjjd0"]
-albedo_color = Color(0.6314, 0.43739998, 0.2725, 1)
+albedo_color = Color(0.62, 0.42, 0.25, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_3lunw"]
-size = Vector3(24, 0.7, 5.490909)
+size = Vector3(14, 0.7, 5.490909)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s3kh4"]
-albedo_color = Color(0.640615, 0.45146498, 0.2906875, 1)
+albedo_color = Color(0.5704, 0.38639998, 0.23, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_lmexr"]
-size = Vector3(24, 0.7, 5.490909)
+size = Vector3(14, 2.1613636, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k4vfg"]
-albedo_color = Color(0.64983, 0.46552998, 0.308875, 1)
+albedo_color = Color(0.62950003, 0.43449998, 0.26875, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_bre7t"]
-size = Vector3(24, 0.7, 5.490909)
+size = Vector3(14, 0.7, 5.490909)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fu0vo"]
-albedo_color = Color(0.6314, 0.43739998, 0.2725, 1)
+albedo_color = Color(0.5704, 0.38639998, 0.23, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_xpeaa"]
-size = Vector3(24, 0.7, 5.490909)
+size = Vector3(14, 2.1613636, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pehca"]
-albedo_color = Color(0.640615, 0.45146498, 0.2906875, 1)
+albedo_color = Color(0.5704, 0.38639998, 0.23, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_u6pqe"]
-size = Vector3(24, 0.7, 5.490909)
+size = Vector3(36, 0.6, 22)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4q4u8"]
-albedo_color = Color(0.589, 0.399, 0.2375, 1)
+albedo_color = Color(0.6314, 0.43739998, 0.2725, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_6n26a"]
-size = Vector3(34, 0.6, 16)
+size = Vector3(14, 0.7, 5.490909)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tnbxp"]
-albedo_color = Color(0.44640002, 0.3024, 0.18, 1)
+albedo_color = Color(0.580888, 0.402408, 0.25070003, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_uxaw1"]
-size = Vector3(1.8, 3, 60)
+size = Vector3(14, 2.1613636, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ytqhp"]
-albedo_color = Color(0.44640002, 0.3024, 0.18, 1)
+albedo_color = Color(0.640615, 0.45146498, 0.2906875, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_vppyv"]
-size = Vector3(1.8, 3, 60)
+size = Vector3(14, 0.7, 5.490909)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hpi5d"]
-albedo_color = Color(0.465, 0.315, 0.1875, 1)
+albedo_color = Color(0.580888, 0.402408, 0.25070003, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_nuay4"]
-size = Vector3(1.8, 3, 60)
+size = Vector3(14, 2.1613636, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2gsvu"]
-albedo_color = Color(0.465, 0.315, 0.1875, 1)
+albedo_color = Color(0.64983, 0.46552998, 0.308875, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_tl835"]
-size = Vector3(1.8, 3, 60)
+size = Vector3(14, 0.7, 5.490909)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6ilux"]
-albedo_color = Color(0.35960004, 0.24360001, 0.14500001, 1)
+albedo_color = Color(0.580888, 0.402408, 0.25070003, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_bq8ki"]
-size = Vector3(1.5, 14, 58)
+size = Vector3(14, 2.1613636, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hcxdi"]
-albedo_color = Color(0.35960004, 0.24360001, 0.14500001, 1)
+albedo_color = Color(0.6314, 0.43739998, 0.2725, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_fra1h"]
-size = Vector3(1.5, 14, 58)
+size = Vector3(14, 0.7, 5.490909)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ihti"]
-albedo_color = Color(0.48, 0.3456, 0.2112, 1)
+albedo_color = Color(0.580888, 0.402408, 0.25070003, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_310cg"]
-size = Vector3(34, 0.6, 30)
+size = Vector3(14, 2.1613636, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sbg0i"]
-albedo_color = Color(0.46, 0.33120003, 0.2024, 1)
+albedo_color = Color(0.640615, 0.45146498, 0.2906875, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_2e3ux"]
-size = Vector3(40, 0.6, 34)
+size = Vector3(14, 0.7, 5.490909)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_htig0"]
-albedo_color = Color(0.5, 0.36, 0.22, 1)
+albedo_color = Color(0.580888, 0.402408, 0.25070003, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_ir44e"]
-size = Vector3(1, 52, 1)
+size = Vector3(14, 2.1613636, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7wis3"]
-albedo_color = Color(0.5, 0.36, 0.22, 1)
+albedo_color = Color(0.64983, 0.46552998, 0.308875, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_6ywat"]
-size = Vector3(1, 52, 1)
+size = Vector3(14, 0.7, 5.490909)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_572c3"]
-albedo_color = Color(0.5, 0.36, 0.22, 1)
+albedo_color = Color(0.580888, 0.402408, 0.25070003, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_2qbwl"]
-size = Vector3(12, 0.7, 1.2)
+size = Vector3(14, 2.1613636, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u3ujg"]
-albedo_color = Color(0.52, 0.3856, 0.2512, 1)
+albedo_color = Color(0.6314, 0.43739998, 0.2725, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_hkmr3"]
-size = Vector3(12, 0.7, 1.2)
+size = Vector3(14, 0.7, 5.490909)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ve5v"]
-albedo_color = Color(0.5, 0.36, 0.22, 1)
+albedo_color = Color(0.580888, 0.402408, 0.25070003, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_kd1l1"]
-size = Vector3(12, 0.7, 1.2)
+size = Vector3(14, 2.1613636, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ojrcm"]
-albedo_color = Color(0.52, 0.3856, 0.2512, 1)
+albedo_color = Color(0.640615, 0.45146498, 0.2906875, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_u835i"]
-size = Vector3(12, 0.7, 1.2)
+size = Vector3(14, 0.7, 5.490909)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d3t50"]
-albedo_color = Color(0.5, 0.36, 0.22, 1)
+albedo_color = Color(0.580888, 0.402408, 0.25070003, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_mqseg"]
-size = Vector3(12, 0.7, 1.2)
+size = Vector3(14, 2.1613636, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wujg3"]
-albedo_color = Color(0.52, 0.3856, 0.2512, 1)
+albedo_color = Color(0.64983, 0.46552998, 0.308875, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_2xs0k"]
-size = Vector3(12, 0.7, 1.2)
+size = Vector3(14, 0.7, 5.490909)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q5rad"]
-albedo_color = Color(0.5, 0.36, 0.22, 1)
+albedo_color = Color(0.580888, 0.402408, 0.25070003, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_jc0yu"]
-size = Vector3(12, 0.7, 1.2)
+size = Vector3(14, 2.1613636, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j6fkx"]
-albedo_color = Color(0.52, 0.3856, 0.2512, 1)
+albedo_color = Color(0.6314, 0.43739998, 0.2725, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_cmbrf"]
-size = Vector3(12, 0.7, 1.2)
+size = Vector3(14, 0.7, 5.490909)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2k7jw"]
-albedo_color = Color(0.5, 0.36, 0.22, 1)
+albedo_color = Color(0.580888, 0.402408, 0.25070003, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_2odr6"]
-size = Vector3(12, 0.7, 1.2)
+size = Vector3(14, 2.1613636, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dxdun"]
-albedo_color = Color(0.52, 0.3856, 0.2512, 1)
+albedo_color = Color(0.640615, 0.45146498, 0.2906875, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_jby8w"]
-size = Vector3(12, 0.7, 1.2)
+size = Vector3(14, 0.7, 5.490909)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pk133"]
-albedo_color = Color(0.5, 0.36, 0.22, 1)
+albedo_color = Color(0.580888, 0.402408, 0.25070003, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_5c3gf"]
-size = Vector3(12, 0.7, 1.2)
+size = Vector3(14, 2.1613636, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fb5nq"]
-albedo_color = Color(0.52, 0.3856, 0.2512, 1)
+albedo_color = Color(0.589, 0.399, 0.2375, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_a7m8e"]
+size = Vector3(14, 0.6, 16)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ujjg6"]
+albedo_color = Color(0.44640002, 0.3024, 0.18, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_4bmrn"]
+size = Vector3(1.5, 3, 58)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sjy7u"]
+albedo_color = Color(0.44640002, 0.3024, 0.18, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_2cfo8"]
+size = Vector3(1.5, 3, 58)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oy7lq"]
+albedo_color = Color(0.465, 0.315, 0.1875, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_l67i4"]
+size = Vector3(1.5, 3, 58)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ttxyt"]
+albedo_color = Color(0.465, 0.315, 0.1875, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_lrcau"]
+size = Vector3(1.5, 3, 58)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yvort"]
+albedo_color = Color(0.35960004, 0.24360001, 0.14500001, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_2wmh5"]
+size = Vector3(1.5, 14, 54)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0456i"]
+albedo_color = Color(0.35960004, 0.24360001, 0.14500001, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_fr233"]
+size = Vector3(1.5, 14, 54)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k55vf"]
+albedo_color = Color(0.48, 0.3456, 0.2112, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_wg0gf"]
+size = Vector3(34, 0.6, 30)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ql70f"]
+albedo_color = Color(0.46, 0.33120003, 0.2024, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_gmphl"]
+size = Vector3(40, 0.6, 34)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yypqy"]
+albedo_color = Color(0.5, 0.36, 0.22, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_5ep63"]
+size = Vector3(1, 52, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5y8ii"]
+albedo_color = Color(0.5, 0.36, 0.22, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_y6p0w"]
+size = Vector3(1, 52, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0lh3q"]
+albedo_color = Color(0.5, 0.36, 0.22, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_t1wxm"]
 size = Vector3(12, 0.7, 1.2)
 
-[sub_resource type="Environment" id="Environment_ujjg6"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rtu0p"]
+albedo_color = Color(0.52, 0.3856, 0.2512, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_kyti6"]
+size = Vector3(12, 0.7, 1.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_glliu"]
+albedo_color = Color(0.5, 0.36, 0.22, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_e5vtr"]
+size = Vector3(12, 0.7, 1.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8etuw"]
+albedo_color = Color(0.52, 0.3856, 0.2512, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_sd8u3"]
+size = Vector3(12, 0.7, 1.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4m7u6"]
+albedo_color = Color(0.5, 0.36, 0.22, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_d8p7w"]
+size = Vector3(12, 0.7, 1.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5yero"]
+albedo_color = Color(0.52, 0.3856, 0.2512, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_gcjhh"]
+size = Vector3(12, 0.7, 1.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y85kd"]
+albedo_color = Color(0.5, 0.36, 0.22, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_jyj34"]
+size = Vector3(12, 0.7, 1.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uosxu"]
+albedo_color = Color(0.52, 0.3856, 0.2512, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_4aavj"]
+size = Vector3(12, 0.7, 1.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l2abp"]
+albedo_color = Color(0.5, 0.36, 0.22, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_lmq7b"]
+size = Vector3(12, 0.7, 1.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b1bla"]
+albedo_color = Color(0.52, 0.3856, 0.2512, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_32rus"]
+size = Vector3(12, 0.7, 1.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kltoh"]
+albedo_color = Color(0.5, 0.36, 0.22, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_54u12"]
+size = Vector3(12, 0.7, 1.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_to3ox"]
+albedo_color = Color(0.52, 0.3856, 0.2512, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_evqi4"]
+size = Vector3(12, 0.7, 1.2)
+
+[sub_resource type="Environment" id="Environment_ci82m"]
 background_mode = 1
 background_color = Color(0.67, 0.8, 0.94, 1)
 ambient_light_source = 2
@@ -4059,23 +4213,23 @@ metadata/floor_plan_contract = {
 "vertical_circulation_contract": "The floor plan includes architectural vertical circulation: a main stair from the entry/stair hall to the upper hall, plus an attic pull-down stair/ladder from the upper hall into the gambrel attic. Toy ramp boxes are not valid house circulation.",
 "vertical_links": [{
 "collision_policy": "visible_architectural_stair_collision",
-"continuity_gate": "segments must connect landing-to-landing from main floor datum to upper floor datum with 24-unit clear width, 5-unit tread depth, and a shaft void that starts at z=78 for upper-flight headroom",
+"continuity_gate": "segments must connect landing-to-landing from main floor datum to upper floor datum with separated lower/upper flights, readable riser fill, 14-unit clear flight width, 5-unit tread depth, and a shaft void that starts at z=78 for upper-flight headroom",
 "from_floor": "main",
 "id": "MainStairEntryToUpperHall",
-"lower_landing_center": Vector3(72, 0.05, 134),
+"lower_landing_center": Vector3(61, 0.05, 134),
 "lower_zone": "entry_stair_hall",
 "opening_required": "upper_floor_stairwell_opening",
 "path_segments": ["lower_landing", "lower_flight", "switchback_landing", "upper_flight", "upper_landing"],
-"source_asset": "generated_floor_plan_architect_measured_stair_v1",
+"source_asset": "generated_floor_plan_architect_measured_stair_v2",
 "stairwell_bounds": {
 "max": Vector3(90, 53.6, 146),
 "min": Vector3(54, 39.5, 78)
 },
 "to_floor": "upper",
 "type": "u_shaped_residential_stair",
-"upper_landing_center": Vector3(72, 52.6, 134),
+"upper_landing_center": Vector3(82, 52.6, 134),
 "upper_zone": "upper_front_hall",
-"validation_gate": "must not intersect route corridors, exterior shell, or camera views; must have visible treads, landings, stringers, railings, clear approach volumes, and no floor/ceiling slab covering the stair path"
+"validation_gate": "must not intersect route corridors, exterior shell, or camera views; lower and upper flights must be separated in plan with no tread/stringer overlap, visible risers, landings, stringers, railings, clear approach volumes, and no floor/ceiling slab covering the stair path"
 }, {
 "collision_policy": "visual_reference_no_gameplay_collision",
 "continuity_gate": "ladder rungs and rails must span upper hall floor datum to attic floor datum and overlap the hatch opening",
@@ -4335,6 +4489,7 @@ metadata/vertical_circulation_contract = {
 },
 "continuity_required": true,
 "main_stair": {
+"continuity_gate": "segments must connect landing-to-landing from main floor datum to upper floor datum with separated lower/upper flights, readable riser fill, 14-unit clear flight width, 5-unit tread depth, and a shaft void that starts at z=78 for upper-flight headroom",
 "continuous_path_verified": true,
 "floor_assembly_layers_cut": ["MainFloorTenFootCeilingPlane", "interstitial_gap", "UpperFloorDeck", "GlamDressing"],
 "floor_assembly_shaft_void_bounds": {
@@ -4343,39 +4498,39 @@ metadata/vertical_circulation_contract = {
 },
 "id": "MainStairEntryToUpperHall",
 "lower_approach_clearance": {
-"center": Vector3(72, 6, 144),
-"size": Vector3(40, 12, 8)
+"center": Vector3(61, 6, 144),
+"size": Vector3(24, 12, 8)
 },
 "lower_floor_datum_y": 0.05,
 "opening_node": "MainStairUpperFloorOpening",
 "opening_overlap_required": true,
 "path_segments": [{
-"center": Vector3(72, 0.35, 134),
+"center": Vector3(61, 0.35, 134),
 "id": "lower_landing",
 "node": "MainStairLowerLandingSurface",
-"size": Vector3(34, 0.6, 16)
+"size": Vector3(14, 0.6, 16)
 }, {
-"end": Vector3(72, 26.625, 78),
+"end": Vector3(61, 26.625, 78),
 "id": "lower_flight",
 "node_prefix": "MainStairLowerFlightTread",
-"start": Vector3(72, 0.65, 134),
+"start": Vector3(61, 0.65, 134),
 "tread_count": 11
 }, {
 "center": Vector3(72, 26.325, 78),
 "id": "switchback_landing",
 "node": "MainStairSwitchbackLandingSurface",
-"size": Vector3(34, 0.6, 22)
+"size": Vector3(36, 0.6, 22)
 }, {
-"end": Vector3(72, 52.6, 136),
+"end": Vector3(82, 52.6, 134),
 "id": "upper_flight",
 "node_prefix": "MainStairUpperFlightTread",
-"start": Vector3(72, 26.625, 78),
+"start": Vector3(82, 26.625, 78),
 "tread_count": 11
 }, {
-"center": Vector3(72, 52.3, 134),
+"center": Vector3(82, 52.3, 134),
 "id": "upper_landing",
 "node": "MainStairUpperLandingSurface",
-"size": Vector3(34, 0.6, 16)
+"size": Vector3(14, 0.6, 16)
 }],
 "riser_height_units": 2.3613636363636363,
 "route_exclusion": ["bedroom", "glam_closet"],
@@ -4383,12 +4538,12 @@ metadata/vertical_circulation_contract = {
 "tread_depth_units": 5.090909090909091,
 "type": "u_shaped_residential_stair",
 "upper_approach_clearance": {
-"center": Vector3(72, 58.6, 144),
-"size": Vector3(40, 12, 8)
+"center": Vector3(82, 58.6, 144),
+"size": Vector3(24, 12, 8)
 },
 "upper_floor_datum_y": 52.6,
 "validation_cameras": ["ValidationCameras/MainStairContinuityCamera", "ValidationCameras/UpperHallStairOpeningCamera"],
-"width_units": 24.0
+"width_units": 14.0
 },
 "scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
 "tolerance_units": 1.0
@@ -25168,6 +25323,7 @@ metadata/vertical_circulation_contract = {
 },
 "continuity_required": true,
 "main_stair": {
+"continuity_gate": "segments must connect landing-to-landing from main floor datum to upper floor datum with separated lower/upper flights, readable riser fill, 14-unit clear flight width, 5-unit tread depth, and a shaft void that starts at z=78 for upper-flight headroom",
 "continuous_path_verified": true,
 "floor_assembly_layers_cut": ["MainFloorTenFootCeilingPlane", "interstitial_gap", "UpperFloorDeck", "GlamDressing"],
 "floor_assembly_shaft_void_bounds": {
@@ -25176,39 +25332,39 @@ metadata/vertical_circulation_contract = {
 },
 "id": "MainStairEntryToUpperHall",
 "lower_approach_clearance": {
-"center": Vector3(72, 6, 144),
-"size": Vector3(40, 12, 8)
+"center": Vector3(61, 6, 144),
+"size": Vector3(24, 12, 8)
 },
 "lower_floor_datum_y": 0.05,
 "opening_node": "MainStairUpperFloorOpening",
 "opening_overlap_required": true,
 "path_segments": [{
-"center": Vector3(72, 0.35, 134),
+"center": Vector3(61, 0.35, 134),
 "id": "lower_landing",
 "node": "MainStairLowerLandingSurface",
-"size": Vector3(34, 0.6, 16)
+"size": Vector3(14, 0.6, 16)
 }, {
-"end": Vector3(72, 26.625, 78),
+"end": Vector3(61, 26.625, 78),
 "id": "lower_flight",
 "node_prefix": "MainStairLowerFlightTread",
-"start": Vector3(72, 0.65, 134),
+"start": Vector3(61, 0.65, 134),
 "tread_count": 11
 }, {
 "center": Vector3(72, 26.325, 78),
 "id": "switchback_landing",
 "node": "MainStairSwitchbackLandingSurface",
-"size": Vector3(34, 0.6, 22)
+"size": Vector3(36, 0.6, 22)
 }, {
-"end": Vector3(72, 52.6, 136),
+"end": Vector3(82, 52.6, 134),
 "id": "upper_flight",
 "node_prefix": "MainStairUpperFlightTread",
-"start": Vector3(72, 26.625, 78),
+"start": Vector3(82, 26.625, 78),
 "tread_count": 11
 }, {
-"center": Vector3(72, 52.3, 134),
+"center": Vector3(82, 52.3, 134),
 "id": "upper_landing",
 "node": "MainStairUpperLandingSurface",
-"size": Vector3(34, 0.6, 16)
+"size": Vector3(14, 0.6, 16)
 }],
 "riser_height_units": 2.3613636363636363,
 "route_exclusion": ["bedroom", "glam_closet"],
@@ -25216,19 +25372,19 @@ metadata/vertical_circulation_contract = {
 "tread_depth_units": 5.090909090909091,
 "type": "u_shaped_residential_stair",
 "upper_approach_clearance": {
-"center": Vector3(72, 58.6, 144),
-"size": Vector3(40, 12, 8)
+"center": Vector3(82, 58.6, 144),
+"size": Vector3(24, 12, 8)
 },
 "upper_floor_datum_y": 52.6,
 "validation_cameras": ["ValidationCameras/MainStairContinuityCamera", "ValidationCameras/UpperHallStairOpeningCamera"],
-"width_units": 24.0
+"width_units": 14.0
 },
 "scale_contract_id": "home_yard_v3_human_house_toy_racer_scale_v1",
 "tolerance_units": 1.0
 }
 
 [node name="MainStairLowerLandingSurface" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 0.35, 134)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61, 0.35, 134)
 material_override = SubResource("StandardMaterial3D_h0lo4")
 mesh = SubResource("BoxMesh_wula2")
 metadata/generated_scene_provenance = {
@@ -25277,17 +25433,17 @@ metadata/collision_policy = "visible_architectural_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "lower_landing"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
 metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
 metadata/vertical_path_continuity = "connects_main_floor_to_upper_floor"
 metadata/support_surface_top_y = 0.6500000059604645
-metadata/target_dimensions_units = Vector3(34, 0.6, 16)
+metadata/target_dimensions_units = Vector3(14, 0.6, 16)
 
 [node name="MainStairLowerFlightTread00" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 72, 2.6613636, 131.45454)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 61, 2.6613636, 131.45454)
 material_override = SubResource("StandardMaterial3D_1jlbo")
 mesh = SubResource("BoxMesh_skne2")
 metadata/generated_scene_provenance = {
@@ -25336,7 +25492,7 @@ metadata/collision_policy = "visible_architectural_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "measured_tread"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
@@ -25346,12 +25502,72 @@ metadata/tread_index = 0
 metadata/tread_count = 11
 metadata/riser_height_units = 2.361363638531078
 metadata/tread_depth_units = 5.090909090909091
-metadata/target_dimensions_units = Vector3(24, 0.7, 5.490909)
+metadata/target_dimensions_units = Vector3(14, 0.7, 5.490909)
 
-[node name="MainStairLowerFlightTread01" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 72, 5.0227275, 126.36363)
+[node name="MainStairLowerFlightRiser00" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 61, 1.8306818, 128.90909)
 material_override = SubResource("StandardMaterial3D_m4ely")
 mesh = SubResource("BoxMesh_sa5oy")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/MainStairLowerFlightRiser00",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "MainStairLowerFlightRiser00 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "MainStairLowerFlightRiser00 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/MainStairLowerFlightRiser00"
+metadata/vertical_link_id = "MainStairEntryToUpperHall"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "main"
+metadata/to_floor = "upper"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
+metadata/vertical_path_continuity = "connects_main_floor_to_upper_floor_and_fills_between_treads"
+metadata/riser_index = 0
+metadata/riser_height_units = 2.361363638531078
+metadata/target_dimensions_units = Vector3(14, 2.1613636, 0.55)
+
+[node name="MainStairLowerFlightTread01" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 61, 5.0227275, 126.36363)
+material_override = SubResource("StandardMaterial3D_f8vut")
+mesh = SubResource("BoxMesh_tus0l")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -25398,7 +25614,7 @@ metadata/collision_policy = "visible_architectural_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "measured_tread"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
@@ -25408,12 +25624,72 @@ metadata/tread_index = 1
 metadata/tread_count = 11
 metadata/riser_height_units = 2.361363638531078
 metadata/tread_depth_units = 5.090909090909091
-metadata/target_dimensions_units = Vector3(24, 0.7, 5.490909)
+metadata/target_dimensions_units = Vector3(14, 0.7, 5.490909)
+
+[node name="MainStairLowerFlightRiser01" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 61, 4.192045, 123.818184)
+material_override = SubResource("StandardMaterial3D_y31v2")
+mesh = SubResource("BoxMesh_860te")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/MainStairLowerFlightRiser01",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "MainStairLowerFlightRiser01 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "MainStairLowerFlightRiser01 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/MainStairLowerFlightRiser01"
+metadata/vertical_link_id = "MainStairEntryToUpperHall"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "main"
+metadata/to_floor = "upper"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
+metadata/vertical_path_continuity = "connects_main_floor_to_upper_floor_and_fills_between_treads"
+metadata/riser_index = 1
+metadata/riser_height_units = 2.361363638531078
+metadata/target_dimensions_units = Vector3(14, 2.1613636, 0.55)
 
 [node name="MainStairLowerFlightTread02" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 72, 7.384091, 121.27273)
-material_override = SubResource("StandardMaterial3D_f8vut")
-mesh = SubResource("BoxMesh_tus0l")
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 61, 7.384091, 121.27273)
+material_override = SubResource("StandardMaterial3D_sknor")
+mesh = SubResource("BoxMesh_teppx")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -25460,7 +25736,7 @@ metadata/collision_policy = "visible_architectural_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "measured_tread"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
@@ -25470,12 +25746,72 @@ metadata/tread_index = 2
 metadata/tread_count = 11
 metadata/riser_height_units = 2.361363638531078
 metadata/tread_depth_units = 5.090909090909091
-metadata/target_dimensions_units = Vector3(24, 0.7, 5.490909)
+metadata/target_dimensions_units = Vector3(14, 0.7, 5.490909)
+
+[node name="MainStairLowerFlightRiser02" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 61, 6.553409, 118.72727)
+material_override = SubResource("StandardMaterial3D_v62mp")
+mesh = SubResource("BoxMesh_1dpo4")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/MainStairLowerFlightRiser02",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "MainStairLowerFlightRiser02 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "MainStairLowerFlightRiser02 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/MainStairLowerFlightRiser02"
+metadata/vertical_link_id = "MainStairEntryToUpperHall"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "main"
+metadata/to_floor = "upper"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
+metadata/vertical_path_continuity = "connects_main_floor_to_upper_floor_and_fills_between_treads"
+metadata/riser_index = 2
+metadata/riser_height_units = 2.361363638531078
+metadata/target_dimensions_units = Vector3(14, 2.1613636, 0.55)
 
 [node name="MainStairLowerFlightTread03" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 72, 9.745455, 116.181816)
-material_override = SubResource("StandardMaterial3D_y31v2")
-mesh = SubResource("BoxMesh_860te")
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 61, 9.745455, 116.181816)
+material_override = SubResource("StandardMaterial3D_j3e4d")
+mesh = SubResource("BoxMesh_f47p7")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -25522,7 +25858,7 @@ metadata/collision_policy = "visible_architectural_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "measured_tread"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
@@ -25532,12 +25868,72 @@ metadata/tread_index = 3
 metadata/tread_count = 11
 metadata/riser_height_units = 2.361363638531078
 metadata/tread_depth_units = 5.090909090909091
-metadata/target_dimensions_units = Vector3(24, 0.7, 5.490909)
+metadata/target_dimensions_units = Vector3(14, 0.7, 5.490909)
+
+[node name="MainStairLowerFlightRiser03" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 61, 8.914773, 113.63637)
+material_override = SubResource("StandardMaterial3D_jvhu8")
+mesh = SubResource("BoxMesh_o0spl")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/MainStairLowerFlightRiser03",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "MainStairLowerFlightRiser03 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "MainStairLowerFlightRiser03 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/MainStairLowerFlightRiser03"
+metadata/vertical_link_id = "MainStairEntryToUpperHall"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "main"
+metadata/to_floor = "upper"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
+metadata/vertical_path_continuity = "connects_main_floor_to_upper_floor_and_fills_between_treads"
+metadata/riser_index = 3
+metadata/riser_height_units = 2.361363638531078
+metadata/target_dimensions_units = Vector3(14, 2.1613636, 0.55)
 
 [node name="MainStairLowerFlightTread04" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 72, 12.106818, 111.09091)
-material_override = SubResource("StandardMaterial3D_sknor")
-mesh = SubResource("BoxMesh_teppx")
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 61, 12.106818, 111.09091)
+material_override = SubResource("StandardMaterial3D_pjatl")
+mesh = SubResource("BoxMesh_8chp1")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -25584,7 +25980,7 @@ metadata/collision_policy = "visible_architectural_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "measured_tread"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
@@ -25594,12 +25990,72 @@ metadata/tread_index = 4
 metadata/tread_count = 11
 metadata/riser_height_units = 2.361363638531078
 metadata/tread_depth_units = 5.090909090909091
-metadata/target_dimensions_units = Vector3(24, 0.7, 5.490909)
+metadata/target_dimensions_units = Vector3(14, 0.7, 5.490909)
+
+[node name="MainStairLowerFlightRiser04" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 61, 11.276136, 108.545456)
+material_override = SubResource("StandardMaterial3D_qfywk")
+mesh = SubResource("BoxMesh_q52s7")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/MainStairLowerFlightRiser04",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "MainStairLowerFlightRiser04 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "MainStairLowerFlightRiser04 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/MainStairLowerFlightRiser04"
+metadata/vertical_link_id = "MainStairEntryToUpperHall"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "main"
+metadata/to_floor = "upper"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
+metadata/vertical_path_continuity = "connects_main_floor_to_upper_floor_and_fills_between_treads"
+metadata/riser_index = 4
+metadata/riser_height_units = 2.361363638531078
+metadata/target_dimensions_units = Vector3(14, 2.1613636, 0.55)
 
 [node name="MainStairLowerFlightTread05" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 72, 14.468182, 106)
-material_override = SubResource("StandardMaterial3D_v62mp")
-mesh = SubResource("BoxMesh_1dpo4")
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 61, 14.468182, 106)
+material_override = SubResource("StandardMaterial3D_53bc6")
+mesh = SubResource("BoxMesh_u7p2n")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -25646,7 +26102,7 @@ metadata/collision_policy = "visible_architectural_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "measured_tread"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
@@ -25656,12 +26112,72 @@ metadata/tread_index = 5
 metadata/tread_count = 11
 metadata/riser_height_units = 2.361363638531078
 metadata/tread_depth_units = 5.090909090909091
-metadata/target_dimensions_units = Vector3(24, 0.7, 5.490909)
+metadata/target_dimensions_units = Vector3(14, 0.7, 5.490909)
+
+[node name="MainStairLowerFlightRiser05" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 61, 13.6375, 103.454544)
+material_override = SubResource("StandardMaterial3D_j5q48")
+mesh = SubResource("BoxMesh_j5bc0")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/MainStairLowerFlightRiser05",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "MainStairLowerFlightRiser05 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "MainStairLowerFlightRiser05 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/MainStairLowerFlightRiser05"
+metadata/vertical_link_id = "MainStairEntryToUpperHall"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "main"
+metadata/to_floor = "upper"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
+metadata/vertical_path_continuity = "connects_main_floor_to_upper_floor_and_fills_between_treads"
+metadata/riser_index = 5
+metadata/riser_height_units = 2.361363638531078
+metadata/target_dimensions_units = Vector3(14, 2.1613636, 0.55)
 
 [node name="MainStairLowerFlightTread06" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 72, 16.829546, 100.90909)
-material_override = SubResource("StandardMaterial3D_j3e4d")
-mesh = SubResource("BoxMesh_f47p7")
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 61, 16.829546, 100.90909)
+material_override = SubResource("StandardMaterial3D_cppg0")
+mesh = SubResource("BoxMesh_xk7lo")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -25708,7 +26224,7 @@ metadata/collision_policy = "visible_architectural_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "measured_tread"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
@@ -25718,12 +26234,72 @@ metadata/tread_index = 6
 metadata/tread_count = 11
 metadata/riser_height_units = 2.361363638531078
 metadata/tread_depth_units = 5.090909090909091
-metadata/target_dimensions_units = Vector3(24, 0.7, 5.490909)
+metadata/target_dimensions_units = Vector3(14, 0.7, 5.490909)
+
+[node name="MainStairLowerFlightRiser06" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 61, 15.998863, 98.36363)
+material_override = SubResource("StandardMaterial3D_2sfd8")
+mesh = SubResource("BoxMesh_ehwg7")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/MainStairLowerFlightRiser06",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "MainStairLowerFlightRiser06 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "MainStairLowerFlightRiser06 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/MainStairLowerFlightRiser06"
+metadata/vertical_link_id = "MainStairEntryToUpperHall"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "main"
+metadata/to_floor = "upper"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
+metadata/vertical_path_continuity = "connects_main_floor_to_upper_floor_and_fills_between_treads"
+metadata/riser_index = 6
+metadata/riser_height_units = 2.361363638531078
+metadata/target_dimensions_units = Vector3(14, 2.1613636, 0.55)
 
 [node name="MainStairLowerFlightTread07" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 72, 19.190908, 95.81818)
-material_override = SubResource("StandardMaterial3D_jvhu8")
-mesh = SubResource("BoxMesh_o0spl")
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 61, 19.190908, 95.81818)
+material_override = SubResource("StandardMaterial3D_82tan")
+mesh = SubResource("BoxMesh_euc5q")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -25770,7 +26346,7 @@ metadata/collision_policy = "visible_architectural_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "measured_tread"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
@@ -25780,12 +26356,72 @@ metadata/tread_index = 7
 metadata/tread_count = 11
 metadata/riser_height_units = 2.361363638531078
 metadata/tread_depth_units = 5.090909090909091
-metadata/target_dimensions_units = Vector3(24, 0.7, 5.490909)
+metadata/target_dimensions_units = Vector3(14, 0.7, 5.490909)
+
+[node name="MainStairLowerFlightRiser07" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 61, 18.360228, 93.27273)
+material_override = SubResource("StandardMaterial3D_twnbr")
+mesh = SubResource("BoxMesh_3qyud")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/MainStairLowerFlightRiser07",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "MainStairLowerFlightRiser07 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "MainStairLowerFlightRiser07 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/MainStairLowerFlightRiser07"
+metadata/vertical_link_id = "MainStairEntryToUpperHall"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "main"
+metadata/to_floor = "upper"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
+metadata/vertical_path_continuity = "connects_main_floor_to_upper_floor_and_fills_between_treads"
+metadata/riser_index = 7
+metadata/riser_height_units = 2.361363638531078
+metadata/target_dimensions_units = Vector3(14, 2.1613636, 0.55)
 
 [node name="MainStairLowerFlightTread08" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 72, 21.552273, 90.72727)
-material_override = SubResource("StandardMaterial3D_pjatl")
-mesh = SubResource("BoxMesh_8chp1")
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 61, 21.552273, 90.72727)
+material_override = SubResource("StandardMaterial3D_d2d06")
+mesh = SubResource("BoxMesh_2dv50")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -25832,7 +26468,7 @@ metadata/collision_policy = "visible_architectural_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "measured_tread"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
@@ -25842,12 +26478,72 @@ metadata/tread_index = 8
 metadata/tread_count = 11
 metadata/riser_height_units = 2.361363638531078
 metadata/tread_depth_units = 5.090909090909091
-metadata/target_dimensions_units = Vector3(24, 0.7, 5.490909)
+metadata/target_dimensions_units = Vector3(14, 0.7, 5.490909)
+
+[node name="MainStairLowerFlightRiser08" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 61, 20.72159, 88.18182)
+material_override = SubResource("StandardMaterial3D_6me1o")
+mesh = SubResource("BoxMesh_51m2g")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/MainStairLowerFlightRiser08",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "MainStairLowerFlightRiser08 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "MainStairLowerFlightRiser08 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/MainStairLowerFlightRiser08"
+metadata/vertical_link_id = "MainStairEntryToUpperHall"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "main"
+metadata/to_floor = "upper"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
+metadata/vertical_path_continuity = "connects_main_floor_to_upper_floor_and_fills_between_treads"
+metadata/riser_index = 8
+metadata/riser_height_units = 2.361363638531078
+metadata/target_dimensions_units = Vector3(14, 2.1613636, 0.55)
 
 [node name="MainStairLowerFlightTread09" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 72, 23.913637, 85.63637)
-material_override = SubResource("StandardMaterial3D_qfywk")
-mesh = SubResource("BoxMesh_q52s7")
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 61, 23.913637, 85.63637)
+material_override = SubResource("StandardMaterial3D_tjjd0")
+mesh = SubResource("BoxMesh_3lunw")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -25894,7 +26590,7 @@ metadata/collision_policy = "visible_architectural_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "measured_tread"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
@@ -25904,12 +26600,72 @@ metadata/tread_index = 9
 metadata/tread_count = 11
 metadata/riser_height_units = 2.361363638531078
 metadata/tread_depth_units = 5.090909090909091
-metadata/target_dimensions_units = Vector3(24, 0.7, 5.490909)
+metadata/target_dimensions_units = Vector3(14, 0.7, 5.490909)
+
+[node name="MainStairLowerFlightRiser09" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 61, 23.082954, 83.09091)
+material_override = SubResource("StandardMaterial3D_s3kh4")
+mesh = SubResource("BoxMesh_lmexr")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/MainStairLowerFlightRiser09",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "MainStairLowerFlightRiser09 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "MainStairLowerFlightRiser09 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/MainStairLowerFlightRiser09"
+metadata/vertical_link_id = "MainStairEntryToUpperHall"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "main"
+metadata/to_floor = "upper"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
+metadata/vertical_path_continuity = "connects_main_floor_to_upper_floor_and_fills_between_treads"
+metadata/riser_index = 9
+metadata/riser_height_units = 2.361363638531078
+metadata/target_dimensions_units = Vector3(14, 2.1613636, 0.55)
 
 [node name="MainStairLowerFlightTread10" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 72, 26.275, 80.545456)
-material_override = SubResource("StandardMaterial3D_53bc6")
-mesh = SubResource("BoxMesh_u7p2n")
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 61, 26.275, 80.545456)
+material_override = SubResource("StandardMaterial3D_k4vfg")
+mesh = SubResource("BoxMesh_bre7t")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -25956,7 +26712,7 @@ metadata/collision_policy = "visible_architectural_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "measured_tread"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
@@ -25966,12 +26722,72 @@ metadata/tread_index = 10
 metadata/tread_count = 11
 metadata/riser_height_units = 2.361363638531078
 metadata/tread_depth_units = 5.090909090909091
-metadata/target_dimensions_units = Vector3(24, 0.7, 5.490909)
+metadata/target_dimensions_units = Vector3(14, 0.7, 5.490909)
+
+[node name="MainStairLowerFlightRiser10" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 61, 25.444319, 78)
+material_override = SubResource("StandardMaterial3D_fu0vo")
+mesh = SubResource("BoxMesh_xpeaa")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/MainStairLowerFlightRiser10",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "MainStairLowerFlightRiser10 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "MainStairLowerFlightRiser10 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/MainStairLowerFlightRiser10"
+metadata/vertical_link_id = "MainStairEntryToUpperHall"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "main"
+metadata/to_floor = "upper"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
+metadata/vertical_path_continuity = "connects_main_floor_to_upper_floor_and_fills_between_treads"
+metadata/riser_index = 10
+metadata/riser_height_units = 2.361363638531078
+metadata/target_dimensions_units = Vector3(14, 2.1613636, 0.55)
 
 [node name="MainStairSwitchbackLandingSurface" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 26.325, 78)
-material_override = SubResource("StandardMaterial3D_j5q48")
-mesh = SubResource("BoxMesh_j5bc0")
+material_override = SubResource("StandardMaterial3D_pehca")
+mesh = SubResource("BoxMesh_u6pqe")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26018,19 +26834,19 @@ metadata/collision_policy = "visible_architectural_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "switchback_landing"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
 metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
 metadata/vertical_path_continuity = "connects_main_floor_to_upper_floor"
 metadata/support_surface_top_y = 26.625000774860382
-metadata/target_dimensions_units = Vector3(34, 0.6, 22)
+metadata/target_dimensions_units = Vector3(36, 0.6, 22)
 
 [node name="MainStairUpperFlightTread00" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 28.636364, 80.545456)
-material_override = SubResource("StandardMaterial3D_cppg0")
-mesh = SubResource("BoxMesh_xk7lo")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 28.636364, 80.545456)
+material_override = SubResource("StandardMaterial3D_4q4u8")
+mesh = SubResource("BoxMesh_6n26a")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26077,7 +26893,7 @@ metadata/collision_policy = "visible_architectural_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "measured_tread"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
@@ -26087,12 +26903,72 @@ metadata/tread_index = 0
 metadata/tread_count = 11
 metadata/riser_height_units = 2.361363497647372
 metadata/tread_depth_units = 5.090909090909091
-metadata/target_dimensions_units = Vector3(24, 0.7, 5.490909)
+metadata/target_dimensions_units = Vector3(14, 0.7, 5.490909)
+
+[node name="MainStairUpperFlightRiser00" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 27.805681, 83.09091)
+material_override = SubResource("StandardMaterial3D_tnbxp")
+mesh = SubResource("BoxMesh_uxaw1")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/MainStairUpperFlightRiser00",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "MainStairUpperFlightRiser00 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "MainStairUpperFlightRiser00 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/MainStairUpperFlightRiser00"
+metadata/vertical_link_id = "MainStairEntryToUpperHall"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "main"
+metadata/to_floor = "upper"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
+metadata/vertical_path_continuity = "connects_main_floor_to_upper_floor_and_fills_between_treads"
+metadata/riser_index = 0
+metadata/riser_height_units = 2.361363497647372
+metadata/target_dimensions_units = Vector3(14, 2.1613636, 0.55)
 
 [node name="MainStairUpperFlightTread01" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 30.997726, 85.63637)
-material_override = SubResource("StandardMaterial3D_2sfd8")
-mesh = SubResource("BoxMesh_ehwg7")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 30.997726, 85.63637)
+material_override = SubResource("StandardMaterial3D_ytqhp")
+mesh = SubResource("BoxMesh_vppyv")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26139,7 +27015,7 @@ metadata/collision_policy = "visible_architectural_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "measured_tread"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
@@ -26149,12 +27025,72 @@ metadata/tread_index = 1
 metadata/tread_count = 11
 metadata/riser_height_units = 2.361363497647372
 metadata/tread_depth_units = 5.090909090909091
-metadata/target_dimensions_units = Vector3(24, 0.7, 5.490909)
+metadata/target_dimensions_units = Vector3(14, 0.7, 5.490909)
+
+[node name="MainStairUpperFlightRiser01" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 30.167046, 88.181816)
+material_override = SubResource("StandardMaterial3D_hpi5d")
+mesh = SubResource("BoxMesh_nuay4")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/MainStairUpperFlightRiser01",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "MainStairUpperFlightRiser01 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "MainStairUpperFlightRiser01 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/MainStairUpperFlightRiser01"
+metadata/vertical_link_id = "MainStairEntryToUpperHall"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "main"
+metadata/to_floor = "upper"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
+metadata/vertical_path_continuity = "connects_main_floor_to_upper_floor_and_fills_between_treads"
+metadata/riser_index = 1
+metadata/riser_height_units = 2.361363497647372
+metadata/target_dimensions_units = Vector3(14, 2.1613636, 0.55)
 
 [node name="MainStairUpperFlightTread02" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 33.35909, 90.72727)
-material_override = SubResource("StandardMaterial3D_82tan")
-mesh = SubResource("BoxMesh_euc5q")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 33.35909, 90.72727)
+material_override = SubResource("StandardMaterial3D_2gsvu")
+mesh = SubResource("BoxMesh_tl835")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26201,7 +27137,7 @@ metadata/collision_policy = "visible_architectural_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "measured_tread"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
@@ -26211,12 +27147,72 @@ metadata/tread_index = 2
 metadata/tread_count = 11
 metadata/riser_height_units = 2.361363497647372
 metadata/tread_depth_units = 5.090909090909091
-metadata/target_dimensions_units = Vector3(24, 0.7, 5.490909)
+metadata/target_dimensions_units = Vector3(14, 0.7, 5.490909)
+
+[node name="MainStairUpperFlightRiser02" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 32.528408, 93.27273)
+material_override = SubResource("StandardMaterial3D_6ilux")
+mesh = SubResource("BoxMesh_bq8ki")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/MainStairUpperFlightRiser02",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "MainStairUpperFlightRiser02 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "MainStairUpperFlightRiser02 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/MainStairUpperFlightRiser02"
+metadata/vertical_link_id = "MainStairEntryToUpperHall"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "main"
+metadata/to_floor = "upper"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
+metadata/vertical_path_continuity = "connects_main_floor_to_upper_floor_and_fills_between_treads"
+metadata/riser_index = 2
+metadata/riser_height_units = 2.361363497647372
+metadata/target_dimensions_units = Vector3(14, 2.1613636, 0.55)
 
 [node name="MainStairUpperFlightTread03" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 35.720455, 95.818184)
-material_override = SubResource("StandardMaterial3D_twnbr")
-mesh = SubResource("BoxMesh_3qyud")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 35.720455, 95.818184)
+material_override = SubResource("StandardMaterial3D_hcxdi")
+mesh = SubResource("BoxMesh_fra1h")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26263,7 +27259,7 @@ metadata/collision_policy = "visible_architectural_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "measured_tread"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
@@ -26273,12 +27269,72 @@ metadata/tread_index = 3
 metadata/tread_count = 11
 metadata/riser_height_units = 2.361363497647372
 metadata/tread_depth_units = 5.090909090909091
-metadata/target_dimensions_units = Vector3(24, 0.7, 5.490909)
+metadata/target_dimensions_units = Vector3(14, 0.7, 5.490909)
+
+[node name="MainStairUpperFlightRiser03" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 34.88977, 98.36363)
+material_override = SubResource("StandardMaterial3D_1ihti")
+mesh = SubResource("BoxMesh_310cg")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/MainStairUpperFlightRiser03",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "MainStairUpperFlightRiser03 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "MainStairUpperFlightRiser03 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/MainStairUpperFlightRiser03"
+metadata/vertical_link_id = "MainStairEntryToUpperHall"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "main"
+metadata/to_floor = "upper"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
+metadata/vertical_path_continuity = "connects_main_floor_to_upper_floor_and_fills_between_treads"
+metadata/riser_index = 3
+metadata/riser_height_units = 2.361363497647372
+metadata/target_dimensions_units = Vector3(14, 2.1613636, 0.55)
 
 [node name="MainStairUpperFlightTread04" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 38.081818, 100.90909)
-material_override = SubResource("StandardMaterial3D_d2d06")
-mesh = SubResource("BoxMesh_2dv50")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 38.081818, 100.90909)
+material_override = SubResource("StandardMaterial3D_sbg0i")
+mesh = SubResource("BoxMesh_2e3ux")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26325,7 +27381,7 @@ metadata/collision_policy = "visible_architectural_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "measured_tread"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
@@ -26335,12 +27391,72 @@ metadata/tread_index = 4
 metadata/tread_count = 11
 metadata/riser_height_units = 2.361363497647372
 metadata/tread_depth_units = 5.090909090909091
-metadata/target_dimensions_units = Vector3(24, 0.7, 5.490909)
+metadata/target_dimensions_units = Vector3(14, 0.7, 5.490909)
+
+[node name="MainStairUpperFlightRiser04" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 37.251137, 103.454544)
+material_override = SubResource("StandardMaterial3D_htig0")
+mesh = SubResource("BoxMesh_ir44e")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/MainStairUpperFlightRiser04",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "MainStairUpperFlightRiser04 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "MainStairUpperFlightRiser04 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/MainStairUpperFlightRiser04"
+metadata/vertical_link_id = "MainStairEntryToUpperHall"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "main"
+metadata/to_floor = "upper"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
+metadata/vertical_path_continuity = "connects_main_floor_to_upper_floor_and_fills_between_treads"
+metadata/riser_index = 4
+metadata/riser_height_units = 2.361363497647372
+metadata/target_dimensions_units = Vector3(14, 2.1613636, 0.55)
 
 [node name="MainStairUpperFlightTread05" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 40.44318, 106)
-material_override = SubResource("StandardMaterial3D_6me1o")
-mesh = SubResource("BoxMesh_51m2g")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 40.44318, 106)
+material_override = SubResource("StandardMaterial3D_7wis3")
+mesh = SubResource("BoxMesh_6ywat")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26387,7 +27503,7 @@ metadata/collision_policy = "visible_architectural_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "measured_tread"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
@@ -26397,12 +27513,72 @@ metadata/tread_index = 5
 metadata/tread_count = 11
 metadata/riser_height_units = 2.361363497647372
 metadata/tread_depth_units = 5.090909090909091
-metadata/target_dimensions_units = Vector3(24, 0.7, 5.490909)
+metadata/target_dimensions_units = Vector3(14, 0.7, 5.490909)
+
+[node name="MainStairUpperFlightRiser05" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 39.6125, 108.545456)
+material_override = SubResource("StandardMaterial3D_572c3")
+mesh = SubResource("BoxMesh_2qbwl")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/MainStairUpperFlightRiser05",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "MainStairUpperFlightRiser05 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "MainStairUpperFlightRiser05 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/MainStairUpperFlightRiser05"
+metadata/vertical_link_id = "MainStairEntryToUpperHall"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "main"
+metadata/to_floor = "upper"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
+metadata/vertical_path_continuity = "connects_main_floor_to_upper_floor_and_fills_between_treads"
+metadata/riser_index = 5
+metadata/riser_height_units = 2.361363497647372
+metadata/target_dimensions_units = Vector3(14, 2.1613636, 0.55)
 
 [node name="MainStairUpperFlightTread06" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 42.804546, 111.09091)
-material_override = SubResource("StandardMaterial3D_tjjd0")
-mesh = SubResource("BoxMesh_3lunw")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 42.804546, 111.09091)
+material_override = SubResource("StandardMaterial3D_u3ujg")
+mesh = SubResource("BoxMesh_hkmr3")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26449,7 +27625,7 @@ metadata/collision_policy = "visible_architectural_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "measured_tread"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
@@ -26459,12 +27635,72 @@ metadata/tread_index = 6
 metadata/tread_count = 11
 metadata/riser_height_units = 2.361363497647372
 metadata/tread_depth_units = 5.090909090909091
-metadata/target_dimensions_units = Vector3(24, 0.7, 5.490909)
+metadata/target_dimensions_units = Vector3(14, 0.7, 5.490909)
+
+[node name="MainStairUpperFlightRiser06" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 41.97386, 113.63637)
+material_override = SubResource("StandardMaterial3D_0ve5v")
+mesh = SubResource("BoxMesh_kd1l1")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/MainStairUpperFlightRiser06",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "MainStairUpperFlightRiser06 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "MainStairUpperFlightRiser06 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/MainStairUpperFlightRiser06"
+metadata/vertical_link_id = "MainStairEntryToUpperHall"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "main"
+metadata/to_floor = "upper"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
+metadata/vertical_path_continuity = "connects_main_floor_to_upper_floor_and_fills_between_treads"
+metadata/riser_index = 6
+metadata/riser_height_units = 2.361363497647372
+metadata/target_dimensions_units = Vector3(14, 2.1613636, 0.55)
 
 [node name="MainStairUpperFlightTread07" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 45.16591, 116.18182)
-material_override = SubResource("StandardMaterial3D_s3kh4")
-mesh = SubResource("BoxMesh_lmexr")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 45.16591, 116.18182)
+material_override = SubResource("StandardMaterial3D_ojrcm")
+mesh = SubResource("BoxMesh_u835i")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26511,7 +27747,7 @@ metadata/collision_policy = "visible_architectural_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "measured_tread"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
@@ -26521,12 +27757,72 @@ metadata/tread_index = 7
 metadata/tread_count = 11
 metadata/riser_height_units = 2.361363497647372
 metadata/tread_depth_units = 5.090909090909091
-metadata/target_dimensions_units = Vector3(24, 0.7, 5.490909)
+metadata/target_dimensions_units = Vector3(14, 0.7, 5.490909)
+
+[node name="MainStairUpperFlightRiser07" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 44.335228, 118.72727)
+material_override = SubResource("StandardMaterial3D_d3t50")
+mesh = SubResource("BoxMesh_mqseg")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/MainStairUpperFlightRiser07",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "MainStairUpperFlightRiser07 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "MainStairUpperFlightRiser07 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/MainStairUpperFlightRiser07"
+metadata/vertical_link_id = "MainStairEntryToUpperHall"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "main"
+metadata/to_floor = "upper"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
+metadata/vertical_path_continuity = "connects_main_floor_to_upper_floor_and_fills_between_treads"
+metadata/riser_index = 7
+metadata/riser_height_units = 2.361363497647372
+metadata/target_dimensions_units = Vector3(14, 2.1613636, 0.55)
 
 [node name="MainStairUpperFlightTread08" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 47.52727, 121.27273)
-material_override = SubResource("StandardMaterial3D_k4vfg")
-mesh = SubResource("BoxMesh_bre7t")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 47.52727, 121.27273)
+material_override = SubResource("StandardMaterial3D_wujg3")
+mesh = SubResource("BoxMesh_2xs0k")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26573,7 +27869,7 @@ metadata/collision_policy = "visible_architectural_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "measured_tread"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
@@ -26583,12 +27879,72 @@ metadata/tread_index = 8
 metadata/tread_count = 11
 metadata/riser_height_units = 2.361363497647372
 metadata/tread_depth_units = 5.090909090909091
-metadata/target_dimensions_units = Vector3(24, 0.7, 5.490909)
+metadata/target_dimensions_units = Vector3(14, 0.7, 5.490909)
+
+[node name="MainStairUpperFlightRiser08" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 46.69659, 123.81818)
+material_override = SubResource("StandardMaterial3D_q5rad")
+mesh = SubResource("BoxMesh_jc0yu")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/MainStairUpperFlightRiser08",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "MainStairUpperFlightRiser08 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "MainStairUpperFlightRiser08 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/MainStairUpperFlightRiser08"
+metadata/vertical_link_id = "MainStairEntryToUpperHall"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "main"
+metadata/to_floor = "upper"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
+metadata/vertical_path_continuity = "connects_main_floor_to_upper_floor_and_fills_between_treads"
+metadata/riser_index = 8
+metadata/riser_height_units = 2.361363497647372
+metadata/target_dimensions_units = Vector3(14, 2.1613636, 0.55)
 
 [node name="MainStairUpperFlightTread09" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 49.888634, 126.36363)
-material_override = SubResource("StandardMaterial3D_fu0vo")
-mesh = SubResource("BoxMesh_xpeaa")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 49.888634, 126.36363)
+material_override = SubResource("StandardMaterial3D_j6fkx")
+mesh = SubResource("BoxMesh_cmbrf")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26635,7 +27991,7 @@ metadata/collision_policy = "visible_architectural_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "measured_tread"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
@@ -26645,12 +28001,72 @@ metadata/tread_index = 9
 metadata/tread_count = 11
 metadata/riser_height_units = 2.361363497647372
 metadata/tread_depth_units = 5.090909090909091
-metadata/target_dimensions_units = Vector3(24, 0.7, 5.490909)
+metadata/target_dimensions_units = Vector3(14, 0.7, 5.490909)
+
+[node name="MainStairUpperFlightRiser09" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 49.057953, 128.90909)
+material_override = SubResource("StandardMaterial3D_2k7jw")
+mesh = SubResource("BoxMesh_2odr6")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/MainStairUpperFlightRiser09",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "MainStairUpperFlightRiser09 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "MainStairUpperFlightRiser09 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/MainStairUpperFlightRiser09"
+metadata/vertical_link_id = "MainStairEntryToUpperHall"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "main"
+metadata/to_floor = "upper"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
+metadata/vertical_path_continuity = "connects_main_floor_to_upper_floor_and_fills_between_treads"
+metadata/riser_index = 9
+metadata/riser_height_units = 2.361363497647372
+metadata/target_dimensions_units = Vector3(14, 2.1613636, 0.55)
 
 [node name="MainStairUpperFlightTread10" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 52.25, 131.45454)
-material_override = SubResource("StandardMaterial3D_pehca")
-mesh = SubResource("BoxMesh_u6pqe")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 52.25, 131.45454)
+material_override = SubResource("StandardMaterial3D_dxdun")
+mesh = SubResource("BoxMesh_jby8w")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26697,7 +28113,7 @@ metadata/collision_policy = "visible_architectural_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "measured_tread"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
@@ -26707,12 +28123,72 @@ metadata/tread_index = 10
 metadata/tread_count = 11
 metadata/riser_height_units = 2.361363497647372
 metadata/tread_depth_units = 5.090909090909091
-metadata/target_dimensions_units = Vector3(24, 0.7, 5.490909)
+metadata/target_dimensions_units = Vector3(14, 0.7, 5.490909)
+
+[node name="MainStairUpperFlightRiser10" type="MeshInstance3D" parent="VerticalConnectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 51.419315, 134)
+material_override = SubResource("StandardMaterial3D_pk133")
+mesh = SubResource("BoxMesh_5c3gf")
+metadata/generated_scene_provenance = {
+"allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
+"assembly": "verticalconnectors_generated_assembly",
+"contact_face": "owner_volume_local_face_or_support_surface",
+"deletion_rule": "delete when the node has no declared owner/support target or when a more specific assembly replaces it",
+"end_anchor": "generated_transform_end",
+"forbidden_intersections": ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"],
+"node_path": "VerticalConnectors/MainStairUpperFlightRiser10",
+"owner_volume": "VerticalConnectors",
+"role": "generated_visible_part",
+"source_of_truth": "home_yard_v3 scratch generator contract",
+"span_axis": "inherited_from_node_transform",
+"start_anchor": "generated_transform_start",
+"support_target": "VerticalConnectors",
+"validation_camera": "ValidationCameras/ExteriorRooflineCamera",
+"validation_gate": "test_home_yard_generated_scene_provenance_contract",
+"visible_class": "architectural_mesh",
+"why_exists": "MainStairUpperFlightRiser10 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+}
+metadata/visible_class = "architectural_mesh"
+metadata/owner_volume = "VerticalConnectors"
+metadata/assembly = "verticalconnectors_generated_assembly"
+metadata/role = "generated_visible_part"
+metadata/source_of_truth = "home_yard_v3 scratch generator contract"
+metadata/why_exists = "MainStairUpperFlightRiser10 is emitted by the home_yard_v3 generator as part of VerticalConnectors and must be validated by provenance coverage gates."
+metadata/support_target = "VerticalConnectors"
+metadata/contact_face = "owner_volume_local_face_or_support_surface"
+metadata/span_axis = "inherited_from_node_transform"
+metadata/start_anchor = "generated_transform_start"
+metadata/end_anchor = "generated_transform_end"
+metadata/allowed_intersections = ["declared owner-volume contact", "small trim/foundation/fixture overlap"]
+metadata/forbidden_intersections = ["unowned helper geometry", "route corridor", "camera blocker", "unexplained exterior/interior clash"]
+metadata/deletion_rule = "delete when the node has no declared owner/support target or when a more specific assembly replaces it"
+metadata/validation_gate = "test_home_yard_generated_scene_provenance_contract"
+metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
+metadata/node_path = "VerticalConnectors/MainStairUpperFlightRiser10"
+metadata/vertical_link_id = "MainStairEntryToUpperHall"
+metadata/vertical_link_part = "measured_riser"
+metadata/from_floor = "main"
+metadata/to_floor = "upper"
+metadata/asset_source = "res://assets/source/kenney/mini_skate/steps.glb"
+metadata/license_origin = "CC0/Kenney"
+metadata/collision_policy = "visible_architectural_stair_collision"
+metadata/route_clearance = "outside_route_corridor"
+metadata/temporary_stand_in = false
+metadata/validation_only_visible_placeholder = false
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
+metadata/asset_role = "measured_riser"
+metadata/asset_lifecycle_state = "authored_measured_stair"
+metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
+metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
+metadata/vertical_path_continuity = "connects_main_floor_to_upper_floor_and_fills_between_treads"
+metadata/riser_index = 10
+metadata/riser_height_units = 2.361363497647372
+metadata/target_dimensions_units = Vector3(14, 2.1613636, 0.55)
 
 [node name="MainStairUpperLandingSurface" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 52.3, 134)
-material_override = SubResource("StandardMaterial3D_4q4u8")
-mesh = SubResource("BoxMesh_6n26a")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 52.3, 134)
+material_override = SubResource("StandardMaterial3D_fb5nq")
+mesh = SubResource("BoxMesh_a7m8e")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26759,19 +28235,19 @@ metadata/collision_policy = "visible_architectural_stair_collision"
 metadata/route_clearance = "outside_route_corridor"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "upper_landing"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
 metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
 metadata/vertical_path_continuity = "connects_main_floor_to_upper_floor"
 metadata/support_surface_top_y = 52.599999248981476
-metadata/target_dimensions_units = Vector3(34, 0.6, 16)
+metadata/target_dimensions_units = Vector3(14, 0.6, 16)
 
 [node name="MainStairLowerStringerLeft" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 0.90630776, 0.42261827, 0, -0.42261827, 0.90630776, 58.5, 13.4, 112)
-material_override = SubResource("StandardMaterial3D_tnbxp")
-mesh = SubResource("BoxMesh_uxaw1")
+transform = Transform3D(-1, 3.6785593e-08, -7.930676e-08, 0, 0.90716356, 0.42077813, 8.742278e-08, 0.42077813, -0.90716356, 68.8, 14.6375, 106)
+material_override = SubResource("StandardMaterial3D_ujjg6")
+mesh = SubResource("BoxMesh_4bmrn")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26810,17 +28286,20 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "VerticalConnectors/MainStairLowerStringerLeft"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "stair_stringer"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
 metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
 metadata/collision_policy = "visible_architectural_stair_collision"
+metadata/stair_flight_side = "Left"
+metadata/stair_flight_centerline_start = Vector3(61, 0.65, 134)
+metadata/stair_flight_centerline_end = Vector3(61, 26.625, 78)
 
 [node name="MainStairLowerStringerRight" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 0.90630776, 0.42261827, 0, -0.42261827, 0.90630776, 85.5, 13.4, 112)
-material_override = SubResource("StandardMaterial3D_ytqhp")
-mesh = SubResource("BoxMesh_vppyv")
+transform = Transform3D(-1, 3.6785593e-08, -7.930676e-08, 0, 0.90716356, 0.42077813, 8.742278e-08, 0.42077813, -0.90716356, 53.2, 14.6375, 106)
+material_override = SubResource("StandardMaterial3D_sjy7u")
+mesh = SubResource("BoxMesh_2cfo8")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26859,17 +28338,20 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "VerticalConnectors/MainStairLowerStringerRight"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "stair_stringer"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
 metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
 metadata/collision_policy = "visible_architectural_stair_collision"
+metadata/stair_flight_side = "Right"
+metadata/stair_flight_centerline_start = Vector3(61, 0.65, 134)
+metadata/stair_flight_centerline_end = Vector3(61, 26.625, 78)
 
 [node name="MainStairUpperStringerLeft" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 0.90630776, 0.42261827, 0, -0.42261827, 0.90630776, 58.5, 39.4, 110)
-material_override = SubResource("StandardMaterial3D_hpi5d")
-mesh = SubResource("BoxMesh_nuay4")
+transform = Transform3D(1, 0, 0, 0, 0.90716356, 0.42077813, 0, -0.42077813, 0.90716356, 74.2, 40.6125, 106)
+material_override = SubResource("StandardMaterial3D_oy7lq")
+mesh = SubResource("BoxMesh_l67i4")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26908,17 +28390,20 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "VerticalConnectors/MainStairUpperStringerLeft"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "stair_stringer"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
 metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
 metadata/collision_policy = "visible_architectural_stair_collision"
+metadata/stair_flight_side = "Left"
+metadata/stair_flight_centerline_start = Vector3(82, 26.625, 78)
+metadata/stair_flight_centerline_end = Vector3(82, 52.6, 134)
 
 [node name="MainStairUpperStringerRight" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 0.90630776, 0.42261827, 0, -0.42261827, 0.90630776, 85.5, 39.4, 110)
-material_override = SubResource("StandardMaterial3D_2gsvu")
-mesh = SubResource("BoxMesh_tl835")
+transform = Transform3D(1, 0, 0, 0, 0.90716356, 0.42077813, 0, -0.42077813, 0.90716356, 89.8, 40.6125, 106)
+material_override = SubResource("StandardMaterial3D_ttxyt")
+mesh = SubResource("BoxMesh_lrcau")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -26957,17 +28442,20 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "VerticalConnectors/MainStairUpperStringerRight"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "stair_stringer"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
 metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
 metadata/collision_policy = "visible_architectural_stair_collision"
+metadata/stair_flight_side = "Right"
+metadata/stair_flight_centerline_start = Vector3(82, 26.625, 78)
+metadata/stair_flight_centerline_end = Vector3(82, 52.6, 134)
 
 [node name="MainStairLowerGuardrailLeft" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.5, 16, 112)
-material_override = SubResource("StandardMaterial3D_6ilux")
-mesh = SubResource("BoxMesh_bq8ki")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 16, 109)
+material_override = SubResource("StandardMaterial3D_yvort")
+mesh = SubResource("BoxMesh_2wmh5")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -27006,7 +28494,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "VerticalConnectors/MainStairLowerGuardrailLeft"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "stair_guardrail"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
@@ -27014,9 +28502,9 @@ metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
 metadata/collision_policy = "visible_architectural_stair_collision"
 
 [node name="MainStairUpperGuardrailRight" type="MeshInstance3D" parent="VerticalConnectors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 87.5, 42, 110)
-material_override = SubResource("StandardMaterial3D_hcxdi")
-mesh = SubResource("BoxMesh_fra1h")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 89, 42, 109)
+material_override = SubResource("StandardMaterial3D_0456i")
+mesh = SubResource("BoxMesh_fr233")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -27055,7 +28543,7 @@ metadata/validation_camera = "ValidationCameras/ExteriorRooflineCamera"
 metadata/node_path = "VerticalConnectors/MainStairUpperGuardrailRight"
 metadata/temporary_stand_in = false
 metadata/validation_only_visible_placeholder = false
-metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v1"
+metadata/replacement_source = "generated_floor_plan_architect_measured_stair_v2"
 metadata/asset_role = "stair_guardrail"
 metadata/asset_lifecycle_state = "authored_measured_stair"
 metadata/scale_contract_id = "home_yard_v3_human_house_toy_racer_scale_v1"
@@ -27063,7 +28551,7 @@ metadata/scale_validation_status = "floor_plan_architect_measured_visible_stair"
 metadata/collision_policy = "visible_architectural_stair_collision"
 
 [node name="MainStairLowerFlightKenneySteps" type="Node3D" parent="VerticalConnectors" instance=ExtResource("25_i4a6c")]
-transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 72, 0.1, 78)
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 61, 0.1, 78)
 visible = false
 metadata/external_scene_instance = "res://assets/source/kenney/mini_skate/steps.glb"
 metadata/vertical_link_id = "MainStairEntryToUpperHall"
@@ -27077,7 +28565,7 @@ metadata/route_clearance = "outside_route_corridor"
 metadata/visual_reference_hidden_by_measured_stair = true
 
 [node name="MainStairUpperFlightKenneySteps" type="Node3D" parent="VerticalConnectors" instance=ExtResource("25_i4a6c")]
-transform = Transform3D(-20, 0, -1.7484556e-06, 0, 20, 0, 1.7484556e-06, 0, -20, 72, 26.1, 78)
+transform = Transform3D(-20, 0, -1.7484556e-06, 0, 20, 0, 1.7484556e-06, 0, -20, 82, 26.1, 78)
 visible = false
 metadata/external_scene_instance = "res://assets/source/kenney/mini_skate/steps.glb"
 metadata/vertical_link_id = "MainStairEntryToUpperHall"
@@ -27101,8 +28589,8 @@ metadata/validation_gate = "floor opening must align with sourced stair asset an
 [node name="AtticPullDownLowerLandingSurface" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 52.3, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_1ihti")
-mesh = SubResource("BoxMesh_310cg")
+material_override = SubResource("StandardMaterial3D_k55vf")
+mesh = SubResource("BoxMesh_wg0gf")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -27160,8 +28648,8 @@ metadata/target_dimensions_units = Vector3(34, 0.6, 30)
 [node name="AtticPullDownUpperLandingSurface" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 104.3, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_sbg0i")
-mesh = SubResource("BoxMesh_2e3ux")
+material_override = SubResource("StandardMaterial3D_ql70f")
+mesh = SubResource("BoxMesh_gmphl")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -27219,8 +28707,8 @@ metadata/target_dimensions_units = Vector3(40, 0.6, 34)
 [node name="AtticPullDownLadderRailLeft" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 78.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_htig0")
-mesh = SubResource("BoxMesh_ir44e")
+material_override = SubResource("StandardMaterial3D_yypqy")
+mesh = SubResource("BoxMesh_5ep63")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -27276,8 +28764,8 @@ metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor"
 [node name="AtticPullDownLadderRailRight" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 78.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_7wis3")
-mesh = SubResource("BoxMesh_6ywat")
+material_override = SubResource("StandardMaterial3D_5y8ii")
+mesh = SubResource("BoxMesh_y6p0w")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -27333,8 +28821,8 @@ metadata/vertical_path_continuity = "connects_upper_floor_to_attic_floor"
 [node name="AtticPullDownLadderRung00" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 56.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_572c3")
-mesh = SubResource("BoxMesh_2qbwl")
+material_override = SubResource("StandardMaterial3D_0lh3q")
+mesh = SubResource("BoxMesh_t1wxm")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -27392,8 +28880,8 @@ metadata/rung_spacing_units = 4.0
 [node name="AtticPullDownLadderRung01" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 60.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_u3ujg")
-mesh = SubResource("BoxMesh_hkmr3")
+material_override = SubResource("StandardMaterial3D_rtu0p")
+mesh = SubResource("BoxMesh_kyti6")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -27451,8 +28939,8 @@ metadata/rung_spacing_units = 4.0
 [node name="AtticPullDownLadderRung02" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 64.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_0ve5v")
-mesh = SubResource("BoxMesh_kd1l1")
+material_override = SubResource("StandardMaterial3D_glliu")
+mesh = SubResource("BoxMesh_e5vtr")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -27510,8 +28998,8 @@ metadata/rung_spacing_units = 4.0
 [node name="AtticPullDownLadderRung03" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 68.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_ojrcm")
-mesh = SubResource("BoxMesh_u835i")
+material_override = SubResource("StandardMaterial3D_8etuw")
+mesh = SubResource("BoxMesh_sd8u3")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -27569,8 +29057,8 @@ metadata/rung_spacing_units = 4.0
 [node name="AtticPullDownLadderRung04" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 72.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_d3t50")
-mesh = SubResource("BoxMesh_mqseg")
+material_override = SubResource("StandardMaterial3D_4m7u6")
+mesh = SubResource("BoxMesh_d8p7w")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -27628,8 +29116,8 @@ metadata/rung_spacing_units = 4.0
 [node name="AtticPullDownLadderRung05" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 76.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_wujg3")
-mesh = SubResource("BoxMesh_2xs0k")
+material_override = SubResource("StandardMaterial3D_5yero")
+mesh = SubResource("BoxMesh_gcjhh")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -27687,8 +29175,8 @@ metadata/rung_spacing_units = 4.0
 [node name="AtticPullDownLadderRung06" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 80.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_q5rad")
-mesh = SubResource("BoxMesh_jc0yu")
+material_override = SubResource("StandardMaterial3D_y85kd")
+mesh = SubResource("BoxMesh_jyj34")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -27746,8 +29234,8 @@ metadata/rung_spacing_units = 4.0
 [node name="AtticPullDownLadderRung07" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 84.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_j6fkx")
-mesh = SubResource("BoxMesh_cmbrf")
+material_override = SubResource("StandardMaterial3D_uosxu")
+mesh = SubResource("BoxMesh_4aavj")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -27805,8 +29293,8 @@ metadata/rung_spacing_units = 4.0
 [node name="AtticPullDownLadderRung08" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 88.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_2k7jw")
-mesh = SubResource("BoxMesh_2odr6")
+material_override = SubResource("StandardMaterial3D_l2abp")
+mesh = SubResource("BoxMesh_lmq7b")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -27864,8 +29352,8 @@ metadata/rung_spacing_units = 4.0
 [node name="AtticPullDownLadderRung09" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 92.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_dxdun")
-mesh = SubResource("BoxMesh_jby8w")
+material_override = SubResource("StandardMaterial3D_b1bla")
+mesh = SubResource("BoxMesh_32rus")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -27923,8 +29411,8 @@ metadata/rung_spacing_units = 4.0
 [node name="AtticPullDownLadderRung10" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 96.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_pk133")
-mesh = SubResource("BoxMesh_5c3gf")
+material_override = SubResource("StandardMaterial3D_kltoh")
+mesh = SubResource("BoxMesh_54u12")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -27982,8 +29470,8 @@ metadata/rung_spacing_units = 4.0
 [node name="AtticPullDownLadderRung11" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 100.6, -54)
 visible = false
-material_override = SubResource("StandardMaterial3D_fb5nq")
-mesh = SubResource("BoxMesh_a7m8e")
+material_override = SubResource("StandardMaterial3D_to3ox")
+mesh = SubResource("BoxMesh_evqi4")
 metadata/generated_scene_provenance = {
 "allowed_intersections": ["declared owner-volume contact", "small trim/foundation/fixture overlap"],
 "assembly": "verticalconnectors_generated_assembly",
@@ -28962,4 +30450,4 @@ transform = Transform3D(0.81915206, 0.4055798, -0.4055798, 0, 0.70710677, 0.7071
 light_energy = 2.3
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_ujjg6")
+environment = SubResource("Environment_ci82m")

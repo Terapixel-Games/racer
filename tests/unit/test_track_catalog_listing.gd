@@ -1057,6 +1057,8 @@ func _assert_home_yard_vertical_circulation_continuity(root: Node, track_id: Str
 		"VerticalConnectors/MainStairLowerFlightTread10",
 		"VerticalConnectors/MainStairUpperFlightTread00",
 		"VerticalConnectors/MainStairUpperFlightTread10",
+		"VerticalConnectors/MainStairLowerFlightRiser00",
+		"VerticalConnectors/MainStairUpperFlightRiser10",
 		"VerticalConnectors/AtticPullDownLowerLandingSurface",
 		"VerticalConnectors/AtticPullDownUpperLandingSurface",
 		"VerticalConnectors/AtticPullDownLadderRailLeft",
@@ -1157,6 +1159,7 @@ func _assert_home_yard_main_stair_is_measured_and_visible(root: Node, track_id: 
 	var main_stair_contract := (root.get_meta("vertical_circulation_contract", {}) as Dictionary).get("main_stair", {}) as Dictionary
 	assert_equal(str(main_stair_contract.get("type", "")), "u_shaped_residential_stair", "%s main stair should be planned as a U-shaped residential stair" % track_id)
 	assert_true(float(main_stair_contract.get("tread_depth_units", 0.0)) >= 5.0, "%s main stair should have readable tread depth, not ladder-like blocks" % track_id)
+	assert_true(str(main_stair_contract.get("continuity_gate", "")).contains("separated lower/upper flights"), "%s main stair continuity contract should require separated stair flights" % track_id)
 	for node_path in [
 		"VerticalConnectors/MainStairLowerLandingSurface",
 		"VerticalConnectors/MainStairSwitchbackLandingSurface",
@@ -1181,6 +1184,22 @@ func _assert_home_yard_main_stair_is_measured_and_visible(root: Node, track_id: 
 				var bounds := _mesh_instance_global_aabb(node)
 				assert_true(node.visible, "%s %s%02d should be visible" % [track_id, prefix, index])
 				assert_true(maxf(bounds.size.x, bounds.size.z) >= 5.0, "%s %s%02d should have readable tread run, bounds=%s" % [track_id, prefix, index, str(bounds)])
+		var lower_tread := root.get_node_or_null("VerticalConnectors/MainStairLowerFlightTread%02d" % index) as MeshInstance3D
+		var upper_tread := root.get_node_or_null("VerticalConnectors/MainStairUpperFlightTread%02d" % index) as MeshInstance3D
+		if lower_tread != null and upper_tread != null:
+			var lower_bounds := _mesh_instance_global_aabb(lower_tread)
+			var upper_bounds := _mesh_instance_global_aabb(upper_tread)
+			var x_overlap: float = minf(lower_bounds.end.x, upper_bounds.end.x) - maxf(lower_bounds.position.x, upper_bounds.position.x)
+			var z_overlap: float = minf(lower_bounds.end.z, upper_bounds.end.z) - maxf(lower_bounds.position.z, upper_bounds.position.z)
+			assert_true(x_overlap <= 0.05 or z_overlap <= 0.05, "%s main stair lower and upper treads should be separated in plan, not overlapping; lower=%s upper=%s" % [track_id, str(lower_bounds), str(upper_bounds)])
+			assert_true(lower_bounds.end.x <= upper_bounds.position.x - 2.0, "%s lower flight should be moved west of upper flight with a visible gap; lower=%s upper=%s" % [track_id, str(lower_bounds), str(upper_bounds)])
+	for index in [0, 5, 10]:
+		for prefix in ["MainStairLowerFlightRiser", "MainStairUpperFlightRiser"]:
+			var riser := root.get_node_or_null("VerticalConnectors/%s%02d" % [prefix, index]) as MeshInstance3D
+			assert_true(riser != null, "%s visible measured stair should fill stair run with riser %s%02d" % [track_id, prefix, index])
+			if riser != null:
+				assert_true(riser.visible, "%s %s%02d should be visible stair fill" % [track_id, prefix, index])
+				assert_equal(str(riser.get_meta("asset_lifecycle_state", "")), "authored_measured_stair", "%s %s%02d should be authored measured stair fill" % [track_id, prefix, index])
 	var lower_ref := root.get_node_or_null("VerticalConnectors/MainStairLowerFlightKenneySteps") as Node3D
 	var upper_ref := root.get_node_or_null("VerticalConnectors/MainStairUpperFlightKenneySteps") as Node3D
 	for ref in [lower_ref, upper_ref]:
