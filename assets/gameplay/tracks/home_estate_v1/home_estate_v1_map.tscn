@@ -5770,6 +5770,19 @@ metadata/floor_plan_contract = {
 "units_per_floor_plan_foot": 4.0,
 "upper_floor_area_sqft": 1086
 }
+metadata/story_bible_path = "res://docs/concept_package.md"
+metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
+metadata/character_zone_mapping = {
+"Dash": "garage_service_driveway_stunt_route",
+"Moko": "garden_patio",
+"Popper": "bonus_room_attic_storage_prank_space",
+"Rexx": "sandbox_fossil_play_yard",
+"Sir Clink": "kitchen",
+"Slammo": "great_room",
+"Tuggs": "bedroom_wing",
+"Velva": "master_suite_plus_walk_in_closet"
+}
+metadata/generator_phase = "phase_2_shell_site_provenance_slice"
 
 [node name="Site" type="Node3D" parent="."]
 
@@ -5777,6 +5790,23 @@ metadata/floor_plan_contract = {
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.2, -20)
 material_override = SubResource("StandardMaterial3D_4q2nq")
 mesh = SubResource("BoxMesh_fpk6v")
+metadata/node_path = "Site/EstateLotGround"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "Site.EstateLotGround"
+metadata/assembly = "Site"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "EstateLotGround generated as floor_or_site_surface for Site in the home_estate_v1 production scaffold."
+metadata/support_target = "world_grade"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-210.00"
+metadata/end_anchor = "x=210.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "FrontStreetReviewCamera"
 
 [node name="EstateLotGroundCollision" type="StaticBody3D" parent="Site/EstateLotGround"]
 
@@ -5787,6 +5817,23 @@ shape = SubResource("BoxShape3D_ghap3")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 168)
 material_override = SubResource("StandardMaterial3D_2uuy3")
 mesh = SubResource("BoxMesh_xcges")
+metadata/node_path = "Site/StreetEdge"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "Site.StreetEdge"
+metadata/assembly = "Site"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "StreetEdge generated as floor_or_site_surface for Site in the home_estate_v1 production scaffold."
+metadata/support_target = "world_grade"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-210.00"
+metadata/end_anchor = "x=210.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "FrontStreetReviewCamera"
 
 [node name="StreetEdgeCollision" type="StaticBody3D" parent="Site/StreetEdge"]
 
@@ -5797,6 +5844,23 @@ shape = SubResource("BoxShape3D_p4g70")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, -0.35, 130)
 material_override = SubResource("StandardMaterial3D_o404j")
 mesh = SubResource("BoxMesh_1km42")
+metadata/node_path = "Site/FrontWalk"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "Site.FrontWalk"
+metadata/assembly = "Site"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "FrontWalk generated as floor_or_site_surface for Site in the home_estate_v1 production scaffold."
+metadata/support_target = "world_grade"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=94.00"
+metadata/end_anchor = "z=166.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "FrontStreetReviewCamera"
 
 [node name="FrontWalkCollision" type="StaticBody3D" parent="Site/FrontWalk"]
 
@@ -5807,6 +5871,23 @@ shape = SubResource("BoxShape3D_4cx2h")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116, -0.35, 112)
 material_override = SubResource("StandardMaterial3D_8b5x8")
 mesh = SubResource("BoxMesh_fewpp")
+metadata/node_path = "Site/DrivewayThreeCarApron"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "Site.DrivewayThreeCarApron"
+metadata/assembly = "Site"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "DrivewayThreeCarApron generated as floor_or_site_surface for Site in the home_estate_v1 production scaffold."
+metadata/support_target = "world_grade"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-165.00"
+metadata/end_anchor = "x=-67.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "FrontStreetReviewCamera"
 
 [node name="DrivewayThreeCarApronCollision" type="StaticBody3D" parent="Site/DrivewayThreeCarApron"]
 
@@ -5819,11 +5900,45 @@ shape = SubResource("BoxShape3D_v438j")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 material_override = SubResource("StandardMaterial3D_580u2")
 mesh = SubResource("BoxMesh_kdgi3")
+metadata/node_path = "Foundation/MainFoundation"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "Foundation.MainFoundation"
+metadata/assembly = "Foundation"
+metadata/role = "shell_structure"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/reference_frames/modern_farmhouse_38_526/reference_notes.md"
+metadata/why_exists = "MainFoundation generated as shell_structure for Foundation in the home_estate_v1 production scaffold."
+metadata/support_target = "site_grade_and_basement_contract"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-144.00"
+metadata/end_anchor = "x=144.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_shell_provenance_and_envelope_gate"
+metadata/validation_camera = "FrontStreetReviewCamera"
 
 [node name="BasementFoundationWall" type="MeshInstance3D" parent="Foundation"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -22, 0)
 material_override = SubResource("StandardMaterial3D_r5ns2")
 mesh = SubResource("BoxMesh_bk8d2")
+metadata/node_path = "Foundation/BasementFoundationWall"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "Foundation.BasementFoundationWall"
+metadata/assembly = "Foundation"
+metadata/role = "wall_or_closure"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/reference_frames/modern_farmhouse_38_526/reference_notes.md"
+metadata/why_exists = "BasementFoundationWall generated as wall_or_closure for Foundation in the home_estate_v1 production scaffold."
+metadata/support_target = "site_grade_and_basement_contract"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-146.00"
+metadata/end_anchor = "x=146.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_shell_provenance_and_envelope_gate"
+metadata/validation_camera = "FrontStreetReviewCamera"
 
 [node name="ExteriorShell" type="Node3D" parent="."]
 metadata/plan_role = "single owner of exterior walls and openings for home_estate_v1"
@@ -5834,6 +5949,23 @@ metadata/asset_source = "res://assets/gameplay/tracks/home_estate_v1/meshes/mode
 metadata/authoring_source = "scripts/tools/create_home_estate_shell_blender.py"
 metadata/reference_source = "docs/concepts/home_estate_v1/reference_frames/modern_farmhouse_38_526/reference_notes.md"
 metadata/collision_policy = "visual shell only; generator-owned route and boundary collision remains separate"
+metadata/node_path = "ExteriorShell/ModernFarmhouseShellAsset"
+metadata/visible_class = "imported_visible_shell"
+metadata/owner_volume = "ExteriorShell.ModernFarmhouseShellAsset"
+metadata/assembly = "ExteriorShell"
+metadata/role = "home_exterior_shell"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/reference_frames/modern_farmhouse_38_526/reference_notes.md"
+metadata/why_exists = "ModernFarmhouseShellAsset generated as home_exterior_shell for ExteriorShell in the home_estate_v1 production scaffold."
+metadata/support_target = "Foundation/MainFloor/UpperFloor shell datums"
+metadata/contact_face = "foundation top and floor perimeter faces"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-162.00"
+metadata/end_anchor = "x=162.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_shell_provenance_and_envelope_gate"
+metadata/validation_camera = "FrontStreetReviewCamera"
 
 [node name="MainTwoStory_FrontWall" type="MeshInstance3D" parent="ExteriorShell/ModernFarmhouseShellAsset"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 27, -119)
@@ -6619,6 +6751,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24, 0)
 visible = false
 material_override = SubResource("StandardMaterial3D_4h5dm")
 mesh = SubResource("BoxMesh_1t37t")
+metadata/node_path = "ExteriorShell/ModernFarmhouseShellScaleEnvelope"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "ExteriorShell.ModernFarmhouseShellScaleEnvelope"
+metadata/assembly = "ExteriorShell"
+metadata/role = "shell_structure"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/reference_frames/modern_farmhouse_38_526/reference_notes.md"
+metadata/why_exists = "ModernFarmhouseShellScaleEnvelope generated as shell_structure for ExteriorShell in the home_estate_v1 production scaffold."
+metadata/support_target = "Foundation/MainFloor/UpperFloor shell datums"
+metadata/contact_face = "foundation top and floor perimeter faces"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-162.00"
+metadata/end_anchor = "x=162.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_shell_provenance_and_envelope_gate"
+metadata/validation_camera = "FrontStreetReviewCamera"
 
 [node name="Roof" type="Node3D" parent="."]
 metadata/plan_role = "modern farmhouse gabled roof hierarchy; no attic route in this pass"
@@ -6633,6 +6782,23 @@ metadata/plan_role = "main-floor rooms from user estate plan"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104, 0.05, -60)
 material_override = SubResource("StandardMaterial3D_5wi43")
 mesh = SubResource("BoxMesh_p4lfm")
+metadata/node_path = "MainFloor/ThreeCarGarage"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.ThreeCarGarage"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "ThreeCarGarage generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=-121.00"
+metadata/end_anchor = "z=1.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 metadata/plan_role = "finished_floor_surface"
 metadata/source_plan = "user_provided_estate_plan_three_sheets"
 
@@ -6645,6 +6811,23 @@ shape = SubResource("BoxShape3D_w7hss")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116, 0.05, 68)
 material_override = SubResource("StandardMaterial3D_wqpgw")
 mesh = SubResource("BoxMesh_qk4h3")
+metadata/node_path = "MainFloor/MudOfficeService"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.MudOfficeService"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "MudOfficeService generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-152.00"
+metadata/end_anchor = "x=-80.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 metadata/plan_role = "finished_floor_surface"
 metadata/source_plan = "user_provided_estate_plan_three_sheets"
 
@@ -6657,6 +6840,23 @@ shape = SubResource("BoxShape3D_mrx1i")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 0.05, 40)
 material_override = SubResource("StandardMaterial3D_aqmwh")
 mesh = SubResource("BoxMesh_2cnd4")
+metadata/node_path = "MainFloor/KitchenDining"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.KitchenDining"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "KitchenDining generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-87.00"
+metadata/end_anchor = "x=-1.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 metadata/plan_role = "finished_floor_surface"
 metadata/source_plan = "user_provided_estate_plan_three_sheets"
 
@@ -6669,6 +6869,23 @@ shape = SubResource("BoxShape3D_i3rle")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52, 0.05, 28)
 material_override = SubResource("StandardMaterial3D_4pfej")
 mesh = SubResource("BoxMesh_phnvh")
+metadata/node_path = "MainFloor/GreatRoom"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.GreatRoom"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "GreatRoom generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=-18.00"
+metadata/end_anchor = "z=74.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 metadata/plan_role = "finished_floor_surface"
 metadata/source_plan = "user_provided_estate_plan_three_sheets"
 
@@ -6681,6 +6898,23 @@ shape = SubResource("BoxShape3D_kd50r")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, 0.05, 34)
 material_override = SubResource("StandardMaterial3D_xqrs5")
 mesh = SubResource("BoxMesh_rat7a")
+metadata/node_path = "MainFloor/MasterSuite"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.MasterSuite"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "MasterSuite generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=-14.00"
+metadata/end_anchor = "z=82.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 metadata/plan_role = "finished_floor_surface"
 metadata/source_plan = "user_provided_estate_plan_three_sheets"
 
@@ -6693,6 +6927,23 @@ shape = SubResource("BoxShape3D_bbsa7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0.05, 126)
 material_override = SubResource("StandardMaterial3D_l2cv8")
 mesh = SubResource("BoxMesh_2hf5h")
+metadata/node_path = "MainFloor/FrontCoveredPorch"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.FrontCoveredPorch"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "FrontCoveredPorch generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-30.00"
+metadata/end_anchor = "x=74.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 metadata/plan_role = "finished_floor_surface"
 metadata/source_plan = "user_provided_estate_plan_three_sheets"
 
@@ -6705,6 +6956,23 @@ shape = SubResource("BoxShape3D_lpy6h")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52, 0.05, -110)
 material_override = SubResource("StandardMaterial3D_ndt2p")
 mesh = SubResource("BoxMesh_ouw63")
+metadata/node_path = "MainFloor/RearCoveredPorch"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.RearCoveredPorch"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "RearCoveredPorch generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=0.00"
+metadata/end_anchor = "x=104.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 metadata/plan_role = "finished_floor_surface"
 metadata/source_plan = "user_provided_estate_plan_three_sheets"
 
@@ -6717,6 +6985,23 @@ shape = SubResource("BoxShape3D_evvym")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58, 17.05, 33)
 material_override = SubResource("StandardMaterial3D_s1qvk")
 mesh = SubResource("BoxMesh_7cjmi")
+metadata/node_path = "MainFloor/KitchenGarageInteriorWall"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.KitchenGarageInteriorWall"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "KitchenGarageInteriorWall generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=-18.00"
+metadata/end_anchor = "z=84.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="KitchenGarageInteriorWallCollision" type="StaticBody3D" parent="MainFloor/KitchenGarageInteriorWall"]
 
@@ -6727,6 +7012,23 @@ shape = SubResource("BoxShape3D_u2dey")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56, 17.05, 82)
 material_override = SubResource("StandardMaterial3D_0n0ld")
 mesh = SubResource("BoxMesh_x5cyf")
+metadata/node_path = "MainFloor/KitchenGreatRoomCasedOpeningWallLeft"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.KitchenGreatRoomCasedOpeningWallLeft"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "KitchenGreatRoomCasedOpeningWallLeft generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-88.00"
+metadata/end_anchor = "x=-24.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="KitchenGreatRoomCasedOpeningWallLeftCollision" type="StaticBody3D" parent="MainFloor/KitchenGreatRoomCasedOpeningWallLeft"]
 
@@ -6737,6 +7039,23 @@ shape = SubResource("BoxShape3D_gwe4m")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51, 17.05, 82)
 material_override = SubResource("StandardMaterial3D_8ys23")
 mesh = SubResource("BoxMesh_6hxrm")
+metadata/node_path = "MainFloor/KitchenGreatRoomCasedOpeningWallRight"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.KitchenGreatRoomCasedOpeningWallRight"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "KitchenGreatRoomCasedOpeningWallRight generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=6.00"
+metadata/end_anchor = "x=96.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="KitchenGreatRoomCasedOpeningWallRightCollision" type="StaticBody3D" parent="MainFloor/KitchenGreatRoomCasedOpeningWallRight"]
 
@@ -6747,6 +7066,23 @@ shape = SubResource("BoxShape3D_balnj")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96, 17.05, 35)
 material_override = SubResource("StandardMaterial3D_yscu0")
 mesh = SubResource("BoxMesh_odkmr")
+metadata/node_path = "MainFloor/GreatRoomMasterSuiteWall"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.GreatRoomMasterSuiteWall"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "GreatRoomMasterSuiteWall generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=-12.00"
+metadata/end_anchor = "z=82.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="GreatRoomMasterSuiteWallCollision" type="StaticBody3D" parent="MainFloor/GreatRoomMasterSuiteWall"]
 
@@ -6757,6 +7093,23 @@ shape = SubResource("BoxShape3D_l3f1a")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -114, 17.05, 78)
 material_override = SubResource("StandardMaterial3D_3s7e6")
 mesh = SubResource("BoxMesh_xq52o")
+metadata/node_path = "MainFloor/MudOfficeKitchenWall"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.MudOfficeKitchenWall"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "MudOfficeKitchenWall generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-148.00"
+metadata/end_anchor = "x=-80.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="MudOfficeKitchenWallCollision" type="StaticBody3D" parent="MainFloor/MudOfficeKitchenWall"]
 
@@ -6767,6 +7120,23 @@ shape = SubResource("BoxShape3D_k634p")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 14.05, 92)
 material_override = SubResource("StandardMaterial3D_og23w")
 mesh = SubResource("BoxMesh_guafu")
+metadata/node_path = "MainFloor/KitchenFrontDiningWall"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.KitchenFrontDiningWall"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "KitchenFrontDiningWall generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-82.00"
+metadata/end_anchor = "x=-8.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="KitchenFrontDiningWallCollision" type="StaticBody3D" parent="MainFloor/KitchenFrontDiningWall"]
 
@@ -6777,6 +7147,23 @@ shape = SubResource("BoxShape3D_5wwb7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116, 14.05, 69)
 material_override = SubResource("StandardMaterial3D_rcx42")
 mesh = SubResource("BoxMesh_jo6ep")
+metadata/node_path = "MainFloor/OfficeMudPartition"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.OfficeMudPartition"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "OfficeMudPartition generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=40.00"
+metadata/end_anchor = "z=98.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="OfficeMudPartitionCollision" type="StaticBody3D" parent="MainFloor/OfficeMudPartition"]
 
@@ -6787,76 +7174,331 @@ shape = SubResource("BoxShape3D_flgc4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 10, 10)
 material_override = SubResource("StandardMaterial3D_2ev13")
 mesh = SubResource("BoxMesh_ymhxl")
+metadata/node_path = "MainFloor/GreatRoomCeilingBeamA"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.GreatRoomCeilingBeamA"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "GreatRoomCeilingBeamA generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-20.00"
+metadata/end_anchor = "x=94.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="GreatRoomCeilingBeamB" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 10, 44)
 material_override = SubResource("StandardMaterial3D_2oxuu")
 mesh = SubResource("BoxMesh_0s6pa")
+metadata/node_path = "MainFloor/GreatRoomCeilingBeamB"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.GreatRoomCeilingBeamB"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "GreatRoomCeilingBeamB generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-20.00"
+metadata/end_anchor = "x=94.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="KitchenIsland" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 6, 35)
 material_override = SubResource("StandardMaterial3D_2fv1x")
 mesh = SubResource("BoxMesh_lfqwa")
+metadata/node_path = "MainFloor/KitchenIsland"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.KitchenIsland"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "KitchenIsland generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=14.00"
+metadata/end_anchor = "z=56.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="KitchenCabinetRunBack" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 7, 0)
 material_override = SubResource("StandardMaterial3D_3vjxi")
 mesh = SubResource("BoxMesh_wkgy4")
+metadata/node_path = "MainFloor/KitchenCabinetRunBack"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.KitchenCabinetRunBack"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "KitchenCabinetRunBack generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-79.00"
+metadata/end_anchor = "x=-21.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="KitchenRangeHood" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 19, -4)
 material_override = SubResource("StandardMaterial3D_v0qyv")
 mesh = SubResource("BoxMesh_euqwr")
+metadata/node_path = "MainFloor/KitchenRangeHood"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.KitchenRangeHood"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "KitchenRangeHood generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-43.00"
+metadata/end_anchor = "x=-25.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="DiningTable" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 5, 82)
 material_override = SubResource("StandardMaterial3D_xbdwv")
 mesh = SubResource("BoxMesh_wad6i")
+metadata/node_path = "MainFloor/DiningTable"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.DiningTable"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "DiningTable generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-45.00"
+metadata/end_anchor = "x=-11.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="GreatRoomFireplace" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96, 12, 34)
 material_override = SubResource("StandardMaterial3D_2jc42")
 mesh = SubResource("BoxMesh_lu0bj")
+metadata/node_path = "MainFloor/GreatRoomFireplace"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.GreatRoomFireplace"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "GreatRoomFireplace generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=20.00"
+metadata/end_anchor = "z=48.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="GreatRoomSofa" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 6, 52)
 material_override = SubResource("StandardMaterial3D_j26ja")
 mesh = SubResource("BoxMesh_r11ij")
+metadata/node_path = "MainFloor/GreatRoomSofa"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.GreatRoomSofa"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "GreatRoomSofa generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=27.00"
+metadata/end_anchor = "x=69.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="GreatRoomCoffeeTable" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 4, 26)
 material_override = SubResource("StandardMaterial3D_kaj0r")
 mesh = SubResource("BoxMesh_kkms0")
+metadata/node_path = "MainFloor/GreatRoomCoffeeTable"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.GreatRoomCoffeeTable"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "GreatRoomCoffeeTable generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=36.00"
+metadata/end_anchor = "x=60.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="MasterBed" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 126, 6, 42)
 material_override = SubResource("StandardMaterial3D_d0vfb")
 mesh = SubResource("BoxMesh_7rf51")
+metadata/node_path = "MainFloor/MasterBed"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.MasterBed"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "MasterBed generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=18.00"
+metadata/end_anchor = "z=66.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="MasterClosetBuiltIns" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146, 8, 76)
 material_override = SubResource("StandardMaterial3D_uof65")
 mesh = SubResource("BoxMesh_ko5ue")
+metadata/node_path = "MainFloor/MasterClosetBuiltIns"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.MasterClosetBuiltIns"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "MasterClosetBuiltIns generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=58.00"
+metadata/end_anchor = "z=94.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="GarageCarBayMarkerLeft" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -132, 1.4, -60)
 material_override = SubResource("StandardMaterial3D_5b83h")
 mesh = SubResource("BoxMesh_14fe7")
+metadata/node_path = "MainFloor/GarageCarBayMarkerLeft"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.GarageCarBayMarkerLeft"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "GarageCarBayMarkerLeft generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=-109.00"
+metadata/end_anchor = "z=-11.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="GarageCarBayMarkerCenter" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104, 1.4, -60)
 material_override = SubResource("StandardMaterial3D_fu2n0")
 mesh = SubResource("BoxMesh_q0n4h")
+metadata/node_path = "MainFloor/GarageCarBayMarkerCenter"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.GarageCarBayMarkerCenter"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "GarageCarBayMarkerCenter generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=-109.00"
+metadata/end_anchor = "z=-11.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="GarageCarBayMarkerRight" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -76, 1.4, -60)
 material_override = SubResource("StandardMaterial3D_8qiyf")
 mesh = SubResource("BoxMesh_bxmcw")
+metadata/node_path = "MainFloor/GarageCarBayMarkerRight"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.GarageCarBayMarkerRight"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "GarageCarBayMarkerRight generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=-109.00"
+metadata/end_anchor = "z=-11.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="GarageWorkbench" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58, 7, -110)
 material_override = SubResource("StandardMaterial3D_r311d")
 mesh = SubResource("BoxMesh_jtxrx")
+metadata/node_path = "MainFloor/GarageWorkbench"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "MainFloor.GarageWorkbench"
+metadata/assembly = "MainFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "GarageWorkbench generated as floor_or_site_surface for MainFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=-132.00"
+metadata/end_anchor = "z=-88.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="UpperFloor" type="Node3D" parent="."]
 metadata/plan_role = "upper bedrooms, loft, laundry, and future bonus from user estate plan"
@@ -6865,6 +7507,23 @@ metadata/plan_role = "upper bedrooms, loft, laundry, and future bonus from user 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 46.05, 0)
 material_override = SubResource("StandardMaterial3D_bs8ip")
 mesh = SubResource("BoxMesh_ljqe8")
+metadata/node_path = "UpperFloor/UpperLoft"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "UpperFloor.UpperLoft"
+metadata/assembly = "UpperFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "UpperLoft generated as floor_or_site_surface for UpperFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "UpperFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=-36.00"
+metadata/end_anchor = "z=36.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "UpperFloorPlanCamera"
 metadata/plan_role = "finished_floor_surface"
 metadata/source_plan = "user_provided_estate_plan_three_sheets"
 
@@ -6877,6 +7536,23 @@ shape = SubResource("BoxShape3D_0cdii")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78, 46.05, 48)
 material_override = SubResource("StandardMaterial3D_hvxu2")
 mesh = SubResource("BoxMesh_qn8ik")
+metadata/node_path = "UpperFloor/UpperBedroomWest"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "UpperFloor.UpperBedroomWest"
+metadata/assembly = "UpperFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "UpperBedroomWest generated as floor_or_site_surface for UpperFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "UpperFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-104.00"
+metadata/end_anchor = "x=-52.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "UpperFloorPlanCamera"
 metadata/plan_role = "finished_floor_surface"
 metadata/source_plan = "user_provided_estate_plan_three_sheets"
 
@@ -6889,6 +7565,23 @@ shape = SubResource("BoxShape3D_xbvmp")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 46.05, 48)
 material_override = SubResource("StandardMaterial3D_nh2om")
 mesh = SubResource("BoxMesh_tsl7d")
+metadata/node_path = "UpperFloor/UpperBedroomEast"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "UpperFloor.UpperBedroomEast"
+metadata/assembly = "UpperFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "UpperBedroomEast generated as floor_or_site_surface for UpperFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "UpperFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=7.00"
+metadata/end_anchor = "x=65.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "UpperFloorPlanCamera"
 metadata/plan_role = "finished_floor_surface"
 metadata/source_plan = "user_provided_estate_plan_three_sheets"
 
@@ -6901,6 +7594,23 @@ shape = SubResource("BoxShape3D_b2c4x")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 46.05, -64)
 material_override = SubResource("StandardMaterial3D_iu6op")
 mesh = SubResource("BoxMesh_homoe")
+metadata/node_path = "UpperFloor/UpperBedroomRear"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "UpperFloor.UpperBedroomRear"
+metadata/assembly = "UpperFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "UpperBedroomRear generated as floor_or_site_surface for UpperFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "UpperFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-16.00"
+metadata/end_anchor = "x=40.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "UpperFloorPlanCamera"
 metadata/plan_role = "finished_floor_surface"
 metadata/source_plan = "user_provided_estate_plan_three_sheets"
 
@@ -6913,6 +7623,23 @@ shape = SubResource("BoxShape3D_aospg")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96, 46.05, -24)
 material_override = SubResource("StandardMaterial3D_4cm5g")
 mesh = SubResource("BoxMesh_51o6v")
+metadata/node_path = "UpperFloor/UpperBathLaundry"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "UpperFloor.UpperBathLaundry"
+metadata/assembly = "UpperFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "UpperBathLaundry generated as floor_or_site_surface for UpperFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "UpperFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=-51.00"
+metadata/end_anchor = "z=3.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "UpperFloorPlanCamera"
 metadata/plan_role = "finished_floor_surface"
 metadata/source_plan = "user_provided_estate_plan_three_sheets"
 
@@ -6925,6 +7652,23 @@ shape = SubResource("BoxShape3D_dl10q")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104, 46.05, -104)
 material_override = SubResource("StandardMaterial3D_is240")
 mesh = SubResource("BoxMesh_egvdv")
+metadata/node_path = "UpperFloor/FutureBonusRoom"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "UpperFloor.FutureBonusRoom"
+metadata/assembly = "UpperFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "FutureBonusRoom generated as floor_or_site_surface for UpperFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "UpperFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=-144.00"
+metadata/end_anchor = "z=-64.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "UpperFloorPlanCamera"
 metadata/plan_role = "finished_floor_surface"
 metadata/source_plan = "user_provided_estate_plan_three_sheets"
 
@@ -6937,6 +7681,23 @@ shape = SubResource("BoxShape3D_4nusn")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 61.05, -36)
 material_override = SubResource("StandardMaterial3D_g30yi")
 mesh = SubResource("BoxMesh_enpbb")
+metadata/node_path = "UpperFloor/UpperHallBedroomRearWall"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "UpperFloor.UpperHallBedroomRearWall"
+metadata/assembly = "UpperFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "UpperHallBedroomRearWall generated as floor_or_site_surface for UpperFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "UpperFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-120.00"
+metadata/end_anchor = "x=50.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "UpperFloorPlanCamera"
 
 [node name="UpperHallBedroomRearWallCollision" type="StaticBody3D" parent="UpperFloor/UpperHallBedroomRearWall"]
 
@@ -6947,6 +7708,23 @@ shape = SubResource("BoxShape3D_6djwi")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66, 61.05, 16)
 material_override = SubResource("StandardMaterial3D_mjynp")
 mesh = SubResource("BoxMesh_8qynn")
+metadata/node_path = "UpperFloor/UpperLoftWestWall"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "UpperFloor.UpperLoftWestWall"
+metadata/assembly = "UpperFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "UpperLoftWestWall generated as floor_or_site_surface for UpperFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "UpperFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=-36.00"
+metadata/end_anchor = "z=68.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "UpperFloorPlanCamera"
 
 [node name="UpperLoftWestWallCollision" type="StaticBody3D" parent="UpperFloor/UpperLoftWestWall"]
 
@@ -6957,6 +7735,23 @@ shape = SubResource("BoxShape3D_5cxmy")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 61.05, 16)
 material_override = SubResource("StandardMaterial3D_x560x")
 mesh = SubResource("BoxMesh_htv18")
+metadata/node_path = "UpperFloor/UpperLoftEastWall"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "UpperFloor.UpperLoftEastWall"
+metadata/assembly = "UpperFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "UpperLoftEastWall generated as floor_or_site_surface for UpperFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "UpperFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=-36.00"
+metadata/end_anchor = "z=68.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "UpperFloorPlanCamera"
 
 [node name="UpperLoftEastWallCollision" type="StaticBody3D" parent="UpperFloor/UpperLoftEastWall"]
 
@@ -6967,6 +7762,23 @@ shape = SubResource("BoxShape3D_emayk")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 61.05, 28)
 material_override = SubResource("StandardMaterial3D_b748l")
 mesh = SubResource("BoxMesh_x8r4b")
+metadata/node_path = "UpperFloor/UpperFrontBedroomWall"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "UpperFloor.UpperFrontBedroomWall"
+metadata/assembly = "UpperFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "UpperFrontBedroomWall generated as floor_or_site_surface for UpperFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "UpperFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-106.00"
+metadata/end_anchor = "x=70.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "UpperFloorPlanCamera"
 
 [node name="UpperFrontBedroomWallCollision" type="StaticBody3D" parent="UpperFloor/UpperFrontBedroomWall"]
 
@@ -6977,6 +7789,23 @@ shape = SubResource("BoxShape3D_5r1kl")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78, 60.05, -22)
 material_override = SubResource("StandardMaterial3D_mix0p")
 mesh = SubResource("BoxMesh_66b6d")
+metadata/node_path = "UpperFloor/UpperBathLaundryPartition"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "UpperFloor.UpperBathLaundryPartition"
+metadata/assembly = "UpperFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "UpperBathLaundryPartition generated as floor_or_site_surface for UpperFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "UpperFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=-48.00"
+metadata/end_anchor = "z=4.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "UpperFloorPlanCamera"
 
 [node name="UpperBathLaundryPartitionCollision" type="StaticBody3D" parent="UpperFloor/UpperBathLaundryPartition"]
 
@@ -6987,41 +7816,177 @@ shape = SubResource("BoxShape3D_v5x2p")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 54.05, 18)
 material_override = SubResource("StandardMaterial3D_5h2pd")
 mesh = SubResource("BoxMesh_reqx6")
+metadata/node_path = "UpperFloor/UpperStairOpeningGuardRailNorth"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "UpperFloor.UpperStairOpeningGuardRailNorth"
+metadata/assembly = "UpperFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "UpperStairOpeningGuardRailNorth generated as floor_or_site_surface for UpperFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "UpperFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-35.00"
+metadata/end_anchor = "x=19.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "UpperFloorPlanCamera"
 
 [node name="UpperStairOpeningGuardRailSouth" type="MeshInstance3D" parent="UpperFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 54.05, -10)
 material_override = SubResource("StandardMaterial3D_jh53f")
 mesh = SubResource("BoxMesh_gpvi2")
+metadata/node_path = "UpperFloor/UpperStairOpeningGuardRailSouth"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "UpperFloor.UpperStairOpeningGuardRailSouth"
+metadata/assembly = "UpperFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "UpperStairOpeningGuardRailSouth generated as floor_or_site_surface for UpperFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "UpperFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-35.00"
+metadata/end_anchor = "x=19.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "UpperFloorPlanCamera"
 
 [node name="UpperLoftSofa" type="MeshInstance3D" parent="UpperFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 52.05, 10)
 material_override = SubResource("StandardMaterial3D_d3iuo")
 mesh = SubResource("BoxMesh_6dr7t")
+metadata/node_path = "UpperFloor/UpperLoftSofa"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "UpperFloor.UpperLoftSofa"
+metadata/assembly = "UpperFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "UpperLoftSofa generated as floor_or_site_surface for UpperFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "UpperFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-51.00"
+metadata/end_anchor = "x=-17.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "UpperFloorPlanCamera"
 
 [node name="UpperLoftBuiltInShelves" type="MeshInstance3D" parent="UpperFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62, 56.05, 0)
 material_override = SubResource("StandardMaterial3D_myvhb")
 mesh = SubResource("BoxMesh_7x3pk")
+metadata/node_path = "UpperFloor/UpperLoftBuiltInShelves"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "UpperFloor.UpperLoftBuiltInShelves"
+metadata/assembly = "UpperFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "UpperLoftBuiltInShelves generated as floor_or_site_surface for UpperFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "UpperFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=-25.00"
+metadata/end_anchor = "z=25.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "UpperFloorPlanCamera"
 
 [node name="UpperBedroomWestBed" type="MeshInstance3D" parent="UpperFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78, 52.05, 50)
 material_override = SubResource("StandardMaterial3D_po32y")
 mesh = SubResource("BoxMesh_cdcfa")
+metadata/node_path = "UpperFloor/UpperBedroomWestBed"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "UpperFloor.UpperBedroomWestBed"
+metadata/assembly = "UpperFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "UpperBedroomWestBed generated as floor_or_site_surface for UpperFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "UpperFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=33.00"
+metadata/end_anchor = "z=67.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "UpperFloorPlanCamera"
 
 [node name="UpperBedroomEastBed" type="MeshInstance3D" parent="UpperFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 52.05, 50)
 material_override = SubResource("StandardMaterial3D_qrksl")
 mesh = SubResource("BoxMesh_ycn73")
+metadata/node_path = "UpperFloor/UpperBedroomEastBed"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "UpperFloor.UpperBedroomEastBed"
+metadata/assembly = "UpperFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "UpperBedroomEastBed generated as floor_or_site_surface for UpperFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "UpperFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=33.00"
+metadata/end_anchor = "z=67.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "UpperFloorPlanCamera"
 
 [node name="UpperBedroomRearBed" type="MeshInstance3D" parent="UpperFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 52.05, -64)
 material_override = SubResource("StandardMaterial3D_ledq2")
 mesh = SubResource("BoxMesh_gpudl")
+metadata/node_path = "UpperFloor/UpperBedroomRearBed"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "UpperFloor.UpperBedroomRearBed"
+metadata/assembly = "UpperFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "UpperBedroomRearBed generated as floor_or_site_surface for UpperFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "UpperFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=-81.00"
+metadata/end_anchor = "z=-47.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "UpperFloorPlanCamera"
 
 [node name="FutureBonusStorageTrunks" type="MeshInstance3D" parent="UpperFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104, 52.05, -104)
 material_override = SubResource("StandardMaterial3D_38rgd")
 mesh = SubResource("BoxMesh_h5byn")
+metadata/node_path = "UpperFloor/FutureBonusStorageTrunks"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "UpperFloor.FutureBonusStorageTrunks"
+metadata/assembly = "UpperFloor"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "FutureBonusStorageTrunks generated as floor_or_site_surface for UpperFloor in the home_estate_v1 production scaffold."
+metadata/support_target = "UpperFloor finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-121.00"
+metadata/end_anchor = "x=-87.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "UpperFloorPlanCamera"
 
 [node name="Basement" type="Node3D" parent="."]
 metadata/plan_role = "basement shell and unexcavated zones from user plan"
@@ -7030,6 +7995,23 @@ metadata/plan_role = "basement shell and unexcavated zones from user plan"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -42, 2)
 material_override = SubResource("StandardMaterial3D_trutq")
 mesh = SubResource("BoxMesh_cgavf")
+metadata/node_path = "Basement/BasementPlayableShell"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "Basement.BasementPlayableShell"
+metadata/assembly = "Basement"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "BasementPlayableShell generated as floor_or_site_surface for Basement in the home_estate_v1 production scaffold."
+metadata/support_target = "Basement finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-83.00"
+metadata/end_anchor = "x=107.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 metadata/plan_role = "finished_floor_surface"
 metadata/source_plan = "user_provided_estate_plan_three_sheets"
 
@@ -7042,6 +8024,23 @@ shape = SubResource("BoxShape3D_wuj6e")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102, -42, -62)
 material_override = SubResource("StandardMaterial3D_itkmw")
 mesh = SubResource("BoxMesh_djs2p")
+metadata/node_path = "Basement/UnexcavatedGarageZone"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "Basement.UnexcavatedGarageZone"
+metadata/assembly = "Basement"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "UnexcavatedGarageZone generated as floor_or_site_surface for Basement in the home_estate_v1 production scaffold."
+metadata/support_target = "Basement finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=-118.00"
+metadata/end_anchor = "z=-6.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 metadata/plan_role = "finished_floor_surface"
 metadata/source_plan = "user_provided_estate_plan_three_sheets"
 
@@ -7054,6 +8053,23 @@ shape = SubResource("BoxShape3D_ka5pw")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124, -42, 24)
 material_override = SubResource("StandardMaterial3D_7q71a")
 mesh = SubResource("BoxMesh_hh0wy")
+metadata/node_path = "Basement/UnexcavatedMasterZone"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "Basement.UnexcavatedMasterZone"
+metadata/assembly = "Basement"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "UnexcavatedMasterZone generated as floor_or_site_surface for Basement in the home_estate_v1 production scaffold."
+metadata/support_target = "Basement finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=-21.00"
+metadata/end_anchor = "z=69.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 metadata/plan_role = "finished_floor_surface"
 metadata/source_plan = "user_provided_estate_plan_three_sheets"
 
@@ -7069,6 +8085,23 @@ metadata/plan_role = "rear patio and non-playable pool-reference edge"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52, -0.25, -154)
 material_override = SubResource("StandardMaterial3D_ukpni")
 mesh = SubResource("BoxMesh_fpwba")
+metadata/node_path = "PatioPool/RearPatio"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "PatioPool.RearPatio"
+metadata/assembly = "PatioPool"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "RearPatio generated as floor_or_site_surface for PatioPool in the home_estate_v1 production scaffold."
+metadata/support_target = "PatioPool finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-42.00"
+metadata/end_anchor = "x=146.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "PatioPoolCamera"
 
 [node name="RearPatioCollision" type="StaticBody3D" parent="PatioPool/RearPatio"]
 
@@ -7079,11 +8112,45 @@ shape = SubResource("BoxShape3D_ipnxq")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96, -0.15, -206)
 material_override = SubResource("StandardMaterial3D_wwcyc")
 mesh = SubResource("BoxMesh_c6iqt")
+metadata/node_path = "PatioPool/PoolNotIncludedReferenceWater"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "PatioPool.PoolNotIncludedReferenceWater"
+metadata/assembly = "PatioPool"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "PoolNotIncludedReferenceWater generated as floor_or_site_surface for PatioPool in the home_estate_v1 production scaffold."
+metadata/support_target = "PatioPool finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=50.00"
+metadata/end_anchor = "x=142.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "PatioPoolCamera"
 
 [node name="PoolSafetyEdge" type="MeshInstance3D" parent="PatioPool"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96, 0.4, -165)
 material_override = SubResource("StandardMaterial3D_4dne0")
 mesh = SubResource("BoxMesh_p0os6")
+metadata/node_path = "PatioPool/PoolSafetyEdge"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "PatioPool.PoolSafetyEdge"
+metadata/assembly = "PatioPool"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "PoolSafetyEdge generated as floor_or_site_surface for PatioPool in the home_estate_v1 production scaffold."
+metadata/support_target = "PatioPool finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=47.00"
+metadata/end_anchor = "x=145.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "PatioPoolCamera"
 
 [node name="VerticalConnectors" type="Node3D" parent="."]
 metadata/plan_role = "stair stack from main great-room hall to upper loft and basement"
@@ -7092,16 +8159,67 @@ metadata/plan_role = "stair stack from main great-room hall to upper loft and ba
 transform = Transform3D(1, 0, 0, 0, 0.88294756, 0.46947157, 0, -0.46947157, 0.88294756, -2, 24, 42)
 material_override = SubResource("StandardMaterial3D_k282f")
 mesh = SubResource("BoxMesh_mlluv")
+metadata/node_path = "VerticalConnectors/MainToUpperStairRun"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "VerticalConnectors.MainToUpperStairRun"
+metadata/assembly = "VerticalConnectors"
+metadata/role = "room_furnishing_or_landmark"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "MainToUpperStairRun generated as room_furnishing_or_landmark for VerticalConnectors in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor/UpperFloor/Basement landing datums"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=14.00"
+metadata/end_anchor = "z=70.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="MainToBasementStairRun" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 0.88294756, -0.46947157, 0, 0.46947157, 0.88294756, -14, -20, 36)
 material_override = SubResource("StandardMaterial3D_ctji2")
 mesh = SubResource("BoxMesh_cegoj")
+metadata/node_path = "VerticalConnectors/MainToBasementStairRun"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "VerticalConnectors.MainToBasementStairRun"
+metadata/assembly = "VerticalConnectors"
+metadata/role = "room_furnishing_or_landmark"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "MainToBasementStairRun generated as room_furnishing_or_landmark for VerticalConnectors in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor/UpperFloor/Basement landing datums"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=10.00"
+metadata/end_anchor = "z=62.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="UpperLandingGuardRail" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 56, 16)
 material_override = SubResource("StandardMaterial3D_8giv6")
 mesh = SubResource("BoxMesh_bownj")
+metadata/node_path = "VerticalConnectors/UpperLandingGuardRail"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "VerticalConnectors.UpperLandingGuardRail"
+metadata/assembly = "VerticalConnectors"
+metadata/role = "support_or_guard"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "UpperLandingGuardRail generated as support_or_guard for VerticalConnectors in the home_estate_v1 production scaffold."
+metadata/support_target = "MainFloor/UpperFloor/Basement landing datums"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-32.00"
+metadata/end_anchor = "x=28.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="CourseRoutes" type="Node3D" parent="."]
 
@@ -7109,43 +8227,151 @@ mesh = SubResource("BoxMesh_bownj")
 
 [node name="RouteContainmentAuditBox" type="MeshInstance3D" parent="CourseRoutes/EstateKitchenRoutePreview"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54, 0.6000004, 20)
+visible = false
 material_override = SubResource("StandardMaterial3D_vln87")
 mesh = SubResource("BoxMesh_ho4d6")
+metadata/node_path = "EstateKitchenRoutePreview/RouteContainmentAuditBox"
+metadata/visible_class = "validation_only_hidden_route_envelope"
+metadata/owner_volume = "EstateKitchen"
+metadata/assembly = "EstateKitchenRoutePreview"
+metadata/role = "route_infrastructure"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "RouteContainmentAuditBox generated as route_infrastructure for EstateKitchenRoutePreview in the home_estate_v1 production scaffold."
+metadata/support_target = "EstateKitchenRoutePreview finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-113.00"
+metadata/end_anchor = "x=5.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "may be removed only after equivalent route-envelope metadata gate exists"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="EstateGreatRoomRoutePreview" type="Node3D" parent="CourseRoutes"]
 
 [node name="RouteContainmentAuditBox" type="MeshInstance3D" parent="CourseRoutes/EstateGreatRoomRoutePreview"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0.6000004, 28)
+visible = false
 material_override = SubResource("StandardMaterial3D_c4kg1")
 mesh = SubResource("BoxMesh_qewxb")
+metadata/node_path = "EstateGreatRoomRoutePreview/RouteContainmentAuditBox"
+metadata/visible_class = "validation_only_hidden_route_envelope"
+metadata/owner_volume = "EstateGreatRoom"
+metadata/assembly = "EstateGreatRoomRoutePreview"
+metadata/role = "route_infrastructure"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "RouteContainmentAuditBox generated as route_infrastructure for EstateGreatRoomRoutePreview in the home_estate_v1 production scaffold."
+metadata/support_target = "EstateGreatRoomRoutePreview finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-9.00"
+metadata/end_anchor = "x=109.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "may be removed only after equivalent route-envelope metadata gate exists"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="EstateGarageRoutePreview" type="Node3D" parent="CourseRoutes"]
 
 [node name="RouteContainmentAuditBox" type="MeshInstance3D" parent="CourseRoutes/EstateGarageRoutePreview"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102, 0.6000004, -66)
+visible = false
 material_override = SubResource("StandardMaterial3D_efb0t")
 mesh = SubResource("BoxMesh_k207w")
+metadata/node_path = "EstateGarageRoutePreview/RouteContainmentAuditBox"
+metadata/visible_class = "validation_only_hidden_route_envelope"
+metadata/owner_volume = "EstateGarage"
+metadata/assembly = "EstateGarageRoutePreview"
+metadata/role = "route_infrastructure"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "RouteContainmentAuditBox generated as route_infrastructure for EstateGarageRoutePreview in the home_estate_v1 production scaffold."
+metadata/support_target = "EstateGarageRoutePreview finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=-130.00"
+metadata/end_anchor = "z=-2.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "may be removed only after equivalent route-envelope metadata gate exists"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="EstateMasterSuiteRoutePreview" type="Node3D" parent="CourseRoutes"]
 
 [node name="RouteContainmentAuditBox" type="MeshInstance3D" parent="CourseRoutes/EstateMasterSuiteRoutePreview"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 118, 0.6000004, 34)
+visible = false
 material_override = SubResource("StandardMaterial3D_jxmih")
 mesh = SubResource("BoxMesh_fwrud")
+metadata/node_path = "EstateMasterSuiteRoutePreview/RouteContainmentAuditBox"
+metadata/visible_class = "validation_only_hidden_route_envelope"
+metadata/owner_volume = "EstateMasterSuite"
+metadata/assembly = "EstateMasterSuiteRoutePreview"
+metadata/role = "route_infrastructure"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "RouteContainmentAuditBox generated as route_infrastructure for EstateMasterSuiteRoutePreview in the home_estate_v1 production scaffold."
+metadata/support_target = "EstateMasterSuiteRoutePreview finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=59.00"
+metadata/end_anchor = "x=177.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "may be removed only after equivalent route-envelope metadata gate exists"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="EstateUpperLoftRoutePreview" type="Node3D" parent="CourseRoutes"]
 
 [node name="RouteContainmentAuditBox" type="MeshInstance3D" parent="CourseRoutes/EstateUpperLoftRoutePreview"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 46.6, 0)
+visible = false
 material_override = SubResource("StandardMaterial3D_4akf0")
 mesh = SubResource("BoxMesh_ghbgm")
+metadata/node_path = "EstateUpperLoftRoutePreview/RouteContainmentAuditBox"
+metadata/visible_class = "validation_only_hidden_route_envelope"
+metadata/owner_volume = "EstateUpperLoft"
+metadata/assembly = "EstateUpperLoftRoutePreview"
+metadata/role = "route_infrastructure"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "RouteContainmentAuditBox generated as route_infrastructure for EstateUpperLoftRoutePreview in the home_estate_v1 production scaffold."
+metadata/support_target = "EstateUpperLoftRoutePreview finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-83.00"
+metadata/end_anchor = "x=35.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "may be removed only after equivalent route-envelope metadata gate exists"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="EstatePatioRoutePreview" type="Node3D" parent="CourseRoutes"]
 
 [node name="RouteContainmentAuditBox" type="MeshInstance3D" parent="CourseRoutes/EstatePatioRoutePreview"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54, 0.6000004, -158)
+visible = false
 material_override = SubResource("StandardMaterial3D_2nsy5")
 mesh = SubResource("BoxMesh_7erjl")
+metadata/node_path = "EstatePatioRoutePreview/RouteContainmentAuditBox"
+metadata/visible_class = "validation_only_hidden_route_envelope"
+metadata/owner_volume = "EstatePatio"
+metadata/assembly = "EstatePatioRoutePreview"
+metadata/role = "route_infrastructure"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "RouteContainmentAuditBox generated as route_infrastructure for EstatePatioRoutePreview in the home_estate_v1 production scaffold."
+metadata/support_target = "EstatePatioRoutePreview finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-41.00"
+metadata/end_anchor = "x=149.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "may be removed only after equivalent route-envelope metadata gate exists"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="ValidationCameras" type="Node3D" parent="."]
 

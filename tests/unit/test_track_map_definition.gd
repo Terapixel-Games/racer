@@ -141,6 +141,12 @@ func test_home_estate_map_uses_user_floor_plan_scaffold() -> void:
 	assert_equal(str(contract.get("source", "")), "user_provided_estate_plan_three_sheets", "Home Estate should record the user-provided plan source")
 	assert_true(str(contract.get("style_reference", "")).contains("modern farmhouse"), "Home Estate should record the modern farmhouse style source")
 	assert_true(str(contract.get("production_policy", "")).contains("no plan labels"), "Home Estate should reject visible floor-plan labels")
+	assert_equal(str(root.get_meta("story_bible_path", "")), "res://docs/concept_package.md", "Home Estate should reference the story bible as concept canon")
+	assert_equal(str(root.get_meta("character_zone_mapping_path", "")), "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md", "Home Estate should reference the consolidated character-zone mapping")
+	var character_mapping: Dictionary = root.get_meta("character_zone_mapping", {})
+	assert_equal(str(character_mapping.get("Sir Clink", "")), "kitchen", "Sir Clink should own the kitchen zone")
+	assert_equal(str(character_mapping.get("Slammo", "")), "great_room", "Slammo should own the great-room zone")
+	assert_equal(str(character_mapping.get("Dash", "")), "garage_service_driveway_stunt_route", "Dash should own garage/service/driveway stunt routing")
 	for production_path in [
 		"ExteriorShell/ModernFarmhouseShellAsset",
 		"ExteriorShell/ModernFarmhouseShellScaleEnvelope",
@@ -153,8 +159,12 @@ func test_home_estate_map_uses_user_floor_plan_scaffold() -> void:
 		assert_true(root.get_node_or_null(production_path) != null, "Home Estate should include production world node %s" % production_path)
 	var shell_asset := root.get_node_or_null("ExteriorShell/ModernFarmhouseShellAsset")
 	assert_equal(str(shell_asset.get_meta("asset_source", "")) if shell_asset != null else "", HOME_ESTATE_VISIBLE_SHELL, "Home Estate visible shell should come from the Blender GLB")
+	assert_true(_has_required_home_estate_provenance(shell_asset), "Home Estate shell asset should carry generated-scene provenance metadata")
 	assert_equal((root.get_node_or_null("Roof") as Node).get_child_count(), 0, "Home Estate should not layer primitive roof slabs over the Blender shell")
 	assert_equal(_visible_label3d_count(root), 0, "Home Estate should not render literal floor-plan labels in the stage scene")
+	assert_equal(_visible_route_audit_box_count(root), 0, "Home Estate should not render route containment audit boxes as production geometry")
+	for mesh in _generated_visible_meshes(root):
+		assert_true(_has_required_home_estate_provenance(mesh), "Visible generated mesh %s should carry provenance metadata" % str(root.get_path_to(mesh)))
 	for review_name in [
 		"FrontStreetReviewCamera.png",
 		"RearYardReviewCamera.png",
@@ -536,3 +546,61 @@ func _visible_label3d_count(node: Node) -> int:
 	for child in node.get_children():
 		count += _visible_label3d_count(child)
 	return count
+
+func _visible_route_audit_box_count(node: Node) -> int:
+	var count := 0
+	if node.name == "RouteContainmentAuditBox" and node is Node3D and (node as Node3D).visible:
+		count += 1
+	for child in node.get_children():
+		count += _visible_route_audit_box_count(child)
+	return count
+
+func _generated_visible_meshes(root: Node) -> Array[MeshInstance3D]:
+	var meshes: Array[MeshInstance3D] = []
+	_collect_generated_visible_meshes(root, meshes)
+	return meshes
+
+func _collect_generated_visible_meshes(node: Node, out: Array[MeshInstance3D]) -> void:
+	if node is MeshInstance3D and (node as MeshInstance3D).visible and not _has_ancestor_named(node, "ModernFarmhouseShellAsset"):
+		out.append(node as MeshInstance3D)
+	for child in node.get_children():
+		_collect_generated_visible_meshes(child, out)
+
+func _has_ancestor_named(node: Node, ancestor_name: String) -> bool:
+	var current := node.get_parent()
+	while current != null:
+		if current.name == ancestor_name:
+			return true
+		current = current.get_parent()
+	return false
+
+func _has_required_home_estate_provenance(node: Node) -> bool:
+	if node == null:
+		return false
+	for key in [
+		"node_path",
+		"visible_class",
+		"owner_volume",
+		"assembly",
+		"role",
+		"source_of_truth",
+		"why_exists",
+		"support_target",
+		"contact_face",
+		"span_axis",
+		"start_anchor",
+		"end_anchor",
+		"allowed_intersections",
+		"forbidden_intersections",
+		"deletion_rule",
+		"validation_gate",
+		"validation_camera",
+	]:
+		if not node.has_meta(key):
+			return false
+		var value = node.get_meta(key)
+		if value is String and str(value) == "":
+			return false
+		if value is Array and (value as Array).is_empty():
+			return false
+	return true

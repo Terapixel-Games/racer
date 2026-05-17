@@ -47,6 +47,20 @@ const PLAN_CONTRACT := {
 	"production_policy": "Generator-driven modern farmhouse baseline. Visible primitives are named architectural/furnishing stand-ins only until replaced by Kenney/Meshy/toybox; no plan labels or bare floor-plan diagram markers may ship.",
 }
 
+const CHARACTER_ZONE_MAPPING := {
+	"Sir Clink": "kitchen",
+	"Slammo": "great_room",
+	"Tuggs": "bedroom_wing",
+	"Velva": "master_suite_plus_walk_in_closet",
+	"Popper": "bonus_room_attic_storage_prank_space",
+	"Dash": "garage_service_driveway_stunt_route",
+	"Moko": "garden_patio",
+	"Rexx": "sandbox_fossil_play_yard",
+}
+
+const STORY_BIBLE_PATH := "res://docs/concept_package.md"
+const CHARACTER_MAPPING_PATH := "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
+
 const COURSES := [
 	{"id": "estate_kitchen", "display_name": "Estate Kitchen", "placement": Vector3(-54, MAIN_FLOOR_Y + ROAD_FLOOR_CLEARANCE, 20), "sky": "noon_clear", "color": Color(0.92, 0.78, 0.55)},
 	{"id": "estate_great_room", "display_name": "Estate Great Room", "placement": Vector3(50, MAIN_FLOOR_Y + ROAD_FLOOR_CLEARANCE, 28), "sky": "soft_morning", "color": Color(0.76, 0.62, 0.55)},
@@ -70,6 +84,10 @@ func _save_map_scene() -> void:
 	var root := Node3D.new()
 	root.name = "HomeEstateV1Map"
 	root.set_meta("floor_plan_contract", PLAN_CONTRACT)
+	root.set_meta("story_bible_path", STORY_BIBLE_PATH)
+	root.set_meta("character_zone_mapping_path", CHARACTER_MAPPING_PATH)
+	root.set_meta("character_zone_mapping", CHARACTER_ZONE_MAPPING)
+	root.set_meta("generator_phase", "phase_2_shell_site_provenance_slice")
 	for holder_name in ["Site", "Foundation", "ExteriorShell", "Roof", "Openings", "MainFloor", "UpperFloor", "Basement", "PatioPool", "VerticalConnectors", "CourseRoutes", "ValidationCameras", "ConceptReference"]:
 		var holder := Node3D.new()
 		holder.name = holder_name
@@ -337,7 +355,10 @@ func _add_course_route_markers(root: Node3D) -> void:
 		holder.add_child(route_holder)
 		route_holder.owner = root
 		var envelope := _route_envelope_for_course(course)
-		_add_box(root, route_holder, "RouteContainmentAuditBox", (envelope["min"] + envelope["max"]) * 0.5, envelope["max"] - envelope["min"], Color(0.2, 0.8, 1.0, 0.12), false)
+		var audit_box := _add_box(root, route_holder, "RouteContainmentAuditBox", (envelope["min"] + envelope["max"]) * 0.5, envelope["max"] - envelope["min"], Color(0.2, 0.8, 1.0, 0.12), false)
+		audit_box.visible = false
+		audit_box.set_meta("visible_class", "validation_only_hidden_route_envelope")
+		audit_box.set_meta("deletion_rule", "may be removed only after equivalent route-envelope metadata gate exists")
 
 func _add_validation_cameras(root: Node3D) -> void:
 	var cameras := root.get_node("ValidationCameras") as Node3D
@@ -373,6 +394,7 @@ func _add_blender_visible_shell(root: Node3D, shell: Node3D) -> bool:
 	instance.set_meta("authoring_source", "scripts/tools/create_home_estate_shell_blender.py")
 	instance.set_meta("reference_source", "docs/concepts/home_estate_v1/reference_frames/modern_farmhouse_38_526/reference_notes.md")
 	instance.set_meta("collision_policy", "visual shell only; generator-owned route and boundary collision remains separate")
+	_apply_generated_provenance(instance, shell, "ModernFarmhouseShellAsset", Vector3.ZERO, Vector3(324, 96, 296), "imported_visible_shell", "home_exterior_shell")
 	shell.add_child(instance)
 	instance.owner = root
 	var scale_envelope := _add_box(root, shell, "ModernFarmhouseShellScaleEnvelope", Vector3(0, 24, 0), Vector3(324, 48, 296), Color(1, 1, 1, 0.0), false)
@@ -736,6 +758,7 @@ func _add_box(root: Node3D, parent: Node3D, node_name: String, position: Vector3
 	mesh.material_override = material
 	parent.add_child(mesh)
 	mesh.owner = root
+	_apply_generated_provenance(mesh, parent, node_name, position, size)
 	if collision:
 		var body := StaticBody3D.new()
 		body.name = "%sCollision" % node_name
@@ -766,7 +789,164 @@ func _add_mesh(root: Node3D, parent: Node3D, node_name: String, vertices: Packed
 	mesh_instance.material_override = material
 	parent.add_child(mesh_instance)
 	mesh_instance.owner = root
+	_apply_generated_provenance(mesh_instance, parent, node_name, _mesh_center(vertices), _mesh_size(vertices))
 	return mesh_instance
+
+func _apply_generated_provenance(node: Node, parent: Node, node_name: String, position: Vector3, size: Vector3, visible_class := "generated_visible_geometry", role_override := "") -> void:
+	var assembly := str(parent.name)
+	var role := role_override if role_override != "" else _role_for_generated_node(assembly, node_name)
+	node.set_meta("node_path", "%s/%s" % [assembly, node_name])
+	node.set_meta("visible_class", visible_class)
+	node.set_meta("owner_volume", _owner_volume_for_generated_node(assembly, node_name))
+	node.set_meta("assembly", assembly)
+	node.set_meta("role", role)
+	node.set_meta("source_of_truth", _source_of_truth_for_assembly(assembly))
+	node.set_meta("why_exists", _why_exists_for_generated_node(assembly, node_name, role))
+	node.set_meta("support_target", _support_target_for_assembly(assembly))
+	node.set_meta("contact_face", _contact_face_for_assembly(assembly))
+	node.set_meta("span_axis", _span_axis_for_size(size))
+	node.set_meta("start_anchor", _anchor_for_position(position, size, false))
+	node.set_meta("end_anchor", _anchor_for_position(position, size, true))
+	node.set_meta("allowed_intersections", _allowed_intersections_for_assembly(assembly, role))
+	node.set_meta("forbidden_intersections", ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"])
+	node.set_meta("deletion_rule", "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes")
+	node.set_meta("validation_gate", _validation_gate_for_assembly(assembly))
+	node.set_meta("validation_camera", _validation_camera_for_assembly(assembly))
+
+func _role_for_generated_node(assembly: String, node_name: String) -> String:
+	var lowered := node_name.to_lower()
+	if lowered.contains("floor") or ["MainFloor", "UpperFloor", "Basement", "PatioPool", "Site"].has(assembly):
+		return "floor_or_site_surface"
+	if lowered.contains("wall") or lowered.contains("siding"):
+		return "wall_or_closure"
+	if lowered.contains("roof") or lowered.contains("gable"):
+		return "roof_or_gable_closure"
+	if lowered.contains("fascia") or lowered.contains("gutter") or lowered.contains("trim") or lowered.contains("belt"):
+		return "trim"
+	if lowered.contains("window") or lowered.contains("door"):
+		return "opening_assembly"
+	if lowered.contains("column") or lowered.contains("beam") or lowered.contains("rail"):
+		return "support_or_guard"
+	if lowered.contains("route") or lowered.contains("audit"):
+		return "route_infrastructure"
+	if ["Foundation", "ExteriorShell"].has(assembly):
+		return "shell_structure"
+	return "room_furnishing_or_landmark"
+
+func _owner_volume_for_generated_node(assembly: String, node_name: String) -> String:
+	if assembly.ends_with("RoutePreview"):
+		return assembly.replace("RoutePreview", "")
+	return "%s.%s" % [assembly, node_name]
+
+func _source_of_truth_for_assembly(assembly: String) -> String:
+	match assembly:
+		"ExteriorShell", "Roof", "Foundation", "Openings":
+			return "res://docs/concepts/home_estate_v1/reference_frames/modern_farmhouse_38_526/reference_notes.md"
+		"CourseRoutes":
+			return "home_estate_v1 mode route_envelope metadata"
+		_:
+			return "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+
+func _why_exists_for_generated_node(assembly: String, node_name: String, role: String) -> String:
+	return "%s generated as %s for %s in the home_estate_v1 production scaffold." % [node_name, role, assembly]
+
+func _support_target_for_assembly(assembly: String) -> String:
+	match assembly:
+		"Site":
+			return "world_grade"
+		"Foundation":
+			return "site_grade_and_basement_contract"
+		"ExteriorShell", "Openings":
+			return "Foundation/MainFloor/UpperFloor shell datums"
+		"Roof":
+			return "ExteriorShell wall and gable support lines"
+		"VerticalConnectors":
+			return "MainFloor/UpperFloor/Basement landing datums"
+		"CourseRoutes":
+			return "mode route envelope"
+		_:
+			return "%s finished floor or parent room volume" % assembly
+
+func _contact_face_for_assembly(assembly: String) -> String:
+	match assembly:
+		"Roof":
+			return "lower eave/ridge/valley support edges"
+		"Openings":
+			return "exterior wall opening plane"
+		"ExteriorShell":
+			return "foundation top and floor perimeter faces"
+		_:
+			return "bottom face"
+
+func _allowed_intersections_for_assembly(assembly: String, role: String) -> Array[String]:
+	if role == "opening_assembly":
+		return ["owning_wall_opening", "jamb_header_sill_returns"]
+	if role == "trim":
+		return ["owning_wall_or_roof_edge", "adjacent_trim_return"]
+	if assembly == "CourseRoutes":
+		return ["validation_camera_volume"]
+	return ["support_target_contact", "declared_parent_volume"]
+
+func _validation_gate_for_assembly(assembly: String) -> String:
+	match assembly:
+		"ExteriorShell", "Roof", "Foundation", "Openings":
+			return "home_estate_shell_provenance_and_envelope_gate"
+		"CourseRoutes":
+			return "route_envelope_and_camera_clearance_gate"
+		_:
+			return "home_estate_generated_node_provenance_gate"
+
+func _validation_camera_for_assembly(assembly: String) -> String:
+	match assembly:
+		"Site":
+			return "FrontStreetReviewCamera"
+		"ExteriorShell", "Foundation", "Openings":
+			return "FrontStreetReviewCamera"
+		"Roof":
+			return "RooflineReviewCamera"
+		"MainFloor":
+			return "MainFloorPlanCamera"
+		"UpperFloor":
+			return "UpperFloorPlanCamera"
+		"PatioPool":
+			return "PatioPoolCamera"
+		"CourseRoutes":
+			return "mode_start_player_camera"
+		_:
+			return "MainFloorPlanCamera"
+
+func _span_axis_for_size(size: Vector3) -> String:
+	if size.x >= size.y and size.x >= size.z:
+		return "x"
+	if size.z >= size.x and size.z >= size.y:
+		return "z"
+	return "y"
+
+func _anchor_for_position(position: Vector3, size: Vector3, positive: bool) -> String:
+	var axis := _span_axis_for_size(size)
+	var half := 0.5 * (size.x if axis == "x" else size.y if axis == "y" else size.z)
+	var value := (position.x if axis == "x" else position.y if axis == "y" else position.z) + (half if positive else -half)
+	return "%s=%.2f" % [axis, value]
+
+func _mesh_center(vertices: PackedVector3Array) -> Vector3:
+	if vertices.is_empty():
+		return Vector3.ZERO
+	var min_v := vertices[0]
+	var max_v := vertices[0]
+	for vertex in vertices:
+		min_v = min_v.min(vertex)
+		max_v = max_v.max(vertex)
+	return (min_v + max_v) * 0.5
+
+func _mesh_size(vertices: PackedVector3Array) -> Vector3:
+	if vertices.is_empty():
+		return Vector3.ONE
+	var min_v := vertices[0]
+	var max_v := vertices[0]
+	for vertex in vertices:
+		min_v = min_v.min(vertex)
+		max_v = max_v.max(vertex)
+	return max_v - min_v
 
 func _set_owner_recursive(node: Node, owner: Node) -> void:
 	for child in node.get_children():
