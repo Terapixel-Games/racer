@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8nhq8f0nf48m"
-path="res://.godot/imported/rexx-kart.png-20adf1611d9e08ad052e495fca8fc640.ctex"
+uid="uid://bert6aniuh7i1"
+path="res://.godot/imported/popper-kart.png-85dfb7daffbf6232f4124284d689b658.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://docs/concepts/characters/rexx-kart.png"
-dest_files=["res://.godot/imported/rexx-kart.png-20adf1611d9e08ad052e495fca8fc640.ctex"]
+source_file="res://docs/story_bible/concepts/characters/popper-kart.png"
+dest_files=["res://.godot/imported/popper-kart.png-85dfb7daffbf6232f4124284d689b658.ctex"]
 
 [params]
 

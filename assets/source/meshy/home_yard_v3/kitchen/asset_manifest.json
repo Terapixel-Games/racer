@@ -1,7 +1,7 @@
 {
   "schema_version": "home_yard_v3_area_asset_manifest_v1",
   "area": "kitchen",
-  "concept_sources": ["res://assets/gameplay/tracks/kitchen/stage_concept.md", "res://assets/gameplay/tracks/kitchen/stage_build_spec.md", "res://assets/gameplay/tracks/kitchen/stage_key_art.png"],
+  "concept_sources": ["res://docs/story_bible/concepts/stages/legacy_home_yard_courses/kitchen/stage_concept.md", "res://docs/story_bible/concepts/stages/legacy_home_yard_courses/kitchen/stage_build_spec.md", "res://docs/story_bible/concepts/stages/legacy_home_yard_courses/kitchen/stage_key_art.png"],
   "production_role": "Lawful domestic tournament court for Sir Clink.",
   "required_assets": [
     {"asset_slug": "kitchen_fridge_kenney_keep_review", "source": "kenney_keep_review", "lifecycle_state": "planned", "supersedes": "res://assets/source/kenney/furniture_kit/kitchenFridge.glb", "poly_budget": 8000, "collision_policy": "visual_off_route", "route_clearance": "pending", "validation_cameras": ["KitchenAssetCloseupCamera"], "screenshot_score_status": "pending"},

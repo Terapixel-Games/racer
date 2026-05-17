@@ -6,15 +6,15 @@ Create a production-ready toy-scale home stage that combines the older public ro
 
 ## Reference Images Or Links
 
-- `res://docs/concepts/floor_plans/racer_house_yard_concept_floor_plan.png`
-- `res://assets/gameplay/tracks/kitchen/stage_key_art.png`
-- `res://assets/gameplay/tracks/playroom/stage_key_art.png`
-- `res://assets/gameplay/tracks/bedroom/stage_key_art.png`
-- `res://assets/gameplay/tracks/glam_closet/stage_key_art.png`
-- `res://assets/gameplay/tracks/attic/stage_key_art.png`
-- `res://assets/gameplay/tracks/outdoor_playground/stage_key_art.png`
-- `res://assets/gameplay/tracks/garden/stage_key_art.png`
-- `res://assets/gameplay/tracks/sandbox/stage_key_art.png`
+- `res://docs/story_bible/concepts/floor_plans/racer_house_yard_concept_floor_plan.png`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/kitchen/stage_key_art.png`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/playroom/stage_key_art.png`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/bedroom/stage_key_art.png`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/glam_closet/stage_key_art.png`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/attic/stage_key_art.png`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/outdoor_playground/stage_key_art.png`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/garden/stage_key_art.png`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/sandbox/stage_key_art.png`
 
 ## Shape Language
 

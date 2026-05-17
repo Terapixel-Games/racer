@@ -15,7 +15,7 @@
 - Scale: toy-scale route-side landmark for `home_yard_v3` playroom
 - Meshy task id: `019e2029-e547-7721-8f5e-80c63e7ee736`
 - Credits spent: 20 preview credits
-- Source concept image/reference: `res://assets/gameplay/tracks/playroom/stage_key_art.png`, `res://assets/gameplay/tracks/playroom/stage_concept.md`
+- Source concept image/reference: `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/playroom/stage_key_art.png`, `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/playroom/stage_concept.md`
 
 ## Material Notes
 - Materials: plush fabric, molded plastic podium, foam mat base, Slammo red accents

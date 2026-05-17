@@ -1,7 +1,7 @@
 {
   "schema_version": "home_yard_v3_area_asset_manifest_v1",
   "area": "street_front_yard",
-  "concept_sources": ["res://docs/concepts/home_yard_v3/street_front_yard_reference.md", "res://docs/concepts/floor_plans/racer_house_yard_concept_floor_plan.png"],
+  "concept_sources": ["res://docs/concept_package.md", "res://docs/story_bible/concepts/floor_plans/racer_house_yard_concept_floor_plan.png"],
   "production_role": "Neighborhood arrival context and front-yard readability.",
   "required_assets": [
     {"asset_slug": "low_poly_suburban_mailbox", "source": "meshy_planned", "lifecycle_state": "planned", "supersedes": "", "poly_budget": 2000, "collision_policy": "visual_off_route", "route_clearance": "pending", "validation_cameras": ["StreetArrivalCamera"], "screenshot_score_status": "pending"},

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://rg4lweiwonaa"
-path="res://.godot/imported/dash-kart.png-ab35919381fed9e2e786a9ee3ae719fd.ctex"
+uid="uid://byni0whdm7udi"
+path="res://.godot/imported/velva-kart.png-d86cbffdf480135632e148b443cffab0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://docs/concepts/characters/dash-kart.png"
-dest_files=["res://.godot/imported/dash-kart.png-ab35919381fed9e2e786a9ee3ae719fd.ctex"]
+source_file="res://docs/story_bible/concepts/characters/velva-kart.png"
+dest_files=["res://.godot/imported/velva-kart.png-d86cbffdf480135632e148b443cffab0.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://o2ps4aopaq37"
-path="res://.godot/imported/sir-clink-kart.png-fae65dbbdb103dd288eefc56415ded5b.ctex"
+uid="uid://o27luwgw1uij"
+path="res://.godot/imported/tuggs-kart.png-b38af8b103a9f9d7915998343100c7e3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://docs/concepts/characters/sir-clink-kart.png"
-dest_files=["res://.godot/imported/sir-clink-kart.png-fae65dbbdb103dd288eefc56415ded5b.ctex"]
+source_file="res://docs/story_bible/concepts/characters/tuggs-kart.png"
+dest_files=["res://.godot/imported/tuggs-kart.png-b38af8b103a9f9d7915998343100c7e3.ctex"]
 
 [params]
 

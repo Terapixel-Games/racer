@@ -6,9 +6,9 @@ The exterior shell must read as a believable closed home, not a diagram of rooms
 
 ## Reference Images Or Links
 
-- `res://docs/concepts/floor_plans/racer_house_yard_concept_floor_plan.png`
-- `res://assets/gameplay/tracks/attic/stage_concept.md`
-- `res://assets/gameplay/tracks/kitchen/stage_concept.md`
+- `res://docs/story_bible/concepts/floor_plans/racer_house_yard_concept_floor_plan.png`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/attic/stage_concept.md`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/kitchen/stage_concept.md`
 
 ## Shape Language
 

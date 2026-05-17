@@ -14,14 +14,14 @@ Batch status: all 24 active `meshy-6` tasks succeeded.
 
 The racer-in-kart image references are stored in:
 
-- `docs/concepts/characters/rexx-kart.png`
-- `docs/concepts/characters/moko-kart.png`
-- `docs/concepts/characters/tuggs-kart.png`
-- `docs/concepts/characters/popper-kart.png`
-- `docs/concepts/characters/sir-clink-kart.png`
-- `docs/concepts/characters/slammo-kart.png`
-- `docs/concepts/characters/velva-kart.png`
-- `docs/concepts/characters/dash-kart.png`
+- `docs/story_bible/concepts/characters/rexx-kart.png`
+- `docs/story_bible/concepts/characters/moko-kart.png`
+- `docs/story_bible/concepts/characters/tuggs-kart.png`
+- `docs/story_bible/concepts/characters/popper-kart.png`
+- `docs/story_bible/concepts/characters/sir-clink-kart.png`
+- `docs/story_bible/concepts/characters/slammo-kart.png`
+- `docs/story_bible/concepts/characters/velva-kart.png`
+- `docs/story_bible/concepts/characters/dash-kart.png`
 
 ## Tasks
 

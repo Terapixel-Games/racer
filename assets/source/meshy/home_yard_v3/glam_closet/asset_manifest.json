@@ -1,7 +1,7 @@
 {
   "schema_version": "home_yard_v3_area_asset_manifest_v1",
   "area": "glam_closet",
-  "concept_sources": ["res://assets/gameplay/tracks/glam_closet/stage_concept.md", "res://assets/gameplay/tracks/glam_closet/stage_build_spec.md", "res://assets/gameplay/tracks/glam_closet/stage_key_art.png"],
+  "concept_sources": ["res://docs/story_bible/concepts/stages/legacy_home_yard_courses/glam_closet/stage_concept.md", "res://docs/story_bible/concepts/stages/legacy_home_yard_courses/glam_closet/stage_build_spec.md", "res://docs/story_bible/concepts/stages/legacy_home_yard_courses/glam_closet/stage_key_art.png"],
   "production_role": "Dazzling display court course for Velva's Mirror Court.",
   "required_assets": [
     {"asset_slug": "low_poly_glam_closet_mirror_arch", "source": "meshy_planned", "lifecycle_state": "planned", "supersedes": "kenney_keep_review_if_passes", "poly_budget": 8000, "collision_policy": "route_frame_helper_collision", "route_clearance": "pending", "validation_cameras": ["GlamClosetMirrorCamera", "GlamClosetAssetCloseupCamera"], "screenshot_score_status": "pending"},

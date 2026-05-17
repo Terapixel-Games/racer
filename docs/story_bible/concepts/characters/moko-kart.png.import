@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vxml5f6rceso"
-path="res://.godot/imported/stage_key_art.png-fcb90e67119ee0c6c54da0ec118f1b43.ctex"
+uid="uid://5d0frs2s443b"
+path="res://.godot/imported/moko-kart.png-9f69188416cb6fa2b7e29bad2935a4a4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gameplay/tracks/sandbox/stage_key_art.png"
-dest_files=["res://.godot/imported/stage_key_art.png-fcb90e67119ee0c6c54da0ec118f1b43.ctex"]
+source_file="res://docs/story_bible/concepts/characters/moko-kart.png"
+dest_files=["res://.godot/imported/moko-kart.png-9f69188416cb6fa2b7e29bad2935a4a4.ctex"]
 
 [params]
 

@@ -1,7 +1,7 @@
 {
   "schema_version": "home_yard_v3_area_asset_manifest_v1",
   "area": "playroom",
-  "concept_sources": ["res://assets/gameplay/tracks/playroom/stage_concept.md", "res://assets/gameplay/tracks/playroom/stage_build_spec.md", "res://assets/gameplay/tracks/playroom/stage_key_art.png"],
+  "concept_sources": ["res://docs/story_bible/concepts/stages/legacy_home_yard_courses/playroom/stage_concept.md", "res://docs/story_bible/concepts/stages/legacy_home_yard_courses/playroom/stage_build_spec.md", "res://docs/story_bible/concepts/stages/legacy_home_yard_courses/playroom/stage_key_art.png"],
   "production_role": "Clean toy-sports arena course for Slammo's Arena faction.",
   "required_assets": [
     {"asset_slug": "low_poly_playroom_arena_ring_platform", "source": "meshy_planned", "lifecycle_state": "planned", "supersedes": "", "poly_budget": 8000, "collision_policy": "route_boundary_or_visual", "route_clearance": "pending", "validation_cameras": ["PlayroomAssetCloseupCamera", "PlayroomRouteCamera"], "screenshot_score_status": "pending"},

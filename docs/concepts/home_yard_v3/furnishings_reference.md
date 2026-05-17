@@ -6,11 +6,11 @@ Furnishings should make every room and course identity readable at racing speed.
 
 ## Reference Images Or Links
 
-- `res://assets/gameplay/tracks/kitchen/stage_concept.md`
-- `res://assets/gameplay/tracks/playroom/stage_concept.md`
-- `res://assets/gameplay/tracks/bedroom/stage_concept.md`
-- `res://assets/gameplay/tracks/glam_closet/stage_concept.md`
-- `res://assets/gameplay/tracks/attic/stage_concept.md`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/kitchen/stage_concept.md`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/playroom/stage_concept.md`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/bedroom/stage_concept.md`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/glam_closet/stage_concept.md`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/attic/stage_concept.md`
 
 ## Shape Language
 

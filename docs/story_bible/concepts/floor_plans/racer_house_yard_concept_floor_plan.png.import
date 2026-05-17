@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bert6aniuh7i1"
-path="res://.godot/imported/popper-kart.png-29d67b91558cb8d2eb02b689cf1055d2.ctex"
+uid="uid://cstx3v2eijlvp"
+path="res://.godot/imported/racer_house_yard_concept_floor_plan.png-ec07c2ce907852b5d486ed49ee63a20e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://docs/concepts/characters/popper-kart.png"
-dest_files=["res://.godot/imported/popper-kart.png-29d67b91558cb8d2eb02b689cf1055d2.ctex"]
+source_file="res://docs/story_bible/concepts/floor_plans/racer_house_yard_concept_floor_plan.png"
+dest_files=["res://.godot/imported/racer_house_yard_concept_floor_plan.png-ec07c2ce907852b5d486ed49ee63a20e.ctex"]
 
 [params]
 

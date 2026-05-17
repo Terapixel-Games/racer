@@ -15,7 +15,7 @@
 - Scale: toy-scale route landmark for `home_yard_v3` attic
 - Meshy task id: `019e2003-747f-7e3c-b237-4cc7afff7c05`
 - Credits spent: 20 preview credits
-- Source concept image/reference: `res://assets/gameplay/tracks/attic/stage_key_art.png`, `res://assets/gameplay/tracks/attic/stage_concept.md`
+- Source concept image/reference: `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/attic/stage_key_art.png`, `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/attic/stage_concept.md`
 
 ## Material Notes
 - Materials: clean white cloth, cardboard supports, string ties, Popper purple accents

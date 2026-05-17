@@ -31741,7 +31741,7 @@ metadata/validation_subject = "YardCourseOverviewCamera"
 metadata/review_contract = "Final proof must render from this Camera3D path, not from an editor viewport with camera icons or transform gizmos."
 
 [node name="ConceptReference" type="Node3D" parent="."]
-metadata/concept_source = "res://docs/concepts/floor_plans/racer_house_yard_concept_floor_plan.png"
+metadata/concept_source = "res://docs/story_bible/concepts/floor_plans/racer_house_yard_concept_floor_plan.png"
 metadata/human_scale_reference_path = "res://assets/source/kenney/animated_characters/characterLargeMale.fbx"
 
 [node name="HumanScaleReference" type="Node3D" parent="ConceptReference" instance=ExtResource("26_dvxsy")]

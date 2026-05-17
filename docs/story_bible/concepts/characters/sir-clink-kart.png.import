@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1aab4nfw7gbd"
-path="res://.godot/imported/stage_key_art.png-a8d2dd943c41b7c065d44e6b99ae6120.ctex"
+uid="uid://o2ps4aopaq37"
+path="res://.godot/imported/sir-clink-kart.png-81dc1652234e13b9f17cfc228dc0c6e9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gameplay/tracks/garden/stage_key_art.png"
-dest_files=["res://.godot/imported/stage_key_art.png-a8d2dd943c41b7c065d44e6b99ae6120.ctex"]
+source_file="res://docs/story_bible/concepts/characters/sir-clink-kart.png"
+dest_files=["res://.godot/imported/sir-clink-kart.png-81dc1652234e13b9f17cfc228dc0c6e9.ctex"]
 
 [params]
 

@@ -66,7 +66,7 @@ Each campaign ending is an alternate outcome showing what happens when one toy's
 
 The house and yard should read as one connected, pristine, uncanny domestic world, not as disconnected track boxes. The concept floor plan is the current spatial reference for room adjacency, route logic, and stage relationships.
 
-![Racer House + Yard Concept Floor Plan](concepts/floor_plans/racer_house_yard_concept_floor_plan.png)
+![Racer House + Yard Concept Floor Plan](story_bible/concepts/floor_plans/racer_house_yard_concept_floor_plan.png)
 
 Figma source: [Racer House + Yard Concept Floor Plan](https://www.figma.com/design/odffTKsyMsVDXC3TltryUG)
 
@@ -349,6 +349,6 @@ The cost is performance. Toys who cannot perform become background, and feeling 
 The existing visual review board and concept images remain supporting references for roster silhouette direction, toy material language, room-track ownership, item tone, and readability:
 
 - `docs/concepts/review_board.html`
-- `docs/concepts/floor_plans/racer_house_yard_concept_floor_plan.png`
-- `docs/concepts/characters/`
+- `docs/story_bible/concepts/floor_plans/racer_house_yard_concept_floor_plan.png`
+- `docs/story_bible/concepts/characters/`
 - `docs/concepts/assets/`

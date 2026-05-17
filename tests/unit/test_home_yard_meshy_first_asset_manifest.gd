@@ -14,13 +14,32 @@ const EXPECTED_PHASE_IDS := [
 const KENNEY_DECISION := "kenney_keep_review"
 const NON_KENNEY_DECISION := "meshy_regenerate"
 const REQUIRED_CONCEPT_ARTIFACTS := [
-	"whole_house_reference.md",
-	"street_front_yard_reference.md",
-	"home_exterior_reference.md",
-	"interior_layout_reference.md",
-	"furnishings_reference.md",
-	"backyard_reference.md",
-	"course_identity_reference.md",
+	"floor_plans/racer_house_yard_concept_floor_plan.png",
+	"characters/sir-clink-kart.png",
+	"characters/slammo-kart.png",
+	"characters/tuggs-kart.png",
+	"characters/velva-kart.png",
+	"characters/popper-kart.png",
+	"characters/dash-kart.png",
+	"characters/moko-kart.png",
+	"characters/rexx-kart.png",
+	"stages/legacy_home_yard_courses/kitchen/stage_concept.md",
+	"stages/legacy_home_yard_courses/kitchen/stage_key_art.png",
+	"stages/legacy_home_yard_courses/playroom/stage_concept.md",
+	"stages/legacy_home_yard_courses/playroom/stage_key_art.png",
+	"stages/legacy_home_yard_courses/bedroom/stage_concept.md",
+	"stages/legacy_home_yard_courses/bedroom/stage_key_art.png",
+	"stages/legacy_home_yard_courses/glam_closet/stage_concept.md",
+	"stages/legacy_home_yard_courses/glam_closet/stage_key_art.png",
+	"stages/legacy_home_yard_courses/attic/stage_concept.md",
+	"stages/legacy_home_yard_courses/attic/stage_key_art.png",
+	"stages/legacy_home_yard_courses/outdoor_playground/stage_concept.md",
+	"stages/legacy_home_yard_courses/outdoor_playground/stage_key_art.png",
+	"stages/legacy_home_yard_courses/garden/stage_concept.md",
+	"stages/legacy_home_yard_courses/garden/stage_key_art.png",
+	"stages/legacy_home_yard_courses/sandbox/stage_concept.md",
+	"stages/legacy_home_yard_courses/sandbox/stage_key_art.png",
+	"home_estate_v1_character_mapping.md",
 ]
 
 func test_meshy_first_policy_is_explicit() -> void:
@@ -115,10 +134,10 @@ func test_production_gate_has_scoring_and_domain_acceptance() -> void:
 func test_concept_reference_and_batch_protocol_are_blocking() -> void:
 	var manifest := _load_manifest()
 	var concept: Dictionary = manifest.get("concept_reference_contract", {})
-	assert_equal(concept.get("root", ""), "res://docs/concepts/home_yard_v3/", "Concept references should live under the home_yard_v3 concept folder.")
+	assert_equal(concept.get("root", ""), "res://docs/story_bible/concepts/", "Concept references should live under the story-bible concept folder.")
 	assert_true(bool(concept.get("blocks_paid_asset_batches_until_present", false)), "Concept references should block paid asset batches.")
-	assert_true("whole_house_reference.md" in concept.get("required_artifacts", []), "Whole-house reference should be required.")
-	assert_true("course_identity_reference.md" in concept.get("required_artifacts", []), "Course identity reference should be required.")
+	assert_true("floor_plans/racer_house_yard_concept_floor_plan.png" in concept.get("required_artifacts", []), "Story-bible floor plan should be required.")
+	assert_true("home_estate_v1_character_mapping.md" in concept.get("required_artifacts", []), "Home estate character mapping should be required.")
 	for artifact in REQUIRED_CONCEPT_ARTIFACTS:
 		var artifact_path := "%s%s" % [str(concept.get("root", "")), artifact]
 		assert_true(FileAccess.file_exists(artifact_path), "Concept artifact should exist: %s." % artifact_path)

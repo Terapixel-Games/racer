@@ -6,10 +6,10 @@ The backyard should read as one coherent outdoor play and garden space. Outdoor 
 
 ## Reference Images Or Links
 
-- `res://docs/concepts/floor_plans/racer_house_yard_concept_floor_plan.png`
-- `res://assets/gameplay/tracks/outdoor_playground/stage_concept.md`
-- `res://assets/gameplay/tracks/garden/stage_concept.md`
-- `res://assets/gameplay/tracks/sandbox/stage_concept.md`
+- `res://docs/story_bible/concepts/floor_plans/racer_house_yard_concept_floor_plan.png`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/outdoor_playground/stage_concept.md`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/garden/stage_concept.md`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/sandbox/stage_concept.md`
 
 ## Shape Language
 

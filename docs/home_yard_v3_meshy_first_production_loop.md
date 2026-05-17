@@ -25,7 +25,7 @@ The iterator must keep all of these domains in scope:
 
 The iterator uses a numeric screenshot rubric before production claims. Each category is scored `0-5`; every category must score at least `4`, and any `0` blocks the gate. Categories include layout clarity, route readability, material quality, scale consistency, room identity, shell closure, yard and street context, furnishing quality, collision risk, transparent-window quality, placeholder leaks, and performance health.
 
-Every production domain needs a manifest entry, validation cameras, route-clearance check when gameplay-adjacent, and screenshot review score. Concept reference artifacts live under `res://docs/concepts/home_yard_v3/` and block paid asset batches until the relevant references exist.
+Every production domain needs a manifest entry, validation cameras, route-clearance check when gameplay-adjacent, and screenshot review score. Story-bible concept reference artifacts live under `res://docs/story_bible/concepts/` and block paid asset batches until the relevant references exist.
 
 Meshy batches are scoped to one course or one production domain. Before any paid call, review prompts and present the exact planned assets, target format, estimated credits, poly budgets, validation cameras, and fallback plan. Asset lifecycle states are `planned`, `prompt_approved`, `generated`, `imported`, `optimized`, `placed`, `camera_validated`, `accepted`, `rejected`, and `superseded`.
 

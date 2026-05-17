@@ -6,14 +6,14 @@ Every public course keeps its original faction fantasy while being integrated in
 
 ## Reference Images Or Links
 
-- `res://assets/gameplay/tracks/attic/stage_concept.md`
-- `res://assets/gameplay/tracks/playroom/stage_concept.md`
-- `res://assets/gameplay/tracks/bedroom/stage_concept.md`
-- `res://assets/gameplay/tracks/glam_closet/stage_concept.md`
-- `res://assets/gameplay/tracks/outdoor_playground/stage_concept.md`
-- `res://assets/gameplay/tracks/garden/stage_concept.md`
-- `res://assets/gameplay/tracks/sandbox/stage_concept.md`
-- `res://assets/gameplay/tracks/kitchen/stage_concept.md`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/attic/stage_concept.md`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/playroom/stage_concept.md`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/bedroom/stage_concept.md`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/glam_closet/stage_concept.md`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/outdoor_playground/stage_concept.md`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/garden/stage_concept.md`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/sandbox/stage_concept.md`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/kitchen/stage_concept.md`
 
 ## Shape Language
 

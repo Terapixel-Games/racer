@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dr3460d6cgqoa"
-path="res://.godot/imported/slammo-kart.png-7e0f1ed6b2961b3c78f385cd4ebae6b5.ctex"
+uid="uid://bwy5ldmv7glej"
+path="res://.godot/imported/stage_key_art.png-9d4fb90a091a8f05de6d3031876d3da1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://docs/concepts/characters/slammo-kart.png"
-dest_files=["res://.godot/imported/slammo-kart.png-7e0f1ed6b2961b3c78f385cd4ebae6b5.ctex"]
+source_file="res://docs/story_bible/concepts/stages/legacy_home_yard_courses/playroom/stage_key_art.png"
+dest_files=["res://.godot/imported/stage_key_art.png-9d4fb90a091a8f05de6d3031876d3da1.ctex"]
 
 [params]
 

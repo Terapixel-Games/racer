@@ -1,7 +1,7 @@
 {
   "schema_version": "home_yard_v3_area_asset_manifest_v1",
   "area": "home_exterior",
-  "concept_sources": ["res://docs/concepts/home_yard_v3/home_exterior_reference.md", "res://docs/concepts/floor_plans/racer_house_yard_concept_floor_plan.png"],
+  "concept_sources": ["res://docs/concept_package.md", "res://docs/story_bible/concepts/floor_plans/racer_house_yard_concept_floor_plan.png"],
   "production_role": "Believable closed residential shell with transparent openings.",
   "required_assets": [
     {"asset_slug": "low_poly_transparent_window_kit", "source": "meshy_planned", "lifecycle_state": "planned", "supersedes": "", "poly_budget": 8000, "collision_policy": "visual_shell_opening", "route_clearance": "not_route_adjacent", "validation_cameras": ["ExteriorWindowCloseupCamera", "RoofSeamCamera"], "screenshot_score_status": "pending"},

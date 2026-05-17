@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://o27luwgw1uij"
-path="res://.godot/imported/tuggs-kart.png-0d01a080e363742f45c440e9b8b2aafd.ctex"
+uid="uid://rg4lweiwonaa"
+path="res://.godot/imported/dash-kart.png-74753d6c7c4ff1e821cac0f59d968c60.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://docs/concepts/characters/tuggs-kart.png"
-dest_files=["res://.godot/imported/tuggs-kart.png-0d01a080e363742f45c440e9b8b2aafd.ctex"]
+source_file="res://docs/story_bible/concepts/characters/dash-kart.png"
+dest_files=["res://.godot/imported/dash-kart.png-74753d6c7c4ff1e821cac0f59d968c60.ctex"]
 
 [params]
 

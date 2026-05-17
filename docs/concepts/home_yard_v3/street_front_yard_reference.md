@@ -6,7 +6,7 @@ The front of the home should establish arrival and real-world context before the
 
 ## Reference Images Or Links
 
-- `res://docs/concepts/floor_plans/racer_house_yard_concept_floor_plan.png`
+- `res://docs/story_bible/concepts/floor_plans/racer_house_yard_concept_floor_plan.png`
 - `res://assets/gameplay/tracks/home_yard_v3/home_yard_v3_map.tscn`
 
 ## Shape Language

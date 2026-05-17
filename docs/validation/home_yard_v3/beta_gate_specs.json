@@ -5,7 +5,7 @@
     {
       "id": "concept_artifacts",
       "test_path": "res://tests/unit/test_home_yard_v3_concept_artifacts.gd",
-      "inputs": ["res://docs/concepts/home_yard_v3/*.md"],
+      "inputs": ["res://docs/story_bible/concepts/**/*.md"],
       "pass": "All required concept artifacts exist and include intent, references, shape language, material palette, gameplay readability notes, and asset prompt notes."
     },
     {

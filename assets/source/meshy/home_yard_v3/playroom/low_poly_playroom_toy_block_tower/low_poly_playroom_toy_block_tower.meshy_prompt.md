@@ -15,7 +15,7 @@
 - Scale: toy-scale off-route playroom landmark for `home_yard_v3`
 - Meshy task id: `019e202a-0778-7adf-a7b0-6f251e4df793`
 - Credits spent: 20 preview credits
-- Source concept image/reference: `res://assets/gameplay/tracks/playroom/stage_key_art.png`, `res://assets/gameplay/tracks/playroom/stage_concept.md`
+- Source concept image/reference: `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/playroom/stage_key_art.png`, `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/playroom/stage_concept.md`
 
 ## Material Notes
 - Materials: clean molded toy plastic, foam mat contact pads, trophy-gold accent pieces

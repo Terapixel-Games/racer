@@ -1,7 +1,7 @@
 {
   "schema_version": "home_yard_v3_area_asset_manifest_v1",
   "area": "attic",
-  "concept_sources": ["res://assets/gameplay/tracks/attic/stage_concept.md", "res://assets/gameplay/tracks/attic/stage_build_spec.md", "res://assets/gameplay/tracks/attic/stage_key_art.png"],
+  "concept_sources": ["res://docs/story_bible/concepts/stages/legacy_home_yard_courses/attic/stage_concept.md", "res://docs/story_bible/concepts/stages/legacy_home_yard_courses/attic/stage_build_spec.md", "res://docs/story_bible/concepts/stages/legacy_home_yard_courses/attic/stage_key_art.png"],
   "production_role": "Pristine uncanny storage course for Popper's Attic Pranks.",
   "required_assets": [
     {"asset_slug": "low_poly_dusty_attic_trunk", "source": "meshy_preview", "lifecycle_state": "imported_generator_integrated_pending_visual_validation", "source_path": "res://assets/source/meshy/home_yard_v3/attic/low_poly_dusty_attic_trunk/low_poly_dusty_attic_trunk.glb", "prompt_record": "res://assets/source/meshy/home_yard_v3/attic/low_poly_dusty_attic_trunk/low_poly_dusty_attic_trunk.meshy_prompt.md", "meshy_task_id": "019e2003-38b1-7185-a926-d591c2ba4a2c", "credits_spent": 20, "supersedes": "res://assets/gameplay/tracks/attic/props/old_chest.glb", "poly_budget": 8000, "collision_policy": "simple_static_or_visual_off_route", "route_clearance": "outside_route_corridor_pending_scene_validation", "validation_cameras": ["AtticAssetCloseupCamera", "AtticStartPlayerCamera"], "screenshot_score_status": "pending"},

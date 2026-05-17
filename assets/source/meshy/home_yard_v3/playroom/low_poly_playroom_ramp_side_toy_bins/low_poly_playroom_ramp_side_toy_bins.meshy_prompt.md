@@ -15,7 +15,7 @@
 - Scale: toy-scale route-side boundary set for `home_yard_v3` playroom
 - Meshy task id: `019e202a-3936-71e1-b52a-f47ed664b4f2`
 - Credits spent: 20 preview credits
-- Source concept image/reference: `res://assets/gameplay/tracks/playroom/stage_key_art.png`, `res://assets/gameplay/tracks/playroom/stage_concept.md`
+- Source concept image/reference: `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/playroom/stage_key_art.png`, `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/playroom/stage_concept.md`
 
 ## Material Notes
 - Materials: molded plastic bins, soft foam blocks, foam mat contact surfaces, Slammo red accents

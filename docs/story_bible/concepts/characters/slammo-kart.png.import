@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byni0whdm7udi"
-path="res://.godot/imported/velva-kart.png-91617e345dec8b4f3dca4ab63cdfd69f.ctex"
+uid="uid://dr3460d6cgqoa"
+path="res://.godot/imported/slammo-kart.png-18b6fa5a877adb82fe039b7b8cd3b322.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://docs/concepts/characters/velva-kart.png"
-dest_files=["res://.godot/imported/velva-kart.png-91617e345dec8b4f3dca4ab63cdfd69f.ctex"]
+source_file="res://docs/story_bible/concepts/characters/slammo-kart.png"
+dest_files=["res://.godot/imported/slammo-kart.png-18b6fa5a877adb82fe039b7b8cd3b322.ctex"]
 
 [params]
 

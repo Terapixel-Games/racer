@@ -16,7 +16,7 @@
 - Meshy task id: `019e2003-5692-7187-ba1d-3bf713138951`
 - Meshy refine task id: `019e2009-d9c3-7244-997b-3476c1235308`
 - Credits spent: 30 credits (20 preview + 10 refine)
-- Source concept image/reference: `res://assets/gameplay/tracks/attic/stage_key_art.png`, `res://assets/gameplay/tracks/attic/stage_concept.md`
+- Source concept image/reference: `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/attic/stage_key_art.png`, `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/attic/stage_concept.md`
 
 ## Material Notes
 - Materials: clean toy plastic, cardboard, polished wood, string, Popper purple accents

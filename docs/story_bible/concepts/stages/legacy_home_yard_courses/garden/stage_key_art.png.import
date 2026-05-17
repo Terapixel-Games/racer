@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bug2mu0esjakr"
-path="res://.godot/imported/stage_key_art.png-6e40282a48f91777a6319fe137dcaf39.ctex"
+uid="uid://1aab4nfw7gbd"
+path="res://.godot/imported/stage_key_art.png-ca6821c6409f17fb5205d95795c5ad45.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gameplay/tracks/glam_closet/stage_key_art.png"
-dest_files=["res://.godot/imported/stage_key_art.png-6e40282a48f91777a6319fe137dcaf39.ctex"]
+source_file="res://docs/story_bible/concepts/stages/legacy_home_yard_courses/garden/stage_key_art.png"
+dest_files=["res://.godot/imported/stage_key_art.png-ca6821c6409f17fb5205d95795c5ad45.ctex"]
 
 [params]
 

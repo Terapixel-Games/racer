@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cstx3v2eijlvp"
-path="res://.godot/imported/racer_house_yard_concept_floor_plan.png-92449ca52df31565fd0a011ee546ecf3.ctex"
+uid="uid://dabd84swlxdab"
+path="res://.godot/imported/stage_key_art.png-93850d2a0ca98f034203162355448e38.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://docs/concepts/floor_plans/racer_house_yard_concept_floor_plan.png"
-dest_files=["res://.godot/imported/racer_house_yard_concept_floor_plan.png-92449ca52df31565fd0a011ee546ecf3.ctex"]
+source_file="res://docs/story_bible/concepts/stages/legacy_home_yard_courses/kitchen/stage_key_art.png"
+dest_files=["res://.godot/imported/stage_key_art.png-93850d2a0ca98f034203162355448e38.ctex"]
 
 [params]
 

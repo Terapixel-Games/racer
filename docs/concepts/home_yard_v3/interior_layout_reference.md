@@ -6,12 +6,12 @@ The interior should explain the house layout clearly: main floor public rooms, u
 
 ## Reference Images Or Links
 
-- `res://docs/concepts/floor_plans/racer_house_yard_concept_floor_plan.png`
-- `res://assets/gameplay/tracks/kitchen/stage_concept.md`
-- `res://assets/gameplay/tracks/playroom/stage_concept.md`
-- `res://assets/gameplay/tracks/bedroom/stage_concept.md`
-- `res://assets/gameplay/tracks/glam_closet/stage_concept.md`
-- `res://assets/gameplay/tracks/attic/stage_concept.md`
+- `res://docs/story_bible/concepts/floor_plans/racer_house_yard_concept_floor_plan.png`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/kitchen/stage_concept.md`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/playroom/stage_concept.md`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/bedroom/stage_concept.md`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/glam_closet/stage_concept.md`
+- `res://docs/story_bible/concepts/stages/legacy_home_yard_courses/attic/stage_concept.md`
 
 ## Shape Language
 
