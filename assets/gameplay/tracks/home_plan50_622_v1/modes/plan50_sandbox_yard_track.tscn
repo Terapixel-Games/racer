@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/track/TrackRuntimeScene.gd" id="1_u42xt"]
+[ext_resource type="Resource" path="res://assets/gameplay/tracks/home_plan50_622_v1/modes/plan50_sandbox_yard_track_definition.tres" id="2_8stk7"]
+
+[node name="Plan50SandboxYardHomePlan50622Track" type="Node3D"]
+script = ExtResource("1_u42xt")
+definition = ExtResource("2_8stk7")

@@ -1,0 +1,199 @@
+[gd_resource type="Resource" script_class="TrackMapDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/track/TrackMapDefinition.gd" id="1_vhikk"]
+
+[resource]
+script = ExtResource("1_vhikk")
+id = "home_plan50_622_v1"
+display_name = "Plan 50-622 Modern Farmhouse"
+version = "home_plan50_622_floorplan_v1_2026_05_17"
+map_scene_path = "res://assets/gameplay/tracks/home_plan50_622_v1/home_plan50_622_v1_map.tscn"
+default_mode_id = "plan50_kitchen"
+mode_configs = {
+"plan50_bedroom_wing": {
+"definition_path": "res://assets/gameplay/tracks/home_plan50_622_v1/modes/plan50_bedroom_wing_track_definition.tres",
+"display_name": "Plan 50 Bedroom Wing",
+"ground_color": Color(0.46, 0.55, 0.38, 1),
+"ground_size": Vector2(420, 420),
+"id": "plan50_bedroom_wing",
+"kind": "race",
+"laps": 3,
+"map_scene_path": "res://assets/gameplay/tracks/home_plan50_622_v1/home_plan50_622_v1_map.tscn",
+"metadata_path": "res://assets/gameplay/tracks/home_plan50_622_v1/modes/plan50_bedroom_wing_track_metadata.json",
+"owner_character": "Tuggs",
+"owner_zone": "bedroom_wing",
+"reset_mode": "instant_pop",
+"road_source": "road_grid_map",
+"road_visual_style": "kenney_gridmap",
+"road_width": 16.0,
+"runtime_scene_path": "res://assets/gameplay/tracks/home_plan50_622_v1/modes/plan50_bedroom_wing_track.tscn",
+"scale_class": "room_furnishing",
+"sky_preset_id": "soft_morning",
+"validation_camera": "Plan50BedroomWingStartPlayerCamera",
+"version": "home_plan50_622_floorplan_v1_2026_05_17"
+},
+"plan50_bonus_storage": {
+"definition_path": "res://assets/gameplay/tracks/home_plan50_622_v1/modes/plan50_bonus_storage_track_definition.tres",
+"display_name": "Plan 50 Bonus Storage",
+"ground_color": Color(0.46, 0.55, 0.38, 1),
+"ground_size": Vector2(420, 420),
+"id": "plan50_bonus_storage",
+"kind": "race",
+"laps": 3,
+"map_scene_path": "res://assets/gameplay/tracks/home_plan50_622_v1/home_plan50_622_v1_map.tscn",
+"metadata_path": "res://assets/gameplay/tracks/home_plan50_622_v1/modes/plan50_bonus_storage_track_metadata.json",
+"owner_character": "Popper",
+"owner_zone": "bonus_room_attic_storage_prank_space",
+"reset_mode": "instant_pop",
+"road_source": "road_grid_map",
+"road_visual_style": "kenney_gridmap",
+"road_width": 16.0,
+"runtime_scene_path": "res://assets/gameplay/tracks/home_plan50_622_v1/modes/plan50_bonus_storage_track.tscn",
+"scale_class": "room_furnishing",
+"sky_preset_id": "party_evening",
+"validation_camera": "Plan50BonusStorageStartPlayerCamera",
+"version": "home_plan50_622_floorplan_v1_2026_05_17"
+},
+"plan50_garage": {
+"definition_path": "res://assets/gameplay/tracks/home_plan50_622_v1/modes/plan50_garage_track_definition.tres",
+"display_name": "Plan 50 Garage",
+"ground_color": Color(0.46, 0.55, 0.38, 1),
+"ground_size": Vector2(420, 420),
+"id": "plan50_garage",
+"kind": "race",
+"laps": 3,
+"map_scene_path": "res://assets/gameplay/tracks/home_plan50_622_v1/home_plan50_622_v1_map.tscn",
+"metadata_path": "res://assets/gameplay/tracks/home_plan50_622_v1/modes/plan50_garage_track_metadata.json",
+"owner_character": "Dash",
+"owner_zone": "garage_service_driveway_stunt_route",
+"reset_mode": "instant_pop",
+"road_source": "road_grid_map",
+"road_visual_style": "kenney_gridmap",
+"road_width": 16.0,
+"runtime_scene_path": "res://assets/gameplay/tracks/home_plan50_622_v1/modes/plan50_garage_track.tscn",
+"scale_class": "room_furnishing",
+"sky_preset_id": "clear_afternoon",
+"validation_camera": "Plan50GarageStartPlayerCamera",
+"version": "home_plan50_622_floorplan_v1_2026_05_17"
+},
+"plan50_great_room": {
+"definition_path": "res://assets/gameplay/tracks/home_plan50_622_v1/modes/plan50_great_room_track_definition.tres",
+"display_name": "Plan 50 Great Room",
+"ground_color": Color(0.46, 0.55, 0.38, 1),
+"ground_size": Vector2(420, 420),
+"id": "plan50_great_room",
+"kind": "race",
+"laps": 3,
+"map_scene_path": "res://assets/gameplay/tracks/home_plan50_622_v1/home_plan50_622_v1_map.tscn",
+"metadata_path": "res://assets/gameplay/tracks/home_plan50_622_v1/modes/plan50_great_room_track_metadata.json",
+"owner_character": "Slammo",
+"owner_zone": "great_room",
+"reset_mode": "instant_pop",
+"road_source": "road_grid_map",
+"road_visual_style": "kenney_gridmap",
+"road_width": 16.0,
+"runtime_scene_path": "res://assets/gameplay/tracks/home_plan50_622_v1/modes/plan50_great_room_track.tscn",
+"scale_class": "room_furnishing",
+"sky_preset_id": "soft_morning",
+"validation_camera": "Plan50GreatRoomStartPlayerCamera",
+"version": "home_plan50_622_floorplan_v1_2026_05_17"
+},
+"plan50_kitchen": {
+"definition_path": "res://assets/gameplay/tracks/home_plan50_622_v1/modes/plan50_kitchen_track_definition.tres",
+"display_name": "Plan 50 Kitchen",
+"ground_color": Color(0.46, 0.55, 0.38, 1),
+"ground_size": Vector2(420, 420),
+"id": "plan50_kitchen",
+"kind": "race",
+"laps": 3,
+"map_scene_path": "res://assets/gameplay/tracks/home_plan50_622_v1/home_plan50_622_v1_map.tscn",
+"metadata_path": "res://assets/gameplay/tracks/home_plan50_622_v1/modes/plan50_kitchen_track_metadata.json",
+"owner_character": "Sir Clink",
+"owner_zone": "kitchen",
+"reset_mode": "instant_pop",
+"road_source": "road_grid_map",
+"road_visual_style": "kenney_gridmap",
+"road_width": 16.0,
+"runtime_scene_path": "res://assets/gameplay/tracks/home_plan50_622_v1/modes/plan50_kitchen_track.tscn",
+"scale_class": "room_furnishing",
+"sky_preset_id": "noon_clear",
+"validation_camera": "Plan50KitchenStartPlayerCamera",
+"version": "home_plan50_622_floorplan_v1_2026_05_17"
+},
+"plan50_master_suite": {
+"definition_path": "res://assets/gameplay/tracks/home_plan50_622_v1/modes/plan50_master_suite_track_definition.tres",
+"display_name": "Plan 50 Master Suite",
+"ground_color": Color(0.46, 0.55, 0.38, 1),
+"ground_size": Vector2(420, 420),
+"id": "plan50_master_suite",
+"kind": "race",
+"laps": 3,
+"map_scene_path": "res://assets/gameplay/tracks/home_plan50_622_v1/home_plan50_622_v1_map.tscn",
+"metadata_path": "res://assets/gameplay/tracks/home_plan50_622_v1/modes/plan50_master_suite_track_metadata.json",
+"owner_character": "Velva",
+"owner_zone": "master_suite_plus_walk_in_closet",
+"reset_mode": "instant_pop",
+"road_source": "road_grid_map",
+"road_visual_style": "kenney_gridmap",
+"road_width": 16.0,
+"runtime_scene_path": "res://assets/gameplay/tracks/home_plan50_622_v1/modes/plan50_master_suite_track.tscn",
+"scale_class": "room_furnishing",
+"sky_preset_id": "soft_morning",
+"validation_camera": "Plan50MasterSuiteStartPlayerCamera",
+"version": "home_plan50_622_floorplan_v1_2026_05_17"
+},
+"plan50_rear_porch": {
+"definition_path": "res://assets/gameplay/tracks/home_plan50_622_v1/modes/plan50_rear_porch_track_definition.tres",
+"display_name": "Plan 50 Rear Porch",
+"ground_color": Color(0.46, 0.55, 0.38, 1),
+"ground_size": Vector2(420, 420),
+"id": "plan50_rear_porch",
+"kind": "race",
+"laps": 3,
+"map_scene_path": "res://assets/gameplay/tracks/home_plan50_622_v1/home_plan50_622_v1_map.tscn",
+"metadata_path": "res://assets/gameplay/tracks/home_plan50_622_v1/modes/plan50_rear_porch_track_metadata.json",
+"owner_character": "Moko",
+"owner_zone": "garden_patio",
+"reset_mode": "instant_pop",
+"road_source": "road_grid_map",
+"road_visual_style": "kenney_gridmap",
+"road_width": 16.0,
+"runtime_scene_path": "res://assets/gameplay/tracks/home_plan50_622_v1/modes/plan50_rear_porch_track.tscn",
+"scale_class": "yard_site",
+"sky_preset_id": "clear_afternoon",
+"validation_camera": "Plan50RearPorchStartPlayerCamera",
+"version": "home_plan50_622_floorplan_v1_2026_05_17"
+},
+"plan50_sandbox_yard": {
+"definition_path": "res://assets/gameplay/tracks/home_plan50_622_v1/modes/plan50_sandbox_yard_track_definition.tres",
+"display_name": "Plan 50 Sandbox Yard",
+"ground_color": Color(0.46, 0.55, 0.38, 1),
+"ground_size": Vector2(420, 420),
+"id": "plan50_sandbox_yard",
+"kind": "race",
+"laps": 3,
+"map_scene_path": "res://assets/gameplay/tracks/home_plan50_622_v1/home_plan50_622_v1_map.tscn",
+"metadata_path": "res://assets/gameplay/tracks/home_plan50_622_v1/modes/plan50_sandbox_yard_track_metadata.json",
+"owner_character": "Rexx",
+"owner_zone": "sandbox_fossil_play_yard",
+"reset_mode": "instant_pop",
+"road_source": "road_grid_map",
+"road_visual_style": "kenney_gridmap",
+"road_width": 16.0,
+"runtime_scene_path": "res://assets/gameplay/tracks/home_plan50_622_v1/modes/plan50_sandbox_yard_track.tscn",
+"scale_class": "yard_site",
+"sky_preset_id": "clear_afternoon",
+"validation_camera": "Plan50SandboxYardStartPlayerCamera",
+"version": "home_plan50_622_floorplan_v1_2026_05_17"
+}
+}
+sky_preset_id = "clear_afternoon"
+sky_weather = "clear"
+sky_top_color = Color(0.52, 0.74, 0.96, 1)
+sky_horizon_color = Color(0.78, 0.88, 0.96, 1)
+sky_cloud_amount = 0.18
+sky_cloud_speed = 0.015
+sky_haze_amount = 0.12
+sky_light_energy = 2.45
+ground_size = Vector2(420, 420)
+ground_color = Color(0.46, 0.55, 0.38, 1)

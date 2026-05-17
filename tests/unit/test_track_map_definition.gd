@@ -24,6 +24,8 @@ const HOME_YARD_MAP_SCENE := "res://assets/gameplay/tracks/home_yard_v3/home_yar
 const HOME_ESTATE_MAP_ID := "home_estate_v1"
 const HOME_ESTATE_MAP_SCENE := "res://assets/gameplay/tracks/home_estate_v1/home_estate_v1_map.tscn"
 const HOME_ESTATE_VISIBLE_SHELL := "res://assets/gameplay/tracks/home_estate_v1/meshes/modern_farmhouse_shell.glb"
+const HOME_PLAN50_MAP_ID := "home_plan50_622_v1"
+const HOME_PLAN50_MAP_SCENE := "res://assets/gameplay/tracks/home_plan50_622_v1/home_plan50_622_v1_map.tscn"
 const HOME_ESTATE_SHELL_REVIEW_DIR := "res://docs/concepts/home_estate_v1/reference_frames/modern_farmhouse_38_526/blender_shell_angles"
 const HOME_ESTATE_ROOF_TRIM_AUDIT := "%s/roof_trim_seam_audit.json" % HOME_ESTATE_SHELL_REVIEW_DIR
 const HOME_ESTATE_GABLE_POINT_AUDIT := "%s/gable_rake_point_closure_audit.json" % HOME_ESTATE_SHELL_REVIEW_DIR
@@ -95,6 +97,17 @@ const HOME_ESTATE_MODE_OWNERS := {
 	"estate_sandbox_yard": {"owner": "Rexx", "zone": "sandbox_fossil_play_yard", "scale": "yard_site", "camera": "EstateSandboxYardStartPlayerCamera"},
 	"estate_upper_loft": {"owner": "Popper", "zone": "bonus_room_attic_storage_prank_space", "scale": "room_furnishing", "camera": "EstateUpperLoftStartPlayerCamera"},
 }
+
+const HOME_PLAN50_MODE_IDS := [
+	"plan50_bedroom_wing",
+	"plan50_bonus_storage",
+	"plan50_garage",
+	"plan50_great_room",
+	"plan50_kitchen",
+	"plan50_master_suite",
+	"plan50_rear_porch",
+	"plan50_sandbox_yard",
+]
 
 func test_kitchen_map_definition_exposes_race_mode() -> void:
 	var map_definition := TrackCatalog.get_map_definition("kitchen")
@@ -249,6 +262,59 @@ func test_home_estate_map_uses_user_floor_plan_scaffold() -> void:
 		assert_true(FileAccess.file_exists("%s/%s" % [HOME_ESTATE_SHELL_REVIEW_DIR, review_name]), "Home Estate shell should keep roof-wall edge review render %s" % review_name)
 	for review_name in HOME_ESTATE_ENVELOPE_CLASH_REVIEW_RENDERS:
 		assert_true(FileAccess.file_exists("%s/%s" % [HOME_ESTATE_SHELL_REVIEW_DIR, review_name]), "Home Estate shell should keep envelope clash review render %s" % review_name)
+
+func test_home_plan50_map_uses_separate_one_story_canvas_reference() -> void:
+	var map_definition := TrackCatalog.get_map_definition(HOME_PLAN50_MAP_ID)
+	assert_true(map_definition is TrackMapDefinition, "Plan 50-622 map should load as a separate track map definition")
+	if map_definition == null:
+		return
+	assert_equal(map_definition.id, HOME_PLAN50_MAP_ID, "Plan 50-622 map id should be stable")
+	assert_equal(map_definition.map_scene_path, HOME_PLAN50_MAP_SCENE, "Plan 50-622 should own a separate generated scene")
+	assert_equal(map_definition.default_mode_id, "plan50_kitchen", "Plan 50-622 should default to its own kitchen mode")
+	assert_equal(map_definition.list_mode_ids(), HOME_PLAN50_MODE_IDS, "Plan 50-622 should expose its own eight territory modes")
+	var packed := load(HOME_PLAN50_MAP_SCENE) as PackedScene
+	assert_true(packed != null, "Plan 50-622 generated map scene should load")
+	if packed == null:
+		return
+	var root := packed.instantiate()
+	assert_true(root != null, "Plan 50-622 generated map scene should instantiate")
+	if root == null:
+		return
+	var contract: Dictionary = root.get_meta("floor_plan_contract", {})
+	assert_equal(str(contract.get("source", "")), "monster_house_plans_plan_50_622_user_canvas_reference", "Plan 50-622 should record the Monster/canvas source")
+	assert_equal(int(contract.get("stories", 0)), 1, "Plan 50-622 should stay a one-story home")
+	assert_equal(int(contract.get("main_floor_area_sqft", 0)), 3250, "Plan 50-622 should record 3250 sq ft")
+	assert_equal(str(contract.get("source_url", "")), "https://www.monsterhouseplans.com/house-plans/modern-farmhouse-style/3250-sq-ft-home-1-story-4-bedroom-3-bath-house-plans-plan50-622/", "Plan 50-622 should record the supplied source URL")
+	assert_true(str(contract.get("style_reference", "")).contains("Plan 50-622"), "Plan 50-622 should not inherit the old 38-526 reference")
+	assert_equal(str(root.get_meta("character_zone_mapping_path", "")), "res://docs/story_bible/concepts/stages/home_plan50_622_v1_character_mapping.md", "Plan 50-622 should use its own stage mapping path")
+	assert_true(root.get_node_or_null("UpperFloor") == null, "Plan 50-622 should not generate the old two-story UpperFloor holder")
+	for holder_name in ["Site", "Foundation", "ExteriorShell", "Roof", "Openings", "MainFloor", "AtticStorage", "Basement", "PatioPool", "YardZones", "VerticalConnectors", "CourseRoutes", "ValidationCameras"]:
+		assert_true(root.get_node_or_null(holder_name) != null, "Plan 50-622 scene should include holder %s" % holder_name)
+	for room_path in [
+		"MainFloor/SideEntryThreeCarGarage",
+		"MainFloor/FormalDiningWetBar",
+		"MainFloor/KitchenDining",
+		"MainFloor/SculleryPantry",
+		"MainFloor/GreatRoom",
+		"MainFloor/BedroomWing",
+		"MainFloor/MasterSuite",
+		"MainFloor/RearCoveredPorchOutdoorKitchen",
+		"AtticStorage/BonusAtticStorage",
+	]:
+		assert_true(root.get_node_or_null(room_path) != null, "Plan 50-622 scene should include floor-plan node %s" % room_path)
+	var visible_meshes: Array[MeshInstance3D] = []
+	_collect_generated_visible_meshes(root, visible_meshes)
+	assert_true(visible_meshes.size() > 0, "Plan 50-622 should expose visible generated meshes for provenance audit")
+	for mesh in visible_meshes:
+		assert_true(_has_required_home_estate_provenance(mesh), "Plan 50-622 visible generated mesh %s should carry provenance metadata" % str(root.get_path_to(mesh)))
+	for mode_id in HOME_PLAN50_MODE_IDS:
+		var definition := TrackCatalog.get_mode_definition(HOME_PLAN50_MAP_ID, mode_id)
+		assert_true(definition is TrackDefinition, "%s should load through the Plan 50-622 map" % mode_id)
+		if definition == null:
+			continue
+		assert_equal(str(definition.get_meta("track_map_id", "")), HOME_PLAN50_MAP_ID, "%s should resolve through home_plan50_622_v1" % mode_id)
+		assert_equal(definition.dressing_scene_path, HOME_PLAN50_MAP_SCENE, "%s should use the separate Plan 50-622 scene" % mode_id)
+		assert_equal(definition.validate(), [], "%s Plan 50-622 definition should validate" % mode_id)
 	root.queue_free()
 
 func test_home_estate_roof_trim_seam_audit_blocks_uncontracted_edges() -> void:

@@ -9,6 +9,14 @@
 			"map_scene_path": "res://assets/gameplay/tracks/home_estate_v1/home_estate_v1_map.tscn",
 			"version": "home_estate_floorplan_v1_2026_05_13"
 		},
+		"home_plan50_622_v1": {
+			"default_mode_id": "plan50_kitchen",
+			"display_name": "Plan 50-622 Modern Farmhouse",
+			"id": "home_plan50_622_v1",
+			"map_definition_path": "res://assets/gameplay/tracks/home_plan50_622_v1/home_plan50_622_v1_track_map.tres",
+			"map_scene_path": "res://assets/gameplay/tracks/home_plan50_622_v1/home_plan50_622_v1_map.tscn",
+			"version": "home_plan50_622_floorplan_v1_2026_05_17"
+		},
 		"home_yard_v3": {
 			"default_mode_id": "kitchen",
 			"display_name": "Racer House + Yard",

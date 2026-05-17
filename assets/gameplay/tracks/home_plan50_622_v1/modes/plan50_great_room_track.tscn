@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/track/TrackRuntimeScene.gd" id="1_bjof1"]
+[ext_resource type="Resource" path="res://assets/gameplay/tracks/home_plan50_622_v1/modes/plan50_great_room_track_definition.tres" id="2_gmiwq"]
+
+[node name="Plan50GreatRoomHomePlan50622Track" type="Node3D"]
+script = ExtResource("1_bjof1")
+definition = ExtResource("2_gmiwq")

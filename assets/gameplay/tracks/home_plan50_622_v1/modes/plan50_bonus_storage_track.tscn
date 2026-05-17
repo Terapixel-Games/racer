@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/track/TrackRuntimeScene.gd" id="1_5iej5"]
+[ext_resource type="Resource" path="res://assets/gameplay/tracks/home_plan50_622_v1/modes/plan50_bonus_storage_track_definition.tres" id="2_wnxop"]
+
+[node name="Plan50BonusStorageHomePlan50622Track" type="Node3D"]
+script = ExtResource("1_5iej5")
+definition = ExtResource("2_wnxop")
