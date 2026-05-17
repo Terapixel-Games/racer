@@ -287,6 +287,9 @@ func test_home_plan50_map_uses_separate_one_story_canvas_reference() -> void:
 	assert_equal(str(contract.get("source_url", "")), "https://www.monsterhouseplans.com/house-plans/modern-farmhouse-style/3250-sq-ft-home-1-story-4-bedroom-3-bath-house-plans-plan50-622/", "Plan 50-622 should record the supplied source URL")
 	assert_true(str(contract.get("style_reference", "")).contains("Plan 50-622"), "Plan 50-622 should not inherit the old 38-526 reference")
 	assert_true((contract.get("reference_screenshot_urls", []) as Array).size() >= 4, "Plan 50-622 should retain URL references to the page screenshot evidence without vendoring copyrighted images")
+	var elevation_contract: Dictionary = contract.get("elevation_contract", {})
+	for elevation_name in ["front", "rear", "left", "right"]:
+		assert_true((elevation_contract.get(elevation_name, []) as Array).size() > 0, "Plan 50-622 should record a %s elevation contract" % elevation_name)
 	assert_equal(str(root.get_meta("character_zone_mapping_path", "")), "res://docs/story_bible/concepts/stages/home_plan50_622_v1_character_mapping.md", "Plan 50-622 should use its own stage mapping path")
 	assert_true(root.get_node_or_null("UpperFloor") == null, "Plan 50-622 should not generate the old two-story UpperFloor holder")
 	for holder_name in ["Site", "Foundation", "ExteriorShell", "Roof", "Openings", "MainFloor", "AtticStorage", "Basement", "PatioPool", "YardZones", "VerticalConnectors", "CourseRoutes", "ValidationCameras"]:
@@ -315,13 +318,26 @@ func test_home_plan50_map_uses_separate_one_story_canvas_reference() -> void:
 		"Openings/Plan50CenterGreatRoomTallWindowGroupGlass",
 		"Openings/Plan50RightBedroomFrontWindowGroupGlass",
 		"Openings/Plan50RecessedFrontDoorBlackPanel",
+		"Openings/Plan50FrontSingleGarageDoorPanel",
 		"Openings/Plan50LargeSideEntryGarageDoorAPanel",
 		"Openings/Plan50LargeSideEntryGarageDoorBPanel",
-		"Openings/Plan50SingleSideEntryGarageDoorPanel",
 		"Roof/Plan50FrontLeftMasterStreetGableLeftRoofPlane",
 		"Roof/Plan50FrontCenterGreatRoomStreetGableLeftRoofPlane",
 		"Roof/Plan50FrontRightBedroomStreetGableLeftRoofPlane",
 		"Roof/Plan50RecessedEntryMetalShedRoofFrontRoofPlane",
+		"Openings/Plan50RearPorchLeftDoorWindowGroupGlass",
+		"Openings/Plan50RearPorchCenterDoorWindowGroupGlass",
+		"Openings/Plan50RearPorchKitchenWindowGroupGlass",
+		"Openings/Plan50RearRightBedroomGableWindowGroupGlass",
+		"ExteriorShell/RearElevationEndPost-54",
+		"ExteriorShell/RearElevationEndPost126",
+		"Openings/Plan50LeftServiceDoorAGlass",
+		"Openings/Plan50LeftServiceDoorBGlass",
+		"Openings/Plan50LeftServiceTallWindowGlass",
+		"Openings/Plan50RightSideSmallHorizontalWindowGlass",
+		"Openings/Plan50RightSideTallWindowAGlass",
+		"Openings/Plan50RightSideTallWindowBGlass",
+		"ExteriorShell/RightElevationDominantGableFace",
 	]:
 		assert_true(root.get_node_or_null(facade_path) != null, "Plan 50-622 scene should include reference-critical facade node %s" % facade_path)
 	var visible_meshes: Array[MeshInstance3D] = []

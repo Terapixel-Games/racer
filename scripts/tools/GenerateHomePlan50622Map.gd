@@ -50,7 +50,13 @@ const PLAN_CONTRACT := {
 		"attic_storage": ["bonus_attic_storage_prank_space"],
 		"basement": ["basement_shell", "unexcavated_zones"]
 	},
-	"style_reference": "Monster House Plans Plan 50-622 modern farmhouse reference: one-story, four-bedroom, 3.5-bath, 105 ft wide by 61 ft 10 in deep, side-entry three-car garage split into two garage masses at the left service edge, three dominant street-facing gables, recessed front porch/foyer between center and right gables, grouped black-framed windows, dark metal shed-roof accents, 44 ft rear porch with outdoor kitchen, central great room/kitchen/scullery/pantry/wet-bar core, 12:12 primary roof and 4:12 secondary roof.",
+	"style_reference": "Monster House Plans Plan 50-622 modern farmhouse reference: one-story, four-bedroom, 3.5-bath, 105 ft wide by 61 ft 10 in deep, side-entry three-car garage split into two left service masses, one front-facing single garage door at far left, two large left-elevation garage doors, three dominant street-facing gables, recessed front porch/foyer between center and right gables, grouped black-framed windows, dark metal shed-roof accents, 44 ft rear porch with outdoor kitchen, central great room/kitchen/scullery/pantry/wet-bar core, 12:12 primary roof and 4:12 secondary roof.",
+	"elevation_contract": {
+		"front": ["single_front_garage_door_far_left", "left_master_gable_window_group", "center_great_room_gable_window_group", "recessed_entry_porch", "front_dormer_window", "right_bedroom_gable_window_group"],
+		"rear": ["long_rear_porch", "rear_porch_posts", "rear_door_window_groups", "right_rear_gable_window_group"],
+		"left": ["two_side_entry_garage_doors", "left_service_man_doors", "left_service_window", "left_side_roof_gables"],
+		"right": ["dominant_right_gable", "right_side_small_horizontal_window", "right_side_tall_window_pair"],
+	},
 	"reference_screenshot_urls": [
 		"https://s3-us-west-2.amazonaws.com/prod.monsterhouseplans.com/uploads/images_plans/50/50-622/50-622e.webp",
 		"https://s3-us-west-2.amazonaws.com/prod.monsterhouseplans.com/uploads/images_plans/50/50-622/50-622p1.webp",
@@ -636,12 +642,20 @@ func _add_farmhouse_exterior_details(root: Node3D, shell: Node3D, openings: Node
 	_add_framed_window_z(root, openings, "Plan50LeftGableSlotWindow", Vector3(-122, 58, 123.8), Vector3(12, 20, 2.0))
 	_add_framed_window_z(root, openings, "Plan50CenterGableSlotWindow", Vector3(-8, 64, 123.8), Vector3(12, 20, 2.0))
 	_add_framed_window_z(root, openings, "Plan50RightGableSlotWindow", Vector3(142, 58, 123.8), Vector3(12, 20, 2.0))
-	_add_framed_window_z(root, openings, "Plan50RearGreatRoomDoorWall", Vector3(38, 23, -121.5), Vector3(74, 30, 2.0))
-	_add_framed_window_x(root, openings, "Plan50BedroomWingSideWindowStack", Vector3(197.5, 24, -28), Vector3(2.0, 28, 40))
+	_add_framed_window_z(root, openings, "Plan50RearPorchLeftDoorWindowGroup", Vector3(-54, 23, -121.5), Vector3(44, 30, 2.0))
+	_add_framed_window_z(root, openings, "Plan50RearPorchCenterDoorWindowGroup", Vector3(22, 23, -121.5), Vector3(64, 30, 2.0))
+	_add_framed_window_z(root, openings, "Plan50RearPorchKitchenWindowGroup", Vector3(82, 22, -121.5), Vector3(38, 24, 2.0))
+	_add_framed_window_z(root, openings, "Plan50RearRightBedroomGableWindowGroup", Vector3(150, 23, -99.5), Vector3(38, 28, 2.0))
+	_add_framed_window_x(root, openings, "Plan50LeftServiceDoorA", Vector3(-209.5, 18, -64), Vector3(2.5, 30, 14))
+	_add_framed_window_x(root, openings, "Plan50LeftServiceDoorB", Vector3(-209.5, 18, -8), Vector3(2.5, 30, 14))
+	_add_framed_window_x(root, openings, "Plan50LeftServiceTallWindow", Vector3(-209.5, 22, -110), Vector3(2.0, 26, 18))
+	_add_framed_window_x(root, openings, "Plan50RightSideSmallHorizontalWindow", Vector3(197.5, 30, 42), Vector3(2.0, 10, 26))
+	_add_framed_window_x(root, openings, "Plan50RightSideTallWindowA", Vector3(197.5, 22, -8), Vector3(2.0, 28, 16))
+	_add_framed_window_x(root, openings, "Plan50RightSideTallWindowB", Vector3(197.5, 22, -54), Vector3(2.0, 28, 16))
 	_add_framed_window_x(root, openings, "Plan50MasterSideWindowStack", Vector3(-164.5, 24, -42), Vector3(2.0, 28, 40))
+	_add_garage_door_z(root, openings, "Plan50FrontSingleGarageDoor", Vector3(-180, 17, 125.5), Vector3(28, 28, 2.5))
 	_add_garage_door_x(root, openings, "Plan50LargeSideEntryGarageDoorA", Vector3(-209.5, 17, 10), Vector3(2.5, 28, 34))
 	_add_garage_door_x(root, openings, "Plan50LargeSideEntryGarageDoorB", Vector3(-209.5, 17, 48), Vector3(2.5, 28, 34))
-	_add_garage_door_x(root, openings, "Plan50SingleSideEntryGarageDoor", Vector3(-209.5, 17, 92), Vector3(2.5, 28, 28))
 	_add_box(root, shell, "Plan50LeftWindowBlackMetalAwning", Vector3(-122, 40, 127), Vector3(52, 4, 8), Color(0.06, 0.07, 0.07), false)
 	_add_box(root, shell, "Plan50RecessedEntryBlackMetalShedRoof", Vector3(52, 42, 124), Vector3(86, 4, 28), Color(0.06, 0.07, 0.07), false)
 	for x in [16.0, 52.0, 88.0]:
@@ -650,6 +664,10 @@ func _add_farmhouse_exterior_details(root: Node3D, shell: Node3D, openings: Node
 	_add_box(root, shell, "FrontPorchRightReturnWall", Vector3(94, 22, 120), Vector3(4, 36, 34), Color(0.88, 0.86, 0.78), true)
 	for x in [8.0, 48.0, 88.0]:
 		_add_box(root, shell, "RearPorchColumn%s" % int(x), Vector3(x, 22, -124), Vector3(6, 44, 6), Color(0.88, 0.86, 0.78), true)
+	for x in [-54.0, 126.0]:
+		_add_box(root, shell, "RearElevationEndPost%s" % int(x), Vector3(x, 22, -124), Vector3(5, 44, 5), Color(0.88, 0.86, 0.78), true)
+	_add_box(root, shell, "RightElevationDominantGableFace", Vector3(197, 44, -12), Vector3(4, 44, 96), Color(0.90, 0.88, 0.80), false)
+	_add_box(root, shell, "LeftElevationServiceDoorPorchStep", Vector3(-214, 1.2, -64), Vector3(24, 2.4, 18), Color(0.62, 0.60, 0.56), false)
 	_add_box(root, shell, "BoardAndBattenFrontLeftBelt", Vector3(-122, 39, 126), Vector3(82, 4, 3), Color(0.92, 0.90, 0.84), false)
 	_add_box(root, shell, "BoardAndBattenFrontCenterBelt", Vector3(-8, 42, 126), Vector3(96, 4, 3), Color(0.92, 0.90, 0.84), false)
 	_add_box(root, shell, "BoardAndBattenFrontRightBelt", Vector3(142, 39, 126), Vector3(90, 4, 3), Color(0.92, 0.90, 0.84), false)
@@ -986,6 +1004,15 @@ func _add_garage_door_x(root: Node3D, parent: Node3D, node_name: String, positio
 	_add_box(root, parent, "%sSillShadow" % node_name, position + Vector3(-1.0, -size.y * 0.5 - 1.0, 0), Vector3(4, 2, size.z + 4), frame, false)
 	_add_box(root, parent, "%sFrontJambFrame" % node_name, position + Vector3(-1.0, 0, size.z * 0.5 + 1.5), Vector3(4, size.y + 4, 3), frame, false)
 	_add_box(root, parent, "%sRearJambFrame" % node_name, position + Vector3(-1.0, 0, -size.z * 0.5 - 1.5), Vector3(4, size.y + 4, 3), frame, false)
+
+func _add_garage_door_z(root: Node3D, parent: Node3D, node_name: String, position: Vector3, size: Vector3) -> void:
+	var panel := Color(0.82, 0.82, 0.78)
+	var frame := Color(0.04, 0.045, 0.045)
+	_add_box(root, parent, "%sPanel" % node_name, position, size, panel, false)
+	_add_box(root, parent, "%sHeaderFrame" % node_name, position + Vector3(0, size.y * 0.5 + 1.5, 1.0), Vector3(size.x + 4, 3, 4), frame, false)
+	_add_box(root, parent, "%sSillShadow" % node_name, position + Vector3(0, -size.y * 0.5 - 1.0, 1.0), Vector3(size.x + 4, 2, 4), frame, false)
+	_add_box(root, parent, "%sLeftJambFrame" % node_name, position + Vector3(-size.x * 0.5 - 1.5, 0, 1.0), Vector3(3, size.y + 4, 4), frame, false)
+	_add_box(root, parent, "%sRightJambFrame" % node_name, position + Vector3(size.x * 0.5 + 1.5, 0, 1.0), Vector3(3, size.y + 4, 4), frame, false)
 
 func _add_camera(root: Node3D, parent: Node3D, node_name: String, position: Vector3, rotation_degrees: Vector3, fov := 60.0) -> void:
 	var camera := Camera3D.new()
