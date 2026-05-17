@@ -340,6 +340,10 @@ func test_home_plan50_map_uses_separate_one_story_canvas_reference() -> void:
 		"ExteriorShell/RightElevationDominantGableFace",
 	]:
 		assert_true(root.get_node_or_null(facade_path) != null, "Plan 50-622 scene should include reference-critical facade node %s" % facade_path)
+	assert_true(root.get_node_or_null("Site/LeftOakCanopyReference") == null, "Plan 50-622 should not ship visible tree-canopy placeholder boxes in shell review screenshots")
+	assert_true(root.get_node_or_null("Site/RightOakCanopyReference") == null, "Plan 50-622 should not ship visible tree-canopy placeholder boxes in shell review screenshots")
+	var right_gable := root.get_node_or_null("ExteriorShell/RightElevationDominantGableFace") as MeshInstance3D
+	assert_true(right_gable != null and right_gable.mesh is ArrayMesh, "Plan 50-622 right elevation gable face should be triangular mesh geometry, not a rectangular patch box")
 	var visible_meshes: Array[MeshInstance3D] = []
 	_collect_generated_visible_meshes(root, visible_meshes)
 	assert_true(visible_meshes.size() > 0, "Plan 50-622 should expose visible generated meshes for provenance audit")

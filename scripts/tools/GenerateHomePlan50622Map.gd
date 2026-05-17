@@ -320,8 +320,6 @@ func _add_site(root: Node3D) -> void:
 	_add_box(root, site, "RecessedEntryWalkLanding", Vector3(30, -0.30, 104), Vector3(58, 1, 22), Color(0.72, 0.70, 0.64), true)
 	_add_box(root, site, "SideEntryDrivewayThreeCarApron", Vector3(-214, -0.35, 42), Vector3(84, 1, 188), Color(0.48, 0.48, 0.45), true)
 	_add_box(root, site, "FrontBoxwoodHedgeRun", Vector3(60, 1.2, 146), Vector3(250, 2.4, 8), Color(0.10, 0.28, 0.12), false)
-	_add_box(root, site, "LeftOakCanopyReference", Vector3(-184, 38, 150), Vector3(36, 76, 18), Color(0.16, 0.23, 0.12, 0.55), false)
-	_add_box(root, site, "RightOakCanopyReference", Vector3(184, 38, 148), Vector3(36, 76, 18), Color(0.16, 0.23, 0.12, 0.55), false)
 
 func _add_foundation(root: Node3D) -> void:
 	var foundation := root.get_node("Foundation") as Node3D
@@ -666,7 +664,7 @@ func _add_farmhouse_exterior_details(root: Node3D, shell: Node3D, openings: Node
 		_add_box(root, shell, "RearPorchColumn%s" % int(x), Vector3(x, 22, -124), Vector3(6, 44, 6), Color(0.88, 0.86, 0.78), true)
 	for x in [-54.0, 126.0]:
 		_add_box(root, shell, "RearElevationEndPost%s" % int(x), Vector3(x, 22, -124), Vector3(5, 44, 5), Color(0.88, 0.86, 0.78), true)
-	_add_box(root, shell, "RightElevationDominantGableFace", Vector3(197, 44, -12), Vector3(4, 44, 96), Color(0.90, 0.88, 0.80), false)
+	_add_gable_end_wall_z(root, shell, "RightElevationDominantGableFace", 197.0, -80.0, 56.0, 44.0, 86.0, Color(0.90, 0.88, 0.80))
 	_add_box(root, shell, "LeftElevationServiceDoorPorchStep", Vector3(-214, 1.2, -64), Vector3(24, 2.4, 18), Color(0.62, 0.60, 0.56), false)
 	_add_box(root, shell, "BoardAndBattenFrontLeftBelt", Vector3(-122, 39, 126), Vector3(82, 4, 3), Color(0.92, 0.90, 0.84), false)
 	_add_box(root, shell, "BoardAndBattenFrontCenterBelt", Vector3(-8, 42, 126), Vector3(96, 4, 3), Color(0.92, 0.90, 0.84), false)
