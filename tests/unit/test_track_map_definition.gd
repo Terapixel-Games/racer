@@ -286,12 +286,16 @@ func test_home_plan50_map_uses_separate_one_story_canvas_reference() -> void:
 	assert_equal(int(contract.get("main_floor_area_sqft", 0)), 3250, "Plan 50-622 should record 3250 sq ft")
 	assert_equal(str(contract.get("source_url", "")), "https://www.monsterhouseplans.com/house-plans/modern-farmhouse-style/3250-sq-ft-home-1-story-4-bedroom-3-bath-house-plans-plan50-622/", "Plan 50-622 should record the supplied source URL")
 	assert_true(str(contract.get("style_reference", "")).contains("Plan 50-622"), "Plan 50-622 should not inherit the old 38-526 reference")
+	assert_true((contract.get("reference_screenshot_urls", []) as Array).size() >= 4, "Plan 50-622 should retain URL references to the page screenshot evidence without vendoring copyrighted images")
 	assert_equal(str(root.get_meta("character_zone_mapping_path", "")), "res://docs/story_bible/concepts/stages/home_plan50_622_v1_character_mapping.md", "Plan 50-622 should use its own stage mapping path")
 	assert_true(root.get_node_or_null("UpperFloor") == null, "Plan 50-622 should not generate the old two-story UpperFloor holder")
 	for holder_name in ["Site", "Foundation", "ExteriorShell", "Roof", "Openings", "MainFloor", "AtticStorage", "Basement", "PatioPool", "YardZones", "VerticalConnectors", "CourseRoutes", "ValidationCameras"]:
 		assert_true(root.get_node_or_null(holder_name) != null, "Plan 50-622 scene should include holder %s" % holder_name)
 	for room_path in [
 		"MainFloor/SideEntryThreeCarGarage",
+		"MainFloor/SideEntryLargeGarageBay",
+		"MainFloor/SideEntrySingleGarageBay",
+		"MainFloor/Foyer",
 		"MainFloor/FormalDiningWetBar",
 		"MainFloor/KitchenDining",
 		"MainFloor/SculleryPantry",
@@ -302,6 +306,24 @@ func test_home_plan50_map_uses_separate_one_story_canvas_reference() -> void:
 		"AtticStorage/BonusAtticStorage",
 	]:
 		assert_true(root.get_node_or_null(room_path) != null, "Plan 50-622 scene should include floor-plan node %s" % room_path)
+	for facade_path in [
+		"ExteriorShell/Plan50FrontLeftMasterGableWall",
+		"ExteriorShell/Plan50FrontCenterGreatRoomGableWall",
+		"ExteriorShell/Plan50FrontRecessedEntryBackWall",
+		"ExteriorShell/Plan50FrontRightBedroomGableWall",
+		"Openings/Plan50LeftMasterFrontWindowGroupGlass",
+		"Openings/Plan50CenterGreatRoomTallWindowGroupGlass",
+		"Openings/Plan50RightBedroomFrontWindowGroupGlass",
+		"Openings/Plan50RecessedFrontDoorBlackPanel",
+		"Openings/Plan50LargeSideEntryGarageDoorAPanel",
+		"Openings/Plan50LargeSideEntryGarageDoorBPanel",
+		"Openings/Plan50SingleSideEntryGarageDoorPanel",
+		"Roof/Plan50FrontLeftMasterStreetGableLeftRoofPlane",
+		"Roof/Plan50FrontCenterGreatRoomStreetGableLeftRoofPlane",
+		"Roof/Plan50FrontRightBedroomStreetGableLeftRoofPlane",
+		"Roof/Plan50RecessedEntryMetalShedRoofFrontRoofPlane",
+	]:
+		assert_true(root.get_node_or_null(facade_path) != null, "Plan 50-622 scene should include reference-critical facade node %s" % facade_path)
 	var visible_meshes: Array[MeshInstance3D] = []
 	_collect_generated_visible_meshes(root, visible_meshes)
 	assert_true(visible_meshes.size() > 0, "Plan 50-622 should expose visible generated meshes for provenance audit")

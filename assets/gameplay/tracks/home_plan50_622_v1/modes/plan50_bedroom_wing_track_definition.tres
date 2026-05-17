@@ -28,153 +28,153 @@ road_grid_layout = {
 "item": 2,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-144, 0.6, -74)
+"position": Vector3(110, 0.6, -62)
 }, {
 "cell": Vector3i(-1, 0, -2),
 "item": 0,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-128, 0.6, -74)
+"position": Vector3(126, 0.6, -62)
 }, {
 "cell": Vector3i(0, 0, -2),
 "item": 0,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-112, 0.6, -74)
+"position": Vector3(142, 0.6, -62)
 }, {
 "cell": Vector3i(1, 0, -2),
 "item": 0,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-96, 0.6, -74)
+"position": Vector3(158, 0.6, -62)
 }, {
 "cell": Vector3i(2, 0, -2),
 "item": 0,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-80, 0.6, -74)
+"position": Vector3(174, 0.6, -62)
 }, {
 "cell": Vector3i(3, 0, -2),
 "item": 0,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-64, 0.6, -74)
+"position": Vector3(190, 0.6, -62)
 }, {
 "cell": Vector3i(4, 0, -2),
 "item": 1,
 "orientation": 22,
 "orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-48, 0.6, -74)
+"position": Vector3(206, 0.6, -62)
 }, {
 "cell": Vector3i(4, 0, -1),
 "item": 0,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-48, 0.6, -58)
+"position": Vector3(206, 0.6, -46)
 }, {
 "cell": Vector3i(4, 0, 0),
 "item": 0,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-48, 0.6, -42)
+"position": Vector3(206, 0.6, -30)
 }, {
 "cell": Vector3i(4, 0, 1),
 "item": 0,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-48, 0.6, -26)
+"position": Vector3(206, 0.6, -14)
 }, {
 "cell": Vector3i(4, 0, 2),
 "item": 1,
 "orientation": 10,
 "orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
-"position": Vector3(-48, 0.6, -10)
+"position": Vector3(206, 0.6, 2)
 }, {
 "cell": Vector3i(3, 0, 2),
 "item": 0,
 "orientation": 22,
 "orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-64, 0.6, -10)
+"position": Vector3(190, 0.6, 2)
 }, {
 "cell": Vector3i(2, 0, 2),
 "item": 0,
 "orientation": 22,
 "orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-80, 0.6, -10)
+"position": Vector3(174, 0.6, 2)
 }, {
 "cell": Vector3i(1, 0, 2),
 "item": 0,
 "orientation": 22,
 "orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-96, 0.6, -10)
+"position": Vector3(158, 0.6, 2)
 }, {
 "cell": Vector3i(0, 0, 2),
 "item": 0,
 "orientation": 22,
 "orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-112, 0.6, -10)
+"position": Vector3(142, 0.6, 2)
 }, {
 "cell": Vector3i(-1, 0, 2),
 "item": 0,
 "orientation": 22,
 "orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-128, 0.6, -10)
+"position": Vector3(126, 0.6, 2)
 }, {
 "cell": Vector3i(-2, 0, 2),
 "item": 0,
 "orientation": 22,
 "orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-144, 0.6, -10)
+"position": Vector3(110, 0.6, 2)
 }, {
 "cell": Vector3i(-3, 0, 2),
 "item": 1,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-160, 0.6, -10)
+"position": Vector3(94, 0.6, 2)
 }, {
 "cell": Vector3i(-3, 0, 1),
 "item": 0,
 "orientation": 10,
 "orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
-"position": Vector3(-160, 0.6, -26)
+"position": Vector3(94, 0.6, -14)
 }, {
 "cell": Vector3i(-3, 0, 0),
 "item": 0,
 "orientation": 10,
 "orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
-"position": Vector3(-160, 0.6, -42)
+"position": Vector3(94, 0.6, -30)
 }, {
 "cell": Vector3i(-3, 0, -1),
 "item": 0,
 "orientation": 10,
 "orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
-"position": Vector3(-160, 0.6, -58)
+"position": Vector3(94, 0.6, -46)
 }, {
 "cell": Vector3i(-3, 0, -2),
 "item": 0,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-160, 0.6, -74)
+"position": Vector3(94, 0.6, -62)
 }, {
 "cell": Vector3i(-3, 0, -2),
 "item": 0,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-160, 0.6, -74)
+"position": Vector3(94, 0.6, -62)
 }]),
 "checkpoint_route_indices": Array[int]([0, 4, 8, 12, 15, 19]),
 "hazard_route_indices": [],
 "item_route_indices": [],
 "mesh_library_path": "res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres",
 "ordered_route_cells": Array[Vector3i]([Vector3i(-2, 0, -2), Vector3i(-1, 0, -2), Vector3i(0, 0, -2), Vector3i(1, 0, -2), Vector3i(2, 0, -2), Vector3i(3, 0, -2), Vector3i(4, 0, -2), Vector3i(4, 0, -1), Vector3i(4, 0, 0), Vector3i(4, 0, 1), Vector3i(4, 0, 2), Vector3i(3, 0, 2), Vector3i(2, 0, 2), Vector3i(1, 0, 2), Vector3i(0, 0, 2), Vector3i(-1, 0, 2), Vector3i(-2, 0, 2), Vector3i(-3, 0, 2), Vector3i(-3, 0, 1), Vector3i(-3, 0, 0), Vector3i(-3, 0, -1), Vector3i(-3, 0, -2), Vector3i(-3, 0, -2)]),
-"ordered_route_points": Array[Vector3]([Vector3(-144, 0.6, -74), Vector3(-128, 0.6, -74), Vector3(-112, 0.6, -74), Vector3(-96, 0.6, -74), Vector3(-80, 0.6, -74), Vector3(-64, 0.6, -74), Vector3(-48, 0.6, -74), Vector3(-48, 0.6, -58), Vector3(-48, 0.6, -42), Vector3(-48, 0.6, -26), Vector3(-48, 0.6, -10), Vector3(-64, 0.6, -10), Vector3(-80, 0.6, -10), Vector3(-96, 0.6, -10), Vector3(-112, 0.6, -10), Vector3(-128, 0.6, -10), Vector3(-144, 0.6, -10), Vector3(-160, 0.6, -10), Vector3(-160, 0.6, -26), Vector3(-160, 0.6, -42), Vector3(-160, 0.6, -58), Vector3(-160, 0.6, -74), Vector3(-160, 0.6, -74)]),
-"origin": Vector3(-120, -1.4, -50),
+"ordered_route_points": Array[Vector3]([Vector3(110, 0.6, -62), Vector3(126, 0.6, -62), Vector3(142, 0.6, -62), Vector3(158, 0.6, -62), Vector3(174, 0.6, -62), Vector3(190, 0.6, -62), Vector3(206, 0.6, -62), Vector3(206, 0.6, -46), Vector3(206, 0.6, -30), Vector3(206, 0.6, -14), Vector3(206, 0.6, 2), Vector3(190, 0.6, 2), Vector3(174, 0.6, 2), Vector3(158, 0.6, 2), Vector3(142, 0.6, 2), Vector3(126, 0.6, 2), Vector3(110, 0.6, 2), Vector3(94, 0.6, 2), Vector3(94, 0.6, -14), Vector3(94, 0.6, -30), Vector3(94, 0.6, -46), Vector3(94, 0.6, -62), Vector3(94, 0.6, -62)]),
+"origin": Vector3(134, -1.4, -38),
 "owner_character": "Tuggs",
 "owner_zone": "bedroom_wing",
 "road_width": 16.0,
 "route_envelope": {
-"max": Vector3(-45, 11.6, 1),
-"min": Vector3(-179, -10.4, -85),
+"max": Vector3(209, 11.6, 13),
+"min": Vector3(75, -10.4, -73),
 "owner_character": "Tuggs",
 "owner_zone": "bedroom_wing",
 "route_clearance": "route_above_floor_inside_owner_zone_obstacle_and_chase_camera_clear",
@@ -241,9 +241,9 @@ sky_cloud_amount = 0.32
 sky_cloud_speed = 0.014
 sky_haze_amount = 0.1
 sky_light_energy = 2.05
-route_points = Array[Vector3]([Vector3(-144, 0.6, -74), Vector3(-128, 0.6, -74), Vector3(-112, 0.6, -74), Vector3(-96, 0.6, -74), Vector3(-80, 0.6, -74), Vector3(-64, 0.6, -74), Vector3(-48, 0.6, -74), Vector3(-48, 0.6, -58), Vector3(-48, 0.6, -42), Vector3(-48, 0.6, -26), Vector3(-48, 0.6, -10), Vector3(-64, 0.6, -10), Vector3(-80, 0.6, -10), Vector3(-96, 0.6, -10), Vector3(-112, 0.6, -10), Vector3(-128, 0.6, -10), Vector3(-144, 0.6, -10), Vector3(-160, 0.6, -10), Vector3(-160, 0.6, -26), Vector3(-160, 0.6, -42), Vector3(-160, 0.6, -58), Vector3(-160, 0.6, -74), Vector3(-160, 0.6, -74)])
+route_points = Array[Vector3]([Vector3(110, 0.6, -62), Vector3(126, 0.6, -62), Vector3(142, 0.6, -62), Vector3(158, 0.6, -62), Vector3(174, 0.6, -62), Vector3(190, 0.6, -62), Vector3(206, 0.6, -62), Vector3(206, 0.6, -46), Vector3(206, 0.6, -30), Vector3(206, 0.6, -14), Vector3(206, 0.6, 2), Vector3(190, 0.6, 2), Vector3(174, 0.6, 2), Vector3(158, 0.6, 2), Vector3(142, 0.6, 2), Vector3(126, 0.6, 2), Vector3(110, 0.6, 2), Vector3(94, 0.6, 2), Vector3(94, 0.6, -14), Vector3(94, 0.6, -30), Vector3(94, 0.6, -46), Vector3(94, 0.6, -62), Vector3(94, 0.6, -62)])
 checkpoint_indices = Array[int]([0, 4, 8, 12, 15, 19])
-spawn_points = Array[Vector4]([Vector4(-144, 1.4000001, -71.25, 270), Vector4(-144, 1.4000001, -76.75, 270), Vector4(-139, 1.4000001, -71.25, 270), Vector4(-139, 1.4000001, -76.75, 270), Vector4(-134, 1.4000001, -71.25, 270), Vector4(-134, 1.4000001, -76.75, 270), Vector4(-129, 1.4000001, -71.25, 270), Vector4(-129, 1.4000001, -76.75, 270)])
+spawn_points = Array[Vector4]([Vector4(110, 1.4000001, -59.25, 270), Vector4(110, 1.4000001, -64.75, 270), Vector4(115, 1.4000001, -59.25, 270), Vector4(115, 1.4000001, -64.75, 270), Vector4(120, 1.4000001, -59.25, 270), Vector4(120, 1.4000001, -64.75, 270), Vector4(125, 1.4000001, -59.25, 270), Vector4(125, 1.4000001, -64.75, 270)])
 metadata/track_map_id = "home_plan50_622_v1"
 metadata/track_mode_id = "plan50_bedroom_wing"
 metadata/track_mode_kind = "race"

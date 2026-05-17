@@ -46,11 +46,17 @@ const PLAN_CONTRACT := {
 	"roof_slope_primary": "12:12",
 	"roof_slope_secondary": "4:12",
 	"program": {
-		"main": ["side_entry_three_car_garage", "mudroom_service", "formal_dining", "kitchen_island", "scullery", "walk_in_pantry", "wet_bar", "great_room", "primary_suite", "secondary_bedroom_wing", "covered_front_porch", "covered_rear_porch", "outdoor_kitchen"],
+		"main": ["split_side_entry_garages", "mudroom_service", "formal_dining", "kitchen_island", "scullery", "walk_in_pantry", "wet_bar", "great_room", "foyer", "primary_suite", "secondary_bedroom_wing", "covered_front_porch", "covered_rear_porch", "outdoor_kitchen"],
 		"attic_storage": ["bonus_attic_storage_prank_space"],
 		"basement": ["basement_shell", "unexcavated_zones"]
 	},
-	"style_reference": "Monster House Plans Plan 50-622 modern farmhouse reference: one-story, four-bedroom, 3.5-bath, 105 ft wide by 61 ft 10 in deep, side-entry three-car garage, split bedroom wings, broad covered front and rear porches, 44 ft rear porch with outdoor kitchen, central great room/kitchen/scullery/pantry/wet-bar core, 12:12 primary roof and 4:12 secondary roof.",
+	"style_reference": "Monster House Plans Plan 50-622 modern farmhouse reference: one-story, four-bedroom, 3.5-bath, 105 ft wide by 61 ft 10 in deep, side-entry three-car garage split into two garage masses at the left service edge, three dominant street-facing gables, recessed front porch/foyer between center and right gables, grouped black-framed windows, dark metal shed-roof accents, 44 ft rear porch with outdoor kitchen, central great room/kitchen/scullery/pantry/wet-bar core, 12:12 primary roof and 4:12 secondary roof.",
+	"reference_screenshot_urls": [
+		"https://s3-us-west-2.amazonaws.com/prod.monsterhouseplans.com/uploads/images_plans/50/50-622/50-622e.webp",
+		"https://s3-us-west-2.amazonaws.com/prod.monsterhouseplans.com/uploads/images_plans/50/50-622/50-622p1.webp",
+		"https://s3-us-west-2.amazonaws.com/prod.monsterhouseplans.com/uploads/images_plans/50/50-622/50-622p2.webp",
+		"https://s3-us-west-2.amazonaws.com/prod.monsterhouseplans.com/uploads/images_plans/50/50-622/50-622m.webp",
+	],
 	"production_policy": "Generator-driven modern farmhouse baseline. Visible primitives are named architectural/furnishing stand-ins only until replaced by Kenney/Meshy/toybox; no plan labels or bare floor-plan diagram markers may ship.",
 }
 
@@ -105,8 +111,8 @@ const COURSES := [
 	{"id": "plan50_kitchen", "display_name": "Plan 50 Kitchen", "owner_character": "Sir Clink", "owner_zone": "kitchen", "scale_class": "room_furnishing", "validation_camera": "Plan50KitchenStartPlayerCamera", "placement": Vector3(-34, MAIN_FLOOR_Y + ROAD_FLOOR_CLEARANCE, 42), "sky": "noon_clear", "color": Color(0.92, 0.78, 0.55)},
 	{"id": "plan50_great_room", "display_name": "Plan 50 Great Room", "owner_character": "Slammo", "owner_zone": "great_room", "scale_class": "room_furnishing", "validation_camera": "Plan50GreatRoomStartPlayerCamera", "placement": Vector3(42, MAIN_FLOOR_Y + ROAD_FLOOR_CLEARANCE, -6), "sky": "soft_morning", "color": Color(0.76, 0.62, 0.55)},
 	{"id": "plan50_garage", "display_name": "Plan 50 Garage", "owner_character": "Dash", "owner_zone": "garage_service_driveway_stunt_route", "scale_class": "room_furnishing", "validation_camera": "Plan50GarageStartPlayerCamera", "placement": Vector3(-150, MAIN_FLOOR_Y + ROAD_FLOOR_CLEARANCE, 58), "sky": "clear_afternoon", "color": Color(0.58, 0.58, 0.54)},
-	{"id": "plan50_master_suite", "display_name": "Plan 50 Master Suite", "owner_character": "Velva", "owner_zone": "master_suite_plus_walk_in_closet", "scale_class": "room_furnishing", "validation_camera": "Plan50MasterSuiteStartPlayerCamera", "placement": Vector3(138, MAIN_FLOOR_Y + ROAD_FLOOR_CLEARANCE, -20), "sky": "soft_morning", "color": Color(0.62, 0.56, 0.68)},
-	{"id": "plan50_bedroom_wing", "display_name": "Plan 50 Bedroom Wing", "owner_character": "Tuggs", "owner_zone": "bedroom_wing", "scale_class": "room_furnishing", "validation_camera": "Plan50BedroomWingStartPlayerCamera", "placement": Vector3(-112, MAIN_FLOOR_Y + ROAD_FLOOR_CLEARANCE, -42), "sky": "soft_morning", "color": Color(0.60, 0.56, 0.70)},
+	{"id": "plan50_master_suite", "display_name": "Plan 50 Master Suite", "owner_character": "Velva", "owner_zone": "master_suite_plus_walk_in_closet", "scale_class": "room_furnishing", "validation_camera": "Plan50MasterSuiteStartPlayerCamera", "placement": Vector3(-116, MAIN_FLOOR_Y + ROAD_FLOOR_CLEARANCE, -42), "sky": "soft_morning", "color": Color(0.62, 0.56, 0.68)},
+	{"id": "plan50_bedroom_wing", "display_name": "Plan 50 Bedroom Wing", "owner_character": "Tuggs", "owner_zone": "bedroom_wing", "scale_class": "room_furnishing", "validation_camera": "Plan50BedroomWingStartPlayerCamera", "placement": Vector3(142, MAIN_FLOOR_Y + ROAD_FLOOR_CLEARANCE, -30), "sky": "soft_morning", "color": Color(0.60, 0.56, 0.70)},
 	{"id": "plan50_bonus_storage", "display_name": "Plan 50 Bonus Storage", "owner_character": "Popper", "owner_zone": "bonus_room_attic_storage_prank_space", "scale_class": "room_furnishing", "validation_camera": "Plan50BonusStorageStartPlayerCamera", "placement": Vector3(-146, ATTIC_STORAGE_Y + ROAD_FLOOR_CLEARANCE, -104), "sky": "party_evening", "color": Color(0.58, 0.50, 0.66)},
 	{"id": "plan50_rear_porch", "display_name": "Plan 50 Rear Porch", "owner_character": "Moko", "owner_zone": "garden_patio", "scale_class": "yard_site", "validation_camera": "Plan50RearPorchStartPlayerCamera", "placement": Vector3(38, MAIN_FLOOR_Y + ROAD_FLOOR_CLEARANCE, -132), "sky": "clear_afternoon", "color": Color(0.64, 0.62, 0.56)},
 	{"id": "plan50_sandbox_yard", "display_name": "Plan 50 Sandbox Yard", "owner_character": "Rexx", "owner_zone": "sandbox_fossil_play_yard", "scale_class": "yard_site", "validation_camera": "Plan50SandboxYardStartPlayerCamera", "placement": Vector3(148, MAIN_FLOOR_Y + ROAD_FLOOR_CLEARANCE, -238), "sky": "clear_afternoon", "color": Color(0.73, 0.63, 0.39)},
@@ -303,8 +309,13 @@ func _add_site(root: Node3D) -> void:
 	var site := root.get_node("Site") as Node3D
 	_add_box(root, site, "Plan50LotGround", Vector3(0, -1.2, -20), Vector3(420, 1, 420), Color(0.42, 0.54, 0.34), true)
 	_add_box(root, site, "StreetEdge", Vector3(0, -0.6, 160), Vector3(460, 1, 28), Color(0.20, 0.22, 0.22), true)
-	_add_box(root, site, "FrontWalk", Vector3(0, -0.35, 124), Vector3(36, 1, 62), Color(0.68, 0.66, 0.60), true)
-	_add_box(root, site, "SideEntryDrivewayThreeCarApron", Vector3(-214, -0.35, 60), Vector3(84, 1, 156), Color(0.48, 0.48, 0.45), true)
+	_add_box(root, site, "Plan50CurvedFrontDrivePaverField", Vector3(0, -0.55, 126), Vector3(330, 1, 34), Color(0.54, 0.52, 0.48), true)
+	_add_box(root, site, "FrontWalk", Vector3(26, -0.35, 124), Vector3(28, 1, 44), Color(0.68, 0.66, 0.60), true)
+	_add_box(root, site, "RecessedEntryWalkLanding", Vector3(30, -0.30, 104), Vector3(58, 1, 22), Color(0.72, 0.70, 0.64), true)
+	_add_box(root, site, "SideEntryDrivewayThreeCarApron", Vector3(-214, -0.35, 42), Vector3(84, 1, 188), Color(0.48, 0.48, 0.45), true)
+	_add_box(root, site, "FrontBoxwoodHedgeRun", Vector3(60, 1.2, 146), Vector3(250, 2.4, 8), Color(0.10, 0.28, 0.12), false)
+	_add_box(root, site, "LeftOakCanopyReference", Vector3(-184, 38, 150), Vector3(36, 76, 18), Color(0.16, 0.23, 0.12, 0.55), false)
+	_add_box(root, site, "RightOakCanopyReference", Vector3(184, 38, 148), Vector3(36, 76, 18), Color(0.16, 0.23, 0.12, 0.55), false)
 
 func _add_foundation(root: Node3D) -> void:
 	var foundation := root.get_node("Foundation") as Node3D
@@ -315,14 +326,17 @@ func _add_main_floor(root: Node3D) -> void:
 	var floor := root.get_node("MainFloor") as Node3D
 	floor.set_meta("plan_role", "Plan 50-622 one-story split-bedroom main floor from user canvas reference")
 	_add_room(root, floor, "SideEntryThreeCarGarage", Vector3(-154, MAIN_FLOOR_Y, 52), Vector3(104, 2, 110), Color(0.60, 0.60, 0.56))
+	_add_room(root, floor, "SideEntryLargeGarageBay", Vector3(-154, MAIN_FLOOR_Y + 0.08, 22), Vector3(92, 2, 82), Color(0.58, 0.58, 0.54))
+	_add_room(root, floor, "SideEntrySingleGarageBay", Vector3(-182, MAIN_FLOOR_Y + 0.10, 86), Vector3(56, 2, 58), Color(0.58, 0.58, 0.54))
 	_add_room(root, floor, "MudroomService", Vector3(-84, MAIN_FLOOR_Y, 70), Vector3(52, 2, 48), Color(0.72, 0.67, 0.58))
+	_add_room(root, floor, "Foyer", Vector3(36, MAIN_FLOOR_Y, 76), Vector3(58, 2, 54), Color(0.82, 0.74, 0.62))
 	_add_room(root, floor, "FormalDiningWetBar", Vector3(-52, MAIN_FLOOR_Y, 100), Vector3(74, 2, 36), Color(0.84, 0.72, 0.54))
 	_add_room(root, floor, "KitchenDining", Vector3(-34, MAIN_FLOOR_Y, 42), Vector3(82, 2, 70), Color(0.92, 0.78, 0.55))
 	_add_room(root, floor, "SculleryPantry", Vector3(-78, MAIN_FLOOR_Y, 18), Vector3(42, 2, 54), Color(0.80, 0.74, 0.60))
 	_add_room(root, floor, "GreatRoom", Vector3(42, MAIN_FLOOR_Y, -6), Vector3(94, 2, 94), Color(0.76, 0.62, 0.55))
-	_add_room(root, floor, "BedroomWing", Vector3(-116, MAIN_FLOOR_Y, -48), Vector3(112, 2, 112), Color(0.60, 0.56, 0.70))
-	_add_room(root, floor, "MasterSuite", Vector3(138, MAIN_FLOOR_Y, -20), Vector3(92, 2, 116), Color(0.62, 0.56, 0.68))
-	_add_room(root, floor, "FrontCoveredPorch", Vector3(8, MAIN_FLOOR_Y, 132), Vector3(232, 2, 34), Color(0.66, 0.62, 0.55))
+	_add_room(root, floor, "MasterSuite", Vector3(-116, MAIN_FLOOR_Y, -42), Vector3(96, 2, 114), Color(0.62, 0.56, 0.68))
+	_add_room(root, floor, "BedroomWing", Vector3(142, MAIN_FLOOR_Y, -30), Vector3(100, 2, 130), Color(0.60, 0.56, 0.70))
+	_add_room(root, floor, "FrontCoveredPorch", Vector3(38, MAIN_FLOOR_Y, 132), Vector3(86, 2, 28), Color(0.66, 0.62, 0.55))
 	_add_room(root, floor, "RearCoveredPorchOutdoorKitchen", Vector3(38, MAIN_FLOOR_Y, -132), Vector3(176, 2, 36), Color(0.66, 0.62, 0.55))
 	_add_main_floor_partitions(root, floor)
 	_add_main_floor_furnishings(root, floor)
@@ -438,16 +452,21 @@ func _add_exterior_shell(root: Node3D) -> void:
 		return
 	var siding := Color(0.88, 0.86, 0.78)
 	var stone := Color(0.50, 0.48, 0.42)
-	_add_box(root, shell, "Plan50MainFrontSiding", Vector3(6, 24, 118), Vector3(246, 48, 6), siding, true)
-	_add_box(root, shell, "Plan50MainRearSiding", Vector3(6, 24, -118), Vector3(246, 48, 6), siding.darkened(0.02), true)
-	_add_box(root, shell, "Plan50BedroomWingLeftSiding", Vector3(-174, 22, -28), Vector3(6, 44, 142), siding.darkened(0.04), true)
-	_add_box(root, shell, "Plan50GarageLeftSiding", Vector3(-206, 22, 58), Vector3(6, 44, 112), siding.darkened(0.06), true)
-	_add_box(root, shell, "Plan50MasterRightSiding", Vector3(184, 22, -20), Vector3(6, 44, 126), siding.darkened(0.03), true)
-	_add_box(root, shell, "Plan50GarageFrontReturnSiding", Vector3(-154, 22, 112), Vector3(104, 44, 6), siding.darkened(0.02), true)
-	_add_box(root, shell, "Plan50BedroomRearReturnSiding", Vector3(-116, 22, -104), Vector3(112, 44, 6), siding.darkened(0.03), true)
-	_add_box(root, shell, "Plan50MasterRearReturnSiding", Vector3(138, 22, -82), Vector3(92, 44, 6), siding.darkened(0.03), true)
-	_add_box(root, shell, "Plan50StonePlinthFront", Vector3(0, 4, 121), Vector3(390, 8, 8), stone, false)
-	_add_box(root, shell, "Plan50StonePlinthRear", Vector3(0, 4, -121), Vector3(360, 8, 8), stone, false)
+	_add_box(root, shell, "Plan50FrontLeftMasterGableWall", Vector3(-122, 23, 120), Vector3(78, 46, 6), siding, true)
+	_add_box(root, shell, "Plan50FrontCenterGreatRoomGableWall", Vector3(-8, 24, 120), Vector3(92, 48, 6), siding.lightened(0.02), true)
+	_add_box(root, shell, "Plan50FrontRecessedEntryBackWall", Vector3(52, 22, 106), Vector3(54, 44, 6), siding.darkened(0.02), true)
+	_add_box(root, shell, "Plan50FrontRightBedroomGableWall", Vector3(142, 23, 120), Vector3(86, 46, 6), siding, true)
+	_add_box(root, shell, "Plan50RearGreatRoomWall", Vector3(38, 23, -118), Vector3(176, 46, 6), siding.darkened(0.02), true)
+	_add_box(root, shell, "Plan50RearBedroomWingWall", Vector3(142, 22, -96), Vector3(90, 44, 6), siding.darkened(0.03), true)
+	_add_box(root, shell, "Plan50RearMasterWingWall", Vector3(-116, 22, -96), Vector3(96, 44, 6), siding.darkened(0.03), true)
+	_add_box(root, shell, "Plan50LeftGarageOuterWall", Vector3(-206, 22, 42), Vector3(6, 44, 164), siding.darkened(0.06), true)
+	_add_box(root, shell, "Plan50LeftGarageStreetReturnWall", Vector3(-154, 22, 122), Vector3(104, 44, 6), siding.darkened(0.04), true)
+	_add_box(root, shell, "Plan50MasterGarageStepWall", Vector3(-72, 22, 18), Vector3(6, 44, 96), siding.darkened(0.04), true)
+	_add_box(root, shell, "Plan50RightBedroomOuterWall", Vector3(194, 22, -20), Vector3(6, 44, 136), siding.darkened(0.03), true)
+	_add_box(root, shell, "Plan50StonePlinthFrontLeft", Vector3(-122, 4, 123), Vector3(84, 8, 8), stone, false)
+	_add_box(root, shell, "Plan50StonePlinthFrontCenter", Vector3(-8, 4, 123), Vector3(98, 8, 8), stone, false)
+	_add_box(root, shell, "Plan50StonePlinthFrontRight", Vector3(142, 4, 123), Vector3(92, 8, 8), stone, false)
+	_add_box(root, shell, "Plan50StonePlinthRearPorch", Vector3(38, 4, -121), Vector3(188, 8, 8), stone, false)
 	_add_farmhouse_exterior_details(root, shell, root.get_node("Openings") as Node3D)
 
 func _add_roof(root: Node3D) -> void:
@@ -457,17 +476,22 @@ func _add_roof(root: Node3D) -> void:
 		roof.set_meta("visible_roof_source", VISIBLE_SHELL_ASSET_PATH)
 		return
 	var roof_color := Color(0.18, 0.19, 0.18)
-	_add_gable_roof_x(root, roof, "Plan50MainGreatRoomGable", -64, 118, -122, 122, 50, 84, roof_color)
-	_add_gable_roof_x(root, roof, "Plan50GarageSideEntryGable", -206, -102, 4, 114, 42, 68, roof_color.darkened(0.04))
-	_add_gable_roof_x(root, roof, "Plan50BedroomWingGable", -174, -58, -106, 8, 42, 66, roof_color.lightened(0.02))
-	_add_gable_roof_x(root, roof, "Plan50MasterWingGable", 92, 186, -84, 42, 42, 68, roof_color.lightened(0.02))
-	_add_gable_roof_x(root, roof, "Plan50FrontPorchGable", -112, 124, 116, 150, 34, 46, roof_color.lightened(0.05))
+	_add_gable_roof_z(root, roof, "Plan50PrimaryRearLongRoof", -170, 190, -122, 92, 48, 82, roof_color)
+	_add_gable_roof_x(root, roof, "Plan50FrontLeftMasterStreetGable", -164, -82, 76, 132, 44, 78, roof_color.darkened(0.02))
+	_add_gable_roof_x(root, roof, "Plan50FrontCenterGreatRoomStreetGable", -58, 42, 70, 132, 48, 86, roof_color)
+	_add_gable_roof_x(root, roof, "Plan50FrontRightBedroomStreetGable", 98, 186, 76, 132, 44, 78, roof_color.darkened(0.02))
+	_add_gable_roof_x(root, roof, "Plan50GarageSideEntryGable", -210, -98, -18, 126, 42, 68, roof_color.darkened(0.04))
+	_add_gable_roof_z(root, roof, "Plan50RecessedEntryMetalShedRoof", 8, 92, 106, 138, 37, 48, Color(0.06, 0.07, 0.07))
 	_add_gable_roof_x(root, roof, "Plan50RearPorchGable", -50, 126, -150, -116, 34, 46, roof_color.lightened(0.05))
-	_add_gable_end_wall_x(root, roof, "Plan50MainFrontGableWall", -64, 118, 122.5, 50, 84, Color(0.88, 0.86, 0.78))
-	_add_gable_end_wall_x(root, roof, "Plan50BedroomRearGableWall", -174, -58, -106.5, 42, 66, Color(0.88, 0.86, 0.78).darkened(0.02))
-	_add_gable_end_wall_x(root, roof, "Plan50GarageSideGableWall", -206, -102, 114.5, 42, 68, Color(0.88, 0.86, 0.78).darkened(0.02))
-	_add_box(root, roof, "Plan50BlackMetalGutterFront", Vector3(0, 50, 124), Vector3(392, 3, 3), Color(0.06, 0.07, 0.07), false)
-	_add_box(root, roof, "Plan50BlackMetalGutterRear", Vector3(0, 50, -124), Vector3(360, 3, 3), Color(0.06, 0.07, 0.07), false)
+	_add_gable_end_wall_x(root, roof, "Plan50LeftMasterFrontGableWall", -164, -82, 132.5, 44, 78, Color(0.88, 0.86, 0.78))
+	_add_gable_end_wall_x(root, roof, "Plan50CenterGreatRoomFrontGableWall", -58, 42, 132.5, 48, 86, Color(0.90, 0.88, 0.80))
+	_add_gable_end_wall_x(root, roof, "Plan50RightBedroomFrontGableWall", 98, 186, 132.5, 44, 78, Color(0.88, 0.86, 0.78))
+	_add_gable_end_wall_z(root, roof, "Plan50PrimaryLeftGableWall", -170.5, -122, 92, 48, 82, Color(0.86, 0.84, 0.76).darkened(0.04))
+	_add_gable_end_wall_z(root, roof, "Plan50PrimaryRightGableWall", 190.5, -122, 92, 48, 82, Color(0.86, 0.84, 0.76).darkened(0.03))
+	_add_box(root, roof, "Plan50BlackMetalGutterFrontLeft", Vector3(-122, 46, 135), Vector3(88, 3, 3), Color(0.06, 0.07, 0.07), false)
+	_add_box(root, roof, "Plan50BlackMetalGutterFrontCenter", Vector3(-8, 50, 135), Vector3(104, 3, 3), Color(0.06, 0.07, 0.07), false)
+	_add_box(root, roof, "Plan50BlackMetalGutterFrontRight", Vector3(142, 46, 135), Vector3(94, 3, 3), Color(0.06, 0.07, 0.07), false)
+	_add_box(root, roof, "Plan50BlackMetalGutterRear", Vector3(38, 48, -124), Vector3(260, 3, 3), Color(0.06, 0.07, 0.07), false)
 
 func _add_vertical_connectors(root: Node3D) -> void:
 	var vc := root.get_node("VerticalConnectors") as Node3D
@@ -593,39 +617,44 @@ func _add_main_floor_furnishings(root: Node3D, floor: Node3D) -> void:
 	_add_box(root, floor, "GreatRoomFireplace", Vector3(96, 12, 34), Vector3(8, 24, 28), Color(0.32, 0.24, 0.20), false)
 	_add_box(root, floor, "GreatRoomSofa", Vector3(48, 6, 52), Vector3(42, 12, 14), Color(0.38, 0.48, 0.55), false)
 	_add_box(root, floor, "GreatRoomCoffeeTable", Vector3(48, 4, 26), Vector3(24, 6, 12), wood, false)
-	_add_box(root, floor, "MasterBed", Vector3(126, 6, 42), Vector3(34, 12, 48), Color(0.58, 0.62, 0.76), false)
-	_add_box(root, floor, "MasterClosetBuiltIns", Vector3(146, 8, 76), Vector3(8, 16, 36), Color(0.72, 0.67, 0.58), false)
-	_add_box(root, floor, "BedroomWingBedA", Vector3(-136, 6, -34), Vector3(28, 12, 34), Color(0.58, 0.62, 0.76), false)
-	_add_box(root, floor, "BedroomWingBedB", Vector3(-94, 6, -64), Vector3(28, 12, 34), Color(0.58, 0.62, 0.76), false)
-	_add_box(root, floor, "BedroomWingSoftBarrier", Vector3(-116, 5, -2), Vector3(68, 10, 8), Color(0.54, 0.50, 0.66), false)
+	_add_box(root, floor, "MasterBed", Vector3(-116, 6, -42), Vector3(34, 12, 48), Color(0.58, 0.62, 0.76), false)
+	_add_box(root, floor, "MasterClosetBuiltIns", Vector3(-156, 8, -24), Vector3(8, 16, 42), Color(0.72, 0.67, 0.58), false)
+	_add_box(root, floor, "BedroomWingBedA", Vector3(126, 6, -48), Vector3(28, 12, 34), Color(0.58, 0.62, 0.76), false)
+	_add_box(root, floor, "BedroomWingBedB", Vector3(166, 6, -70), Vector3(28, 12, 34), Color(0.58, 0.62, 0.76), false)
+	_add_box(root, floor, "BedroomWingSoftBarrier", Vector3(142, 5, -6), Vector3(68, 10, 8), Color(0.54, 0.50, 0.66), false)
 	_add_box(root, floor, "GarageCarBayMarkerLeft", Vector3(-174, 1.4, 58), Vector3(22, 0.5, 90), Color(0.28, 0.30, 0.31), false)
 	_add_box(root, floor, "GarageCarBayMarkerCenter", Vector3(-150, 1.4, 58), Vector3(22, 0.5, 90), Color(0.28, 0.30, 0.31), false)
 	_add_box(root, floor, "GarageCarBayMarkerRight", Vector3(-126, 1.4, 58), Vector3(22, 0.5, 90), Color(0.28, 0.30, 0.31), false)
 	_add_box(root, floor, "GarageWorkbench", Vector3(-104, 7, 18), Vector3(10, 14, 44), wood.darkened(0.08), false)
 
 func _add_farmhouse_exterior_details(root: Node3D, shell: Node3D, openings: Node3D) -> void:
-	_add_box(root, openings, "FrontDoorBlackPanel", Vector3(-6, 17, 141.5), Vector3(18, 30, 2.5), Color(0.06, 0.07, 0.07), false)
-	_add_window(root, openings, "GreatRoomWindowWall", Vector3(52, 24, 139), Vector3(66, 26, 1.0))
-	_add_window(root, openings, "KitchenFrontWindowPair", Vector3(-54, 23, 139), Vector3(34, 22, 1.0))
-	_add_window(root, openings, "UpperFrontBlackFrameWindow", Vector3(18, 66, 141), Vector3(32, 24, 1.0))
-	_add_window(root, openings, "MasterSuiteSideWindow", Vector3(145, 22, 38), Vector3(1.0, 22, 34))
-	_add_window(root, openings, "GarageRearSeatingDoor", Vector3(-104, 18, -139), Vector3(42, 30, 1.0))
-	var garage_suffixes := ["A", "B", "C"]
-	for i in range(3):
-		var x := -132.0 + float(i) * 28.0
-		var suffix := str(garage_suffixes[i])
-		_add_box(root, openings, "GarageDoorSingle%s" % suffix, Vector3(x, 17, 141.5), Vector3(22, 28, 2.5), Color(0.82, 0.82, 0.78), false)
-		_add_box(root, openings, "GarageDoorSingle%sBlackTrim" % suffix, Vector3(x, 31, 143), Vector3(24, 3, 3), Color(0.06, 0.07, 0.07), false)
-	for x in [-30.0, 28.0, 74.0]:
+	_add_box(root, openings, "Plan50RecessedFrontDoorBlackPanel", Vector3(52, 17, 108.5), Vector3(18, 30, 2.5), Color(0.04, 0.05, 0.05), false)
+	_add_box(root, openings, "Plan50FrontDoorWarmGlass", Vector3(52, 20, 106.8), Vector3(10, 20, 1.0), Color(1.0, 0.72, 0.28, 0.68), false)
+	_add_framed_window_z(root, openings, "Plan50LeftMasterFrontWindowGroup", Vector3(-122, 25, 123.5), Vector3(42, 28, 2.0))
+	_add_framed_window_z(root, openings, "Plan50CenterGreatRoomTallWindowGroup", Vector3(-8, 27, 123.5), Vector3(50, 34, 2.0))
+	_add_framed_window_z(root, openings, "Plan50RightBedroomFrontWindowGroup", Vector3(142, 25, 123.5), Vector3(42, 28, 2.0))
+	_add_framed_window_z(root, openings, "Plan50LeftGableSlotWindow", Vector3(-122, 58, 123.8), Vector3(12, 20, 2.0))
+	_add_framed_window_z(root, openings, "Plan50CenterGableSlotWindow", Vector3(-8, 64, 123.8), Vector3(12, 20, 2.0))
+	_add_framed_window_z(root, openings, "Plan50RightGableSlotWindow", Vector3(142, 58, 123.8), Vector3(12, 20, 2.0))
+	_add_framed_window_z(root, openings, "Plan50RearGreatRoomDoorWall", Vector3(38, 23, -121.5), Vector3(74, 30, 2.0))
+	_add_framed_window_x(root, openings, "Plan50BedroomWingSideWindowStack", Vector3(197.5, 24, -28), Vector3(2.0, 28, 40))
+	_add_framed_window_x(root, openings, "Plan50MasterSideWindowStack", Vector3(-164.5, 24, -42), Vector3(2.0, 28, 40))
+	_add_garage_door_x(root, openings, "Plan50LargeSideEntryGarageDoorA", Vector3(-209.5, 17, 10), Vector3(2.5, 28, 34))
+	_add_garage_door_x(root, openings, "Plan50LargeSideEntryGarageDoorB", Vector3(-209.5, 17, 48), Vector3(2.5, 28, 34))
+	_add_garage_door_x(root, openings, "Plan50SingleSideEntryGarageDoor", Vector3(-209.5, 17, 92), Vector3(2.5, 28, 28))
+	_add_box(root, shell, "Plan50LeftWindowBlackMetalAwning", Vector3(-122, 40, 127), Vector3(52, 4, 8), Color(0.06, 0.07, 0.07), false)
+	_add_box(root, shell, "Plan50RecessedEntryBlackMetalShedRoof", Vector3(52, 42, 124), Vector3(86, 4, 28), Color(0.06, 0.07, 0.07), false)
+	for x in [16.0, 52.0, 88.0]:
 		_add_box(root, shell, "FrontPorchColumn%s" % int(x), Vector3(x, 22, 122), Vector3(6, 44, 6), Color(0.88, 0.86, 0.78), true)
-	_add_box(root, shell, "FrontPorchLeftReturnWall", Vector3(-31, 22, 130), Vector3(4, 36, 52), Color(0.88, 0.86, 0.78), true)
-	_add_box(root, shell, "FrontPorchRightReturnWall", Vector3(47, 22, 130), Vector3(4, 36, 52), Color(0.88, 0.86, 0.78), true)
+	_add_box(root, shell, "FrontPorchLeftReturnWall", Vector3(10, 22, 120), Vector3(4, 36, 34), Color(0.88, 0.86, 0.78), true)
+	_add_box(root, shell, "FrontPorchRightReturnWall", Vector3(94, 22, 120), Vector3(4, 36, 34), Color(0.88, 0.86, 0.78), true)
 	for x in [8.0, 48.0, 88.0]:
 		_add_box(root, shell, "RearPorchColumn%s" % int(x), Vector3(x, 22, -124), Vector3(6, 44, 6), Color(0.88, 0.86, 0.78), true)
-	_add_box(root, shell, "BoardAndBattenFrontBelt", Vector3(0, 38, 142.5), Vector3(284, 4, 3), Color(0.92, 0.90, 0.84), false)
-	_add_box(root, shell, "BoardAndBattenRearBelt", Vector3(0, 38, -142.5), Vector3(284, 4, 3), Color(0.92, 0.90, 0.84), false)
-	_add_box(root, shell, "FrontEntryPorchBeam", Vector3(36, 45, 122), Vector3(152, 7, 8), Color(0.86, 0.84, 0.76), false)
-	_add_box(root, shell, "GarageBlackAwningTrim", Vector3(-104, 35, 144), Vector3(92, 4, 5), Color(0.06, 0.07, 0.07), false)
+	_add_box(root, shell, "BoardAndBattenFrontLeftBelt", Vector3(-122, 39, 126), Vector3(82, 4, 3), Color(0.92, 0.90, 0.84), false)
+	_add_box(root, shell, "BoardAndBattenFrontCenterBelt", Vector3(-8, 42, 126), Vector3(96, 4, 3), Color(0.92, 0.90, 0.84), false)
+	_add_box(root, shell, "BoardAndBattenFrontRightBelt", Vector3(142, 39, 126), Vector3(90, 4, 3), Color(0.92, 0.90, 0.84), false)
+	_add_box(root, shell, "BoardAndBattenRearBelt", Vector3(38, 38, -123), Vector3(184, 4, 3), Color(0.92, 0.90, 0.84), false)
+	_add_box(root, shell, "FrontEntryPorchBeam", Vector3(52, 45, 122), Vector3(94, 7, 8), Color(0.86, 0.84, 0.76), false)
 
 func _add_gable_roof_x(root: Node3D, parent: Node3D, prefix: String, x0: float, x1: float, z0: float, z1: float, eave_y: float, ridge_y: float, color: Color) -> void:
 	var ridge_x := (x0 + x1) * 0.5
@@ -649,12 +678,43 @@ func _add_gable_roof_x(root: Node3D, parent: Node3D, prefix: String, x0: float, 
 	_add_box(root, parent, "%sFrontFascia" % prefix, Vector3((x0 + x1) * 0.5, eave_y, z1), Vector3(absf(x1 - x0), 5, 4), color.darkened(0.12), false)
 	_add_box(root, parent, "%sRearFascia" % prefix, Vector3((x0 + x1) * 0.5, eave_y, z0), Vector3(absf(x1 - x0), 5, 4), color.darkened(0.12), false)
 
+func _add_gable_roof_z(root: Node3D, parent: Node3D, prefix: String, x0: float, x1: float, z0: float, z1: float, eave_y: float, ridge_y: float, color: Color) -> void:
+	var ridge_z := (z0 + z1) * 0.5
+	var front_vertices := PackedVector3Array([
+		Vector3(x0, eave_y, z1),
+		Vector3(x1, eave_y, z1),
+		Vector3(x1, ridge_y, ridge_z),
+		Vector3(x0, ridge_y, ridge_z),
+	])
+	var rear_vertices := PackedVector3Array([
+		Vector3(x0, ridge_y, ridge_z),
+		Vector3(x1, ridge_y, ridge_z),
+		Vector3(x1, eave_y, z0),
+		Vector3(x0, eave_y, z0),
+	])
+	_add_mesh(root, parent, "%sFrontRoofPlane" % prefix, front_vertices, PackedInt32Array([0, 1, 2, 0, 2, 3]), color)
+	_add_mesh(root, parent, "%sRearRoofPlane" % prefix, rear_vertices, PackedInt32Array([0, 1, 2, 0, 2, 3]), color.darkened(0.04))
+	_add_box(root, parent, "%sRidgeCap" % prefix, Vector3((x0 + x1) * 0.5, ridge_y + 1.0, ridge_z), Vector3(absf(x1 - x0), 3, 4), color.darkened(0.18), false)
+	_add_box(root, parent, "%sFrontFascia" % prefix, Vector3((x0 + x1) * 0.5, eave_y, z1), Vector3(absf(x1 - x0), 5, 4), color.darkened(0.12), false)
+	_add_box(root, parent, "%sRearFascia" % prefix, Vector3((x0 + x1) * 0.5, eave_y, z0), Vector3(absf(x1 - x0), 5, 4), color.darkened(0.12), false)
+	_add_box(root, parent, "%sLeftFascia" % prefix, Vector3(x0, eave_y, (z0 + z1) * 0.5), Vector3(4, 5, absf(z1 - z0)), color.darkened(0.12), false)
+	_add_box(root, parent, "%sRightFascia" % prefix, Vector3(x1, eave_y, (z0 + z1) * 0.5), Vector3(4, 5, absf(z1 - z0)), color.darkened(0.12), false)
+
 func _add_gable_end_wall_x(root: Node3D, parent: Node3D, node_name: String, x0: float, x1: float, z: float, eave_y: float, ridge_y: float, color: Color) -> void:
 	var ridge_x := (x0 + x1) * 0.5
 	var vertices := PackedVector3Array([
 		Vector3(x0, eave_y, z),
 		Vector3(x1, eave_y, z),
 		Vector3(ridge_x, ridge_y, z),
+	])
+	_add_mesh(root, parent, node_name, vertices, PackedInt32Array([0, 1, 2]), color)
+
+func _add_gable_end_wall_z(root: Node3D, parent: Node3D, node_name: String, x: float, z0: float, z1: float, eave_y: float, ridge_y: float, color: Color) -> void:
+	var ridge_z := (z0 + z1) * 0.5
+	var vertices := PackedVector3Array([
+		Vector3(x, eave_y, z0),
+		Vector3(x, eave_y, z1),
+		Vector3(x, ridge_y, ridge_z),
 	])
 	_add_mesh(root, parent, node_name, vertices, PackedInt32Array([0, 1, 2]), color)
 
@@ -897,6 +957,35 @@ func _add_roof_plane_z(root: Node3D, parent: Node3D, node_name: String, z0: floa
 
 func _add_window(root: Node3D, parent: Node3D, node_name: String, position: Vector3, size: Vector3) -> void:
 	_add_box(root, parent, node_name, position, size, Color(0.55, 0.77, 0.92, 0.48), false)
+
+func _add_framed_window_z(root: Node3D, parent: Node3D, node_name: String, position: Vector3, size: Vector3) -> void:
+	var glass := Color(0.10, 0.14, 0.16, 0.58)
+	var frame := Color(0.03, 0.035, 0.035)
+	_add_box(root, parent, "%sGlass" % node_name, position, size, glass, false)
+	_add_box(root, parent, "%sTopFrame" % node_name, position + Vector3(0, size.y * 0.5 + 1.5, 0.9), Vector3(size.x + 4, 3, 3), frame, false)
+	_add_box(root, parent, "%sBottomFrame" % node_name, position + Vector3(0, -size.y * 0.5 - 1.5, 0.9), Vector3(size.x + 4, 3, 3), frame, false)
+	_add_box(root, parent, "%sLeftJamb" % node_name, position + Vector3(-size.x * 0.5 - 1.5, 0, 0.9), Vector3(3, size.y + 4, 3), frame, false)
+	_add_box(root, parent, "%sRightJamb" % node_name, position + Vector3(size.x * 0.5 + 1.5, 0, 0.9), Vector3(3, size.y + 4, 3), frame, false)
+	_add_box(root, parent, "%sCenterMullion" % node_name, position + Vector3(0, 0, 1.0), Vector3(2.2, size.y + 1, 3), frame, false)
+
+func _add_framed_window_x(root: Node3D, parent: Node3D, node_name: String, position: Vector3, size: Vector3) -> void:
+	var glass := Color(0.10, 0.14, 0.16, 0.58)
+	var frame := Color(0.03, 0.035, 0.035)
+	_add_box(root, parent, "%sGlass" % node_name, position, size, glass, false)
+	_add_box(root, parent, "%sTopFrame" % node_name, position + Vector3(-0.9, size.y * 0.5 + 1.5, 0), Vector3(3, 3, size.z + 4), frame, false)
+	_add_box(root, parent, "%sBottomFrame" % node_name, position + Vector3(-0.9, -size.y * 0.5 - 1.5, 0), Vector3(3, 3, size.z + 4), frame, false)
+	_add_box(root, parent, "%sFrontJamb" % node_name, position + Vector3(-0.9, 0, size.z * 0.5 + 1.5), Vector3(3, size.y + 4, 3), frame, false)
+	_add_box(root, parent, "%sRearJamb" % node_name, position + Vector3(-0.9, 0, -size.z * 0.5 - 1.5), Vector3(3, size.y + 4, 3), frame, false)
+	_add_box(root, parent, "%sCenterMullion" % node_name, position + Vector3(-1.0, 0, 0), Vector3(3, size.y + 1, 2.2), frame, false)
+
+func _add_garage_door_x(root: Node3D, parent: Node3D, node_name: String, position: Vector3, size: Vector3) -> void:
+	var panel := Color(0.82, 0.82, 0.78)
+	var frame := Color(0.04, 0.045, 0.045)
+	_add_box(root, parent, "%sPanel" % node_name, position, size, panel, false)
+	_add_box(root, parent, "%sHeaderFrame" % node_name, position + Vector3(-1.0, size.y * 0.5 + 1.5, 0), Vector3(4, 3, size.z + 4), frame, false)
+	_add_box(root, parent, "%sSillShadow" % node_name, position + Vector3(-1.0, -size.y * 0.5 - 1.0, 0), Vector3(4, 2, size.z + 4), frame, false)
+	_add_box(root, parent, "%sFrontJambFrame" % node_name, position + Vector3(-1.0, 0, size.z * 0.5 + 1.5), Vector3(4, size.y + 4, 3), frame, false)
+	_add_box(root, parent, "%sRearJambFrame" % node_name, position + Vector3(-1.0, 0, -size.z * 0.5 - 1.5), Vector3(4, size.y + 4, 3), frame, false)
 
 func _add_camera(root: Node3D, parent: Node3D, node_name: String, position: Vector3, rotation_degrees: Vector3, fov := 60.0) -> void:
 	var camera := Camera3D.new()
