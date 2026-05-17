@@ -399,14 +399,14 @@ roughness = 0.82
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_gvlpr"]
 _surfaces = [{
-"aabb": AABB(-170, 48, -15, 360, 34, 107),
+"aabb": AABB(-170, 48, -15, 360, 68, 107),
 "format": 34359742465,
 "index_count": 6,
 "index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 0, 0, 2, 0, 3, 0),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 4,
-"vertex_data": PackedByteArray(0, 0, 42, 195, 0, 0, 64, 66, 0, 0, 184, 66, 0, 0, 62, 67, 0, 0, 64, 66, 0, 0, 184, 66, 0, 0, 62, 67, 0, 0, 164, 66, 0, 0, 112, 193, 0, 0, 42, 195, 0, 0, 164, 66, 0, 0, 112, 193)
+"vertex_data": PackedByteArray(0, 0, 42, 195, 0, 0, 64, 66, 0, 0, 184, 66, 0, 0, 62, 67, 0, 0, 64, 66, 0, 0, 184, 66, 0, 0, 62, 67, 0, 0, 232, 66, 0, 0, 112, 193, 0, 0, 42, 195, 0, 0, 232, 66, 0, 0, 112, 193)
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3vx4i"]
@@ -416,14 +416,14 @@ roughness = 0.82
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_opp0t"]
 _surfaces = [{
-"aabb": AABB(-170, 48, -122, 360, 34, 107),
+"aabb": AABB(-170, 48, -122, 360, 68, 107),
 "format": 34359742465,
 "index_count": 6,
 "index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 0, 0, 2, 0, 3, 0),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 4,
-"vertex_data": PackedByteArray(0, 0, 42, 195, 0, 0, 164, 66, 0, 0, 112, 193, 0, 0, 62, 67, 0, 0, 164, 66, 0, 0, 112, 193, 0, 0, 62, 67, 0, 0, 64, 66, 0, 0, 244, 194, 0, 0, 42, 195, 0, 0, 64, 66, 0, 0, 244, 194)
+"vertex_data": PackedByteArray(0, 0, 42, 195, 0, 0, 232, 66, 0, 0, 112, 193, 0, 0, 62, 67, 0, 0, 232, 66, 0, 0, 112, 193, 0, 0, 62, 67, 0, 0, 64, 66, 0, 0, 244, 194, 0, 0, 42, 195, 0, 0, 64, 66, 0, 0, 244, 194)
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v1p4g"]
@@ -468,14 +468,14 @@ roughness = 0.82
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_eu7dt"]
 _surfaces = [{
-"aabb": AABB(-164, 44, 76, 41, 34, 56),
+"aabb": AABB(-164, 44, 76, 41, 54, 56),
 "format": 34359742465,
 "index_count": 6,
 "index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 0, 0, 2, 0, 3, 0),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 4,
-"vertex_data": PackedByteArray(0, 0, 36, 195, 0, 0, 48, 66, 0, 0, 152, 66, 0, 0, 36, 195, 0, 0, 48, 66, 0, 0, 4, 67, 0, 0, 246, 194, 0, 0, 156, 66, 0, 0, 4, 67, 0, 0, 246, 194, 0, 0, 156, 66, 0, 0, 152, 66)
+"vertex_data": PackedByteArray(0, 0, 36, 195, 0, 0, 48, 66, 0, 0, 152, 66, 0, 0, 36, 195, 0, 0, 48, 66, 0, 0, 4, 67, 0, 0, 246, 194, 0, 0, 196, 66, 0, 0, 4, 67, 0, 0, 246, 194, 0, 0, 196, 66, 0, 0, 152, 66)
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ybab"]
@@ -485,14 +485,14 @@ roughness = 0.82
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_27nai"]
 _surfaces = [{
-"aabb": AABB(-123, 44, 76, 41, 34, 56),
+"aabb": AABB(-123, 44, 76, 41, 54, 56),
 "format": 34359742465,
 "index_count": 6,
 "index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 0, 0, 2, 0, 3, 0),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 4,
-"vertex_data": PackedByteArray(0, 0, 246, 194, 0, 0, 156, 66, 0, 0, 152, 66, 0, 0, 246, 194, 0, 0, 156, 66, 0, 0, 4, 67, 0, 0, 164, 194, 0, 0, 48, 66, 0, 0, 4, 67, 0, 0, 164, 194, 0, 0, 48, 66, 0, 0, 152, 66)
+"vertex_data": PackedByteArray(0, 0, 246, 194, 0, 0, 196, 66, 0, 0, 152, 66, 0, 0, 246, 194, 0, 0, 196, 66, 0, 0, 4, 67, 0, 0, 164, 194, 0, 0, 48, 66, 0, 0, 4, 67, 0, 0, 164, 194, 0, 0, 48, 66, 0, 0, 152, 66)
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6ltjb"]
@@ -537,14 +537,14 @@ roughness = 0.82
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_aovvd"]
 _surfaces = [{
-"aabb": AABB(-58, 48, 70, 50, 38, 62),
+"aabb": AABB(-58, 48, 70, 50, 60, 62),
 "format": 34359742465,
 "index_count": 6,
 "index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 0, 0, 2, 0, 3, 0),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 4,
-"vertex_data": PackedByteArray(0, 0, 104, 194, 0, 0, 64, 66, 0, 0, 140, 66, 0, 0, 104, 194, 0, 0, 64, 66, 0, 0, 4, 67, 0, 0, 0, 193, 0, 0, 172, 66, 0, 0, 4, 67, 0, 0, 0, 193, 0, 0, 172, 66, 0, 0, 140, 66)
+"vertex_data": PackedByteArray(0, 0, 104, 194, 0, 0, 64, 66, 0, 0, 140, 66, 0, 0, 104, 194, 0, 0, 64, 66, 0, 0, 4, 67, 0, 0, 0, 193, 0, 0, 216, 66, 0, 0, 4, 67, 0, 0, 0, 193, 0, 0, 216, 66, 0, 0, 140, 66)
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_akndo"]
@@ -554,14 +554,14 @@ roughness = 0.82
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_bt43e"]
 _surfaces = [{
-"aabb": AABB(-8, 48, 70, 50, 38, 62),
+"aabb": AABB(-8, 48, 70, 50, 60, 62),
 "format": 34359742465,
 "index_count": 6,
 "index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 0, 0, 2, 0, 3, 0),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 4,
-"vertex_data": PackedByteArray(0, 0, 0, 193, 0, 0, 172, 66, 0, 0, 140, 66, 0, 0, 0, 193, 0, 0, 172, 66, 0, 0, 4, 67, 0, 0, 40, 66, 0, 0, 64, 66, 0, 0, 4, 67, 0, 0, 40, 66, 0, 0, 64, 66, 0, 0, 140, 66)
+"vertex_data": PackedByteArray(0, 0, 0, 193, 0, 0, 216, 66, 0, 0, 140, 66, 0, 0, 0, 193, 0, 0, 216, 66, 0, 0, 4, 67, 0, 0, 40, 66, 0, 0, 64, 66, 0, 0, 4, 67, 0, 0, 40, 66, 0, 0, 64, 66, 0, 0, 140, 66)
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6qtu6"]
@@ -606,14 +606,14 @@ roughness = 0.82
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ptdsm"]
 _surfaces = [{
-"aabb": AABB(98, 44, 76, 44, 34, 56),
+"aabb": AABB(98, 44, 76, 44, 54, 56),
 "format": 34359742465,
 "index_count": 6,
 "index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 0, 0, 2, 0, 3, 0),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 4,
-"vertex_data": PackedByteArray(0, 0, 196, 66, 0, 0, 48, 66, 0, 0, 152, 66, 0, 0, 196, 66, 0, 0, 48, 66, 0, 0, 4, 67, 0, 0, 14, 67, 0, 0, 156, 66, 0, 0, 4, 67, 0, 0, 14, 67, 0, 0, 156, 66, 0, 0, 152, 66)
+"vertex_data": PackedByteArray(0, 0, 196, 66, 0, 0, 48, 66, 0, 0, 152, 66, 0, 0, 196, 66, 0, 0, 48, 66, 0, 0, 4, 67, 0, 0, 14, 67, 0, 0, 196, 66, 0, 0, 4, 67, 0, 0, 14, 67, 0, 0, 196, 66, 0, 0, 152, 66)
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ctqgh"]
@@ -623,14 +623,14 @@ roughness = 0.82
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_my5xv"]
 _surfaces = [{
-"aabb": AABB(142, 44, 76, 44, 34, 56),
+"aabb": AABB(142, 44, 76, 44, 54, 56),
 "format": 34359742465,
 "index_count": 6,
 "index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 0, 0, 2, 0, 3, 0),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 4,
-"vertex_data": PackedByteArray(0, 0, 14, 67, 0, 0, 156, 66, 0, 0, 152, 66, 0, 0, 14, 67, 0, 0, 156, 66, 0, 0, 4, 67, 0, 0, 58, 67, 0, 0, 48, 66, 0, 0, 4, 67, 0, 0, 58, 67, 0, 0, 48, 66, 0, 0, 152, 66)
+"vertex_data": PackedByteArray(0, 0, 14, 67, 0, 0, 196, 66, 0, 0, 152, 66, 0, 0, 14, 67, 0, 0, 196, 66, 0, 0, 4, 67, 0, 0, 58, 67, 0, 0, 48, 66, 0, 0, 4, 67, 0, 0, 58, 67, 0, 0, 48, 66, 0, 0, 152, 66)
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mon2o"]
@@ -675,14 +675,14 @@ roughness = 0.82
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_vhu3j"]
 _surfaces = [{
-"aabb": AABB(-210, 42, -18, 56, 26, 144),
+"aabb": AABB(-210, 42, -18, 56, 48, 144),
 "format": 34359742465,
 "index_count": 6,
 "index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 0, 0, 2, 0, 3, 0),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 4,
-"vertex_data": PackedByteArray(0, 0, 82, 195, 0, 0, 40, 66, 0, 0, 144, 193, 0, 0, 82, 195, 0, 0, 40, 66, 0, 0, 252, 66, 0, 0, 26, 195, 0, 0, 136, 66, 0, 0, 252, 66, 0, 0, 26, 195, 0, 0, 136, 66, 0, 0, 144, 193)
+"vertex_data": PackedByteArray(0, 0, 82, 195, 0, 0, 40, 66, 0, 0, 144, 193, 0, 0, 82, 195, 0, 0, 40, 66, 0, 0, 252, 66, 0, 0, 26, 195, 0, 0, 180, 66, 0, 0, 252, 66, 0, 0, 26, 195, 0, 0, 180, 66, 0, 0, 144, 193)
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_07xcr"]
@@ -692,14 +692,14 @@ roughness = 0.82
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ndsen"]
 _surfaces = [{
-"aabb": AABB(-154, 42, -18, 56, 26, 144),
+"aabb": AABB(-154, 42, -18, 56, 48, 144),
 "format": 34359742465,
 "index_count": 6,
 "index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 0, 0, 2, 0, 3, 0),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 4,
-"vertex_data": PackedByteArray(0, 0, 26, 195, 0, 0, 136, 66, 0, 0, 144, 193, 0, 0, 26, 195, 0, 0, 136, 66, 0, 0, 252, 66, 0, 0, 196, 194, 0, 0, 40, 66, 0, 0, 252, 66, 0, 0, 196, 194, 0, 0, 40, 66, 0, 0, 144, 193)
+"vertex_data": PackedByteArray(0, 0, 26, 195, 0, 0, 180, 66, 0, 0, 144, 193, 0, 0, 26, 195, 0, 0, 180, 66, 0, 0, 252, 66, 0, 0, 196, 194, 0, 0, 40, 66, 0, 0, 252, 66, 0, 0, 196, 194, 0, 0, 40, 66, 0, 0, 144, 193)
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3swem"]
@@ -882,14 +882,14 @@ roughness = 0.82
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_r4sfv"]
 _surfaces = [{
-"aabb": AABB(-164, 44, 132.5, 82, 34, 1e-05),
+"aabb": AABB(-164, 44, 132.5, 82, 54, 1e-05),
 "format": 34359742465,
 "index_count": 3,
 "index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(0, 0, 36, 195, 0, 0, 48, 66, 0, 128, 4, 67, 0, 0, 164, 194, 0, 0, 48, 66, 0, 128, 4, 67, 0, 0, 246, 194, 0, 0, 156, 66, 0, 128, 4, 67)
+"vertex_data": PackedByteArray(0, 0, 36, 195, 0, 0, 48, 66, 0, 128, 4, 67, 0, 0, 164, 194, 0, 0, 48, 66, 0, 128, 4, 67, 0, 0, 246, 194, 0, 0, 196, 66, 0, 128, 4, 67)
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1786x"]
@@ -899,14 +899,14 @@ roughness = 0.82
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_p6f1j"]
 _surfaces = [{
-"aabb": AABB(-58, 48, 132.5, 100, 38, 1e-05),
+"aabb": AABB(-58, 48, 132.5, 100, 60, 1e-05),
 "format": 34359742465,
 "index_count": 3,
 "index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(0, 0, 104, 194, 0, 0, 64, 66, 0, 128, 4, 67, 0, 0, 40, 66, 0, 0, 64, 66, 0, 128, 4, 67, 0, 0, 0, 193, 0, 0, 172, 66, 0, 128, 4, 67)
+"vertex_data": PackedByteArray(0, 0, 104, 194, 0, 0, 64, 66, 0, 128, 4, 67, 0, 0, 40, 66, 0, 0, 64, 66, 0, 128, 4, 67, 0, 0, 0, 193, 0, 0, 216, 66, 0, 128, 4, 67)
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tv26g"]
@@ -916,14 +916,14 @@ roughness = 0.82
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_e6s0e"]
 _surfaces = [{
-"aabb": AABB(98, 44, 132.5, 88, 34, 1e-05),
+"aabb": AABB(98, 44, 132.5, 88, 54, 1e-05),
 "format": 34359742465,
 "index_count": 3,
 "index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(0, 0, 196, 66, 0, 0, 48, 66, 0, 128, 4, 67, 0, 0, 58, 67, 0, 0, 48, 66, 0, 128, 4, 67, 0, 0, 14, 67, 0, 0, 156, 66, 0, 128, 4, 67)
+"vertex_data": PackedByteArray(0, 0, 196, 66, 0, 0, 48, 66, 0, 128, 4, 67, 0, 0, 58, 67, 0, 0, 48, 66, 0, 128, 4, 67, 0, 0, 14, 67, 0, 0, 196, 66, 0, 128, 4, 67)
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_socrk"]
@@ -933,14 +933,14 @@ roughness = 0.82
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_0yid2"]
 _surfaces = [{
-"aabb": AABB(-170.5, 48, -122, 1e-05, 34, 214),
+"aabb": AABB(-170.5, 48, -122, 1e-05, 68, 214),
 "format": 34359742465,
 "index_count": 3,
 "index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(0, 128, 42, 195, 0, 0, 64, 66, 0, 0, 244, 194, 0, 128, 42, 195, 0, 0, 64, 66, 0, 0, 184, 66, 0, 128, 42, 195, 0, 0, 164, 66, 0, 0, 112, 193)
+"vertex_data": PackedByteArray(0, 128, 42, 195, 0, 0, 64, 66, 0, 0, 244, 194, 0, 128, 42, 195, 0, 0, 64, 66, 0, 0, 184, 66, 0, 128, 42, 195, 0, 0, 232, 66, 0, 0, 112, 193)
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ok2ej"]
@@ -950,14 +950,14 @@ roughness = 0.82
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_1slny"]
 _surfaces = [{
-"aabb": AABB(190.5, 48, -122, 1e-05, 34, 214),
+"aabb": AABB(190.5, 48, -122, 1e-05, 68, 214),
 "format": 34359742465,
 "index_count": 3,
 "index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(0, 128, 62, 67, 0, 0, 64, 66, 0, 0, 244, 194, 0, 128, 62, 67, 0, 0, 64, 66, 0, 0, 184, 66, 0, 128, 62, 67, 0, 0, 164, 66, 0, 0, 112, 193)
+"vertex_data": PackedByteArray(0, 128, 62, 67, 0, 0, 64, 66, 0, 0, 244, 194, 0, 128, 62, 67, 0, 0, 64, 66, 0, 0, 184, 66, 0, 128, 62, 67, 0, 0, 232, 66, 0, 0, 112, 193)
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hht42"]
@@ -3576,7 +3576,7 @@ metadata/validation_gate = "home_plan50_622_shell_provenance_and_envelope_gate"
 metadata/validation_camera = "RooflineReviewCamera"
 
 [node name="Plan50PrimaryRearLongRoofRidgeCap" type="MeshInstance3D" parent="Roof"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 83, -15)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 117, -15)
 material_override = SubResource("StandardMaterial3D_v1p4g")
 mesh = SubResource("BoxMesh_kda1l")
 metadata/node_path = "Roof/Plan50PrimaryRearLongRoofRidgeCap"
@@ -3728,7 +3728,7 @@ metadata/validation_gate = "home_plan50_622_shell_provenance_and_envelope_gate"
 metadata/validation_camera = "RooflineReviewCamera"
 
 [node name="Plan50FrontLeftMasterStreetGableRidgeCap" type="MeshInstance3D" parent="Roof"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -123, 79, 104)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -123, 99, 104)
 material_override = SubResource("StandardMaterial3D_6ltjb")
 mesh = SubResource("BoxMesh_g8rqh")
 metadata/node_path = "Roof/Plan50FrontLeftMasterStreetGableRidgeCap"
@@ -3880,7 +3880,7 @@ metadata/validation_gate = "home_plan50_622_shell_provenance_and_envelope_gate"
 metadata/validation_camera = "RooflineReviewCamera"
 
 [node name="Plan50FrontCenterGreatRoomStreetGableRidgeCap" type="MeshInstance3D" parent="Roof"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 87, 101)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 109, 101)
 material_override = SubResource("StandardMaterial3D_6qtu6")
 mesh = SubResource("BoxMesh_htn62")
 metadata/node_path = "Roof/Plan50FrontCenterGreatRoomStreetGableRidgeCap"
@@ -4032,7 +4032,7 @@ metadata/validation_gate = "home_plan50_622_shell_provenance_and_envelope_gate"
 metadata/validation_camera = "RooflineReviewCamera"
 
 [node name="Plan50FrontRightBedroomStreetGableRidgeCap" type="MeshInstance3D" parent="Roof"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 142, 79, 104)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 142, 99, 104)
 material_override = SubResource("StandardMaterial3D_mon2o")
 mesh = SubResource("BoxMesh_bc4v2")
 metadata/node_path = "Roof/Plan50FrontRightBedroomStreetGableRidgeCap"
@@ -4184,7 +4184,7 @@ metadata/validation_gate = "home_plan50_622_shell_provenance_and_envelope_gate"
 metadata/validation_camera = "RooflineReviewCamera"
 
 [node name="Plan50GarageSideEntryGableRidgeCap" type="MeshInstance3D" parent="Roof"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -154, 69, 54)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -154, 91, 54)
 material_override = SubResource("StandardMaterial3D_3swem")
 mesh = SubResource("BoxMesh_j0d1n")
 metadata/node_path = "Roof/Plan50GarageSideEntryGableRidgeCap"
@@ -8045,10 +8045,11 @@ metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="KitchenIsland" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 6, 35)
+visible = false
 material_override = SubResource("StandardMaterial3D_4k20i")
 mesh = SubResource("BoxMesh_rluca")
 metadata/node_path = "MainFloor/KitchenIsland"
-metadata/visible_class = "generated_visible_geometry"
+metadata/visible_class = "phase3_provisional_hidden_furnishing"
 metadata/owner_volume = "MainFloor.KitchenIsland"
 metadata/assembly = "MainFloor"
 metadata/role = "floor_or_site_surface"
@@ -8061,9 +8062,10 @@ metadata/start_anchor = "z=14.00"
 metadata/end_anchor = "z=56.00"
 metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
-metadata/deletion_rule = "delete only through GenerateHomePlan50622Map.gd when owner assembly or source contract changes"
+metadata/deletion_rule = "replace through Phase 3 sourced asset contract before production-visible review"
 metadata/validation_gate = "home_plan50_622_generated_node_provenance_gate"
 metadata/validation_camera = "Plan50KitchenStartPlayerCamera"
+metadata/default_visibility = "hidden_until_sourced_phase3_asset"
 metadata/owner_character = "Sir Clink"
 metadata/owner_zone = "kitchen"
 metadata/scale_class = "room_furnishing"
@@ -8071,10 +8073,11 @@ metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/stages/h
 
 [node name="KitchenCabinetRunBack" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 7, 0)
+visible = false
 material_override = SubResource("StandardMaterial3D_vwam5")
 mesh = SubResource("BoxMesh_af1rs")
 metadata/node_path = "MainFloor/KitchenCabinetRunBack"
-metadata/visible_class = "generated_visible_geometry"
+metadata/visible_class = "phase3_provisional_hidden_furnishing"
 metadata/owner_volume = "MainFloor.KitchenCabinetRunBack"
 metadata/assembly = "MainFloor"
 metadata/role = "floor_or_site_surface"
@@ -8087,9 +8090,10 @@ metadata/start_anchor = "x=-79.00"
 metadata/end_anchor = "x=-21.00"
 metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
-metadata/deletion_rule = "delete only through GenerateHomePlan50622Map.gd when owner assembly or source contract changes"
+metadata/deletion_rule = "replace through Phase 3 sourced asset contract before production-visible review"
 metadata/validation_gate = "home_plan50_622_generated_node_provenance_gate"
 metadata/validation_camera = "Plan50KitchenStartPlayerCamera"
+metadata/default_visibility = "hidden_until_sourced_phase3_asset"
 metadata/owner_character = "Sir Clink"
 metadata/owner_zone = "kitchen"
 metadata/scale_class = "room_furnishing"
@@ -8097,10 +8101,11 @@ metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/stages/h
 
 [node name="KitchenRangeHood" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 19, -4)
+visible = false
 material_override = SubResource("StandardMaterial3D_pvdar")
 mesh = SubResource("BoxMesh_u0as2")
 metadata/node_path = "MainFloor/KitchenRangeHood"
-metadata/visible_class = "generated_visible_geometry"
+metadata/visible_class = "phase3_provisional_hidden_furnishing"
 metadata/owner_volume = "MainFloor.KitchenRangeHood"
 metadata/assembly = "MainFloor"
 metadata/role = "floor_or_site_surface"
@@ -8113,16 +8118,18 @@ metadata/start_anchor = "x=-43.00"
 metadata/end_anchor = "x=-25.00"
 metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
-metadata/deletion_rule = "delete only through GenerateHomePlan50622Map.gd when owner assembly or source contract changes"
+metadata/deletion_rule = "replace through Phase 3 sourced asset contract before production-visible review"
 metadata/validation_gate = "home_plan50_622_generated_node_provenance_gate"
 metadata/validation_camera = "MainFloorPlanCamera"
+metadata/default_visibility = "hidden_until_sourced_phase3_asset"
 
 [node name="DiningTable" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 5, 82)
+visible = false
 material_override = SubResource("StandardMaterial3D_yglqq")
 mesh = SubResource("BoxMesh_4t7t0")
 metadata/node_path = "MainFloor/DiningTable"
-metadata/visible_class = "generated_visible_geometry"
+metadata/visible_class = "phase3_provisional_hidden_furnishing"
 metadata/owner_volume = "MainFloor.DiningTable"
 metadata/assembly = "MainFloor"
 metadata/role = "floor_or_site_surface"
@@ -8135,16 +8142,18 @@ metadata/start_anchor = "x=-45.00"
 metadata/end_anchor = "x=-11.00"
 metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
-metadata/deletion_rule = "delete only through GenerateHomePlan50622Map.gd when owner assembly or source contract changes"
+metadata/deletion_rule = "replace through Phase 3 sourced asset contract before production-visible review"
 metadata/validation_gate = "home_plan50_622_generated_node_provenance_gate"
 metadata/validation_camera = "MainFloorPlanCamera"
+metadata/default_visibility = "hidden_until_sourced_phase3_asset"
 
 [node name="GreatRoomFireplace" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96, 12, 34)
+visible = false
 material_override = SubResource("StandardMaterial3D_8al5v")
 mesh = SubResource("BoxMesh_7wxpx")
 metadata/node_path = "MainFloor/GreatRoomFireplace"
-metadata/visible_class = "generated_visible_geometry"
+metadata/visible_class = "phase3_provisional_hidden_furnishing"
 metadata/owner_volume = "MainFloor.GreatRoomFireplace"
 metadata/assembly = "MainFloor"
 metadata/role = "floor_or_site_surface"
@@ -8157,9 +8166,10 @@ metadata/start_anchor = "z=20.00"
 metadata/end_anchor = "z=48.00"
 metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
-metadata/deletion_rule = "delete only through GenerateHomePlan50622Map.gd when owner assembly or source contract changes"
+metadata/deletion_rule = "replace through Phase 3 sourced asset contract before production-visible review"
 metadata/validation_gate = "home_plan50_622_generated_node_provenance_gate"
 metadata/validation_camera = "Plan50GreatRoomStartPlayerCamera"
+metadata/default_visibility = "hidden_until_sourced_phase3_asset"
 metadata/owner_character = "Slammo"
 metadata/owner_zone = "great_room"
 metadata/scale_class = "room_furnishing"
@@ -8167,10 +8177,11 @@ metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/stages/h
 
 [node name="GreatRoomSofa" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 6, 52)
+visible = false
 material_override = SubResource("StandardMaterial3D_hrqgo")
 mesh = SubResource("BoxMesh_7m8y1")
 metadata/node_path = "MainFloor/GreatRoomSofa"
-metadata/visible_class = "generated_visible_geometry"
+metadata/visible_class = "phase3_provisional_hidden_furnishing"
 metadata/owner_volume = "MainFloor.GreatRoomSofa"
 metadata/assembly = "MainFloor"
 metadata/role = "floor_or_site_surface"
@@ -8183,9 +8194,10 @@ metadata/start_anchor = "x=27.00"
 metadata/end_anchor = "x=69.00"
 metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
-metadata/deletion_rule = "delete only through GenerateHomePlan50622Map.gd when owner assembly or source contract changes"
+metadata/deletion_rule = "replace through Phase 3 sourced asset contract before production-visible review"
 metadata/validation_gate = "home_plan50_622_generated_node_provenance_gate"
 metadata/validation_camera = "Plan50GreatRoomStartPlayerCamera"
+metadata/default_visibility = "hidden_until_sourced_phase3_asset"
 metadata/owner_character = "Slammo"
 metadata/owner_zone = "great_room"
 metadata/scale_class = "room_furnishing"
@@ -8193,10 +8205,11 @@ metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/stages/h
 
 [node name="GreatRoomCoffeeTable" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 4, 26)
+visible = false
 material_override = SubResource("StandardMaterial3D_fwcj3")
 mesh = SubResource("BoxMesh_teyck")
 metadata/node_path = "MainFloor/GreatRoomCoffeeTable"
-metadata/visible_class = "generated_visible_geometry"
+metadata/visible_class = "phase3_provisional_hidden_furnishing"
 metadata/owner_volume = "MainFloor.GreatRoomCoffeeTable"
 metadata/assembly = "MainFloor"
 metadata/role = "floor_or_site_surface"
@@ -8209,16 +8222,18 @@ metadata/start_anchor = "x=36.00"
 metadata/end_anchor = "x=60.00"
 metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
-metadata/deletion_rule = "delete only through GenerateHomePlan50622Map.gd when owner assembly or source contract changes"
+metadata/deletion_rule = "replace through Phase 3 sourced asset contract before production-visible review"
 metadata/validation_gate = "home_plan50_622_generated_node_provenance_gate"
 metadata/validation_camera = "MainFloorPlanCamera"
+metadata/default_visibility = "hidden_until_sourced_phase3_asset"
 
 [node name="MasterBed" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116, 6, -42)
+visible = false
 material_override = SubResource("StandardMaterial3D_2eq0r")
 mesh = SubResource("BoxMesh_sye6r")
 metadata/node_path = "MainFloor/MasterBed"
-metadata/visible_class = "generated_visible_geometry"
+metadata/visible_class = "phase3_provisional_hidden_furnishing"
 metadata/owner_volume = "MainFloor.MasterBed"
 metadata/assembly = "MainFloor"
 metadata/role = "floor_or_site_surface"
@@ -8231,9 +8246,10 @@ metadata/start_anchor = "z=-66.00"
 metadata/end_anchor = "z=-18.00"
 metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
-metadata/deletion_rule = "delete only through GenerateHomePlan50622Map.gd when owner assembly or source contract changes"
+metadata/deletion_rule = "replace through Phase 3 sourced asset contract before production-visible review"
 metadata/validation_gate = "home_plan50_622_generated_node_provenance_gate"
 metadata/validation_camera = "Plan50MasterSuiteStartPlayerCamera"
+metadata/default_visibility = "hidden_until_sourced_phase3_asset"
 metadata/owner_character = "Velva"
 metadata/owner_zone = "master_suite_plus_walk_in_closet"
 metadata/scale_class = "room_furnishing"
@@ -8241,10 +8257,11 @@ metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/stages/h
 
 [node name="MasterClosetBuiltIns" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -156, 8, -24)
+visible = false
 material_override = SubResource("StandardMaterial3D_3phyb")
 mesh = SubResource("BoxMesh_30lp3")
 metadata/node_path = "MainFloor/MasterClosetBuiltIns"
-metadata/visible_class = "generated_visible_geometry"
+metadata/visible_class = "phase3_provisional_hidden_furnishing"
 metadata/owner_volume = "MainFloor.MasterClosetBuiltIns"
 metadata/assembly = "MainFloor"
 metadata/role = "floor_or_site_surface"
@@ -8257,9 +8274,10 @@ metadata/start_anchor = "z=-45.00"
 metadata/end_anchor = "z=-3.00"
 metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
-metadata/deletion_rule = "delete only through GenerateHomePlan50622Map.gd when owner assembly or source contract changes"
+metadata/deletion_rule = "replace through Phase 3 sourced asset contract before production-visible review"
 metadata/validation_gate = "home_plan50_622_generated_node_provenance_gate"
 metadata/validation_camera = "Plan50MasterSuiteStartPlayerCamera"
+metadata/default_visibility = "hidden_until_sourced_phase3_asset"
 metadata/owner_character = "Velva"
 metadata/owner_zone = "master_suite_plus_walk_in_closet"
 metadata/scale_class = "room_furnishing"
@@ -8267,10 +8285,11 @@ metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/stages/h
 
 [node name="BedroomWingBedA" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 126, 6, -48)
+visible = false
 material_override = SubResource("StandardMaterial3D_ef6h0")
 mesh = SubResource("BoxMesh_wq6a3")
 metadata/node_path = "MainFloor/BedroomWingBedA"
-metadata/visible_class = "generated_visible_geometry"
+metadata/visible_class = "phase3_provisional_hidden_furnishing"
 metadata/owner_volume = "MainFloor.BedroomWingBedA"
 metadata/assembly = "MainFloor"
 metadata/role = "floor_or_site_surface"
@@ -8283,9 +8302,10 @@ metadata/start_anchor = "z=-65.00"
 metadata/end_anchor = "z=-31.00"
 metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
-metadata/deletion_rule = "delete only through GenerateHomePlan50622Map.gd when owner assembly or source contract changes"
+metadata/deletion_rule = "replace through Phase 3 sourced asset contract before production-visible review"
 metadata/validation_gate = "home_plan50_622_generated_node_provenance_gate"
 metadata/validation_camera = "Plan50BedroomWingStartPlayerCamera"
+metadata/default_visibility = "hidden_until_sourced_phase3_asset"
 metadata/owner_character = "Tuggs"
 metadata/owner_zone = "bedroom_wing"
 metadata/scale_class = "room_furnishing"
@@ -8293,10 +8313,11 @@ metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/stages/h
 
 [node name="BedroomWingBedB" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 166, 6, -70)
+visible = false
 material_override = SubResource("StandardMaterial3D_rbhih")
 mesh = SubResource("BoxMesh_h2a0l")
 metadata/node_path = "MainFloor/BedroomWingBedB"
-metadata/visible_class = "generated_visible_geometry"
+metadata/visible_class = "phase3_provisional_hidden_furnishing"
 metadata/owner_volume = "MainFloor.BedroomWingBedB"
 metadata/assembly = "MainFloor"
 metadata/role = "floor_or_site_surface"
@@ -8309,9 +8330,10 @@ metadata/start_anchor = "z=-87.00"
 metadata/end_anchor = "z=-53.00"
 metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
-metadata/deletion_rule = "delete only through GenerateHomePlan50622Map.gd when owner assembly or source contract changes"
+metadata/deletion_rule = "replace through Phase 3 sourced asset contract before production-visible review"
 metadata/validation_gate = "home_plan50_622_generated_node_provenance_gate"
 metadata/validation_camera = "Plan50BedroomWingStartPlayerCamera"
+metadata/default_visibility = "hidden_until_sourced_phase3_asset"
 metadata/owner_character = "Tuggs"
 metadata/owner_zone = "bedroom_wing"
 metadata/scale_class = "room_furnishing"
@@ -8319,10 +8341,11 @@ metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/stages/h
 
 [node name="BedroomWingSoftBarrier" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 142, 5, -6)
+visible = false
 material_override = SubResource("StandardMaterial3D_4clvb")
 mesh = SubResource("BoxMesh_70euu")
 metadata/node_path = "MainFloor/BedroomWingSoftBarrier"
-metadata/visible_class = "generated_visible_geometry"
+metadata/visible_class = "phase3_provisional_hidden_furnishing"
 metadata/owner_volume = "MainFloor.BedroomWingSoftBarrier"
 metadata/assembly = "MainFloor"
 metadata/role = "floor_or_site_surface"
@@ -8335,16 +8358,18 @@ metadata/start_anchor = "x=108.00"
 metadata/end_anchor = "x=176.00"
 metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
-metadata/deletion_rule = "delete only through GenerateHomePlan50622Map.gd when owner assembly or source contract changes"
+metadata/deletion_rule = "replace through Phase 3 sourced asset contract before production-visible review"
 metadata/validation_gate = "home_plan50_622_generated_node_provenance_gate"
 metadata/validation_camera = "MainFloorPlanCamera"
+metadata/default_visibility = "hidden_until_sourced_phase3_asset"
 
 [node name="GarageCarBayMarkerLeft" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -174, 1.4, 58)
+visible = false
 material_override = SubResource("StandardMaterial3D_5ypcu")
 mesh = SubResource("BoxMesh_hi3gr")
 metadata/node_path = "MainFloor/GarageCarBayMarkerLeft"
-metadata/visible_class = "generated_visible_geometry"
+metadata/visible_class = "phase3_provisional_hidden_furnishing"
 metadata/owner_volume = "MainFloor.GarageCarBayMarkerLeft"
 metadata/assembly = "MainFloor"
 metadata/role = "floor_or_site_surface"
@@ -8357,16 +8382,18 @@ metadata/start_anchor = "z=13.00"
 metadata/end_anchor = "z=103.00"
 metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
-metadata/deletion_rule = "delete only through GenerateHomePlan50622Map.gd when owner assembly or source contract changes"
+metadata/deletion_rule = "replace through Phase 3 sourced asset contract before production-visible review"
 metadata/validation_gate = "home_plan50_622_generated_node_provenance_gate"
 metadata/validation_camera = "MainFloorPlanCamera"
+metadata/default_visibility = "hidden_until_sourced_phase3_asset"
 
 [node name="GarageCarBayMarkerCenter" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150, 1.4, 58)
+visible = false
 material_override = SubResource("StandardMaterial3D_6oc8a")
 mesh = SubResource("BoxMesh_5oyjx")
 metadata/node_path = "MainFloor/GarageCarBayMarkerCenter"
-metadata/visible_class = "generated_visible_geometry"
+metadata/visible_class = "phase3_provisional_hidden_furnishing"
 metadata/owner_volume = "MainFloor.GarageCarBayMarkerCenter"
 metadata/assembly = "MainFloor"
 metadata/role = "floor_or_site_surface"
@@ -8379,16 +8406,18 @@ metadata/start_anchor = "z=13.00"
 metadata/end_anchor = "z=103.00"
 metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
-metadata/deletion_rule = "delete only through GenerateHomePlan50622Map.gd when owner assembly or source contract changes"
+metadata/deletion_rule = "replace through Phase 3 sourced asset contract before production-visible review"
 metadata/validation_gate = "home_plan50_622_generated_node_provenance_gate"
 metadata/validation_camera = "MainFloorPlanCamera"
+metadata/default_visibility = "hidden_until_sourced_phase3_asset"
 
 [node name="GarageCarBayMarkerRight" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126, 1.4, 58)
+visible = false
 material_override = SubResource("StandardMaterial3D_1qvcw")
 mesh = SubResource("BoxMesh_akf15")
 metadata/node_path = "MainFloor/GarageCarBayMarkerRight"
-metadata/visible_class = "generated_visible_geometry"
+metadata/visible_class = "phase3_provisional_hidden_furnishing"
 metadata/owner_volume = "MainFloor.GarageCarBayMarkerRight"
 metadata/assembly = "MainFloor"
 metadata/role = "floor_or_site_surface"
@@ -8401,16 +8430,18 @@ metadata/start_anchor = "z=13.00"
 metadata/end_anchor = "z=103.00"
 metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
-metadata/deletion_rule = "delete only through GenerateHomePlan50622Map.gd when owner assembly or source contract changes"
+metadata/deletion_rule = "replace through Phase 3 sourced asset contract before production-visible review"
 metadata/validation_gate = "home_plan50_622_generated_node_provenance_gate"
 metadata/validation_camera = "MainFloorPlanCamera"
+metadata/default_visibility = "hidden_until_sourced_phase3_asset"
 
 [node name="GarageWorkbench" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104, 7, 18)
+visible = false
 material_override = SubResource("StandardMaterial3D_gcxph")
 mesh = SubResource("BoxMesh_grofs")
 metadata/node_path = "MainFloor/GarageWorkbench"
-metadata/visible_class = "generated_visible_geometry"
+metadata/visible_class = "phase3_provisional_hidden_furnishing"
 metadata/owner_volume = "MainFloor.GarageWorkbench"
 metadata/assembly = "MainFloor"
 metadata/role = "floor_or_site_surface"
@@ -8423,9 +8454,10 @@ metadata/start_anchor = "z=-4.00"
 metadata/end_anchor = "z=40.00"
 metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
-metadata/deletion_rule = "delete only through GenerateHomePlan50622Map.gd when owner assembly or source contract changes"
+metadata/deletion_rule = "replace through Phase 3 sourced asset contract before production-visible review"
 metadata/validation_gate = "home_plan50_622_generated_node_provenance_gate"
 metadata/validation_camera = "Plan50GarageStartPlayerCamera"
+metadata/default_visibility = "hidden_until_sourced_phase3_asset"
 metadata/owner_character = "Dash"
 metadata/owner_zone = "garage_service_driveway_stunt_route"
 metadata/scale_class = "room_furnishing"
@@ -9242,6 +9274,8 @@ metadata/validation_gate = "home_plan50_622_generated_node_provenance_gate"
 metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="ValidationCameras" type="Node3D" parent="."]
+visible = false
+metadata/default_visibility = "hidden_for_clean_exterior_shell_review"
 
 [node name="MainFloorPlanCamera" type="Camera3D" parent="ValidationCameras"]
 transform = Transform3D(1, 0, 0, 0, 0.4694716, 0.88294756, 0, -0.88294756, 0.4694716, 0, 210, 220)

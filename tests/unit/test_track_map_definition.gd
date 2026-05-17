@@ -344,6 +344,19 @@ func test_home_plan50_map_uses_separate_one_story_canvas_reference() -> void:
 	assert_true(root.get_node_or_null("Site/RightOakCanopyReference") == null, "Plan 50-622 should not ship visible tree-canopy placeholder boxes in shell review screenshots")
 	var right_gable := root.get_node_or_null("ExteriorShell/RightElevationDominantGableFace") as MeshInstance3D
 	assert_true(right_gable != null and right_gable.mesh is ArrayMesh, "Plan 50-622 right elevation gable face should be triangular mesh geometry, not a rectangular patch box")
+	var validation_cameras := root.get_node_or_null("ValidationCameras") as Node3D
+	assert_true(validation_cameras != null and not validation_cameras.visible, "Plan 50-622 validation camera holder should be hidden by default for clean exterior shell review")
+	var primary_ridge := root.get_node_or_null("Roof/Plan50PrimaryRearLongRoofRidgeCap") as MeshInstance3D
+	assert_true(primary_ridge != null and primary_ridge.position.y >= 116.0, "Plan 50-622 primary roof should keep a steep farmhouse ridge instead of reading as a flat lid")
+	for provisional_path in [
+		"MainFloor/DiningTable",
+		"MainFloor/GreatRoomCoffeeTable",
+		"MainFloor/KitchenIsland",
+		"MainFloor/GarageWorkbench",
+	]:
+		var provisional := root.get_node_or_null(provisional_path) as MeshInstance3D
+		assert_true(provisional != null and not provisional.visible, "Plan 50-622 provisional furnishing %s should stay hidden during Phase 2 exterior shell review" % provisional_path)
+		assert_equal(str(provisional.get_meta("visible_class", "")), "phase3_provisional_hidden_furnishing", "Plan 50-622 provisional furnishing %s should declare its hidden Phase 3 lifecycle" % provisional_path)
 	var visible_meshes: Array[MeshInstance3D] = []
 	_collect_generated_visible_meshes(root, visible_meshes)
 	assert_true(visible_meshes.size() > 0, "Plan 50-622 should expose visible generated meshes for provenance audit")
