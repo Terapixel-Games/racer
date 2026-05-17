@@ -1322,11 +1322,19 @@
 			-1.39999997615814,
 			-166.0
 		],
+		"owner_character": "Moko",
+		"owner_zone": "garden_patio",
 		"road_width": 16.0,
 		"route_envelope": {
 			"max": "(149.0, 10.6, -108.0)",
-			"min": "(-41.0, -9.4, -208.0)"
+			"min": "(-41.0, -9.4, -208.0)",
+			"owner_character": "Moko",
+			"owner_zone": "garden_patio",
+			"route_clearance": "route_above_floor_inside_owner_zone_obstacle_and_chase_camera_clear",
+			"scale_class": "yard_site",
+			"validation_camera": "EstatePatioStartPlayerCamera"
 		},
+		"scale_class": "yard_site",
 		"spawn_slots": [
 			{
 				"forward_offset": 0.0,
@@ -1384,7 +1392,8 @@
 				"y_offset": 0.8,
 				"yaw_offset_degrees": 180.0
 			}
-		]
+		],
+		"validation_camera": "EstatePatioStartPlayerCamera"
 	},
 	"road_segment_layout": [],
 	"road_segment_material_style": "toy_plastic",

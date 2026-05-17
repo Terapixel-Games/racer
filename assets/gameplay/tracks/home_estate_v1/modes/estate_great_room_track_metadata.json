@@ -830,11 +830,19 @@
 			-1.39999997615814,
 			20.0
 		],
+		"owner_character": "Slammo",
+		"owner_zone": "great_room",
 		"road_width": 16.0,
 		"route_envelope": {
 			"max": "(109.0, 12.6, 87.0)",
-			"min": "(-9.0, -11.4, -31.0)"
+			"min": "(-9.0, -11.4, -31.0)",
+			"owner_character": "Slammo",
+			"owner_zone": "great_room",
+			"route_clearance": "route_above_floor_inside_owner_zone_obstacle_and_chase_camera_clear",
+			"scale_class": "room_furnishing",
+			"validation_camera": "EstateGreatRoomStartPlayerCamera"
 		},
+		"scale_class": "room_furnishing",
 		"spawn_slots": [
 			{
 				"forward_offset": 0.0,
@@ -892,7 +900,8 @@
 				"y_offset": 0.8,
 				"yaw_offset_degrees": 180.0
 			}
-		]
+		],
+		"validation_camera": "EstateGreatRoomStartPlayerCamera"
 	},
 	"road_segment_layout": [],
 	"road_segment_material_style": "toy_plastic",

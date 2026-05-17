@@ -133,11 +133,19 @@ road_grid_layout = {
 "ordered_route_cells": Array[Vector3i]([Vector3i(-1, 0, -2), Vector3i(0, 0, -2), Vector3i(1, 0, -2), Vector3i(2, 0, -2), Vector3i(2, 0, -1), Vector3i(2, 0, 0), Vector3i(2, 0, 1), Vector3i(2, 0, 2), Vector3i(1, 0, 2), Vector3i(0, 0, 2), Vector3i(-1, 0, 2), Vector3i(-2, 0, 2), Vector3i(-2, 0, 1), Vector3i(-2, 0, 0), Vector3i(-2, 0, -1), Vector3i(-2, 0, -2), Vector3i(-2, 0, -2)]),
 "ordered_route_points": Array[Vector3]([Vector3(-70, 0.6, -12), Vector3(-54, 0.6, -12), Vector3(-38, 0.6, -12), Vector3(-22, 0.6, -12), Vector3(-22, 0.6, 4), Vector3(-22, 0.6, 20), Vector3(-22, 0.6, 36), Vector3(-22, 0.6, 52), Vector3(-38, 0.6, 52), Vector3(-54, 0.6, 52), Vector3(-70, 0.6, 52), Vector3(-86, 0.6, 52), Vector3(-86, 0.6, 36), Vector3(-86, 0.6, 20), Vector3(-86, 0.6, 4), Vector3(-86, 0.6, -12), Vector3(-86, 0.6, -12)]),
 "origin": Vector3(-62, -1.4, 12),
+"owner_character": "Sir Clink",
+"owner_zone": "kitchen",
 "road_width": 16.0,
 "route_envelope": {
 "max": Vector3(5, 12.6, 79),
-"min": Vector3(-113, -11.4, -39)
+"min": Vector3(-113, -11.4, -39),
+"owner_character": "Sir Clink",
+"owner_zone": "kitchen",
+"route_clearance": "route_above_floor_inside_owner_zone_obstacle_and_chase_camera_clear",
+"scale_class": "room_furnishing",
+"validation_camera": "EstateKitchenStartPlayerCamera"
 },
+"scale_class": "room_furnishing",
 "spawn_slots": Array[Dictionary]([{
 "forward_offset": 0.0,
 "lateral_offset": -2.75,
@@ -186,7 +194,8 @@ road_grid_layout = {
 "route_index": 0,
 "y_offset": 0.8,
 "yaw_offset_degrees": 180.0
-}])
+}]),
+"validation_camera": "EstateKitchenStartPlayerCamera"
 }
 sky_preset_id = "noon_clear"
 sky_weather = "clear"
@@ -203,3 +212,7 @@ metadata/track_map_id = "home_estate_v1"
 metadata/track_mode_id = "estate_kitchen"
 metadata/track_mode_kind = "race"
 metadata/road_source = "road_grid_map"
+metadata/owner_character = "Sir Clink"
+metadata/owner_zone = "kitchen"
+metadata/scale_class = "room_furnishing"
+metadata/validation_camera = "EstateKitchenStartPlayerCamera"

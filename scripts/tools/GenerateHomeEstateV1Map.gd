@@ -95,12 +95,14 @@ const OUTDOOR_ZONE_CONTRACT := {
 }
 
 const COURSES := [
-	{"id": "estate_kitchen", "display_name": "Estate Kitchen", "placement": Vector3(-54, MAIN_FLOOR_Y + ROAD_FLOOR_CLEARANCE, 20), "sky": "noon_clear", "color": Color(0.92, 0.78, 0.55)},
-	{"id": "estate_great_room", "display_name": "Estate Great Room", "placement": Vector3(50, MAIN_FLOOR_Y + ROAD_FLOOR_CLEARANCE, 28), "sky": "soft_morning", "color": Color(0.76, 0.62, 0.55)},
-	{"id": "estate_garage", "display_name": "Estate Garage", "placement": Vector3(-102, MAIN_FLOOR_Y + ROAD_FLOOR_CLEARANCE, -66), "sky": "clear_afternoon", "color": Color(0.58, 0.58, 0.54)},
-	{"id": "estate_master_suite", "display_name": "Estate Master Suite", "placement": Vector3(118, MAIN_FLOOR_Y + ROAD_FLOOR_CLEARANCE, 34), "sky": "soft_morning", "color": Color(0.62, 0.56, 0.68)},
-	{"id": "estate_upper_loft", "display_name": "Estate Upper Loft", "placement": Vector3(-24, UPPER_FLOOR_Y + ROAD_FLOOR_CLEARANCE, 0), "sky": "party_evening", "color": Color(0.58, 0.50, 0.66)},
-	{"id": "estate_patio", "display_name": "Estate Patio", "placement": Vector3(54, MAIN_FLOOR_Y + ROAD_FLOOR_CLEARANCE, -158), "sky": "clear_afternoon", "color": Color(0.64, 0.62, 0.56)},
+	{"id": "estate_kitchen", "display_name": "Estate Kitchen", "owner_character": "Sir Clink", "owner_zone": "kitchen", "scale_class": "room_furnishing", "validation_camera": "EstateKitchenStartPlayerCamera", "placement": Vector3(-54, MAIN_FLOOR_Y + ROAD_FLOOR_CLEARANCE, 20), "sky": "noon_clear", "color": Color(0.92, 0.78, 0.55)},
+	{"id": "estate_great_room", "display_name": "Estate Great Room", "owner_character": "Slammo", "owner_zone": "great_room", "scale_class": "room_furnishing", "validation_camera": "EstateGreatRoomStartPlayerCamera", "placement": Vector3(50, MAIN_FLOOR_Y + ROAD_FLOOR_CLEARANCE, 28), "sky": "soft_morning", "color": Color(0.76, 0.62, 0.55)},
+	{"id": "estate_garage", "display_name": "Estate Garage", "owner_character": "Dash", "owner_zone": "garage_service_driveway_stunt_route", "scale_class": "room_furnishing", "validation_camera": "EstateGarageStartPlayerCamera", "placement": Vector3(-102, MAIN_FLOOR_Y + ROAD_FLOOR_CLEARANCE, -66), "sky": "clear_afternoon", "color": Color(0.58, 0.58, 0.54)},
+	{"id": "estate_master_suite", "display_name": "Estate Master Suite", "owner_character": "Velva", "owner_zone": "master_suite_plus_walk_in_closet", "scale_class": "room_furnishing", "validation_camera": "EstateMasterSuiteStartPlayerCamera", "placement": Vector3(118, MAIN_FLOOR_Y + ROAD_FLOOR_CLEARANCE, 34), "sky": "soft_morning", "color": Color(0.62, 0.56, 0.68)},
+	{"id": "estate_bedroom_wing", "display_name": "Estate Bedroom Wing", "owner_character": "Tuggs", "owner_zone": "bedroom_wing", "scale_class": "room_furnishing", "validation_camera": "EstateBedroomWingStartPlayerCamera", "placement": Vector3(-18, UPPER_FLOOR_Y + ROAD_FLOOR_CLEARANCE, 44), "sky": "soft_morning", "color": Color(0.60, 0.56, 0.70)},
+	{"id": "estate_upper_loft", "display_name": "Estate Upper Loft", "owner_character": "Popper", "owner_zone": "bonus_room_attic_storage_prank_space", "scale_class": "room_furnishing", "validation_camera": "EstateUpperLoftStartPlayerCamera", "placement": Vector3(-24, UPPER_FLOOR_Y + ROAD_FLOOR_CLEARANCE, 0), "sky": "party_evening", "color": Color(0.58, 0.50, 0.66)},
+	{"id": "estate_patio", "display_name": "Estate Patio", "owner_character": "Moko", "owner_zone": "garden_patio", "scale_class": "yard_site", "validation_camera": "EstatePatioStartPlayerCamera", "placement": Vector3(54, MAIN_FLOOR_Y + ROAD_FLOOR_CLEARANCE, -158), "sky": "clear_afternoon", "color": Color(0.64, 0.62, 0.56)},
+	{"id": "estate_sandbox_yard", "display_name": "Estate Sandbox Yard", "owner_character": "Rexx", "owner_zone": "sandbox_fossil_play_yard", "scale_class": "yard_site", "validation_camera": "EstateSandboxYardStartPlayerCamera", "placement": Vector3(148, MAIN_FLOOR_Y + ROAD_FLOOR_CLEARANCE, -238), "sky": "clear_afternoon", "color": Color(0.73, 0.63, 0.39)},
 ]
 
 func _initialize() -> void:
@@ -137,6 +139,7 @@ func _save_map_scene() -> void:
 	_add_roof(root)
 	_add_vertical_connectors(root)
 	_add_course_route_markers(root)
+	_apply_character_zone_metadata(root)
 	_add_validation_cameras(root)
 	_add_lighting(root)
 	_set_owner_recursive(root, root)
@@ -207,6 +210,10 @@ func _save_map_definition() -> void:
 			"runtime_scene_path": _runtime_scene_path(course_id),
 			"metadata_path": _metadata_path(course_id),
 			"map_scene_path": MAP_SCENE_PATH,
+			"owner_character": str(course["owner_character"]),
+			"owner_zone": str(course["owner_zone"]),
+			"scale_class": str(course["scale_class"]),
+			"validation_camera": str(course["validation_camera"]),
 			"laps": 3,
 			"road_visual_style": "kenney_gridmap",
 			"road_width": ROAD_WIDTH,
@@ -245,6 +252,10 @@ func _make_definition(course: Dictionary, layout: Dictionary, route_points: Arra
 	definition.set_meta("track_mode_id", course_id)
 	definition.set_meta("track_mode_kind", "race")
 	definition.set_meta("road_source", "road_grid_map")
+	definition.set_meta("owner_character", str(course["owner_character"]))
+	definition.set_meta("owner_zone", str(course["owner_zone"]))
+	definition.set_meta("scale_class", str(course["scale_class"]))
+	definition.set_meta("validation_camera", str(course["validation_camera"]))
 	definition.laps = 3
 	definition.track_source_id = "road_grid_map"
 	definition.progress_rule_id = TrackSourceRules.PROGRESS_ROUTE_LAP
@@ -476,6 +487,49 @@ func _add_course_route_markers(root: Node3D) -> void:
 		audit_box.set_meta("visible_class", "validation_only_hidden_route_envelope")
 		audit_box.set_meta("deletion_rule", "may be removed only after equivalent route-envelope metadata gate exists")
 
+func _apply_character_zone_metadata(root: Node3D) -> void:
+	for item in [
+		{"path": "MainFloor/KitchenDining", "owner": "Sir Clink", "zone": "kitchen", "scale": "human_scale_shell", "camera": "EstateKitchenStartPlayerCamera"},
+		{"path": "MainFloor/KitchenIsland", "owner": "Sir Clink", "zone": "kitchen", "scale": "room_furnishing", "camera": "EstateKitchenStartPlayerCamera"},
+		{"path": "MainFloor/KitchenCabinetRunBack", "owner": "Sir Clink", "zone": "kitchen", "scale": "room_furnishing", "camera": "EstateKitchenStartPlayerCamera"},
+		{"path": "MainFloor/GreatRoom", "owner": "Slammo", "zone": "great_room", "scale": "human_scale_shell", "camera": "EstateGreatRoomStartPlayerCamera"},
+		{"path": "MainFloor/GreatRoomSofa", "owner": "Slammo", "zone": "great_room", "scale": "room_furnishing", "camera": "EstateGreatRoomStartPlayerCamera"},
+		{"path": "MainFloor/GreatRoomFireplace", "owner": "Slammo", "zone": "great_room", "scale": "room_furnishing", "camera": "EstateGreatRoomStartPlayerCamera"},
+		{"path": "MainFloor/ThreeCarGarage", "owner": "Dash", "zone": "garage_service_driveway_stunt_route", "scale": "human_scale_shell", "camera": "EstateGarageStartPlayerCamera"},
+		{"path": "MainFloor/GarageWorkbench", "owner": "Dash", "zone": "garage_service_driveway_stunt_route", "scale": "room_furnishing", "camera": "EstateGarageStartPlayerCamera"},
+		{"path": "MainFloor/MasterSuite", "owner": "Velva", "zone": "master_suite_plus_walk_in_closet", "scale": "human_scale_shell", "camera": "EstateMasterSuiteStartPlayerCamera"},
+		{"path": "MainFloor/MasterBed", "owner": "Velva", "zone": "master_suite_plus_walk_in_closet", "scale": "room_furnishing", "camera": "EstateMasterSuiteStartPlayerCamera"},
+		{"path": "MainFloor/MasterClosetBuiltIns", "owner": "Velva", "zone": "master_suite_plus_walk_in_closet", "scale": "room_furnishing", "camera": "EstateMasterSuiteStartPlayerCamera"},
+		{"path": "UpperFloor/UpperBedroomWest", "owner": "Tuggs", "zone": "bedroom_wing", "scale": "human_scale_shell", "camera": "EstateBedroomWingStartPlayerCamera"},
+		{"path": "UpperFloor/UpperBedroomEast", "owner": "Tuggs", "zone": "bedroom_wing", "scale": "human_scale_shell", "camera": "EstateBedroomWingStartPlayerCamera"},
+		{"path": "UpperFloor/UpperBedroomRear", "owner": "Tuggs", "zone": "bedroom_wing", "scale": "human_scale_shell", "camera": "EstateBedroomWingStartPlayerCamera"},
+		{"path": "UpperFloor/UpperBedroomWestBed", "owner": "Tuggs", "zone": "bedroom_wing", "scale": "room_furnishing", "camera": "EstateBedroomWingStartPlayerCamera"},
+		{"path": "UpperFloor/UpperBedroomEastBed", "owner": "Tuggs", "zone": "bedroom_wing", "scale": "room_furnishing", "camera": "EstateBedroomWingStartPlayerCamera"},
+		{"path": "UpperFloor/UpperBedroomRearBed", "owner": "Tuggs", "zone": "bedroom_wing", "scale": "room_furnishing", "camera": "EstateBedroomWingStartPlayerCamera"},
+		{"path": "UpperFloor/UpperLoft", "owner": "Popper", "zone": "bonus_room_attic_storage_prank_space", "scale": "human_scale_shell", "camera": "EstateUpperLoftStartPlayerCamera"},
+		{"path": "UpperFloor/FutureBonusRoom", "owner": "Popper", "zone": "bonus_room_attic_storage_prank_space", "scale": "human_scale_shell", "camera": "EstateUpperLoftStartPlayerCamera"},
+		{"path": "UpperFloor/FutureBonusStorageTrunks", "owner": "Popper", "zone": "bonus_room_attic_storage_prank_space", "scale": "room_furnishing", "camera": "EstateUpperLoftStartPlayerCamera"},
+		{"path": "PatioPool/RearPatio", "owner": "Moko", "zone": "garden_patio", "scale": "yard_site", "camera": "EstatePatioStartPlayerCamera"},
+		{"path": "YardZones/RexxSandboxFossilPlayYardSurface", "owner": "Rexx", "zone": "sandbox_fossil_play_yard", "scale": "yard_site", "camera": "EstateSandboxYardStartPlayerCamera"},
+	]:
+		var dict := item as Dictionary
+		var node := root.get_node_or_null(str(dict["path"]))
+		if node == null:
+			push_error("Missing character-zone metadata target: %s" % str(dict["path"]))
+			quit(1)
+			return
+		_apply_owner_zone_to_node(node, str(dict["owner"]), str(dict["zone"]), str(dict["scale"]), str(dict["camera"]))
+
+func _apply_owner_zone_to_node(node: Node, owner_character: String, owner_zone: String, scale_class: String, validation_camera: String) -> void:
+	node.set_meta("owner_character", owner_character)
+	node.set_meta("owner_zone", owner_zone)
+	node.set_meta("scale_class", scale_class)
+	if node.has_meta("landscape_role") and node.has_meta("validation_camera") and str(node.get_meta("validation_camera", "")) != "":
+		node.set_meta("course_validation_camera", validation_camera)
+	else:
+		node.set_meta("validation_camera", validation_camera)
+	node.set_meta("character_zone_mapping_path", CHARACTER_MAPPING_PATH)
+
 func _add_validation_cameras(root: Node3D) -> void:
 	var cameras := root.get_node("ValidationCameras") as Node3D
 	_add_camera(root, cameras, "MainFloorPlanCamera", Vector3(0, 210, 220), Vector3(-62, 0, 0), 70)
@@ -634,10 +688,14 @@ func _route_cells_for_course(course_id: String) -> Array[Vector3i]:
 	match course_id:
 		"estate_garage":
 			return _route_from_points([Vector3i(-3, 0, -3), Vector3i(3, 0, -3), Vector3i(3, 0, 3), Vector3i(-3, 0, 3)])
+		"estate_bedroom_wing":
+			return _route_from_points([Vector3i(-3, 0, -2), Vector3i(4, 0, -2), Vector3i(4, 0, 2), Vector3i(-3, 0, 2)])
 		"estate_upper_loft":
 			return _route_from_points([Vector3i(-3, 0, -2), Vector3i(3, 0, -2), Vector3i(3, 1, 2), Vector3i(-3, 1, 2)])
 		"estate_patio":
 			return _route_from_points([Vector3i(-5, 0, -2), Vector3i(5, 0, -2), Vector3i(5, 0, 2), Vector3i(-5, 0, 2)])
+		"estate_sandbox_yard":
+			return _route_from_points([Vector3i(-3, 0, -2), Vector3i(3, 0, -2), Vector3i(4, 0, 1), Vector3i(1, 0, 3), Vector3i(-3, 0, 2)])
 		_:
 			return _route_from_points([Vector3i(-2, 0, -2), Vector3i(2, 0, -2), Vector3i(2, 0, 2), Vector3i(-2, 0, 2)])
 
@@ -660,6 +718,10 @@ func _grid_layout_for_course(course: Dictionary, route_cells: Array[Vector3i]) -
 		"basis": _basis_to_array(Basis.IDENTITY),
 		"cell_size": CELL_SIZE,
 		"road_width": ROAD_WIDTH,
+		"owner_character": str(course["owner_character"]),
+		"owner_zone": str(course["owner_zone"]),
+		"scale_class": str(course["scale_class"]),
+		"validation_camera": str(course["validation_camera"]),
 		"cells": cells,
 		"ordered_route_cells": route_cells,
 		"ordered_route_points": _route_points_for_cells(course, route_cells),
@@ -750,11 +812,24 @@ func _route_points_for_cells(course: Dictionary, route_cells: Array[Vector3i]) -
 func _route_envelope_for_course(course: Dictionary) -> Dictionary:
 	var center := course["placement"] as Vector3
 	var size := Vector3(118, 24, 118)
-	if str(course["id"]) == "estate_patio":
-		size = Vector3(190, 20, 100)
-	elif str(course["id"]) == "estate_garage":
-		size = Vector3(112, 20, 128)
-	return {"min": center - size * 0.5, "max": center + size * 0.5}
+	match str(course["id"]):
+		"estate_patio":
+			size = Vector3(190, 20, 100)
+		"estate_garage":
+			size = Vector3(112, 20, 128)
+		"estate_bedroom_wing":
+			size = Vector3(134, 22, 86)
+		"estate_sandbox_yard":
+			size = Vector3(126, 20, 92)
+	return {
+		"min": center - size * 0.5,
+		"max": center + size * 0.5,
+		"owner_character": str(course["owner_character"]),
+		"owner_zone": str(course["owner_zone"]),
+		"scale_class": str(course["scale_class"]),
+		"validation_camera": str(course["validation_camera"]),
+		"route_clearance": "route_above_floor_inside_owner_zone_obstacle_and_chase_camera_clear",
+	}
 
 func _checkpoint_indices(route_size: int) -> Array[int]:
 	var checkpoints: Array[int] = []

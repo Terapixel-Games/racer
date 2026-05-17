@@ -133,11 +133,19 @@ road_grid_layout = {
 "ordered_route_cells": Array[Vector3i]([Vector3i(-1, 0, -2), Vector3i(0, 0, -2), Vector3i(1, 0, -2), Vector3i(2, 0, -2), Vector3i(2, 0, -1), Vector3i(2, 0, 0), Vector3i(2, 0, 1), Vector3i(2, 0, 2), Vector3i(1, 0, 2), Vector3i(0, 0, 2), Vector3i(-1, 0, 2), Vector3i(-2, 0, 2), Vector3i(-2, 0, 1), Vector3i(-2, 0, 0), Vector3i(-2, 0, -1), Vector3i(-2, 0, -2), Vector3i(-2, 0, -2)]),
 "ordered_route_points": Array[Vector3]([Vector3(102, 0.6, 2), Vector3(118, 0.6, 2), Vector3(134, 0.6, 2), Vector3(150, 0.6, 2), Vector3(150, 0.6, 18), Vector3(150, 0.6, 34), Vector3(150, 0.6, 50), Vector3(150, 0.6, 66), Vector3(134, 0.6, 66), Vector3(118, 0.6, 66), Vector3(102, 0.6, 66), Vector3(86, 0.6, 66), Vector3(86, 0.6, 50), Vector3(86, 0.6, 34), Vector3(86, 0.6, 18), Vector3(86, 0.6, 2), Vector3(86, 0.6, 2)]),
 "origin": Vector3(110, -1.4, 26),
+"owner_character": "Velva",
+"owner_zone": "master_suite_plus_walk_in_closet",
 "road_width": 16.0,
 "route_envelope": {
 "max": Vector3(177, 12.6, 93),
-"min": Vector3(59, -11.4, -25)
+"min": Vector3(59, -11.4, -25),
+"owner_character": "Velva",
+"owner_zone": "master_suite_plus_walk_in_closet",
+"route_clearance": "route_above_floor_inside_owner_zone_obstacle_and_chase_camera_clear",
+"scale_class": "room_furnishing",
+"validation_camera": "EstateMasterSuiteStartPlayerCamera"
 },
+"scale_class": "room_furnishing",
 "spawn_slots": Array[Dictionary]([{
 "forward_offset": 0.0,
 "lateral_offset": -2.75,
@@ -186,7 +194,8 @@ road_grid_layout = {
 "route_index": 0,
 "y_offset": 0.8,
 "yaw_offset_degrees": 180.0
-}])
+}]),
+"validation_camera": "EstateMasterSuiteStartPlayerCamera"
 }
 sky_preset_id = "soft_morning"
 sky_weather = "soft"
@@ -203,3 +212,7 @@ metadata/track_map_id = "home_estate_v1"
 metadata/track_mode_id = "estate_master_suite"
 metadata/track_mode_kind = "race"
 metadata/road_source = "road_grid_map"
+metadata/owner_character = "Velva"
+metadata/owner_zone = "master_suite_plus_walk_in_closet"
+metadata/scale_class = "room_furnishing"
+metadata/validation_camera = "EstateMasterSuiteStartPlayerCamera"

@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="TrackDefinition" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://scripts/track/TrackDefinition.gd" id="1_6d8y5"]
+[ext_resource type="Script" path="res://scripts/track/TrackDefinition.gd" id="1_80neb"]
 
 [resource]
-script = ExtResource("1_6d8y5")
-id = "estate_garage"
-display_name = "Estate Garage"
+script = ExtResource("1_80neb")
+id = "estate_sandbox_yard"
+display_name = "Estate Sandbox Yard"
 version = "home_estate_floorplan_v1_2026_05_13"
 laps = 3
 track_source_id = "road_grid_map"
@@ -13,7 +13,7 @@ road_width = 16.0
 out_of_bounds_y = -36.0
 reset_mode = "instant_pop"
 floor_visual_y = -1.1
-runtime_scene_path = "res://assets/gameplay/tracks/home_estate_v1/modes/estate_garage_track.tscn"
+runtime_scene_path = "res://assets/gameplay/tracks/home_estate_v1/modes/estate_sandbox_yard_track.tscn"
 dressing_scene_path = "res://assets/gameplay/tracks/home_estate_v1/home_estate_v1_map.tscn"
 preview_dressing_scene_path = "res://assets/gameplay/tracks/home_estate_v1/home_estate_v1_map.tscn"
 ground_size = Vector2(420, 420)
@@ -24,176 +24,176 @@ road_grid_layout = {
 "basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
 "cell_size": Vector3(16, 4, 16),
 "cells": Array[Dictionary]([{
-"cell": Vector3i(-2, 0, -3),
+"cell": Vector3i(-2, 0, -2),
 "item": 2,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-134, 0.6, -114)
+"position": Vector3(116, 0.6, -270)
 }, {
-"cell": Vector3i(-1, 0, -3),
+"cell": Vector3i(-1, 0, -2),
 "item": 0,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-118, 0.6, -114)
+"position": Vector3(132, 0.6, -270)
 }, {
-"cell": Vector3i(0, 0, -3),
+"cell": Vector3i(0, 0, -2),
 "item": 0,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-102, 0.6, -114)
+"position": Vector3(148, 0.6, -270)
 }, {
-"cell": Vector3i(1, 0, -3),
+"cell": Vector3i(1, 0, -2),
 "item": 0,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-86, 0.6, -114)
+"position": Vector3(164, 0.6, -270)
 }, {
-"cell": Vector3i(2, 0, -3),
+"cell": Vector3i(2, 0, -2),
 "item": 0,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-70, 0.6, -114)
-}, {
-"cell": Vector3i(3, 0, -3),
-"item": 1,
-"orientation": 22,
-"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-54, 0.6, -114)
+"position": Vector3(180, 0.6, -270)
 }, {
 "cell": Vector3i(3, 0, -2),
 "item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-54, 0.6, -98)
+"orientation": 16,
+"orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
+"position": Vector3(196, 0.6, -270)
 }, {
-"cell": Vector3i(3, 0, -1),
+"cell": Vector3i(4, 0, -2),
+"item": 1,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(212, 0.6, -270)
+}, {
+"cell": Vector3i(4, 0, -1),
 "item": 0,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-54, 0.6, -82)
+"position": Vector3(212, 0.6, -254)
 }, {
-"cell": Vector3i(3, 0, 0),
+"cell": Vector3i(4, 0, 0),
 "item": 0,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-54, 0.6, -66)
+"position": Vector3(212, 0.6, -238)
 }, {
-"cell": Vector3i(3, 0, 1),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-54, 0.6, -50)
-}, {
-"cell": Vector3i(3, 0, 2),
-"item": 0,
-"orientation": 0,
-"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-54, 0.6, -34)
-}, {
-"cell": Vector3i(3, 0, 3),
+"cell": Vector3i(4, 0, 1),
 "item": 1,
 "orientation": 10,
 "orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
-"position": Vector3(-54, 0.6, -18)
+"position": Vector3(212, 0.6, -222)
 }, {
-"cell": Vector3i(2, 0, 3),
+"cell": Vector3i(3, 0, 1),
 "item": 0,
 "orientation": 22,
 "orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-70, 0.6, -18)
+"position": Vector3(196, 0.6, -222)
+}, {
+"cell": Vector3i(2, 0, 1),
+"item": 0,
+"orientation": 22,
+"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
+"position": Vector3(180, 0.6, -222)
+}, {
+"cell": Vector3i(1, 0, 1),
+"item": 1,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(164, 0.6, -222)
+}, {
+"cell": Vector3i(1, 0, 2),
+"item": 0,
+"orientation": 0,
+"orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+"position": Vector3(164, 0.6, -206)
 }, {
 "cell": Vector3i(1, 0, 3),
-"item": 0,
-"orientation": 22,
-"orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-86, 0.6, -18)
+"item": 1,
+"orientation": 10,
+"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
+"position": Vector3(164, 0.6, -190)
 }, {
 "cell": Vector3i(0, 0, 3),
 "item": 0,
 "orientation": 22,
 "orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-102, 0.6, -18)
+"position": Vector3(148, 0.6, -190)
 }, {
 "cell": Vector3i(-1, 0, 3),
 "item": 0,
 "orientation": 22,
 "orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-118, 0.6, -18)
+"position": Vector3(132, 0.6, -190)
 }, {
 "cell": Vector3i(-2, 0, 3),
 "item": 0,
 "orientation": 22,
 "orientation_basis": [[-4.371139e-08, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-134, 0.6, -18)
+"position": Vector3(116, 0.6, -190)
 }, {
 "cell": Vector3i(-3, 0, 3),
 "item": 1,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-150, 0.6, -18)
+"position": Vector3(100, 0.6, -190)
 }, {
 "cell": Vector3i(-3, 0, 2),
 "item": 0,
 "orientation": 10,
 "orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
-"position": Vector3(-150, 0.6, -34)
+"position": Vector3(100, 0.6, -206)
 }, {
 "cell": Vector3i(-3, 0, 1),
 "item": 0,
 "orientation": 10,
 "orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
-"position": Vector3(-150, 0.6, -50)
+"position": Vector3(100, 0.6, -222)
 }, {
 "cell": Vector3i(-3, 0, 0),
 "item": 0,
 "orientation": 10,
 "orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
-"position": Vector3(-150, 0.6, -66)
+"position": Vector3(100, 0.6, -238)
 }, {
 "cell": Vector3i(-3, 0, -1),
 "item": 0,
 "orientation": 10,
 "orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
-"position": Vector3(-150, 0.6, -82)
+"position": Vector3(100, 0.6, -254)
 }, {
 "cell": Vector3i(-3, 0, -2),
 "item": 0,
-"orientation": 10,
-"orientation_basis": [[-1.0, 0.0, 8.742278e-08], [0.0, 1.0, 0.0], [-8.742278e-08, 0.0, -1.0]],
-"position": Vector3(-150, 0.6, -98)
-}, {
-"cell": Vector3i(-3, 0, -3),
-"item": 0,
 "orientation": 0,
 "orientation_basis": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-"position": Vector3(-150, 0.6, -114)
+"position": Vector3(100, 0.6, -270)
 }, {
-"cell": Vector3i(-3, 0, -3),
+"cell": Vector3i(-3, 0, -2),
 "item": 0,
 "orientation": 16,
 "orientation_basis": [[-4.371139e-08, 0.0, -1.0], [0.0, 1.0, 0.0], [1.0, 0.0, -4.371139e-08]],
-"position": Vector3(-150, 0.6, -114)
+"position": Vector3(100, 0.6, -270)
 }]),
 "checkpoint_route_indices": Array[int]([0, 4, 8, 13, 17, 21]),
 "hazard_route_indices": [],
 "item_route_indices": [],
 "mesh_library_path": "res://assets/source/kenney/racing_kit/racer_road_mesh_library.tres",
-"ordered_route_cells": Array[Vector3i]([Vector3i(-2, 0, -3), Vector3i(-1, 0, -3), Vector3i(0, 0, -3), Vector3i(1, 0, -3), Vector3i(2, 0, -3), Vector3i(3, 0, -3), Vector3i(3, 0, -2), Vector3i(3, 0, -1), Vector3i(3, 0, 0), Vector3i(3, 0, 1), Vector3i(3, 0, 2), Vector3i(3, 0, 3), Vector3i(2, 0, 3), Vector3i(1, 0, 3), Vector3i(0, 0, 3), Vector3i(-1, 0, 3), Vector3i(-2, 0, 3), Vector3i(-3, 0, 3), Vector3i(-3, 0, 2), Vector3i(-3, 0, 1), Vector3i(-3, 0, 0), Vector3i(-3, 0, -1), Vector3i(-3, 0, -2), Vector3i(-3, 0, -3), Vector3i(-3, 0, -3)]),
-"ordered_route_points": Array[Vector3]([Vector3(-134, 0.6, -114), Vector3(-118, 0.6, -114), Vector3(-102, 0.6, -114), Vector3(-86, 0.6, -114), Vector3(-70, 0.6, -114), Vector3(-54, 0.6, -114), Vector3(-54, 0.6, -98), Vector3(-54, 0.6, -82), Vector3(-54, 0.6, -66), Vector3(-54, 0.6, -50), Vector3(-54, 0.6, -34), Vector3(-54, 0.6, -18), Vector3(-70, 0.6, -18), Vector3(-86, 0.6, -18), Vector3(-102, 0.6, -18), Vector3(-118, 0.6, -18), Vector3(-134, 0.6, -18), Vector3(-150, 0.6, -18), Vector3(-150, 0.6, -34), Vector3(-150, 0.6, -50), Vector3(-150, 0.6, -66), Vector3(-150, 0.6, -82), Vector3(-150, 0.6, -98), Vector3(-150, 0.6, -114), Vector3(-150, 0.6, -114)]),
-"origin": Vector3(-110, -1.4, -74),
-"owner_character": "Dash",
-"owner_zone": "garage_service_driveway_stunt_route",
+"ordered_route_cells": Array[Vector3i]([Vector3i(-2, 0, -2), Vector3i(-1, 0, -2), Vector3i(0, 0, -2), Vector3i(1, 0, -2), Vector3i(2, 0, -2), Vector3i(3, 0, -2), Vector3i(4, 0, -2), Vector3i(4, 0, -1), Vector3i(4, 0, 0), Vector3i(4, 0, 1), Vector3i(3, 0, 1), Vector3i(2, 0, 1), Vector3i(1, 0, 1), Vector3i(1, 0, 2), Vector3i(1, 0, 3), Vector3i(0, 0, 3), Vector3i(-1, 0, 3), Vector3i(-2, 0, 3), Vector3i(-3, 0, 3), Vector3i(-3, 0, 2), Vector3i(-3, 0, 1), Vector3i(-3, 0, 0), Vector3i(-3, 0, -1), Vector3i(-3, 0, -2), Vector3i(-3, 0, -2)]),
+"ordered_route_points": Array[Vector3]([Vector3(116, 0.6, -270), Vector3(132, 0.6, -270), Vector3(148, 0.6, -270), Vector3(164, 0.6, -270), Vector3(180, 0.6, -270), Vector3(196, 0.6, -270), Vector3(212, 0.6, -270), Vector3(212, 0.6, -254), Vector3(212, 0.6, -238), Vector3(212, 0.6, -222), Vector3(196, 0.6, -222), Vector3(180, 0.6, -222), Vector3(164, 0.6, -222), Vector3(164, 0.6, -206), Vector3(164, 0.6, -190), Vector3(148, 0.6, -190), Vector3(132, 0.6, -190), Vector3(116, 0.6, -190), Vector3(100, 0.6, -190), Vector3(100, 0.6, -206), Vector3(100, 0.6, -222), Vector3(100, 0.6, -238), Vector3(100, 0.6, -254), Vector3(100, 0.6, -270), Vector3(100, 0.6, -270)]),
+"origin": Vector3(140, -1.4, -246),
+"owner_character": "Rexx",
+"owner_zone": "sandbox_fossil_play_yard",
 "road_width": 16.0,
 "route_envelope": {
-"max": Vector3(-46, 10.6, -2),
-"min": Vector3(-158, -9.4, -130),
-"owner_character": "Dash",
-"owner_zone": "garage_service_driveway_stunt_route",
+"max": Vector3(211, 10.6, -192),
+"min": Vector3(85, -9.4, -284),
+"owner_character": "Rexx",
+"owner_zone": "sandbox_fossil_play_yard",
 "route_clearance": "route_above_floor_inside_owner_zone_obstacle_and_chase_camera_clear",
-"scale_class": "room_furnishing",
-"validation_camera": "EstateGarageStartPlayerCamera"
+"scale_class": "yard_site",
+"validation_camera": "EstateSandboxYardStartPlayerCamera"
 },
-"scale_class": "room_furnishing",
+"scale_class": "yard_site",
 "spawn_slots": Array[Dictionary]([{
 "forward_offset": 0.0,
 "lateral_offset": -2.75,
@@ -243,7 +243,7 @@ road_grid_layout = {
 "y_offset": 0.8,
 "yaw_offset_degrees": 180.0
 }]),
-"validation_camera": "EstateGarageStartPlayerCamera"
+"validation_camera": "EstateSandboxYardStartPlayerCamera"
 }
 sky_preset_id = "clear_afternoon"
 sky_weather = "clear"
@@ -253,14 +253,14 @@ sky_cloud_amount = 0.18
 sky_cloud_speed = 0.014
 sky_haze_amount = 0.1
 sky_light_energy = 2.5
-route_points = Array[Vector3]([Vector3(-134, 0.6, -114), Vector3(-118, 0.6, -114), Vector3(-102, 0.6, -114), Vector3(-86, 0.6, -114), Vector3(-70, 0.6, -114), Vector3(-54, 0.6, -114), Vector3(-54, 0.6, -98), Vector3(-54, 0.6, -82), Vector3(-54, 0.6, -66), Vector3(-54, 0.6, -50), Vector3(-54, 0.6, -34), Vector3(-54, 0.6, -18), Vector3(-70, 0.6, -18), Vector3(-86, 0.6, -18), Vector3(-102, 0.6, -18), Vector3(-118, 0.6, -18), Vector3(-134, 0.6, -18), Vector3(-150, 0.6, -18), Vector3(-150, 0.6, -34), Vector3(-150, 0.6, -50), Vector3(-150, 0.6, -66), Vector3(-150, 0.6, -82), Vector3(-150, 0.6, -98), Vector3(-150, 0.6, -114), Vector3(-150, 0.6, -114)])
+route_points = Array[Vector3]([Vector3(116, 0.6, -270), Vector3(132, 0.6, -270), Vector3(148, 0.6, -270), Vector3(164, 0.6, -270), Vector3(180, 0.6, -270), Vector3(196, 0.6, -270), Vector3(212, 0.6, -270), Vector3(212, 0.6, -254), Vector3(212, 0.6, -238), Vector3(212, 0.6, -222), Vector3(196, 0.6, -222), Vector3(180, 0.6, -222), Vector3(164, 0.6, -222), Vector3(164, 0.6, -206), Vector3(164, 0.6, -190), Vector3(148, 0.6, -190), Vector3(132, 0.6, -190), Vector3(116, 0.6, -190), Vector3(100, 0.6, -190), Vector3(100, 0.6, -206), Vector3(100, 0.6, -222), Vector3(100, 0.6, -238), Vector3(100, 0.6, -254), Vector3(100, 0.6, -270), Vector3(100, 0.6, -270)])
 checkpoint_indices = Array[int]([0, 4, 8, 13, 17, 21])
-spawn_points = Array[Vector4]([Vector4(-134, 1.4000001, -111.25, 270), Vector4(-134, 1.4000001, -116.75, 270), Vector4(-129, 1.4000001, -111.25, 270), Vector4(-129, 1.4000001, -116.75, 270), Vector4(-124, 1.4000001, -111.25, 270), Vector4(-124, 1.4000001, -116.75, 270), Vector4(-119, 1.4000001, -111.25, 270), Vector4(-119, 1.4000001, -116.75, 270)])
+spawn_points = Array[Vector4]([Vector4(116, 1.4000001, -267.25, 270), Vector4(116, 1.4000001, -272.75, 270), Vector4(121, 1.4000001, -267.25, 270), Vector4(121, 1.4000001, -272.75, 270), Vector4(126, 1.4000001, -267.25, 270), Vector4(126, 1.4000001, -272.75, 270), Vector4(131, 1.4000001, -267.25, 270), Vector4(131, 1.4000001, -272.75, 270)])
 metadata/track_map_id = "home_estate_v1"
-metadata/track_mode_id = "estate_garage"
+metadata/track_mode_id = "estate_sandbox_yard"
 metadata/track_mode_kind = "race"
 metadata/road_source = "road_grid_map"
-metadata/owner_character = "Dash"
-metadata/owner_zone = "garage_service_driveway_stunt_route"
-metadata/scale_class = "room_furnishing"
-metadata/validation_camera = "EstateGarageStartPlayerCamera"
+metadata/owner_character = "Rexx"
+metadata/owner_zone = "sandbox_fossil_play_yard"
+metadata/scale_class = "yard_site"
+metadata/validation_camera = "EstateSandboxYardStartPlayerCamera"

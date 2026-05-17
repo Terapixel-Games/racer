@@ -75,13 +75,26 @@ const HOME_ESTATE_ENVELOPE_CLASH_REVIEW_RENDERS := [
 	"UpperEaveUndersideClashCamera.png",
 ]
 const HOME_ESTATE_MODE_IDS := [
+	"estate_bedroom_wing",
 	"estate_garage",
 	"estate_great_room",
 	"estate_kitchen",
 	"estate_master_suite",
 	"estate_patio",
+	"estate_sandbox_yard",
 	"estate_upper_loft",
 ]
+
+const HOME_ESTATE_MODE_OWNERS := {
+	"estate_bedroom_wing": {"owner": "Tuggs", "zone": "bedroom_wing", "scale": "room_furnishing", "camera": "EstateBedroomWingStartPlayerCamera"},
+	"estate_garage": {"owner": "Dash", "zone": "garage_service_driveway_stunt_route", "scale": "room_furnishing", "camera": "EstateGarageStartPlayerCamera"},
+	"estate_great_room": {"owner": "Slammo", "zone": "great_room", "scale": "room_furnishing", "camera": "EstateGreatRoomStartPlayerCamera"},
+	"estate_kitchen": {"owner": "Sir Clink", "zone": "kitchen", "scale": "room_furnishing", "camera": "EstateKitchenStartPlayerCamera"},
+	"estate_master_suite": {"owner": "Velva", "zone": "master_suite_plus_walk_in_closet", "scale": "room_furnishing", "camera": "EstateMasterSuiteStartPlayerCamera"},
+	"estate_patio": {"owner": "Moko", "zone": "garden_patio", "scale": "yard_site", "camera": "EstatePatioStartPlayerCamera"},
+	"estate_sandbox_yard": {"owner": "Rexx", "zone": "sandbox_fossil_play_yard", "scale": "yard_site", "camera": "EstateSandboxYardStartPlayerCamera"},
+	"estate_upper_loft": {"owner": "Popper", "zone": "bonus_room_attic_storage_prank_space", "scale": "room_furnishing", "camera": "EstateUpperLoftStartPlayerCamera"},
+}
 
 func test_kitchen_map_definition_exposes_race_mode() -> void:
 	var map_definition := TrackCatalog.get_map_definition("kitchen")
@@ -149,7 +162,12 @@ func test_home_estate_map_uses_user_floor_plan_scaffold() -> void:
 	var character_mapping: Dictionary = root.get_meta("character_zone_mapping", {})
 	assert_equal(str(character_mapping.get("Sir Clink", "")), "kitchen", "Sir Clink should own the kitchen zone")
 	assert_equal(str(character_mapping.get("Slammo", "")), "great_room", "Slammo should own the great-room zone")
+	assert_equal(str(character_mapping.get("Tuggs", "")), "bedroom_wing", "Tuggs should own the bedroom wing")
+	assert_equal(str(character_mapping.get("Velva", "")), "master_suite_plus_walk_in_closet", "Velva should own the master suite and walk-in closet")
+	assert_equal(str(character_mapping.get("Popper", "")), "bonus_room_attic_storage_prank_space", "Popper should own the bonus/prank storage zone")
 	assert_equal(str(character_mapping.get("Dash", "")), "garage_service_driveway_stunt_route", "Dash should own garage/service/driveway stunt routing")
+	assert_equal(str(character_mapping.get("Moko", "")), "garden_patio", "Moko should own the garden/patio zone")
+	assert_equal(str(character_mapping.get("Rexx", "")), "sandbox_fossil_play_yard", "Rexx should own the sandbox/fossil play-yard")
 	var yard := root.get_node_or_null("YardZones")
 	assert_true(yard != null, "Home Estate should generate a yard zone holder")
 	if yard != null:
@@ -171,6 +189,25 @@ func test_home_estate_map_uses_user_floor_plan_scaffold() -> void:
 		assert_equal(str(zone_node.get_meta("scale_class", "")), "yard_site", "Outdoor zone should use yard_site scale")
 		assert_equal(str(zone_node.get_meta("validation_camera", "")), str((zone_expectation as Dictionary).get("camera", "")), "Outdoor zone should name its validation camera")
 		assert_true(root.get_node_or_null("ValidationCameras/%s" % str((zone_expectation as Dictionary).get("camera", ""))) != null, "Outdoor zone validation camera should exist")
+	for territory_expectation in [
+		{"path": "MainFloor/KitchenDining", "owner": "Sir Clink", "zone": "kitchen", "scale": "human_scale_shell", "camera": "EstateKitchenStartPlayerCamera"},
+		{"path": "MainFloor/GreatRoom", "owner": "Slammo", "zone": "great_room", "scale": "human_scale_shell", "camera": "EstateGreatRoomStartPlayerCamera"},
+		{"path": "UpperFloor/UpperBedroomWest", "owner": "Tuggs", "zone": "bedroom_wing", "scale": "human_scale_shell", "camera": "EstateBedroomWingStartPlayerCamera"},
+		{"path": "MainFloor/MasterSuite", "owner": "Velva", "zone": "master_suite_plus_walk_in_closet", "scale": "human_scale_shell", "camera": "EstateMasterSuiteStartPlayerCamera"},
+		{"path": "UpperFloor/FutureBonusRoom", "owner": "Popper", "zone": "bonus_room_attic_storage_prank_space", "scale": "human_scale_shell", "camera": "EstateUpperLoftStartPlayerCamera"},
+		{"path": "MainFloor/ThreeCarGarage", "owner": "Dash", "zone": "garage_service_driveway_stunt_route", "scale": "human_scale_shell", "camera": "EstateGarageStartPlayerCamera"},
+		{"path": "PatioPool/RearPatio", "owner": "Moko", "zone": "garden_patio", "scale": "yard_site", "camera": "EstatePatioStartPlayerCamera"},
+		{"path": "YardZones/RexxSandboxFossilPlayYardSurface", "owner": "Rexx", "zone": "sandbox_fossil_play_yard", "scale": "yard_site", "camera": "RexxSandboxCamera"},
+	]:
+		var territory_node := root.get_node_or_null(str((territory_expectation as Dictionary).get("path", "")))
+		assert_true(territory_node != null, "Home Estate should include character territory node %s" % str((territory_expectation as Dictionary).get("path", "")))
+		if territory_node == null:
+			continue
+		assert_equal(str(territory_node.get_meta("owner_character", "")), str((territory_expectation as Dictionary).get("owner", "")), "Character territory should record its story-bible owner")
+		assert_equal(str(territory_node.get_meta("owner_zone", "")), str((territory_expectation as Dictionary).get("zone", "")), "Character territory should record its story-bible zone")
+		assert_equal(str(territory_node.get_meta("scale_class", "")), str((territory_expectation as Dictionary).get("scale", "")), "Character territory should record scale class")
+		assert_equal(str(territory_node.get_meta("validation_camera", "")), str((territory_expectation as Dictionary).get("camera", "")), "Character territory should name its validation camera")
+		assert_true(root.get_node_or_null("ValidationCameras/%s" % str((territory_expectation as Dictionary).get("camera", ""))) != null, "Character territory validation camera should exist")
 	for production_path in [
 		"ExteriorShell/ModernFarmhouseShellAsset",
 		"ExteriorShell/ModernFarmhouseShellScaleEnvelope",
@@ -412,8 +449,23 @@ func test_home_estate_modes_are_gridmap_definitions_without_public_track_remap()
 			continue
 		assert_equal(str(definition.get_meta("track_map_id", "")), HOME_ESTATE_MAP_ID, "%s should resolve through home_estate_v1" % mode_id)
 		assert_equal(str(definition.get_meta("track_mode_id", "")), mode_id, "%s should preserve its mode id" % mode_id)
+		var owner_contract: Dictionary = HOME_ESTATE_MODE_OWNERS.get(mode_id, {})
+		assert_equal(str(definition.get_meta("owner_character", "")), str(owner_contract.get("owner", "")), "%s should record its story-bible character owner" % mode_id)
+		assert_equal(str(definition.get_meta("owner_zone", "")), str(owner_contract.get("zone", "")), "%s should record its story-bible owner zone" % mode_id)
+		assert_equal(str(definition.get_meta("scale_class", "")), str(owner_contract.get("scale", "")), "%s should record its scale class" % mode_id)
+		assert_equal(str(definition.get_meta("validation_camera", "")), str(owner_contract.get("camera", "")), "%s should record its validation camera" % mode_id)
 		assert_equal(definition.dressing_scene_path, HOME_ESTATE_MAP_SCENE, "%s should use the shared Home Estate scene" % mode_id)
 		assert_true(not definition.road_grid_layout.is_empty(), "%s should expose RoadGridMap layout metadata" % mode_id)
+		assert_equal(str(definition.road_grid_layout.get("owner_character", "")), str(owner_contract.get("owner", "")), "%s grid layout should carry owner character metadata" % mode_id)
+		assert_equal(str(definition.road_grid_layout.get("owner_zone", "")), str(owner_contract.get("zone", "")), "%s grid layout should carry owner zone metadata" % mode_id)
+		assert_equal(str(definition.road_grid_layout.get("scale_class", "")), str(owner_contract.get("scale", "")), "%s grid layout should carry scale class metadata" % mode_id)
+		assert_equal(str(definition.road_grid_layout.get("validation_camera", "")), str(owner_contract.get("camera", "")), "%s grid layout should carry validation camera metadata" % mode_id)
+		var envelope: Dictionary = definition.road_grid_layout.get("route_envelope", {})
+		assert_equal(str(envelope.get("owner_character", "")), str(owner_contract.get("owner", "")), "%s route envelope should carry owner character metadata" % mode_id)
+		assert_equal(str(envelope.get("owner_zone", "")), str(owner_contract.get("zone", "")), "%s route envelope should carry owner zone metadata" % mode_id)
+		assert_equal(str(envelope.get("scale_class", "")), str(owner_contract.get("scale", "")), "%s route envelope should carry scale class metadata" % mode_id)
+		assert_equal(str(envelope.get("validation_camera", "")), str(owner_contract.get("camera", "")), "%s route envelope should carry validation camera metadata" % mode_id)
+		assert_equal(str(envelope.get("route_clearance", "")), "route_above_floor_inside_owner_zone_obstacle_and_chase_camera_clear", "%s route envelope should name the Phase 2 clearance gate" % mode_id)
 		assert_equal((definition.road_grid_layout.get("spawn_slots", []) as Array).size(), 8, "%s should export eight spawn slots" % mode_id)
 		assert_equal(definition.validate(), [], "%s Home Estate definition should validate" % mode_id)
 

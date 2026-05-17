@@ -205,11 +205,19 @@ road_grid_layout = {
 "ordered_route_cells": Array[Vector3i]([Vector3i(-4, 0, -2), Vector3i(-3, 0, -2), Vector3i(-2, 0, -2), Vector3i(-1, 0, -2), Vector3i(0, 0, -2), Vector3i(1, 0, -2), Vector3i(2, 0, -2), Vector3i(3, 0, -2), Vector3i(4, 0, -2), Vector3i(5, 0, -2), Vector3i(5, 0, -1), Vector3i(5, 0, 0), Vector3i(5, 0, 1), Vector3i(5, 0, 2), Vector3i(4, 0, 2), Vector3i(3, 0, 2), Vector3i(2, 0, 2), Vector3i(1, 0, 2), Vector3i(0, 0, 2), Vector3i(-1, 0, 2), Vector3i(-2, 0, 2), Vector3i(-3, 0, 2), Vector3i(-4, 0, 2), Vector3i(-5, 0, 2), Vector3i(-5, 0, 1), Vector3i(-5, 0, 0), Vector3i(-5, 0, -1), Vector3i(-5, 0, -2), Vector3i(-5, 0, -2)]),
 "ordered_route_points": Array[Vector3]([Vector3(-10, 0.6, -190), Vector3(6, 0.6, -190), Vector3(22, 0.6, -190), Vector3(38, 0.6, -190), Vector3(54, 0.6, -190), Vector3(70, 0.6, -190), Vector3(86, 0.6, -190), Vector3(102, 0.6, -190), Vector3(118, 0.6, -190), Vector3(134, 0.6, -190), Vector3(134, 0.6, -174), Vector3(134, 0.6, -158), Vector3(134, 0.6, -142), Vector3(134, 0.6, -126), Vector3(118, 0.6, -126), Vector3(102, 0.6, -126), Vector3(86, 0.6, -126), Vector3(70, 0.6, -126), Vector3(54, 0.6, -126), Vector3(38, 0.6, -126), Vector3(22, 0.6, -126), Vector3(6, 0.6, -126), Vector3(-10, 0.6, -126), Vector3(-26, 0.6, -126), Vector3(-26, 0.6, -142), Vector3(-26, 0.6, -158), Vector3(-26, 0.6, -174), Vector3(-26, 0.6, -190), Vector3(-26, 0.6, -190)]),
 "origin": Vector3(46, -1.4, -166),
+"owner_character": "Moko",
+"owner_zone": "garden_patio",
 "road_width": 16.0,
 "route_envelope": {
 "max": Vector3(149, 10.6, -108),
-"min": Vector3(-41, -9.4, -208)
+"min": Vector3(-41, -9.4, -208),
+"owner_character": "Moko",
+"owner_zone": "garden_patio",
+"route_clearance": "route_above_floor_inside_owner_zone_obstacle_and_chase_camera_clear",
+"scale_class": "yard_site",
+"validation_camera": "EstatePatioStartPlayerCamera"
 },
+"scale_class": "yard_site",
 "spawn_slots": Array[Dictionary]([{
 "forward_offset": 0.0,
 "lateral_offset": -2.75,
@@ -258,7 +266,8 @@ road_grid_layout = {
 "route_index": 0,
 "y_offset": 0.8,
 "yaw_offset_degrees": 180.0
-}])
+}]),
+"validation_camera": "EstatePatioStartPlayerCamera"
 }
 sky_preset_id = "clear_afternoon"
 sky_weather = "clear"
@@ -275,3 +284,7 @@ metadata/track_map_id = "home_estate_v1"
 metadata/track_mode_id = "estate_patio"
 metadata/track_mode_kind = "race"
 metadata/road_source = "road_grid_map"
+metadata/owner_character = "Moko"
+metadata/owner_zone = "garden_patio"
+metadata/scale_class = "yard_site"
+metadata/validation_camera = "EstatePatioStartPlayerCamera"

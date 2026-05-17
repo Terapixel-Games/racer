@@ -830,11 +830,19 @@
 			-1.39999997615814,
 			12.0
 		],
+		"owner_character": "Sir Clink",
+		"owner_zone": "kitchen",
 		"road_width": 16.0,
 		"route_envelope": {
 			"max": "(5.0, 12.6, 79.0)",
-			"min": "(-113.0, -11.4, -39.0)"
+			"min": "(-113.0, -11.4, -39.0)",
+			"owner_character": "Sir Clink",
+			"owner_zone": "kitchen",
+			"route_clearance": "route_above_floor_inside_owner_zone_obstacle_and_chase_camera_clear",
+			"scale_class": "room_furnishing",
+			"validation_camera": "EstateKitchenStartPlayerCamera"
 		},
+		"scale_class": "room_furnishing",
 		"spawn_slots": [
 			{
 				"forward_offset": 0.0,
@@ -892,7 +900,8 @@
 				"y_offset": 0.8,
 				"yaw_offset_degrees": 180.0
 			}
-		]
+		],
+		"validation_camera": "EstateKitchenStartPlayerCamera"
 	},
 	"road_segment_layout": [],
 	"road_segment_material_style": "toy_plastic",

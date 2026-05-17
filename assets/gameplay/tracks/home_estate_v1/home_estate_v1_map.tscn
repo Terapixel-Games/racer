@@ -1,4 +1,4 @@
-[gd_scene load_steps=526 format=4]
+[gd_scene load_steps=530 format=4]
 
 [ext_resource type="PackedScene" path="res://assets/gameplay/tracks/home_estate_v1/meshes/modern_farmhouse_shell.glb" id="1_noos2"]
 
@@ -5818,7 +5818,7 @@ albedo_color = Color(0.2, 0.8, 1, 0.12)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_5d7dv"]
-size = Vector3(118, 24, 118)
+size = Vector3(134, 22, 86)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0i7qx"]
 transparency = 1
@@ -5826,7 +5826,23 @@ albedo_color = Color(0.2, 0.8, 1, 0.12)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_sbxgd"]
+size = Vector3(118, 24, 118)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n0rem"]
+transparency = 1
+albedo_color = Color(0.2, 0.8, 1, 0.12)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_61gc7"]
 size = Vector3(190, 20, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_26b8j"]
+transparency = 1
+albedo_color = Color(0.2, 0.8, 1, 0.12)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_nq3jw"]
+size = Vector3(126, 20, 92)
 
 [node name="HomeEstateV1Map" type="Node3D"]
 metadata/floor_plan_contract = {
@@ -6873,9 +6889,13 @@ metadata/allowed_intersections = Array[String](["support_target_contact", "decla
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
 metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
 metadata/validation_gate = "home_estate_generated_node_provenance_gate"
-metadata/validation_camera = "MainFloorPlanCamera"
+metadata/validation_camera = "EstateGarageStartPlayerCamera"
 metadata/plan_role = "finished_floor_surface"
 metadata/source_plan = "user_provided_estate_plan_three_sheets"
+metadata/owner_character = "Dash"
+metadata/owner_zone = "garage_service_driveway_stunt_route"
+metadata/scale_class = "human_scale_shell"
+metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
 
 [node name="ThreeCarGarageCollision" type="StaticBody3D" parent="MainFloor/ThreeCarGarage"]
 
@@ -6931,9 +6951,13 @@ metadata/allowed_intersections = Array[String](["support_target_contact", "decla
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
 metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
 metadata/validation_gate = "home_estate_generated_node_provenance_gate"
-metadata/validation_camera = "MainFloorPlanCamera"
+metadata/validation_camera = "EstateKitchenStartPlayerCamera"
 metadata/plan_role = "finished_floor_surface"
 metadata/source_plan = "user_provided_estate_plan_three_sheets"
+metadata/owner_character = "Sir Clink"
+metadata/owner_zone = "kitchen"
+metadata/scale_class = "human_scale_shell"
+metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
 
 [node name="KitchenDiningCollision" type="StaticBody3D" parent="MainFloor/KitchenDining"]
 
@@ -6960,9 +6984,13 @@ metadata/allowed_intersections = Array[String](["support_target_contact", "decla
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
 metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
 metadata/validation_gate = "home_estate_generated_node_provenance_gate"
-metadata/validation_camera = "MainFloorPlanCamera"
+metadata/validation_camera = "EstateGreatRoomStartPlayerCamera"
 metadata/plan_role = "finished_floor_surface"
 metadata/source_plan = "user_provided_estate_plan_three_sheets"
+metadata/owner_character = "Slammo"
+metadata/owner_zone = "great_room"
+metadata/scale_class = "human_scale_shell"
+metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
 
 [node name="GreatRoomCollision" type="StaticBody3D" parent="MainFloor/GreatRoom"]
 
@@ -6989,9 +7017,13 @@ metadata/allowed_intersections = Array[String](["support_target_contact", "decla
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
 metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
 metadata/validation_gate = "home_estate_generated_node_provenance_gate"
-metadata/validation_camera = "MainFloorPlanCamera"
+metadata/validation_camera = "EstateMasterSuiteStartPlayerCamera"
 metadata/plan_role = "finished_floor_surface"
 metadata/source_plan = "user_provided_estate_plan_three_sheets"
+metadata/owner_character = "Velva"
+metadata/owner_zone = "master_suite_plus_walk_in_closet"
+metadata/scale_class = "human_scale_shell"
+metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
 
 [node name="MasterSuiteCollision" type="StaticBody3D" parent="MainFloor/MasterSuite"]
 
@@ -7309,7 +7341,11 @@ metadata/allowed_intersections = Array[String](["support_target_contact", "decla
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
 metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
 metadata/validation_gate = "home_estate_generated_node_provenance_gate"
-metadata/validation_camera = "MainFloorPlanCamera"
+metadata/validation_camera = "EstateKitchenStartPlayerCamera"
+metadata/owner_character = "Sir Clink"
+metadata/owner_zone = "kitchen"
+metadata/scale_class = "room_furnishing"
+metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
 
 [node name="KitchenCabinetRunBack" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 7, 0)
@@ -7331,7 +7367,11 @@ metadata/allowed_intersections = Array[String](["support_target_contact", "decla
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
 metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
 metadata/validation_gate = "home_estate_generated_node_provenance_gate"
-metadata/validation_camera = "MainFloorPlanCamera"
+metadata/validation_camera = "EstateKitchenStartPlayerCamera"
+metadata/owner_character = "Sir Clink"
+metadata/owner_zone = "kitchen"
+metadata/scale_class = "room_furnishing"
+metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
 
 [node name="KitchenRangeHood" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 19, -4)
@@ -7397,7 +7437,11 @@ metadata/allowed_intersections = Array[String](["support_target_contact", "decla
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
 metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
 metadata/validation_gate = "home_estate_generated_node_provenance_gate"
-metadata/validation_camera = "MainFloorPlanCamera"
+metadata/validation_camera = "EstateGreatRoomStartPlayerCamera"
+metadata/owner_character = "Slammo"
+metadata/owner_zone = "great_room"
+metadata/scale_class = "room_furnishing"
+metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
 
 [node name="GreatRoomSofa" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 6, 52)
@@ -7419,7 +7463,11 @@ metadata/allowed_intersections = Array[String](["support_target_contact", "decla
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
 metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
 metadata/validation_gate = "home_estate_generated_node_provenance_gate"
-metadata/validation_camera = "MainFloorPlanCamera"
+metadata/validation_camera = "EstateGreatRoomStartPlayerCamera"
+metadata/owner_character = "Slammo"
+metadata/owner_zone = "great_room"
+metadata/scale_class = "room_furnishing"
+metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
 
 [node name="GreatRoomCoffeeTable" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 4, 26)
@@ -7463,7 +7511,11 @@ metadata/allowed_intersections = Array[String](["support_target_contact", "decla
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
 metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
 metadata/validation_gate = "home_estate_generated_node_provenance_gate"
-metadata/validation_camera = "MainFloorPlanCamera"
+metadata/validation_camera = "EstateMasterSuiteStartPlayerCamera"
+metadata/owner_character = "Velva"
+metadata/owner_zone = "master_suite_plus_walk_in_closet"
+metadata/scale_class = "room_furnishing"
+metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
 
 [node name="MasterClosetBuiltIns" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146, 8, 76)
@@ -7485,7 +7537,11 @@ metadata/allowed_intersections = Array[String](["support_target_contact", "decla
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
 metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
 metadata/validation_gate = "home_estate_generated_node_provenance_gate"
-metadata/validation_camera = "MainFloorPlanCamera"
+metadata/validation_camera = "EstateMasterSuiteStartPlayerCamera"
+metadata/owner_character = "Velva"
+metadata/owner_zone = "master_suite_plus_walk_in_closet"
+metadata/scale_class = "room_furnishing"
+metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
 
 [node name="GarageCarBayMarkerLeft" type="MeshInstance3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -132, 1.4, -60)
@@ -7573,7 +7629,11 @@ metadata/allowed_intersections = Array[String](["support_target_contact", "decla
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
 metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
 metadata/validation_gate = "home_estate_generated_node_provenance_gate"
-metadata/validation_camera = "MainFloorPlanCamera"
+metadata/validation_camera = "EstateGarageStartPlayerCamera"
+metadata/owner_character = "Dash"
+metadata/owner_zone = "garage_service_driveway_stunt_route"
+metadata/scale_class = "room_furnishing"
+metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
 
 [node name="UpperFloor" type="Node3D" parent="."]
 metadata/plan_role = "upper bedrooms, loft, laundry, and future bonus from user estate plan"
@@ -7598,9 +7658,13 @@ metadata/allowed_intersections = Array[String](["support_target_contact", "decla
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
 metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
 metadata/validation_gate = "home_estate_generated_node_provenance_gate"
-metadata/validation_camera = "UpperFloorPlanCamera"
+metadata/validation_camera = "EstateUpperLoftStartPlayerCamera"
 metadata/plan_role = "finished_floor_surface"
 metadata/source_plan = "user_provided_estate_plan_three_sheets"
+metadata/owner_character = "Popper"
+metadata/owner_zone = "bonus_room_attic_storage_prank_space"
+metadata/scale_class = "human_scale_shell"
+metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
 
 [node name="UpperLoftCollision" type="StaticBody3D" parent="UpperFloor/UpperLoft"]
 
@@ -7627,9 +7691,13 @@ metadata/allowed_intersections = Array[String](["support_target_contact", "decla
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
 metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
 metadata/validation_gate = "home_estate_generated_node_provenance_gate"
-metadata/validation_camera = "UpperFloorPlanCamera"
+metadata/validation_camera = "EstateBedroomWingStartPlayerCamera"
 metadata/plan_role = "finished_floor_surface"
 metadata/source_plan = "user_provided_estate_plan_three_sheets"
+metadata/owner_character = "Tuggs"
+metadata/owner_zone = "bedroom_wing"
+metadata/scale_class = "human_scale_shell"
+metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
 
 [node name="UpperBedroomWestCollision" type="StaticBody3D" parent="UpperFloor/UpperBedroomWest"]
 
@@ -7656,9 +7724,13 @@ metadata/allowed_intersections = Array[String](["support_target_contact", "decla
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
 metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
 metadata/validation_gate = "home_estate_generated_node_provenance_gate"
-metadata/validation_camera = "UpperFloorPlanCamera"
+metadata/validation_camera = "EstateBedroomWingStartPlayerCamera"
 metadata/plan_role = "finished_floor_surface"
 metadata/source_plan = "user_provided_estate_plan_three_sheets"
+metadata/owner_character = "Tuggs"
+metadata/owner_zone = "bedroom_wing"
+metadata/scale_class = "human_scale_shell"
+metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
 
 [node name="UpperBedroomEastCollision" type="StaticBody3D" parent="UpperFloor/UpperBedroomEast"]
 
@@ -7685,9 +7757,13 @@ metadata/allowed_intersections = Array[String](["support_target_contact", "decla
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
 metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
 metadata/validation_gate = "home_estate_generated_node_provenance_gate"
-metadata/validation_camera = "UpperFloorPlanCamera"
+metadata/validation_camera = "EstateBedroomWingStartPlayerCamera"
 metadata/plan_role = "finished_floor_surface"
 metadata/source_plan = "user_provided_estate_plan_three_sheets"
+metadata/owner_character = "Tuggs"
+metadata/owner_zone = "bedroom_wing"
+metadata/scale_class = "human_scale_shell"
+metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
 
 [node name="UpperBedroomRearCollision" type="StaticBody3D" parent="UpperFloor/UpperBedroomRear"]
 
@@ -7743,9 +7819,13 @@ metadata/allowed_intersections = Array[String](["support_target_contact", "decla
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
 metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
 metadata/validation_gate = "home_estate_generated_node_provenance_gate"
-metadata/validation_camera = "UpperFloorPlanCamera"
+metadata/validation_camera = "EstateUpperLoftStartPlayerCamera"
 metadata/plan_role = "finished_floor_surface"
 metadata/source_plan = "user_provided_estate_plan_three_sheets"
+metadata/owner_character = "Popper"
+metadata/owner_zone = "bonus_room_attic_storage_prank_space"
+metadata/scale_class = "human_scale_shell"
+metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
 
 [node name="FutureBonusRoomCollision" type="StaticBody3D" parent="UpperFloor/FutureBonusRoom"]
 
@@ -7995,7 +8075,11 @@ metadata/allowed_intersections = Array[String](["support_target_contact", "decla
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
 metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
 metadata/validation_gate = "home_estate_generated_node_provenance_gate"
-metadata/validation_camera = "UpperFloorPlanCamera"
+metadata/validation_camera = "EstateBedroomWingStartPlayerCamera"
+metadata/owner_character = "Tuggs"
+metadata/owner_zone = "bedroom_wing"
+metadata/scale_class = "room_furnishing"
+metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
 
 [node name="UpperBedroomEastBed" type="MeshInstance3D" parent="UpperFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 52.05, 50)
@@ -8017,7 +8101,11 @@ metadata/allowed_intersections = Array[String](["support_target_contact", "decla
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
 metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
 metadata/validation_gate = "home_estate_generated_node_provenance_gate"
-metadata/validation_camera = "UpperFloorPlanCamera"
+metadata/validation_camera = "EstateBedroomWingStartPlayerCamera"
+metadata/owner_character = "Tuggs"
+metadata/owner_zone = "bedroom_wing"
+metadata/scale_class = "room_furnishing"
+metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
 
 [node name="UpperBedroomRearBed" type="MeshInstance3D" parent="UpperFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 52.05, -64)
@@ -8039,7 +8127,11 @@ metadata/allowed_intersections = Array[String](["support_target_contact", "decla
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
 metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
 metadata/validation_gate = "home_estate_generated_node_provenance_gate"
-metadata/validation_camera = "UpperFloorPlanCamera"
+metadata/validation_camera = "EstateBedroomWingStartPlayerCamera"
+metadata/owner_character = "Tuggs"
+metadata/owner_zone = "bedroom_wing"
+metadata/scale_class = "room_furnishing"
+metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
 
 [node name="FutureBonusStorageTrunks" type="MeshInstance3D" parent="UpperFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104, 52.05, -104)
@@ -8061,7 +8153,11 @@ metadata/allowed_intersections = Array[String](["support_target_contact", "decla
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
 metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
 metadata/validation_gate = "home_estate_generated_node_provenance_gate"
-metadata/validation_camera = "UpperFloorPlanCamera"
+metadata/validation_camera = "EstateUpperLoftStartPlayerCamera"
+metadata/owner_character = "Popper"
+metadata/owner_zone = "bonus_room_attic_storage_prank_space"
+metadata/scale_class = "room_furnishing"
+metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
 
 [node name="Basement" type="Node3D" parent="."]
 metadata/plan_role = "basement shell and unexcavated zones from user plan"
@@ -8176,7 +8272,11 @@ metadata/allowed_intersections = Array[String](["support_target_contact", "decla
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
 metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
 metadata/validation_gate = "home_estate_generated_node_provenance_gate"
-metadata/validation_camera = "PatioPoolCamera"
+metadata/validation_camera = "EstatePatioStartPlayerCamera"
+metadata/owner_character = "Moko"
+metadata/owner_zone = "garden_patio"
+metadata/scale_class = "yard_site"
+metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
 
 [node name="RearPatioCollision" type="StaticBody3D" parent="PatioPool/RearPatio"]
 
@@ -8378,6 +8478,8 @@ metadata/scale_class = "yard_site"
 metadata/surface_material = "sand_with_fossil_play_edges"
 metadata/route_clearance = "outside_estate_patio_loop_with_visible_landmark_clearance"
 metadata/landscape_role = "outdoor_zone_surface_or_edge_landmark"
+metadata/course_validation_camera = "EstateSandboxYardStartPlayerCamera"
+metadata/character_zone_mapping_path = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
 
 [node name="RexxSandboxFossilPlayYardSurfaceCollision" type="StaticBody3D" parent="YardZones/RexxSandboxFossilPlayYardSurface"]
 
@@ -8705,13 +8807,38 @@ metadata/deletion_rule = "may be removed only after equivalent route-envelope me
 metadata/validation_gate = "home_estate_generated_node_provenance_gate"
 metadata/validation_camera = "MainFloorPlanCamera"
 
+[node name="EstateBedroomWingRoutePreview" type="Node3D" parent="CourseRoutes"]
+
+[node name="RouteContainmentAuditBox" type="MeshInstance3D" parent="CourseRoutes/EstateBedroomWingRoutePreview"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 46.6, 44)
+visible = false
+material_override = SubResource("StandardMaterial3D_jwxr1")
+mesh = SubResource("BoxMesh_5d7dv")
+metadata/node_path = "EstateBedroomWingRoutePreview/RouteContainmentAuditBox"
+metadata/visible_class = "validation_only_hidden_route_envelope"
+metadata/owner_volume = "EstateBedroomWing"
+metadata/assembly = "EstateBedroomWingRoutePreview"
+metadata/role = "route_infrastructure"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "RouteContainmentAuditBox generated as route_infrastructure for EstateBedroomWingRoutePreview in the home_estate_v1 production scaffold."
+metadata/support_target = "EstateBedroomWingRoutePreview finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-85.00"
+metadata/end_anchor = "x=49.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "may be removed only after equivalent route-envelope metadata gate exists"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
+
 [node name="EstateUpperLoftRoutePreview" type="Node3D" parent="CourseRoutes"]
 
 [node name="RouteContainmentAuditBox" type="MeshInstance3D" parent="CourseRoutes/EstateUpperLoftRoutePreview"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 46.6, 0)
 visible = false
-material_override = SubResource("StandardMaterial3D_jwxr1")
-mesh = SubResource("BoxMesh_5d7dv")
+material_override = SubResource("StandardMaterial3D_0i7qx")
+mesh = SubResource("BoxMesh_sbxgd")
 metadata/node_path = "EstateUpperLoftRoutePreview/RouteContainmentAuditBox"
 metadata/visible_class = "validation_only_hidden_route_envelope"
 metadata/owner_volume = "EstateUpperLoft"
@@ -8735,8 +8862,8 @@ metadata/validation_camera = "MainFloorPlanCamera"
 [node name="RouteContainmentAuditBox" type="MeshInstance3D" parent="CourseRoutes/EstatePatioRoutePreview"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54, 0.6000004, -158)
 visible = false
-material_override = SubResource("StandardMaterial3D_0i7qx")
-mesh = SubResource("BoxMesh_sbxgd")
+material_override = SubResource("StandardMaterial3D_n0rem")
+mesh = SubResource("BoxMesh_61gc7")
 metadata/node_path = "EstatePatioRoutePreview/RouteContainmentAuditBox"
 metadata/visible_class = "validation_only_hidden_route_envelope"
 metadata/owner_volume = "EstatePatio"
@@ -8749,6 +8876,31 @@ metadata/contact_face = "bottom face"
 metadata/span_axis = "x"
 metadata/start_anchor = "x=-41.00"
 metadata/end_anchor = "x=149.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "may be removed only after equivalent route-envelope metadata gate exists"
+metadata/validation_gate = "home_estate_generated_node_provenance_gate"
+metadata/validation_camera = "MainFloorPlanCamera"
+
+[node name="EstateSandboxYardRoutePreview" type="Node3D" parent="CourseRoutes"]
+
+[node name="RouteContainmentAuditBox" type="MeshInstance3D" parent="CourseRoutes/EstateSandboxYardRoutePreview"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 148, 0.6000004, -238)
+visible = false
+material_override = SubResource("StandardMaterial3D_26b8j")
+mesh = SubResource("BoxMesh_nq3jw")
+metadata/node_path = "EstateSandboxYardRoutePreview/RouteContainmentAuditBox"
+metadata/visible_class = "validation_only_hidden_route_envelope"
+metadata/owner_volume = "EstateSandboxYard"
+metadata/assembly = "EstateSandboxYardRoutePreview"
+metadata/role = "route_infrastructure"
+metadata/source_of_truth = "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
+metadata/why_exists = "RouteContainmentAuditBox generated as route_infrastructure for EstateSandboxYardRoutePreview in the home_estate_v1 production scaffold."
+metadata/support_target = "EstateSandboxYardRoutePreview finished floor or parent room volume"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=85.00"
+metadata/end_anchor = "x=211.00"
 metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
 metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
 metadata/deletion_rule = "may be removed only after equivalent route-envelope metadata gate exists"
@@ -8797,12 +8949,20 @@ fov = 54.0
 transform = Transform3D(0.7880108, 0.14894201, -0.5973737, 0, 0.9702957, 0.2419219, 0.6156615, -0.19063707, 0.7646035, 76, 24.6, 88)
 fov = 54.0
 
+[node name="EstateBedroomWingStartPlayerCamera" type="Camera3D" parent="ValidationCameras"]
+transform = Transform3D(0.7880108, 0.14894201, -0.5973737, 0, 0.9702957, 0.2419219, 0.6156615, -0.19063707, 0.7646035, -60, 70.6, 98)
+fov = 54.0
+
 [node name="EstateUpperLoftStartPlayerCamera" type="Camera3D" parent="ValidationCameras"]
 transform = Transform3D(0.7880108, 0.14894201, -0.5973737, 0, 0.9702957, 0.2419219, 0.6156615, -0.19063707, 0.7646035, -66, 70.6, 54)
 fov = 54.0
 
 [node name="EstatePatioStartPlayerCamera" type="Camera3D" parent="ValidationCameras"]
 transform = Transform3D(0.7880108, 0.14894201, -0.5973737, 0, 0.9702957, 0.2419219, 0.6156615, -0.19063707, 0.7646035, 12, 24.6, -104)
+fov = 54.0
+
+[node name="EstateSandboxYardStartPlayerCamera" type="Camera3D" parent="ValidationCameras"]
+transform = Transform3D(0.7880108, 0.14894201, -0.5973737, 0, 0.9702957, 0.2419219, 0.6156615, -0.19063707, 0.7646035, 106, 24.6, -184)
 fov = 54.0
 
 [node name="ConceptReference" type="Node3D" parent="."]

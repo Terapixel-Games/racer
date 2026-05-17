@@ -1076,11 +1076,19 @@
 			44.5999984741211,
 			-8.0
 		],
+		"owner_character": "Popper",
+		"owner_zone": "bonus_room_attic_storage_prank_space",
 		"road_width": 16.0,
 		"route_envelope": {
 			"max": "(35.0, 58.6, 59.0)",
-			"min": "(-83.0, 34.6, -59.0)"
+			"min": "(-83.0, 34.6, -59.0)",
+			"owner_character": "Popper",
+			"owner_zone": "bonus_room_attic_storage_prank_space",
+			"route_clearance": "route_above_floor_inside_owner_zone_obstacle_and_chase_camera_clear",
+			"scale_class": "room_furnishing",
+			"validation_camera": "EstateUpperLoftStartPlayerCamera"
 		},
+		"scale_class": "room_furnishing",
 		"spawn_slots": [
 			{
 				"forward_offset": 0.0,
@@ -1138,7 +1146,8 @@
 				"y_offset": 0.8,
 				"yaw_offset_degrees": 180.0
 			}
-		]
+		],
+		"validation_camera": "EstateUpperLoftStartPlayerCamera"
 	},
 	"road_segment_layout": [],
 	"road_segment_material_style": "toy_plastic",
