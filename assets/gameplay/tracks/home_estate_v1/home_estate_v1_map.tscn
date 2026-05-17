@@ -1,4 +1,4 @@
-[gd_scene load_steps=504 format=4]
+[gd_scene load_steps=526 format=4]
 
 [ext_resource type="PackedScene" path="res://assets/gameplay/tracks/home_estate_v1/meshes/modern_farmhouse_shell.glb" id="1_noos2"]
 
@@ -5685,72 +5685,147 @@ roughness = 0.72
 size = Vector3(98, 1.2, 4)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k282f"]
-albedo_color = Color(0.56, 0.34, 0.2, 1)
+albedo_color = Color(0.3, 0.45, 0.24, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_mlluv"]
-size = Vector3(16, 48, 56)
+size = Vector3(116, 1.4, 82)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ctji2"]
-albedo_color = Color(0.42, 0.28, 0.18, 1)
+[sub_resource type="BoxShape3D" id="BoxShape3D_ctji2"]
+size = Vector3(116, 1.4, 82)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cegoj"]
+albedo_color = Color(0.18, 0.12, 0.08, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_cegoj"]
-size = Vector3(16, 42, 52)
+[sub_resource type="BoxMesh" id="BoxMesh_8giv6"]
+size = Vector3(110, 0.8, 12)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8giv6"]
-albedo_color = Color(0.35, 0.22, 0.14, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bownj"]
+albedo_color = Color(0.33, 0.24, 0.14, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_bownj"]
-size = Vector3(60, 8, 4)
+[sub_resource type="BoxMesh" id="BoxMesh_vln87"]
+size = Vector3(16, 2.4, 64)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vln87"]
-transparency = 1
-albedo_color = Color(0.2, 0.8, 1, 0.12)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ho4d6"]
+albedo_color = Color(0.73, 0.63, 0.39, 1)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_ho4d6"]
-size = Vector3(118, 24, 118)
+[sub_resource type="BoxMesh" id="BoxMesh_c4kg1"]
+size = Vector3(86, 1.2, 62)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c4kg1"]
-transparency = 1
-albedo_color = Color(0.2, 0.8, 1, 0.12)
-roughness = 0.72
-
-[sub_resource type="BoxMesh" id="BoxMesh_qewxb"]
-size = Vector3(118, 24, 118)
+[sub_resource type="BoxShape3D" id="BoxShape3D_qewxb"]
+size = Vector3(86, 1.2, 62)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_efb0t"]
-transparency = 1
-albedo_color = Color(0.2, 0.8, 1, 0.12)
+albedo_color = Color(0.58, 0.46, 0.28, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_k207w"]
-size = Vector3(112, 20, 128)
+size = Vector3(78, 4.8, 8)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jxmih"]
-transparency = 1
-albedo_color = Color(0.2, 0.8, 1, 0.12)
+albedo_color = Color(0.86, 0.8, 0.62, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_fwrud"]
-size = Vector3(118, 24, 118)
+size = Vector3(28, 2.6, 14)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4akf0"]
-transparency = 1
-albedo_color = Color(0.2, 0.8, 1, 0.12)
+albedo_color = Color(0.42, 0.42, 0.39, 1)
 roughness = 0.72
 
 [sub_resource type="BoxMesh" id="BoxMesh_ghbgm"]
-size = Vector3(118, 24, 118)
+size = Vector3(104, 1.2, 118)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2nsy5"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_2nsy5"]
+size = Vector3(104, 1.2, 118)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7erjl"]
+albedo_color = Color(0.92, 0.88, 0.28, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_calhi"]
+size = Vector3(92, 1.8, 6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f0i21"]
+albedo_color = Color(0.5, 0.5, 0.47, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_wou5a"]
+size = Vector3(28, 1.4, 52)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k12yd"]
+size = Vector3(28, 1.4, 52)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hxq6h"]
+albedo_color = Color(0.56, 0.34, 0.2, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_at7sw"]
+size = Vector3(16, 48, 56)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0qnig"]
+albedo_color = Color(0.42, 0.28, 0.18, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_rj77i"]
+size = Vector3(16, 42, 52)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_322gy"]
+albedo_color = Color(0.35, 0.22, 0.14, 1)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_npeux"]
+size = Vector3(60, 8, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8wbos"]
 transparency = 1
 albedo_color = Color(0.2, 0.8, 1, 0.12)
 roughness = 0.72
 
-[sub_resource type="BoxMesh" id="BoxMesh_7erjl"]
+[sub_resource type="BoxMesh" id="BoxMesh_43iop"]
+size = Vector3(118, 24, 118)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_88y3a"]
+transparency = 1
+albedo_color = Color(0.2, 0.8, 1, 0.12)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_ul07j"]
+size = Vector3(118, 24, 118)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w68v2"]
+transparency = 1
+albedo_color = Color(0.2, 0.8, 1, 0.12)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_5ucsu"]
+size = Vector3(112, 20, 128)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wibyn"]
+transparency = 1
+albedo_color = Color(0.2, 0.8, 1, 0.12)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_qeojo"]
+size = Vector3(118, 24, 118)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jwxr1"]
+transparency = 1
+albedo_color = Color(0.2, 0.8, 1, 0.12)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_5d7dv"]
+size = Vector3(118, 24, 118)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0i7qx"]
+transparency = 1
+albedo_color = Color(0.2, 0.8, 1, 0.12)
+roughness = 0.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_sbxgd"]
 size = Vector3(190, 20, 100)
 
 [node name="HomeEstateV1Map" type="Node3D"]
@@ -8152,13 +8227,320 @@ metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when ow
 metadata/validation_gate = "home_estate_generated_node_provenance_gate"
 metadata/validation_camera = "PatioPoolCamera"
 
+[node name="YardZones" type="Node3D" parent="."]
+metadata/plan_role = "story-bible outdoor owner zones tied to patio, driveway, garden, and sandbox territory"
+metadata/outdoor_zone_contract = {
+"dash_driveway_service_stunt_route": {
+"bounds_center": Vector3(-120, 0.1, 88),
+"bounds_size": Vector3(104, 1.2, 118),
+"owner_character": "Dash",
+"owner_zone": "garage_service_driveway_stunt_route",
+"route_clearance": "connects_garage_to_street_without_blocking_estate_garage_start",
+"scale_class": "yard_site",
+"surface_material": "concrete_driveway_service_apron",
+"validation_camera": "DashDrivewayServiceCamera"
+},
+"moko_garden_patio": {
+"bounds_center": Vector3(-72, -0.05, -204),
+"bounds_size": Vector3(116, 1.4, 82),
+"owner_character": "Moko",
+"owner_zone": "garden_patio",
+"route_clearance": "edge_landmark_outside_estate_patio_primary_line",
+"scale_class": "yard_site",
+"surface_material": "mulch_grass_patio_transition",
+"validation_camera": "MokoGardenPatioCamera"
+},
+"rexx_sandbox_fossil_play_yard": {
+"bounds_center": Vector3(148, 0, -238),
+"bounds_size": Vector3(86, 1.2, 62),
+"owner_character": "Rexx",
+"owner_zone": "sandbox_fossil_play_yard",
+"route_clearance": "outside_estate_patio_loop_with_visible_landmark_clearance",
+"scale_class": "yard_site",
+"surface_material": "sand_with_fossil_play_edges",
+"validation_camera": "RexxSandboxCamera"
+}
+}
+
+[node name="MokoGardenPatioSurface" type="MeshInstance3D" parent="YardZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72, -0.05, -204)
+material_override = SubResource("StandardMaterial3D_k282f")
+mesh = SubResource("BoxMesh_mlluv")
+metadata/node_path = "YardZones/MokoGardenPatioSurface"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "YardZones.MokoGardenPatioSurface"
+metadata/assembly = "YardZones"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
+metadata/why_exists = "MokoGardenPatioSurface generated as floor_or_site_surface for YardZones in the home_estate_v1 production scaffold."
+metadata/support_target = "site grade, patio threshold, and story-bible outdoor owner zones"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-130.00"
+metadata/end_anchor = "x=-14.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_yard_zone_owner_and_clearance_gate"
+metadata/validation_camera = "MokoGardenPatioCamera"
+metadata/owner_character = "Moko"
+metadata/owner_zone = "garden_patio"
+metadata/scale_class = "yard_site"
+metadata/surface_material = "mulch_grass_patio_transition"
+metadata/route_clearance = "edge_landmark_outside_estate_patio_primary_line"
+metadata/landscape_role = "outdoor_zone_surface_or_edge_landmark"
+
+[node name="MokoGardenPatioSurfaceCollision" type="StaticBody3D" parent="YardZones/MokoGardenPatioSurface"]
+
+[node name="@CollisionShape3D@35" type="CollisionShape3D" parent="YardZones/MokoGardenPatioSurface/MokoGardenPatioSurfaceCollision"]
+shape = SubResource("BoxShape3D_ctji2")
+
+[node name="MokoGardenMulchBedNorth" type="MeshInstance3D" parent="YardZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72, 0.35, -248)
+material_override = SubResource("StandardMaterial3D_cegoj")
+mesh = SubResource("BoxMesh_8giv6")
+metadata/node_path = "YardZones/MokoGardenMulchBedNorth"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "YardZones.MokoGardenMulchBedNorth"
+metadata/assembly = "YardZones"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
+metadata/why_exists = "MokoGardenMulchBedNorth generated as floor_or_site_surface for YardZones in the home_estate_v1 production scaffold."
+metadata/support_target = "site grade, patio threshold, and story-bible outdoor owner zones"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-127.00"
+metadata/end_anchor = "x=-17.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_yard_zone_owner_and_clearance_gate"
+metadata/validation_camera = "MokoGardenPatioCamera"
+metadata/owner_character = "Moko"
+metadata/owner_zone = "garden_patio"
+metadata/scale_class = "yard_site"
+metadata/surface_material = "mulch_planting_mass"
+metadata/route_clearance = "non_colliding_edge_mass_outside_route"
+metadata/landscape_role = "outdoor_zone_surface_or_edge_landmark"
+
+[node name="MokoPatioPlanterRhythm" type="MeshInstance3D" parent="YardZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 1.2, -182)
+material_override = SubResource("StandardMaterial3D_bownj")
+mesh = SubResource("BoxMesh_vln87")
+metadata/node_path = "YardZones/MokoPatioPlanterRhythm"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "YardZones.MokoPatioPlanterRhythm"
+metadata/assembly = "YardZones"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
+metadata/why_exists = "MokoPatioPlanterRhythm generated as floor_or_site_surface for YardZones in the home_estate_v1 production scaffold."
+metadata/support_target = "site grade, patio threshold, and story-bible outdoor owner zones"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=-214.00"
+metadata/end_anchor = "z=-150.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_yard_zone_owner_and_clearance_gate"
+metadata/validation_camera = "MokoGardenPatioCamera"
+metadata/owner_character = "Moko"
+metadata/owner_zone = "garden_patio"
+metadata/scale_class = "yard_site"
+metadata/surface_material = "raised_planter_edge"
+metadata/route_clearance = "edge_landmark_set_back_from_estate_patio_loop"
+metadata/landscape_role = "outdoor_zone_surface_or_edge_landmark"
+
+[node name="RexxSandboxFossilPlayYardSurface" type="MeshInstance3D" parent="YardZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 148, 0, -238)
+material_override = SubResource("StandardMaterial3D_ho4d6")
+mesh = SubResource("BoxMesh_c4kg1")
+metadata/node_path = "YardZones/RexxSandboxFossilPlayYardSurface"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "YardZones.RexxSandboxFossilPlayYardSurface"
+metadata/assembly = "YardZones"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
+metadata/why_exists = "RexxSandboxFossilPlayYardSurface generated as floor_or_site_surface for YardZones in the home_estate_v1 production scaffold."
+metadata/support_target = "site grade, patio threshold, and story-bible outdoor owner zones"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=105.00"
+metadata/end_anchor = "x=191.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_yard_zone_owner_and_clearance_gate"
+metadata/validation_camera = "RexxSandboxCamera"
+metadata/owner_character = "Rexx"
+metadata/owner_zone = "sandbox_fossil_play_yard"
+metadata/scale_class = "yard_site"
+metadata/surface_material = "sand_with_fossil_play_edges"
+metadata/route_clearance = "outside_estate_patio_loop_with_visible_landmark_clearance"
+metadata/landscape_role = "outdoor_zone_surface_or_edge_landmark"
+
+[node name="RexxSandboxFossilPlayYardSurfaceCollision" type="StaticBody3D" parent="YardZones/RexxSandboxFossilPlayYardSurface"]
+
+[node name="@CollisionShape3D@36" type="CollisionShape3D" parent="YardZones/RexxSandboxFossilPlayYardSurface/RexxSandboxFossilPlayYardSurfaceCollision"]
+shape = SubResource("BoxShape3D_qewxb")
+
+[node name="RexxFossilDigRidge" type="MeshInstance3D" parent="YardZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 148, 2.4, -214)
+material_override = SubResource("StandardMaterial3D_efb0t")
+mesh = SubResource("BoxMesh_k207w")
+metadata/node_path = "YardZones/RexxFossilDigRidge"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "YardZones.RexxFossilDigRidge"
+metadata/assembly = "YardZones"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
+metadata/why_exists = "RexxFossilDigRidge generated as floor_or_site_surface for YardZones in the home_estate_v1 production scaffold."
+metadata/support_target = "site grade, patio threshold, and story-bible outdoor owner zones"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=109.00"
+metadata/end_anchor = "x=187.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_yard_zone_owner_and_clearance_gate"
+metadata/validation_camera = "RexxSandboxCamera"
+metadata/owner_character = "Rexx"
+metadata/owner_zone = "sandbox_fossil_play_yard"
+metadata/scale_class = "yard_site"
+metadata/surface_material = "packed_sand_ridge"
+metadata/route_clearance = "visual_boundary_outside_estate_patio_loop"
+metadata/landscape_role = "outdoor_zone_surface_or_edge_landmark"
+
+[node name="RexxToyFossilMarkerCluster" type="MeshInstance3D" parent="YardZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 170, 1.3, -240)
+material_override = SubResource("StandardMaterial3D_jxmih")
+mesh = SubResource("BoxMesh_fwrud")
+metadata/node_path = "YardZones/RexxToyFossilMarkerCluster"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "YardZones.RexxToyFossilMarkerCluster"
+metadata/assembly = "YardZones"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
+metadata/why_exists = "RexxToyFossilMarkerCluster generated as floor_or_site_surface for YardZones in the home_estate_v1 production scaffold."
+metadata/support_target = "site grade, patio threshold, and story-bible outdoor owner zones"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=156.00"
+metadata/end_anchor = "x=184.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_yard_zone_owner_and_clearance_gate"
+metadata/validation_camera = "RexxSandboxCamera"
+metadata/owner_character = "Rexx"
+metadata/owner_zone = "sandbox_fossil_play_yard"
+metadata/scale_class = "toy_scale_racing"
+metadata/surface_material = "toy_bone_marker_cluster"
+metadata/route_clearance = "decor_only_outside_route_corridor"
+metadata/landscape_role = "outdoor_zone_surface_or_edge_landmark"
+
+[node name="DashDrivewayServiceStuntRouteSurface" type="MeshInstance3D" parent="YardZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 0.1, 88)
+material_override = SubResource("StandardMaterial3D_4akf0")
+mesh = SubResource("BoxMesh_ghbgm")
+metadata/node_path = "YardZones/DashDrivewayServiceStuntRouteSurface"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "YardZones.DashDrivewayServiceStuntRouteSurface"
+metadata/assembly = "YardZones"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
+metadata/why_exists = "DashDrivewayServiceStuntRouteSurface generated as floor_or_site_surface for YardZones in the home_estate_v1 production scaffold."
+metadata/support_target = "site grade, patio threshold, and story-bible outdoor owner zones"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=29.00"
+metadata/end_anchor = "z=147.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_yard_zone_owner_and_clearance_gate"
+metadata/validation_camera = "DashDrivewayServiceCamera"
+metadata/owner_character = "Dash"
+metadata/owner_zone = "garage_service_driveway_stunt_route"
+metadata/scale_class = "yard_site"
+metadata/surface_material = "concrete_driveway_service_apron"
+metadata/route_clearance = "connects_garage_to_street_without_blocking_estate_garage_start"
+metadata/landscape_role = "outdoor_zone_surface_or_edge_landmark"
+
+[node name="DashDrivewayServiceStuntRouteSurfaceCollision" type="StaticBody3D" parent="YardZones/DashDrivewayServiceStuntRouteSurface"]
+
+[node name="@CollisionShape3D@37" type="CollisionShape3D" parent="YardZones/DashDrivewayServiceStuntRouteSurface/DashDrivewayServiceStuntRouteSurfaceCollision"]
+shape = SubResource("BoxShape3D_2nsy5")
+
+[node name="DashGarageApronLaunchStripe" type="MeshInstance3D" parent="YardZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104, 0.9, 136)
+material_override = SubResource("StandardMaterial3D_7erjl")
+mesh = SubResource("BoxMesh_calhi")
+metadata/node_path = "YardZones/DashGarageApronLaunchStripe"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "YardZones.DashGarageApronLaunchStripe"
+metadata/assembly = "YardZones"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
+metadata/why_exists = "DashGarageApronLaunchStripe generated as floor_or_site_surface for YardZones in the home_estate_v1 production scaffold."
+metadata/support_target = "site grade, patio threshold, and story-bible outdoor owner zones"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "x"
+metadata/start_anchor = "x=-150.00"
+metadata/end_anchor = "x=-58.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_yard_zone_owner_and_clearance_gate"
+metadata/validation_camera = "DashDrivewayServiceCamera"
+metadata/owner_character = "Dash"
+metadata/owner_zone = "garage_service_driveway_stunt_route"
+metadata/scale_class = "toy_scale_racing"
+metadata/surface_material = "painted_driveway_start_stripe"
+metadata/route_clearance = "flush_visual_surface_no_camera_blocker"
+metadata/landscape_role = "outdoor_zone_surface_or_edge_landmark"
+
+[node name="DashServiceWorkbenchOutdoorPad" type="MeshInstance3D" parent="YardZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -166, 0.7, 20)
+material_override = SubResource("StandardMaterial3D_f0i21")
+mesh = SubResource("BoxMesh_wou5a")
+metadata/node_path = "YardZones/DashServiceWorkbenchOutdoorPad"
+metadata/visible_class = "generated_visible_geometry"
+metadata/owner_volume = "YardZones.DashServiceWorkbenchOutdoorPad"
+metadata/assembly = "YardZones"
+metadata/role = "floor_or_site_surface"
+metadata/source_of_truth = "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
+metadata/why_exists = "DashServiceWorkbenchOutdoorPad generated as floor_or_site_surface for YardZones in the home_estate_v1 production scaffold."
+metadata/support_target = "site grade, patio threshold, and story-bible outdoor owner zones"
+metadata/contact_face = "bottom face"
+metadata/span_axis = "z"
+metadata/start_anchor = "z=-6.00"
+metadata/end_anchor = "z=46.00"
+metadata/allowed_intersections = Array[String](["support_target_contact", "declared_parent_volume"])
+metadata/forbidden_intersections = ["unowned_geometry", "route_camera_swept_volume", "unplanned_shell_overlap"]
+metadata/deletion_rule = "delete only through GenerateHomeEstateV1Map.gd when owner assembly or source contract changes"
+metadata/validation_gate = "home_estate_yard_zone_owner_and_clearance_gate"
+metadata/validation_camera = "DashDrivewayServiceCamera"
+metadata/owner_character = "Dash"
+metadata/owner_zone = "garage_service_driveway_stunt_route"
+metadata/scale_class = "yard_site"
+metadata/surface_material = "service_side_concrete_pad"
+metadata/route_clearance = "side_service_zone_outside_driveway_line"
+metadata/landscape_role = "outdoor_zone_surface_or_edge_landmark"
+
+[node name="DashServiceWorkbenchOutdoorPadCollision" type="StaticBody3D" parent="YardZones/DashServiceWorkbenchOutdoorPad"]
+
+[node name="@CollisionShape3D@38" type="CollisionShape3D" parent="YardZones/DashServiceWorkbenchOutdoorPad/DashServiceWorkbenchOutdoorPadCollision"]
+shape = SubResource("BoxShape3D_k12yd")
+
 [node name="VerticalConnectors" type="Node3D" parent="."]
 metadata/plan_role = "stair stack from main great-room hall to upper loft and basement"
 
 [node name="MainToUpperStairRun" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 0.88294756, 0.46947157, 0, -0.46947157, 0.88294756, -2, 24, 42)
-material_override = SubResource("StandardMaterial3D_k282f")
-mesh = SubResource("BoxMesh_mlluv")
+material_override = SubResource("StandardMaterial3D_hxq6h")
+mesh = SubResource("BoxMesh_at7sw")
 metadata/node_path = "VerticalConnectors/MainToUpperStairRun"
 metadata/visible_class = "generated_visible_geometry"
 metadata/owner_volume = "VerticalConnectors.MainToUpperStairRun"
@@ -8179,8 +8561,8 @@ metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="MainToBasementStairRun" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 0.88294756, -0.46947157, 0, 0.46947157, 0.88294756, -14, -20, 36)
-material_override = SubResource("StandardMaterial3D_ctji2")
-mesh = SubResource("BoxMesh_cegoj")
+material_override = SubResource("StandardMaterial3D_0qnig")
+mesh = SubResource("BoxMesh_rj77i")
 metadata/node_path = "VerticalConnectors/MainToBasementStairRun"
 metadata/visible_class = "generated_visible_geometry"
 metadata/owner_volume = "VerticalConnectors.MainToBasementStairRun"
@@ -8201,8 +8583,8 @@ metadata/validation_camera = "MainFloorPlanCamera"
 
 [node name="UpperLandingGuardRail" type="MeshInstance3D" parent="VerticalConnectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 56, 16)
-material_override = SubResource("StandardMaterial3D_8giv6")
-mesh = SubResource("BoxMesh_bownj")
+material_override = SubResource("StandardMaterial3D_322gy")
+mesh = SubResource("BoxMesh_npeux")
 metadata/node_path = "VerticalConnectors/UpperLandingGuardRail"
 metadata/visible_class = "generated_visible_geometry"
 metadata/owner_volume = "VerticalConnectors.UpperLandingGuardRail"
@@ -8228,8 +8610,8 @@ metadata/validation_camera = "MainFloorPlanCamera"
 [node name="RouteContainmentAuditBox" type="MeshInstance3D" parent="CourseRoutes/EstateKitchenRoutePreview"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54, 0.6000004, 20)
 visible = false
-material_override = SubResource("StandardMaterial3D_vln87")
-mesh = SubResource("BoxMesh_ho4d6")
+material_override = SubResource("StandardMaterial3D_8wbos")
+mesh = SubResource("BoxMesh_43iop")
 metadata/node_path = "EstateKitchenRoutePreview/RouteContainmentAuditBox"
 metadata/visible_class = "validation_only_hidden_route_envelope"
 metadata/owner_volume = "EstateKitchen"
@@ -8253,8 +8635,8 @@ metadata/validation_camera = "MainFloorPlanCamera"
 [node name="RouteContainmentAuditBox" type="MeshInstance3D" parent="CourseRoutes/EstateGreatRoomRoutePreview"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0.6000004, 28)
 visible = false
-material_override = SubResource("StandardMaterial3D_c4kg1")
-mesh = SubResource("BoxMesh_qewxb")
+material_override = SubResource("StandardMaterial3D_88y3a")
+mesh = SubResource("BoxMesh_ul07j")
 metadata/node_path = "EstateGreatRoomRoutePreview/RouteContainmentAuditBox"
 metadata/visible_class = "validation_only_hidden_route_envelope"
 metadata/owner_volume = "EstateGreatRoom"
@@ -8278,8 +8660,8 @@ metadata/validation_camera = "MainFloorPlanCamera"
 [node name="RouteContainmentAuditBox" type="MeshInstance3D" parent="CourseRoutes/EstateGarageRoutePreview"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102, 0.6000004, -66)
 visible = false
-material_override = SubResource("StandardMaterial3D_efb0t")
-mesh = SubResource("BoxMesh_k207w")
+material_override = SubResource("StandardMaterial3D_w68v2")
+mesh = SubResource("BoxMesh_5ucsu")
 metadata/node_path = "EstateGarageRoutePreview/RouteContainmentAuditBox"
 metadata/visible_class = "validation_only_hidden_route_envelope"
 metadata/owner_volume = "EstateGarage"
@@ -8303,8 +8685,8 @@ metadata/validation_camera = "MainFloorPlanCamera"
 [node name="RouteContainmentAuditBox" type="MeshInstance3D" parent="CourseRoutes/EstateMasterSuiteRoutePreview"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 118, 0.6000004, 34)
 visible = false
-material_override = SubResource("StandardMaterial3D_jxmih")
-mesh = SubResource("BoxMesh_fwrud")
+material_override = SubResource("StandardMaterial3D_wibyn")
+mesh = SubResource("BoxMesh_qeojo")
 metadata/node_path = "EstateMasterSuiteRoutePreview/RouteContainmentAuditBox"
 metadata/visible_class = "validation_only_hidden_route_envelope"
 metadata/owner_volume = "EstateMasterSuite"
@@ -8328,8 +8710,8 @@ metadata/validation_camera = "MainFloorPlanCamera"
 [node name="RouteContainmentAuditBox" type="MeshInstance3D" parent="CourseRoutes/EstateUpperLoftRoutePreview"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 46.6, 0)
 visible = false
-material_override = SubResource("StandardMaterial3D_4akf0")
-mesh = SubResource("BoxMesh_ghbgm")
+material_override = SubResource("StandardMaterial3D_jwxr1")
+mesh = SubResource("BoxMesh_5d7dv")
 metadata/node_path = "EstateUpperLoftRoutePreview/RouteContainmentAuditBox"
 metadata/visible_class = "validation_only_hidden_route_envelope"
 metadata/owner_volume = "EstateUpperLoft"
@@ -8353,8 +8735,8 @@ metadata/validation_camera = "MainFloorPlanCamera"
 [node name="RouteContainmentAuditBox" type="MeshInstance3D" parent="CourseRoutes/EstatePatioRoutePreview"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54, 0.6000004, -158)
 visible = false
-material_override = SubResource("StandardMaterial3D_2nsy5")
-mesh = SubResource("BoxMesh_7erjl")
+material_override = SubResource("StandardMaterial3D_0i7qx")
+mesh = SubResource("BoxMesh_sbxgd")
 metadata/node_path = "EstatePatioRoutePreview/RouteContainmentAuditBox"
 metadata/visible_class = "validation_only_hidden_route_envelope"
 metadata/owner_volume = "EstatePatio"
@@ -8385,6 +8767,18 @@ fov = 70.0
 
 [node name="PatioPoolCamera" type="Camera3D" parent="ValidationCameras"]
 transform = Transform3D(0.88294756, -0.1450747, 0.446494, 0, 0.95105654, 0.309017, -0.46947157, -0.2728458, 0.83973306, 120, 70, -245)
+fov = 58.0
+
+[node name="MokoGardenPatioCamera" type="Camera3D" parent="ValidationCameras"]
+transform = Transform3D(0.9781476, 0.07788509, -0.19277237, 0, 0.92718387, 0.37460658, 0.2079117, -0.36642054, 0.9069227, -96, 54, -302)
+fov = 56.0
+
+[node name="RexxSandboxCamera" type="Camera3D" parent="ValidationCameras"]
+transform = Transform3D(0.95105654, -0.095491506, 0.29389265, 0, 0.95105654, 0.309017, -0.309017, -0.29389265, 0.90450853, 184, 46, -300)
+fov = 54.0
+
+[node name="DashDrivewayServiceCamera" type="Camera3D" parent="ValidationCameras"]
+transform = Transform3D(0.6156615, 0.24350871, -0.74944276, 0, 0.95105654, 0.309017, 0.7880107, -0.19024988, 0.5855289, -196, 42, 156)
 fov = 58.0
 
 [node name="EstateKitchenStartPlayerCamera" type="Camera3D" parent="ValidationCameras"]

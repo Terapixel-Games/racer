@@ -124,7 +124,7 @@ func test_home_estate_map_uses_user_floor_plan_scaffold() -> void:
 	assert_true(root != null, "Home Estate generated map scene should instantiate")
 	if root == null:
 		return
-	for holder_name in ["Site", "Foundation", "ExteriorShell", "Roof", "Openings", "MainFloor", "UpperFloor", "Basement", "PatioPool", "VerticalConnectors", "CourseRoutes", "ValidationCameras"]:
+	for holder_name in ["Site", "Foundation", "ExteriorShell", "Roof", "Openings", "MainFloor", "UpperFloor", "Basement", "PatioPool", "YardZones", "VerticalConnectors", "CourseRoutes", "ValidationCameras"]:
 		assert_true(root.get_node_or_null(holder_name) != null, "Home Estate scene should include holder %s" % holder_name)
 	for room_path in [
 		"MainFloor/ThreeCarGarage",
@@ -135,6 +135,9 @@ func test_home_estate_map_uses_user_floor_plan_scaffold() -> void:
 		"UpperFloor/FutureBonusRoom",
 		"Basement/BasementPlayableShell",
 		"PatioPool/RearPatio",
+		"YardZones/MokoGardenPatioSurface",
+		"YardZones/RexxSandboxFossilPlayYardSurface",
+		"YardZones/DashDrivewayServiceStuntRouteSurface",
 	]:
 		assert_true(root.get_node_or_null(room_path) != null, "Home Estate scene should include floor-plan node %s" % room_path)
 	var contract: Dictionary = root.get_meta("floor_plan_contract", {})
@@ -147,6 +150,27 @@ func test_home_estate_map_uses_user_floor_plan_scaffold() -> void:
 	assert_equal(str(character_mapping.get("Sir Clink", "")), "kitchen", "Sir Clink should own the kitchen zone")
 	assert_equal(str(character_mapping.get("Slammo", "")), "great_room", "Slammo should own the great-room zone")
 	assert_equal(str(character_mapping.get("Dash", "")), "garage_service_driveway_stunt_route", "Dash should own garage/service/driveway stunt routing")
+	var yard := root.get_node_or_null("YardZones")
+	assert_true(yard != null, "Home Estate should generate a yard zone holder")
+	if yard != null:
+		var outdoor_contract: Dictionary = yard.get_meta("outdoor_zone_contract", {})
+		assert_true(outdoor_contract.has("moko_garden_patio"), "Outdoor contract should include Moko's garden/patio zone")
+		assert_true(outdoor_contract.has("rexx_sandbox_fossil_play_yard"), "Outdoor contract should include Rexx's sandbox/fossil play-yard zone")
+		assert_true(outdoor_contract.has("dash_driveway_service_stunt_route"), "Outdoor contract should include Dash's driveway/service stunt zone")
+	for zone_expectation in [
+		{"path": "YardZones/MokoGardenPatioSurface", "owner": "Moko", "zone": "garden_patio", "camera": "MokoGardenPatioCamera"},
+		{"path": "YardZones/RexxSandboxFossilPlayYardSurface", "owner": "Rexx", "zone": "sandbox_fossil_play_yard", "camera": "RexxSandboxCamera"},
+		{"path": "YardZones/DashDrivewayServiceStuntRouteSurface", "owner": "Dash", "zone": "garage_service_driveway_stunt_route", "camera": "DashDrivewayServiceCamera"},
+	]:
+		var zone_node := root.get_node_or_null(str((zone_expectation as Dictionary).get("path", "")))
+		assert_true(zone_node != null, "Home Estate should include outdoor zone %s" % str((zone_expectation as Dictionary).get("path", "")))
+		if zone_node == null:
+			continue
+		assert_equal(str(zone_node.get_meta("owner_character", "")), str((zone_expectation as Dictionary).get("owner", "")), "Outdoor zone should record its story-bible owner")
+		assert_equal(str(zone_node.get_meta("owner_zone", "")), str((zone_expectation as Dictionary).get("zone", "")), "Outdoor zone should record its owner zone")
+		assert_equal(str(zone_node.get_meta("scale_class", "")), "yard_site", "Outdoor zone should use yard_site scale")
+		assert_equal(str(zone_node.get_meta("validation_camera", "")), str((zone_expectation as Dictionary).get("camera", "")), "Outdoor zone should name its validation camera")
+		assert_true(root.get_node_or_null("ValidationCameras/%s" % str((zone_expectation as Dictionary).get("camera", ""))) != null, "Outdoor zone validation camera should exist")
 	for production_path in [
 		"ExteriorShell/ModernFarmhouseShellAsset",
 		"ExteriorShell/ModernFarmhouseShellScaleEnvelope",

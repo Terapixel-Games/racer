@@ -61,6 +61,39 @@ const CHARACTER_ZONE_MAPPING := {
 const STORY_BIBLE_PATH := "res://docs/concept_package.md"
 const CHARACTER_MAPPING_PATH := "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
 
+const OUTDOOR_ZONE_CONTRACT := {
+	"moko_garden_patio": {
+		"owner_character": "Moko",
+		"owner_zone": "garden_patio",
+		"bounds_center": Vector3(-72, -0.05, -204),
+		"bounds_size": Vector3(116, 1.4, 82),
+		"surface_material": "mulch_grass_patio_transition",
+		"scale_class": "yard_site",
+		"route_clearance": "edge_landmark_outside_estate_patio_primary_line",
+		"validation_camera": "MokoGardenPatioCamera",
+	},
+	"rexx_sandbox_fossil_play_yard": {
+		"owner_character": "Rexx",
+		"owner_zone": "sandbox_fossil_play_yard",
+		"bounds_center": Vector3(148, 0.0, -238),
+		"bounds_size": Vector3(86, 1.2, 62),
+		"surface_material": "sand_with_fossil_play_edges",
+		"scale_class": "yard_site",
+		"route_clearance": "outside_estate_patio_loop_with_visible_landmark_clearance",
+		"validation_camera": "RexxSandboxCamera",
+	},
+	"dash_driveway_service_stunt_route": {
+		"owner_character": "Dash",
+		"owner_zone": "garage_service_driveway_stunt_route",
+		"bounds_center": Vector3(-120, 0.1, 88),
+		"bounds_size": Vector3(104, 1.2, 118),
+		"surface_material": "concrete_driveway_service_apron",
+		"scale_class": "yard_site",
+		"route_clearance": "connects_garage_to_street_without_blocking_estate_garage_start",
+		"validation_camera": "DashDrivewayServiceCamera",
+	},
+}
+
 const COURSES := [
 	{"id": "estate_kitchen", "display_name": "Estate Kitchen", "placement": Vector3(-54, MAIN_FLOOR_Y + ROAD_FLOOR_CLEARANCE, 20), "sky": "noon_clear", "color": Color(0.92, 0.78, 0.55)},
 	{"id": "estate_great_room", "display_name": "Estate Great Room", "placement": Vector3(50, MAIN_FLOOR_Y + ROAD_FLOOR_CLEARANCE, 28), "sky": "soft_morning", "color": Color(0.76, 0.62, 0.55)},
@@ -88,7 +121,7 @@ func _save_map_scene() -> void:
 	root.set_meta("character_zone_mapping_path", CHARACTER_MAPPING_PATH)
 	root.set_meta("character_zone_mapping", CHARACTER_ZONE_MAPPING)
 	root.set_meta("generator_phase", "phase_2_shell_site_provenance_slice")
-	for holder_name in ["Site", "Foundation", "ExteriorShell", "Roof", "Openings", "MainFloor", "UpperFloor", "Basement", "PatioPool", "VerticalConnectors", "CourseRoutes", "ValidationCameras", "ConceptReference"]:
+	for holder_name in ["Site", "Foundation", "ExteriorShell", "Roof", "Openings", "MainFloor", "UpperFloor", "Basement", "PatioPool", "YardZones", "VerticalConnectors", "CourseRoutes", "ValidationCameras", "ConceptReference"]:
 		var holder := Node3D.new()
 		holder.name = holder_name
 		root.add_child(holder)
@@ -99,6 +132,7 @@ func _save_map_scene() -> void:
 	_add_upper_floor(root)
 	_add_basement(root)
 	_add_patio_pool(root)
+	_add_yard_zones(root)
 	_add_exterior_shell(root)
 	_add_roof(root)
 	_add_vertical_connectors(root)
@@ -298,6 +332,88 @@ func _add_patio_pool(root: Node3D) -> void:
 	_add_box(root, patio, "PoolNotIncludedReferenceWater", Vector3(96, -0.15, -206), Vector3(92, 0.7, 72), Color(0.20, 0.58, 0.75, 0.55), false)
 	_add_box(root, patio, "PoolSafetyEdge", Vector3(96, 0.4, -165), Vector3(98, 1.2, 4), Color(0.74, 0.72, 0.66), false)
 
+func _add_yard_zones(root: Node3D) -> void:
+	var yard := root.get_node("YardZones") as Node3D
+	yard.set_meta("plan_role", "story-bible outdoor owner zones tied to patio, driveway, garden, and sandbox territory")
+	yard.set_meta("outdoor_zone_contract", OUTDOOR_ZONE_CONTRACT)
+	var moko_zone := OUTDOOR_ZONE_CONTRACT["moko_garden_patio"] as Dictionary
+	_add_zone_surface(root, yard, "MokoGardenPatioSurface", moko_zone, Color(0.30, 0.45, 0.24))
+	_add_zone_surface(root, yard, "MokoGardenMulchBedNorth", {
+		"owner_character": "Moko",
+		"owner_zone": "garden_patio",
+		"bounds_center": Vector3(-72, 0.35, -248),
+		"bounds_size": Vector3(110, 0.8, 12),
+		"surface_material": "mulch_planting_mass",
+		"scale_class": "yard_site",
+		"route_clearance": "non_colliding_edge_mass_outside_route",
+		"validation_camera": "MokoGardenPatioCamera",
+	}, Color(0.18, 0.12, 0.08), false)
+	_add_zone_surface(root, yard, "MokoPatioPlanterRhythm", {
+		"owner_character": "Moko",
+		"owner_zone": "garden_patio",
+		"bounds_center": Vector3(-22, 1.2, -182),
+		"bounds_size": Vector3(16, 2.4, 64),
+		"surface_material": "raised_planter_edge",
+		"scale_class": "yard_site",
+		"route_clearance": "edge_landmark_set_back_from_estate_patio_loop",
+		"validation_camera": "MokoGardenPatioCamera",
+	}, Color(0.33, 0.24, 0.14), false)
+	var rexx_zone := OUTDOOR_ZONE_CONTRACT["rexx_sandbox_fossil_play_yard"] as Dictionary
+	_add_zone_surface(root, yard, "RexxSandboxFossilPlayYardSurface", rexx_zone, Color(0.73, 0.63, 0.39))
+	_add_zone_surface(root, yard, "RexxFossilDigRidge", {
+		"owner_character": "Rexx",
+		"owner_zone": "sandbox_fossil_play_yard",
+		"bounds_center": Vector3(148, 2.4, -214),
+		"bounds_size": Vector3(78, 4.8, 8),
+		"surface_material": "packed_sand_ridge",
+		"scale_class": "yard_site",
+		"route_clearance": "visual_boundary_outside_estate_patio_loop",
+		"validation_camera": "RexxSandboxCamera",
+	}, Color(0.58, 0.46, 0.28), false)
+	_add_zone_surface(root, yard, "RexxToyFossilMarkerCluster", {
+		"owner_character": "Rexx",
+		"owner_zone": "sandbox_fossil_play_yard",
+		"bounds_center": Vector3(170, 1.3, -240),
+		"bounds_size": Vector3(28, 2.6, 14),
+		"surface_material": "toy_bone_marker_cluster",
+		"scale_class": "toy_scale_racing",
+		"route_clearance": "decor_only_outside_route_corridor",
+		"validation_camera": "RexxSandboxCamera",
+	}, Color(0.86, 0.80, 0.62), false)
+	var dash_zone := OUTDOOR_ZONE_CONTRACT["dash_driveway_service_stunt_route"] as Dictionary
+	_add_zone_surface(root, yard, "DashDrivewayServiceStuntRouteSurface", dash_zone, Color(0.42, 0.42, 0.39))
+	_add_zone_surface(root, yard, "DashGarageApronLaunchStripe", {
+		"owner_character": "Dash",
+		"owner_zone": "garage_service_driveway_stunt_route",
+		"bounds_center": Vector3(-104, 0.9, 136),
+		"bounds_size": Vector3(92, 1.8, 6),
+		"surface_material": "painted_driveway_start_stripe",
+		"scale_class": "toy_scale_racing",
+		"route_clearance": "flush_visual_surface_no_camera_blocker",
+		"validation_camera": "DashDrivewayServiceCamera",
+	}, Color(0.92, 0.88, 0.28), false)
+	_add_zone_surface(root, yard, "DashServiceWorkbenchOutdoorPad", {
+		"owner_character": "Dash",
+		"owner_zone": "garage_service_driveway_stunt_route",
+		"bounds_center": Vector3(-166, 0.7, 20),
+		"bounds_size": Vector3(28, 1.4, 52),
+		"surface_material": "service_side_concrete_pad",
+		"scale_class": "yard_site",
+		"route_clearance": "side_service_zone_outside_driveway_line",
+		"validation_camera": "DashDrivewayServiceCamera",
+	}, Color(0.50, 0.50, 0.47), true)
+
+func _add_zone_surface(root: Node3D, parent: Node3D, node_name: String, zone: Dictionary, color: Color, collision := true) -> MeshInstance3D:
+	var mesh := _add_box(root, parent, node_name, zone.get("bounds_center", Vector3.ZERO) as Vector3, zone.get("bounds_size", Vector3.ONE) as Vector3, color, collision)
+	mesh.set_meta("owner_character", str(zone.get("owner_character", "")))
+	mesh.set_meta("owner_zone", str(zone.get("owner_zone", "")))
+	mesh.set_meta("scale_class", str(zone.get("scale_class", "")))
+	mesh.set_meta("surface_material", str(zone.get("surface_material", "")))
+	mesh.set_meta("route_clearance", str(zone.get("route_clearance", "")))
+	mesh.set_meta("validation_camera", str(zone.get("validation_camera", "")))
+	mesh.set_meta("landscape_role", "outdoor_zone_surface_or_edge_landmark")
+	return mesh
+
 func _add_exterior_shell(root: Node3D) -> void:
 	var shell := root.get_node("ExteriorShell") as Node3D
 	shell.set_meta("plan_role", "single owner of exterior walls and openings for home_estate_v1")
@@ -365,6 +481,9 @@ func _add_validation_cameras(root: Node3D) -> void:
 	_add_camera(root, cameras, "MainFloorPlanCamera", Vector3(0, 210, 220), Vector3(-62, 0, 0), 70)
 	_add_camera(root, cameras, "UpperFloorPlanCamera", Vector3(0, 190, 120), Vector3(-62, 0, 0), 70)
 	_add_camera(root, cameras, "PatioPoolCamera", Vector3(120, 70, -245), Vector3(-18, 28, 0), 58)
+	_add_camera(root, cameras, "MokoGardenPatioCamera", Vector3(-96, 54, -302), Vector3(-22, -12, 0), 56)
+	_add_camera(root, cameras, "RexxSandboxCamera", Vector3(184, 46, -300), Vector3(-18, 18, 0), 54)
+	_add_camera(root, cameras, "DashDrivewayServiceCamera", Vector3(-196, 42, 156), Vector3(-18, -52, 0), 58)
 	for course in COURSES:
 		var course_id := str(course["id"])
 		var pos := course["placement"] as Vector3
@@ -815,7 +934,7 @@ func _apply_generated_provenance(node: Node, parent: Node, node_name: String, po
 
 func _role_for_generated_node(assembly: String, node_name: String) -> String:
 	var lowered := node_name.to_lower()
-	if lowered.contains("floor") or ["MainFloor", "UpperFloor", "Basement", "PatioPool", "Site"].has(assembly):
+	if lowered.contains("floor") or ["MainFloor", "UpperFloor", "Basement", "PatioPool", "Site", "YardZones"].has(assembly):
 		return "floor_or_site_surface"
 	if lowered.contains("wall") or lowered.contains("siding"):
 		return "wall_or_closure"
@@ -844,6 +963,8 @@ func _source_of_truth_for_assembly(assembly: String) -> String:
 			return "res://docs/concepts/home_estate_v1/reference_frames/modern_farmhouse_38_526/reference_notes.md"
 		"CourseRoutes":
 			return "home_estate_v1 mode route_envelope metadata"
+		"YardZones":
+			return "res://docs/story_bible/concepts/home_estate_v1_character_mapping.md"
 		_:
 			return "res://docs/concepts/home_estate_v1/floor_plan_contract.md"
 
@@ -864,6 +985,8 @@ func _support_target_for_assembly(assembly: String) -> String:
 			return "MainFloor/UpperFloor/Basement landing datums"
 		"CourseRoutes":
 			return "mode route envelope"
+		"YardZones":
+			return "site grade, patio threshold, and story-bible outdoor owner zones"
 		_:
 			return "%s finished floor or parent room volume" % assembly
 
@@ -893,6 +1016,8 @@ func _validation_gate_for_assembly(assembly: String) -> String:
 			return "home_estate_shell_provenance_and_envelope_gate"
 		"CourseRoutes":
 			return "route_envelope_and_camera_clearance_gate"
+		"YardZones":
+			return "home_estate_yard_zone_owner_and_clearance_gate"
 		_:
 			return "home_estate_generated_node_provenance_gate"
 
@@ -910,6 +1035,8 @@ func _validation_camera_for_assembly(assembly: String) -> String:
 			return "UpperFloorPlanCamera"
 		"PatioPool":
 			return "PatioPoolCamera"
+		"YardZones":
+			return "MokoGardenPatioCamera"
 		"CourseRoutes":
 			return "mode_start_player_camera"
 		_:
